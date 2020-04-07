@@ -19,7 +19,7 @@ class Budget < ApplicationRecord
     end
   end
 
-  CURRENCY_SYMBOLS = %w[€ $ £ ¥].freeze
+  CURRENCY_SYMBOLS = %w[$].freeze
 
   validates_translation :name, presence: true
   validates :phase, inclusion: { in: Budget::Phase::PHASE_KINDS }
