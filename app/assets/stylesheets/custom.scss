@@ -54,3 +54,15 @@ footer {
   margin-top: $line-height * 2;
   padding-top: $line-height;
 }
+
+.help-header {
+  background:#EEEEEE;
+  border-bottom: 1px solid #eee;
+  padding-bottom: $line-height / 2;
+  padding-top: $line-height;
+
+  h1 {
+    font-size: rem-calc(24);
+    text-transform: uppercase;
+  }
+}
