@@ -66,3 +66,51 @@ footer {
     text-transform: uppercase;
   }
 }
+
+.expanded {
+
+  &.budget {
+    background: $budget;
+
+    h1,
+    h2,
+    p,
+    a,
+    .back,
+    .icon-angle-left,
+    .description {
+      color: #fff;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    .callout {
+
+      &.primary a {
+        color: $link;
+      }
+    }
+
+    .button {
+      background: #fff;
+      color: $budget;
+      text-decoration: none;
+    }
+
+    .confirmed {
+      font-size: rem-calc(24);
+      font-weight: bold;
+    }
+
+    .info {
+      background: #F76804;
+
+      p {
+        margin-bottom: 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
