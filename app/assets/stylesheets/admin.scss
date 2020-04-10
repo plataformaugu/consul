@@ -16,8 +16,8 @@
 // 01. Global styles
 // -----------------
 
-$admin-color:    #245b80;
-$sidebar:        #245b80;
+$admin-color:    #f76804;
+$sidebar:        #f76804;
 $sidebar-hover:  #D45A04;
 $sidebar-active: #f4fcd0;
 
@@ -426,7 +426,7 @@ code {
 
 .admin-sidebar {
   background: $sidebar;
-  background: linear-gradient(to bottom, #245b80 0%, #488fb5 100%);
+  background: linear-gradient(to bottom, #f76804 0%, #D45A04 100%);
   border-right: 1px solid $border;
 
   ul {
