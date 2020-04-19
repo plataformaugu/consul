@@ -5,8 +5,41 @@
 //
 
 .top-links {
-    background: #252525;
+  background: #252525;
+  color: #fff;
+  font-size: $small-font-size;
+  padding-right: $line-height / 2;
+  padding-bottom: $line-height / 2;
+
+  a {
+    color: #fff;
+    margin: 0 rem-calc(6);
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
+
+  ul {
+    margin-bottom: 0;
+  }
+
+  li {
+    display: block;
+
+    @include breakpoint(medium) {
+      display: inline-block;
+
+      &::after {
+        content: "|";
+      }
+
+      &:last-child::after {
+        content: none;
+      }
+    }
+  }
+}
 
 footer {
   color: #FFF;
