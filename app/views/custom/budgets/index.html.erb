@@ -36,9 +36,10 @@
                             new_budget_investment_path(current_budget),
                             class: "button margin-top expanded " %>
               <% else %>
-                <div class="callout warning margin-top">
+                <div class="callout warning margin-top verification-link">
                 asddsdsdsdsdsds
-                  <%= sanitize(t("budgets.investments.index.sidebar.verified_only")) %>
+                  <%= sanitize(t("budgets.investments.index.sidebar.verified_only",
+                        verify: link_to_verify_account)) %>
                 </div>
               <% end %>
             <% else %>
