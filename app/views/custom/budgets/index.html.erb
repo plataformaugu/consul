@@ -44,7 +44,7 @@
             <% else %>
               <div class="callout primary margin-top">
                 <%= sanitize(t("budgets.investments.index.sidebar.not_logged_in",
-                      sign_in: link_to_signin(class: "verify-account"), sign_up: link_to_signup)) %>
+                      sign_in: link_to_signin(class: "verify-account"), sign_up: link_to_signup(class: "verify-account"))) %>
               </div>
             <% end %>
           <% end %>
