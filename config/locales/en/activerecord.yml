@@ -271,7 +271,7 @@ en:
         starts_at: "Start Date"
         ends_at: "Closing Date"
         geozone_restricted: "Restricted by geozone"
-        summary: "Summary"
+        summary: "Summary"  
         description: "Description"
       active_poll/translation:
         description: "Description"
@@ -428,6 +428,7 @@ en:
         description: Description
         link_text: Link text
         link_url: Link URL
+        is_background_image: Use as background
         columns: Number of columns
       widget/card/translation:
         label: Label (optional)
