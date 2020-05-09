@@ -1,0 +1,36 @@
+<% if current_budget %>
+  <div class="img-container">
+    
+    
+    <%= image_tag(header.image_url(:large),
+                  class: "margin",
+                  alt: header.image.title) %>         
+      <h1 class="h1p">Bienvenido a la demo de la plataforma de participación ciudadana <%= header.title %></h1>
+      <p class="lead cenp">
+      Involúcrate, crea, decide
+    </p>              
+    <div class="small-12 medium-6 large-4 column small-centered btn">
+    <%= link_to t("devise_views.menu.login_items.signup"),
+                new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
+  </div>
+  
+    
+  </div>
+<% else %>
+  <div class="expanded jumbo header text-center">
+    <div class="row">
+      <div class="small-12 column small-centered">
+        <span class="label"><%= t("welcome.header.label") %></span>
+        <p class="lead-title"><%= t("welcome.header.title") %></p>
+        <p class="lead">
+          <%= t("welcome.header.text", supports: setting["votes_for_proposal_success"]) %>
+        </p>
+        <div class="small-12 medium-6 large-4 column small-centered">
+          <%= link_to t("welcome.header.button"),
+                      new_proposal_path,
+                      class: "button expanded large", title: t("welcome.header.button") %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -9,6 +9,46 @@
 // 01. Header
 // ----------------------
 
+.img-container {
+  position: relative;
+  width: 100%;
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.img-container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);   
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.img-container .cenp {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.img-container .h1p {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+
 .jumbo {
   background: $highlight;
   margin-bottom: $line-height;
@@ -22,6 +62,11 @@
 
   &.light {
     background: #ecf0f1;
+  }
+
+  .jumbo img ̣{
+    width: 100%;
+    height: auto;
   }
 }
 
