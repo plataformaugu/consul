@@ -1,17 +1,19 @@
 <% if current_budget %>
   <div class="img-container">
     
-    
-    <%= image_tag(header.image_url(:large),
-                  class: "margin",
-                  alt: header.image.title) %>         
-      <h1 class="h1p"> <%= header.title %> </h1>
-      <p class="lead cenp">
-      Involúcrate, crea, decide
-    </p>              
-    <div class="small-12 medium-6 large-4 column small-centered btn">
-    <%= link_to t("devise_views.menu.login_items.signup"),
-                new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
+  <div class="small-12 medium-12 <%= "medium-9 small-centered text-center" unless header.image.present? %>">
+  <%= image_tag(header.image_url(:large),
+  class: "margin",
+  alt: header.image.title) %>         
+<h1 class="h1p"> <%= header.title %> </h1>
+<p class="lead cenp">
+header.description
+</p>              
+<div class="small-12 medium-6 large-4 column small-centered btn">
+<%= link_to t("devise_views.menu.login_items.signup"),
+new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
+  </div>
+  
   </div>
   
     
