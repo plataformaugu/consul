@@ -2,6 +2,7 @@ require_dependency Rails.root.join("app", "models", "verification", "residence")
 
 class Verification::Residence
   validate :postal_code_in_madrid
+  validate :residence_in_madrid
 
   def postal_code_in_madrid
     errors.add(:postal_code, I18n.t("verification.residence.new.error_not_allowed_postal_code")) unless valid_postal_code?
