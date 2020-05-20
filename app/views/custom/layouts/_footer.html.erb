@@ -1,0 +1,84 @@
+<footer>
+	<div class="row nueva-fuente">
+
+    <div class="footer-sections small-12 large-12 column">
+
+      <div class="small-12 medium-3 column mt20">
+        <h2 >
+        <%= link_to t("layouts.header.open_gov", open: t("layouts.header.open")), root_path %>
+        </h2>
+        <p class="etapa-creacion2">
+          Este sitio utiliza la <a target="blank" href="https://github.com/consul/consul">aplicación CONSUL</a> que es <a target="blank" href="http://www.gnu.org/licenses/agpl-3.0.html">software libre</a>.
+          Para asistencia técnica hacé click
+          <a href="/faq">aquí</a>
+        </p>
+      </div>
+
+      <div class="small-12 medium-3 column mt20">
+        <h2 class="etapa-">
+          BA Participación Ciudadana
+        </h2>
+        <p class ="nueva-fuente">Conocé todas las acciones de <br /><a target="blank" href="http://www.buenosaires.gob.ar/participacionciudadana">BA Participación Ciudadana</a></p>
+      </div>
+
+      <div class="small-12 medium-3 column mt20">
+        <h2 class="etapa-">
+          Información de contacto
+        </h2>
+        <p class="contact-info nueva-fuente">
+          <span class="fa-icon fa-phone"></span>
+          <span> (011) 4909-2402</span>
+          <br>
+          <span class="fa-icon fa-envelope"></span>
+          <span>baelige@buenosaires.gob.ar</span>
+          <br>
+        </p>
+      </div>
+
+      <div class="small-12 medium-3 column mt20">
+        <h2 class="nueva-fuente">
+          Redes Sociales
+        </h2>
+          <ul class="redes-sociales">
+                <li class="inline-block">
+                  <a target="_blank" title="Twitter de %{org} (se abre en ventana nueva)" href="https://twitter.com/baparticipacion">
+                      <span class="sr-only">Twitter de %{org}</span>
+                      <img alt="Twitter de %{org}" src="/assets/twitter-button-1d532888d2d6ae35211c51e503ad39e9c41a3178799859d850c3384dbd03b09c.png" width="20" height="20" />
+</a>                </li>
+                <li class="inline-block">
+                <% if setting["facebook_handle"] %>
+                <li class="inline-block">
+                  <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
+                              title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
+                              <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
+                              <span class="icon-facebook" aria-hidden="true"></span>
+                  <% end %>
+                </li>
+              <% end %>
+                <li class="inline-block">
+                  <a target="_blank" title="Blog de %{org} (se abre en ventana nueva)" href="http://bapc.buenosaires.gob.ar/">
+                      <span class="sr-only">Blog de %{org}</span>
+                      <img alt="Blog de %{org}" src="/assets/wordpress-button-2d3e6b4b877817180e102743e2875fad78006fcbcaa8885e173250a1fc03e9e0.png" width="20" height="20" />
+</a>                </li>
+                <li class="inline-block">
+                  <a target="_blank" title="YouTube de %{org} (se abre en ventana nueva)" href="https://www.youtube.com/playlist?list=PLxTPShsWMHPdyc0sN7nx2DcHH0BC_iQkc">
+                      <span class="sr-only">YouTube de %{org}</span>
+                      <img alt="YouTube de %{org}" src="/assets/youtube-button-6ca5f4f6d17d3cbff3017e36dd830be8b2284e722e464aa8a3026b1e6700adaf.png" width="20" height="20" />
+</a>                </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="subfooter row">
+    <div class="small-12 column nueva-fuente">
+      Ciudad de Buenos Aires 2020&nbsp;-
+      <ul class="no-bullet inline-block">
+        <li class="inline-block"><a href="/mas_informacion">Más información</a>&nbsp;|</li>
+        <li class="inline-block"><a href="/privacidad">Políticas de privacidad</a>&nbsp;|</li>
+        <li class="inline-block"><a href="/condiciones">Condiciones de uso</a>&nbsp;|</li>
+        <li class="inline-block"><a href="/accesibilidad">Accesibilidad</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
