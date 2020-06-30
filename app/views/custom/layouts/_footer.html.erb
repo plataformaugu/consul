@@ -35,37 +35,58 @@
         </p>
       </div>
 
-      <div class="small-12 medium-3 column mt20">
+      <div class="small-12 medium-3 column mt20 social">
         <h2 class="h2-footer">
           Redes Sociales
         </h2>
-          <ul class="redes-sociales">
-                <li class="inline-block">
-                  <a target="_blank" title="Twitter de %{org} (se abre en ventana nueva)" href="https://twitter.com/baparticipacion">
-                      <span class="sr-only">Twitter de %{org}</span>
-                      <img alt="Twitter de %{org}" src="/assets/twitter-button-1d532888d2d6ae35211c51e503ad39e9c41a3178799859d850c3384dbd03b09c.png" width="20" height="20" />
-</a>                </li>
-                <li class="inline-block">
-                <% if setting["facebook_handle"] %>
-                <li class="inline-block">
-                  <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
-                              title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
-                              <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
-                              <span class="icon-facebook" aria-hidden="true"></span>
-                  <% end %>
-                </li>
-              <% end %>
-                <li class="inline-block">
-                  <a target="_blank" title="Blog de %{org} (se abre en ventana nueva)" href="http://bapc.buenosaires.gob.ar/">
-                      <span class="sr-only">Blog de %{org}</span>
-                      <img alt="Blog de %{org}" src="/assets/wordpress-button-2d3e6b4b877817180e102743e2875fad78006fcbcaa8885e173250a1fc03e9e0.png" width="20" height="20" />
-</a>                </li>
-                <li class="inline-block">
-                  <a target="_blank" title="YouTube de %{org} (se abre en ventana nueva)" href="https://www.youtube.com/playlist?list=PLxTPShsWMHPdyc0sN7nx2DcHH0BC_iQkc">
-                      <span class="sr-only">YouTube de %{org}</span>
-                      <img alt="YouTube de %{org}" src="/assets/youtube-button-6ca5f4f6d17d3cbff3017e36dd830be8b2284e722e464aa8a3026b1e6700adaf.png" width="20" height="20" />
-</a>                </li>
-          </ul>
+        <ul>
+        <% if setting["twitter_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
+                         title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
+                            <span class="show-for-sr"><%= t("social.twitter", org: setting["org_name"]) %></span>
+                            <span class="icon-twitter" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <% if setting["facebook_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
+                        <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
+                        <span class="icon-facebook" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <% if setting["youtube_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank") do %>
+                        <span class="show-for-sr"><%= t("social.youtube", org: setting["org_name"]) %></span>
+                        <span class="icon-youtube" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <% if setting["telegram_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://www.telegram.me/#{setting["telegram_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.telegram", org: setting["org_name"]) + t("shared.target_blank") do %>
+                        <span class="show-for-sr"><%= t("social.telegram", org: setting["org_name"]) %></span>
+                        <span class="icon-telegram" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <% if setting["instagram_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
+                        <span class="show-for-sr"><%= t("social.instagram", org: setting["org_name"]) %></span>
+                        <span class="icon-instagram" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <%= raw content_block("footer", I18n.locale) %>
+      </ul>
       </div>
     </div>
   </div>
