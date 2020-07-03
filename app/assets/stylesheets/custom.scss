@@ -4,6 +4,8 @@
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
 
+
+
 .top-links {
   background: #252525;
   color: #fff;
@@ -173,10 +175,35 @@ footer {
   width: 100%;
 }
 
+@media only screen and (max-width: 767px) {
+  .img-container img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .img-container img {
   width: 100%;
   height: auto;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .img-container .btn {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);   
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+}
+
 
 .img-container .btn {
   position: absolute;
@@ -190,6 +217,18 @@ footer {
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
+
+
+
+
+}
+
+@media (max-width: 640px) 
+{
+    .btn
+    {
+        display: none;
+    }
 }
 
 .img-container .cenp {
@@ -198,6 +237,14 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
   color:#FFF;
+}
+
+@media (max-width: 640px) 
+{
+    .cenp
+    {
+        display: none;
+    }
 }
 
 .img-container .h1p {
@@ -215,4 +262,10 @@ footer {
   font-weight: bold;
   color: #fff;
   font-size: 18px;
+}
+
+.etapa-creacion2{
+  color:#616161 !important;
+  font-size:12px;
+  font-weight:bolder
 }
