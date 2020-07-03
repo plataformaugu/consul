@@ -4,8 +4,8 @@
   <div class="small-12 medium-12 <%= "medium-9 small-centered text-center" unless header.image.present? %>">
   <%= image_tag(header.image_url(:large),
   alt: header.image.title) %>         
-<h1 class="small-12 medium-6 large-4 column small-centered h1p"> <%= header.title %> </h1>
-<p class="small-12 medium-6 large-4 column small-centered lead cenp">
+<h1 class="h1p"> <%= header.title %> </h1>
+<p class="lead cenp">
 <%= header.description %>
 </p>              
 <div class="small-12 medium-6 large-4 column small-centered btn">
