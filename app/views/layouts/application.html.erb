@@ -12,6 +12,9 @@
     <%= content_for :social_media_meta_tags %>
 
     <%= raw setting["html.per_page_code_head"] %>
+    <meta name="theme-color" content="#f76804">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/0e89650d6a.js" crossorigin="anonymous"></script>
   </head>
   <body class="<%= yield (:body_class) %>">
     <%= raw setting["html.per_page_code_body"] %>

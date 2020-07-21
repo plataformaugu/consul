@@ -791,6 +791,7 @@ es:
     whatsapp: WhatsApp
     telegram: "Telegram de %{org}"
     instagram: "Instagram de %{org}"
+    linkedin: "Linkedin de %{org}"
   stats:
     index:
       visits: Visitas

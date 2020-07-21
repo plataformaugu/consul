@@ -82,12 +82,17 @@ footer {
     font-weight: bold;
     text-decoration: none;
   }
+
+  ul {
+    margin-left: 0 !important;
+  }
 }
 
 .footer {
   background: #252525;
   margin-top: $line-height * 2;
-  padding-top: $line-height;
+  padding-top: $line-height * 2;
+  border-top: 6px solid $brand;
 }
 
 .help-header {
@@ -257,7 +262,12 @@ footer {
   font-size:3vw;
 }
 
-// cambios footer
+// HEADER
+
+
+
+
+// FOOTER
 
 .h2-footer {
   font-weight: bold;
@@ -265,8 +275,23 @@ footer {
   font-size: 18px;
 }
 
-.etapa-creacion2{
+.texto-footer {
   color:#616161 !important;
   font-size:12px;
   font-weight:bolder
+}
+
+.subtexto-footer {
+  color:#616161 !important;
+  font-size:12px;
+}
+
+.icono-footer {
+  color: #f76804 !important;
+}
+
+.icono-contacto-footer {
+  color:#f76804 !important;
+  font-size:12px;
+  margin-right: 10px;
 }

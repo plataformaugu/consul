@@ -1,5 +1,5 @@
 <footer>
-	<div class="row nueva-fuente">
+	<div class="row">
 
     <div class="footer-sections small-12 large-12 column">
 
@@ -7,8 +7,8 @@
         <h2 class="h2-footer">
         Participación en Ugu
         </h2>
-        <p class="etapa-creacion2">
-          Este portal usa la <a target="blank" href="https://github.com/consul/consul">aplicación Ugu</a> que es <a target="blank" href="http://www.gnu.org/licenses/agpl-3.0.html">software de código abierto</a>.
+        <p class="texto-footer">
+          Este portal usa la <a target="blank" href="https://github.com/consul/consul">aplicación CONSUL</a> que es <a target="blank" href="http://www.gnu.org/licenses/agpl-3.0.html">software de código abierto</a>.
           Para asistencia técnica escribe a contacto@ugu.cl
         </p>
       </div>
@@ -17,7 +17,7 @@
         <h2 class="h2-footer">
           Invólucrate, Crea, Decide
         </h2>
-        <p class="etapa-creacion2">Creemos en una democracia legítima sostenida en la constante relación con las personas
+        <p class="texto-footer">Creemos en una democracia legítima sostenida en la constante relación con las personas
         y organizaciones sociales, sus demandas y perspectivas. </p>
       </div>
 
@@ -25,19 +25,23 @@
         <h2 class="h2-footer">
           Contáctanos
         </h2>
-        <p class="contact-info nueva-fuente etepa-creacion2">
-          <!--<span class="fa-icon fa-phone"></span>-->
-          <span class="etapa-creacion2"> Santiago, Región Metropolitana, Chile</span>
+        <p class="contact-info  etepa-creacion2">
+          <i class="fas fa-map-marker-alt icono-contacto-footer"></i>
+          <span class="texto-footer"> Santiago, Región Metropolitana, Chile</span>
           <br>
-          <!--<span class="fa-icon fa-envelope"></span>-->
-          <span class="etapa-creacion2">contacto@ugu.cl</span>
+          <i class="fas fa-envelope icono-contacto-footer"></i>
+          <span class="texto-footer">contacto@ugu.cl</span>
           <br>
+          <i class="fas fa-link icono-contacto-footer"></i>
+          <span class="texto-footer">
+            <a target="blank" href="https://ugu.cl/">ugu.cl</a>
+          </span>
         </p>
       </div>
 
       <div class="small-12 medium-3 column mt20 social">
         <h2 class="h2-footer">
-          Redes Sociales
+          Redes sociales
         </h2>
         <ul>
         <% if setting["twitter_handle"] %>
@@ -45,7 +49,7 @@
             <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
                          title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
                             <span class="show-for-sr"><%= t("social.twitter", org: setting["org_name"]) %></span>
-                            <span class="icon-twitter" aria-hidden="true"></span>
+                            <span class="icon-twitter icono-footer" aria-hidden="true"></span>
             <% end %>
           </li>
         <% end %>
@@ -54,7 +58,7 @@
             <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
                         title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
                         <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
-                        <span class="icon-facebook" aria-hidden="true"></span>
+                        <span class="icon-facebook icono-footer" aria-hidden="true"></span>
             <% end %>
           </li>
         <% end %>
@@ -63,16 +67,7 @@
             <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
                         title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank") do %>
                         <span class="show-for-sr"><%= t("social.youtube", org: setting["org_name"]) %></span>
-                        <span class="icon-youtube" aria-hidden="true"></span>
-            <% end %>
-          </li>
-        <% end %>
-        <% if setting["telegram_handle"] %>
-          <li class="inline-block">
-            <%= link_to "https://www.telegram.me/#{setting["telegram_handle"]}", target: "_blank",
-                        title: t("shared.go_to_page") + t("social.telegram", org: setting["org_name"]) + t("shared.target_blank") do %>
-                        <span class="show-for-sr"><%= t("social.telegram", org: setting["org_name"]) %></span>
-                        <span class="icon-telegram" aria-hidden="true"></span>
+                        <span class="icon-youtube icono-footer" aria-hidden="true"></span>
             <% end %>
           </li>
         <% end %>
@@ -81,7 +76,17 @@
             <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
                         title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
                         <span class="show-for-sr"><%= t("social.instagram", org: setting["org_name"]) %></span>
-                        <span class="icon-instagram" aria-hidden="true"></span>
+                        <span class="icon-instagram icono-footer" aria-hidden="true"></span>
+            <% end %>
+          </li>
+        <% end %>
+        <!-- LinkedIn -->
+        <% if setting["telegram_handle"] %>
+          <li class="inline-block">
+            <%= link_to "https://www.linkedin.com/#{setting["telegram_handle"]}", target: "_blank",
+                        title: t("shared.go_to_page") + t("social.linkedin", org: setting["org_name"]) + t("shared.target_blank") do %>
+                        <span class="show-for-sr"><%= t("social.linkedin", org: setting["org_name"]) %></span>
+                        <span class="fab fa-linkedin icono-footer" aria-hidden="true"></span>
             <% end %>
           </li>
         <% end %>
@@ -91,9 +96,9 @@
     </div>
   </div>
 
-  <div class="subfooter row">
-    <div class="small-12 column nueva-fuente">
-      Ugu SpA, 2020&nbsp;-
+  <div class="subfooter row texto-footer">
+    <div class="small-12 column ">
+      Ugu SpA, 2020 | 
       <ul class="no-bullet inline-block">
         <li class="inline-block"><a href="/privacidad">Políticas de privacidad</a>&nbsp;|</li>
         <li class="inline-block"><a href="/condiciones">Condiciones de uso</a>&nbsp;|</li>
