@@ -83,7 +83,7 @@
         <!-- LinkedIn -->
         <% if setting["telegram_handle"] %>
           <li class="inline-block">
-            <%= link_to "https://www.linkedin.com/#{setting["telegram_handle"]}", target: "_blank",
+            <%= link_to "https://www.linkedin.com/company/#{setting["telegram_handle"]}", target: "_blank",
                         title: t("shared.go_to_page") + t("social.linkedin", org: setting["org_name"]) + t("shared.target_blank") do %>
                         <span class="show-for-sr"><%= t("social.linkedin", org: setting["org_name"]) %></span>
                         <span class="fab fa-linkedin icono-footer" aria-hidden="true"></span>

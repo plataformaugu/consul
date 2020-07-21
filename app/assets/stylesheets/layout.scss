@@ -462,6 +462,10 @@ header {
     z-index: 10;
   }
 
+  @include breakpoint(medium down) {
+    border-bottom: 0;
+  }
+
   .selected {
     border-bottom: 1px solid #fff;
   }
