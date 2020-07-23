@@ -222,18 +222,6 @@ footer {
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
-
-
-
-
-}
-
-@media (max-width: 640px) 
-{
-    .btn
-    {
-        display: none;
-    }
 }
 
 .img-container .cenp {
@@ -262,7 +250,11 @@ footer {
   font-size:3vw;
 }
 
-// HEADER
+// LINKS
+
+a, a:hover, a:active, a:focus, a img, object, embed {
+  outline: none !important;
+}
 
 
 
