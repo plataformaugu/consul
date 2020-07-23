@@ -230,6 +230,10 @@ footer {
   }
 }
 
+.img-container .button {
+  border-radius: 25px;
+}
+
 .img-container .btn {
   position: absolute;
   top: 60%;
@@ -270,6 +274,16 @@ footer {
   font-size:3vw;
 }
 
+
+// Propuestas Homepage
+
+@media (min-width: 640px) 
+{
+  .feed-description {
+    padding-left: 0;
+  }
+}
+
 // LINKS
 
 a, a:hover, a:active, a:focus, a img, object, embed {
@@ -306,6 +320,27 @@ a, a:hover, a:active, a:focus, a img, object, embed {
   color:#f76804 !important;
   font-size:12px;
   margin-right: 10px;
+}
+
+// Menu
+
+@media (max-width: 640px) 
+{
+  #responsive-menu {
+    width: 100%;
+  }
+}
+
+.btn-registrar {
+  border-radius: 25px;
+
+  &:hover {
+    background: #ffffffE6 !important;
+  }
+}
+
+.btn-negrita {
+  font-weight: bold;
 }
 
 // Propuestas Homepage
