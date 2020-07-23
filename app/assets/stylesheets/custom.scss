@@ -307,3 +307,10 @@ a, a:hover, a:active, a:focus, a img, object, embed {
   font-size:12px;
   margin-right: 10px;
 }
+
+// Propuestas Homepage
+
+.feed-image img {
+  object-fit: cover;
+  object-position: center;
+}
