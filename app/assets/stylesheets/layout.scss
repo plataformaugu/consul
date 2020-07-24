@@ -523,6 +523,7 @@ header {
   color: #fff;
   padding-bottom: 0;
   padding-top: 0;
+  padding-left: 1rem;
 
   @include breakpoint(medium) {
     padding: 0;
@@ -789,7 +790,6 @@ header {
 
   .is-active {
     font-weight: bold;
-    text-decoration: underline;
   }
 }
 
@@ -801,7 +801,7 @@ header {
   a {
     color: $text;
     display: inline-block;
-    font-weight: bold;
+    font-weight: normal;
     margin-right: $line-height / 2;
     position: relative;
     text-align: left;
@@ -1154,6 +1154,7 @@ form {
 
   .notice {
     height: $line-height * 4;
+    border-radius: 15px;
 
     .notice-text {
       width: 95%;

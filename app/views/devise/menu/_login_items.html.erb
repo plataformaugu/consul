@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <li>
+  <li class="menu-mobile">
     <%= layout_menu_link_to t("layouts.header.my_activity_link"),
                               user_path(current_user),
                               controller_name == "users",
@@ -15,12 +15,28 @@
                               title: t("shared.go_to_page") +
                                      t("layouts.header.my_account_link") %>
   </li>
-  <li class="menu-desktop">
-    <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta" href="/account">
+  <li class="menu-desktop perfil-dropdown">
+    <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta">
       <%= avatar_image(current_user, seed: current_user.id, size: 18) %> <%= current_user.name %>
     </a>
+    <div class="perfil-dropdown-content">
+      <%= layout_menu_link_to t("layouts.header.my_account_link"),
+                              account_path,
+                              controller_name == "account",
+                              rel: "nofollow",
+                              title: t("shared.go_to_page") +
+                                     t("layouts.header.my_account_link") %>
+      <%= layout_menu_link_to t("layouts.header.my_activity_link"),
+                              user_path(current_user),
+                              controller_name == "users",
+                              rel: "nofollow",
+                              title: t("shared.go_to_page") +
+                                     t("layouts.header.my_activity_link") %>
+      <%= link_to t("devise_views.menu.login_items.logout"),
+                destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
+    </div>
   </li>
-  <li>
+  <li class="menu-mobile">
     <%= link_to t("devise_views.menu.login_items.logout"),
                 destroy_user_session_path, rel: "nofollow", method: :delete %>
   </li>

@@ -364,6 +364,7 @@ header {
   border-radius: 25px;
   background: #fff !important;
   color: $brand !important;
+  padding-right: 30px !important;
 
   &:hover {
     background: #ffffffCC !important;
@@ -374,10 +375,59 @@ header {
   img {
     margin-right: 3px;
   }
+
+  &::after {
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 6px;
+    content: '';
+    border-bottom-width: 0;
+    border-top-style: solid;
+    border-color: $brand transparent transparent;
+    right: 10px;
+    left: auto;
+    margin-top: -3px;
+    position: absolute;
+    top: 50%;
+    box-sizing: inherit;
+  }
 }
 
 .btn-negrita {
   font-weight: bold;
+}
+
+.perfil-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &:hover, &:active, &:visited {
+    .perfil-dropdown-content {
+      display: block;
+    }
+
+    .btn-perfil {
+      border-radius: 25px 25px 0 0;
+      transition: border-radius 0.1s ease-in-out;
+    }
+  }
+
+
+}
+
+.perfil-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff !important;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border: 0;
+
+  & a {
+    color: #252525 !important;
+  }
 }
 
 // Propuestas Homepage
