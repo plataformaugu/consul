@@ -326,6 +326,25 @@ a, a:hover, a:active, a:focus, a img, object, embed {
 
 @media (max-width: 640px) 
 {
+  .menu-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 640px) 
+{
+  .menu-mobile {
+    display: none !important;
+  }
+}
+
+header {
+  font-size: 14px !important; 
+  font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 640px) 
+{
   #responsive-menu {
     width: 100%;
   }
@@ -333,9 +352,27 @@ a, a:hover, a:active, a:focus, a img, object, embed {
 
 .btn-registrar {
   border-radius: 25px;
+  background: #fff;
 
   &:hover {
-    background: #ffffffE6 !important;
+    background: #ffffffCC !important;
+    transition: background 0.2s linear; 
+  }
+}
+
+.btn-perfil {
+  border-radius: 25px;
+  background: #fff !important;
+  color: $brand !important;
+
+  &:hover {
+    background: #ffffffCC !important;
+    transition: background 0.2s linear;
+    text-decoration: none;
+  }
+
+  img {
+    margin-right: 3px;
   }
 }
 
