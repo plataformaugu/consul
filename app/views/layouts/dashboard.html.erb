@@ -38,7 +38,7 @@
         <div class="off-canvas-content" data-off-canvas-content>
           <%= render "layouts/header", with_subnavigation: false %>
 
-          <div class="dashboard-menu-and-content no-margin-top">
+          <div class="dashboard-menu-and-content">
             <div id="side_menu" class="hide-for-small-only">
               <div class="dashboard-sidebar">
                 <%= render "dashboard/menu" %>
@@ -56,6 +56,7 @@
               <%= render "layouts/dashboard/proposal_totals" %>
               <%= render "layouts/dashboard/proposal_header" %>
               <%= yield %>
+              Eliminar propuesta
             </div>
           </div>
         </div>

@@ -547,6 +547,8 @@
 
 .fixed-mobile-content {
 
+  top: 0 !important;
+  
   @include breakpoint(medium down) {
     background: #fff;
     margin-bottom: rem-calc(-1) !important;
