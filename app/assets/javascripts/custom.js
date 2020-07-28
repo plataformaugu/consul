@@ -8,7 +8,7 @@
 // Advertencia para eliminar una propuesta
 
 
-function palancaAdvertencia() {
+const palancaAdvertencia = () => {
     let advertencia = document.getElementById('advertencia-eliminar-propuesta');
     let estilo = document.defaultView.getComputedStyle(advertencia);
     if (estilo.display === 'none') {
