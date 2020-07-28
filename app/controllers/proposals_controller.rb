@@ -21,7 +21,7 @@ class ProposalsController < ApplicationController
   has_orders %w[most_voted newest oldest], only: :show
 
   load_and_authorize_resource
-  helper_method :resource_model, :resource_name
+  helper_method :resource_model, :resource_name, :destroy
   respond_to :html, :js
 
   def show
@@ -70,6 +70,11 @@ class ProposalsController < ApplicationController
   end
 
   def retire_form
+  end
+
+  def destroy
+    @proposal.destroy!
+    redirect_to proposals_path
   end
 
   def vote_featured

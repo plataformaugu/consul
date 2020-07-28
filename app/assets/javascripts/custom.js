@@ -5,3 +5,16 @@
 //
 //
 
+// Advertencia para eliminar una propuesta
+
+
+const palancaAdvertencia = () => {
+    let advertencia = document.getElementById('advertencia-eliminar-propuesta');
+    let estilo = document.defaultView.getComputedStyle(advertencia);
+    if (estilo.display === 'none') {
+        advertencia.style.display = 'block';
+    }
+    else {
+        advertencia.style.display = 'none';
+    }
+}

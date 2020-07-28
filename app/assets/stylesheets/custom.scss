@@ -320,8 +320,7 @@ header .subnavigation a {
 
 header .subnavigation a.is-active {
   color: white !important;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 header .subnavigation a:hover {
@@ -485,4 +484,15 @@ header {
 .feed-image img {
   object-fit: cover;
   object-position: center;
+}
+
+// Advertencias
+
+#advertencia-eliminar-propuesta {
+  text-align: center;
+  width: 60%;
+  display: none;
+  background-color: rgb(255, 172, 172);
+  padding: 10px;
+  border-radius: 15px;
 }
