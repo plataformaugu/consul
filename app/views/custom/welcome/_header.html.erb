@@ -2,18 +2,15 @@
   <div class="img-container">
     <div class="small-12 medium-12 <%= "medium-9 small-centered text-center" unless header.image.present? %>">
       <%= image_tag(header.image_url(:large),
-      alt: header.image.title) %>         
+      alt: header.image.title) %>
       <h1 class="h1p"><%= header.title %></h1>
       <p class="lead cenp">
         <%= header.description %>
-      </p>              
-      <% if !user_signed_in? %>
-        <div class="small-12 medium-6 large-4 column small-centered btn">
-          <%= link_to t("devise_views.menu.login_items.signup"),
-          new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
-        </div>
-      
-      <% end %>
+      </p>
+      <div class="small-12 medium-6 large-4 column small-centered btn">
+        <%= link_to t("devise_views.menu.login_items.signup"),
+        new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
+      </div>
     </div>
   </div>
 <% else %>

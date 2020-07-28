@@ -183,6 +183,7 @@ footer {
 // Cambios en el homepage
 
 .img-container {
+  background-color: #000;
   position: relative;
   width: 100%;
 }
@@ -196,7 +197,9 @@ footer {
 
 .img-container img {
   width: 100%;
-  height: auto;
+  height: 80vh;
+  object-fit: cover;
+  opacity: 0.4;
 }
 
 
@@ -235,15 +238,21 @@ footer {
   .img-container .btn .button {
     font-size: 1rem;
   }
+
+  .img-container img {
+    height: 50vh;
+  }
 }
 
 .img-container .button {
+  box-shadow: 0px 0px 15px #f76804CC;
   border-radius: 25px;
 }
 
 .img-container .btn {
+  width: auto;
   position: absolute;
-  top: 60%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);   
@@ -257,28 +266,36 @@ footer {
 
 .img-container .cenp {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color:#FFF;
+}
+
+
+
+.img-container .h1p {
+  width: 60%;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color:#FFF;
+  font-size:3vw;
 }
 
 @media (max-width: 640px) 
 {
     .cenp
     {
-      font-size:3vw;
+      top: 53% !important;
+      font-size: 3vw;
     }
-}
 
-.img-container .h1p {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color:#FFF;
-  font-size:3vw;
+    .h1p {
+      font-size: 4vw !important; 
+    }
 }
 
 
@@ -295,6 +312,22 @@ footer {
 
 a, a:hover, a:active, a:focus, a img, object, embed {
   outline: none !important;
+}
+
+header .subnavigation a {
+  color: white !important;
+}
+
+header .subnavigation a.is-active {
+  color: white !important;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+header .subnavigation a:hover {
+  transition: 0.2s;
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: none;
 }
 
 
@@ -329,7 +362,17 @@ a, a:hover, a:active, a:focus, a img, object, embed {
   margin-right: 10px;
 }
 
-// Menu
+// Header
+
+header {
+  border-bottom: 0;
+}
+
+@media (min-width: 640px) {
+  header .subnavigation {
+    background-color: #f76804;
+  }
+}
 
 @media (max-width: 640px) 
 {
@@ -370,7 +413,7 @@ header {
 .btn-perfil {
   border-radius: 25px;
   background: #fff !important;
-  color: $brand !important;
+  color: #252525 !important;
   padding-right: 30px !important;
 
   &:hover {

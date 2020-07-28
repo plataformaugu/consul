@@ -452,7 +452,7 @@ a {
 // ----------
 
 header {
-  background: $brand;
+  background: #252525 !important;
   border-bottom: 1px solid $border;
 
 
@@ -519,7 +519,7 @@ header {
 }
 
 .top-bar {
-  background: $brand !important;
+  background: #252525 !important;
   color: #fff;
   padding-bottom: 0;
   padding-top: 0;
@@ -585,7 +585,7 @@ header {
 
       @include breakpoint(medium) {
         background: #fff;
-        color: $brand;
+        color: #252525 !important;
         text-align: center;
       }
     }
@@ -1144,6 +1144,7 @@ form {
 }
 
 .notice-container {
+  display: none;
   min-width: $line-height * 12;
   right: 24px;
   top: 24px;
