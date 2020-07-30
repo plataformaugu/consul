@@ -79,7 +79,7 @@
 
         <div class="comment-user
                   <%= user_level_class comment %>
-                  <%= comment_author_class comment, comment.commentable.author_id %>">
+                  <%= comment.commentable.author_id %>">
           <%= simple_format sanitize_and_auto_link(comment.body), {}, sanitize: false %>
         </div>
 

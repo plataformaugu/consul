@@ -489,6 +489,25 @@ header {
   object-position: center;
 }
 
+// Propuestas
+
+.proposal-show {
+  margin-top: 20px;
+}
+
+
+  // Comentario de propuestas
+
+  .comment-info .is-author {
+    color: #fff;
+    border-radius: 10px;
+  }
+
+  .comment-children {
+    padding-left: 1.5rem !important;
+  }
+
+
 // Advertencias
 
 #advertencia-eliminar-propuesta {
