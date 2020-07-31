@@ -311,26 +311,51 @@ footer {
   }
 }
 
-// LINKS
+// Header
 
-a, a:hover, a:active, a:focus, a img, object, embed {
-  outline: none !important;
-}
+  header .subnavigation {
+    border-bottom: 5px solid $brand;
+  }
 
-header .subnavigation a {
-  color: white !important;
-}
+  // Buscador
+  header .input-group-field {
+    border-radius: 25px 0 0 25px;
+    padding-left: 15px;
+    font-size: 14px;
+    border: 0;
 
-header .subnavigation a.is-active {
-  color: white !important;
-  color: rgba(255, 255, 255, 0.5) !important;
-}
+    &:focus {
+      border: 0;
+    }
+  }
 
-header .subnavigation a:hover {
-  transition: 0.2s;
-  color: rgba(255, 255, 255, 0.7) !important;
-  text-decoration: none;
-}
+  header .input-group-button button {
+    background: $brand !important;
+    border: 0 !important;
+    color: #fff !important;
+    border-radius: 0 25px 25px 0 !important;
+  }
+
+
+  // Links
+  a, a:hover, a:active, a:focus, a img, object, embed {
+    outline: none !important;
+  }
+
+  header .subnavigation a {
+    color: white !important;
+  }
+
+  header .subnavigation a.is-active {
+    color: $brand !important;
+    border-bottom: 0;
+  }
+
+  header .subnavigation a:hover {
+    transition: 0.2s;
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none;
+  }
 
 
 
@@ -372,7 +397,7 @@ header {
 
 @media (min-width: 640px) {
   header .subnavigation {
-    background-color: #f76804;
+    background-color: #252525;
   }
 }
 
@@ -406,7 +431,12 @@ header {
   border-radius: 25px;
   background: #fff;
 
-  &:hover {
+  
+}
+
+@media (min-width: 640px) 
+{
+  .btn-registrar:hover {
     background: #ffffffCC !important;
     transition: background 0.2s linear; 
   }
@@ -495,6 +525,27 @@ header {
   margin-top: 20px;
 }
 
+  // Diseño propuestas
+  .participation-not-allowed {
+    color: #f76804;
+    font-size: 14px;
+
+    & a {
+      color: #f76804 !important;
+    }
+  }
+
+  .supports {
+    & .meter {
+      background: #f76804 !important;
+    }
+
+    & .button-support {
+      background: #f76804 !important;
+      color: #fff !important;
+    }
+  }
+
 
   // Comentario de propuestas
 
@@ -505,6 +556,10 @@ header {
 
   .comment-children {
     padding-left: 1.5rem !important;
+  }
+
+  .comment-body .is-admin {
+    background: none;
   }
 
 
