@@ -42,6 +42,7 @@ resources :proposals do
     get :created
     patch :retire
     patch :publish
+    put :hide
   end
 
   collection do

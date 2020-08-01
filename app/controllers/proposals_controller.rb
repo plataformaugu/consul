@@ -21,7 +21,7 @@ class ProposalsController < ApplicationController
   has_orders %w[most_voted newest oldest], only: :show
 
   load_and_authorize_resource
-  helper_method :resource_model, :resource_name, :destroy
+  helper_method :resource_model, :resource_name, :hide
   respond_to :html, :js
 
   #def index
@@ -76,9 +76,11 @@ class ProposalsController < ApplicationController
   def retire_form
   end
 
-  def destroy
-    @proposal.destroy!
-    redirect_to proposals_path
+  def hide
+    if !@proposal.hidden_at
+      @proposal.update_column(:hidden_at, DateTime.now.to_s(:db))
+      redirect_to proposals_path
+    end
   end
 
   def vote_featured

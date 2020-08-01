@@ -21,15 +21,13 @@
               method: :patch %>
 <% end %>
 
-
-
 <button onclick="palancaAdvertencia()" class="button danger">Eliminar propuesta</button>
 
 <div id="advertencia-eliminar-propuesta">
   ¿Estás seguro que deseas eliminar esta propuesta?<br>
   Esta acción no se puede <strong>revertir</strong> y el contenido <strong>se perderá para siempre</strong>.<br><br>
   <%= link_to "Confirmar",
-            proposal_path(@proposal.id, @proposal),
-            method: :delete,
+            hide_proposal_path(@proposal.id, @proposal),
+            method: :put,
             class: "button danger"%>
 </div>

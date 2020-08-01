@@ -66,6 +66,12 @@
                 <%= t("comments.comment.author") %>
               </span>
             <% end %>
+            <% if Administrator.where(user_id: comment.user.id).exists? %>
+              &nbsp;&bull;&nbsp;
+              <span class="label round is-author">
+                Administrador
+              </span>
+            <% end %>
 
           <% end %>
 
