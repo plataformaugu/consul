@@ -42,7 +42,7 @@
           <% elsif comment.as_moderator? %>
             <span class="user-name"><%= t("comments.comment.moderator") %> #<%= comment.moderator_id %></span>
           <% else %>
-
+            
             <% if comment.user.hidden? || comment.user.erased? %>
               <span class="user-name"><%= t("comments.comment.user_deleted") %></span>
             <% else %>
@@ -70,6 +70,12 @@
               &nbsp;&bull;&nbsp;
               <span class="label round is-author">
                 Administrador
+              </span>
+            <% end %>
+            <% if Moderator.where(user_id: comment.user.id).exists? %>
+              &nbsp;&bull;&nbsp;
+              <span class="label round is-author">
+                Moderador
               </span>
             <% end %>
 

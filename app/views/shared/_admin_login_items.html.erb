@@ -34,40 +34,4 @@
       <% end %>
     </ul>
   </li>
-
-  <li class="menu-desktop perfil-dropdown">
-    <%= link_to t("layouts.header.administration_menu"), "#", rel: "nofollow", class: "" %>
-    <ul class="perfil-dropdown-content" data-submenu>
-      <% if current_user.administrator? %>
-        <li>
-          <%= link_to t("layouts.header.administration"), admin_root_path %>
-        </li>
-      <% end %>
-
-      <% if current_user.administrator? || current_user.moderator? %>
-        <li>
-          <%= link_to t("layouts.header.moderation"), moderation_root_path %>
-        </li>
-      <% end %>
-
-      <% if feature?(:budgets) &&
-            (current_user.administrator? || current_user.valuator?) %>
-        <li>
-          <%= link_to t("layouts.header.valuation"), valuation_root_path %>
-        </li>
-      <% end %>
-
-      <% if current_user.administrator? || current_user.manager? %>
-        <li>
-          <%= link_to t("layouts.header.management"), management_sign_in_path %>
-        </li>
-      <% end %>
-
-      <% if current_user.poll_officer? && Poll.current.any? %>
-        <li>
-          <%= link_to t("layouts.header.officing"), officing_root_path %>
-        </li>
-      <% end %>
-    </ul>
-  </li>
 <% end %>

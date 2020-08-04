@@ -9,7 +9,23 @@
         <span class="menu-icon dark" data-toggle></span>
       </span>
 
-      <div class="top-bar-title">
+      <div class="top-bar-title solo-desktop">
+        <%= link_to root_path, accesskey: "0" do %>
+          <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: t("layouts.header.logo")) %>
+        <% end %>
+      </div>
+
+      <div id="navigation_bar" class="subnavigation expanded">
+        <div class="row">
+          <div class="hide-for-small-only">
+            <%= render "shared/subnavigation" %>
+          </div>
+        </div>
+      </div>
+
+      <%= yield :header_addon %>
+
+      <div class="top-bar-title solo-mobile">
         <%= link_to root_path, accesskey: "0" do %>
           <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: t("layouts.header.logo")) %>
         <% end %>
@@ -32,17 +48,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="navigation_bar" class="subnavigation expanded">
-    <div class="row">
-      <div class="hide-for-small-only">
-        <%= render "shared/subnavigation" %>
-      </div>
-      <div class="small-12 medium-3 column">
-        <%= yield :header_addon %>
       </div>
     </div>
   </div>
