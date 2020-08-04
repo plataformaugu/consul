@@ -1,4 +1,4 @@
-<% if true %>
+<% if current_budget %>
   <div class="img-container">
     <div class="small-12 medium-12 <%= "medium-9 small-centered text-center" unless header.image.present? %>">
       <%= image_tag(header.image_url(:large),
