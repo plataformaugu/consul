@@ -23,12 +23,19 @@
         </div>
       </div>
 
-      <%= yield :header_addon %>
+      <div class="solo-mobile">
+        <%= yield :header_addon %>
+      </div>
 
-      <div class="top-bar-title solo-mobile">
-        <%= link_to root_path, accesskey: "0" do %>
-          <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: t("layouts.header.logo")) %>
-        <% end %>
+      <div class="margin-left">
+        <div class="solo-desktop">
+          <%= yield :header_addon %>
+        </div>
+        <div class="top-bar-title solo-mobile">
+          <%= link_to root_path, accesskey: "0" do %>
+            <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: t("layouts.header.logo")) %>
+          <% end %>
+        </div>
       </div>
 
       <div id="responsive-menu">

@@ -17,30 +17,32 @@
   </li>
   <li class="menu-desktop perfil-dropdown">
     <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta">
-      <%= avatar_image(current_user, seed: current_user.id, size: 18) %> <%= current_user.name %>
+      <%= avatar_image(current_user, seed: current_user.id, size: 24) %>
     </a>
     <div class="perfil-dropdown-content">
-      <% if current_user.administrator? %>
-          <%= link_to t("layouts.header.administration"), admin_root_path %>
-      <% end %>
+      <% if show_admin_menu?(current_user) %>
+        <% if current_user.administrator? %>
+            <%= link_to t("layouts.header.administration"), admin_root_path %>
+        <% end %>
 
-      <% if current_user.administrator? || current_user.moderator? %>
-          <%= link_to t("layouts.header.moderation"), moderation_root_path %>
-      <% end %>
+        <% if current_user.administrator? || current_user.moderator? %>
+            <%= link_to t("layouts.header.moderation"), moderation_root_path %>
+        <% end %>
 
-      <% if feature?(:budgets) &&
-            (current_user.administrator? || current_user.valuator?) %>
-          <%= link_to t("layouts.header.valuation"), valuation_root_path %>
-      <% end %>
+        <% if feature?(:budgets) &&
+              (current_user.administrator? || current_user.valuator?) %>
+            <%= link_to t("layouts.header.valuation"), valuation_root_path %>
+        <% end %>
 
-      <% if current_user.administrator? || current_user.manager? %>
-          <%= link_to t("layouts.header.management"), management_sign_in_path %>
-      <% end %>
+        <% if current_user.administrator? || current_user.manager? %>
+            <%= link_to t("layouts.header.management"), management_sign_in_path %>
+        <% end %>
 
-      <% if current_user.poll_officer? && Poll.current.any? %>
-          <%= link_to t("layouts.header.officing"), officing_root_path %>
+        <% if current_user.poll_officer? && Poll.current.any? %>
+            <%= link_to t("layouts.header.officing"), officing_root_path %>
+        <% end %>
+        <hr>
       <% end %>
-      <hr>
       <%= layout_menu_link_to t("layouts.header.my_account_link"),
                               account_path,
                               controller_name == "account",

@@ -304,12 +304,17 @@ footer {
 {
     .cenp
     {
-      top: 53% !important;
-      font-size: 3vw;
+      top: 59% !important;
+      font-size: 4vw;
     }
 
     .h1p {
-      font-size: 4vw !important; 
+      width: 90% !important;
+      font-size: 5vw !important; 
+    }
+
+    .img-container .btn {
+      top: 74% !important;
     }
 }
 
@@ -337,9 +342,6 @@ footer {
 
   // Buscador
   header .search-form-header {
-    @include breakpoint(medium up) {
-      margin-left: auto;
-    }
     width: 160px;
   }
 
@@ -355,9 +357,6 @@ footer {
     &:focus {
       border: 0;
     }
-  }
-  header #responsive-menu {
-    margin-left: auto !important;
   }
 
   header .input-group {
@@ -464,6 +463,12 @@ header {
       border-bottom: 5px solid $brand;
     }
   }
+
+  .margin-left {
+    @include breakpoint(medium up) {
+      margin-left: auto !important;
+    }
+  }
 }
 
 @media (min-width: 640px) {
@@ -516,7 +521,7 @@ header {
   border-radius: 25px;
   background: #fff !important;
   color: #252525 !important;
-  padding-right: 30px !important;
+  padding: 8px 30px 8px 8px !important;
 
   &:hover {
     background: #ffffffCC !important;
@@ -560,7 +565,7 @@ header {
     }
 
     .btn-perfil {
-      border-radius: 25px 25px 0 0;
+      border-radius: 20px 20px 0 0;
       transition: border-radius 0.1s ease-in-out;
     }
   }
@@ -569,6 +574,7 @@ header {
 }
 
 .perfil-dropdown-content {
+  width: 100%;
   right: rem-calc(0);
   display: none;
   position: absolute;
