@@ -25,6 +25,10 @@
   }
 }
 
+.padding-pages {
+  padding-top: 20px;
+}
+
 .top-links {
   background: #252525;
   color: #fff;
@@ -346,6 +350,7 @@ footer {
   }
 
   header .input-group-field {
+    background: #fff !important;
     border-radius: 25px 0 0 25px;
     padding: 0 15px !important;
     font-size: 12px;
@@ -608,6 +613,30 @@ main {
 .feed-image img {
   object-fit: cover;
   object-position: center;
+}
+
+// Administración
+
+.admin {
+  margin-top: 120px;
+
+  @include breakpoint(small) {
+    margin-top: 0;
+  }
+
+  & .side-menu-and-admin-content {
+    @include breakpoint(small down) {
+      margin-top: 56px;
+    }
+  }
+
+  & .top-bar {
+    box-shadow: none;
+  }
+
+  & header {
+    position: relative;
+  }
 }
 
 // Propuestas

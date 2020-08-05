@@ -45,10 +45,6 @@
         <% unless @proposal.selected? %>
           <%= render "relationable/related_content", relationable: @proposal %>
         <% end %>
-
-        <div class="js-moderator-proposal-actions margin">
-          <%= render "proposals/actions", proposal: @proposal %>
-        </div>
       </div>
 
       <% unless preview %>
@@ -78,6 +74,14 @@
           <% end %>
 
           <%= render "communities/access_button", community: @proposal.community %>
+
+          <% if Administrator.where(user_id: current_user).exists? || Moderator.where(user_id: current_user).exists? %>
+            <div class="sidebar-divider"></div>
+            <p class="sidebar-title">Moderar</p>
+            <div class="js-moderator-proposal-actions">
+              <%= render "proposals/actions", proposal: @proposal %>
+            </div>
+          <% end %>
         </aside>
       <% end %>
     </div>
