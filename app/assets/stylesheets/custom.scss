@@ -494,6 +494,10 @@ header {
 header {
   font-size: 14px !important; 
   font-family: 'Poppins', sans-serif;
+
+  @include breakpoint(small down) {
+    height: 56px !important;
+  }
 }
 
 @media (max-width: 640px) 
@@ -593,6 +597,10 @@ header {
 
 main {
   margin-top: 120px;
+
+  @include breakpoint (small down) {
+    margin-top: 56px;
+  }
 }
 
 // Propuestas Homepage
