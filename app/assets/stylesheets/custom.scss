@@ -213,7 +213,7 @@ footer {
 
 .img-container img {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 120px);
   object-fit: cover;
   opacity: 0.4;
 }
@@ -271,7 +271,7 @@ footer {
 .img-container .btn {
   width: auto;
   position: absolute;
-  top: 70%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);   
@@ -285,7 +285,7 @@ footer {
 
 .img-container .cenp {
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color:#FFF;
@@ -296,7 +296,7 @@ footer {
 .img-container .h1p {
   width: 60%;
   position: absolute;
-  top: 48%;
+  top: 38%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -308,7 +308,7 @@ footer {
 {
     .cenp
     {
-      top: 59% !important;
+      top: 49% !important;
       font-size: 4vw;
     }
 
@@ -318,7 +318,7 @@ footer {
     }
 
     .img-container .btn {
-      top: 74% !important;
+      top: 64% !important;
     }
 }
 
@@ -442,7 +442,7 @@ footer {
 header {
   height: 120px;
   z-index: 10;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   border-bottom: 5px solid $brand;
@@ -598,16 +598,6 @@ header {
   }
 }
 
-// Main
-
-main {
-  margin-top: 120px;
-
-  @include breakpoint (small down) {
-    margin-top: 56px;
-  }
-}
-
 // Propuestas Homepage
 
 .feed-image img {
@@ -624,18 +614,13 @@ main {
     margin-top: 0;
   }
 
-  & .side-menu-and-admin-content {
-    @include breakpoint(small down) {
-      margin-top: 56px;
-    }
-  }
-
   & .top-bar {
     box-shadow: none;
   }
 
   & header {
     position: relative;
+    height: auto !important;
   }
 }
 

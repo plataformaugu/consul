@@ -11,11 +11,17 @@
     <header class="header">
       <div class="top-links">
         <div class="expanded row">
-          <%= render "shared/locale_switcher" %>
+          <%= link_to root_path, class: "float-right" do %>
+            <%= t("admin.dashboard.index.back", org: setting["org_name"]) %>
+          <% end %>
         </div>
       </div>
 
       <div class="expanded row admin-top-bar">
+        <div class="title-bar" data-responsive-toggle="responsive_menu" data-hide-for="medium">
+          <button class="menu-icon" type="button" data-toggle="responsive_menu"></button>
+          <div class="title-bar-title"><%= t("application.menu") %></div>
+        </div>
         <div class="top-bar">
           <div class="top-bar-left">
             <ul class="menu">

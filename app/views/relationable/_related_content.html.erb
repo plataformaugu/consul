@@ -4,7 +4,7 @@
     <h2 class="inline-block">
       <%= t("related_content.title") %>&nbsp;<span>(<%= relationable.relationed_contents.count %>)</span>
     </h2>
-    <% if current_user %>
+    <% if current_user == relationable.author || Administrator.where(user_id: current_user).exists? || Moderator.where(user_id: current_user).exists? %>
       <a>
         <button type="button" data-toggle="related_content" class="add-related-content" id="add-related-content">
           <%= t("related_content.add") %>
