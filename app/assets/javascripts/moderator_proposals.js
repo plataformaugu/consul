@@ -7,6 +7,9 @@
     },
     hide_moderator_actions: function(id) {
       $("#" + id + " .js-moderator-proposals-actions:first").hide();
+    },
+    redirect_to_proposals: function() {
+      window.location.href = '/proposals';
     }
   };
 }).call(this);
