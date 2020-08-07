@@ -5,12 +5,13 @@ class Verification::Residence
 
 
   def postal_code_in_madrid
-    errors.add(:postal_code, I18n.t("verification.residence.new.error_not_allowed_postal_code")) unless valid_postal_code?
+    return true
+    # errors.add(:postal_code, I18n.t("verification.residence.new.error_not_allowed_postal_code")) unless valid_postal_code?
   end
 
-  private
+  # private
 
-    def valid_postal_code?
-      postal_code =~ /^7/
-    end
+  #  def valid_postal_code?
+  #    postal_code =~ /^7/
+  #  end
 end

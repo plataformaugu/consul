@@ -519,7 +519,7 @@ es:
         local_census_record:
           attributes:
             document_type:
-              inclusion: no está incluido en la lista, los valores permitidos son 1 para DNI, 2 para pasaporte y 3 para tarjeta de residencia.
+              inclusion: no está incluido en la lista.
         proposal:
           attributes:
             tag_list:

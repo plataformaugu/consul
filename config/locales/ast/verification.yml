@@ -47,7 +47,6 @@ ast:
         document_number: Número de documento
         document_number_help_title: Ayuda
         document_type:
-          passport: Pasaporte
           residence_card: Tarjeta de residencia
           spanish_id: DNI
         error_not_allowed_age: No tienes la edad mínima para participar
