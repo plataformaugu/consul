@@ -1,6 +1,7 @@
 module VerificationHelper
   def document_types
-    [[t("verification.residence.new.document_type.rut"), 1]]
+    [[t("verification.residence.new.document_type.rut"), 1],
+     [t("verification.residence.new.document_type.passport"), 2]]
   end
 
   def minimum_required_age

@@ -12,6 +12,13 @@
     <%= local_census_record.postal_code %>
   </td>
   <td>
+    <% if User.where(document_number: local_census_record.document_number).where(document_type: local_census_record.document_type).exists? %>
+      Si <%= link_to "(Ver)", user_path(User.where(document_number: local_census_record.document_number).where(document_type: local_census_record.document_type).ids), target: "_blank" %>
+    <% else %>
+      No
+    <% end %>
+  </td>
+  <td>
     <%= link_to t("admin.actions.edit"),
                 edit_admin_local_census_record_path(local_census_record),
                 class: "button hollow" %>

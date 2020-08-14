@@ -4,10 +4,10 @@ module Verification
   included do
     scope :residence_verified, -> { where.not(residence_verified_at: nil) }
     scope :level_three_verified, -> { where.not(verified_at: nil) }
-    scope :level_two_verified, -> { where("users.level_two_verified_at IS NOT NULL OR (users.confirmed_phone IS NOT NULL AND users.residence_verified_at IS NOT NULL) AND verified_at IS NULL") }
-    scope :level_two_or_three_verified, -> { where("users.verified_at IS NOT NULL OR users.level_two_verified_at IS NOT NULL OR (users.confirmed_phone IS NOT NULL AND users.residence_verified_at IS NOT NULL)") }
+    scope :level_two_verified, -> { where("users.level_two_verified_at IS NOT NULL OR (users.residence_verified_at IS NOT NULL) AND verified_at IS NULL") }
+    scope :level_two_or_three_verified, -> { where("users.verified_at IS NOT NULL OR users.level_two_verified_at IS NOT NULL OR (users.residence_verified_at IS NOT NULL)") }
     scope :unverified, -> { where("users.verified_at IS NULL AND (users.level_two_verified_at IS NULL AND (users.residence_verified_at IS NULL OR users.confirmed_phone IS NULL))") }
-    scope :incomplete_verification, -> { where("(users.residence_verified_at IS NULL AND users.failed_census_calls_count > ?) OR (users.residence_verified_at IS NOT NULL AND (users.unconfirmed_phone IS NULL OR users.confirmed_phone IS NULL))", 0) }
+    scope :incomplete_verification, -> { where("(users.residence_verified_at IS NULL AND users.failed_census_calls_count > ?) OR (users.residence_verified_at IS NOT NULL)", 0) }
   end
 
   def skip_verification?
@@ -21,15 +21,11 @@ module Verification
   end
 
   def verification_sms_sent?
-    return true if skip_verification?
-
-    unconfirmed_phone.present? && sms_confirmation_code.present?
+    true
   end
 
   def verification_letter_sent?
-    return true if skip_verification?
-
-    letter_requested_at.present? && letter_verification_code.present?
+    true
   end
 
   def residence_verified?
@@ -39,9 +35,7 @@ module Verification
   end
 
   def sms_verified?
-    return true if skip_verification?
-
-    confirmed_phone.present?
+    true
   end
 
   def level_two_verified?
@@ -69,7 +63,6 @@ module Verification
   end
 
   def no_phone_available?
-    !verification_sms_sent?
   end
 
   def user_type
@@ -83,6 +76,5 @@ module Verification
   end
 
   def sms_code_not_confirmed?
-    !sms_verified?
   end
 end

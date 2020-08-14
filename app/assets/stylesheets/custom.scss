@@ -330,6 +330,15 @@ footer {
   }
 }
 
+.participation-not-allowed {
+  background: #fff !important;
+
+  & p {
+    color: #222 !important;
+    font-size: 14px;
+  }
+}
+
 // Header
 
   header > .row {
@@ -459,11 +468,14 @@ header {
   }
 
   & .top-bar {
+
+    background: #252525 !important;
+
     @include breakpoint(medium up) {
+      background: transparent !important;
       display: flex;
       height: 120px;
       justify-content: flex-start !important;
-      border-bottom: 5px solid $brand;
     }
   }
 
@@ -691,4 +703,10 @@ header {
 
 .danger {
   background-color: #dc3545 !important;
+}
+
+// Perfil
+
+.already-verified {
+  font-weight: bold;
 }

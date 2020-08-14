@@ -14,6 +14,7 @@ es:
           document_number: "Número de documento (incluida letra)"
           date_of_birth: "Fecha de nacimiento"
           postal_code: "Código postal"
+          town: "Comuna"
         sms:
           phone: "Teléfono"
           confirmation_code: "Código de confirmación"
@@ -30,6 +31,7 @@ es:
         date_of_birth: "Fecha de nacimiento"
         document_type: "Tipo de documento"
         postal_code: "Código postal"
+        town: "Comuna"
       verification/sms:
         confirmation_code: "Introduce el código que has recibido en tu móvil"
       officing/residence:

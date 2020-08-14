@@ -3,6 +3,8 @@ module UsersHelper
     case document_type
     when "1"
       t "verification.residence.new.document_type.rut"
+    when "2"
+      t "verification.residence.new.document_type.passport"
     end
   end
 
