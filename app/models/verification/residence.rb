@@ -11,7 +11,7 @@ class Verification::Residence
   validates :document_type, presence: true
   validates :date_of_birth, presence: true
   validates :town, presence: true
-  # validates :terms_of_service, acceptance: { allow_nil: false }
+  validates :terms_of_service, acceptance: { allow_nil: false }
 
   validate :allowed_age
   validate :document_number_uniqueness
