@@ -448,7 +448,7 @@ footer {
 
 header {
   height: 120px;
-  z-index: 10;
+  z-index: 1000 !important;
   position: sticky;
   top: 0;
   width: 100%;
