@@ -28,12 +28,10 @@ class Verification::Residence
     return false unless valid?
 
     user.take_votes_if_erased_document(document_number, document_type)
-
+    
     user.update(document_number:       document_number,
                 document_type:         document_type,
-                geozone:               geozone,
                 date_of_birth:         date_of_birth.in_time_zone.to_datetime,
-                gender:                gender,
                 town:                  town,
                 residence_verified_at: Time.current)
   end
@@ -54,7 +52,21 @@ class Verification::Residence
 
   def document_number_existence
     unless document_number.empty?
-      errors.add(:document_number, "el documento ingresado no se encuentra en nuestros registros.") unless LocalCensusRecord.where(document_number: document_number).where(document_type: document_type).exists?
+      if Setting["feature.remote_census"].present? && !Setting["remote_census.general.endpoint"].empty?
+        # Verificar usando API en el Censo Remoto, retorna code y body
+        api_response = CensoRemoto.new.verificar(document_number)
+
+        unless api_response.is_a?(Hash)
+          errors.add(:document_number, "no se pudo verificar el documento, intente más tarde.")
+        else
+          unless api_response["code"] === '200'
+            errors.add(:document_number, "el documento ingresado no se encuentra en los registros.")
+          end
+        end
+        
+      else
+        errors.add(:document_number, "el documento ingresado no se encuentra en nuestros registros.") unless LocalCensusRecord.where(document_number: document_number).where(document_type: document_type).exists?
+      end
     end
   end
 
@@ -68,19 +80,23 @@ class Verification::Residence
     )
   end
 
-  def geozone
-    Geozone.find_by(census_code: district_code)
-  end
+  # def geozone
+  #   Geozone.find_by(census_code: district_code)
+  # end
 
-  def district_code
-    @census_data.district_code
-  end
+  # def district_code
+  #   @census_data.district_code
+  # end
 
-  def gender
-    @census_data.gender
-  end
+  # def gender
+  #   @census_data.gender
+  # end
 
   private
+
+    def remote_census_call(document_number)
+      CensoRemoto.new.verificar(document_number)
+    end
 
     def retrieve_census_data
       @census_data = CensusCaller.new.call(document_type, document_number, date_of_birth, postal_code)

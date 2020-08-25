@@ -78,6 +78,7 @@ module Consul
     #
     config.autoload_paths << "#{Rails.root}/app/controllers/custom"
     config.autoload_paths << "#{Rails.root}/app/models/custom"
+    config.autoload_paths << "#{Rails.root}/lib"
     config.paths["app/views"].unshift(Rails.root.join("app", "views", "custom"))
   end
 end
