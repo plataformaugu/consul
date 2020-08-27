@@ -710,3 +710,14 @@ header {
 .already-verified {
   font-weight: bold;
 }
+
+// Votaciones
+
+.image-container {
+  height: 166px !important;
+  object-fit: cover;
+
+  & > img {
+    width: 100% !important;
+  }
+}

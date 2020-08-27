@@ -17,7 +17,5 @@
     <%= render "results_by_booth" %>
   <% end %>
 
-  <% if @poll.voters.any? %>
-    <%= render "show_results", resource: @poll %>
-  <% end %>
+  <%= render "show_results", resource: @poll %>
 </div>
