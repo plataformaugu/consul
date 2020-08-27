@@ -23,7 +23,7 @@ gl:
         figcaption: 'Botones "estou de acordo" e "non estou de acordo" para avaliar os debates.'
       proposals:
         title: "Propostas cidadás"
-        description: "Na sección %{link} podes formular propostas para que o Concello as leve a cabo. As propostas obteñen apoios e se alcanzan abondos sométense a votación cidadá. As propostas aprobadas nestas votacións cidadás son asumidas polo Concello e lévanse a cabo."
+        description: "Na sección %{link} podes formular propostas para que o Concello as leve a cabo. As propostas obteñen apoios e se alcanzan abondos sométense a consulta cidadá. As propostas aprobadas nestas votacións cidadás son asumidas polo Concello e lévanse a cabo."
         link: "propostas cidadás"
         image_alt: "Botón para apoiar unha proposta"
       budgets:
@@ -33,9 +33,9 @@ gl:
         image_alt: "Diferentes fases dun orzamento participativo"
       polls:
         title: "Votacións"
-        description: "A sección de %{link} actívase cada vez que unha proposta acada o 1% dos apoios e pasa á votación ou cando o Concello propón un tema para que a xente decida sobre el."
+        description: "A sección de %{link} actívase cada vez que unha proposta acada o 1% dos apoios e pasa á consulta ou cando o Concello propón un tema para que a xente decida sobre el."
         link: "votacións"
-        feature_1: "Para participares na votación, tes que %{link} e verificar a túa conta."
+        feature_1: "Para participares na consulta, tes que %{link} e verificar a túa conta."
         feature_1_link: "rexistrarte en %{org_name}"
       processes:
         title: "Procesos"

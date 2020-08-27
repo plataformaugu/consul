@@ -47,8 +47,8 @@ es:
         executing_project: Ejecutando el proyecto
         executed: Ejecutado
     polls:
-      current_poll: "Votación Abierta"
-      current_poll_geozone_restricted: "Votación Abierta restringida por geozona"
-      recounting_poll: "Votación en Recuento"
-      expired_poll_without_stats: "Votación Finalizada (sin Estadísticas o Resultados)"
-      expired_poll_with_stats: "Votación Finalizada (con Estadísticas y Resultado)"
+      current_poll: "Consulta Abierta"
+      current_poll_geozone_restricted: "Consulta Abierta restringida por geozona"
+      recounting_poll: "Consulta en Recuento"
+      expired_poll_without_stats: "Consulta Finalizada (sin Estadísticas o Resultados)"
+      expired_poll_with_stats: "Consulta Finalizada (con Estadísticas y Resultado)"

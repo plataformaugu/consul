@@ -351,12 +351,12 @@ es-PE:
         index:
           back: Volver
           title: Preguntas asociadas a este proceso
-          create: Crear pregunta para votación
+          create: Crear pregunta para consulta
           delete: Borrar
         new:
           back: Volver
           title: Crear nueva pregunta
-          submit_button: Crear pregunta para votación
+          submit_button: Crear pregunta para consulta
         table:
           title: Título
           question_options: Opciones de respuesta
@@ -397,7 +397,7 @@ es-PE:
       admin_notifications: Notificaciones
       valuators: Evaluadores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Ubicación de urnas
       poll_booth_assignments: Asignación de urnas
       poll_shifts: Asignar turnos
@@ -412,7 +412,7 @@ es-PE:
         information_texts_menu:
           community: "Comunidad"
           proposals: "Propuestas"
-          polls: "Votaciones"
+          polls: "Consultas"
           management: "Gestión"
           welcome: "Bienvenido/a"
         buttons:
@@ -511,14 +511,14 @@ es-PE:
     poll_officer_assignments:
       index:
         officers_title: "Listado de presidentes de mesa asignados"
-        no_officers: "No hay presidentes de mesa asignados a esta votación."
+        no_officers: "No hay presidentes de mesa asignados a esta consulta."
         table_name: "Nombre"
         table_email: "Tu correo electrónico"
       by_officer:
         date: "Día"
         booth: "Urna"
-        assignments: "Turnos como presidente de mesa en esta votación"
-        no_assignments: "No tiene turnos como presidente de mesa en esta votación."
+        assignments: "Turnos como presidente de mesa en esta consulta"
+        no_assignments: "No tiene turnos como presidente de mesa en esta consulta."
     poll_shifts:
       new:
         add_shift: "Añadir turno"
@@ -547,7 +547,7 @@ es-PE:
     booth_assignments:
       manage_assignments: Gestionar asignaciones
       manage:
-        assignments_list: "Asignaciones para la votación '%{poll}'"
+        assignments_list: "Asignaciones para la consulta '%{poll}'"
         status:
           assign_status: Asignación
           assigned: Asignada
@@ -572,49 +572,49 @@ es-PE:
         total_system: Votos totales acumulados(automático)
       index:
         booths_title: "Lista de urnas"
-        no_booths: "No hay urnas asignadas a esta votación."
+        no_booths: "No hay urnas asignadas a esta consulta."
         table_name: "Nombre"
         table_location: "Ubicación"
     polls:
       index:
-        title: "Listado de votaciones"
-        create: "Crear votación"
+        title: "Listado de consultas"
+        create: "Crear consulta"
         name: "Nombre"
         dates: "Fechas"
         start_date: "Fecha de apertura"
         closing_date: "Fecha de cierre"
         geozone_restricted: "Restringida a los distritos"
       new:
-        title: "Nueva votación"
-        submit_button: "Crear votación"
+        title: "Nueva consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Preguntas ciudadanas
         booths_tab: Urnas
         officers_tab: Presidentes de mesa
         recounts_tab: Recuentos
         results_tab: Resultados
-        no_questions: "No hay preguntas asignadas a esta votación."
+        no_questions: "No hay preguntas asignadas a esta consulta."
         questions_title: "Listado de preguntas asignadas"
         table_title: "Título"
       flash:
-        question_added: "Pregunta añadida a esta votación"
+        question_added: "Pregunta añadida a esta consulta"
         error_on_question_added: "No se pudo asignar la pregunta"
     questions:
       index:
         title: "Preguntas ciudadanas"
-        create: "Crear pregunta para votación"
+        create: "Crear pregunta para consulta"
         no_questions: "No hay ninguna pregunta ciudadana."
-        filter_poll: Filtrar por votación
-        select_poll: Seleccionar votación
+        filter_poll: Filtrar por consulta
+        select_poll: Seleccionar consulta
         questions_tab: "Preguntas ciudadanas"
         successful_proposals_tab: "Propuestas que han superado el umbral"
-        create_question: "Crear pregunta para votación"
+        create_question: "Crear pregunta para consulta"
         table_proposal: "la propuesta"
         table_question: "Pregunta"
-        table_poll: "Votación"
+        table_poll: "Consulta"
       edit:
         title: "Editar pregunta ciudadana"
       new:
@@ -892,7 +892,7 @@ es-PE:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
       direct_messages:
         title: Mensajes directos
         users_who_have_sent_message: Usuarios que han enviado un mensaje privado
@@ -900,13 +900,13 @@ es-PE:
         title: Notificaciones de propuestas
         proposals_with_notifications: Propuestas con notificaciones
       polls:
-        title: Estadísticas de votaciones
-        all: Votaciones
+        title: Estadísticas de consultas
+        all: Consultas
         web_participants: Participantes Web
         total_participants: Participantes totales
-        poll_questions: "Preguntas de votación: %{poll}"
+        poll_questions: "Preguntas de consulta: %{poll}"
         table:
-          poll_name: Votación
+          poll_name: Consulta
           question_name: Pregunta
           origin_web: Participantes en Web
           origin_total: Participantes Totales

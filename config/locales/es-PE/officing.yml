@@ -13,8 +13,8 @@ es-PE:
     polls:
       final:
         title: Listado de votaciones finalizadas
-        no_polls: No tienes permiso para recuento final en ninguna votación reciente
-        select_poll: Selecciona votación
+        no_polls: No tienes permiso para recuento final en ninguna consulta reciente
+        select_poll: Selecciona consulta
         add_results: Añadir resultados
     booth:
       new:
@@ -57,13 +57,13 @@ es-PE:
     voters:
       new:
         title: Votaciones
-        table_poll: Votación
+        table_poll: Consulta
         table_status: Estado de las votaciones
         table_actions: Acciones
         not_to_vote: La persona ha decidido no votar por el momento
       show:
         can_vote: Puede votar
-        error_already_voted: Ya ha participado en esta votación.
+        error_already_voted: Ya ha participado en esta consulta.
         submit: Confirmar voto
         success: "¡Voto introducido!"
       can_vote:

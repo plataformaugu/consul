@@ -22,8 +22,8 @@ gl:
         title: Escolle unha opción
         unfeasible_title: Propostas inviables
         unfeasible: Ver as propostas inviables
-        unselected_title: Propostas non seleccionadas para a votación final
-        unselected: Ver as propostas non seleccionadas para a votación final
+        unselected_title: Propostas non seleccionadas para a consulta final
+        unselected: Ver as propostas non seleccionadas para a consulta final
     phase:
       drafting: Borrador (non visible para o público)
       informing: Información
@@ -33,7 +33,7 @@ gl:
       valuating: Avaliación de proxectos
       publishing_prices: Publicación de prezos
       balloting: Votando proxectos
-      reviewing_ballots: Revisando votación
+      reviewing_ballots: Revisando consulta
       finished: Resultados
     index:
       title: Orzamentos participativos
@@ -47,7 +47,7 @@ gl:
       map: Proxectos localizables xeograficamente
       investment_proyects: Listaxe de todos os proxectos de investimento
       unfeasible_investment_proyects: Ver a relación de proxectos de investimento inviables
-      not_selected_investment_proyects: Ver a listaxe de proxecto de investimento non seleccionadas para a votación final
+      not_selected_investment_proyects: Ver a listaxe de proxecto de investimento non seleccionadas para a consulta final
       finished_budgets: Orzamentos participativos rematados
       see_results: Ver resultados
       section_footer:
@@ -67,7 +67,7 @@ gl:
       index:
         title: Orzamentos participativos
         unfeasible: Propostas de investimento non viables
-        unfeasible_text: "Os investimentos deben cumprir unha serie de criterios (como a legalidade, a concrención, seren competencia do concello, non superaren o máximo do orzamento), para seren declaradas viables e chegaren até a votación final. Todos os investimentos que non cumpriren estes criterios son marcados como inviables e publicadas na seguinte relación, xunto co seu informe de inviabilidade."
+        unfeasible_text: "Os investimentos deben cumprir unha serie de criterios (como a legalidade, a concrención, seren competencia do concello, non superaren o máximo do orzamento), para seren declaradas viables e chegaren até a consulta final. Todos os investimentos que non cumpriren estes criterios son marcados como inviables e publicadas na seguinte relación, xunto co seu informe de inviabilidade."
         by_heading: "Propostas de investimento con ámbito: %{heading}"
         search_form:
           button: Procurar
@@ -133,8 +133,8 @@ gl:
       phase: Fase actual
       unfeasible_title: Propostas inviables
       unfeasible: Ver as propostas inviables
-      unselected_title: Propostas non seleccionadas para a votación final
-      unselected: Ver as propostas que non foron seleccionadas para a votación final
+      unselected_title: Propostas non seleccionadas para a consulta final
+      unselected: Ver as propostas que non foron seleccionadas para a consulta final
       see_results: Ver resultados
     results:
       link: Resultados
@@ -152,7 +152,7 @@ gl:
       investment_title: Título do proxecto
       investment_proyects: Ver a relación completa dos proxectos de investimento
       unfeasible_investment_proyects: Ver a relación de proxectos de investimento inviables
-      not_selected_investment_proyects: Ver a relación de proxectos de investimento non seleccionados para a votación final
+      not_selected_investment_proyects: Ver a relación de proxectos de investimento non seleccionados para a consulta final
     executions:
       link: "Seguimento"
       page_title: "%{budget} - Fitos"

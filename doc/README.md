@@ -96,17 +96,17 @@ Cuando un moderador o un administrador bloquea a un usuario desde la web aparece
 
 #### Votaciones ![votaciones](imgs/icon_polls.png?raw=true "votaciones")
 
-Se puede crear una votación pulsando "Crear votación" y definiendo un nombre, fecha de apertura y de cierre. Adicionalmente se puede restringir la votación a unas zonas determinadas marcando "Restringir por zonas". Las zonas disponibles se definen en el menú [Gestionar distritos](#gestionar-distritos).
+Se puede crear una consulta pulsando "Crear consulta" y definiendo un nombre, fecha de apertura y de cierre. Adicionalmente se puede restringir la consulta a unas zonas determinadas marcando "Restringir por zonas". Las zonas disponibles se definen en el menú [Gestionar distritos](#gestionar-distritos).
 
-Los usuarios tienen que estar verificados para poder participar en la votación.
+Los usuarios tienen que estar verificados para poder participar en la consulta.
 
-Una vez que se ha creado la votación, se definen y se agregan sus componentes. Las votaciones tienen tres componentes: Preguntas ciudadanas, Presidentes de mesa y Ubicación de las urnas.
+Una vez que se ha creado la consulta, se definen y se agregan sus componentes. Las votaciones tienen tres componentes: Preguntas ciudadanas, Presidentes de mesa y Ubicación de las urnas.
 
 ##### Preguntas ciudadanas
 
-Se puede crear una pregunta ciudadana o buscar una existente. Al crear la pregunta se puede asignar a una votación determinada. También se puede modificar la asignación a una pregunta existente pulsando el ella y seleccionando "Editar".
+Se puede crear una pregunta ciudadana o buscar una existente. Al crear la pregunta se puede asignar a una consulta determinada. También se puede modificar la asignación a una pregunta existente pulsando el ella y seleccionando "Editar".
 
-Desde el apartado de Preguntas ciudadanas también se pueden asignar a una votación aquellas Propuestas ciudadanas que han superado el umbral de apoyos. Se pueden seleccionar desde la pestaña "Propuestas que han superado el umbral".
+Desde el apartado de Preguntas ciudadanas también se pueden asignar a una consulta aquellas Propuestas ciudadanas que han superado el umbral de apoyos. Se pueden seleccionar desde la pestaña "Propuestas que han superado el umbral".
 
 ##### Presidentes de mesa
 

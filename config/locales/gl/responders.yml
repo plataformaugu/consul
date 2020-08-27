@@ -5,7 +5,7 @@ gl:
         notice: "%{resource_name} creado correctamente."
         debate: "Debate creado correctamente."
         direct_message: "A mensaxe enviouse correctamente."
-        poll: "A votación creouse correctamente."
+        poll: "A consulta creouse correctamente."
         poll_booth: "A urna creouse correctamente."
         poll_question_answer: "A resposta creouse correctamente"
         poll_question_answer_video: "O vídeo creouse correctamente"
@@ -21,7 +21,7 @@ gl:
       update:
         notice: "%{resource_name} actualizado correctamente."
         debate: "Debate actualizado correctamente."
-        poll: "A votación actualizouse correctamente."
+        poll: "A consulta actualizouse correctamente."
         poll_booth: "A urna actualizouse correctamente."
         active_poll: "A descrición das votacións foi actualizada correctamente."
         proposal: "Proposta actualizada correctamente."

@@ -67,8 +67,8 @@ es:
         one: "presidente de mesa"
         other: "presidentes de mesa"
       poll/ballot_sheet:
-        one: Papeleta de votación
-        other: Papeletas de votación
+        one: Papeleta de consulta
+        other: Papeletas de consulta
       proposal:
         one: "Propuesta ciudadana"
         other: "Propuestas ciudadanas"
@@ -112,8 +112,8 @@ es:
         one: "Tema"
         other: "Temas"
       poll:
-        one: "Votación"
-        other: "Votaciones"
+        one: "Consulta"
+        other: "Consultas"
       proposal_notification:
         one: "Notificación de propuesta"
         other: "Notificaciones de propuestas"
@@ -138,7 +138,7 @@ es:
         description_reviewing: "Descripción durante la fase de revisión interna"
         description_selecting: "Descripción durante la fase de apoyos"
         description_valuating: "Descripción durante la fase de evaluación"
-        description_balloting: "Descripción durante la fase de votación"
+        description_balloting: "Descripción durante la fase de consulta"
         description_reviewing_ballots: "Descripción durante la fase de revisión de votos"
         description_finished: "Descripción cuando el presupuesto ha finalizado / Resultados"
         phase: "Fase"
@@ -285,7 +285,7 @@ es:
         summary: "Resumen"
         description: "Descripción"
       poll/question:
-        poll_id: "Votación"
+        poll_id: "Consulta"
         title: "Pregunta"
         summary: "Resumen"
         description: "Descripción"
@@ -294,7 +294,7 @@ es:
         title: "Pregunta"
       poll/ballot_sheet:
         data: Datos de CSV
-        poll_id: Votación
+        poll_id: Consulta
         officer_assignment_id: Turno
       poll/shift:
         task: "Tarea"

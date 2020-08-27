@@ -13,15 +13,15 @@ ast:
         not_verified: Les propuestes d'inversión namás puen ser sofitaes por usuarios verificaos, %{verify_account}.
         organization: Les organizaciones nun puen votar
         not_selected: Non puen votase propuestes invidables
-        no_ballots_allowed: El periodu de votación ta zarráu
+        no_ballots_allowed: El periodu de consulta ta zarráu
         change_ballot: camudar los tos votos
     groups:
       show:
         title: Escueye una opción
         unfeasible_title: Propuestes invidables
         unfeasible: Ver les propuestes invidables
-        unselected_title: Propuestes non escoyíes pa la votación final
-        unselected: Ver les propuestes ensin escoyer pa la votación final
+        unselected_title: Propuestes non escoyíes pa la consulta final
+        unselected: Ver les propuestes ensin escoyer pa la consulta final
     phase:
       informing: Información
       accepting: Presentación de proyeutos
@@ -95,8 +95,8 @@ ast:
       phase: Fase actual
       unfeasible_title: Propuestes invidables
       unfeasible: Ver les propuestes invidables
-      unselected_title: Propuestes non escoyíes pa la votación final
-      unselected: Ver les propuestes ensin escoyer pa la votación final
+      unselected_title: Propuestes non escoyíes pa la consulta final
+      unselected: Ver les propuestes ensin escoyer pa la consulta final
       see_results: Ver resultancies
     results:
       link: Resultancies

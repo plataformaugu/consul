@@ -13,8 +13,8 @@ gl:
     polls:
       final:
         title: Listaxe de votacións rematadas
-        no_polls: Non tes permiso para o reconto final en ningunha votación recente
-        select_poll: Escolle votación
+        no_polls: Non tes permiso para o reconto final en ningunha consulta recente
+        select_poll: Escolle consulta
         add_results: Engadir resultados
     results:
       flash:
@@ -54,13 +54,13 @@ gl:
     voters:
       new:
         title: Votacións
-        table_poll: Votación
+        table_poll: Consulta
         table_status: Estado das votacións
         table_actions: Accións
         not_to_vote: A persoa decidiu non votar neste intre
       show:
         can_vote: Pode votar
-        error_already_voted: Xa participou nesta votación
+        error_already_voted: Xa participou nesta consulta
         submit: Confirmar o voto
         success: "Voto introducido!"
       can_vote:

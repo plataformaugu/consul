@@ -111,7 +111,7 @@ gl:
         one: "Tema"
         other: "Temas"
       poll:
-        one: "Votación"
+        one: "Consulta"
         other: "Votacións"
       proposal_notification:
         one: "Notificación de proposta"
@@ -135,7 +135,7 @@ gl:
         description_reviewing: "Descrición durante a fase de Revisión"
         description_selecting: "Descrición durante a fase de Selección"
         description_valuating: "Descrición durante a fase de Avaliación"
-        description_balloting: "Descrición durante a fase de Votación"
+        description_balloting: "Descrición durante a fase de Consulta"
         description_reviewing_ballots: "Descrición durante a fase de Revisión de votos"
         description_finished: "Descrición cando o orzamento está rematado"
         phase: "Fase"
@@ -234,7 +234,7 @@ gl:
         title: "Pregunta"
       poll/ballot_sheet:
         data: Datos CSV
-        poll_id: Votación
+        poll_id: Consulta
       signature_sheet:
         signable_type: "Tipo de sinaturas"
         signable_id: "ID de proposta cidadá/proposta de investimento"

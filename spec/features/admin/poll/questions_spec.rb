@@ -168,7 +168,7 @@ describe "Admin poll questions" do
       select("Español", from: "locale-switcher")
 
       expect(page).to have_select("poll_question_poll_id",
-                                  options: ["Seleccionar votación", poll.name_es])
+                                  options: ["Seleccionar consulta", poll.name_es])
     end
 
     scenario "uses fallback if name is not translated to current locale", :js do

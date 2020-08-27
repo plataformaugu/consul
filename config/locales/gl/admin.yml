@@ -196,7 +196,7 @@ gl:
           visible_to_valuators: Amosar aos avaliadores
           author_username: Nome de usuario do autor
           incompatible: Incompatible
-        cannot_calculate_winners: O orzamento debe manterse na fase «Proxecto en votación», «Revisión de votacións» ou «Orzamento rematado» para poder calcular os proxectos gañadores
+        cannot_calculate_winners: O orzamento debe manterse na fase «Proxecto en consulta», «Revisión de votacións» ou «Orzamento rematado» para poder calcular os proxectos gañadores
         see_results: "Ver resultados"
       show:
         assigned_admin: Administrador asignado
@@ -557,7 +557,7 @@ gl:
       title_profiles: Perfís
       title_settings: Preferencias
       title_site_customization: Contido do sitio
-      title_booths: Urnas de votación
+      title_booths: Urnas de consulta
       legislation: Lexislación colaborativa
       users: Usuarios/as
     administrators:
@@ -753,14 +753,14 @@ gl:
     poll_officer_assignments:
       index:
         officers_title: "Listaxe de presidentes/as asignados/as"
-        no_officers: "Non hai ningún presidente de mesa asignado a esta votación."
+        no_officers: "Non hai ningún presidente de mesa asignado a esta consulta."
         table_name: "Nome"
         table_email: "O teu correo electrónico"
       by_officer:
         date: "Día"
         booth: "Urna"
-        assignments: "Quendas como presidencia de mesa nesta votación"
-        no_assignments: "Non ten quendas como presidencia de mesa nesta votación."
+        assignments: "Quendas como presidencia de mesa nesta consulta"
+        no_assignments: "Non ten quendas como presidencia de mesa nesta consulta."
     poll_shifts:
       new:
         add_shift: "Engadir quenda"
@@ -776,7 +776,7 @@ gl:
         search_officer_placeholder: Buscar presidente de mesa
         search_officer_text: Busca a presidencia de mesa para asignar unha quenda
         select_date: "Escolle o día"
-        no_voting_days: "Días de votación rematados"
+        no_voting_days: "Días de consulta rematados"
         select_task: "Escolle tarefa"
         table_shift: "a quenda"
         table_email: "O teu correo electrónico"
@@ -816,7 +816,7 @@ gl:
         total_system: Votos totais acumulados (automático)
       index:
         booths_title: "Listaxe de urnas"
-        no_booths: "Non hai urnas asignadas a esta votación."
+        no_booths: "Non hai urnas asignadas a esta consulta."
         table_name: "Nome"
         table_location: "Localización"
     active_polls:
@@ -828,45 +828,45 @@ gl:
     polls:
       index:
         title: "Relación de votacións"
-        no_polls: "Non hai ningunha votación proximamente."
-        create: "Crear votación"
+        no_polls: "Non hai ningunha consulta proximamente."
+        create: "Crear consulta"
         name: "Nome"
         dates: "Datas"
         start_date: "Data de apertura"
         closing_date: "Data de peche"
         geozone_restricted: "Restrinxida aos distritos"
       new:
-        title: "Nova votación"
-        submit_button: "Crear votación"
+        title: "Nova consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Preguntas
         booths_tab: Urnas
         officers_tab: Presidentes de mesa
         recounts_tab: Recontos
         results_tab: Resultados
-        no_questions: "Non hai preguntas asignadas a esta votación."
+        no_questions: "Non hai preguntas asignadas a esta consulta."
         questions_title: "Listaxe de preguntas"
         table_title: "Título"
       flash:
-        question_added: "Pregunta engadida a esta votación"
+        question_added: "Pregunta engadida a esta consulta"
         error_on_question_added: "Non se puido asignar a pregunta"
     questions:
       index:
         title: "Preguntas"
         create: "Crear pregunta"
         no_questions: "Non hai preguntas cidadás."
-        filter_poll: Filtrar por votación
-        select_poll: Escoller votación
+        filter_poll: Filtrar por consulta
+        select_poll: Escoller consulta
         questions_tab: "Preguntas"
         successful_proposals_tab: "Propostas que superaron o límite"
         create_question: "Crear pregunta"
         table_proposal: "a proposta"
         table_question: "Pregunta"
-        table_poll: "Votación"
-        poll_not_assigned: "Votación sen asignar"
+        table_poll: "Consulta"
+        poll_not_assigned: "Consulta sen asignar"
       edit:
         title: "Editar pregunta cidadá"
       new:
@@ -940,7 +940,7 @@ gl:
     booths:
       index:
         title: "Lista de urnas activas"
-        no_booths: "Non hai urnas activas para ningunha votación próxima."
+        no_booths: "Non hai urnas activas para ningunha consulta próxima."
         add_booth: "Engadir urna"
         name: "Nome"
         location: "Localización"
@@ -1171,9 +1171,9 @@ gl:
         all: Votacións
         web_participants: Participantes web
         total_participants: Participantes totais
-        poll_questions: "Preguntas por votación: %{poll}"
+        poll_questions: "Preguntas por consulta: %{poll}"
         table:
-          poll_name: Votación
+          poll_name: Consulta
           question_name: Pregunta
           origin_web: Participantes na web
           origin_total: Participantes totais

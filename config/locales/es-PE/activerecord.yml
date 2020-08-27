@@ -83,8 +83,8 @@ es-PE:
         one: "Tema"
         other: "Temas"
       poll:
-        one: "Votación"
-        other: "Votaciones"
+        one: "Consulta"
+        other: "Consultas"
     attributes:
       budget:
         name: "Nombre"
@@ -92,7 +92,7 @@ es-PE:
         description_reviewing: "Descripción durante la fase de revisión interna"
         description_selecting: "Descripción durante la fase de apoyos"
         description_valuating: "Descripción durante la fase de evaluación"
-        description_balloting: "Descripción durante la fase de votación"
+        description_balloting: "Descripción durante la fase de consulta"
         description_reviewing_ballots: "Descripción durante la fase de revisión de votos"
         description_finished: "Descripción cuando el presupuesto ha finalizado / Resultados"
         phase: "Fase"
