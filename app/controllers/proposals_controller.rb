@@ -90,7 +90,7 @@ class ProposalsController < ApplicationController
 
   def summary
     @proposals = Proposal.for_summary
-    @tag_cloud = tag_cloud
+    @tag_cloud = 'tag_cloud'
   end
 
   def disable_recommendations

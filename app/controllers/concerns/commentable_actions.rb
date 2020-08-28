@@ -87,7 +87,7 @@ module CommentableActions
     end
 
     def tag_cloud
-      TagCloud.new(resource_model, params[:search])
+      Tag.where("#{resource_model.to_s.downcase.pluralize}_count > 0").order("#{resource_model.to_s.downcase.pluralize}_count DESC").limit(10)
     end
 
     def load_geozones

@@ -3,7 +3,7 @@
   <h2 class="sidebar-title"><%= t("shared.tags_cloud.tags") %></h2>
   <br>
   <ul class="no-bullet tag-cloud">
-    <% Tag.where('debates_count > 0').order('debates_count DESC').limit(10).each do |tag| %>
+    <% @tag_cloud.each do |tag| %>
       <li class="inline-block">
         <%= link_to taggables_path(taggable, tag.name) do %>
           <span class="tag"><%= tag.name %></span>

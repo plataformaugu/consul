@@ -339,6 +339,16 @@ footer {
   }
 }
 
+.proposal-img {
+  height: 100%;
+  object-fit: cover;
+
+  @media (max-width: 640px) {
+    width: 100%;
+    max-height: 200px;
+  }
+}
+
 // Header
 
   header > .row {
@@ -714,10 +724,9 @@ header {
 // Votaciones
 
 .image-container {
-  height: 166px !important;
-  object-fit: cover;
 
   & > img {
     width: 100% !important;
+    object-fit: cover;
   }
 }
