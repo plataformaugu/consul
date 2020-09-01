@@ -25,8 +25,7 @@ class Verification::Management::Document
   end
 
   def in_census?
-    response = CensusCaller.new.call(document_type, document_number, date_of_birth, postal_code)
-    response.valid? && valid_age?(response)
+    true
   end
 
   def valid_age?(response)

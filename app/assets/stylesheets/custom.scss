@@ -745,17 +745,21 @@ header {
   background: #EEEEEE !important;
 
   & p, h2, h1, a {
-    color: #0a0a0a !important;
+    color: #0a0a0a;
   }
 
-  &.info {
-    color: white;
+  & .info {
+    color: white !important;
 
-    & p, h2, a {
+    & p, h2, h1, a {
       color: white !important;
     }
 
-    &.callout.primary a {
+    & .callout.primary a {
+      color: #F76804 !important;
+    }
+
+    & a.button.margin-top.expanded {
       color: #F76804 !important;
     }
   }
