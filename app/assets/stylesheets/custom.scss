@@ -748,3 +748,17 @@ header {
     color: #0a0a0a !important;
   }
 }
+
+// Scroll fix margen top
+
+:target::before {
+  content: "";
+  display: block;
+  height: 120px;
+  margin: -120px 0 0;
+
+  @media (max-width: 640px) {
+    height: 56px;
+    margin: -56px 0 0;
+  }
+}
