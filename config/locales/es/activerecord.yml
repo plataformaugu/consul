@@ -13,8 +13,8 @@ es:
         one: "Presupuesto participativo"
         other: "Presupuestos participativos"
       budget/investment:
-        one: "Proyecto de gasto"
-        other: "Proyectos de gasto"
+        one: "Proyecto"
+        other: "Proyectos"
       milestone:
         one: "hito"
         other: "hitos"
@@ -153,7 +153,7 @@ es:
         administrator_id: "Administrador"
         location: "Información adicional de la ubicación"
         organization_name: "Si estás proponiendo en nombre de una organización o colectivo, o en nombre de más gente, escribe su nombre"
-        image: "Imagen descriptiva del proyecto de gasto"
+        image: "Imagen descriptiva del proyecto"
         image_title: "Título de la imagen"
         duration: "Plazo de ejecución <small>(opcional, dato no público)</small>"
         feasibility_feasible: "Viable"
@@ -203,7 +203,7 @@ es:
         latitude: "Latitud (opcional)"
         longitude: "Longitud (opcional)"
         name: "Nombre de la partida"
-        price: "Cantidad"
+        price: "Monto"
         population: "Población (opcional)"
       budget/heading/translation:
         name: "Nombre de la partida"
@@ -303,7 +303,7 @@ es:
         title: "Título"
       signature_sheet:
         signable_type: "Tipo de hoja de firmas"
-        signable_id: "ID Propuesta ciudadana/Proyecto de gasto"
+        signable_id: "ID Propuesta ciudadana/Proyecto"
         document_numbers: "Números de documentos"
       site_customization/page:
         content: Contenido

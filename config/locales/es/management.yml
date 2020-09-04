@@ -60,9 +60,9 @@ es:
       create_proposal: Crear propuesta
       print_proposals: Imprimir propuestas
       support_proposals: Apoyar propuestas
-      create_budget_investment: Crear proyectos de gasto
-      print_budget_investments: Imprimir proyectos de gasto
-      support_budget_investments: Apoyar proyectos de gasto
+      create_budget_investment: Crear proyectos
+      print_budget_investments: Imprimir proyectos
+      support_budget_investments: Apoyar proyectos
       users: Gestión de usuarios
       user_invites: Enviar invitaciones
       select_user: Seleccionar usuario
@@ -85,9 +85,9 @@ es:
       index:
         title: Apoyar propuestas
     budgets:
-      create_new_investment: Crear proyectos de gasto
-      print_investments: Imprimir proyectos de gasto
-      support_investments: Apoyar proyectos de gasto
+      create_new_investment: Crear proyectos
+      print_investments: Imprimir proyectos
+      support_investments: Apoyar proyectos
       table_name: Nombre
       table_phase: Fase
       table_actions: Acciones
@@ -96,7 +96,7 @@ es:
       alert:
         unverified_user: Usuario no verificado
       create: Crear nuevo proyecto
-      edit: Editar proyecto de gasto
+      edit: Editar proyecto
       filters:
         heading: Concepto
         unfeasible: Proyectos no factibles

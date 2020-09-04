@@ -555,14 +555,14 @@ header {
 }
 
 .btn-perfil {
-  border-radius: 25px;
+  border-radius: 20px 20px 20px 20px;
   background: #fff !important;
   color: #252525 !important;
   padding: 8px 30px 8px 8px !important;
+  transition-duration: 0.2s;
 
   &:hover {
     background: #ffffffCC !important;
-    transition: background 0.2s linear;
     text-decoration: none;
   }
 
@@ -603,7 +603,6 @@ header {
 
     .btn-perfil {
       border-radius: 20px 20px 0 0;
-      transition: border-radius 0.1s ease-in-out;
     }
   }
 
@@ -611,6 +610,7 @@ header {
 }
 
 .perfil-dropdown-content {
+  border-radius: 5px 0px 5px 5px;
   width: 100%;
   right: rem-calc(0);
   display: none;
@@ -761,6 +761,21 @@ header {
 
     & a.button.margin-top.expanded {
       color: #F76804 !important;
+    }
+  }
+}
+
+#budget-investments-main {
+  & .button.budget.expanded {
+    background: #f76804 !important;
+  }
+
+  & .jumbo-budget {
+    background: #EEEEEE;
+    border-bottom: none;
+
+    & h2, a, h3, span {
+      color: #0a0a0a !important;
     }
   }
 }
