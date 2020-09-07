@@ -777,6 +777,11 @@ header {
   }
 }
 
+  // Proyectos
+  .jumbo-budget.budget-heading {
+    min-height: 0 !important;
+  }
+
 // Scroll fix margen top
 
 :target::before {

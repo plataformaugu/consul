@@ -50,6 +50,7 @@ module Abilities
       can :create, Legislation::Proposal
 
       can :hide, Proposal, author_id: user.id
+      can :hide, Debate, author_id: user.id
 
       can :suggest, Debate
       can :suggest, Proposal
