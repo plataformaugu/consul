@@ -1,5 +1,3 @@
-<%= current_budget.phase %>
-
 <% if show_author_actions?(investment) %>
   <div class="sidebar-divider"></div>
   <h2><%= t("budgets.investments.show.author") %></h2>
@@ -8,7 +6,7 @@
       <%= link_to t("shared.edit"),
                   edit_budget_investment_path(investment.budget, investment),
                   method: :get, class: "button hollow expanded" %>
-    <!-- <% else %>
+    <!--<% else %>
         <%= link_to image_path(investment.image),
                     method: :delete,
                     class: "button hollow alert expanded" do %>
