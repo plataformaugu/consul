@@ -1,4 +1,4 @@
-<%= investment.budget.phase %>
+<%= Budget::Investment.find(investment.id).budget.phase %>
 
 <% if show_author_actions?(investment) %>
   <div class="sidebar-divider"></div>
