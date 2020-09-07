@@ -51,7 +51,7 @@ module BudgetInvestmentsHelper
   end
 
   def show_author_actions?(investment)
-    if investment.budget.phase == 'accepting' && investment.author_id == current_user.id
+    if investment.budget.phase == 'accepting'
       can?(:edit, investment)
     else
       false
