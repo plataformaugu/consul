@@ -51,6 +51,10 @@ module BudgetInvestmentsHelper
   end
 
   def show_author_actions?(investment)
-    can?(:edit, investment)
+    if current_budget.phase == 'accepting'
+      can?(:edit, investment)
+    else
+      false
+    end
   end
 end
