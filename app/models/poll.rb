@@ -2,7 +2,6 @@ class Poll < ApplicationRecord
   require_dependency "poll/answer"
 
   include Imageable
-  acts_as_paranoid column: :hidden_at
   include ActsAsParanoidAliases
   include Notifiable
   include Sluggable
@@ -23,7 +22,7 @@ class Poll < ApplicationRecord
   has_many :voters
   has_many :officer_assignments, through: :booth_assignments
   has_many :officers, through: :officer_assignments
-  has_many :questions, inverse_of: :poll, dependent: :destroy
+  has_many :questions, inverse_of: :poll, dependent: :delete_all
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :ballot_sheets
 

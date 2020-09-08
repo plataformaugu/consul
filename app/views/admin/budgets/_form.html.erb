@@ -109,6 +109,7 @@
           <%= link_to t("admin.budgets.edit.delete"),
               admin_budget_path(@budget),
               method: :delete,
+              data: { confirm: '¿Estás seguro? Esto eliminará todos los proyectos y votaciones que contenga el Presupuesto Participativo.' },
               class: "delete float-right margin-left" %>
         <% end %>
       </div>
