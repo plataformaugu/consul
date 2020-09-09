@@ -32,7 +32,7 @@ de:
       environment: Umwelt
     budgets:
       budget: Bürgerhaushalt
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Alle Städte
         districts: Bezirke

@@ -32,7 +32,7 @@ id:
       environment: Lingkungan Hidup
     budgets:
       budget: Anggaran Partisipatif
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Seluruh kota
         districts: Kabupaten

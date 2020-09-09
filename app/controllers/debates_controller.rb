@@ -35,6 +35,13 @@ class DebatesController < ApplicationController
     set_debate_votes(@debate)
   end
 
+  def hide
+    if !@debate.hidden_at
+      @debate.update_column(:hidden_at, DateTime.now.to_s(:db))
+      redirect_to debates_path
+    end
+  end
+
   def unmark_featured
     @debate.update!(featured_at: nil)
     redirect_to debates_path

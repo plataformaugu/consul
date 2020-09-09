@@ -286,10 +286,10 @@ describe Budget do
 
   describe "#formatted_amount" do
     it "correctly formats Euros with Spanish" do
-      budget.update!(currency_symbol: "€")
+      budget.update!(currency_symbol: "$")
       I18n.locale = :es
 
-      expect(budget.formatted_amount(1000.00)).to eq "1.000 €"
+      expect(budget.formatted_amount(1000.00)).to eq "1.000 $"
     end
 
     it "correctly formats Dollars with Spanish" do
@@ -307,10 +307,10 @@ describe Budget do
     end
 
     it "correctly formats Euros with English" do
-      budget.update!(currency_symbol: "€")
+      budget.update!(currency_symbol: "$")
       I18n.locale = :en
 
-      expect(budget.formatted_amount(1000.00)).to eq "€1,000"
+      expect(budget.formatted_amount(1000.00)).to eq "$1,000"
     end
   end
 

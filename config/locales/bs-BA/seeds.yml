@@ -32,7 +32,7 @@ bs:
       environment: Okoliš
     budgets:
       budget: Participativni budžet
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Cijelo mjesto
         districts: Okruzi

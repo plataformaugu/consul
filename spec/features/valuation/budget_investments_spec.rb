@@ -353,7 +353,7 @@ describe "Valuation budget investments" do
     end
 
     scenario "Feasibility selection makes proper fields visible", :js do
-      feasible_fields = ["Price (€)", "Cost during the first year (€)", "Price explanation",
+      feasible_fields = ["Price ($)", "Cost during the first year ($)", "Price explanation",
                          "Time scope"]
       unfeasible_fields = ["Feasibility explanation"]
       any_feasibility_fields = ["Valuation finished"]
@@ -458,7 +458,7 @@ describe "Valuation budget investments" do
         expect(page).to have_content("Valuation finished")
         expect(page).to have_content("Feasibility: Feasible")
         expect(page).to have_content("Feasibility explanation: Explanation is explanatory")
-        expect(page).to have_content("Price (€): 999")
+        expect(page).to have_content("Price ($): 999")
         expect(page).to have_content("Cost during the first year: 666")
         expect(page).to have_content("Price explanation: Democracy is not cheap")
         expect(page).to have_content("Time scope: 1 light year")

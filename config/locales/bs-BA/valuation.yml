@@ -43,7 +43,7 @@ bs:
         edit_dossier: Izmjeni spis
         price: Cijena
         price_first_year: Troškovi u prvoj godini
-        currency: "€"
+        currency: "$"
         feasibility: Izvodivost
         feasible: Izvodivo
         unfeasible: Nije izvodivo

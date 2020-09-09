@@ -32,7 +32,7 @@ nl:
       environment: Omgeving
     budgets:
       budget: Burgerbegroting
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Hele gemeente
         districts: Regio's

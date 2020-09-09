@@ -1515,16 +1515,16 @@ describe "Budget Investments" do
 
       first(:link, "Participatory budgeting").click
 
-      click_link "More hospitals €666,666"
+      click_link "More hospitals $666,666"
 
       within("#budget_investment_#{investment1.id}") do
         expect(page).to have_content investment1.title
-        expect(page).to have_content "€10,000"
+        expect(page).to have_content "$10,000"
       end
 
       within("#budget_investment_#{investment2.id}") do
         expect(page).to have_content investment2.title
-        expect(page).to have_content "€20,000"
+        expect(page).to have_content "$20,000"
       end
     end
 
@@ -1558,7 +1558,7 @@ describe "Budget Investments" do
 
       click_link investment.title
 
-      expect(page).to have_content "€10,000"
+      expect(page).to have_content "$10,000"
     end
 
     scenario "Sidebar in show should display vote text" do
@@ -1614,24 +1614,24 @@ describe "Budget Investments" do
 
       within("#budget_group_#{global_group.id}") do
         expect(page).to have_content "World T-Shirt"
-        expect(page).to have_content "€1"
+        expect(page).to have_content "$1"
 
         expect(page).to have_content "Eco pens"
-        expect(page).to have_content "€10"
+        expect(page).to have_content "$10"
 
         expect(page).not_to have_content "Free tablet"
-        expect(page).not_to have_content "€100"
+        expect(page).not_to have_content "$100"
       end
 
       within("#budget_group_#{group.id}") do
         expect(page).to have_content "Fireworks"
-        expect(page).to have_content "€1,000"
+        expect(page).to have_content "$1,000"
 
         expect(page).to have_content "Bus pass"
-        expect(page).to have_content "€10,000"
+        expect(page).to have_content "$10,000"
 
         expect(page).not_to have_content "NASA base"
-        expect(page).not_to have_content "€100,000"
+        expect(page).not_to have_content "$100,000"
       end
     end
 

@@ -155,7 +155,7 @@ class Budget < ApplicationRecord
   def formatted_amount(amount)
     ActionController::Base.helpers.number_to_currency(amount,
                                                       precision: 0,
-                                                      locale: I18n.locale,
+                                                      locale: 'es-CL',
                                                       unit: currency_symbol)
   end
 

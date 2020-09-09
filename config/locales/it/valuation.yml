@@ -42,7 +42,7 @@ it:
         edit_dossier: Modificare il dossier
         price: Costi
         price_first_year: Costo del primo anno
-        currency: "€"
+        currency: "$"
         feasibility: Fattibilità
         feasible: Fattibile
         unfeasible: Irrealizzabile

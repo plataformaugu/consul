@@ -43,7 +43,7 @@ hr:
         edit_dossier: Uredi dojse
         price: Cijena
         price_first_year: Troškovi tokom prve godine
-        currency: "€"
+        currency: "$"
         feasibility: Izvodljivost
         feasible: Izvodljivo
         unfeasible: Neizvodljivo

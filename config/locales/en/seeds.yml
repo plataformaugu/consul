@@ -32,7 +32,7 @@ en:
       environment: Environment
     budgets:
       budget: Participatory Budget
-      currency: €
+      currency: $
       groups:
         all_city: All City
         districts: Districts

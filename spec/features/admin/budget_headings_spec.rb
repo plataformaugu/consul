@@ -87,7 +87,7 @@ describe "Admin budget headings" do
 
       within "#budget_heading_#{heading1.id}" do
         expect(page).to have_content(heading1.name)
-        expect(page).to have_content "€1,000"
+        expect(page).to have_content "$1,000"
         expect(page).not_to have_content "10000"
         expect(page).to have_content "Yes"
         expect(page).to have_link "Edit"
@@ -96,7 +96,7 @@ describe "Admin budget headings" do
 
       within "#budget_heading_#{heading2.id}" do
         expect(page).to have_content(heading2.name)
-        expect(page).to have_content "€2,000"
+        expect(page).to have_content "$2,000"
         expect(page).to have_content "10000"
         expect(page).to have_content "No"
         expect(page).to have_link "Edit"
@@ -105,7 +105,7 @@ describe "Admin budget headings" do
 
       within "#budget_heading_#{heading3.id}" do
         expect(page).to have_content(heading3.name)
-        expect(page).to have_content "€3,000"
+        expect(page).to have_content "$3,000"
         expect(page).to have_content "10000"
         expect(page).to have_content "No"
         expect(page).to have_link "Edit"
@@ -149,7 +149,7 @@ describe "Admin budget headings" do
 
       expect(page).to have_content "Heading created successfully!"
       expect(page).to have_link "All City"
-      expect(page).to have_content "€1,000"
+      expect(page).to have_content "$1,000"
       expect(page).to have_content "10000"
       expect(page).to have_content "Yes"
     end

@@ -43,7 +43,7 @@ es:
         edit_dossier: Editar informe
         price: Coste
         price_first_year: Coste en el primer año
-        currency: "€"
+        currency: "$"
         feasibility: Viabilidad
         feasible: Viable
         unfeasible: Inviable

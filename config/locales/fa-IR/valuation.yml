@@ -42,7 +42,7 @@ fa:
         edit_dossier: ویرایش پرونده
         price: قیمت
         price_first_year: هزینه در طول سال اول
-        currency: "€"
+        currency: "$"
         feasibility: "امکان پذیری\n"
         feasible: امکان پذیر
         unfeasible: غیر قابل پیش بینی

@@ -43,7 +43,7 @@ tr:
         edit_dossier: Dosya düzenleme
         price: Maliyet
         price_first_year: İlk yıl maliyet bedeli
-        currency: "€"
+        currency: "$"
         feasibility: Uygulanabilirlik
         feasible: Uygulanabilir
         unfeasible: Uygulanamaz

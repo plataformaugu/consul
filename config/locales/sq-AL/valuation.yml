@@ -42,7 +42,7 @@ sq:
         edit_dossier: Ndrysho dosjen
         price: Çmim
         price_first_year: Kostoja gjatë vitit të parë
-        currency: "€"
+        currency: "$"
         feasibility: Fizibiliteti
         feasible: I mundshëm
         unfeasible: Parealizueshme

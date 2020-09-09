@@ -27,6 +27,7 @@ module Abilities
       can :restore, User
       cannot :restore, User, hidden_at: nil
 
+      can :hide, Debate, author_id: user.id
       can :confirm_hide, Comment
       cannot :confirm_hide, Comment, hidden_at: nil
 

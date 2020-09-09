@@ -8,8 +8,9 @@
         <%= header.description %>
       </p>
       <div class="small-12 medium-6 large-4 column small-centered btn">
-        <%= link_to t("devise_views.menu.login_items.signup"),
-        new_user_registration_path, rel: "nofollow", class: "button expanded large" %>
+        <%= link_to header.link_text, 
+            header.link_url.starts_with?('http') ? header.link_url : "http://#{header.link_url}", 
+            class: "button expanded large" %>
       </div>
     </div>
   </div>

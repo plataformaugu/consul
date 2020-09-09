@@ -42,7 +42,7 @@ id:
         edit_dossier: Mengedit berkas
         price: Harga
         price_first_year: Biaya selama tahun pertama
-        currency: "€"
+        currency: "$"
         feasibility: Kelayakan
         feasible: Layak
         unfeasible: Tidak layak

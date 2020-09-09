@@ -1724,7 +1724,7 @@ describe "Admin budget investments" do
       csv_contents = "ID,Title,Supports,Administrator,Valuator,Valuation Group,Scope of operation,"\
                      "Feasibility,Val. Fin.,Selected,Show to valuators,Author username\n"\
                      "#{first_investment.id},Le Investment,88,Admin,-,Valuator Group,"\
-                     "Budget Heading,Feasible (€99),Yes,Yes,Yes,"\
+                     "Budget Heading,Feasible ($99),Yes,Yes,Yes,"\
                      "#{first_investment.author.username}\n#{second_investment.id},"\
                      "Alt Investment,66,No admin assigned,Valuator,-,Other Heading,"\
                      "Unfeasible,No,No,No,#{second_investment.author.username}\n"

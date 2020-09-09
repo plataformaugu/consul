@@ -116,8 +116,8 @@ describe "Budgets" do
       visit budgets_path
 
       within("#budget_info") do
-        expect(page).not_to have_link "#{heading.name} €1,000,000"
-        expect(page).to have_content "#{heading.name} €1,000,000"
+        expect(page).not_to have_link "#{heading.name} $1,000,000"
+        expect(page).to have_content "#{heading.name} $1,000,000"
 
         expect(page).not_to have_link("List of all investment projects")
         expect(page).not_to have_link("List of all unfeasible investment projects")
@@ -134,8 +134,8 @@ describe "Budgets" do
       visit budgets_path
 
       within("#budget_info") do
-        expect(page).not_to have_link "#{heading.name} €1,000,000"
-        expect(page).to have_content "#{heading.name} €1,000,000"
+        expect(page).not_to have_link "#{heading.name} $1,000,000"
+        expect(page).to have_content "#{heading.name} $1,000,000"
 
         expect(page).to have_link "List of all investment projects",
                                    href: budget_path(budget)

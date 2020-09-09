@@ -43,7 +43,7 @@ el:
         edit_dossier: Επεξεργασία φακέλου
         price: Τιμή
         price_first_year: Κόστος κατά το πρώτο έτος
-        currency: "€"
+        currency: "$"
         feasibility: Κατά πόσο είναι εφικτό
         feasible: Εφικτό
         unfeasible: Δεν είναι εφικτό

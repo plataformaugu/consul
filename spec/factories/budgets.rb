@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :budget do
     sequence(:name) { |n| "#{Faker::Lorem.word} #{n}" }
-    currency_symbol { "€" }
+    currency_symbol { "$" }
     phase { "accepting" }
     description_drafting  { "This budget is drafting" }
     description_informing { "This budget is informing" }

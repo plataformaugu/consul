@@ -5,6 +5,7 @@ resources :debates do
     put :unflag
     put :mark_featured
     put :unmark_featured
+    put :hide
   end
 
   collection do

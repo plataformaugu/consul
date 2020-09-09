@@ -43,7 +43,7 @@ ar:
         edit_dossier: تعديل الملف
         price: السعر
         price_first_year: التكلفة خلال السنة الأولى
-        currency: "€"
+        currency: "$"
         feasibility: الجدوى
         feasible: مجدي
         unfeasible: غير مجدي
