@@ -190,6 +190,12 @@ footer {
   background: #F76804;
 }
 
+.is-association {
+  background: #F76804;
+  color: #fff;
+  border-radius: 10px;
+}
+
 .callout.primary {
   background-color: #FFF;
   border-color: #F76804;
@@ -741,6 +747,10 @@ header {
 .expanded.budget {
   background: #EEEEEE !important;
 
+  .back, .icon-angle-left {
+    color: #0a0a0a !important;
+  }
+
   & p, h2, h1, a {
     color: #0a0a0a;
   }
@@ -780,6 +790,54 @@ header {
   // Proyectos
   .jumbo-budget.budget-heading {
     min-height: 0 !important;
+  }
+
+  .progress-bar-nav {
+    position: relative;
+    z-index: 3;
+  
+    @include breakpoint(medium) {
+      background-color: #EEEEEE !important;
+      transition: height 0.3s;
+  
+      h2 {
+        margin-bottom: $line-height / 2;
+        transition: font-size 0.3s;
+      }
+
+      .progress-votes {
+        position: relative;
+      
+        .progress {
+          background: #212033;
+          clear: both;
+        }
+      
+        .progress-meter {
+          background: #f76804 !important;
+          border-radius: 0;
+          transition: width 2s;
+        }
+      }
+
+      .progress-meter-text.spent-amount-text {
+        color: #0a0a0a !important;
+      }
+  
+      &.is-fixed {
+        height: auto;
+        left: 0;
+        padding: $line-height;
+        position: fixed;
+        top: 120px;
+        width: 100%;
+  
+        h2 {
+          font-size: rem-calc(24);
+          transition: font-size 0.3s;
+        }
+      }
+    }
   }
 
 // Scroll fix margen top
