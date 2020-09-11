@@ -5,10 +5,15 @@
   </div>
 
   <% @debates.each do |debate| %>
-    <% if User.find(debate.author_id).organization? %>
+    <% if User.find(debate.author_id).organization? || debate.featured? %>
       <div class="small-12 medium-6 column end">
         <h3><%= link_to debate.title, debate %></h3>
         <%= link_to debate.author.name, user_path(debate.author) %>
+        <% if User.find(debate.author_id).organization? %>
+          <span class="label round is-association">
+            <%= t("shared.collective") %>
+          </span>
+        <% end %>
       </div>
     <% end %>
   <% end %>
