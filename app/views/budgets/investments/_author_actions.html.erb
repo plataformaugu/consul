@@ -1,4 +1,4 @@
-<% if can?(:edit, investment) %>
+<% if can?(:edit, investment) && @budget.accepting? %>
   <div class="sidebar-divider"></div>
   <h2><%= t("budgets.investments.show.author") %></h2>
   <div class="show-actions-menu">
