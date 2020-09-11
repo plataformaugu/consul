@@ -50,7 +50,7 @@
         <%= render "shared/banner" %>
       <% end %>
 
-      <% if Debate.joins('INNER JOIN organizations ON debates.author_id = organizations.user_id').exists? %>
+      <% if Debate.joins('INNER JOIN organizations ON debates.author_id = organizations.user_id').exists? || Debate.all.where.not(featured_at: nil).exists? %>
         <%= render "featured_debates" %>
       <% end %>
 
