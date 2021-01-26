@@ -6,7 +6,7 @@ es-PE:
       description: Página de información sobre las condiciones de uso, privacidad y protección de información personal.
     help:
       title: "%{org} es una plataforma para la participación ciudadana"
-      guide: "Esta guía explica para qué sirven y cómo funcionan cada una de las secciones de %{org}."
+      guide: "Esta guía explica para qué sirven y cómo funcionan cada una de las secciones de nuestra plataforma participativa."
       menu:
         debates: "Discusiones"
         proposals: "Propuestas"
@@ -155,7 +155,7 @@ es-PE:
       compatibility:
         title: Compatibilidad con estándares y diseño visual
     titles:
-      help: "¿Qué es %{org}? - Participación ciudadana"
+      help: "Ayuda - Participación ciudadana"
     verify:
       info: "Para verificar tu cuenta introduce los datos con los que te registraste:"
       info_code: "Ahora introduce el código que has recibido en tu carta:"

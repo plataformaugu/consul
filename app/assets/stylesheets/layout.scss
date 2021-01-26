@@ -2917,14 +2917,6 @@ table {
     min-height: $line-height * 4;
   }
 
-  @include breakpoint(medium) {
-    max-height: rem-calc(185);
-  }
-
-  @include breakpoint(large) {
-    min-height: rem-calc(185);
-  }
-
   a {
 
     h3,
