@@ -1289,12 +1289,12 @@
   position: relative;
 
   .progress {
-    background: #252525;
+    background: #00375f;
     clear: both;
   }
 
   .progress-meter {
-    background: #f76804;
+    background: #6aaac3;
     border-radius: 0;
     transition: width 2s;
   }
@@ -1315,7 +1315,7 @@
     width: 100%;
 
     &::before {
-      color: #252525;
+      color: #00375f;
       content: "\57";
       font-family: "icons";
       font-size: $small-font-size;

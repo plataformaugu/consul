@@ -21,6 +21,10 @@
 
 //
 
+h3.title {
+  color: #00375f !important;
+}
+
 .solo-desktop {
   @include breakpoint(small down) {
     display: none;
@@ -38,7 +42,7 @@
 }
 
 .top-links {
-  background: #252525;
+  background: #00375f;
   color: #fff;
   font-size: $small-font-size;
   padding-right: $line-height / 2;
@@ -94,15 +98,15 @@ footer {
     }
   }
 
-  a,
-  a:active,
-  a:focus {
-    color: #FFF;
-    text-decoration: underline;
+  a {
+    color: inherit;
+  }
 
-    &:hover {
-      color: $text-medium;
-    }
+  a:active,
+  a:focus,
+  a:hover {
+    color: #6aaac3 !important;
+    text-decoration: underline;
   }
 
   .footer-sections {
@@ -117,10 +121,25 @@ footer {
   ul {
     margin-left: 0 !important;
   }
+
+  div.social {
+    ul {
+      margin-left: 0 !important;
+  
+      li.inline-block {
+        a:active,
+        a:focus,
+        a:hover {
+          text-shadow: 0 0 5px #ffffff80;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 }
 
 .footer {
-  background: #252525;
+  background: #00375f;
   margin-top: $line-height * 2;
   padding-top: $line-height * 2;
   border-top: 6px solid $brand;
@@ -155,6 +174,10 @@ footer {
 
     a {
       text-decoration: underline;
+
+      &:hover {
+        color: #6aaac3 !important;
+      }
     }
 
     .callout {
@@ -176,7 +199,7 @@ footer {
     }
 
     .info {
-      background: #F76804;
+      background: #6aaac3;
 
       p {
         margin-bottom: 0;
@@ -187,30 +210,36 @@ footer {
 }
 
 .is-author {
-  background: #F76804;
+  background: #6aaac3;
 }
 
 .is-association {
-  background: #F76804;
+  background: #6aaac3;
   color: #fff;
   border-radius: 10px;
 }
 
 .callout.primary {
   background-color: #FFF;
-  border-color: #F76804;
-  color: #F76804;
+  color: #0a0a0a;
+  border: none;
 }
 
 .verification-link {
   a {
-    color: #F76804;
+    color: #6aaac3;
   }
   
 }
 
 
 // Cambios en el homepage
+
+.feeds-list a.see-all {
+  &:hover {
+    text-decoration: none;
+  }
+}
 
 .img-container {
   background-color: #000;
@@ -227,9 +256,9 @@ footer {
 
 .img-container img {
   width: 100%;
-  height: calc(100vh - 120px);
+  // height: calc(100vh - 120px);
+  height: 40vh;
   object-fit: cover;
-  opacity: 0.4;
 }
 
 
@@ -275,11 +304,16 @@ footer {
 }
 
 .img-container .button {
-  box-shadow: 0px 0px 15px #f76804CC;
+  background: #b9b022 !important;
+  box-shadow: 0px 0px 15px #b9b022CC;
   border-radius: 25px;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 16px;
+
+  &:hover {
+    background: #9b921b !important;
+  }
 }
 
 .img-container .btn {
@@ -315,7 +349,7 @@ footer {
   transform: translate(-50%, -50%);
   text-align: center;
   color:#FFF;
-  font-size:3vw;
+  font-size:2.5vw;
 }
 
 @media (max-width: 640px) 
@@ -425,7 +459,7 @@ footer {
 
   header .subnavigation a:hover {
     transition: 0.2s;
-    color: rgb(255, 140, 58) !important;
+    color: #6aaac3 !important;
     text-decoration: none;
   }
 
@@ -445,9 +479,7 @@ footer {
 }
 
 .texto-footer {
-  color:#616161 !important;
   font-size:12px;
-  font-weight:bolder
 }
 
 .subtexto-footer {
@@ -456,11 +488,11 @@ footer {
 }
 
 .icono-footer {
-  color: #f76804 !important;
+  color: #6aaac3 !important;
 }
 
 .icono-contacto-footer {
-  color:#f76804 !important;
+  color:#6aaac3 !important;
   font-size:12px;
   margin-right: 10px;
 }
@@ -473,10 +505,8 @@ header {
   position: sticky;
   top: 0;
   width: 100%;
-  border-bottom: 5px solid $brand;
 
     @include breakpoint(small down) {
-      border-bottom: 3px solid $brand;
       height: auto;
     }
 
@@ -490,7 +520,7 @@ header {
 
   & .top-bar {
 
-    background: #252525 !important;
+    background: #00375f !important;
 
     @include breakpoint(medium up) {
       background: transparent !important;
@@ -509,7 +539,7 @@ header {
 
 @media (min-width: 640px) {
   header .subnavigation {
-    background-color: #252525;
+    background-color: #00375f;
   }
 }
 
@@ -560,7 +590,7 @@ header {
 .btn-perfil {
   border-radius: 20px 20px 20px 20px;
   background: #fff !important;
-  color: #252525 !important;
+  color: #00375f !important;
   padding: 8px 30px 8px 8px !important;
   transition-duration: 0.2s;
 
@@ -593,6 +623,10 @@ header {
 
 .btn-negrita {
   font-weight: bold;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .perfil-dropdown {
@@ -625,7 +659,7 @@ header {
   border: 0;
 
   & a {
-    color: #252525 !important;
+    color: #00375f !important;
   }
 }
 
@@ -663,21 +697,21 @@ header {
 
   // Diseño propuestas
   .participation-not-allowed {
-    color: #f76804;
-    font-size: 14px;
+    color: #0a0a0a;
+    font-size: 12px;
 
     & a {
-      color: #f76804 !important;
+      color: #6aaac3 !important;
     }
   }
 
   .supports {
     & .meter {
-      background: #f76804 !important;
+      background: #6aaac3 !important;
     }
 
     & .button-support {
-      background: #f76804 !important;
+      background: #6aaac3 !important;
       color: #fff !important;
     }
   }
@@ -763,18 +797,18 @@ header {
     }
 
     & .callout.primary a {
-      color: #F76804 !important;
+      color: #6aaac3 !important;
     }
 
     & a.button.margin-top.expanded {
-      color: #F76804 !important;
+      color: #6aaac3 !important;
     }
   }
 }
 
 #budget-investments-main {
   & .button.budget.expanded {
-    background: #f76804 !important;
+    background: #6aaac3 !important;
   }
 
   & .jumbo-budget {
@@ -809,7 +843,7 @@ header {
         position: relative;
       
         .progress-meter {
-          background: #f76804 !important;
+          background: #6aaac3 !important;
           border-radius: 0;
           transition: width 2s;
         }
@@ -846,5 +880,21 @@ header {
   @media (max-width: 640px) {
     height: 56px;
     margin: -56px 0 0;
+  }
+}
+
+// Mapa 
+
+.location-map-remove-marker {
+  border-bottom: 1px dotted #6aaac3;
+  color: #6aaac3;
+  display: inline-block;
+  margin-top: 0.75rem;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: #00375f !important;
+    border-bottom: 1px dotter #00375f !important;
   }
 }

@@ -16,8 +16,8 @@
 // 01. Global styles
 // -----------------
 
-$admin-color:    #f76804;
-$sidebar:        #f76804;
+$admin-color:    #6aaac3;
+$sidebar:        #6aaac3;
 $sidebar-hover:  #D45A04;
 $sidebar-active: #f4fcd0;
 
@@ -426,7 +426,7 @@ code {
 
 .admin-sidebar {
   background: $sidebar;
-  background: linear-gradient(to bottom, #f76804 0%, #D45A04 100%);
+  background: #00375f;
   border-right: 1px solid $border;
 
   ul {
@@ -452,13 +452,13 @@ code {
 
     ul {
       margin-left: $line-height / 1.5;
-      border-left: 1px solid $sidebar-hover;
+      border-left: 1px solid #6aaac3;
       padding-left: $line-height / 2;
     }
 
     &.is-active a {
-      background: $sidebar-hover;
-      border-left: 2px solid $sidebar-active;
+      background: #6aaac3;
+      border-left: 2px solid #6aaac3;
       font-weight: bold;
     }
   }
@@ -471,7 +471,7 @@ code {
     vertical-align: top;
 
     &:hover {
-      background: $sidebar-hover;
+      background: #6aaac3;
       color: #fff;
       text-decoration: none;
     }

@@ -53,14 +53,12 @@ es:
           description: "Utiliza esta página para resolver las Preguntas frecuentes a los usuarios del sitio."
       other:
         title: "Otra información de interés"
-        how_to_use: "Utiliza %{org_name} en tu municipio"
+        how_to_use: "Utiliza %{org_name} en tu organización"
       how_to_use:
         text: |-
           Si deseas utilizar esta plataforma de participación ciudadana puedes contactarnos a contacto@ugu.cl y te asesoraremos en su implementación, ayudándote a definir los procesos que más se acomodan a lo que buscas, personalizarlos y entregarte las herramientas necesarias para que puedas administrarlos sin mayores problemas.
-
-          Esta plataforma es de software libre, si deseas revisarlo o ayudarnos a mejorarlo puedes acceder a ella en [aplicación Ugu](https://github.com/consul/consul 'aplicación Ugu').
       titles:
-        how_to_use: Utiliza Ugu en tu municipio
+        how_to_use: Utiliza Ugu en tu organización
     privacy:
       title: Política de privacidad
       subtitle: "Página de información de protección de datos"

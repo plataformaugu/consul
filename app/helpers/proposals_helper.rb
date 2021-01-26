@@ -32,11 +32,11 @@ module ProposalsHelper
   end
 
   def empty_recommended_proposals_message_text(user)
-    if user.interests.any?
-      t("proposals.index.recommendations.without_results")
-    else
-      t("proposals.index.recommendations.without_interests")
-    end
+    # if user.interests.any?
+    #   t("proposals.index.recommendations.without_results")
+    # else
+    #   t("proposals.index.recommendations.without_interests")
+    # end
   end
 
   def author_of_proposal?(proposal)

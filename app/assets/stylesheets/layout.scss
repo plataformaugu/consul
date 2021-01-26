@@ -452,8 +452,8 @@ a {
 // ----------
 
 header {
-  background: #252525 !important;
-  border-bottom: 1px solid $border;
+  background: #00375f !important;
+  // border-bottom: 1px solid $border;
 
 
   @include breakpoint(small down) {
@@ -519,7 +519,7 @@ header {
 }
 
 .top-bar {
-  background: #252525 !important;
+  background: #00375f !important;
   color: #fff;
   padding-bottom: 0;
   padding-top: 0;
@@ -585,7 +585,7 @@ header {
 
       @include breakpoint(medium) {
         background: #fff;
-        color: #252525 !important;
+        color: #00375f !important;
         text-align: center;
       }
     }
@@ -952,9 +952,9 @@ footer {
 }
 
 .auth-image {
-  background: $brand image-url("auth_bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #00375f;
+  // background-repeat: no-repeat;
+  // background-size: cover;
 
   @include breakpoint(medium) {
     min-height: $line-height * 42;
@@ -2733,7 +2733,6 @@ table {
   &:hover,
   &:active,
   &:focus {
-    border-bottom: 1px solid #cf2a0e;
     color: #cf2a0e;
     text-decoration: none;
   }
