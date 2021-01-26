@@ -2914,7 +2914,15 @@ table {
   position: relative;
 
   @include breakpoint(medium down) {
-    min-height: $line-height * 4;
+    height: $line-height * 10;
+  }
+
+  @include breakpoint(medium) {
+    height: rem-calc(300);
+  }
+
+  @include breakpoint(large) {
+    min-height: rem-calc(185);
   }
 
   a {
@@ -2932,6 +2940,7 @@ table {
   img {
     height: 100%;
     width: 100%;
+    object-fit: cover;
   }
 
   figcaption {
