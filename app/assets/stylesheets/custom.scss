@@ -305,14 +305,15 @@ footer {
 
 .img-container .button {
   background: #b9b022 !important;
-  box-shadow: 0px 0px 15px #b9b022CC;
   border-radius: 25px;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
+  transition: all 0.1s linear;
+  z-index: 9999;
 
   &:hover {
-    background: #9b921b !important;
+    box-shadow: 0px 0px 15px #b9b022CC;
   }
 }
 
@@ -329,6 +330,7 @@ footer {
   cursor: pointer;
   border-radius: 5px;
   text-align: center;
+  z-index: 9000
 }
 
 .img-container .cenp {
@@ -363,6 +365,35 @@ footer {
       width: 90% !important;
       font-size: 5vw !important; 
     }
+}
+
+.img-container {
+  .images-layer {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 10% 0 10%;
+    height: 100%;
+
+    .avatar-mm {
+      width: auto;
+      height: 100%;
+    }
+
+    .logo-mm {
+      width: auto;
+      height: 70%;
+    }
+
+    @media (max-width: 1220px) {
+      display: none;
+    }
+  }
 }
 
 
