@@ -135,7 +135,7 @@ es-PE:
         description: "Descripción detallada"
         terms_of_service: "Términos de servicio"
       user:
-        login: "Email o nombre de usuario"
+        login: "Email o nombre completo"
         email: "Tu correo electrónico"
         username: "Nombre de usuario"
         password_confirmation: "Confirmación de contraseña"

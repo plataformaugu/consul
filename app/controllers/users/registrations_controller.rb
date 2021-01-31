@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup]
-  before_action :configure_permitted_parameters
+  before_action :configure_permitted_parameters, :set_var
 
   invisible_captcha only: [:create], honeypot: :address, scope: :user
 
@@ -11,9 +11,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    build_resource(sign_up_params)
+    new_username = '%s %s' % [sign_up_params[:username], sign_up_params[:surnames]]
+    new_params = sign_up_params.clone
+    new_params.merge!(username: new_username)
+    build_resource(new_params)
+    resource.username = new_username
     if resource.valid?
-      super
+      resource.save
+      render :success
     else
       render :new
     end
@@ -60,7 +65,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def sign_up_params
       params[:user].delete(:redeemable_code) if params[:user].present? && params[:user][:redeemable_code].blank?
-      params.require(:user).permit(:username, :email, :password,
+      params.require(:user).permit(:username, :surnames, :town, :email, :password,
                                    :password_confirmation, :terms_of_service, :locale,
                                    :redeemable_code)
     end
@@ -75,5 +80,49 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_inactive_sign_up_path_for(resource_or_scope)
       users_sign_up_success_path
+    end
+
+    def set_var
+      @towns = [
+        'Algarrobo',
+        'Cabildo',
+        'Calera',
+        'Calle Larga',
+        'Cartagena',
+        'Casablanca',
+        'Catemu',
+        'Concón',
+        'El Quisco',
+        'El Tabo',
+        'Hijuelas',
+        'Isla de Pascua',
+        'Juan Fernández',
+        'La Cruz',
+        'La Ligua',
+        'Limache',
+        'Llaillay',
+        'Los Andes',
+        'Nogales',
+        'Olmué',
+        'Panquehue',
+        'Papudo',
+        'Petorca',
+        'Puchuncaví',
+        'Putaendo',
+        'Quillota',
+        'Quilpué',
+        'Quintero',
+        'Rinconada',
+        'San Antonio',
+        'San Esteban',
+        'San Felipe',
+        'Santa María',
+        'Santo Domingo',
+        'Valparaíso',
+        'Villa Alemana',
+        'Viña del Mar',
+        'Zapallar',
+        'Otra comuna',
+      ]
     end
 end

@@ -91,11 +91,13 @@
       <% end %>
 
       <% if @proposals.any? %>
+        <% if current_user.administrator? %>
         <div class="show-for-small-only">
           <%= link_to t("proposals.index.start_proposal"),
                       new_proposal_path,
                       class: "button expanded" %>
         </div>
+        <% end %>
       <% end %>
 
       <div id="proposals-list">
@@ -125,9 +127,11 @@
 
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
-        <%= link_to t("proposals.index.start_proposal"),
-                    new_proposal_path,
-                    class: "button expanded" %>
+        <% if current_user.administrator? %>
+          <%= link_to t("proposals.index.start_proposal"),
+                      new_proposal_path,
+                      class: "button expanded" %>
+        <% end %>
 
         <!-- Propuestas seleccionadas
         <div class="sidebar-divider"></div>

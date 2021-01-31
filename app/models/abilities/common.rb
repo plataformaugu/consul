@@ -46,7 +46,9 @@ module Abilities
 
       can :create, Comment
       can :create, Debate
-      can [:create, :created], Proposal
+      can [:create, :created], Proposal do |proposal|
+        user.administrator?
+      end
       can :create, Legislation::Proposal
 
       can :hide, Proposal, author_id: user.id

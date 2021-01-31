@@ -144,7 +144,7 @@ ast:
     signature_sheet: la hoja de firmas
     image: Imaxe
   geozones:
-    none: Toda la ciudad
+    none: Toda la región
   layouts:
     application:
       chrome: Google Chrome
@@ -350,7 +350,7 @@ ast:
       title: "Votaciones"
       participate_button: "Participar en esta consulta"
       participate_button_expired: "Consulta terminada"
-      no_geozone_restricted: "Toda la ciudad"
+      no_geozone_restricted: "Toda la región"
       geozone_restricted: "Distritos"
       geozone_info: "Pueden participar las personas empadronadas en: "
       already_answer: "Ya has participado en esta consulta"

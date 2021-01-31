@@ -67,7 +67,7 @@ es:
         title: '¿Has olvidado tu contraseña?'
     sessions:
       new:
-        login_label: Email o nombre de usuario
+        login_label: Email o nombre completo
         password_label: Contraseña que utilizarás para acceder a este sitio web
         remember_me: Recordarme
         submit: Entrar

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200911185936) do
+ActiveRecord::Schema.define(version: 20210129170654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1246,7 +1246,6 @@ ActiveRecord::Schema.define(version: 20200911185936) do
     t.integer  "community_id"
     t.datetime "published_at"
     t.boolean  "selected",                                  default: false
-    t.boolean  "is_deleted",                                default: false
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at", using: :btree
     t.index ["author_id"], name: "index_proposals_on_author_id", using: :btree
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up", using: :btree
@@ -1485,6 +1484,7 @@ ActiveRecord::Schema.define(version: 20200911185936) do
     t.boolean  "recommended_debates",                       default: true
     t.boolean  "recommended_proposals",                     default: true
     t.string   "town"
+    t.string   "surnames"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["geozone_id"], name: "index_users_on_geozone_id", using: :btree

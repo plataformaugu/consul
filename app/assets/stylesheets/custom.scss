@@ -958,3 +958,11 @@ header {
     border-bottom: 1px dotter #00375f !important;
   }
 }
+
+// Registro
+
+.auth-form {
+  @media (min-width: 640px) {
+    padding-top: 0.2rem;
+  }
+}

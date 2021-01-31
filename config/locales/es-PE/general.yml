@@ -385,7 +385,7 @@ es-PE:
       title: "Consultas"
       participate_button: "Participar en esta consulta"
       participate_button_expired: "Consulta terminada"
-      no_geozone_restricted: "Toda la ciudad"
+      no_geozone_restricted: "Toda la región"
       geozone_restricted: "Distritos"
       geozone_info: "Pueden participar las personas empadronadas en: "
       already_answer: "Ya has participado en esta consulta"
