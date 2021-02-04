@@ -28,6 +28,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource({})
   end
 
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
   def delete
     current_user.erase(erase_params[:erase_reason])
     sign_out
