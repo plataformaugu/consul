@@ -1,6 +1,7 @@
 <%= back_link_to %>
 
 <h2><%= t("devise_views.users.registrations.edit.edit") %></h2>
+<small>Modifica sólamente los campos que quieras actualizar.</small>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "shared/errors", resource: resource %>
@@ -10,6 +11,40 @@
         label: t("devise_views.users.registrations.edit.email_label"),
         autofocus: true,
         placeholder: t("devise_views.users.registrations.edit.email_label") %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.text_field :phone_number,
+        label: 'Número de teléfono',
+        placeholder: 'Ejemplo: +5612345678' %>
+    </div>
+
+
+    <div class="small-12 column">
+      <%= f.select :town, 
+        options_for_select(
+          @towns,
+          :selected => current_user.town || nil
+        ),
+        label: 'Comuna' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :gender,
+        options_for_select(
+          [
+            'Hombre',
+            'Mujer',
+            'Otro'
+          ],
+          :selected => current_user.gender || nil
+        ),
+        label: 'Género' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.date_field :date_of_birth,
+        label: 'Fecha de nacimiento' %>
     </div>
 
     <div class="small-12 column">
