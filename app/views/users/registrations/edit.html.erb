@@ -16,7 +16,7 @@
     <div class="small-12 column">
       <%= f.text_field :phone_number,
         label: 'Número de teléfono',
-        placeholder: 'Ejemplo: +5612345678' %>
+        placeholder: 'Número de teléfono' %>
     </div>
 
 
@@ -33,8 +33,8 @@
       <%= f.select :gender,
         options_for_select(
           [
-            'Hombre',
-            'Mujer',
+            'Masculino',
+            'Femenino',
             'Otro'
           ],
           :selected => current_user.gender || nil
