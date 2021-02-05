@@ -32,6 +32,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params)
   end
 
+  def after_update_path_for(resource)
+    return user_edit_success_path
+  end
+
+  def edit_success
+  end
+
   def delete
     current_user.erase(erase_params[:erase_reason])
     sign_out
