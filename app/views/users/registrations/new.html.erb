@@ -20,11 +20,15 @@
       <%= f.text_field :username, 
         autofocus: true, maxlength: User.username_max_length,
         placeholder: 'Nombre',
-        label: 'Nombre' %>
+        label: 'Nombre',
+        pattern: '[a-zA-Z ]+',
+        title: 'No puede contener números.' %>
 
       <%= f.text_field :surnames,
         placeholder: 'Apellidos',
-        label: 'Apellidos' %>
+        label: 'Apellidos',
+        pattern: '[a-zA-Z ]+',
+        title: 'No puede contener números.' %>
 
       <%= f.invisible_captcha :address %>
 
