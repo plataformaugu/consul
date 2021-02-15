@@ -1,6 +1,13 @@
 <div class="small-12 column">
   <ul>
     <%= raw content_block("subnavigation_left", I18n.locale) %>
+      <li>
+        <%= layout_menu_link_to 'Inicio',
+                                root_path,
+                                current_page?(root_path),
+                                accesskey: "0",
+                                title: t("shared.go_to_page") + 'inicio' %>
+      </li>
 
     <% if feature?(:debates) %>
       <li>
