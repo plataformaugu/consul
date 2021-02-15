@@ -8,7 +8,7 @@ class AccountController < ApplicationController
 
   def update
     if @account.update(account_params)
-      redirect_to account_path, notice: t("flash.actions.save_changes.notice")
+      redirect_to account_path
     else
       @account.errors.messages.delete(:organization)
       render :show

@@ -20,16 +20,16 @@
           showUsernameMessage(response);
         });
       };
-      surnamesInput.on("focusout", function() {
-        var username;
-        var surnames;
-        clearUsernameMessage();
-        username = usernameInput.val();
-        surnames = surnamesInput.val();
-        if (username !== "" && surnames !== "") {
-          validateUsername(`${username} ${surnames}`);
-        }
-      });
+      // surnamesInput.on("focusout", function() {
+      //   var username;
+      //   var surnames;
+      //   clearUsernameMessage();
+      //   username = usernameInput.val();
+      //   surnames = surnamesInput.val();
+      //   if (username !== "" && surnames !== "") {
+      //     validateUsername(`${username} ${surnames}`);
+      //   }
+      // });
     }
   };
 }).call(this);

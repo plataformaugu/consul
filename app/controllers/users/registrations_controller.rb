@@ -82,7 +82,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:account_update, keys: [:email, :town, :gender, :date_of_birth, :phone_number])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email, :town, :gender, :date_of_birth, :phone_number])
     end
 
     def erase_params

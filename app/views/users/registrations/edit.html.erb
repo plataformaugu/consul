@@ -7,9 +7,16 @@
   <%= render "shared/errors", resource: resource %>
   <div class="row">
     <div class="small-12 column">
+      <%= f.text_field :username,
+        maxlength: User.username_max_length,
+        autofocus: true,
+        placeholder: t("account.show.username_label")
+      %>
+    </div>
+
+    <div class="small-12 column">
       <%= f.email_field :email,
         label: t("devise_views.users.registrations.edit.email_label"),
-        autofocus: true,
         placeholder: t("devise_views.users.registrations.edit.email_label") %>
     </div>
 
