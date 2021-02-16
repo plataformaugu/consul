@@ -10,6 +10,8 @@
       <%= f.text_field :username,
         maxlength: User.username_max_length,
         autofocus: true,
+        pattern: '[a-zA-Zá-úÁ-Ú ]+',
+        title: 'No puede contener números.',
         placeholder: t("account.show.username_label")
       %>
     </div>
@@ -23,7 +25,10 @@
     <div class="small-12 column">
       <%= f.text_field :phone_number,
         label: 'Número de teléfono',
-        placeholder: 'Número de teléfono' %>
+        pattern: '[0-9]+',
+        title: 'Sólo números.',
+        maxlength: 9,
+        placeholder: 'Número de teléfono, ejemplo: 912345678' %>
     </div>
 
 
