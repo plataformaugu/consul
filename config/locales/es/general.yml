@@ -628,7 +628,7 @@ es:
       cant_answer: "Esta consulta no está disponible en tu zona"
       section_header:
         icon_alt: Icono de consultas
-        title: Consultas
+        title: Consultas ciudadanas
         help: Ayuda sobre las consultas
       section_footer:
         title: Ayuda sobre las consultas
