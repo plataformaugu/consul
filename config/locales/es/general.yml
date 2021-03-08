@@ -319,7 +319,7 @@ es:
     share:
       improve_it: Mejora tu campaña y consigue más apoyos.
       dashboard: Ver más información
-      message: "He apoyado la propuesta %{title} en %{handle}. Si te interesa, ¡apoya tú también!"
+      message: "He apoyado la propuesta %{title} en Plataforma Manuel Millones. Si te interesa, ¡apoya tú también!"
     edit:
       editing: Editar propuesta
       form:
