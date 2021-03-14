@@ -8,13 +8,14 @@
   </head>
 
   <body class="admin">
-    <header class="header">
+    <header class="header main-header position-static">
       <div class="top-links">
         <div class="expanded row">
-          <%= render "shared/locale_switcher" %>
+          <%= link_to root_path, class: "float-right" do %>
+            <%= t("admin.dashboard.index.back", org: setting["org_name"]) %>
+          <% end %>
         </div>
       </div>
-
       <div class="expanded row admin-top-bar">
         <div class="top-bar">
           <div class="top-bar-left">

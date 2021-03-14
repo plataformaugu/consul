@@ -1,8 +1,10 @@
-<div class="sidebar-divider"></div>
-<h2 class="sidebar-title"><%= t("shared.tags_cloud.categories") %></h2>
+<h2 class="sidebar-title">Capítulos</h2>
 <br>
 
 <ul id="categories" class="no-bullet categories">
+  <li class="inline-block">
+    <%= link_to "Todos", proposals_path %>
+  </li>
   <% @categories.each do |category| %>
     <li class="inline-block">
       <% css_class = { class: "is-active" } if params[:search] == category.name %>
