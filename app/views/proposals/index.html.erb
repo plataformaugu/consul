@@ -123,9 +123,9 @@
                     search_path: proposals_path(page: 1),
                     i18n_namespace: "proposals.index.search_form" %>
         </div>
-        <% if params[:search] %>
+        <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
           <%= link_to t("proposals.index.start_proposal"),
-                      new_proposal_path,
+                      new_proposal_path(:chapter => params[:search]),
                       class: "button expanded" %>
         <% end %>
         <% if true == false and params[:retired].blank? %>
