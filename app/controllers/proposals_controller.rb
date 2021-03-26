@@ -8,7 +8,7 @@ class ProposalsController < ApplicationController
   before_action :parse_tag_filter, only: :index
   before_action :load_categories, only: [:index, :new, :create, :edit, :map, :summary]
   before_action :load_geozones, only: [:edit, :map, :summary]
-  before_action :authenticate_user!, except: [:index, :show, :map, :summary]
+  before_action :authenticate_user!, except: [:vote, :index, :show, :map, :summary]
   before_action :destroy_map_location_association, only: :update
   before_action :set_view, only: :index
   before_action :proposals_recommendations, only: :index, if: :current_user
@@ -61,8 +61,20 @@ class ProposalsController < ApplicationController
   end
 
   def vote
-    @proposal.register_vote(current_user, "yes")
-    set_proposal_votes(@proposal)
+    if current_user
+      @proposal.register_vote(current_user, "yes")
+      set_proposal_votes(@proposal)
+    else
+      vote = Vote.create(
+        votable: @proposal,
+        voter: User.first,
+        vote_flag: true,
+        vote_weight: 1,
+        created_at: Time.current,
+        updated_at: nil
+      )
+      vote.save
+    end
   end
 
   def retire

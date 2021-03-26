@@ -178,7 +178,7 @@ class Proposal < ApplicationRecord
   end
 
   def votable_by?(user)
-    user&.level_two_or_three_verified?
+    true
   end
 
   def retired?
