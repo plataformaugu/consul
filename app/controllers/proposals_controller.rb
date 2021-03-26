@@ -74,6 +74,7 @@ class ProposalsController < ApplicationController
         updated_at: nil
       )
       vote.save
+      set_proposal_votes(@proposal)
     end
   end
 
