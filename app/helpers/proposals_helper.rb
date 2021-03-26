@@ -8,7 +8,7 @@ module ProposalsHelper
   end
 
   def supports_percentage(proposal)
-    percentage = (Vote.where(votable_id: proposal.id).count.to_f * 100 / Proposal.votes_needed_for_success)
+    percentage = (proposal.cached_votes_up.to_f * 100 / Proposal.votes_needed_for_success)
     case percentage
     when 0 then "0%"
     when 0..0.1 then "0.1%"

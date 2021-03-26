@@ -74,7 +74,31 @@ class ProposalsController < ApplicationController
         updated_at: nil
       )
       vote.save
+      sync_votes
       set_proposal_votes(@proposal)
+    end
+  end
+
+  def sync_votes
+    votes_count = Vote.where(votable_id: @proposal.id).count
+    proposal_count = @proposal.cached_votes_up
+
+    if votes_count > proposal_count
+      @proposal.cached_votes_up = votes_count
+      @proposal.save
+    elsif proposal_count > votes_count
+      diff = proposal_count - votes_count
+      (1..diff).each do |n|
+        vote = Vote.create(
+          votable: @proposal,
+          voter: User.first,
+          vote_flag: true,
+          vote_weight: 1,
+          created_at: Time.current,
+          updated_at: nil
+        )
+        vote.save
+      end
     end
   end
 
