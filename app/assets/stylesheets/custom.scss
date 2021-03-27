@@ -316,3 +316,55 @@ aside {
         margin-right: 5px;
     }
 }
+
+// Chapters
+
+.chapter-small {
+    background-color: inherit;
+    color: inherit;
+    border-radius: 15px;
+    padding: 3px 12px;
+    margin: 2px;
+
+    a {
+        margin-bottom: 0 !important;
+    }
+
+    i {
+        margin-right: 10px;
+        font-size: 15px;
+    }
+}
+
+.categories {
+    a {
+        &:active {
+            color: #FFF;
+            background-color: #004a83;
+        }
+    }
+
+    .is-active {
+        color: #FFF;
+        background-color: #004a83;
+    }
+}
+
+// PROCESO
+
+.proceso-main {
+    .row {
+        display: flex;
+    }
+
+    .card {
+        border-radius: 15px;
+        margin: 10px;
+        box-sizing: border-box;
+        box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
+
+        .card-section {
+            padding-top: 2rem;
+        }
+    }
+}
