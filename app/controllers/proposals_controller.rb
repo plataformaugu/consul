@@ -95,6 +95,9 @@ class ProposalsController < ApplicationController
     redirect_to share_proposal_path(@proposal), notice: t("proposals.notice.published")
   end
 
+  def chapters
+  end
+
   private
 
     def proposal_params

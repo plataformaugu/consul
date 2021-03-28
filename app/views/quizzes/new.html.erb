@@ -1,0 +1,24 @@
+<div class="proposal-form row">
+	<div class="small-12 medium-9 column">
+		<%= back_link_to chapters_proposals_path %>
+		<h1><%= @title %></h1>
+
+		<% if @type == 1 %>
+			<h4>Capítulo: <%= @chapter.name %></h4>
+			<br>
+    	<%= render "quizzes/form_1", form_url: quizzes_path %>
+		<% else %>
+			test
+		<% end %>
+	</div>
+
+	<div class="small-12 medium-3 column">
+		<span class="icon-proposals float-right"></span>
+		<h2>Texto de ayuda</h2>
+		<ul class="recommendations">
+			<li>Ayuda 1</li>
+			<li>Ayuda 2</li>
+			<li>Ayuda 3</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,78 @@
+<%= render "shared/globalize_locales", resource: @proposal %>
+
+<%= form_for(@quiz, url: form_url) do |f| %>
+
+  <div class="row column">
+    <!--
+    <div class="small-12 column">
+      <%= f.text_field :name,
+        maxlength: 25 %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.text_area :description,
+        maxlength: 250,
+        class: "html-area" %>
+    </div>
+    -->
+    <div class="small-12 column">
+      <%= f.select :q1, [['jaja', 'jaja'], ['nose', 'nose'], ['Otro', 'Otro']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
+      <br/>
+    </div>
+
+    <div class="small-12 column" id="hidden-field" style="display: none;">
+      <%= f.text_area :q5,
+        rows: 1, maxlength: 200, label: 'Respuesta para "Otro"' %>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.text_area :q2,
+        rows: 3, maxlength: 200, label: 'Pregunta 2' %>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :q3, 'Pregunta 3' %>
+      <%= f.radio_button :q3, 'Opción 1', label: 'Opción 1' %>
+      <%= f.radio_button :q3, 'Opción 2', label: 'Opción 2' %>
+      <%= f.radio_button :q3, 'Opción 3', label: 'Opción 3' %>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :q4, 'Pregunta 4' %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Opción multiple 1' %>
+        Opción multiple 1
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Opción multiple 2' %>
+        Opción multiple 2
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Opción multiple 3' %>
+        Opción multiple 3
+      <% end %>
+      <br/>
+    </div>
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "button", value: 'Enviar') %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function() {
+  $('#quiz_q1').attr('required', true)
+
+  $('#quiz_q1').on('change', function() {
+    if (this.value === 'Otro' || this.value === 'otro') {
+      $('#hidden-field').css('display', 'block');
+    } else {
+      $('#hidden-field').css('display', 'none');
+    }
+  })
+})
+</script>

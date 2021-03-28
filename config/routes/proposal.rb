@@ -1,4 +1,4 @@
-resources :proposals do
+resources :proposals, :path => 'suggestions' do
   resource :dashboard, only: [:show], controller: "dashboard" do
     collection do
       patch :publish
@@ -45,6 +45,7 @@ resources :proposals do
   end
 
   collection do
+    get :chapters
     get :map
     get :suggest
     get :summary

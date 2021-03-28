@@ -352,19 +352,25 @@ aside {
 
 // PROCESO
 
-.proceso-main {
-    .row {
-        display: flex;
-    }
+.align-sub {
+    vertical-align: sub;
+}
 
+.proceso-main {
     .card {
         border-radius: 15px;
         margin: 10px;
         box-sizing: border-box;
         box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
+        transition: all 0.2s;
 
         .card-section {
             padding-top: 2rem;
+        }
+
+        &:hover {
+            background-color: rgba($brand, .05);
+            box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.50);
         }
     }
 }

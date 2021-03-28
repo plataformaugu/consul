@@ -1,0 +1,51 @@
+<% provide :title do %>Proceso participativo<% end %>
+<% content_for :header_addon do %>
+<% end %>
+
+<main class="proceso-main">
+  <div class="jumbo light">
+    <div class="row">
+      <div class="small-12 column">
+        <%= image_tag "help/help_icon_polls.png", alt: t("poll.icon_alt"), class: "align-sub" %>
+        <h1 class="inline-block">Proceso Participativo</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-9 column end">
+        <p>Esto es una descripción sobre el proceso participativo.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= link_to chapters_proposals_path, :action => 'go' do %>
+      <div class="card small-11 medium-3 column">
+        <div class="card-section">
+          <img src="https://homepages.cae.wisc.edu/~ece533/images/boat.png">
+        </div>
+        <div class="card-section text-center">
+          <h4>Diagnósticos de acción por tema</h4>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to chapters_proposals_path, :action => 'go' do %>
+      <div class="card small-11 medium-3 column">
+        <div class="card-section">
+          <img src="https://homepages.cae.wisc.edu/~ece533/images/boat.png">
+        </div>
+        <div class="card-section text-center">
+          <h4>Sugerencias de acciones por tema</h4>
+        </div>
+      </div>
+    <% end %>
+    <%= link_to chapters_proposals_path, :action => 'go' do %>
+      <div class="card small-11 medium-3 column">
+        <div class="card-section">
+          <img src="https://homepages.cae.wisc.edu/~ece533/images/boat.png">
+        </div>
+        <div class="card-section text-center">
+          <h4>Sugerencias de mecanismos de monitoreo</h4>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</main>
