@@ -1,0 +1,62 @@
+<%= render "shared/globalize_locales", resource: @proposal %>
+
+<%= form_for(@quiz, url: form_url) do |f| %>
+
+  <div class="row column">
+    <div class="small-12 column">
+      <%= f.select :q1, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.text_area :q2,
+        rows: 3, maxlength: 200, label: 'Pregunta 2 (obligatoria)' %>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.label :q3, 'Pregunta 3 (obligatoria)' %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q3[]', 'Opción multiple 1' %>
+        Opción multiple 1
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q3[]', 'Opción multiple 2' %>
+        Opción multiple 2
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q3[]', 'Opción multiple 3' %>
+        Opción multiple 3
+      <% end %>
+      <br/>
+    </div>
+
+    <%= f.hidden_field :quiz_type, value: 2 %>
+
+    <div class="small-12 column">
+      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+      <br/>
+    </div>
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "button", value: 'Enviar') %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function() {
+  $('#quiz_q1').attr('required', true)
+  $('#quiz_q2').attr('required', true)
+
+  $('#new_quiz').on('submit', function(e) {
+    if ($('input[id="q3_"]:checked').length <= 0) {
+      $('[for="quiz_q3"]').css('color', 'red');
+      e.preventDefault();
+      return false;
+    } else {
+      $('[for="quiz_q3"]').css('color', 'black');
+    }
+  })
+})
+</script>

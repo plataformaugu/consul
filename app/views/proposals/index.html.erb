@@ -1,4 +1,4 @@
-<% provide :title do %><%= t("proposals.index.title") %><% end %>
+<% provide :title do %>Sugerencias de acción por tema<% end %>
 <% content_for :header_addon do %>
 <% end %>
 <% content_for :canonical do %>
@@ -11,42 +11,22 @@
               search_path: proposals_path(page: 1),
               i18n_namespace: "proposals.index.search_form" %>
   </div>
-  <% if true == false and [
-          @search_terms,
-          @advanced_search_terms,
-          params[:retired].present?,
-          params[:selected].present?
-        ].any? %>
-    <div class="highlight no-margin-top padding margin-bottom">
-      <div class="row">
-        <div class="small-12 column">
-          <% if @search_terms || @advanced_search_terms %>
-            <h2><%= t("shared.search_results") %></h2>
-            <p>
-              <%= page_entries_info @proposals %>
-              <% if !@advanced_search_terms %>
-                <%= sanitize(
-                  t("proposals.index.search_results", count: @proposals.size, search_term: @search_terms)
-                ) %>
-              <% end %>
-            <p>
-          <% elsif params[:retired].present? %>
-            <h2><%= t("proposals.index.retired_proposals") %></h2>
-          <% elsif params[:selected].present? %>
-            <h2><%= t("proposals.index.selected_proposals") %></h2>
-          <% end %>
-        </div>
+    <div class="jumbo light">
+    <div class="row">
+      <div class="small-12 column">
+        <%= image_tag "help/help_icon_polls.png", alt: t("poll.icon_alt"), class: "align-sub" %>
+        <h1 class="inline-block">Sugerencias de acción por tema</h1>
       </div>
     </div>
-  <% else %>
-    <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
-  <% end %>
-
-  <% if show_recommended_proposals? %>
-    <%= render "shared/recommended_index", recommended: @recommended_proposals,
-                                           disable_recommendations_path: recommendations_disable_proposals_path,
-                                           namespace: "proposals" %>
-  <% end %>
+    <div class="row">
+      <div class="small-12 medium-9 column end">
+        <p>Esto es una descripción sobre el proceso participativo.</p>
+      </div>
+    </div>
+    <div class="row">
+      <%= render 'shared/back_to' %>
+    </div>
+  </div>
 
   <div class="row">
     <div id="proposals" class="proposals-list small-12 medium-9 column">
@@ -75,10 +55,6 @@
         </div>
       <% end %>
 
-      <% unless params[:retired].present? || params[:selected].present? %>
-        <%= render Shared::AdvancedSearchComponent.new %>
-      <% end %>
-
       <% unless params[:selected].present? %>
         <%= render "shared/order_links", i18n_namespace: "proposals.index" %>
       <% end %>
@@ -105,14 +81,6 @@
         <% end %>
         <%= paginate @proposals %>
 
-        <% unless @search_terms || @advanced_search_terms %>
-          <div id="section_help" class="margin" data-magellan-target="section_help">
-            <p class="lead">
-              <strong><%= t("proposals.index.section_footer.title") %></strong>
-            </p>
-            <p><%= t("proposals.index.section_footer.description") %></p>
-          </div>
-        <% end %>
       </div>
     </div>
 
@@ -124,7 +92,7 @@
                     i18n_namespace: "proposals.index.search_form" %>
         </div>
         <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
-          <%= link_to t("proposals.index.start_proposal"),
+          <%= link_to 'Crear sugerencia',
                       new_proposal_path(:chapter => params[:search]),
                       class: "button expanded" %>
         <% end %>

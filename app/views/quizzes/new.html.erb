@@ -1,14 +1,20 @@
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
-		<%= back_link_to chapters_proposals_path %>
+		<% if @type == 1 %>
+			<%= back_link_to chapters_proposals_path %>
+		<% elsif @type == 2 %>
+			<%= back_link_to monitoring_quizzes_path %>
+		<% end %>
+
 		<h1><%= @title %></h1>
 
 		<% if @type == 1 %>
 			<h4>Capítulo: <%= @chapter.name %></h4>
 			<br>
-    	<%= render "quizzes/form_1", form_url: quizzes_path %>
+    		<%= render "quizzes/form_1", form_url: quizzes_path %>
 		<% else %>
-			test
+			<br>
+    		<%= render "quizzes/form_2", form_url: quizzes_path %>
 		<% end %>
 	</div>
 

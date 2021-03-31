@@ -5,6 +5,8 @@ module Abilities
     def initialize(user)
       merge Abilities::Everyone.new(user)
 
+      can [:create, :new], Quiz
+
       can [:read, :update], User, id: user.id
 
       can :read, Debate

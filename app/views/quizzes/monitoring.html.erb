@@ -1,0 +1,74 @@
+<% provide :title do %>Sugerencias de mecanismos de monitoreo<% end %>
+<% content_for :header_addon do %>
+<% end %>
+
+<main>
+  <div class="jumbo light">
+    <div class="row">
+      <div class="small-12 column">
+        <%= image_tag "help/help_icon_polls.png", alt: t("poll.icon_alt"), class: "align-sub" %>
+        <h1 class="inline-block">Sugerencias de mecanismos de monitoreo</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-9 column end">
+        <p>Esto es una descripción sobre el proceso participativo.</p>
+      </div>
+    </div>
+    <div class="row">
+      <%= render 'shared/back_to' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+      <div class="show-for-small-only">
+        <%= link_to t("proposals.index.start_proposal"),
+          new_proposal_path,
+          class: "button expanded" %>
+      </div>
+
+      <div id="proposals-list">
+      <% if @quizzes.any? %>
+        <table>
+          <thead>
+            <tr>
+              <th>P1</th>
+              <th>P2</th>
+              <th>P3</th>
+              <th>P4</th>
+              <th>Tipo</th>
+              <th>Visible</th>
+              <th>Creador</th>
+              <th>Capitulo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @quizzes.each do |quiz| %>
+            <tr>
+              <td><%= quiz.q1 %></td>
+              <td><%= quiz.q2 %></td>
+              <td><%= quiz.q3 %></td>
+              <td><%= quiz.q4 %></td>
+              <td><%= quiz.quiz_type %></td>
+              <td><%= quiz.visible %></td>
+              <td><%= quiz.user.name %></td>
+              <td><%= quiz.tag.nil? ? '' : quiz.tag.name %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-3 column">
+      <aside class="margin-bottom">
+        <%= link_to 'Crear tu monitoreo',
+          new_quiz_path(type: 2),
+          class: "button expanded" %>
+      </aside>
+    </div>
+
+  </div>
+</main>

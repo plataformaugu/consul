@@ -16,7 +16,7 @@
     </div>
     -->
     <div class="small-12 column">
-      <%= f.select :q1, [['jaja', 'jaja'], ['nose', 'nose'], ['Otro', 'Otro']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
+      <%= f.select :q1, [['Opcion 1', 'Opcion 1'], ['Opcion 2', 'Opcion 2'], ['Otro', 'Otro']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
       <br/>
     </div>
 
@@ -54,6 +54,13 @@
         <%= check_box_tag 'q4[]', 'Opción multiple 3' %>
         Opción multiple 3
       <% end %>
+      <br/>
+    </div>
+
+    <%= f.hidden_field :quiz_type, value: 1 %>
+    <%= f.hidden_field :tag_id, value: params[:chapter] %>
+    <div class="small-12 column">
+      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
       <br/>
     </div>
 

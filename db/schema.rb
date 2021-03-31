@@ -1257,16 +1257,18 @@ ActiveRecord::Schema.define(version: 2021_03_28_141944) do
   create_table "quizzes", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "user_id"
-    t.boolean "visible"
+    t.boolean "visible", default: true
     t.string "q1"
     t.string "q2"
     t.string "q3"
     t.string "q4"
     t.string "q5"
     t.integer "quiz_type"
+    t.bigint "user_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_quizzes_on_tag_id"
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 
@@ -1737,6 +1739,7 @@ ActiveRecord::Schema.define(version: 2021_03_28_141944) do
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
   add_foreign_key "proposals", "communities"
+  add_foreign_key "quizzes", "tags"
   add_foreign_key "quizzes", "users"
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"

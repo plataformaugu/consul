@@ -1,5 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create]
   skip_authorization_check
 
   # GET /quizzes
@@ -56,17 +57,43 @@ class QuizzesController < ApplicationController
   # POST /quizzes
   def create
     new_params = quiz_params
-    new_params['q1'] = params['quiz']['q1'] == 'Otro' ? params['quiz']['q5'] : params['quiz']['q1']
-    new_params['q2'] = params['quiz']['q2']
-    new_params['q3'] = params['quiz']['q3']
-    new_params['q4'] = params['q4'].present? ? params['q4'].join(', ') : ''
     new_params['user'] = current_user
-    new_params.delete('q5')
 
-    @quiz = Quiz.new(new_params)
+    if quiz_params['quiz_type'] == '1'
+      new_params['q1'] = params['quiz']['q1'] == 'Otro' ? params['quiz']['q5'] : params['quiz']['q1']
+      new_params['q2'] = params['quiz']['q2']
+      new_params['q3'] = params['quiz']['q3']
+      new_params['q4'] = params['q4'].present? ? params['q4'].join(', ') : ''
+      new_params.delete('q5')
 
-    if @quiz.save
-      redirect_to @quiz, notice: 'Quiz was successfully created.'
+      if new_params['tag_id'].present? and Tag.category.exists?(id: new_params['tag_id'].to_i)
+        @quiz = Quiz.new(new_params)
+
+        if @quiz.save
+          @title_text = 'Diagnóstico enviado correctamente'
+          @send_text = 'Enviar otro diagnóstico'
+          @chapter = new_params['tag_id']
+          @type = new_params['quiz_type']
+          render :success
+        else
+          render :new
+        end
+      else
+        render :new
+      end
+    elsif quiz_params['quiz_type'] == '2'
+      new_params['q3'] = params['q3'].present? ? params['q3'].join(', ') : ''
+      @quiz = Quiz.new(new_params)
+
+      if @quiz.save
+        @title_text = 'Monitoreo enviado correctamente'
+        @send_text = 'Enviar otra sugerencia'
+        @chapter = nil
+        @type = new_params['quiz_type']
+        render :success
+      else
+        render :new
+      end
     else
       render :new
     end
@@ -87,6 +114,11 @@ class QuizzesController < ApplicationController
     redirect_to quizzes_url, notice: 'Quiz was successfully destroyed.'
   end
 
+  def monitoring
+    @quizzes = Quiz.all
+    render :monitoring
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
@@ -95,6 +127,6 @@ class QuizzesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def quiz_params
-      params.require(:quiz).permit(:name, :description, :user_id, :visible, :q1, :q2, :q3, :q4, :q5, :quiz_type)
+      params.require(:quiz).permit(:name, :description, :user_id, :visible, :q1, :q2, :q3, :q4, :q5, :quiz_type, :tag_id)
     end
 end

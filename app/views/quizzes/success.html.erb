@@ -1,0 +1,32 @@
+<% provide :title do %><%= @title_text %><% end %>
+
+<div class="row">
+  <div class="small-12 medium-8 column">
+    <h1><%= @title_text %></h1>
+
+    <% unless @chapter.nil? %>
+      <h3>Capítulo: <%= Tag.category.find(@chapter) %></h3>
+    <% end %>
+    <br/>
+    <p>
+      <span>Muchas gracias por participar.</span><br>
+    </p>
+    <br/>
+
+    <div class="margin-bottom" style="margin-left: 1rem;">
+      <div class="row">
+        <div class="small-5 inline-block">
+          <%= link_to @send_text,
+            new_quiz_path(type: @type, chapter: @chapter),
+            class: "button expanded" %>
+        </div>
+        <div class="small-5 inline-block">
+          <%= link_to 'Volver a la página de inicio',
+            root_path,
+            class: "button expanded" %>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -44,6 +44,10 @@ Rails.application.routes.draw do
   get "help/faq",         to: "pages#show", id: "faq",                    as: "faq"
 
   # Static pages
-  resources :quizzes, path: 'forms'
+  resources :quizzes, path: 'forms' do
+    collection do
+      get :monitoring
+    end
+  end
   resources :pages, path: "/", only: [:show]
 end
