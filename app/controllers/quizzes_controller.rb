@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create]
+  has_orders %w[most_voted newest oldest], only: :show
   skip_authorization_check
 
   # GET /quizzes
@@ -16,16 +17,21 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
+
     @quiz = Quiz.new
     @title = ''
     
     if params[:type].present?
-      unless ['1', '2'].include? params[:type]
+      unless ['1', '2', '3'].include? params[:type]
         redirect_to root_path
       end
 
       @type = params[:type].to_i
       if @type == 1
+        unless self.is_user_allowed(@type)
+          redirect_to root_path
+        end
+
         unless params[:chapter].present?
           redirect_to root_path
         else
@@ -38,10 +44,30 @@ class QuizzesController < ApplicationController
         end
       end
       if @type == 2
+        unless self.is_user_allowed(@type)
+          redirect_to root_path
+        end
+
         if params[:chapter].present?
           redirect_to root_path
         else
           @title = 'Sugerencias de mecanismos de monitoreo'
+        end
+      end
+      if @type == 3
+        unless self.is_user_allowed(@type)
+          redirect_to root_path
+        end
+
+        unless params[:chapter].present?
+          redirect_to root_path
+        else
+          if Tag.category.where(id: params[:chapter].to_i).exists?
+            @chapter = Tag.category.find(params[:chapter].to_i)
+            @title = 'Sugerencias de acciones por tema'
+          else
+            redirect_to root_path
+          end
         end
       end
     else
@@ -94,6 +120,18 @@ class QuizzesController < ApplicationController
       else
         render :new
       end
+    elsif quiz_params['quiz_type'] == '3'
+      @quiz = Quiz.new(new_params)
+
+      if @quiz.save
+        @title_text = 'Sugerencia enviada correctamente'
+        @send_text = 'Enviar otra sugerencia'
+        @chapter = new_params['tag_id']
+        @type = new_params['quiz_type']
+        render :success
+      else
+        render :new
+      end
     else
       render :new
     end
@@ -119,7 +157,24 @@ class QuizzesController < ApplicationController
     render :monitoring
   end
 
+  def vote
+    quiz_id = params['quiz_id']
+    vote = Vote.new(votable_type: "Quiz", votable_id: quiz_id.to_i, voter_id: current_user.id, vote_weight: 1)
+    vote.save
+  end
+
+  def is_user_allowed(quiz_type)
+    count = Quiz.where(quiz_type: quiz_type).where(user_id: current_user.id).count
+
+    if count >= 6
+      return false
+    else
+      return true
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
       @quiz = Quiz.find(params[:id])

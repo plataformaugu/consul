@@ -2,20 +2,25 @@
 
 <%= form_for(@quiz, url: form_url) do |f| %>
 
-  <div class="row column">
+  <div class="row column quiz-form">
     <div class="small-12 column">
       <%= f.select :q1, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
-      <br/>
+      <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <%= f.text_area :q2,
-        rows: 3, maxlength: 200, label: 'Pregunta 2 (obligatoria)' %>
-      <br/>
+      <label>Pregunta abierta</label><br/>
+      <%= f.text_field :name,
+        label: 'Título',
+        maxlength: 25 %>
+
+      <%= f.text_area :description,
+        maxlength: 250,
+        rows: 3 %>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3 (obligatoria)' %>
+      <%= f.label :q3, 'Pregunta 3 (obligatoria)' %><br/>
       <%= label_tag nil, style: 'font-weight: normal' do %>
         <%= check_box_tag 'q3[]', 'Opción multiple 1' %>
         Opción multiple 1
@@ -39,7 +44,7 @@
     </div>
 
     <div class="actions small-12 column">
-      <%= f.submit(class: "button", value: 'Enviar') %>
+      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
     </div>
   </div>
 <% end %>

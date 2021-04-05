@@ -2,22 +2,13 @@
 
 <%= form_for(@quiz, url: form_url) do |f| %>
 
-  <div class="row column">
-    <!--
+  <div class="row column quiz-form">
     <div class="small-12 column">
-      <%= f.text_field :name,
-        maxlength: 25 %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.text_area :description,
-        maxlength: 250,
-        class: "html-area" %>
-    </div>
-    -->
-    <div class="small-12 column">
-      <%= f.select :q1, [['Opcion 1', 'Opcion 1'], ['Opcion 2', 'Opcion 2'], ['Otro', 'Otro']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
-      <br/>
+      <%= f.label :q1, 'Pregunta 1' %><br>
+      <%= f.radio_button :q1, 'Opción 1', label: 'Opción 1' %><br>
+      <%= f.radio_button :q1, 'Opción 2', label: 'Opción 2' %><br>
+      <%= f.radio_button :q1, 'Otro', label: 'Otro' %>
+      <br/><br>
     </div>
 
     <div class="small-12 column" id="hidden-field" style="display: none;">
@@ -27,21 +18,26 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.text_area :q2,
-        rows: 3, maxlength: 200, label: 'Pregunta 2' %>
-      <br/>
+      <label>Pregunta abierta</label><br/>
+      <%= f.text_field :name,
+        label: 'Título',
+        maxlength: 25 %>
+
+      <%= f.text_area :description,
+        maxlength: 250,
+        rows: 3 %>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3' %>
-      <%= f.radio_button :q3, 'Opción 1', label: 'Opción 1' %>
-      <%= f.radio_button :q3, 'Opción 2', label: 'Opción 2' %>
+      <%= f.label :q3, 'Pregunta 3' %><br>
+      <%= f.radio_button :q3, 'Opción 1', label: 'Opción 1' %><br>
+      <%= f.radio_button :q3, 'Opción 2', label: 'Opción 2' %><br>
       <%= f.radio_button :q3, 'Opción 3', label: 'Opción 3' %>
-      <br/>
+      <br/><br>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q4, 'Pregunta 4' %>
+      <%= f.label :q4, 'Pregunta 4' %><br>
       <%= label_tag nil, style: 'font-weight: normal' do %>
         <%= check_box_tag 'q4[]', 'Opción multiple 1' %>
         Opción multiple 1
@@ -65,7 +61,7 @@
     </div>
 
     <div class="actions small-12 column">
-      <%= f.submit(class: "button", value: 'Enviar') %>
+      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
     </div>
   </div>
 <% end %>
@@ -74,11 +70,22 @@
 $(document).ready(function() {
   $('#quiz_q1').attr('required', true)
 
-  $('#quiz_q1').on('change', function() {
+  $('input[name="quiz[q1]"]').on('change', function() {
     if (this.value === 'Otro' || this.value === 'otro') {
       $('#hidden-field').css('display', 'block');
     } else {
       $('#hidden-field').css('display', 'none');
+    }
+  })
+
+  $('#new_quiz').on('submit', function(e) {
+    if ($('input[name="quiz[q1]"]:checked').length <= 0) {
+      $('[for="quiz_q1"]').css('color', 'red');
+      e.preventDefault();
+      window.scrollTo(0, 0);
+      return false;
+    } else {
+      $('[for="quiz_q1"]').css('color', 'black');
     }
   })
 })

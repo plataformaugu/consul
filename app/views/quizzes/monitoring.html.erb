@@ -1,7 +1,16 @@
 <% provide :title do %>Sugerencias de mecanismos de monitoreo<% end %>
 <% content_for :header_addon do %>
 <% end %>
-
+<% if params[:order].present? %>
+  <% if params[:order] == 'new' %>
+    <% @quizzes = Quiz.where(quiz_type: 2).order(created_at: :desc) %>
+  <% else %>
+    <% @quizzes = Quiz.where(quiz_type: 2) %>
+    <% # TODO: Orden por mas apoyadas %>
+  <% end %>
+<% else %>
+  <% @quizzes = Quiz.where(quiz_type: 2) %>
+<% end%>
 <main>
   <div class="jumbo light">
     <div class="row">
@@ -23,41 +32,68 @@
   <div class="row">
     <div id="proposals" class="proposals-list small-12 medium-9 column">
       <div class="show-for-small-only">
-        <%= link_to t("proposals.index.start_proposal"),
-          new_proposal_path,
-          class: "button expanded" %>
+        <%= link_to 'Crear tu monitoreo',
+          current_user ? new_quiz_path(type: 2) : nil,
+          class: "button expanded",
+          disabled: !current_user %>
       </div>
-
-      <div id="proposals-list">
-      <% if @quizzes.any? %>
-        <table>
-          <thead>
-            <tr>
-              <th>P1</th>
-              <th>P2</th>
-              <th>P3</th>
-              <th>P4</th>
-              <th>Tipo</th>
-              <th>Visible</th>
-              <th>Creador</th>
-              <th>Capitulo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @quizzes.each do |quiz| %>
-            <tr>
-              <td><%= quiz.q1 %></td>
-              <td><%= quiz.q2 %></td>
-              <td><%= quiz.q3 %></td>
-              <td><%= quiz.q4 %></td>
-              <td><%= quiz.quiz_type %></td>
-              <td><%= quiz.visible %></td>
-              <td><%= quiz.user.name %></td>
-              <td><%= quiz.tag.nil? ? '' : quiz.tag.name %></td>
-            </tr>
+      <ul class="no-bullet submenu">
+        <% @orders = [['Más apoyadas', 'support'], ['Nuevas', 'new']] %>
+        <% @orders.each do |name, order| %>
+          <li class="inline-block">
+            <%= link_to current_path_with_query_params(order: order), class: order == params[:order] ? "is-active" : "" do %>
+              <%= content_tag(order == @current_order ? :h2 : :span) do %>
+                <% name %>
+              <% end %>
             <% end %>
-          </tbody>
-        </table>
+          </li>
+        <% end %>
+      </ul>
+      <div id="proposals-list">
+        <% if @quizzes.any? %>
+          <% @quizzes.each do |quiz| %>
+            <div class="proposal clear">
+              <div class="panel">
+                <div class="row">
+                  <div class="small-12 medium-3 column">
+                    <h4><%= quiz.name || '(Sin título)' %></h4>
+                    <strong>Fecha</strong><br/>
+                    <%= quiz.created_at.to_date %>
+                  </div>
+                  <div class="small-12 medium-6 column supports-container">
+                    <h4>Descripción</h4>
+                    <p><%= quiz.description || 'Sin descripción.' %></p>
+                  </div>
+                  <div class="small-12 medium-3 column supports-container">
+                    <div class="supports text-center">
+                      <span class="total-supports">
+                        <%= Vote.where(votable_type: "Quiz", votable_id: quiz.id).count %>
+                        <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id).count == 1 %>
+                          apoyo
+                        <% else %>
+                          apoyos
+                        <% end %>
+                      </span>
+                      <div class="in-favor">
+                        <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                            class: "button button-support small expanded",
+                            title: 'Apoyar',
+                            method: "post",
+                            disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                            remote: true do %>
+                          <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
+                            Ya apoyaste
+                          <% else %>
+                            Apoyar
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -65,8 +101,9 @@
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
         <%= link_to 'Crear tu monitoreo',
-          new_quiz_path(type: 2),
-          class: "button expanded" %>
+          current_user ? new_quiz_path(type: 2) : nil,
+          class: "button expanded",
+          disabled: !current_user %>
       </aside>
     </div>
 

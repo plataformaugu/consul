@@ -1,0 +1,43 @@
+<%= render "shared/globalize_locales", resource: @proposal %>
+
+<%= form_for(@quiz, url: form_url) do |f| %>
+
+  <div class="row column quiz-form">
+    <div class="small-12 column">
+      <label>Pregunta abierta</label><br/>
+      <%= f.text_field :name,
+        label: 'Título',
+        maxlength: 25,
+        required: true %>
+
+      <%= f.text_area :description,
+        maxlength: 250,
+        rows: 3,
+        required: true %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :q2, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 2 (obligatoria)', prompt: "Elija una opción" %>
+      <br/><br/>
+    </div>
+
+    <%= f.hidden_field :quiz_type, value: 3 %>
+    <%= f.hidden_field :tag_id, value: params[:chapter] %>
+
+    <div class="small-12 column">
+      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+      <br/>
+    </div>
+
+    <div class="actions small-12 column">
+      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$(document).ready(function() {
+  $('#quiz_q1').attr('required', true)
+  $('#quiz_q2').attr('required', true)
+})
+</script>

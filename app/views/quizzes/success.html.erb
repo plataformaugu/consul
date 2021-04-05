@@ -17,8 +17,9 @@
       <div class="row">
         <div class="small-5 inline-block">
           <%= link_to @send_text,
-            new_quiz_path(type: @type, chapter: @chapter),
-            class: "button expanded" %>
+            Quiz.where(quiz_type: @type).where(user_id: current_user.id).count >= 6 ? '#' : new_quiz_path(type: @type, chapter: @chapter),
+            class: "button expanded",
+            disabled: Quiz.where(quiz_type: @type).where(user_id: current_user.id).count >= 6 %>
         </div>
         <div class="small-5 inline-block">
           <%= link_to 'Volver a la página de inicio',

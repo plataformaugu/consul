@@ -356,22 +356,19 @@ aside {
     vertical-align: sub;
 }
 
-.proceso-main {
-    .card {
-        border-radius: 15px;
-        margin: 10px;
-        box-sizing: border-box;
-        box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
-        transition: all 0.2s;
+.proceso-card {
+    background: white;
+    border-radius: 15px;
+    margin: 10px;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
+    transition: all 0.2s;
+    max-width: 266px;
+    height: 100%;
 
-        .card-section {
-            padding-top: 2rem;
-        }
-
-        &:hover {
-            background-color: rgba($brand, .05);
-            box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.50);
-        }
+    &:hover {
+        background-color: rgba($brand, .05);
+        box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.50);
     }
 }
 
@@ -379,4 +376,31 @@ aside {
     width: 236px;
     height: 236px;
     object-fit: cover;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    @include breakpoint(medium down) {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.quiz-form {
+    [type="checkbox"] {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.auth-form {
+    @include breakpoint(medium) {
+      padding-top: $line-height * 2 !important;
+    }
+}
+
+.auth-image {
+    height: 100% !important;
 }

@@ -5,6 +5,16 @@
   <%= render "shared/canonical", href: proposals_url %>
 <% end %>
 
+<% if params[:order].present? %>
+  <% if params[:order] == 'new' %>
+    <% @quizzes = Quiz.where(quiz_type: 3).order(created_at: :desc) %>
+  <% else %>
+    <% @quizzes = Quiz.where(quiz_type: 3) %>
+    <% # TODO: Orden por mas apoyadas %>
+  <% end %>
+<% else %>
+  <% @quizzes = Quiz.where(quiz_type: 3) %>
+<% end%>
 <main>
   <div class="center-element mobile-view">
     <%= render "shared/search_form",
@@ -34,53 +44,80 @@
       <%= render Shared::BannerComponent.new("proposals") %>
       <%= render "categories" %>
 
-      <% if true == false %>
-        <div id="featured-proposals" class="row featured-proposals">
-          <div class="small-12 column">
-            <h2>
-              <%= t("proposals.index.featured_proposals") %>
-            </h2>
-          </div>
-          <% @featured_proposals.each do |featured_proposal| %>
-            <%= render "featured_proposal", proposal: featured_proposal %>
-          <% end %>
-        </div>
-      <% end %>
-
-      <% unless params[:selected].present? %>
-        <div class="row">
-          <div class="small-12 column">
-            <%= render "view_mode" %>
-          </div>
-        </div>
-      <% end %>
-
-      <% unless params[:selected].present? %>
-        <%= render "shared/order_links", i18n_namespace: "proposals.index" %>
-      <% end %>
-
       <% if @proposals.any? %>
         <div class="show-for-small-only">
-          <%= link_to t("proposals.index.start_proposal"),
-                      new_proposal_path,
-                      class: "button expanded" %>
+          <%= link_to 'Crear tu sugerencia',
+              current_user ? new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3) : '#',
+              class: "button expanded",
+              disabled: !current_user %>
         </div>
       <% end %>
 
-      <div id="proposals-list">
-        <% if @proposals.any? || current_user.blank? %>
-          <% if proposals_default_view? %>
-            <%= render partial: "proposals/proposal", collection: @proposals %>
-          <% else %>
-            <% @proposals.each do |proposal| %>
-              <%= render "/proposals/proposal_minimal", proposal: proposal %>
+      <br/>
+      <ul class="no-bullet submenu">
+        <% @orders = [['Más apoyadas', 'support'], ['Nuevas', 'new']] %>
+        <% @orders.each do |name, order| %>
+          <li class="inline-block">
+            <%= link_to current_path_with_query_params(order: order), class: order == params[:order] ? "is-active" : "" do %>
+              <%= content_tag(order == @current_order ? :h2 : :span) do %>
+                <% name %>
+              <% end %>
             <% end %>
-          <% end %>
-        <% else %>
-          <%= empty_recommended_proposals_message_text(current_user) %>
+          </li>
         <% end %>
-        <%= paginate @proposals %>
-
+      </ul>
+      <div id="proposals-list">
+        <% if @quizzes.any? %>
+          <% @quizzes.each do |quiz| %>
+            <div class="proposal clear">
+              <div class="panel">
+                <div class="row">
+                  <div class="small-12 medium-3 column">
+                    <h4><%= quiz.name || '(Sin título)' %></h4>
+                    <strong>Capítulo</strong>
+                    <% if quiz.tag %>
+                      <p><i class="fas fa-hand-paper" style="color: #004a83;"></i> <%= quiz.tag %></p>
+                    <% else %>
+                      <p>Sin capítulo</p>
+                    <% end %>
+                    <strong>Fecha</strong><br/>
+                    <%= quiz.created_at.to_date %>
+                  </div>
+                  <div class="small-12 medium-6 column supports-container">
+                    <h4>Descripción</h4>
+                    <p><%= quiz.description || 'Sin descripción.' %></p>
+                  </div>
+                  <div class="small-12 medium-3 column supports-container">
+                    <div class="supports text-center">
+                      <span class="total-supports">
+                        <%= Vote.where(votable_type: "Quiz", votable_id: quiz.id).count %>
+                        <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id).count == 1 %>
+                          apoyo
+                        <% else %>
+                          apoyos
+                        <% end %>
+                      </span>
+                      <div class="in-favor">
+                        <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                            class: "button button-support small expanded",
+                            title: 'Apoyar',
+                            method: "post",
+                            disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                            remote: true do %>
+                          <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
+                            Ya apoyaste
+                          <% else %>
+                            Apoyar
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
 
@@ -92,9 +129,10 @@
                     i18n_namespace: "proposals.index.search_form" %>
         </div>
         <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
-          <%= link_to 'Crear sugerencia',
-                      new_proposal_path(:chapter => params[:search]),
-                      class: "button expanded" %>
+          <%= link_to 'Crear tu sugerencia',
+              current_user ? new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3) : '#',
+              class: "button expanded",
+              disabled: !current_user %>
         <% end %>
         <% if true == false and params[:retired].blank? %>
           <%= render "shared/tag_cloud", taggable: "Proposal" %>

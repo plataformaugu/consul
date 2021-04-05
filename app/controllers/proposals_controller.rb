@@ -96,6 +96,7 @@ class ProposalsController < ApplicationController
   end
 
   def chapters
+    @quizzes = Quiz.all
   end
 
   private
