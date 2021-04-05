@@ -75,17 +75,21 @@
                         <% end %>
                       </span>
                       <div class="in-favor">
-                        <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
-                            class: "button button-support small expanded",
-                            title: 'Apoyar',
-                            method: "post",
-                            disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
-                            remote: true do %>
-                          <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
-                            Ya apoyaste
-                          <% else %>
-                            Apoyar
+                        <% if current_user %>
+                          <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                              class: "button button-support small expanded",
+                              title: 'Apoyar',
+                              method: "post",
+                              disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                              remote: true do %>
+                            <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
+                              Ya apoyaste
+                            <% else %>
+                              Apoyar
+                            <% end %>
                           <% end %>
+                        <% else %>
+                          <button disabled class="button button-support small expanded">Ingresa para votar</button>
                         <% end %>
                       </div>
                     </div>
