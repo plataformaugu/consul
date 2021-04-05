@@ -68,18 +68,19 @@
                     <div class="supports text-center">
                       <span class="total-supports">
                         <%= Vote.where(votable_type: "Quiz", votable_id: quiz.id).count %>
+                      </span>
                         <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id).count == 1 %>
                           apoyo
                         <% else %>
                           apoyos
                         <% end %>
-                      </span>
                       <div class="in-favor">
                         <% if current_user %>
                           <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
                               class: "button button-support small expanded",
                               title: 'Apoyar',
                               method: "post",
+                              onclick: 'doVote(this);',
                               disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
                               remote: true do %>
                             <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
@@ -113,3 +114,13 @@
 
   </div>
 </main>
+
+<script>
+function doVote(e) {
+  if (!e.getAttribute('disabled')) {
+    e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
+    e.setAttribute('disabled', 'disabled');
+    e.innerText = 'Ya apoyaste';
+  }
+}
+</script>

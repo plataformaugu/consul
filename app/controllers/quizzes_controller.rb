@@ -159,8 +159,13 @@ class QuizzesController < ApplicationController
 
   def vote
     quiz_id = params['quiz_id']
-    vote = Vote.new(votable_type: "Quiz", votable_id: quiz_id.to_i, voter_id: current_user.id, vote_weight: 1)
-    vote.save
+
+    unless Vote.where(votable_type: "Quiz", votable_id: quiz_id.to_i, voter_id: current_user.id).exists?
+      vote = Vote.new(votable_type: "Quiz", votable_id: quiz_id.to_i, voter_id: current_user.id, vote_weight: 1)
+      vote.save
+    else
+      redirect root_path
+    end
   end
 
   def is_user_allowed(quiz_type)
