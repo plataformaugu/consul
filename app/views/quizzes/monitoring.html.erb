@@ -1,16 +1,17 @@
 <% provide :title do %>Sugerencias de mecanismos de monitoreo<% end %>
 <% content_for :header_addon do %>
 <% end %>
+
+<% @quizzes = Quiz.where(quiz_type: 2, visible: true) %>
+
 <% if params[:order].present? %>
   <% if params[:order] == 'new' %>
-    <% @quizzes = Quiz.where(quiz_type: 2).order(created_at: :desc) %>
-  <% else %>
-    <% @quizzes = Quiz.where(quiz_type: 2) %>
-    <% # TODO: Orden por mas apoyadas %>
+    <% @quizzes = @quizzes.order(created_at: :desc) %>
+  <% elsif params[:order] == 'support' %>
+    <% @quizzes = @quizzes.sort_by {|quiz| quiz.votes}.reverse %>
   <% end %>
-<% else %>
-  <% @quizzes = Quiz.where(quiz_type: 2) %>
 <% end%>
+
 <main>
   <div class="jumbo light">
     <div class="row">
@@ -32,10 +33,19 @@
   <div class="row">
     <div id="proposals" class="proposals-list small-12 medium-9 column">
       <div class="show-for-small-only">
-        <%= link_to 'Crear tu monitoreo',
-          current_user ? new_quiz_path(type: 2) : nil,
-          class: "button expanded",
-          disabled: !current_user %>
+        <% if current_user %>
+          <%= link_to 'Crear tu monitoreo',
+            new_quiz_path(type: 2),
+            class: "button expanded",
+            disabled: !current_user %>
+        <% else %>
+        <div class="show-only-users">
+          <div class="message">
+              Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
+            </div>
+            <button class="button expanded">Crear tu monitoreo</button>
+          </div>
+        <% end %>
       </div>
       <ul class="no-bullet submenu">
         <% @orders = [['Más apoyadas', 'support'], ['Nuevas', 'new']] %>
@@ -90,7 +100,21 @@
                             <% end %>
                           <% end %>
                         <% else %>
-                          <button disabled class="button button-support small expanded">Ingresa para votar</button>
+                        <div class="show-only-users">
+                          <div class="message">
+                            Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para apoyar.
+                          </div>
+                          <button class="button button-support small expanded">Apoyar</button>
+                        </div>
+                        <% end %>
+                        <% if current_user %>
+                          <% if current_user.administrator? || current_user.moderator? %>
+                            <%= link_to 'Ocultar',
+                              set_invisible_quizzes_path(quiz_id: quiz.id), 
+                              method: 'post',
+                              data: {confirm: '¿Realmente deseas ocultar este elemento?'}, 
+                              class: 'button small expanded' %>
+                          <% end %>
                         <% end %>
                       </div>
                     </div>
@@ -105,10 +129,19 @@
 
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
-        <%= link_to 'Crear tu monitoreo',
-          current_user ? new_quiz_path(type: 2) : nil,
-          class: "button expanded",
-          disabled: !current_user %>
+        <% if current_user %>
+          <%= link_to 'Crear tu monitoreo',
+            new_quiz_path(type: 2),
+            class: "button expanded",
+            disabled: !current_user %>
+        <% else %>
+        <div class="show-only-users">
+          <div class="message">
+              Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
+            </div>
+            <button class="button expanded">Crear tu monitoreo</button>
+          </div>
+        <% end %>
       </aside>
     </div>
 
@@ -123,4 +156,10 @@ function doVote(e) {
     e.innerText = 'Ya apoyaste';
   }
 }
+
+$(document).on('confirm:complete', function (e, answer) {
+  if (answer) {
+    $(e.target.parentElement.parentElement.parentElement.parentElement.parentElement).hide()
+  }
+});
 </script>

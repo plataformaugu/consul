@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :quizzes, path: 'forms' do
     collection do
       get :monitoring
+      post :set_invisible
       post :vote
     end
   end

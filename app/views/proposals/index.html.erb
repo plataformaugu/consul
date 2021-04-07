@@ -5,22 +5,23 @@
   <%= render "shared/canonical", href: proposals_url %>
 <% end %>
 
+
+<% @quizzes = Quiz.where(quiz_type: 3, visible: true) %>
+
+<% if params[:search].present? %>
+  <% @tag = Tag.category.where(name: params[:search]).first %>
+  <% @quizzes = @quizzes.where(tag_id: @tag.id) %>
+<% end %>
+
 <% if params[:order].present? %>
   <% if params[:order] == 'new' %>
-    <% @quizzes = Quiz.where(quiz_type: 3).order(created_at: :desc) %>
-  <% else %>
-    <% @quizzes = Quiz.where(quiz_type: 3) %>
-    <% # TODO: Orden por mas apoyadas %>
+    <% @quizzes = @quizzes.order(created_at: :desc) %>
+  <% elsif params[:order] == 'support' %>
+    <% @quizzes = @quizzes.sort_by {|quiz| quiz.votes}.reverse %>
   <% end %>
-<% else %>
-  <% @quizzes = Quiz.where(quiz_type: 3) %>
 <% end%>
+
 <main>
-  <div class="center-element mobile-view">
-    <%= render "shared/search_form",
-              search_path: proposals_path(page: 1),
-              i18n_namespace: "proposals.index.search_form" %>
-  </div>
     <div class="jumbo light">
     <div class="row">
       <div class="small-12 column">
@@ -39,19 +40,35 @@
   </div>
 
   <div class="row">
-    <div id="proposals" class="proposals-list small-12 medium-9 column">
+    <div id="proposals" class="proposals-list small-12 medium-12 column">
 
-      <%= render Shared::BannerComponent.new("proposals") %>
-      <%= render "categories" %>
-
-      <% if @proposals.any? %>
-        <div class="show-for-small-only">
-          <%= link_to 'Crear tu sugerencia',
-              current_user ? new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3) : '#',
-              class: "button expanded",
-              disabled: !current_user %>
-        </div>
-      <% end %>
+    <div class="row">
+      <div class="small-12 medium-9 column">
+        <%= render "categories" %>
+      </div>
+      <div class="small-12 medium-3 column">
+        <h2 class="sidebar-title">Participar</h2>
+        <aside class="margin-bottom">
+          <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
+            <% if current_user %>
+              <%= link_to 'Crear tu sugerencia',
+                new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
+                class: "button expanded" %>
+            <% else %>
+            <div class="show-only-users">
+              <div class="message">
+                  Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
+                </div>
+                <button class="button expanded">Crear tu sugerencia</button>
+              </div>
+            <% end %>
+          <% else %>
+            <button disabled class="button expanded">Crear tu sugerencia</button>
+            <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un capítulo.</small>
+          <% end %>
+        </aside>
+      </div>
+    </div>
 
       <br/>
       <ul class="no-bullet submenu">
@@ -113,7 +130,21 @@
                             <% end %>
                           <% end %>
                         <% else %>
-                          <button disabled class="button button-support small expanded">Ingresa para votar</button>
+                        <div class="show-only-users">
+                          <div class="message">
+                            Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para apoyar.
+                          </div>
+                          <button class="button button-support small expanded">Apoyar</button>
+                        </div>
+                        <% end %>
+                        <% if current_user %>
+                          <% if current_user.administrator? || current_user.moderator? %>
+                            <%= link_to 'Ocultar',
+                              set_invisible_quizzes_path(quiz_id: quiz.id), 
+                              method: 'post',
+                              data: {confirm: '¿Realmente deseas ocultar este elemento?'}, 
+                              class: 'button small expanded' %>
+                          <% end %>
                         <% end %>
                       </div>
                     </div>
@@ -125,28 +156,6 @@
         <% end %>
       </div>
     </div>
-
-    <div class="small-12 medium-3 column">
-      <aside class="margin-bottom">
-        <div class="desktop-view">
-          <%= render "shared/search_form",
-                    search_path: proposals_path(page: 1),
-                    i18n_namespace: "proposals.index.search_form" %>
-        </div>
-        <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
-          <%= link_to 'Crear tu sugerencia',
-              current_user ? new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3) : '#',
-              class: "button expanded",
-              disabled: !current_user %>
-        <% end %>
-        <% if true == false and params[:retired].blank? %>
-          <%= render "shared/tag_cloud", taggable: "Proposal" %>
-          <%= render "retired" %>
-          <%= render "proposals_lists" %>
-        <% end %>
-      </aside>
-    </div>
-
   </div>
 </main>
 
@@ -158,4 +167,10 @@ function doVote(e) {
     e.innerText = 'Ya apoyaste';
   }
 }
+
+$(document).on('confirm:complete', function (e, answer) {
+  if (answer) {
+    $(e.target.parentElement.parentElement.parentElement.parentElement.parentElement).hide()
+  }
+});
 </script>

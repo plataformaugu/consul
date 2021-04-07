@@ -18,8 +18,8 @@
       <%= f.hidden_field :locale, value: I18n.locale %>
 
       <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
-                                   placeholder: t("devise_views.users.registrations.new.username_label"),
-                                   hint: t("devise_views.users.registrations.new.username_note") %>
+                                   pattern: '^[a-zA-Z\u00C0-\u00FF]*$', title: 'Solo letras.',
+                                   placeholder: t("devise_views.users.registrations.new.username_label") %>
 
       <%= f.invisible_captcha :address %>
 
@@ -73,6 +73,12 @@ const validarRUT = (rut) => {
 };
 
 const limpiarRUT = rut => {
+  let cleanRut = String(rut).replace(/[^0-9a-z]/gi, '');
+  
+  if (cleanRut.length > 9) {
+    cleanRut = cleanRut.substring(0, cleanRut.length - (cleanRut.length - 9))
+  }
+
   return String(rut).replace(/[^0-9a-z]/gi, '');
 }
 

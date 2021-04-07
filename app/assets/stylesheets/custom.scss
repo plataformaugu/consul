@@ -404,3 +404,25 @@ aside {
 .auth-image {
     height: 100% !important;
 }
+
+
+
+.show-only-users {
+    .message {
+        font-size: 0.8em;
+        display: none;
+        background-color: rgba($brand, .08);
+        border-radius: 5px;
+        padding: 10px 3px;
+    }
+
+    &:hover {
+        .message {
+            display: block;
+        }
+
+        .button {
+            display: none;
+        }
+    }
+}

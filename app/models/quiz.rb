@@ -8,8 +8,8 @@ class Quiz < ApplicationRecord
     end
   end
 
-  def total_votes
-    cached_votes_up
+  def votes
+    Vote.where(votable_type: "Quiz", votable_id: self.id).count
   end
 
   def voters

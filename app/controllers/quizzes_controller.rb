@@ -178,6 +178,14 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def set_invisible
+    quiz_id = params['quiz_id']
+
+    @quiz = Quiz.find(quiz_id.to_i)
+    @quiz.visible = false
+    @quiz.save
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
