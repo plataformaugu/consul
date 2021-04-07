@@ -98,6 +98,7 @@ class QuizzesController < ApplicationController
         if @quiz.save
           @title_text = 'Diagnóstico enviado correctamente'
           @send_text = 'Enviar otro diagnóstico'
+          @show_next_button = true
           @chapter = new_params['tag_id']
           @type = new_params['quiz_type']
           render :success
@@ -113,7 +114,7 @@ class QuizzesController < ApplicationController
 
       if @quiz.save
         @title_text = 'Monitoreo enviado correctamente'
-        @send_text = 'Enviar otra sugerencia'
+        @send_text = 'Enviar otra monitoreo'
         @chapter = nil
         @type = new_params['quiz_type']
         render :success

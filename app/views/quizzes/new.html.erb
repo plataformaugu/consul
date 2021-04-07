@@ -18,6 +18,7 @@
 			<br>
     		<%= render "quizzes/form_2", form_url: quizzes_path %>
 		<% elsif @type == 3 %>
+			<h4>Capítulo: <%= @chapter.name %></h4>
 			<br>
     		<%= render "quizzes/form_3", form_url: quizzes_path %>
 		<% end %>

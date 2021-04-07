@@ -51,9 +51,13 @@
         <aside class="margin-bottom">
           <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
             <% if current_user %>
-              <%= link_to 'Crear tu sugerencia',
-                new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
-                class: "button expanded" %>
+              <% if Quiz.where(quiz_type: 3, user_id: current_user.id).count < 6 %>
+                <%= link_to 'Crear tu sugerencia',
+                  new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
+                  class: "button expanded" %>
+              <% else %>
+                <button disabled class="button expanded">Alcanzaste el límite</button>
+              <% end %>
             <% else %>
             <div class="show-only-users">
               <div class="message">

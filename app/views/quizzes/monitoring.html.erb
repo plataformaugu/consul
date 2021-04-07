@@ -34,10 +34,14 @@
     <div id="proposals" class="proposals-list small-12 medium-9 column">
       <div class="show-for-small-only">
         <% if current_user %>
-          <%= link_to 'Crear tu monitoreo',
-            new_quiz_path(type: 2),
-            class: "button expanded",
-            disabled: !current_user %>
+          <% if Quiz.where(quiz_type: 2, user_id: current_user.id).count < 6 %>
+            <%= link_to 'Crear tu monitoreo',
+              new_quiz_path(type: 2),
+              class: "button expanded",
+              disabled: !current_user %>
+          <% else %>
+            <button disabled class="button expanded">Alcanzaste el límite</button>
+          <% end %>
         <% else %>
         <div class="show-only-users">
           <div class="message">
@@ -130,10 +134,14 @@
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
         <% if current_user %>
-          <%= link_to 'Crear tu monitoreo',
-            new_quiz_path(type: 2),
-            class: "button expanded",
-            disabled: !current_user %>
+          <% if Quiz.where(quiz_type: 2, user_id: current_user.id).count < 6 %>
+            <%= link_to 'Crear tu monitoreo',
+              new_quiz_path(type: 2),
+              class: "button expanded",
+              disabled: !current_user %>
+          <% else %>
+            <button disabled class="button expanded">Alcanzaste el límite</button>
+          <% end %>
         <% else %>
         <div class="show-only-users">
           <div class="message">

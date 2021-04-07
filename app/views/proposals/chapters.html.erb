@@ -63,9 +63,13 @@
           <aside class="margin-bottom">
             <% if params[:search] and Tag.category.where({name: params[:search]}).exists? %>
               <% if current_user %>
-                <%= link_to 'Crear tu diagnóstico',
-                    new_quiz_path(chapter: Tag.category.where({name: params[:search]}).first.id, type: 1),
-                    class: "button expanded" %>
+                <% if Quiz.where(quiz_type: 1, user_id: current_user.id).count < 6 %>
+                  <%= link_to 'Crear tu diagnóstico',
+                      new_quiz_path(chapter: Tag.category.where({name: params[:search]}).first.id, type: 1),
+                      class: "button expanded" %>
+                <% else %>
+                  <button disabled class="button expanded">Alcanzaste el límite</button>
+                <% end %>
               <% else %>
               <div class="show-only-users">
                 <div class="message">
