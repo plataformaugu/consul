@@ -18,7 +18,12 @@
     </div>
 
     <div class="small-12 column">
-      <label>Pregunta abierta</label><br/>
+      <label>Pregunta abierta</label>
+
+      <div class="small-12 column">
+        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+      </div>
+
       <%= f.text_field :name,
         label: 'Título',
         maxlength: 25 %>
@@ -55,10 +60,6 @@
 
     <%= f.hidden_field :quiz_type, value: 1 %>
     <%= f.hidden_field :tag_id, value: params[:chapter] %>
-    <div class="small-12 column">
-      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      <br/>
-    </div>
 
     <div class="actions small-12 column">
       <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>

@@ -1,10 +1,6 @@
 <% provide :title do %>Sugerencias de acción por tema<% end %>
 <% content_for :header_addon do %>
 <% end %>
-<% content_for :canonical do %>
-  <%= render "shared/canonical", href: proposals_url %>
-<% end %>
-
 
 <% @quizzes = Quiz.where(quiz_type: 3, visible: true) %>
 
@@ -19,7 +15,17 @@
   <% elsif params[:order] == 'support' %>
     <% @quizzes = @quizzes.sort_by {|quiz| quiz.votes}.reverse %>
   <% end %>
-<% end%>
+<% end %>
+
+<% if params[:page].present? %>
+  <% if params[:page].to_i != 0 %>
+    <% @quizzes = @quizzes[params[:page].to_i * 5, 5] %>
+  <% else %>
+    <% @quizzes = @quizzes[0, 5] %>
+  <% end %>
+<% else %>
+  <% @quizzes = @quizzes[0, 5] %>
+<% end %>
 
 <main>
     <div class="jumbo light">
@@ -88,7 +94,7 @@
         <% end %>
       </ul>
       <div id="proposals-list">
-        <% if @quizzes.any? %>
+        <% if @quizzes && @quizzes.any? %>
           <% @quizzes.each do |quiz| %>
             <div class="proposal clear">
               <div class="panel">
@@ -157,9 +163,47 @@
               </div>
             </div>
           <% end %>
+        <% else %>
+          <p>No hay nada para mostrar.</p>
         <% end %>
       </div>
     </div>
+    <% @chapter_selected = params[:search].present? ? params[:search].to_i : Tag.category.ids %>
+    <% if Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).count > 5 %>
+      <nav aria-label="Pagination">
+        <ul class="pagination text-center">
+          <li class="pagination-previous <%= params[:page].to_i == 0 ? 'disabled' : '' %>">
+            <% if params[:page].to_i == 0 %>
+              Anterior
+            <% else %>
+              <%= link_to current_path_with_query_params(page: (params[:page].to_i - 1)) do %>
+                Anterior
+              <% end %>
+            <% end %>
+          </li>
+          <% Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).each_with_index do |page, index| %>
+            <li class="<%= params[:page].to_i == index ? 'current' : '' %>">
+              <% if params[:page].to_i == index %>
+                  <%= index + 1 %>
+              <% else %>
+                <%= link_to current_path_with_query_params(page: index) do %>
+                  <%= index + 1 %>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+          <li class="pagination-next <%= Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).count - 1 == params[:page].to_i ? 'disabled' : '' %>">
+            <% if Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).count - 1 == params[:page].to_i %>
+              Siguiente
+            <% else %>
+              <%= link_to current_path_with_query_params(page: params[:page].to_i + 1) do %>
+                Siguiente
+              <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    <% end %>
   </div>
 </main>
 

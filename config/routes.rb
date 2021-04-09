@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       get :monitoring
       post :set_invisible
       post :vote
+      post :invite_user
     end
   end
   resources :pages, path: "/", only: [:show]

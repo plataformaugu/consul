@@ -6,11 +6,6 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "shared/errors", resource: resource %>
 
-  <p>
-    <%= sanitize(t("devise_views.users.registrations.new.organization_signup",
-        signup_link: link_to(t("devise_views.users.registrations.new.organization_signup_link"), new_organization_registration_path))) %>
-  </p>
-
   <div class="row">
     <div class="small-12 column">
 
@@ -18,7 +13,7 @@
       <%= f.hidden_field :locale, value: I18n.locale %>
 
       <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
-                                   pattern: '^[a-zA-Z\u00C0-\u00FF]*$', title: 'Solo letras.',
+                                   pattern: '^[a-zA-Z\u00C0-\u00FF ]*$', title: 'Solo letras.',
                                    placeholder: t("devise_views.users.registrations.new.username_label") %>
 
       <%= f.invisible_captcha :address %>

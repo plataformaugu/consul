@@ -56,9 +56,35 @@
     <% end %>
   </div>
 </div>
-
+<!--
+<%= link_to 'jojo', invite_user_quizzes_path(email: 'test@gmail.com'), method: 'post' %>
+-->
 <main>
-  <%= render "feeds" %>
+  <% @quizzes_type = [
+    [1, 'Diagnósticos de acción más activos'],
+    [3, 'Sugerencias de acciones más activas'],
+    [2, 'Sugerencias de mecanismos de monitoreo más activas']] %>
+
+<div class="row">
+    <section id="feed" class="widget-feed">
+      <% @quizzes_type.each do |type, description| %>
+        <div class="small-12 medium-4 column">
+          <% if Quiz.where(quiz_type: type, visible: true).any? %>
+            <div class="feed-content">
+            <h3 class="title"><%= description %></h3>
+              <% Quiz.where(quiz_type: type, visible: true).sort_by {|quiz| quiz.votes}.reverse[0, 3].each do |quiz| %>
+                <div class="proposal">
+                  <h5><%= quiz.name or 'Sin título' %></h5>
+                  <p><%= quiz.description or 'Sin descripción' %></p>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>
 
   <div class="row">
     <% if @cards.any? %>

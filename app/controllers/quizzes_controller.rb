@@ -183,8 +183,21 @@ class QuizzesController < ApplicationController
     quiz_id = params['quiz_id']
 
     @quiz = Quiz.find(quiz_id.to_i)
+
+    if @quiz.quiz_type == 1
+      @quiz_type = 'diagnóstico'
+    else
+      @quiz_type = 'sugerencia'
+    end
+
+    Mailer.removed_content(@quiz.user.email, @quiz.name, @quiz_type)
+
     @quiz.visible = false
     @quiz.save
+  end
+
+  def invite_user
+    Mailer.user_invite(params[:email]).deliver_later
   end
 
   private
