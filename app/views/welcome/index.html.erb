@@ -75,7 +75,7 @@
               <% Quiz.where(quiz_type: type, visible: true).sort_by {|quiz| quiz.votes}.reverse[0, 3].each do |quiz| %>
                 <div class="proposal">
                   <h5><%= quiz.name or 'Sin título' %></h5>
-                  <p><%= quiz.description or 'Sin descripción' %></p>
+                  <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= quiz.description or 'Sin descripción' %></p>
                 </div>
               <% end %>
             </div>
