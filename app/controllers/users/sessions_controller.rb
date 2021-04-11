@@ -28,16 +28,18 @@ class Users::SessionsController < Devise::SessionsController
           resource.is_individual = false
           resource.group_id = group_user.group_id
           resource.save
-        elsif GroupUser.where(rut: resource.document_number.downcase).exists?
-          group_user = GroupUser.where(rut: resource.document_number.downcase).first
-          resource.is_individual = false
-          resource.group_id = group_user.group_id
-          resource.save
-        elsif GroupUser.where(rut: resource.document_number.upcase).exists?
-          group_user = GroupUser.where(rut: resource.document_number.downcase).first
-          resource.is_individual = false
-          resource.group_id = group_user.group_id
-          resource.save
+        elsif resource.document_number.instance_of?(String)
+          if GroupUser.where(rut: resource.document_number.downcase).exists?
+            group_user = GroupUser.where(rut: resource.document_number.downcase).first
+            resource.is_individual = false
+            resource.group_id = group_user.group_id
+            resource.save
+          elsif GroupUser.where(rut: resource.document_number.upcase).exists?
+            group_user = GroupUser.where(rut: resource.document_number.downcase).first
+            resource.is_individual = false
+            resource.group_id = group_user.group_id
+            resource.save
+          end
         end
       end
     end
