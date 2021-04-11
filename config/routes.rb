@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :group_users
   mount Ckeditor::Engine => "/ckeditor"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
@@ -50,6 +51,11 @@ Rails.application.routes.draw do
       post :set_invisible
       post :vote
       post :invite_user
+    end
+  end
+  resources :groups do
+    collection do
+      post :set_participation
     end
   end
   resources :pages, path: "/", only: [:show]

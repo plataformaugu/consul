@@ -1,0 +1,25 @@
+<% provide :title do %>Mi grupo<% end %>
+<% content_for :header_addon do %>
+<% end %>
+
+<main>
+  <div class="jumbo light">
+    <div class="row">
+      <div class="small-12 column">
+        <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
+        <h1 class="inline-block">Agregar participante</h1>
+      </div>
+    </div>
+    <div class="row">
+        <%= link_to @group, {:style => 'margin-left: 1rem;'} do %>
+            <i class="fas fa-arrow-left"></i> Volver
+        <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+        <%= render 'form', group: @group %>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,73 @@
+<%= form_with(model: group, local: true) do |form| %>
+    <%= form.hidden_field :name %>
+    <%= form.hidden_field :description %>
+
+    <label>Nombre</label>
+    <%= text_field_tag :name, params[:name],
+      pattern: '^[a-zA-Z\u00C0-\u00FF ]*$',
+      title: 'Solo letras.',
+      maxlength: User.username_max_length,
+      autofocus: true,
+      required: true %>
+
+    <label>RUT</label>
+    <span class="help-text">Ingrese RUT con guión y sin puntos</span>
+    <%= text_field_tag :rut, params[:rut],
+      maxlength: 10,
+      required: true %>
+
+    <label>Email</label>
+    <%= email_field_tag :email, params[:email], required: true %>
+
+  <div class="actions">
+    <%= form.submit 'Agregar', class: 'button' %>
+  </div>
+<% end %>
+
+<script>
+const validarRUT = (rut) => {
+  if (typeof rut === 'string' || typeof rut === 'number') {
+    const rutSinFormato = limpiarRUT(rut);
+    const rutSinDv = rutSinFormato.slice(0, -1);
+    const rutDv = rutSinFormato.length > 0 ? rutSinFormato.split('').pop().toLowerCase() : undefined
+
+    return calcularDv(rutSinDv) === rutDv;
+  }
+  else {
+    return false;
+  }
+};
+
+const limpiarRUT = rut => {
+  let cleanRut = String(rut).replace(/[^0-9a-z]/gi, '');
+  
+  if (cleanRut.length > 9) {
+    cleanRut = cleanRut.substring(0, cleanRut.length - (cleanRut.length - 9))
+  }
+
+  return String(rut).replace(/[^0-9a-z]/gi, '');
+}
+
+const calcularDv = rut => {
+  let suma = 0;
+  let rutReversa = limpiarRUT(rut).split('').reverse();
+
+  for (let i = 0, j = 2; i < rutReversa.length; i++, j < 7 ? j++ : j = 2) {
+    suma += rutReversa[i] * j;
+  }
+
+  let resultado = 11 - (suma % 11)
+  if (resultado === 11) return '0';
+  if (resultado === 10) return 'k';
+  return String(resultado);
+};
+
+$('#rut').keyup(function() {
+  let rutElement = document.getElementById('rut');
+  if (!validarRUT(rutElement.value)) {
+    rutElement.setCustomValidity('El RUT no es válido.')
+  } else {
+    rutElement.setCustomValidity('')
+  }
+})
+</script>

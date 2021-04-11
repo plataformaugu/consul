@@ -6,6 +6,9 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   def index
+    if current_user.is_individual.nil?
+      redirect_to root_path
+    end
     @quizzes = Quiz.all
     redirect_to root_path
   end
@@ -17,7 +20,9 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
-
+    if current_user.is_individual.nil?
+      redirect_to root_path
+    end
     @quiz = Quiz.new
     @title = ''
     
@@ -190,7 +195,7 @@ class QuizzesController < ApplicationController
       @quiz_type = 'sugerencia'
     end
 
-    Mailer.removed_content(@quiz.user.email, @quiz.name, @quiz_type)
+    ProposalNotification.create(title: 'a', body: 'Eliminamos tu sugerencia: "Hola"', author_id: 1, proposal_id: 1)
 
     @quiz.visible = false
     @quiz.save

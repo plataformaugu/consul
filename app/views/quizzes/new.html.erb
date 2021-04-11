@@ -31,12 +31,41 @@
 	</div>
 
 	<div class="small-12 medium-3 column">
-		<span class="icon-proposals float-right"></span>
-		<h2>Texto de ayuda</h2>
-		<ul class="recommendations">
-			<li>Ayuda 1</li>
-			<li>Ayuda 2</li>
-			<li>Ayuda 3</li>
-		</ul>
+		<aside class="margin-bottom">
+			<% if current_user.is_individual == false %>
+				<div class="sidebar-divider"></div>
+				<h2 class="sidebar-title"><i class="fas fa-users" style="color: #004a83;"></i> Participación grupal</h2>
+				<div>
+				<small>
+					Estás participando junto a:
+					<ul>
+						<% Group.find(current_user.group_id).users.each do |user| %>
+							<li><%= user[:name] %></li>
+						<% end %>
+					</ul>
+				</small>
+				</div>
+				<small>
+					¿Quieres agregar más participantes?<br/>
+					<%= link_to 'Haz clic aquí', groups_path, target: '_blank' %>
+				</small>
+			<% end %>
+			<div class="sidebar-divider"></div>
+			<h2 class="sidebar-title">Información</h2><br/>
+			<small><i class="fas fa-file-pdf" style="color: #004a83;"></i> documento_falso.pdf</small>
+			<div class="sidebar-divider"></div>
+			<h2 class="sidebar-title">Enlaces</h2><br/>
+			<small>
+				<a href="https://meet.google.com/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Ir a Google Meet<br/></a>
+				<a href="https://zoom.us/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Ir a Zoom<br/></a>
+			</small>
+			<div class="sidebar-divider"></div>
+			<h2 class="sidebar-title">Ayuda</h2>
+			<ul class="recommendations" style="margin: 0 !important;">
+				<li style="margin: 0 !important;">Ayuda 1</li>
+				<li style="margin: 0 !important;">Ayuda 2</li>
+				<li style="margin: 0 !important;">Ayuda 3</li>
+			</ul>
+		</aside>
 	</div>
 </div>

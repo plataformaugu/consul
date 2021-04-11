@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_04_191241) do
+ActiveRecord::Schema.define(version: 2021_04_11_013810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -605,6 +605,23 @@ ActiveRecord::Schema.define(version: 2021_04_04_191241) do
     t.integer "poll_id"
     t.index ["geozone_id"], name: "index_geozones_polls_on_geozone_id"
     t.index ["poll_id"], name: "index_geozones_polls_on_poll_id"
+  end
+
+  create_table "group_users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "rut"
+    t.bigint "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", default: ""
+    t.string "description", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "i18n_content_translations", id: :serial, force: :cascade do |t|
@@ -1579,9 +1596,12 @@ ActiveRecord::Schema.define(version: 2021_04_04_191241) do
     t.boolean "public_interests", default: false
     t.boolean "recommended_debates", default: true
     t.boolean "recommended_proposals", default: true
+    t.bigint "group_id"
+    t.boolean "is_individual"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["geozone_id"], name: "index_users_on_geozone_id"
+    t.index ["group_id"], name: "index_users_on_group_id"
     t.index ["hidden_at"], name: "index_users_on_hidden_at"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -1714,6 +1734,7 @@ ActiveRecord::Schema.define(version: 2021_04_04_191241) do
   add_foreign_key "follows", "users"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
+  add_foreign_key "group_users", "groups"
   add_foreign_key "identities", "users"
   add_foreign_key "images", "users"
   add_foreign_key "legislation_draft_versions", "legislation_processes"
@@ -1746,5 +1767,6 @@ ActiveRecord::Schema.define(version: 2021_04_04_191241) do
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"
   add_foreign_key "users", "geozones"
+  add_foreign_key "users", "groups"
   add_foreign_key "valuators", "users"
 end

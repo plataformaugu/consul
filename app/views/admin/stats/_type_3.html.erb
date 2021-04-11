@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <th width="10px">Tipo</th>
+      <th>Autor</th>
+      <th>Visible</th>
+      <th>Titulo</th>
+      <th width="50%">Descripción</th>
+      <th width="8%">Pregunta 1</th>
+      <th>Pregunta 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Quiz.where(quiz_type: 2).each do |quiz| %>
+    <tr>
+      <% if quiz.user.is_individual? %>
+        <td><i class="fas fa-user"></i></td>
+      <% else %>
+        <td><i class="fas fa-users"></i></td>
+      <% end %>
+      <td class="fit-text"><%= quiz.user.username %></td>
+      <td class="fit-text"><%= quiz.visible ? 'Si' : 'No' %></td>
+      <td class="fit-text"><%= quiz.name %></td>
+      <td class="fit-text"><%= quiz.description %></td>
+      <td class="fit-text"><%= quiz.q1 %></td>
+      <td class="fit-text"><%= quiz.q3 %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

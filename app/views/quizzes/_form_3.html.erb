@@ -38,5 +38,23 @@
 $(document).ready(function() {
   $('#quiz_q1').attr('required', true)
   $('#quiz_q2').attr('required', true)
+
+  if ($('#quiz_visible').is(':checked')) {
+    $('#quiz_name').attr('required', true)
+    $('#quiz_description').attr('required', true)
+  } else {
+    $('#quiz_name').attr('required', false)
+    $('#quiz_description').attr('required', false)
+  }
+
+  $('#quiz_visible').on('change', function() {
+    if ($('#quiz_visible').is(':checked')) {
+      $('#quiz_name').attr('required', true)
+      $('#quiz_description').attr('required', true)
+    } else {
+      $('#quiz_name').attr('required', false)
+      $('#quiz_description').attr('required', false)
+    }
+  })
 })
 </script>

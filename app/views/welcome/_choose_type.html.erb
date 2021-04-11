@@ -1,0 +1,20 @@
+<div class="jumbo highlight proceso-main">
+    <div class="row flexbox" style="padding-top: 5vh;">
+        <p class="lead text-center"><strong>Antes</strong> de comenzar, debes elegir la forma en la que participarás:</p><br/>
+    </div>
+    <div class="row flexbox">
+        <%= link_to 'Individualmente',
+            set_participation_groups_path(type: 'individual'),
+            method: 'post',
+            class: 'button',
+            style: 'margin-right: 5px;' %>
+        <%= link_to 'Grupalmente',
+            set_participation_groups_path(type: 'grupal'),
+            method: 'post',
+            class: 'button',
+            style: 'margin-left: 5px;' %>
+    </div>
+    <div class="row flexbox">
+        <p><strong>Importante</strong>: no podrás cambiar tu elección.</p>
+    </div>
+</div>

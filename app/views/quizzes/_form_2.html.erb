@@ -62,5 +62,23 @@ $(document).ready(function() {
       $('[for="quiz_q3"]').css('color', 'black');
     }
   })
+
+  if ($('#quiz_visible').is(':checked')) {
+    $('#quiz_name').attr('required', true)
+    $('#quiz_description').attr('required', true)
+  } else {
+    $('#quiz_name').attr('required', false)
+    $('#quiz_description').attr('required', false)
+  }
+
+  $('#quiz_visible').on('change', function() {
+    if ($('#quiz_visible').is(':checked')) {
+      $('#quiz_name').attr('required', true)
+      $('#quiz_description').attr('required', true)
+    } else {
+      $('#quiz_name').attr('required', false)
+      $('#quiz_description').attr('required', false)
+    }
+  })
 })
 </script>

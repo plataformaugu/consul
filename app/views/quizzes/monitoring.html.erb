@@ -82,7 +82,13 @@
                   <div class="small-12 medium-3 column">
                     <h4 style="overflow: hidden; word-wrap: break-word;"><%= quiz.name || '(Sin título)' %></h4>
                     <strong>Fecha</strong><br/>
-                    <%= quiz.created_at.to_date %>
+                    <%= quiz.created_at.to_date %><br/><br/>
+                    <strong>Tipo</strong><br/>
+                    <% if quiz.user.is_individual? %>
+                      <i class="fas fa-user" style="color: #004a83;"></i> Individual
+                    <% else %>
+                      <i class="fas fa-users" style="color: #004a83;"></i> Grupal
+                    <% end %>
                   </div>
                   <div class="small-12 medium-6 column supports-container">
                     <h4>Descripción</h4>

@@ -192,7 +192,7 @@ ast:
           one: Hay un nuevo comentario en
           other: Hay %{count} comentarios nuevos en
         proposal_notification:
-          one: Hay una nueva notificación en
+          one: Hay una nueva notificación
           other: Hay %{count} nuevas notificaciones en
         replies_to:
           one: Hay una respuesta nueva a tu comentario en

@@ -26,18 +26,20 @@
           <%= link_to t("layouts.header.officing"), officing_root_path %>
       <% end %>
       <hr>
+      <% if current_user.is_individual == false %>
+        <%= layout_menu_link_to 'Mi grupo',
+                                groups_path,
+                                controller_name == "groups",
+                                rel: "nofollow",
+                                title: t("shared.go_to_page") +
+                                      t("layouts.header.my_account_link") %>
+      <% end %>
       <%= layout_menu_link_to t("layouts.header.my_account_link"),
                               account_path,
                               controller_name == "account",
                               rel: "nofollow",
                               title: t("shared.go_to_page") +
                                      t("layouts.header.my_account_link") %>
-      <%= layout_menu_link_to t("layouts.header.my_activity_link"),
-                              user_path(current_user),
-                              controller_name == "users",
-                              rel: "nofollow",
-                              title: t("shared.go_to_page") +
-                                     t("layouts.header.my_activity_link") %>
       <%= link_to t("devise_views.menu.login_items.logout"),
                 destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
     </div>
@@ -66,6 +68,14 @@
         <%= link_to t("layouts.header.officing"), officing_root_path %>
     <% end %>
     <hr>
+      <% if current_user.is_individual == false %>
+        <%= layout_menu_link_to 'Mi grupo',
+                                groups_path,
+                                controller_name == "groups",
+                                rel: "nofollow",
+                                title: t("shared.go_to_page") +
+                                      t("layouts.header.my_account_link") %>
+      <% end %>
     <%= layout_menu_link_to t("layouts.header.my_account_link"),
                             account_path,
                             controller_name == "account",
