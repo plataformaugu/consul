@@ -1,10 +1,24 @@
 <% @progress = 1 %>
 <% @allowed = ['1', '2', '3', '4'] %>
+
+<% if params[:type].present? %>
+	<% if params[:type] == 'grupal' %>
+		<% if Group.where(user_id: current_user.id).exists? %>
+			<% @type = params[:type] %>
+		<% else %>
+			<% @type = 'individual' %>
+		<% end %>
+	<% end %>
+<% else%>
+	<% @type = 'individual' %>
+<% end %>
+
 <% if params[:step].present? && @allowed.include?(params[:step]) %>
 	<% @progress = params[:step].to_i %>
 <% else %>
-	<% controller.redirect_to new_quiz_path(step: '1') %>
+	<% controller.redirect_to new_quiz_path(step: '1', type: @type) %>
 <% end %>
+
 
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
@@ -16,12 +30,12 @@
 			<div class="progress-meter" style="width: <%= @progress * 25 %>%"></div>
 		</div>
 		<br>
-		<%= render "quizzes/form_%s" % [@progress.to_s], form_url: quizzes_path %>
+		<%= render "quizzes/form_%s" % [@progress.to_s], form_url: quizzes_path, locals: {type: @type} %>
 	</div>
 
 	<div class="small-12 medium-3 column">
 		<aside class="margin-bottom">
-			<% if current_user.is_individual == false %>
+			<% if @type == 'grupal' && Group.where(user_id: current_user.id).exists? %>
 				<div class="sidebar-divider"></div>
 				<h2 class="sidebar-title"><i class="fas fa-users" style="color: #004a83;"></i> Participación grupal</h2>
 				<div>
@@ -29,7 +43,13 @@
 					Estás participando junto a:
 					<ul>
 						<% Group.find(current_user.group_id).users.each do |user| %>
-							<li><%= user[:name] %></li>
+							<% if user[:email] != current_user.email %>
+								<li><%= user[:name] %></li>
+							<% end %>
+							<% if Group.find(current_user.group_id).users.count <= 1%>
+								Nadie, aún no invitas a nadie a tu grupo.<br/>
+								Esta participación será individual.
+							<% end %>
 						<% end %>
 					</ul>
 				</small>

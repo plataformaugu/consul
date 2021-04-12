@@ -363,7 +363,7 @@ aside {
     box-sizing: border-box;
     box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
     transition: all 0.2s;
-    width: 35vw;
+    max-width: 266px;
     height: 100%;
 
     &:hover {

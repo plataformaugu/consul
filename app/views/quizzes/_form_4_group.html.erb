@@ -1,0 +1,77 @@
+<%= form_for(@quiz, url: form_url) do |f| %>
+  <div class="row column quiz-form">
+    <div class="small-12 column">
+      <label for="q10">Géneros</label><br/>
+        Femenino: <%= number_field_tag 'q10_femenino', 0 %>
+        Masculino: <%= number_field_tag 'q10_masculino', 0 %>
+        Otro: <%= number_field_tag 'q10_otro', 0 %>
+        No sabe: <%= number_field_tag 'q10_no', 0 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q11">¿En qué país nacieron?</label><br/>
+      Chile: <%= number_field_tag 'q11_chile', 0 %>
+      Bolivia: <%= number_field_tag 'q11_bolivia', 0 %>
+      Venezuela: <%= number_field_tag 'q11_venezuela', 0 %>
+      Colombia: <%= number_field_tag 'q11_colombia', 0 %>
+      Haití: <%= number_field_tag 'q11_haiti', 0 %>
+      Perú: <%= number_field_tag 'q11_peru', 0 %>
+      Otro: <%= number_field_tag 'q11_otro', 0 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q12">¿Cuántos años tienen?</label>
+      <small>Ingresa las edad separadas por coma. Ejemplo: "15, 16, 19"</small>
+      <%= text_field_tag 'q12', nil, required: false %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q13">¿Tienen algún tipo de discapacidad?</label><br/>
+        Si: <%= number_field_tag 'q13_si', 0 %>
+        No: <%= number_field_tag 'q13_no', 0 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q14">¿Pertenecen a algún pueblo indígena?</label><br/>
+        No pertenece: <%= number_field_tag 'q14_no', 0 %>
+        Pueblo aymara: <%= number_field_tag 'q14_aymara', 0 %>
+        Pueblo quechua: <%= number_field_tag 'q14_quechua', 0 %>
+        Pueblo atacameño: <%= number_field_tag 'q14_atacameño', 0 %>
+        Pueblo kolla: <%= number_field_tag 'q14_kolla', 0 %>
+        Pueblo diaguita: <%= number_field_tag 'q14_diaguita', 0 %>
+        Pueblo rapanui: <%= number_field_tag 'q14_rapanui', 0 %>
+        Pueblo mapuche: <%= number_field_tag 'q14_mapuche', 0 %>
+        Pueblo yagán: <%= number_field_tag 'q14_yagán', 0 %>
+        Pueblo kawésqar: <%= number_field_tag 'q14_kawésqar', 0 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q15">¿Dónde viven actualmente?</label><br/>
+        En un hospital, por tratamiento médico prolongado: <%= number_field_tag 'q15_En un hospital, por tratamiento médico prolongado', 0 %>
+        En casa de familiares directos o lejanos: <%= number_field_tag 'q15_En casa de familiares directos o lejanos', 0 %>
+        En un centro privativo de libertad: <%= number_field_tag 'q15_En un centro privativo de libertad', 0 %>
+        En el internado de mi escuela: <%= number_field_tag 'q15_En el internado de mi escuela', 0 %>
+        En una residencia de protección: <%= number_field_tag 'q15_En una residencia de protección', 0 %>
+        Otro: <%= number_field_tag 'q15_Otro', 0 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> serán visibles para otros usuarios.</small>
+      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+    </div>
+
+
+    <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
+    <input type="hidden" id="step" name="step" value="4">
+
+    <div class="actions small-12 column">
+      <button id="submit" type="submit" class="button">Finalizar</button>
+    </div>
+  </div>
+<% end %>

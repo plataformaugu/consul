@@ -62,8 +62,18 @@
   'En todo el país',
 ]%>
 
+
+
 <%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
+
+    <% if locals[:type] == 'grupal' %>
+      <div class="jumbo" style="padding: 15px;">
+        ¡Bienvenidxs! Esta es una encuesta que busca conocer las opiniones de su grupo / curso sobre temas de derechos humanos.<br/><br/>
+        Como estamos atravesando por una crisis sanitaria por el Covid-19 les recomendamos reunirse a través de videollamada. Pueden hacerlo desde la plataforma que prefieran. Acá te dejamos tres opciones gratuitas: Jitsi meet (no necesitas iniciar sesión, videollamada ilimitada) Meet (necesitas iniciar sesión en google, videollamada por tiempo ilimitado) / Zoom (necesitas registrarte en zoom, videollamada por 45 minutos).<br/><br/>Tus compañeros/as podrán ingresar a la videollamada a través del enlace que compartas y como guía de grupo podrás compartir pantalla de este sitio para que todos puedan ver la consulta y responder entre todos. 
+      </div>
+    <% end %>
+
     <div class="small-12 column">
       <label for="q1">¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
       <small class="help-text">Debes elegir 3 opciones.</small>
@@ -121,10 +131,11 @@
       <br/><br/>
     </div>
 
-    <% @current_quiz = Quiz.create(name: 'TMP') %>
+    <% @current_quiz = Quiz.create(name: 'TMP', user_id: current_user.id) %>
 
     <input type="hidden" id="quiz_id" name="quiz_id" value="<%= @current_quiz.id %>">
     <input type="hidden" id="step" name="step" value="1">
+    <input type="hidden" id="type" name="type" value="<%= locals[:type].present? ? locals[:type] : '' %>">
 
     <div class="actions small-12 column">
       <button id="submit" type="submit" class="button">Continuar</button>

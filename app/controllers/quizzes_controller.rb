@@ -16,6 +16,10 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
+    if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
+      Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+    end
+
     @quiz = Quiz.new
     @title = 'Cuestionario'
   end
@@ -27,10 +31,24 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes
   def create
+    @visible = nil
+
+    if params[:quiz].present?
+      @visible = params[:quiz][:visible]
+      params.delete('quiz')
+    end
+
     params.delete('utf8')
     params.delete('authenticity_token')
     params.delete('controller')
     params.delete('action')
+
+    @type = nil
+
+    if params.key?('type')
+      @type = params['type']
+      params.delete('type')
+    end
 
     @quiz = Quiz.find(params['quiz_id'])
     params.delete('quiz_id')
@@ -40,6 +58,16 @@ class QuizzesController < ApplicationController
 
     @quiz['q%s' % [@step]] = params.to_enum.to_h
     @quiz.name = ''
+    
+    unless @visible.nil?
+      @quiz.visible = @visible == '1' ? true : false
+    end
+
+    unless @type.nil?
+      if @type == 'grupal'
+        @quiz.group_id = Group.where(user_id: current_user.id).first.id
+      end
+    end
 
     @quiz.save
 
@@ -79,16 +107,6 @@ class QuizzesController < ApplicationController
       vote.save
     else
       redirect root_path
-    end
-  end
-
-  def is_user_allowed(quiz_type)
-    count = Quiz.where(quiz_type: quiz_type).where(user_id: current_user.id).count
-
-    if count >= 6
-      return false
-    else
-      return true
     end
   end
 

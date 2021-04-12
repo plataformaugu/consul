@@ -1,29 +1,69 @@
 <table>
   <thead>
     <tr>
-      <th width="10px">Tipo</th>
-      <th>Capítulo</th>
-      <th>Autor</th>
-      <th>Visible</th>
-      <th>Titulo</th>
-      <th>Descripción</th>
-      <th>Pregunta 2</th>
+      <th>Grupo</th>
+      <th>Pagina 1</th>
+      <th>Pagina 2</th>
+      <th>Pagina 3</th>
+      <th>Pagina 4</th>
     </tr>
   </thead>
   <tbody>
-    <% Quiz.where(quiz_type: 3).each do |quiz| %>
+    <% Quiz.where.not(group_id: nil).each do |quiz| %>
     <tr>
-      <% if quiz.user.is_individual? %>
-        <td><i class="fas fa-user"></i></td>
-      <% else %>
-        <td><i class="fas fa-users"></i></td>
-      <% end %>
-      <td class="fit-text"><%= quiz.tag.nil? ? '' : quiz.tag.name %></td>
-      <td class="fit-text"><%= quiz.user.username %></td>
-      <td class="fit-text"><%= quiz.visible ? 'Si' : 'No' %></td>
-      <td class="fit-text"><%= quiz.name %></td>
-      <td class="fit-text"><%= quiz.description %></td>
-      <td class="fit-text"><%= quiz.q2 %></td>
+      <td>
+        <% Group.find(quiz.group_id).users.each do |user| %>
+          <li><%= user[:name] %></li>
+        <% end %>
+      </td>
+      <td>
+        <% eval(quiz.q1).each do |key, value| %>
+          <strong><%= 'Pregunta ' + key.gsub(/\D/, '') %></strong><br/>
+          <% if value.is_a?(Array) %>
+            <% value.each do |v| %>
+              <li><%= v %></li>
+            <% end %><br/>
+          <% else %>
+            <%= value %><br/><br/>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <% eval(quiz.q2).each do |key, value| %>
+          <strong><%= 'Pregunta ' + key.gsub(/\D/, '') %></strong><br/>
+          <% if value.is_a?(Array) %>
+            <% value.each do |v| %>
+              <li><%= v %></li>
+            <% end %><br/>
+          <% else %>
+            <%= value %><br/><br/>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <% eval(quiz.q3).each do |key, value| %>
+          <strong><%= 'Pregunta ' + key.gsub(/\D/, '') %></strong><br/>
+          <% if value.is_a?(Array) %>
+            <% value.each do |v| %>
+              <li><%= v %></li>
+            <% end %><br/>
+          <% else %>
+            <%= value %><br/><br/>
+          <% end %>
+        <% end %>
+      </td>
+      <td>
+        <% eval(quiz.q4).each do |key, value| %>
+          <strong><%= 'Pregunta ' + (key.split('_').size > 1 ? key.split('_')[0].gsub(/\D/, '') + ': ' + key.split('_')[1] : key.split('_')[0].gsub(/\D/, '')) %></strong><br/>
+          <% if value.is_a?(Array) %>
+            <% value.each do |v| %>
+              <li><%= v %></li>
+            <% end %><br/>
+          <% else %>
+            <%= value %><br/><br/>
+          <% end %>
+        <% end %>
+      </td>
     </tr>
     <% end %>
   </tbody>

@@ -110,16 +110,11 @@ class GroupsController < ApplicationController
   end
 
   def set_participation
-    @type = params[:type]
     @user = current_user
 
-    if @type == 'individual'
-      @user.is_individual = true
-      @user.save
-    elsif @type == 'grupal'
-      @group = Group.create()
+    unless Group.where(user_id: @user.id).exists?
+      @group = Group.create(user_id: @user.id)
       @group_user = GroupUser.create(name: @user.name, email: @user.email, rut: @user.document_number, group_id: @group.id)
-      @user.is_individual = false
       @user.group_id = @group.id
       @user.save
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_013810) do
+ActiveRecord::Schema.define(version: 2021_04_12_011144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -622,6 +622,8 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
     t.string "description", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
   create_table "i18n_content_translations", id: :serial, force: :cascade do |t|
@@ -1286,6 +1288,8 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_active", default: true
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_quizzes_on_group_id"
     t.index ["tag_id"], name: "index_quizzes_on_tag_id"
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
@@ -1735,6 +1739,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "group_users", "groups"
+  add_foreign_key "groups", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "images", "users"
   add_foreign_key "legislation_draft_versions", "legislation_processes"
@@ -1761,6 +1766,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
   add_foreign_key "proposals", "communities"
+  add_foreign_key "quizzes", "groups"
   add_foreign_key "quizzes", "tags"
   add_foreign_key "quizzes", "users"
   add_foreign_key "related_content_scores", "related_contents"
