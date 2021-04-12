@@ -10,36 +10,21 @@ class Users::SessionsController < Devise::SessionsController
       process_user_group(resource)
 
       if !verifying_via_email? && resource.show_welcome_screen?
+        process_user_group(resource)
         root_path
       else
+        process_user_group(resource)
         super
       end
     end
 
     def process_user_group(resource)
-      if resource.is_individual.nil?
+      if resource.group_id.nil?
         if GroupUser.where(email: resource.email).exists?
           group_user = GroupUser.where(email: resource.email).first
           resource.is_individual = false
           resource.group_id = group_user.group_id
           resource.save
-        elsif GroupUser.where(rut: resource.document_number).exists?
-          group_user = GroupUser.where(rut: resource.document_number).first
-          resource.is_individual = false
-          resource.group_id = group_user.group_id
-          resource.save
-        elsif resource.document_number.instance_of?(String)
-          if GroupUser.where(rut: resource.document_number.downcase).exists?
-            group_user = GroupUser.where(rut: resource.document_number.downcase).first
-            resource.is_individual = false
-            resource.group_id = group_user.group_id
-            resource.save
-          elsif GroupUser.where(rut: resource.document_number.upcase).exists?
-            group_user = GroupUser.where(rut: resource.document_number.downcase).first
-            resource.is_individual = false
-            resource.group_id = group_user.group_id
-            resource.save
-          end
         end
       end
     end

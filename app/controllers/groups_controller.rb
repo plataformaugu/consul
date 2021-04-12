@@ -56,43 +56,30 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1
   def update
-    formatted_rut = params['rut'].gsub(/[^a-z0-9]/i, '')
-
     if User.where(email: params['email']).exists?
       @new_user = User.where(email: params['email'])
-    elsif User.where(document_number: formatted_rut).exists?
-        @new_user = User.where(document_number: formatted_rut)
-    elsif User.where(document_number: formatted_rut.downcase).exists?
-        @new_user = User.where(document_number: formatted_rut.downcase)
-    elsif User.where(document_number: formatted_rut.upcase).exists?
-        @new_user = User.where(document_number: formatted_rut.upcase)
     else
         @new_user = User.where(email: '120391203912039123012931023120', username: 'x@x@x@x@x#x$x%x^x&')
     end
 
     if @new_user.exists?
-      if @new_user.first.is_individual.nil?
-        if @group.users.count <= 15
-          @group_user = GroupUser.create(name: params['name'], rut: formatted_rut, email: params['email'], group_id: @group.id)
+      if @group.users.count <= 15
+        if @new_user.first.group_id.nil?
+          @group_user = GroupUser.create(name: params['name'], email: params['email'], group_id: @group.id)
           Mailer.user_invite(params['email']).deliver_later
           flash[:notice] = '%s agregado correctamente al grupo.' % [params['name']]
-          redirect_to @group
-        else
-          flash[:alert] = 'El grupo alcanzó el limite de 15 participantes.'
-          redirect_to @group
-        end
-      else
-        if @new_user.first.is_individual == true
-          flash[:alert] = 'El usuario está participando individualmente.'
           redirect_to @group
         else
           flash[:alert] = 'El usuario ya está en un grupo.'
           redirect_to @group
         end
+      else
+        flash[:alert] = 'El grupo alcanzó el limite de 15 participantes.'
+        redirect_to @group
       end
     else
       if @group.users.count <= 15
-        @group_user = GroupUser.create(name: params['name'], rut: formatted_rut, email: params['email'], group_id: @group.id)
+        @group_user = GroupUser.create(name: params['name'], email: params['email'], group_id: @group.id)
         Mailer.user_invite(params['email']).deliver_later
         flash[:notice] = '%s agregado correctamente al grupo.' % [params['name']]
         redirect_to @group

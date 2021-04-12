@@ -45,21 +45,52 @@
               </div>
             </div>
           <% end %>
+        <% else %>
+          <%= link_to groups_path, :action => 'go' do %>
+              <div class="proceso-card disabled">
+                <div class="card-section">
+                  <img
+                    class="process-card-image"
+                    src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
+                  >
+                </div>
+                <div class="card-section text-center">
+                  <h4>Participar grupalmente</h4>
+                  <small>Tu grupo debe tener dos o más integrantes.</small>
+                </div>
+              </div>
+          <% end %>
         <% end %>
+      <% else %>
+        <%= link_to set_participation_groups_path(type: 'grupal'), method: 'post' do %>
+              <div class="proceso-card disabled">
+                <div class="card-section">
+                  <img
+                    class="process-card-image"
+                    src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
+                  >
+                </div>
+                <div class="card-section text-center">
+                  <h4>Participar grupalmente</h4>
+                  <small>No tienes un grupo creado, haz clic para crear uno.</small>
+                </div>
+              </div>
+          <% end %>
       <% end %>
-    <% end %>
-    <%= link_to proposals_path, :action => 'go' do %>
-      <div class="proceso-card">
-        <div class="card-section">
-          <img 
-            class="process-card-image"
-            src="https://noticias.uai.cl/assets/uploads/2020/12/gettyimages-1264842213-980x470-c-default.jpg"
-          >
+    <% else %>
+      <%= link_to new_quiz_path(type: 'grupal'), :action => 'go' do %>
+        <div class="proceso-card">
+          <div class="card-section">
+            <img
+              class="process-card-image"
+              src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
+            >
+          </div>
+          <div class="card-section text-center">
+            <h4>Participar grupalmente</h4>
+          </div>
         </div>
-        <div class="card-section text-center">
-          <h4>Ver participaciones</h4>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <br/>

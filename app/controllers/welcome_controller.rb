@@ -8,6 +8,17 @@ class WelcomeController < ApplicationController
   layout "devise", only: [:welcome, :verification]
 
   def index
+    if current_user
+      if current_user.group_id.nil?
+        if GroupUser.where(email: current_user.email).exists?
+          group_user = GroupUser.where(email: current_user.email).first
+          current_user.is_individual = false
+          current_user.group_id = group_user.group_id
+          current_user.save
+        end
+      end
+    end
+
     @header = Widget::Card.header.first
     @feeds = Widget::Feed.active
     @cards = Widget::Card.body
@@ -17,6 +28,7 @@ class WelcomeController < ApplicationController
   end
 
   def welcome
+
     if current_user.level_three_verified?
       redirect_to page_path("welcome_level_three_verified")
     elsif current_user.level_two_or_three_verified?

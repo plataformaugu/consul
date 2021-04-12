@@ -337,7 +337,7 @@ class User < ApplicationRecord
   end
 
   def confirmation_required?
-    super && !registering_with_oauth
+    false
   end
 
   def send_oauth_confirmation_instructions
