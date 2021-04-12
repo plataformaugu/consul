@@ -1,33 +1,22 @@
+<% @progress = 1 %>
+<% @allowed = ['1', '2', '3', '4'] %>
+<% if params[:step].present? && @allowed.include?(params[:step]) %>
+	<% @progress = params[:step].to_i %>
+<% else %>
+	<% controller.redirect_to new_quiz_path(step: '1') %>
+<% end %>
+
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
-		<% if @type == 1 %>
-			<%= back_link_to chapters_proposals_path %>
-		<% elsif @type == 2 %>
-			<%= back_link_to monitoring_quizzes_path %>
-		<% elsif @type == 3 %>
-			<%= back_link_to proposals_path %>
-		<% end %>
-
+		<%= back_link_to root_path %>
 		<h1><%= @title %></h1>
-
-		<% if @type == 1 %>
-			<h4>Capítulo: <%= @chapter.name %></h4>
-			<small>Llevas <%= Quiz.where(quiz_type: @type, user_id: current_user.id).count %> de 6 diagnósticos</small>
-			<br>
-			<br>
-    		<%= render "quizzes/form_1", form_url: quizzes_path %>
-		<% elsif @type == 2 %>
-			<small>Llevas <%= Quiz.where(quiz_type: @type, user_id: current_user.id).count %> de 6 sugerencias</small>
-			<br>
-			<br>
-    		<%= render "quizzes/form_2", form_url: quizzes_path %>
-		<% elsif @type == 3 %>
-			<h4>Capítulo: <%= @chapter.name %></h4>
-			<small>Llevas <%= Quiz.where(quiz_type: @type, user_id: current_user.id).count %> de 6 sugerencias</small>
-			<br>
-			<br>
-    		<%= render "quizzes/form_3", form_url: quizzes_path %>
-		<% end %>
+		<h4><%= @progress < 4 ? 'Objetivo ' + 'I' * @progress : 'Caracterización' %></h4>
+		<small>Progreso: <%= @progress.to_s %> de 4 páginas</small>
+		<div class="success progress" role="progressbar" tabindex="0" aria-valuenow="<%= @progress * 25 %>" aria-valuemin="0" aria-valuemax="100">
+			<div class="progress-meter" style="width: <%= @progress * 25 %>%"></div>
+		</div>
+		<br>
+		<%= render "quizzes/form_%s" % [@progress.to_s], form_url: quizzes_path %>
 	</div>
 
 	<div class="small-12 medium-3 column">

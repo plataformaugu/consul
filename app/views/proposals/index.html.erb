@@ -1,4 +1,4 @@
-<% provide :title do %>Sugerencias de acción por tema<% end %>
+<% provide :title do %>Participaciones<% end %>
 <% content_for :header_addon do %>
 <% end %>
 
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="small-12 column">
         <%= image_tag "help/help_icon_polls.png", alt: t("poll.icon_alt"), class: "align-sub" %>
-        <h1 class="inline-block">Sugerencias de acción por tema</h1>
+        <h1 class="inline-block">Participaciones</h1>
       </div>
     </div>
     <div class="row">
@@ -47,39 +47,6 @@
 
   <div class="row">
     <div id="proposals" class="proposals-list small-12 medium-12 column">
-
-    <div class="row">
-      <div class="small-12 medium-9 column">
-        <%= render "categories" %>
-      </div>
-      <div class="small-12 medium-3 column">
-        <h2 class="sidebar-title">Participar</h2>
-        <aside class="margin-bottom">
-          <% if params[:search] and @categories.where({name: params[:search]}).exists? %>
-            <% if current_user %>
-              <% if Quiz.where(quiz_type: 3, user_id: current_user.id).count < 6 %>
-                <%= link_to 'Crear tu sugerencia',
-                  new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
-                  class: "button expanded" %>
-              <% else %>
-                <button disabled class="button expanded">Alcanzaste el límite</button>
-              <% end %>
-            <% else %>
-            <div class="show-only-users">
-              <div class="message">
-                  Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
-                </div>
-                <button class="button expanded">Crear tu sugerencia</button>
-              </div>
-            <% end %>
-          <% else %>
-            <button disabled class="button expanded">Crear tu sugerencia</button>
-            <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un capítulo.</small>
-          <% end %>
-        </aside>
-      </div>
-    </div>
-
       <br/>
       <ul class="no-bullet submenu">
         <% @orders = [['Más apoyadas', 'support'], ['Nuevas', 'new']] %>

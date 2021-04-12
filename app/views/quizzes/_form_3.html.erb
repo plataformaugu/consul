@@ -4,57 +4,25 @@
 
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      </div>
-      <%= f.text_field :name,
-        label: 'Título',
-        maxlength: 25,
-        required: true %>
-
-      <%= f.text_area :description,
-        maxlength: 250,
-        rows: 3,
-        required: true %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.select :q2, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 2 (obligatoria)', prompt: "Elija una opción" %>
+      <label for="q8">¿Cómo pueden los niños, niñas y adolescentes colaborar con el seguimiento al cumplimiento del Plan Nacional de Derechos Humanos?</label>
+      <%= text_area_tag 'q8', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>
 
-    <%= f.hidden_field :quiz_type, value: 3 %>
-    <%= f.hidden_field :tag_id, value: params[:chapter] %>
+    <div class="small-12 column">
+      <label for="q9">¿Te gustaría ser contactado/a para participar del seguimiento al cumplimiento del Plan Nacional de Derechos Humanos?</label><br/>
+        <%= radio_button_tag 'q9', 'Si', required: true %>
+        <%= label_tag "q9_Si", 'Si' %><br/>
+        <%= radio_button_tag 'q9', 'No' %>
+        <%= label_tag "q9_No", 'No' %><br/>
+      <br/><br/>
+    </div>
+
+    <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
+    <input type="hidden" id="step" name="step" value="3">
 
     <div class="actions small-12 column">
-      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
+      <button id="submit" type="submit" class="button">Continuar</button>
     </div>
   </div>
 <% end %>
-
-<script>
-$(document).ready(function() {
-  $('#quiz_q1').attr('required', true)
-  $('#quiz_q2').attr('required', true)
-
-  if ($('#quiz_visible').is(':checked')) {
-    $('#quiz_name').attr('required', true)
-    $('#quiz_description').attr('required', true)
-  } else {
-    $('#quiz_name').attr('required', false)
-    $('#quiz_description').attr('required', false)
-  }
-
-  $('#quiz_visible').on('change', function() {
-    if ($('#quiz_visible').is(':checked')) {
-      $('#quiz_name').attr('required', true)
-      $('#quiz_description').attr('required', true)
-    } else {
-      $('#quiz_name').attr('required', false)
-      $('#quiz_description').attr('required', false)
-    }
-  })
-})
-</script>

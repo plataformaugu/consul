@@ -363,17 +363,21 @@ aside {
     box-sizing: border-box;
     box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.25);
     transition: all 0.2s;
-    max-width: 266px;
+    width: 35vw;
     height: 100%;
 
     &:hover {
         background-color: rgba($brand, .05);
         box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.50);
     }
+
+    @media (max-width: 640px) {
+        width: 80vw;
+    }
 }
 
 .process-card-image {
-    width: 236px;
+    width: 100%;
     height: 236px;
     object-fit: cover;
 }
@@ -399,10 +403,6 @@ aside {
     @include breakpoint(medium) {
       padding-top: $line-height * 2 !important;
     }
-}
-
-.auth-image {
-    height: 100% !important;
 }
 
 

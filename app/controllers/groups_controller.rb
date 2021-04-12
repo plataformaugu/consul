@@ -124,7 +124,7 @@ class GroupsController < ApplicationController
       @user.save
     end
 
-    redirect_to root_path
+    redirect_to groups_path
   end
 
   private

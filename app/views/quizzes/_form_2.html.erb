@@ -1,84 +1,19 @@
-<%= render "shared/globalize_locales", resource: @proposal %>
-
+<% unless params[:quiz_id].present? %>
+  <% controller.redirect_to new_quiz_path %>
+<% end %>
 <%= form_for(@quiz, url: form_url) do |f| %>
-
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <%= f.select :q1, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
+      <label for="q7">Ya identificaste algunas causas del problema de derechos humanos, a quienes afecta y los lugares en que se manifiesta. ¿Qué ideas propones para que las autoridades aborden las causas que señalas y así solucionar el problema de derechos humanos?</label>
+      <%= text_area_tag 'q7', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>
 
-    <div class="small-12 column">
-      <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      </div>
-      <%= f.text_field :name,
-        label: 'Título',
-        maxlength: 25 %>
-
-      <%= f.text_area :description,
-        maxlength: 250,
-        rows: 3 %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3 (obligatoria)' %><br/>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 1' %>
-        Opción multiple 1
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 2' %>
-        Opción multiple 2
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 3' %>
-        Opción multiple 3
-      <% end %>
-      <br/>
-    </div>
-
-    <%= f.hidden_field :quiz_type, value: 2 %>
+    <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
+    <input type="hidden" id="step" name="step" value="2">
 
     <div class="actions small-12 column">
-      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
+      <button id="submit" type="submit" class="button">Continuar</button>
     </div>
   </div>
 <% end %>
-
-<script>
-$(document).ready(function() {
-  $('#quiz_q1').attr('required', true)
-  $('#quiz_q2').attr('required', true)
-
-  $('#new_quiz').on('submit', function(e) {
-    if ($('input[id="q3_"]:checked').length <= 0) {
-      $('[for="quiz_q3"]').css('color', 'red');
-      e.preventDefault();
-      return false;
-    } else {
-      $('[for="quiz_q3"]').css('color', 'black');
-    }
-  })
-
-  if ($('#quiz_visible').is(':checked')) {
-    $('#quiz_name').attr('required', true)
-    $('#quiz_description').attr('required', true)
-  } else {
-    $('#quiz_name').attr('required', false)
-    $('#quiz_description').attr('required', false)
-  }
-
-  $('#quiz_visible').on('change', function() {
-    if ($('#quiz_visible').is(':checked')) {
-      $('#quiz_name').attr('required', true)
-      $('#quiz_description').attr('required', true)
-    } else {
-      $('#quiz_name').attr('required', false)
-      $('#quiz_description').attr('required', false)
-    }
-  })
-})
-</script>

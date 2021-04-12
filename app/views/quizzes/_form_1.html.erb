@@ -1,75 +1,154 @@
-<%= render "shared/globalize_locales", resource: @proposal %>
+<% @q1_options = [
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos',
+  'Derecho a la educación',
+  'Derecho a la salud',
+  'Derecho al trabajo ',
+  'Derecho al agua ',
+  'Derecho a  Económicos, sociales, culturales y ambientales',
+  'Trata y tráfico de personas',
+  'Prevención de la tortura y de la violencia institucional',
+  'Derechos Digitales',
+  'Acceso a la justicia',
+  'Personas Mayores',
+  'Mujeres',
+  'LGBTIQ+',
+  'Personas con Discapacidad',
+  'Pueblos Indígenas y Tribales',
+  'Personas Privadas de Libertad',
+  'Personas Migrantes y Refugiadas',
+  'Niños, niñas y adolescentes',
+  'Educación en Derechos Humanos',
+  'Enfoque Basado en Derechos Humanos',
+  'Sistemas internacionales de Derechos Humanos',
+] %>
+
+<% @q2_options = [
+  'Memoria, verdad, justicia y reparación',
+  'Derechos Económicos, sociales, culturales y ambientales',
+  'Trata y tráfico de personas',
+  'Prevención de la tortura y de la violencia institucional',
+  'Derechos Digitales',
+  'Acceso a la justicia',
+  'Personas Mayores',
+  'Mujeres',
+  'LGBTIQ+',
+  'Personas con Discapacidad',
+  'Pueblos Indígenas y Tribales',
+  'Personas Privadas de Libertad',
+  'Personas Migrantes y Refugiadas',
+  'Niños, niñas y adolescentes',
+  'Educación en Derechos Humanos',
+  'Enfoque Basado en Derechos Humanos',
+  'Sistemas internacionales de Derechos Humanos',
+] %>
+
+<% @q5_options = [
+  'Personas Mayores',
+  'Mujeres',
+  'LGBTIQ+',
+  'Personas con Discapacidad',
+  'Pueblos Indígenas y Tribales',
+  'Personas Privadas de Libertad',
+  'Personas Migrantes y Refugiadas',
+  'Niños, niñas y adolescentes',
+]%>
+
+<% @q6_options = [
+  'En casa de mi familia o personas cercanas',
+  'En mi barrio',
+  'En mi escuela',
+  'En mi comuna',
+  'En mi región',
+  'En todo el país',
+]%>
 
 <%= form_for(@quiz, url: form_url) do |f| %>
-
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <%= f.label :q1, 'Pregunta 1' %><br>
-      <%= f.radio_button :q1, 'Opción 1', label: 'Opción 1' %><br>
-      <%= f.radio_button :q1, 'Opción 2', label: 'Opción 2' %><br>
-      <%= f.radio_button :q1, 'Otro', label: 'Otro' %>
-      <br/><br>
-    </div>
-
-    <div class="small-12 column" id="hidden-field" style="display: none;">
-      <%= f.text_area :q5,
-        rows: 1, maxlength: 200, label: 'Respuesta para "Otro"' %>
-      <br/>
-    </div>
-
-    <div class="small-12 column">
-      <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+      <label for="q1">¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
+      <small class="help-text">Debes elegir 3 opciones.</small>
+      <div><br/>
+      <% @q1_options.each_with_index do |option, idx| %>
+        <%= check_box_tag 'q1[]', option, false, {id: 'q1_%s' % [idx]} %>
+        <%= label_tag 'q1_%s' % [idx], option %><br/>
+      <% end %>
       </div>
-
-      <%= f.text_field :name,
-        label: 'Título',
-        maxlength: 25 %>
-
-      <%= f.text_area :description,
-        maxlength: 250,
-        rows: 3 %>
+      <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3' %><br>
-      <%= f.radio_button :q3, 'Opción 1', label: 'Opción 1' %><br>
-      <%= f.radio_button :q3, 'Opción 2', label: 'Opción 2' %><br>
-      <%= f.radio_button :q3, 'Opción 3', label: 'Opción 3' %>
-      <br/><br>
+      <label for="q2">¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label><br/>
+      <% @q2_options.each_with_index do |option, idx| %>
+        <%= radio_button_tag 'q2', option, nil, id: 'q2_%s' % [idx] %>
+        <%= label_tag "q2_%s" % [idx], option %><br/>
+      <% end %>
+      <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q4, 'Pregunta 4' %><br>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 1' %>
-        Opción multiple 1
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 2' %>
-        Opción multiple 2
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 3' %>
-        Opción multiple 3
-      <% end %>
-      <br/>
+      <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
+      <p>El problema que veo es...</p>
+      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
+      <br/><br/>
     </div>
 
-    <%= f.hidden_field :quiz_type, value: 1 %>
-    <%= f.hidden_field :tag_id, value: params[:chapter] %>
+    <div class="small-12 column">
+      <label for="q4">¿Cuál o cuáles crees que son las causas de ese problema?</label>
+      <p>Este problema se produce por...</p>
+      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q5">¿A quienes crees que afecta este problema?</label>
+      <div><br/>
+      <% @q5_options.each_with_index do |option, idx| %>
+        <%= check_box_tag 'q5[]', option, false, {id: 'q5_%s' % [idx]} %>
+        <%= label_tag 'q5_%s' % [idx], option %><br/>
+      <% end %>
+      </div>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q6">¿En qué lugares crees que se vive este problema?</label>
+      <div><br/>
+      <% @q6_options.each_with_index do |option, idx| %>
+        <%= check_box_tag 'q6[]', option, false, {id: 'q6_%s' % [idx]} %>
+        <%= label_tag 'q6_%s' % [idx], option %><br/>
+      <% end %>
+      </div>
+      <br/><br/>
+    </div>
+
+    <% @current_quiz = Quiz.create(name: 'TMP') %>
+
+    <input type="hidden" id="quiz_id" name="quiz_id" value="<%= @current_quiz.id %>">
+    <input type="hidden" id="step" name="step" value="1">
 
     <div class="actions small-12 column">
-      <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
+      <button id="submit" type="submit" class="button">Continuar</button>
     </div>
   </div>
 <% end %>
 
 <script>
 $(document).ready(function() {
-  $('#quiz_q1').attr('required', true)
+  $('input[name="q2"').attr('required', true)
+
+  $('input[name="q1[]"]').on('change', function() {
+    if ($('input[name="q1[]"]:checked').length >= 3) {
+      $('input[name="q1[]"]').each(function() {
+        if (!this.checked) {
+          $(this).attr('disabled', true)
+        }
+      })
+    } else {
+      $('input[name="q1[]"]').each(function() {
+        $(this).attr('disabled', false)
+      })
+    }
+  })
 
   $('input[name="quiz[q1]"]').on('change', function() {
     if (this.value === 'Otro' || this.value === 'otro') {
@@ -80,13 +159,13 @@ $(document).ready(function() {
   })
 
   $('#new_quiz').on('submit', function(e) {
-    if ($('input[name="quiz[q1]"]:checked').length <= 0) {
-      $('[for="quiz_q1"]').css('color', 'red');
+    if ($('input[name="q1[]"]:checked').length < 3) {
+      $('[for="q1"]').css('color', 'red');
       e.preventDefault();
       window.scrollTo(0, 0);
       return false;
     } else {
-      $('[for="quiz_q1"]').css('color', 'black');
+      $('[for="q1"]').css('color', 'black');
     }
   })
 

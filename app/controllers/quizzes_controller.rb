@@ -6,10 +6,6 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   def index
-    if current_user.is_individual.nil?
-      redirect_to root_path
-    end
-    @quizzes = Quiz.all
     redirect_to root_path
   end
 
@@ -20,64 +16,8 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
-    if current_user.is_individual.nil?
-      redirect_to root_path
-    end
     @quiz = Quiz.new
-    @title = ''
-    
-    if params[:type].present?
-      unless ['1', '2', '3'].include? params[:type]
-        redirect_to root_path
-      end
-
-      @type = params[:type].to_i
-      if @type == 1
-        unless self.is_user_allowed(@type)
-          redirect_to root_path
-        end
-
-        unless params[:chapter].present?
-          redirect_to root_path
-        else
-          if Tag.category.where(id: params[:chapter].to_i).exists?
-            @chapter = Tag.category.find(params[:chapter].to_i)
-            @title = 'Diagnósticos de acción por tema'
-          else
-            redirect_to root_path
-          end
-        end
-      end
-      if @type == 2
-        unless self.is_user_allowed(@type)
-          redirect_to root_path
-        end
-
-        if params[:chapter].present?
-          redirect_to root_path
-        else
-          @title = 'Sugerencias de mecanismos de monitoreo'
-        end
-      end
-      if @type == 3
-        unless self.is_user_allowed(@type)
-          redirect_to root_path
-        end
-
-        unless params[:chapter].present?
-          redirect_to root_path
-        else
-          if Tag.category.where(id: params[:chapter].to_i).exists?
-            @chapter = Tag.category.find(params[:chapter].to_i)
-            @title = 'Sugerencias de acciones por tema'
-          else
-            redirect_to root_path
-          end
-        end
-      end
-    else
-      redirect_to root_path
-    end
+    @title = 'Cuestionario'
   end
 
   # GET /quizzes/1/edit
@@ -87,59 +27,27 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes
   def create
-    new_params = quiz_params
-    new_params['user'] = current_user
+    params.delete('utf8')
+    params.delete('authenticity_token')
+    params.delete('controller')
+    params.delete('action')
 
-    if quiz_params['quiz_type'] == '1'
-      new_params['q1'] = params['quiz']['q1'] == 'Otro' ? params['quiz']['q5'] : params['quiz']['q1']
-      new_params['q2'] = params['quiz']['q2']
-      new_params['q3'] = params['quiz']['q3']
-      new_params['q4'] = params['q4'].present? ? params['q4'].join(', ') : ''
-      new_params.delete('q5')
+    @quiz = Quiz.find(params['quiz_id'])
+    params.delete('quiz_id')
 
-      if new_params['tag_id'].present? and Tag.category.exists?(id: new_params['tag_id'].to_i)
-        @quiz = Quiz.new(new_params)
+    @step = params['step']
+    params.delete('step')
 
-        if @quiz.save
-          @title_text = 'Diagnóstico enviado correctamente'
-          @send_text = 'Enviar otro diagnóstico'
-          @show_next_button = true
-          @chapter = new_params['tag_id']
-          @type = new_params['quiz_type']
-          render :success
-        else
-          render :new
-        end
-      else
-        render :new
-      end
-    elsif quiz_params['quiz_type'] == '2'
-      new_params['q3'] = params['q3'].present? ? params['q3'].join(', ') : ''
-      @quiz = Quiz.new(new_params)
+    @quiz['q%s' % [@step]] = params.to_enum.to_h
+    @quiz.name = ''
 
-      if @quiz.save
-        @title_text = 'Monitoreo enviado correctamente'
-        @send_text = 'Enviar otra monitoreo'
-        @chapter = nil
-        @type = new_params['quiz_type']
-        render :success
-      else
-        render :new
-      end
-    elsif quiz_params['quiz_type'] == '3'
-      @quiz = Quiz.new(new_params)
+    @quiz.save
 
-      if @quiz.save
-        @title_text = 'Sugerencia enviada correctamente'
-        @send_text = 'Enviar otra sugerencia'
-        @chapter = new_params['tag_id']
-        @type = new_params['quiz_type']
-        render :success
-      else
-        render :new
-      end
+    if ['1', '2', '3'].include?(@step)
+      redirect_to new_quiz_path(step: (@step.to_i + 1).to_s, quiz_id: @quiz.id)
     else
-      render :new
+      @title_text = 'Finalizaste la encuesta'
+      render 'success'
     end
   end
 

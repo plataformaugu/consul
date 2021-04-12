@@ -16,23 +16,15 @@
     <div class="margin-bottom" style="margin-left: 1rem;">
       <div class="row">
         <div class="small-12 medium-3 inline-block">
-          <%= link_to @send_text,
-            Quiz.where(quiz_type: @type).where(user_id: current_user.id).count >= 6 ? '#' : new_quiz_path(type: @type, chapter: @chapter),
-            class: "button expanded",
-            disabled: Quiz.where(quiz_type: @type).where(user_id: current_user.id).count >= 6 %>
-        </div>
-        <div class="small-12 medium-3 inline-block">
           <%= link_to 'Volver a la página de inicio',
             root_path,
             class: "button expanded" %>
         </div>
-        <% if @show_next_button %>
-          <div class="small-12 medium-3 inline-block">
-            <%= link_to 'Ir a Sugerencias de acciones',
-                    new_quiz_path(chapter: @chapter, type: 3),
-                    class: "button expanded" %>
-          </div>
-        <% end %>
+        <div class="small-12 medium-3 inline-block">
+          <%= link_to 'Ver participaciones',
+            proposals_path,
+            class: "button expanded" %>
+        </div>
       </div>
     </div>
   </div>

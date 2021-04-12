@@ -1,0 +1,100 @@
+<% @q11_options = [
+  'Chile',
+  'Bolivia',
+  'Venezuela',
+  'Colombia',
+  'Haití',
+  'Perú',
+  'Otro',
+] %>
+
+<% @q14_options = [
+    'No pertenece',
+    'Pueblo aymara',
+    'Pueblo quechua',
+    'Pueblo atacameño',
+    'Pueblo kolla',
+    'Pueblo diaguita',
+    'Pueblo rapanui',
+    'Pueblo mapuche',
+    'Pueblo yagán',
+    'Pueblo kawésqar',
+] %>
+
+<%= form_for(@quiz, url: form_url) do |f| %>
+
+  <div class="row column quiz-form">
+    <div class="small-12 column">
+      <label for="q10">Género</label><br/>
+        <%= radio_button_tag 'q10', 'Femenino', required: true %>
+        <%= label_tag "q10_Femenino", 'Femenino' %><br/>
+        <%= radio_button_tag 'q10', 'Masculino' %>
+        <%= label_tag "q10_Masculino", 'Masculino' %><br/>
+        <%= radio_button_tag 'q10', 'Otro' %>
+        <%= label_tag "q10_Otro", 'Otro' %><br/>
+        <%= radio_button_tag 'q10', 'No sabe' %>
+        <%= label_tag "q10_No sabe", 'No sabe' %><br/>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q11">¿En qué país naciste?</label><br/>
+        <%= select_tag 'q11', options_for_select(@q11_options), required: true %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q12">¿Cuántos años tienes?</label>
+      <%= number_field_tag 'q12', nil, min: 0, max: 99, required: true %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q13">¿Tienes algún tipo de discapacidad?</label><br/>
+        <%= radio_button_tag 'q13', 'Si' %>
+        <%= label_tag "q13_Si", 'Si' %><br/>
+        <%= radio_button_tag 'q13', 'No', required: true %>
+        <%= label_tag "q13_No", 'No' %><br/>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q14">¿Perteneces a algún pueblo indígena?</label><br/>
+        <%= select_tag 'q14', options_for_select(@q14_options), required: true %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q15">¿Dónde vives actualmente?</label><br/>
+        <%= radio_button_tag 'q15', 'En un hospital, por tratamiento médico prolongado.', required: true %>
+        <%= label_tag "q15_En un hospital, por tratamiento médico prolongado.", 'En un hospital, por tratamiento médico prolongado.' %><br/>
+        <%= radio_button_tag 'q15', 'En casa de familiares directos o lejanos' %>
+        <%= label_tag "q15_En casa de familiares directos o lejanos", 'En casa de familiares directos o lejanos' %><br/>
+        <%= radio_button_tag 'q15', 'En un centro privativo de libertad' %>
+        <%= label_tag "q15_En un centro privativo de libertad", 'En un centro privativo de libertad' %><br/>
+        <%= radio_button_tag 'q15', 'En el internado de mi escuela' %>
+        <%= label_tag "q15_En el internado de mi escuela", 'En el internado de mi escuela' %><br/>
+        <%= radio_button_tag 'q15', 'En una residencia de protección' %>
+        <%= label_tag "q15_En una residencia de protección", 'En una residencia de protección' %><br/>
+        <%= radio_button_tag 'q15', 'Otro' %>
+        <%= label_tag "q15_Otro", 'Otro' %><br/>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q16">¿Cuál es tu orientación sexual?</label><br/>
+        <%= radio_button_tag 'q16', 'Heterosexual', required: true %>
+        <%= label_tag "q16_Heterosexual", 'Heterosexual' %><br/>
+        <%= radio_button_tag 'q16', 'Homosexual' %>
+        <%= label_tag "q16_Homosexual", 'Homosexual' %><br/>
+      <br/><br/>
+    </div>
+
+    <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
+    <input type="hidden" id="step" name="step" value="4">
+
+    <div class="actions small-12 column">
+      <button id="submit" type="submit" class="button">Finalizar</button>
+    </div>
+  </div>
+<% end %>
