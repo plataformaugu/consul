@@ -26,14 +26,12 @@
           <%= link_to t("layouts.header.officing"), officing_root_path %>
       <% end %>
       <hr>
-      <% unless current_user.group_id.nil? %>
-        <%= layout_menu_link_to 'Mi grupo',
-                                groups_path,
-                                controller_name == "groups",
-                                rel: "nofollow",
-                                title: t("shared.go_to_page") +
-                                      t("layouts.header.my_account_link") %>
-      <% end %>
+      <%= layout_menu_link_to 'Grupos',
+                              groups_path,
+                              controller_name == "groups",
+                              rel: "nofollow",
+                              title: t("shared.go_to_page") +
+                                    t("layouts.header.my_account_link") %>
       <%= layout_menu_link_to t("layouts.header.my_account_link"),
                               account_path,
                               controller_name == "account",
@@ -68,14 +66,12 @@
         <%= link_to t("layouts.header.officing"), officing_root_path %>
     <% end %>
     <hr>
-      <% unless current_user.group_id.nil? %>
-        <%= layout_menu_link_to 'Mi grupo',
-                                groups_path,
-                                controller_name == "groups",
-                                rel: "nofollow",
-                                title: t("shared.go_to_page") +
-                                      t("layouts.header.my_account_link") %>
-      <% end %>
+    <%= layout_menu_link_to 'Grupos',
+                            groups_path,
+                            controller_name == "groups",
+                            rel: "nofollow",
+                            title: t("shared.go_to_page") +
+                                  t("layouts.header.my_account_link") %>
     <%= layout_menu_link_to t("layouts.header.my_account_link"),
                             account_path,
                             controller_name == "account",

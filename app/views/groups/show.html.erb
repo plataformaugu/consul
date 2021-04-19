@@ -1,4 +1,4 @@
-<% provide :title do %>Mi grupo<% end %>
+<% provide :title do %><%= @group.name.empty? ? 'Mi grupo' : @group.name %><% end %>
 <% content_for :header_addon do %>
 <% end %>
 
@@ -34,17 +34,20 @@
     <div class="row">
       <div class="small-12 column">
         <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
-        <h1 class="inline-block">Mi grupo</h1>
+        <h1 class="inline-block"><%= @group.name.empty? ? 'Mi grupo' : @group.name %></h1>
       </div>
     </div>
     <div class="row">
       <div class="small-12 medium-9 column end">
         <p>Este es el grupo en el que estás participando</p>
+        <% unless @group.description.nil? or @group.description.empty? %>
+        <p>Descripción: <%= @group.description %></p>
+        <% end %>
         <p>Representante: <%= User.find(@group.user_id).name %></p>
       </div>
     </div>
     <div class="row">
-      <%= render 'shared/back_to' %>
+      <%= back_link_to groups_path %>
     </div>
   </div>
 
@@ -68,10 +71,13 @@
         <div class="sidebar-divider"></div>
         <h2 class="sidebar-title">Acciones</h2>
         <% if @group.users.count < 15 %>
-          <%= link_to 'Agregar participante', edit_group_path(@group), class: 'button expanded' %>
+          <%= link_to 'Agregar participante', edit_group_path(@group, add: true), class: 'button expanded' %>
         <% else %>
           <button disabled class="button expanded">Agregar participante</button>
           <small>El grupo alcanzó el limite de 15 participantes</small>
+        <% end %>
+        <% if @group.user_id == current_user.id %>
+          <%= link_to 'Editar grupo', edit_group_path(@group), class: 'button expanded' %>
         <% end %>
       </aside>
     </div>

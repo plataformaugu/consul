@@ -16,8 +16,16 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
-    if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
-      Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+    unless params['step'].present? 
+      if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
+        Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+      end
+    else
+      if params['step'].to_i == 1
+        if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
+          Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+        end
+      end
     end
 
     @quiz = Quiz.new
@@ -57,7 +65,6 @@ class QuizzesController < ApplicationController
     params.delete('step')
 
     @quiz['q%s' % [@step]] = params.to_enum.to_h
-    @quiz.name = ''
     
     unless @visible.nil?
       @quiz.visible = @visible == '1' ? true : false
@@ -65,15 +72,22 @@ class QuizzesController < ApplicationController
 
     unless @type.nil?
       if @type == 'grupal'
-        @quiz.group_id = Group.where(user_id: current_user.id).first.id
+        @quiz.group_id = params['group']
+        params.delete('group')
       end
     end
 
     @quiz.save
 
     if ['1', '2', '3'].include?(@step)
-      redirect_to new_quiz_path(step: (@step.to_i + 1).to_s, quiz_id: @quiz.id)
+      if @quiz.group_id.nil?
+        redirect_to new_quiz_path(step: (@step.to_i + 1).to_s, quiz_id: @quiz.id)
+      else
+        redirect_to new_quiz_path(step: (@step.to_i + 1).to_s, quiz_id: @quiz.id, group: @quiz.group_id)
+      end
     else
+      @quiz.name = ''
+      @quiz.save
       @title_text = 'Finalizaste la encuesta'
       render 'success'
     end

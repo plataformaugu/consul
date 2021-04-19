@@ -17,7 +17,12 @@ class WelcomeController < ApplicationController
           current_user.save
         end
       end
+
+      if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
+        Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+      end
     end
+
 
     @header = Widget::Card.header.first
     @feeds = Widget::Feed.active

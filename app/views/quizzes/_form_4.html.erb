@@ -27,7 +27,7 @@
     <div class="row column quiz-form">
       <div class="small-12 column">
         <label for="q10">Género</label><br/>
-          <%= radio_button_tag 'q10', 'Femenino', required: true %>
+          <%= radio_button_tag 'q10', 'Femenino' %>
           <%= label_tag "q10_Femenino", 'Femenino' %><br/>
           <%= radio_button_tag 'q10', 'Masculino' %>
           <%= label_tag "q10_Masculino", 'Masculino' %><br/>
@@ -54,7 +54,7 @@
         <label for="q13">¿Tienes algún tipo de discapacidad?</label><br/>
           <%= radio_button_tag 'q13', 'Si' %>
           <%= label_tag "q13_Si", 'Si' %><br/>
-          <%= radio_button_tag 'q13', 'No', required: true %>
+          <%= radio_button_tag 'q13', 'No' %>
           <%= label_tag "q13_No", 'No' %><br/>
         <br/><br/>
       </div>
@@ -84,11 +84,16 @@
 
       <div class="small-12 column">
         <label for="q16">¿Cuál es tu orientación sexual?</label><br/>
-          <%= radio_button_tag 'q16', 'Heterosexual', required: true %>
+          <%= radio_button_tag 'q16', 'Heterosexual' %>
           <%= label_tag "q16_Heterosexual", 'Heterosexual' %><br/>
           <%= radio_button_tag 'q16', 'Homosexual' %>
           <%= label_tag "q16_Homosexual", 'Homosexual' %><br/>
         <br/><br/>
+      </div>
+
+      <div class="small-12 column">
+        <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> serán visibles para otros usuarios.</small>
+        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
       </div>
 
       <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
@@ -102,3 +107,11 @@
 <% else %>
   <%= render 'form_4_group', form_url: form_url %>
 <% end %>
+
+<script>
+$(document).ready(function() {
+  $('input[name="q10"]').attr('required', true)
+  $('input[name="q13"]').attr('required', true)
+  $('input[name="q16"]').attr('required', true)
+})
+</script>

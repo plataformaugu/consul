@@ -15,9 +15,35 @@
 
 <% if params[:step].present? && @allowed.include?(params[:step]) %>
 	<% @progress = params[:step].to_i %>
+	<% if params[:group].present? %>
+		<% unless params[:group].present? && Group.where(id: params[:group].to_i).exists? && Group.where(id: params[:group].to_i).first.user_id == current_user.id %>
+			<% controller.redirect_to root_path %>
+		<% end %>
+
+		<% @group = Group.find(params[:group].to_i) %>
+
+		<% if @group.users.count <= 1 %>
+			<% controller.redirect_to root_path %>
+		<% end %>
+	<% end %>
+	
 <% else %>
-	<% controller.redirect_to new_quiz_path(step: '1', type: @type) %>
+	<% if @type == 'grupal' %>
+		<% if params[:group].present? && Group.where(id: params[:group].to_i).exists? && Group.where(id: params[:group].to_i).first.user_id == current_user.id %>
+			<% controller.redirect_to new_quiz_path(step: '1', type: @type, group: params[:group]) %>
+			<% @group = Group.find(params[:group].to_i) %>
+
+			<% if @group.users.count <= 1 %>
+				<% controller.redirect_to root_path %>
+			<% end %>
+		<% else %>
+			<% controller.redirect_to root_path %>
+		<% end%>
+	<% else %>
+		<% controller.redirect_to new_quiz_path(step: '1', type: @type) %>
+	<% end %>
 <% end %>
+
 
 
 <div class="proposal-form row">
@@ -35,20 +61,18 @@
 
 	<div class="small-12 medium-3 column">
 		<aside class="margin-bottom">
-			<% if @type == 'grupal' && Group.where(user_id: current_user.id).exists? %>
+			<% if @group %>
 				<div class="sidebar-divider"></div>
 				<h2 class="sidebar-title"><i class="fas fa-users" style="color: #004a83;"></i> Participación grupal</h2>
 				<div>
 				<small>
-					Estás participando junto a:
+					Estás participando con tu grupo <strong><%= @group.name %></strong>.<br/>
+					Participantes:
 					<ul>
-						<% Group.find(current_user.group_id).users.each do |user| %>
+						<li>Tú (<%= current_user.username %>)</li>
+						<% @group.users.each do |user| %>
 							<% if user[:email] != current_user.email %>
 								<li><%= user[:name] %></li>
-							<% end %>
-							<% if Group.find(current_user.group_id).users.count <= 1%>
-								Nadie, aún no invitas a nadie a tu grupo.<br/>
-								Esta participación será individual.
 							<% end %>
 						<% end %>
 					</ul>
@@ -56,7 +80,7 @@
 				</div>
 				<small>
 					¿Quieres agregar más participantes?<br/>
-					<%= link_to 'Haz clic aquí', groups_path, target: '_blank' %>
+					<%= link_to 'Haz clic aquí', @group, target: '_blank' %>
 				</small>
 			<% end %>
 			<div class="sidebar-divider"></div>

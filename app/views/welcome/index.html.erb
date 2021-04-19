@@ -16,7 +16,6 @@
 <%= render 'choose_type' %>
 <div class="jumbo highlight proceso-main">
     <div class="row flexbox">
-    <%= link_to new_quiz_path(type: 'individual'), :action => 'go' do %>
       <div class="proceso-card">
         <div class="card-section">
           <img
@@ -26,43 +25,32 @@
         </div>
         <div class="card-section text-center">
           <h4>Participar solo</h4>
+          <%= link_to 'Participar', new_quiz_path(type: 'individual'), class: 'button expanded' %>
         </div>
       </div>
-    <% end %>
     <% if current_user %>
       <% if Group.where(user_id: current_user.id).exists? %>
-        <% if Group.where(user_id: current_user.id).first.users.count > 1 %>
-          <%= link_to new_quiz_path(type: 'grupal'), :action => 'go' do %>
-            <div class="proceso-card">
-              <div class="card-section">
-                <img
-                  class="process-card-image"
-                  src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-                >
-              </div>
-              <div class="card-section text-center">
-                <h4>Participar grupalmente</h4>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          <%= link_to groups_path, :action => 'go' do %>
-              <div class="proceso-card disabled">
-                <div class="card-section">
-                  <img
-                    class="process-card-image"
-                    src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-                  >
-                </div>
-                <div class="card-section text-center">
-                  <h4>Participar grupalmente</h4>
-                  <small>Tu grupo debe tener dos o más integrantes.</small>
-                </div>
-              </div>
-          <% end %>
-        <% end %>
+        <div class="proceso-card">
+          <div class="card-section">
+            <img
+              class="process-card-image"
+              src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
+            >
+          </div>
+          <div class="card-section text-center">
+            <h4>Participar grupalmente</h4>
+            <% if Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}.count > 0 %>
+              <%= select_tag 'groups', options_from_collection_for_select(Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}, 'id', 'name'), prompt: 'Elige un grupo' %>
+              <small>Solo aparecerán grupos con dos participantes o más</small><br/><br/>
+              <%= link_to 'Participar', '#', class: 'button expanded', id: 'groups_submit', disabled: true %>
+            <% else %>
+              <small>No tienes ningún grupo con dos o más participantes.</small><br/><br/>
+              <%= link_to 'Participar', '#', class: 'button expanded', id: 'groups_submit', disabled: true %>
+            <% end %>
+          </div>
+        </div>
       <% else %>
-        <%= link_to set_participation_groups_path(type: 'grupal'), method: 'post' do %>
+        <%= link_to 'groups/new' do %>
               <div class="proceso-card disabled">
                 <div class="card-section">
                   <img
@@ -78,19 +66,18 @@
           <% end %>
       <% end %>
     <% else %>
-      <%= link_to new_quiz_path(type: 'grupal'), :action => 'go' do %>
-        <div class="proceso-card">
-          <div class="card-section">
-            <img
-              class="process-card-image"
-              src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-            >
-          </div>
-          <div class="card-section text-center">
-            <h4>Participar grupalmente</h4>
-          </div>
+      <div class="proceso-card">
+        <div class="card-section">
+          <img
+            class="process-card-image"
+            src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
+          >
         </div>
-      <% end %>
+        <div class="card-section text-center">
+          <h4>Participar grupalmente</h4>
+          <%= link_to 'Participar', new_quiz_path(type: 'grupal'), class: 'button expanded' %>
+        </div>
+      </div>
     <% end %>
   </div>
   <br/>
@@ -105,21 +92,47 @@
 
 <div class="row">
     <section id="feed" class="widget-feed">
-      <% @quizzes_type.each do |type, description| %>
-        <div class="small-12 medium-4 column">
-          <% if Quiz.where(quiz_type: type, visible: true).any? %>
+        <div class="small-12 medium-12 column">
+          <% if Quiz.where(visible: true).where.not(name: 'TMP').exists? %>
             <div class="feed-content">
-            <h3 class="title"><%= description %></h3>
-              <% Quiz.where(quiz_type: type, visible: true).sort_by {|quiz| quiz.votes}.reverse[0, 3].each do |quiz| %>
-                <div class="proposal">
-                  <h5><%= quiz.name or 'Sin título' %></h5>
-                  <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= quiz.description or 'Sin descripción' %></p>
+            <h3 class="title">Respuestas con más apoyos</h3>
+              <% Quiz.where(visible: true).where.not(name: 'TMP').sort_by {|quiz| quiz.votes}.reverse[0, 3].each_with_index do |quiz, idx| %>
+                <div class="row">
+                  <div class="column">
+                    <small>#<%= idx + 1 %></small>
+                  </div>
+                  <div class="small-12 medium-3 column">
+                    <div class="proposal">
+                      <h5>Pregunta 1</h5>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q1)['q3'] or 'Sin respuesta' %></p>
+                    </div>
+                  </div>
+                  <div class="small-12 medium-3 column">
+                    <div class="proposal">
+                      <h5>Pregunta 2</h5>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q1)['q4'] or 'Sin respuesta' %></p>
+                    </div>
+                  </div>
+                  <div class="small-12 medium-3 column">
+                    <div class="proposal">
+                      <h5>Pregunta 3</h5>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q2)['q7'] or 'Sin respuesta' %></p>
+                    </div>
+                  </div>
+                  <div class="small-12 medium-3 column">
+                    <div class="proposal">
+                      <h5>Pregunta 4</h5>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q3)['q8'] or 'Sin respuesta' %></p>
+                    </div>
+                  </div>
                 </div>
+                <hr style="margin: 0;"/>
               <% end %>
             </div>
+            <br/>
+            <%= link_to 'Ver todas', proposals_path(:order => 'new') %>
           <% end %>
         </div>
-      <% end %>
     </section>
   </div>
 </div>
@@ -146,3 +159,19 @@
                 recommended_proposals: @recommended_proposals %>
   <% end %>
 </main>
+
+<script>
+$(document).ready(function() {
+  $('#groups_submit').removeAttr('href')
+
+  $('#groups').on('change', function() {
+    if (this.value.length > 0) {
+      $('#groups_submit').attr('href', '/forms/new?type=grupal&group=' + this.value)
+      $('#groups_submit').removeAttr('disabled')
+    } else {
+      $('#groups_submit').attr('disabled', 'disabled')
+      $('#groups_submit').removeAttr('href')
+    }
+  })
+})
+</script>

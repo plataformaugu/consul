@@ -97,7 +97,7 @@
 
     <div class="small-12 column">
       <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
-      <p>El problema que veo es...</p>
+      <p id="text-after-q2"></p>
       <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>
@@ -131,11 +131,12 @@
       <br/><br/>
     </div>
 
-    <% @current_quiz = Quiz.create(name: 'TMP', user_id: current_user.id) %>
+    <% @current_quiz = Quiz.create(name: 'TMP', user_id: current_user.id, visible: false) %>
 
     <input type="hidden" id="quiz_id" name="quiz_id" value="<%= @current_quiz.id %>">
     <input type="hidden" id="step" name="step" value="1">
     <input type="hidden" id="type" name="type" value="<%= locals[:type].present? ? locals[:type] : '' %>">
+    <input type="hidden" id="group" name="group" value="<%= params[:group].present? ? params[:group] : '' %>">
 
     <div class="actions small-12 column">
       <button id="submit" type="submit" class="button">Continuar</button>
@@ -145,7 +146,8 @@
 
 <script>
 $(document).ready(function() {
-  $('input[name="q2"').attr('required', true)
+  $('input[name="q2"]').attr('required', true)
+  $('#text-after-q2').text('El problema que veo es...')
 
   $('input[name="q1[]"]').on('change', function() {
     if ($('input[name="q1[]"]:checked').length >= 3) {
@@ -196,6 +198,10 @@ $(document).ready(function() {
       $('#quiz_name').attr('required', false)
       $('#quiz_description').attr('required', false)
     }
+  })
+
+  $('input[name="q2"').on('change', function() {
+    $('#text-after-q2').text('El problema que veo en ' + this.value + ' es...')
   })
 })
 </script>

@@ -1,4 +1,5 @@
 <%= form_with(model: group, local: true) do |form| %>
+  <% if params[:add].present? %>
     <%= form.hidden_field :name %>
     <%= form.hidden_field :description %>
 
@@ -12,7 +13,11 @@
 
     <label>Email</label>
     <%= email_field_tag :email, params[:email], required: true %>
-
+  <% else %>
+    <%= form.text_field :name, label: 'Nombre' %>
+    <%= form.text_field :description, label: 'Descripción' %>
+    <%= hidden_field_tag :is_group_edit, params[:is_group_edit], value: true %>
+  <% end %>
   <div class="actions">
     <%= form.submit 'Agregar', class: 'button' %>
   </div>

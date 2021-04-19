@@ -1,29 +1,79 @@
-<p id="notice"><%= notice %></p>
+<% provide :title do %>Grupos<% end %>
+<% content_for :header_addon do %>
+<% end %>
 
-<h1>Groups</h1>
+<% unless flash.empty? %>
+  <% @flash = flash.to_hash().to_a[0] %>
+  <div id="<%= @flash[0] %>" data-alert class="notice-container callout-slide" style="z-index: 9999;" data-closable>
+    <div class="callout notice <%= @flash[0] %>">
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="notice-text">
+        <%= sanitize(@flash[1]) %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% flash.each do |flash_key, flash_message| %>
+  <div id="<%= flash_key %>" data-alert class="notice-container callout-slide" data-closable>
+    <div class="callout notice <%= flash_key %>">
+      <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="notice-text">
+        <%= sanitize(flash_message) %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-  <tbody>
-    <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.name %></td>
-        <td><%= group.description %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Group', new_group_path %>
+<main>
+  <div class="jumbo light">
+    <div class="row">
+      <div class="small-12 column">
+        <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
+        <h1 class="inline-block">Grupos</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-4 column">
+        <%= link_to 'Crear grupo', 'groups/new', class: 'button' %>
+      </div>
+    </div>
+    <div class="row">
+      <%= back_link_to root_path %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 column">
+      <h3 class="title">Mis grupos</h3>
+      <% if Group.where(user_id: current_user.id).count > 0 %>
+        <ul>
+        <% Group.where(user_id: current_user.id).each do |group| %>
+          <li>
+            <%= link_to group.name, group %><small> - Participantes: <%= group.users.count %></small>
+          </li>
+        <% end %>
+        </ul>
+      <% else %>
+        No tienes ningún grupo, <%= link_to 'haz clic aquí para crear uno.', 'groups/new' %>
+      <% end %>
+    </div>
+    <div class="small-12 medium-6 column">
+      <h3 class="title">Grupos a los que pertenezo</h3>
+      <% if Group.includes(:group_users).where.not(user_id: current_user.id).where(group_users: {email: current_user.email}).count > 0 %>
+        <ul>
+        <% Group.includes(:group_users).where.not(user_id: current_user.id).where(group_users: {email: current_user.email}).each do |group| %>
+            <li>
+              <%= link_to group.name, group %><small> - Participantes: <%= group.users.count %></small>
+            </li>
+        <% end %>
+        </ul>
+      <% else %>
+        No perteneces a ningún grupo.
+      <% end %>
+    </div>
+  </div>
+</main>

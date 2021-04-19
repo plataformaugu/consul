@@ -2,12 +2,18 @@
 <% content_for :header_addon do %>
 <% end %>
 
+<% if params[:add].present? %>
+  <% @title = 'Agregar participante' %>
+<% else %>
+  <% @title = 'Editar grupo' %>
+<% end %>
+
 <main>
   <div class="jumbo light">
     <div class="row">
       <div class="small-12 column">
         <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
-        <h1 class="inline-block">Agregar participante</h1>
+        <h1 class="inline-block"><%= @title %></h1>
       </div>
     </div>
     <div class="row">
