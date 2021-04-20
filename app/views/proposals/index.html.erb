@@ -73,16 +73,20 @@
                   </div>
                   <div class="small-12 medium-6 column supports-container">
                     <p><% eval(quiz.q1).each do |key, value| %>
-                      <% if ['q3'].include?(key) %>
-                        <strong>¿En qué notas que no se respetan los derechos humanos en: <%= eval(quiz.q1)['q2'] %>?</strong><br/>
-                        <% if value.is_a?(Array) %>
-                          <% value.each do |v| %>
-                            <li><%= v %></li>
-                          <% end %><br/>
-                        <% else %>
-                          <%= value %><br/><br/>
-                        <% end %>
-                      <% end %></p>
+                        <% if ['q3'].include?(key) %>
+                          <% if quiz.group_id.nil? %>
+                            <strong>¿En qué notas que no se respetan los derechos humanos en: <%= eval(quiz.q1)['q2'] %>?</strong><br/>
+                          <% else %>
+                            <strong>En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</strong><br/>
+                          <% end %>
+                          <% if value.is_a?(Array) %>
+                            <% value.each do |v| %>
+                              <li><%= v %></li>
+                            <% end %><br/>
+                          <% else %>
+                            <%= value %><br/><br/>
+                          <% end %>
+                        <% end %></p>
                     <% end %>
                     <p><% eval(quiz.q1).each do |key, value| %>
                       <% if ['q4'].include?(key) %>
@@ -182,7 +186,7 @@
       </div>
     </div>
     <% @chapter_selected = params[:search].present? ? params[:search].to_i : Tag.category.ids %>
-    <% if Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).count > 5 %>
+    <% if Quiz.where(visible: true).count > 5 %>
       <nav aria-label="Pagination">
         <ul class="pagination text-center">
           <li class="pagination-previous <%= params[:page].to_i == 0 ? 'disabled' : '' %>">
@@ -194,7 +198,7 @@
               <% end %>
             <% end %>
           </li>
-          <% Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).each_with_index do |page, index| %>
+          <% Quiz.where(visible: true).in_groups_of(5, false).each_with_index do |page, index| %>
             <li class="<%= params[:page].to_i == index ? 'current' : '' %>">
               <% if params[:page].to_i == index %>
                   <%= index + 1 %>
@@ -205,8 +209,8 @@
               <% end %>
             </li>
           <% end %>
-          <li class="pagination-next <%= Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).count - 1 == params[:page].to_i ? 'disabled' : '' %>">
-            <% if Quiz.where(visible: true, quiz_type: 3, tag_id: @chapter_selected).in_groups_of(5, false).count - 1 == params[:page].to_i %>
+          <li class="pagination-next <%= Quiz.where(visible: true).in_groups_of(5, false).count - 1 == params[:page].to_i ? 'disabled' : '' %>">
+            <% if Quiz.where(visible: true).in_groups_of(5, false).count - 1 == params[:page].to_i %>
               Siguiente
             <% else %>
               <%= link_to current_path_with_query_params(page: params[:page].to_i + 1) do %>

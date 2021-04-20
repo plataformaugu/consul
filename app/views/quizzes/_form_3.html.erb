@@ -11,7 +11,7 @@
 
     <div class="small-12 column">
       <label for="q9">¿Te gustaría ser contactado/a para participar del seguimiento al cumplimiento del Plan Nacional de Derechos Humanos?</label><br/>
-        <%= radio_button_tag 'q9', 'Si', required: true %>
+        <%= radio_button_tag 'q9', 'Si' %>
         <%= label_tag "q9_Si", 'Si' %><br/>
         <%= radio_button_tag 'q9', 'No' %>
         <%= label_tag "q9_No", 'No' %><br/>
@@ -26,3 +26,9 @@
     </div>
   </div>
 <% end %>
+
+<script>
+$(document).ready(function() {
+  $('input[name="q9"]').attr('required', true)
+})
+</script>

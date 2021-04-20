@@ -62,19 +62,21 @@
   'En todo el país',
 ]%>
 
-<% if params[:type].present? && params[:type] == 'grupal' %>
-  <%= render 'form_1_group', form_url: form_url %>
-<% else %>
-  <%= form_for(@quiz, url: form_url) do |f| %>
+
+<%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
 
+    <div class="jumbo" style="padding: 15px;">
+      ¡Bienvenidxs! Esta es una encuesta que busca conocer las opiniones de su grupo / curso sobre temas de derechos humanos.<br/><br/>
+      Como estamos atravesando por una crisis sanitaria por el Covid-19 les recomendamos reunirse a través de videollamada. Pueden hacerlo desde la plataforma que prefieran. Acá te dejamos tres opciones gratuitas: Jitsi meet (no necesitas iniciar sesión, videollamada ilimitada) Meet (necesitas iniciar sesión en google, videollamada por tiempo ilimitado) / Zoom (necesitas registrarte en zoom, videollamada por 45 minutos).<br/><br/>Tus compañeros/as podrán ingresar a la videollamada a través del enlace que compartas y como guía de grupo podrás compartir pantalla de este sitio para que todos puedan ver la consulta y responder entre todos. 
+    </div>
+
     <div class="small-12 column">
-      <label for="q1">¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
-      <small class="help-text">Debes elegir 3 opciones.</small>
+      <label for="q1">¿Cuáles de estos temas de derechos humanos son para ustedes los tres más importantes?</label>
+      <small class="help-text">Sugerencia: Elegir 3 opciones por persona.</small>
       <div><br/>
-      <% @q1_options.each_with_index do |option, idx| %>
-        <%= check_box_tag 'q1[]', option, false, {id: 'q1_%s' % [idx]} %>
-        <%= label_tag 'q1_%s' % [idx], option %><br/>
+      <% @q1_options.each do |option| %>
+        <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -82,9 +84,8 @@
 
     <div class="small-12 column">
       <label for="q2">¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label><br/>
-      <% @q2_options.each_with_index do |option, idx| %>
-        <%= radio_button_tag 'q2', option, nil, id: 'q2_%s' % [idx] %>
-        <%= label_tag "q2_%s" % [idx], option %><br/>
+      <% @q2_options.each do |option| %>
+        <%= option %>: <%= number_field_tag 'q2_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
       <% end %>
       <br/><br/>
     </div>
@@ -106,9 +107,8 @@
     <div class="small-12 column">
       <label for="q5">¿A quienes crees que afecta este problema?</label>
       <div><br/>
-      <% @q5_options.each_with_index do |option, idx| %>
-        <%= check_box_tag 'q5[]', option, false, {id: 'q5_%s' % [idx]} %>
-        <%= label_tag 'q5_%s' % [idx], option %><br/>
+      <% @q5_options.each do |option| %>
+        <%= option %>: <%= number_field_tag 'q5_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -117,9 +117,8 @@
     <div class="small-12 column">
       <label for="q6">¿En qué lugares crees que se vive este problema?</label>
       <div><br/>
-      <% @q6_options.each_with_index do |option, idx| %>
-        <%= check_box_tag 'q6[]', option, false, {id: 'q6_%s' % [idx]} %>
-        <%= label_tag 'q6_%s' % [idx], option %><br/>
+      <% @q6_options.each do |option| %>
+        <%= option %>: <%= number_field_tag 'q6_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -129,7 +128,7 @@
 
     <input type="hidden" id="quiz_id" name="quiz_id" value="<%= @current_quiz.id %>">
     <input type="hidden" id="step" name="step" value="1">
-    <input type="hidden" id="type" name="type" value="<%= locals[:type].present? ? locals[:type] : '' %>">
+    <input type="hidden" id="type" name="type" value="<%= params[:type].present? ? params[:type] : '' %>">
     <input type="hidden" id="group" name="group" value="<%= params[:group].present? ? params[:group] : '' %>">
 
     <div class="actions small-12 column">
@@ -140,63 +139,6 @@
 
 <script>
 $(document).ready(function() {
-  $('input[name="q2"]').attr('required', true)
   $('#text-after-q2').text('El problema que veo es...')
-
-  $('input[name="q1[]"]').on('change', function() {
-    if ($('input[name="q1[]"]:checked').length >= 3) {
-      $('input[name="q1[]"]').each(function() {
-        if (!this.checked) {
-          $(this).attr('disabled', true)
-        }
-      })
-    } else {
-      $('input[name="q1[]"]').each(function() {
-        $(this).attr('disabled', false)
-      })
-    }
-  })
-
-  $('input[name="quiz[q1]"]').on('change', function() {
-    if (this.value === 'Otro' || this.value === 'otro') {
-      $('#hidden-field').css('display', 'block');
-    } else {
-      $('#hidden-field').css('display', 'none');
-    }
-  })
-
-  $('#new_quiz').on('submit', function(e) {
-    if ($('input[name="q1[]"]:checked').length < 3) {
-      $('[for="q1"]').css('color', 'red');
-      e.preventDefault();
-      window.scrollTo(0, 0);
-      return false;
-    } else {
-      $('[for="q1"]').css('color', 'black');
-    }
-  })
-
-  if ($('#quiz_visible').is(':checked')) {
-    $('#quiz_name').attr('required', true)
-    $('#quiz_description').attr('required', true)
-  } else {
-    $('#quiz_name').attr('required', false)
-    $('#quiz_description').attr('required', false)
-  }
-
-  $('#quiz_visible').on('change', function() {
-    if ($('#quiz_visible').is(':checked')) {
-      $('#quiz_name').attr('required', true)
-      $('#quiz_description').attr('required', true)
-    } else {
-      $('#quiz_name').attr('required', false)
-      $('#quiz_description').attr('required', false)
-    }
-  })
-
-  $('input[name="q2"').on('change', function() {
-    $('#text-after-q2').text('El problema que veo en ' + this.value + ' es...')
-  })
 })
 </script>
-<% end %>

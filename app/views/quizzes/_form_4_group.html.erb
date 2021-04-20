@@ -2,22 +2,22 @@
   <div class="row column quiz-form">
     <div class="small-12 column">
       <label for="q10">Géneros</label><br/>
-        Femenino: <%= number_field_tag 'q10_femenino', 0 %>
-        Masculino: <%= number_field_tag 'q10_masculino', 0 %>
-        Otro: <%= number_field_tag 'q10_otro', 0 %>
-        No sabe: <%= number_field_tag 'q10_no', 0 %>
+        Femenino: <%= number_field_tag 'q10_femenino', 0, class: 'number-selection', min: 0 %><br/>
+        Masculino: <%= number_field_tag 'q10_masculino', 0, class: 'number-selection', min: 0 %><br/>
+        Otro: <%= number_field_tag 'q10_otro', 0, class: 'number-selection', min: 0 %><br/>
+        No sabe: <%= number_field_tag 'q10_no', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
       <label for="q11">¿En qué país nacieron?</label><br/>
-      Chile: <%= number_field_tag 'q11_chile', 0 %>
-      Bolivia: <%= number_field_tag 'q11_bolivia', 0 %>
-      Venezuela: <%= number_field_tag 'q11_venezuela', 0 %>
-      Colombia: <%= number_field_tag 'q11_colombia', 0 %>
-      Haití: <%= number_field_tag 'q11_haiti', 0 %>
-      Perú: <%= number_field_tag 'q11_peru', 0 %>
-      Otro: <%= number_field_tag 'q11_otro', 0 %>
+      Chile: <%= number_field_tag 'q11_chile', 0, class: 'number-selection', min: 0 %><br/>
+      Bolivia: <%= number_field_tag 'q11_bolivia', 0, class: 'number-selection', min: 0 %><br/>
+      Venezuela: <%= number_field_tag 'q11_venezuela', 0, class: 'number-selection', min: 0 %><br/>
+      Colombia: <%= number_field_tag 'q11_colombia', 0, class: 'number-selection', min: 0 %><br/>
+      Haití: <%= number_field_tag 'q11_haiti', 0, class: 'number-selection', min: 0 %><br/>
+      Perú: <%= number_field_tag 'q11_peru', 0, class: 'number-selection', min: 0 %><br/>
+      Otro: <%= number_field_tag 'q11_otro', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
     </div>
 
@@ -30,34 +30,34 @@
 
     <div class="small-12 column">
       <label for="q13">¿Tienen algún tipo de discapacidad?</label><br/>
-        Si: <%= number_field_tag 'q13_si', 0 %>
-        No: <%= number_field_tag 'q13_no', 0 %>
+        Si: <%= number_field_tag 'q13_si', 0, class: 'number-selection', min: 0 %><br/>
+        No: <%= number_field_tag 'q13_no', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
       <label for="q14">¿Pertenecen a algún pueblo indígena?</label><br/>
-        No pertenece: <%= number_field_tag 'q14_no', 0 %>
-        Pueblo aymara: <%= number_field_tag 'q14_aymara', 0 %>
-        Pueblo quechua: <%= number_field_tag 'q14_quechua', 0 %>
-        Pueblo atacameño: <%= number_field_tag 'q14_atacameño', 0 %>
-        Pueblo kolla: <%= number_field_tag 'q14_kolla', 0 %>
-        Pueblo diaguita: <%= number_field_tag 'q14_diaguita', 0 %>
-        Pueblo rapanui: <%= number_field_tag 'q14_rapanui', 0 %>
-        Pueblo mapuche: <%= number_field_tag 'q14_mapuche', 0 %>
-        Pueblo yagán: <%= number_field_tag 'q14_yagán', 0 %>
-        Pueblo kawésqar: <%= number_field_tag 'q14_kawésqar', 0 %>
+        No pertenece: <%= number_field_tag 'q14_no', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo aymara: <%= number_field_tag 'q14_aymara', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo quechua: <%= number_field_tag 'q14_quechua', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo atacameño: <%= number_field_tag 'q14_atacameño', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo kolla: <%= number_field_tag 'q14_kolla', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo diaguita: <%= number_field_tag 'q14_diaguita', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo rapanui: <%= number_field_tag 'q14_rapanui', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo mapuche: <%= number_field_tag 'q14_mapuche', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo yagán: <%= number_field_tag 'q14_yagán', 0, class: 'number-selection', min: 0 %><br/>
+        Pueblo kawésqar: <%= number_field_tag 'q14_kawésqar', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
       <label for="q15">¿Dónde viven actualmente?</label><br/>
-        En un hospital, por tratamiento médico prolongado: <%= number_field_tag 'q15_En un hospital, por tratamiento médico prolongado', 0 %>
-        En casa de familiares directos o lejanos: <%= number_field_tag 'q15_En casa de familiares directos o lejanos', 0 %>
-        En un centro privativo de libertad: <%= number_field_tag 'q15_En un centro privativo de libertad', 0 %>
-        En el internado de mi escuela: <%= number_field_tag 'q15_En el internado de mi escuela', 0 %>
-        En una residencia de protección: <%= number_field_tag 'q15_En una residencia de protección', 0 %>
-        Otro: <%= number_field_tag 'q15_Otro', 0 %>
+        En un hospital, por tratamiento médico prolongado: <%= number_field_tag 'q15_En un hospital, por tratamiento médico prolongado', 0, class: 'number-selection', min: 0 %><br/>
+        En casa de familiares directos o lejanos: <%= number_field_tag 'q15_En casa de familiares directos o lejanos', 0, class: 'number-selection', min: 0 %><br/>
+        En un centro privativo de libertad: <%= number_field_tag 'q15_En un centro privativo de libertad', 0, class: 'number-selection', min: 0 %><br/>
+        En el internado de mi escuela: <%= number_field_tag 'q15_En el internado de mi escuela', 0, class: 'number-selection', min: 0 %><br/>
+        En una residencia de protección: <%= number_field_tag 'q15_En una residencia de protección', 0, class: 'number-selection', min: 0 %><br/>
+        Otro: <%= number_field_tag 'q15_Otro', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
     </div>
 
