@@ -68,15 +68,15 @@
     </div>
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
-        <div class="sidebar-divider"></div>
-        <h2 class="sidebar-title">Acciones</h2>
-        <% if @group.users.count < 15 %>
-          <%= link_to 'Agregar participante', edit_group_path(@group, add: true), class: 'button expanded' %>
-        <% else %>
-          <button disabled class="button expanded">Agregar participante</button>
-          <small>El grupo alcanzó el limite de 15 participantes</small>
-        <% end %>
         <% if @group.user_id == current_user.id %>
+        <div class="sidebar-divider"></div>
+          <h2 class="sidebar-title">Acciones</h2>
+          <% if @group.users.count < 15 %>
+            <%= link_to 'Agregar participante', edit_group_path(@group, add: true), class: 'button expanded' %>
+          <% else %>
+            <button disabled class="button expanded">Agregar participante</button>
+            <small>El grupo alcanzó el limite de 15 participantes</small>
+          <% end %>
           <%= link_to 'Editar grupo', edit_group_path(@group), class: 'button expanded' %>
         <% end %>
       </aside>
