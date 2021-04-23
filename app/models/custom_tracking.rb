@@ -1,0 +1,2 @@
+class CustomTracking < ApplicationRecord
+end

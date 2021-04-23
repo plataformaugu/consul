@@ -1,0 +1,22 @@
+<% unless current_user %>
+    <% if CustomTracking.where(page: request.fullpath).exists? %>
+        <% @custom_tracking = CustomTracking.where(page: request.fullpath).first %>
+        <% @custom_tracking.count += 1 %>
+        <% @custom_tracking.save %>
+    <% else %>
+        <% @custom_tracking = CustomTracking.create(page: request.fullpath, count: 1) %>
+    <% end %>
+    <main>
+        <div class="row">
+            <h1>
+                Titulo página
+            </h1>
+            <p>
+            Texto para confirmación de registro...
+            </p>
+            <%= link_to "Registrate aquí", new_user_registration_url, class: 'button' %>
+        </div>
+    </main>
+<% else %>
+    <% controller.redirect_to root_path %>
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :custom_trackings
   resources :group_users
   mount Ckeditor::Engine => "/ckeditor"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
@@ -58,5 +59,8 @@ Rails.application.routes.draw do
       post :set_participation
     end
   end
+
+  get "confirm_registration", to: "pages#confirm_registration", id: "confirm_registration", as: "confirm_registration"
+
   resources :pages, path: "/", only: [:show]
 end
