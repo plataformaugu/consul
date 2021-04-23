@@ -74,10 +74,10 @@ class Mailer < ApplicationMailer
     end
   end
 
-  def removed_content(email, title, type)
+  def removed_content(email, type)
     @email_to = email
 
-    mail(to: @email_to, subject: 'Hemos eliminado tu %s con título: "%s".' % [type, title])
+    mail(to: @email_to, subject: 'Hemos eliminado tu %s.' % [type])
   end
 
   def budget_investment_created(investment)

@@ -135,7 +135,7 @@ class QuizzesController < ApplicationController
       @quiz_type = 'sugerencia'
     end
 
-    ProposalNotification.create(title: 'a', body: 'Eliminamos tu sugerencia: "Hola"', author_id: 1, proposal_id: 1)
+    Mailer.removed_content(@quiz.user.email, 'participación').deliver_later
 
     @quiz.visible = false
     @quiz.save
