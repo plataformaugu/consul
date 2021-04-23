@@ -93,6 +93,7 @@
     <div class="small-12 column">
       <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
       <p id="text-after-q2"></p>
+      <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>
@@ -100,6 +101,7 @@
     <div class="small-12 column">
       <label for="q4">¿Cuál o cuáles crees que son las causas de ese problema?</label>
       <p>Este problema se produce por...</p>
+      <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>

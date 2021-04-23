@@ -14,7 +14,7 @@
     <label>Email</label>
     <%= email_field_tag :email, params[:email], required: true %>
   <% else %>
-    <%= form.text_field :name, label: 'Nombre' %>
+    <%= form.text_field :name, label: 'Nombre', required: true %>
     <%= form.text_field :description, label: 'Descripción' %>
     <%= hidden_field_tag :is_group_edit, params[:is_group_edit], value: true %>
   <% end %>

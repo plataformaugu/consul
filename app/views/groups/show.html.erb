@@ -78,6 +78,11 @@
             <small>El grupo alcanzó el limite de 15 participantes</small>
           <% end %>
           <%= link_to 'Editar grupo', edit_group_path(@group), class: 'button expanded' %>
+          <% if @group.users.count > 1 %>
+            <%= link_to 'Ir a participar', '/forms/new?type=grupal&group=%s' % [@group.id], class: 'button expanded' %>
+          <% else %>
+            <%= link_to 'Ir a participar', nil, class: 'button expanded', disabled: true %>
+          <% end %>
         <% end %>
       </aside>
     </div>
