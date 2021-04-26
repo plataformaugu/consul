@@ -13,7 +13,7 @@
       <%= f.hidden_field :locale, value: I18n.locale %>
 
       <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
-                                   pattern: '^[a-zA-Z\u00C0-\u00FF ]*$', title: 'Solo letras.',
+                                   hint: 'Este nombre no será visible para otros usuarios dentro de la plataforma',
                                    placeholder: t("devise_views.users.registrations.new.username_label") %>
 
       <%= f.invisible_captcha :address %>
@@ -25,7 +25,7 @@
 
       <%= f.email_field :email, placeholder: t("devise_views.users.registrations.new.email_label") %>
 
-      <%= f.password_field :password, autocomplete: "off",
+      <%= f.password_field :password, autocomplete: "off", hint: 'Debe ser de 8 caracteres o más',
                            placeholder: t("devise_views.users.registrations.new.password_label") %>
 
       <%= f.password_field :password_confirmation, autocomplete: "off",
@@ -35,6 +35,10 @@
       <% if resource.use_redeemable_code %>
         <%= f.text_field :redeemable_code, placeholder: t("devise_views.users.registrations.new.redeemable_code") %>
       <% end %>
+
+      <label style="font-size: 0.875rem; font-weight: normal;">
+        <input type="checkbox" value="0" onclick="showPassword();">Mostrar contraseña
+      </label>
 
       <%= f.check_box :terms_of_service,
         title: t("devise_views.users.registrations.new.terms_title"),
@@ -100,5 +104,17 @@ $('#user_document_number').keyup(function() {
   }
 })
 
+function showPassword() {
+  if ($("#user_password").attr('type') === 'password') {
+    $("#user_password").attr('type', 'text');
+  } else {
+    $("#user_password").attr('type', 'password');
+  }
+  if ($("#user_password_confirmation").attr('type') === 'password') {
+    $("#user_password_confirmation").attr('type', 'text');
+  } else {
+    $("#user_password_confirmation").attr('type', 'password');
+  }
+}
 
 </script>

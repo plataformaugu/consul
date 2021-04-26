@@ -49,9 +49,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_username
-    if User.find_by username: params[:username]
-      render json: { available: false, message: t("devise_views.users.registrations.new.username_is_not_available") }
-    end
   end
 
   private
@@ -64,7 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:account_update, keys: [:email])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:email, :gender, :country, :has_disability, :indigenous_town, :where_do_you_live, :sexual_orientation, :date_of_birth])
     end
 
     def erase_params

@@ -102,7 +102,7 @@ class QuizzesController < ApplicationController
 
         if @quiz.save
           @title_text = 'Diagnóstico enviado correctamente'
-          @send_text = 'Enviar otro diagnóstico'
+          @send_text = 'Ir a la página de diagnósticos'
           @show_next_button = true
           @chapter = new_params['tag_id']
           @type = new_params['quiz_type']

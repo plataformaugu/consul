@@ -132,17 +132,19 @@
                         <% end %>
                       <div class="in-favor">
                         <% if current_user %>
-                          <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
-                              class: "button button-support small expanded",
-                              title: 'Apoyar',
-                              method: "post",
-                              onclick: 'doVote(this);',
-                              disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
-                              remote: true do %>
-                            <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
-                              Ya apoyaste
-                            <% else %>
-                              Apoyar
+                          <% if quiz.user_id != current_user.id %>
+                            <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                                class: "button button-support small expanded",
+                                title: 'Apoyar',
+                                method: "post",
+                                onclick: 'doVote(this);',
+                                disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                                remote: true do %>
+                              <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
+                                Ya apoyaste
+                              <% else %>
+                                Apoyar
+                              <% end %>
                             <% end %>
                           <% end %>
                         <% else %>

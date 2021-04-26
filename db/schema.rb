@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_11_013810) do
+ActiveRecord::Schema.define(version: 2021_04_26_022644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1582,7 +1582,7 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
     t.string "oauth_email"
     t.integer "geozone_id"
     t.string "redeemable_code"
-    t.string "gender", limit: 10
+    t.string "gender", limit: 20
     t.datetime "date_of_birth"
     t.boolean "email_on_proposal_notification", default: true
     t.boolean "email_digest", default: true
@@ -1598,6 +1598,11 @@ ActiveRecord::Schema.define(version: 2021_04_11_013810) do
     t.boolean "recommended_proposals", default: true
     t.bigint "group_id"
     t.boolean "is_individual"
+    t.string "country"
+    t.boolean "has_disability"
+    t.string "indigenous_town"
+    t.string "where_do_you_live"
+    t.string "sexual_orientation"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["geozone_id"], name: "index_users_on_geozone_id"

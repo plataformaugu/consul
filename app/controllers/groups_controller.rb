@@ -70,6 +70,12 @@ class GroupsController < ApplicationController
         @new_user = User.where(email: '120391203912039123012931023120', username: 'x@x@x@x@x#x$x%x^x&')
     end
 
+    if @group.users.select {|u| u[:email] == params['email']}.count > 0 or @group.users.select {|u| u[:rut] == formatted_rut}.count > 0
+      flash[:alert] = 'El usuario ya es parte del grupo.'
+      redirect_to @group
+      return
+    end
+
     if @new_user.exists?
       if @new_user.first.is_individual.nil?
         if @group.users.count <= 15
