@@ -76,7 +76,7 @@
       <small class="help-text">Sugerencia: Elegir 3 opciones por persona.</small>
       <div><br/>
       <% @q1_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
+        <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');" %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -85,7 +85,7 @@
     <div class="small-12 column">
       <label for="q2">¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label><br/>
       <% @q2_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q2_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
+        <%= option %>: <%= number_field_tag 'q2_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
       <br/><br/>
     </div>
@@ -110,7 +110,7 @@
       <label for="q5">¿A quienes crees que afecta este problema?</label>
       <div><br/>
       <% @q5_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q5_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
+        <%= option %>: <%= number_field_tag 'q5_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -120,7 +120,7 @@
       <label for="q6">¿En qué lugares crees que se vive este problema?</label>
       <div><br/>
       <% @q6_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q6_%s' % [option], 0, class: 'number-selection', min: 0 %><br/>
+        <%= option %>: <%= number_field_tag 'q6_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
       </div>
       <br/><br/>

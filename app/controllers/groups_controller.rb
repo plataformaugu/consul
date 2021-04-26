@@ -61,6 +61,12 @@ class GroupsController < ApplicationController
         @new_user = User.where(email: '120391203912039123012931023120', username: 'x@x@x@x@x#x$x%x^x&')
       end
 
+      if @group.users.select {|u| u[:email] == params['email']}.count > 0
+        flash[:alert] = 'El usuario ya es parte del grupo.'
+        redirect_to @group
+        return
+      end
+
       if @new_user.exists?
         if @group.users.count <= 15
           @group_user = GroupUser.create(name: params['name'], email: params['email'], group_id: @group.id)
