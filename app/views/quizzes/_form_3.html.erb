@@ -8,11 +8,11 @@
       <%= f.text_field :name,
         label: 'Título',
         hint: 'Indica un nombre que sirva para identificar la propuesta que realizarás (máximo 80 caracteres)',
-        maxlength: 25,
+        maxlength: 80,
         required: true %>
 
       <%= f.text_area :description,
-        maxlength: 250,
+        maxlength: 500,
         rows: 3,
         label: 'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
         hint: '(máximo 500 caracteres)',

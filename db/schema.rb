@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_022644) do
+ActiveRecord::Schema.define(version: 2021_04_27_035015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1273,7 +1273,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_022644) do
 
   create_table "quizzes", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.string "description"
     t.boolean "visible", default: true
     t.string "q1"
     t.string "q2"

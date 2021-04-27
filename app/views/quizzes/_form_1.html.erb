@@ -22,13 +22,15 @@
       <%= f.text_field :name,
         label: 'Título',
         hint: 'Indica un nombre que sirva para identificar la descripción del problema que abordarás (máximo 80 caracteres)',
-        maxlength: 80 %>
+        maxlength: 80,
+        required: nil %>
 
       <%= f.text_area :description,
         maxlength: 500,
         label: '¿De qué forma se manifiesta este problema? (casos, ejemplos, situaciones)?',
         hint: '(máximo 500 caracteres)',
-        rows: 3 %>
+        rows: 3,
+        required: nil %>
     </div>
 
     <div class="small-12 column">
@@ -81,7 +83,7 @@
 
       <div class="small-12 column">
         <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas</label>
-        <%= f.check_box :visible, label: 'Sí, que sea público' %>
+        <%= f.check_box :visible, label: 'Sí, que sea público', checked: false %>
       <br/>
       </div>
 
@@ -94,6 +96,8 @@
 <script>
 $(document).ready(function() {
   $('#quiz_q1').attr('required', true)
+  $('#quiz_name').attr('required', false)
+  $('#quiz_description').attr('required', false)
 
   $('input[name="quiz[q1]"]').on('change', function() {
     if (this.value === 'Otro' || this.value === 'otro') {
