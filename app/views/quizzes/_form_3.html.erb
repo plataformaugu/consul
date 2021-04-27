@@ -5,28 +5,35 @@
   <div class="row column quiz-form">
     <div class="small-12 column">
       <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      </div>
       <%= f.text_field :name,
         label: 'Título',
+        hint: 'Indica un nombre que sirva para identificar la propuesta que realizarás (máximo 80 caracteres)',
         maxlength: 25,
         required: true %>
 
       <%= f.text_area :description,
         maxlength: 250,
         rows: 3,
+        label: 'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
+        hint: '(máximo 500 caracteres)',
         required: true %>
     </div>
 
     <div class="small-12 column">
-      <%= f.select :q2, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 2 (obligatoria)', prompt: "Elija una opción" %>
+      <%= f.select :q2, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']],
+        label: 'OPCIONAL: Selecciona la institución pública que debería comprometerse a realizar la iniciativa que sugeriste',
+        prompt: "Elija una opción" %>
       <br/><br/>
     </div>
 
     <%= f.hidden_field :quiz_type, value: 3 %>
     <%= f.hidden_field :tag_id, value: params[:chapter] %>
+
+      <div class="small-12 column">
+        <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas</label>
+        <%= f.check_box :visible, label: 'Sí, que sea público' %>
+        <br/>
+      </div>
 
     <div class="actions small-12 column">
       <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>
@@ -37,7 +44,6 @@
 <script>
 $(document).ready(function() {
   $('#quiz_q1').attr('required', true)
-  $('#quiz_q2').attr('required', true)
 
   if ($('#quiz_visible').is(':checked')) {
     $('#quiz_name').attr('required', true)

@@ -4,43 +4,57 @@
 
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <%= f.select :q1, [['Opción 1', 'Opción 1'], ['Opción 2', 'Opción 2']], label: 'Pregunta 1 (obligatoria)', prompt: "Elija una opción" %>
+      <%= f.select :q1, [
+          ['Acceso a información sobre el estado de implementación del Plan.', 'Acceso a información sobre el estado de implementación del Plan.'],
+          ['Instancias de encuentro entre sociedad civil.', 'Instancias de encuentro entre sociedad civil.'],
+          ['Canales de comunicación entre sociedad civil e instituciones con compromisos en el Plan.', 'Canales de comunicación entre sociedad civil e instituciones con compromisos en el Plan.'],
+          ['Instancias de rendición de cuentas sobre el estado de implementación del Plan.', 'Instancias de rendición de cuentas sobre el estado de implementación del Plan.'],
+          ['Descentralización de los mecanismos para el seguimiento a la implementación del Plan.', 'Descentralización de los mecanismos para el seguimiento a la implementación del Plan.'],
+          ['Otra.', 'Otra.'],
+        ],
+        label: 'Selecciona el área en la que quieres ingresar tu sugerencia para que la sociedad civil pueda dar seguimiento activo a la implementación del Segundo PNDH',
+        prompt: "Elija una opción" %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
       <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      </div>
       <%= f.text_field :name,
         label: 'Título',
+        hint: 'Indica un nombre que sirva para identificar la propuesta que realizarás (máximo 80 caracteres)',
         maxlength: 25 %>
 
       <%= f.text_area :description,
         maxlength: 250,
+        label: 'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
+        hint: '(máximo 500 caracteres)',
         rows: 3 %>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3 (obligatoria)' %><br/>
+      <%= f.label :q3, 'Ingrese la institución o tipo de instituciones que deben ser responsable de que su sugerencia se pueda realizar (Seleccione todas las que estime pertinente)' %><br/>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 1' %>
-        Opción multiple 1
+        <%= check_box_tag 'q3[]', 'Subsecretaría de Derechos Humanos' %>
+        Subsecretaría de Derechos Humanos
       <% end %>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 2' %>
-        Opción multiple 2
+        <%= check_box_tag 'q3[]', 'Todas las instituciones con compromisos en el Plan' %>
+        Todas las instituciones con compromisos en el Plan
       <% end %>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q3[]', 'Opción multiple 3' %>
-        Opción multiple 3
+        <%= check_box_tag 'q3[]', 'Organismos autónomos de derechos humanos (INDH, Defensoría de la Niñez).' %>
+        Organismos autónomos de derechos humanos (INDH, Defensoría de la Niñez).
       <% end %>
       <br/>
     </div>
 
     <%= f.hidden_field :quiz_type, value: 2 %>
+
+    <div class="small-12 column">
+      <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas</label>
+      <%= f.check_box :visible, label: 'Sí, que sea público' %>
+      <br/>
+    </div>
 
     <div class="actions small-12 column">
       <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>

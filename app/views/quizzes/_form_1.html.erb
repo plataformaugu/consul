@@ -3,63 +3,87 @@
 <%= form_for(@quiz, url: form_url) do |f| %>
 
   <div class="row column quiz-form">
-    <div class="small-12 column">
-      <%= f.label :q1, 'Pregunta 1' %><br>
-      <%= f.radio_button :q1, 'Opción 1', label: 'Opción 1' %><br>
-      <%= f.radio_button :q1, 'Opción 2', label: 'Opción 2' %><br>
-      <%= f.radio_button :q1, 'Otro', label: 'Otro' %>
-      <br/><br>
+    <div class="small-12 column custom-form">
+      <%= f.label :q1, 'Del siguiente listado, selecciona el que crees es el principal problema de derechos humanos para este tema' %><br>
+        <% @options.each do |option| %>
+          <%= f.radio_button :q1, option, label: nil %><br><br>
+        <% end %>
     </div>
 
     <div class="small-12 column" id="hidden-field" style="display: none;">
       <%= f.text_area :q5,
-        rows: 1, maxlength: 200, label: 'Respuesta para "Otro"' %>
+        rows: 1, maxlength: 500, label: 'Respuesta para "Otro"' %>
       <br/>
     </div>
 
     <div class="small-12 column">
-      <label>Pregunta abierta</label>
-
-      <div class="small-12 column">
-        <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
-      </div>
+      <label>Pregunta abierta (Opcional)</label>
 
       <%= f.text_field :name,
         label: 'Título',
-        maxlength: 25 %>
+        hint: 'Indica un nombre que sirva para identificar la descripción del problema que abordarás (máximo 80 caracteres)',
+        maxlength: 80 %>
 
       <%= f.text_area :description,
-        maxlength: 250,
+        maxlength: 500,
+        label: '¿De qué forma se manifiesta este problema? (casos, ejemplos, situaciones)?',
+        hint: '(máximo 500 caracteres)',
         rows: 3 %>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q3, 'Pregunta 3' %><br>
-      <%= f.radio_button :q3, 'Opción 1', label: 'Opción 1' %><br>
-      <%= f.radio_button :q3, 'Opción 2', label: 'Opción 2' %><br>
-      <%= f.radio_button :q3, 'Opción 3', label: 'Opción 3' %>
-      <br/><br>
+      <%= f.label :q3, 'OPCIONAL: ¿Cuál es el alcance geográfico de este problema? (selecciona una de las siguientes opciones)' %><br>
+      <%= f.radio_button :q3, 'Afecta a mi comuna o comunidad', label: 'Afecta a mi comuna o comunidad' %><br>
+      <%= f.radio_button :q3, 'Afecta a mi región', label: 'Afecta a mi región' %><br>
+      <%= f.radio_button :q3, 'Afecta a todo el país', label: 'Afecta a todo el país' %>
+      <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <%= f.label :q4, 'Pregunta 4' %><br>
+      <%= f.label :q4, 'OPCIONAL: ¿A qué grupos de población afecta particularmente este problema (selecciona todas las opciones que quieras)?' %><br>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 1' %>
-        Opción multiple 1
+        <%= check_box_tag 'q4[]', 'Mujeres' %>
+        Mujeres
       <% end %>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 2' %>
-        Opción multiple 2
+        <%= check_box_tag 'q4[]', 'Niños, niñas y adolescentes' %>
+        Niños, niñas y adolescentes
       <% end %>
       <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Opción multiple 3' %>
-        Opción multiple 3
+        <%= check_box_tag 'q4[]', 'Personas con discapacidad' %>
+        Personas con discapacidad
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Personas LGBTIQ+' %>
+        Personas LGBTIQ+
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Personas mayores' %>
+        Personas mayores
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Personas migrantes y refugiadas' %>
+        Personas migrantes y refugiadas
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Personas privadas de libertad' %>
+        Personas privadas de libertad
+      <% end %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'q4[]', 'Pueblos indígenas y tribales' %>
+        Pueblos indígenas y tribales
       <% end %>
       <br/>
     </div>
 
     <%= f.hidden_field :quiz_type, value: 1 %>
     <%= f.hidden_field :tag_id, value: params[:chapter] %>
+
+      <div class="small-12 column">
+        <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas</label>
+        <%= f.check_box :visible, label: 'Sí, que sea público' %>
+      <br/>
+      </div>
 
     <div class="actions small-12 column">
       <%= f.submit(class: "button", value: 'Enviar', data: { disable_with: false }) %>

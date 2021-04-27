@@ -32,7 +32,7 @@
     </div>
     <div class="row">
       <div class="small-12 medium-9 column end">
-        <p>Esto es una descripción sobre el proceso participativo.</p>
+        <p>Ingresa propuestas para que la sociedad civil pueda dar seguimiento activo al avance de la implementación del Segundo PNDH</p>
       </div>
     </div>
     <div class="row">
@@ -45,7 +45,7 @@
       <div class="show-for-small-only">
         <% if current_user %>
           <% if Quiz.where(quiz_type: 2, user_id: current_user.id).count < 6 %>
-            <%= link_to 'Crear tu monitoreo',
+            <%= link_to 'Ingresa tu propuesta',
               new_quiz_path(type: 2),
               class: "button expanded",
               disabled: !current_user %>
@@ -57,7 +57,7 @@
           <div class="message">
               Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
             </div>
-            <button class="button expanded">Crear tu monitoreo</button>
+            <button class="button expanded">Ingresa tu propuesta</button>
           </div>
         <% end %>
       </div>
@@ -139,6 +139,25 @@
                           <% end %>
                         <% end %>
                       </div>
+                      <% if current_user %>
+                        <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? || quiz.user_id == current_user.id %>
+                              <%= render "shared/social_share",
+                                share_title: 'Compartir',
+                                title: 'Participa con nosotros en:',
+                                url: request.base_url,
+                                description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos',
+                                mobile: 'Participa con nosotros en:' %>
+                          <% else %>
+                            <div id="social-share-item" style="display: none;">
+                              <%= render "shared/social_share",
+                                share_title: 'Compartir',
+                                title: 'Participa con nosotros en:',
+                                url: request.base_url,
+                                description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos',
+                                mobile: 'Participa con nosotros en:' %>
+                            </div>
+                          <% end %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
@@ -154,7 +173,7 @@
       <aside class="margin-bottom">
         <% if current_user %>
           <% if Quiz.where(quiz_type: 2, user_id: current_user.id).count < 6 %>
-            <%= link_to 'Crear tu monitoreo',
+            <%= link_to 'Ingresa tu propuesta',
               new_quiz_path(type: 2),
               class: "button expanded",
               disabled: !current_user %>
@@ -166,7 +185,7 @@
           <div class="message">
               Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
             </div>
-            <button class="button expanded">Crear tu monitoreo</button>
+            <button class="button expanded">Ingresa tu propuesta</button>
           </div>
         <% end %>
       </aside>
@@ -214,6 +233,7 @@ function doVote(e) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
+    $('#social-share-item').css("display", "block");
   }
 }
 

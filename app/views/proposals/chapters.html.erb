@@ -42,7 +42,7 @@
     </div>
     <div class="row">
       <div class="small-12 medium-9 column end">
-        <p>Esto es una descripción sobre el proceso participativo.</p>
+        <p>Selecciona el tema en el que deseas aportar para  la caracterización de los principales problemas de derechos humanos que deben ser abordados por el Segundo PNDH. Puedes hacer un máximo de seis (6) incorporaciones propias, que puedes distribuir en los diferentes  temas de acuerdo a como tú lo prefieras: por ejemplo, las seis (6) en un mismo tema o repartidas en distintos temas. También puedes sumar apoyo a diagnósticos ingresados por otras personas participantes, sin límite de cantidad</p>
       </div>
     </div>
     <div class="row">
@@ -53,7 +53,7 @@
     <div id="proposals" class="proposals-list small-12 medium-12 column">
       <div class="row">
         <div class="small-12 medium-9 column">
-          <h2 class="sidebar-title">Capítulos</h2>
+          <h2 class="sidebar-title">Temas</h2>
           <br>
           <ul id="categories" class="no-bullet categories">
             <% Tag.category.each_with_index do |category, index| %>
@@ -179,6 +179,25 @@
                           <% end %>
                         <% end %>
                       </div>
+                      <% if current_user %>
+                        <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? || quiz.user_id == current_user.id %>
+                              <%= render "shared/social_share",
+                                share_title: 'Compartir',
+                                title: 'Participa con nosotros en:',
+                                url: request.base_url,
+                                description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos',
+                                mobile: 'Participa con nosotros en:' %>
+                          <% else %>
+                            <div id="social-share-item" style="display: none;">
+                              <%= render "shared/social_share",
+                                share_title: 'Compartir',
+                                title: 'Participa con nosotros en:',
+                                url: request.base_url,
+                                description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos',
+                                mobile: 'Participa con nosotros en:' %>
+                            </div>
+                          <% end %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
@@ -235,6 +254,7 @@ function doVote(e) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
+    $('#social-share-item').css("display", "block");
   }
 }
 

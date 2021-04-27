@@ -3,18 +3,39 @@
         <p class="lead text-center"><strong>Antes</strong> de comenzar, debes elegir la forma en la que participarás:</p><br/>
     </div>
     <div class="row flexbox">
-        <%= link_to 'Individualmente',
-            set_participation_groups_path(type: 'individual'),
-            method: 'post',
-            class: 'button',
-            style: 'margin-right: 5px;' %>
-        <%= link_to 'Grupalmente',
-            set_participation_groups_path(type: 'grupal'),
-            method: 'post',
-            class: 'button',
-            style: 'margin-left: 5px;' %>
+        <%= link_to set_participation_groups_path(type: 'individual'),
+            method: 'post' do %>
+            <div class="proceso-card">
+            <div class="card-section">
+              <img 
+                class="process-card-image"
+                src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"
+              >
+            </div>
+            <div class="card-section text-center">
+              <h4>Participar individualmente</h4>
+              <small style="color: black; text-decoration: none !important;">Aquí puedes ingresar tus sugerencias personales para la elaboración del Segundo PNDH o entregar apoyo a las sugerencias realizadas por otras personas participantes.</small>
+            </div>
+          </div>
+        <% end %>
+        <%= link_to set_participation_groups_path(type: 'grupal'),
+            method: 'post' do %>
+            <div class="proceso-card">
+            <div class="card-section">
+              <img 
+                class="process-card-image"
+                src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"
+              >
+            </div>
+            <div class="card-section text-center">
+              <h4>Participar grupalmente</h4>
+              <small style="color: black; text-decoration: none !important;">Aquí puedes ingresar los resultados del encuentro grupal que sostuviste para realizar aportes a cualquiera de las secciones de este proceso participativo.</small>
+            </div>
+          </div>
+        <% end %>
     </div>
-    <div class="row flexbox">
-        <p><strong>Importante</strong>: no podrás cambiar tu elección.</p>
+    <div class="row">
+        <br/>
+        <p class="text-center"><strong>Importante</strong>: no podrás cambiar tu elección.</p>
     </div>
 </div>
