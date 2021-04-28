@@ -19,7 +19,7 @@
   <% else %>
     <div class="jumbo highlight proceso-main">
         <div class="row flexbox">
-        <%= link_to chapters_proposals_path, :action => 'go' do %>
+        <%= link_to chapters_proposals_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img
@@ -32,7 +32,7 @@
             </div>
           </div>
         <% end %>
-        <%= link_to proposals_path, :action => 'go' do %>
+        <%= link_to proposals_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img 
@@ -45,7 +45,7 @@
             </div>
           </div>
         <% end %>
-        <%= link_to monitoring_quizzes_path, :action => 'go' do %>
+        <%= link_to monitoring_quizzes_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img 
@@ -72,7 +72,7 @@
 <% else %>
 <div class="jumbo highlight proceso-main">
         <div class="row flexbox">
-        <%= link_to chapters_proposals_path, :action => 'go' do %>
+        <%= link_to chapters_proposals_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img
@@ -85,7 +85,7 @@
             </div>
           </div>
         <% end %>
-        <%= link_to proposals_path, :action => 'go' do %>
+        <%= link_to proposals_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img 
@@ -98,7 +98,7 @@
             </div>
           </div>
         <% end %>
-        <%= link_to monitoring_quizzes_path, :action => 'go' do %>
+        <%= link_to monitoring_quizzes_path(order: 'new'), :action => 'go' do %>
           <div class="proceso-card">
             <div class="card-section">
               <img 

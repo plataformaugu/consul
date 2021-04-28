@@ -2,7 +2,7 @@
 <br>
 
 <ul id="categories" class="no-bullet categories">
-  <% @categories.each_with_index do |category, index| %>
+  <% Tag.category.each_with_index do |category, index| %>
     <% css_class = { class: "is-active" } if params[:search] == category.name %>
     <%= link_to proposals_path(search: category.name), css_class || {} do %>
     <li class="inline-block chapter-small <%= 'is-active' if params[:search] == category.name %>">

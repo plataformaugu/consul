@@ -41,6 +41,18 @@
       <br/><br/>
     </div>
 
+    <div class="small-12 column" id="hidden-field-comuna" style="display: none;">
+      <%= f.text_area :q2,
+        rows: 1, maxlength: 120, label: 'Ingresa tu comuna o comunidad' %>
+      <br/>
+    </div>
+
+    <div class="small-12 column" id="hidden-field-region" style="display: none;">
+      <%= f.text_area :q2,
+        rows: 1, maxlength: 120, label: 'Ingresa tu región' %>
+      <br/>
+    </div>
+
     <div class="small-12 column">
       <%= f.label :q4, 'OPCIONAL: ¿A qué grupos de población afecta particularmente este problema (selecciona todas las opciones que quieras)?' %><br>
       <%= label_tag nil, style: 'font-weight: normal' do %>
@@ -104,6 +116,43 @@ $(document).ready(function() {
       $('#hidden-field').css('display', 'block');
     } else {
       $('#hidden-field').css('display', 'none');
+    }
+  })
+
+  $('#quiz_q3_afecta_a_mi_comuna_o_comunidad').click(function() {
+    if ($('#quiz_q3_afecta_a_mi_comuna_o_comunidad').is(':checked')) {
+      $('#hidden-field-comuna').css('display', 'block');
+      $('#hidden-field-region').css('display', 'none');
+      $('#hidden-field-region').find('textarea').val('')
+    } else {
+      $('#hidden-field-comuna').css('display', 'none');
+    }
+  })
+
+  $('#quiz_q3_afecta_a_mi_región').click(function() {
+    if ($('#quiz_q3_afecta_a_mi_región').is(':checked')) {
+      $('#hidden-field-region').css('display', 'block');
+      $('#hidden-field-comuna').css('display', 'none');
+      $('#hidden-field-comuna').find('textarea').val('')
+    } else {
+      $('#hidden-field-region').css('display', 'none');
+    }
+  })
+
+  $('#hidden-field-comuna').on('keyup', function(e) {
+    $('#quiz_q3_afecta_a_mi_comuna_o_comunidad').val('Afecta a mi comuna o comunidad: ' + e.target.value)
+  })
+
+  $('#hidden-field-region').on('keyup', function(e) {
+    $('#quiz_q3_afecta_a_mi_región').val('Afecta a mi región: ' + e.target.value)
+  })
+
+  $('#quiz_q3_afecta_a_todo_el_país').click(function() {
+    if ($('#quiz_q3_afecta_a_todo_el_país').is(':checked')) {
+      $('#hidden-field-region').css('display', 'none');
+      $('#hidden-field-comuna').css('display', 'none');
+      $('#hidden-field-region').find('textarea').val('')
+      $('#hidden-field-comuna').find('textarea').val('')
     }
   })
 

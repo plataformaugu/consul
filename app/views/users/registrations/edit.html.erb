@@ -53,7 +53,10 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.check_box :has_disability, label: '¿Tienes algún tipo de discapacidad?' %>
+      <%= f.select :has_disability,
+        options_for_select([['Si', true], ['No', false]], selected: @user.has_disability),
+        label: '¿Tienes algún tipo de discapacidad?',
+        prompt: 'Elige una opción' %>
     </div>
 
     <div class="small-12 column">

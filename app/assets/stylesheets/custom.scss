@@ -460,3 +460,15 @@ aside {
         display: inline;
     }
 }
+
+.no-bullet.categories {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    a {
+        margin: 5px;
+        width: 30%;
+        box-sizing: border-box;
+    }
+}

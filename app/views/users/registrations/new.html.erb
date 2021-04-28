@@ -18,7 +18,7 @@
 
       <%= f.invisible_captcha :address %>
 
-      <%= f.text_field :document_number, autofocus: true, maxlength: 10,
+      <%= f.text_field :document_number, autofocus: true, minlength: 8, maxlength: 10,
                               placeholder: 'Ejemplo: 12345678-9',
                               hint: 'Ingrese su RUT con guión y sin puntos',
                               label: 'RUT' %>

@@ -33,6 +33,14 @@
           </div>
         <% end %>
       </div>
+      <div class="row">
+        <%= render "shared/social_share",
+          share_title: 'Compartir',
+          title: 'Participa con nosotros en:',
+          url: request.base_url,
+          description: 'Participaciones individuales y grupales de plataforma de Derechos Humanos',
+          mobile: 'Participa con nosotros en:' %>
+      </div>
     </div>
   </div>
 </div>

@@ -94,6 +94,61 @@ class Admin::StatsController < Admin::BaseController
     @goals = SDG::Goal.order(:code)
   end
 
+  def generate_csv
+    unless params['type'].present?
+      redirect_to root_path
+    else
+      @type = params['type'].to_i
+      csv = CSV.generate(:col_sep => ';') do |csv|
+      @filename = DateTime.now.strftime('%Y-%m-%d_%H-%m-%S_')
+        if @type == 1
+          @quizzes = Quiz.where(quiz_type: 1)
+          @filename += 'diagnosticos.csv'
+          csv << [
+            'Titulo pregunta abierta',
+            '¿De qué forma se manifiesta este problema?',
+            'Del siguiente listado, selecciona el que crees es el principal problema de derechos humanos para este tema',
+            '¿Cuál es el alcance geográfico de este problema?',
+            '¿A qué grupos de población afecta particularmente este problema (selecciona todas las opciones que quieras)?',
+            '¿Es público?',
+            '¿Está oculto?',
+          ]
+          @quizzes.each do |q|
+            csv << [q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+          end
+        elsif @type == 2
+          @quizzes = Quiz.where(quiz_type: 2)
+          @filename += 'monitoreos.csv'
+          csv << [
+            'Titulo pregunta abierta',
+            'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
+            'Selecciona el área en la que quieres ingresar tu sugerencia para que la sociedad civil pueda dar seguimiento activo a la implementación del Segundo PNDH',
+            'Ingrese la institución o tipo de instituciones que deben ser responsable de que su sugerencia se pueda realizar',
+            '¿Es público?',
+            '¿Está oculto?',
+          ]
+          @quizzes.each do |q|
+            csv << [q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+          end
+        elsif @type == 3
+          @quizzes = Quiz.where(quiz_type: 3)
+          @filename += 'sugerencias.csv'
+          csv << [
+            'Titulo pregunta abierta',
+            'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
+            'Selecciona la institución pública que debería comprometerse a realizar la iniciativa que sugeriste',
+            '¿Es público?',
+            '¿Está oculto?',
+          ]
+          @quizzes.each do |q|
+            csv << [q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+          end
+        end
+      end
+      send_data(csv, type: 'text/csv', filename: @filename)
+    end
+  end
+
   private
 
     def voters_in_heading(heading)

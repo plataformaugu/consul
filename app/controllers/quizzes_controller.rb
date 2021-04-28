@@ -202,6 +202,7 @@ class QuizzesController < ApplicationController
     Mailer.removed_content(@quiz.user.email, 'participación').deliver_later
 
     @quiz.visible = false
+    @quiz.is_active = false
     @quiz.save
   end
 
