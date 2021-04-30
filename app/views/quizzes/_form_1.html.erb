@@ -4,20 +4,23 @@
 
   <div class="row column quiz-form">
     <div class="small-12 column custom-form">
-      <%= f.label :q1, 'Del siguiente listado, selecciona el que crees es el principal problema de derechos humanos para este tema' %><br>
+      <%= f.label :q1, 'Del siguiente listado, selecciona el que crees es el principal problema de derechos humanos para este tema' %><br><br>
         <% @options.each do |option| %>
-          <%= f.radio_button :q1, option, label: nil %><br><br>
+          <%= f.radio_button :q1, option, label: nil, class: 'custom-radio' %><br><br>
         <% end %>
     </div>
 
     <div class="small-12 column" id="hidden-field" style="display: none;">
       <%= f.text_area :q5,
-        rows: 1, maxlength: 500, label: 'Respuesta para "Otro"' %>
+        rows: 1,
+        maxlength: 500,
+        label: 'Si respondiste otro en la pregunta anterior, describe a continuación cuál es el principal problema de derechos humanos de este tema',
+        hint: '(máximo 500 caracteres)' %>
       <br/>
     </div>
 
     <div class="small-12 column">
-      <label>Pregunta abierta (Opcional)</label>
+      <label>OPCIONAL: ¿De qué forma se manifiesta este problema? (casos, ejemplos, situaciones)?</label>
 
       <%= f.text_field :name,
         label: 'Título',
@@ -27,8 +30,8 @@
 
       <%= f.text_area :description,
         maxlength: 500,
-        label: '¿De qué forma se manifiesta este problema? (casos, ejemplos, situaciones)?',
-        hint: '(máximo 500 caracteres)',
+        label: 'Descripción',
+        hint: 'Indica de qué forma crees que se manifiesta este problema (máximo 500 caracteres)',
         rows: 3,
         required: nil %>
     </div>

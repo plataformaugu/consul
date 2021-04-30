@@ -115,11 +115,11 @@
                 <div class="row">
                   <div class="small-12 medium-3 column">
                     <h4 style="overflow: hidden; word-wrap: break-word;"><%= quiz.name || '(Sin título)' %></h4>
-                    <strong>Capítulo</strong>
+                    <strong>Tema</strong>
                     <% if quiz.tag %>
                       <p><i class="fas fa-hand-paper" style="color: #004a83;"></i> <%= quiz.tag %></p>
                     <% else %>
-                      <p>Sin capítulo</p>
+                      <p>Sin tema</p>
                     <% end %>
                     <strong>Fecha</strong><br/>
                     <%= quiz.created_at.to_date %><br/><br/>

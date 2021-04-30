@@ -105,6 +105,7 @@ class Admin::StatsController < Admin::BaseController
           @quizzes = Quiz.where(quiz_type: 1)
           @filename += 'diagnosticos.csv'
           csv << [
+            'Tema',
             'Titulo pregunta abierta',
             '¿De qué forma se manifiesta este problema?',
             'Del siguiente listado, selecciona el que crees es el principal problema de derechos humanos para este tema',
@@ -114,7 +115,7 @@ class Admin::StatsController < Admin::BaseController
             '¿Está oculto?',
           ]
           @quizzes.each do |q|
-            csv << [q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+            csv << [q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
           end
         elsif @type == 2
           @quizzes = Quiz.where(quiz_type: 2)
@@ -134,6 +135,7 @@ class Admin::StatsController < Admin::BaseController
           @quizzes = Quiz.where(quiz_type: 3)
           @filename += 'sugerencias.csv'
           csv << [
+            'Tema',
             'Titulo pregunta abierta',
             'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
             'Selecciona la institución pública que debería comprometerse a realizar la iniciativa que sugeriste',
@@ -141,7 +143,7 @@ class Admin::StatsController < Admin::BaseController
             '¿Está oculto?',
           ]
           @quizzes.each do |q|
-            csv << [q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+            csv << [q.tag.name, q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
           end
         end
       end

@@ -11,7 +11,7 @@
 		<h1><%= @title %></h1>
 
 		<% if @type == 1 %>
-			<h4>Capítulo: <%= @chapter.name %></h4>
+			<h3>Tema: <%= @chapter.name %></h3>
 			<small>Llevas <%= Quiz.where(quiz_type: @type, user_id: current_user.id).count %> de 6 diagnósticos</small>
 			<br>
 			<br>
@@ -22,7 +22,7 @@
 			<br>
     		<%= render "quizzes/form_2", form_url: quizzes_path %>
 		<% elsif @type == 3 %>
-			<h4>Capítulo: <%= @chapter.name %></h4>
+			<h3>Tema: <%= @chapter.name %></h3>
 			<small>Llevas <%= Quiz.where(quiz_type: @type, user_id: current_user.id).count %> de 6 sugerencias</small>
 			<br>
 			<br>
