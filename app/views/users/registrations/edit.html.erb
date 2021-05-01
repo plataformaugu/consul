@@ -1,16 +1,19 @@
 <%= back_link_to %>
 
 <% @indigenous_options = [
-    'No pertenece',
-    'Pueblo aymara',
-    'Pueblo quechua',
-    'Pueblo atacameño',
-    'Pueblo kolla',
-    'Pueblo diaguita',
-    'Pueblo rapanui',
-    'Pueblo mapuche',
-    'Pueblo yagán',
-    'Pueblo kawésqar',
+  'Mapuche',
+  'Aymara',
+  'Rapa Nui',
+  'Quechua',
+  'Colla',
+  'Diaguita',
+  'Chango',
+  'Kawashkar',
+  'Licanantay',
+  'Yámana o Yagán',
+  'Afrodescendiente',
+  'No pertenezco a ningún pueblo indígena ni tribal',
+  'Prefiero no decir',
 ] %>
 
 <% @where_do_you_live_options = [
@@ -30,6 +33,16 @@
   'Prefiero no decir',
 ] %>
 
+<% uri = URI('https://restcountries.eu/rest/v2/all') %>
+<% res = Net::HTTP.get_response(uri) %>
+<% @countries = JSON.parse(res.body.to_s.force_encoding('UTF-8')).map{|c| c['name']} %>
+
+<% uri = URI('https://apis.digital.gob.cl/dpa/regiones') %>
+<% res = Net::HTTP.get_response(uri) %>
+<% @regions = JSON.parse(res.body).map{|c| [c['codigo'], c['nombre']]} %>
+
+<% @regions_for_select = @regions.map{|r| r[1] } %>
+
 <h2>Información de caracterización individual</h2>
 <p>Te invitamos a que respondas estas preguntas, que nos permitirán contar con información relevante de las personas participantes, desde una perspectiva de derechos humanos. Responderlas es completamente voluntario, y el uso de esta información será solo para un análisis estadístico general, pues esta información no quedará asociada a las sugerencias que hayas realizado, tal como se indica en los <a href="/condiciones" target="_blank">“Términos y condiciones”</a> de este proceso.</p>
 
@@ -39,17 +52,36 @@
   <div class="row">
     <div class="small-12 column">
       <%= f.select :gender,
-        options_for_select(['Femenino', 'Masculino', 'Transgénero', 'Otro'], @user.gender),
+        options_for_select(['Femenino', 'Masculino', 'Transgénero', 'Otro', 'No sé', 'Prefiero no decir'], @user.gender),
+        prompt: @user.gender ? @user.gender : 'Elige una opción',
+        label: '¿Con cuál género te identificas?' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :country,
+        options_for_select(
+          ['Chile', 'Bolivia', 'Venezuela', 'Colombia', 'Haití', 'Perú', 'Otro país'],
+          ['Chile', 'Bolivia', 'Venezuela', 'Colombia', 'Haití', 'Perú', 'Otro país'].include?(@user.country) ? @user.country : 'Otro país'
+        ),
         prompt: 'Elige una opción',
-        label: 'Género' %>
+        label: '¿En qué país naciste?' %>
     </div>
 
     <div class="small-12 column">
-      <%= f.select :country, options_for_select(['Chile', 'Bolivia', 'Venezuela', 'Colombia', 'Haití', 'Perú', 'Otro'], @user.country), prompt: 'Elige una opción', label: 'País de nacimiento' %>
+      <label id="label-country" style="display: none;">Elige un país de la siguiente lista</label>
+      <select id="custom-country" style="display: none;">
+        <% @countries.each do |country| %>
+          <% if country == @user.country %>
+            <option value='<%= country %>' selected><%= country%></option>
+          <% else %>
+            <option value='<%= country %>'><%= country%></option>
+          <% end %>
+        <% end %>
+      </select>
     </div>
 
     <div class="small-12 column">
-      <%= f.date_field :date_of_birth, as: :date, label: 'Fecha de nacimiento' %>
+      <%= f.number_field :current_age, min: 0, max: 100, label: 'Edad' %>
     </div>
 
     <div class="small-12 column">
@@ -60,11 +92,10 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.select :indigenous_town, options_for_select(@indigenous_options, @user.indigenous_town), prompt: 'Elige una opción', label: '¿Perteneces a algún pueblo indígena?' %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.select :where_do_you_live, options_for_select(@where_do_you_live_options, @user.where_do_you_live), prompt: 'Elige una opción', label: '¿Dónde vives actualmente?' %>
+      <%= f.select :indigenous_town,
+        options_for_select(@indigenous_options, @user.indigenous_town),
+        prompt: 'Elige una opción',
+        label: '¿Perteneces a algún pueblo indígena?' %>
     </div>
 
     <div class="small-12 column">
@@ -72,9 +103,22 @@
     </div>
 
     <div class="small-12 column">
+      <%= f.select :region,
+        options_for_select(@regions_for_select, @user.region),
+        prompt: 'Elige una opción',
+        label: 'Región' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :town,
+        options_for_select([], @user.town),
+        prompt: 'Elige una opción',
+        label: 'Comuna' %>
+    </div>
+
+    <div class="small-12 column">
       <%= f.email_field :email,
         label: t("devise_views.users.registrations.edit.email_label"),
-        autofocus: true,
         placeholder: t("devise_views.users.registrations.edit.email_label") %>
     </div>
 
@@ -112,3 +156,91 @@
     </div>
   </div>
 <% end %>
+
+<script>
+$(document).ready(function() {
+  $('#user_town').attr('disabled', 'disabled')
+
+  if ($('#user_region').val() != '') {
+    $('#user_town').attr('disabled', 'disabled')
+    $('.temp-value').remove()
+    let comunas = []
+    $.ajax({
+      url: 'https://apis.digital.gob.cl/dpa/regiones',
+      dataType: 'jsonp',
+      success: function(regiones) {
+        let regionActual = regiones.find(r => r.nombre == $('#user_region').val())
+        $.ajax({
+          url: 'http://apis.digital.gob.cl/dpa/regiones/' + regionActual.codigo + '/comunas',
+          dataType: 'jsonp',
+          success: function(response) {
+            $('#user_town').attr('disabled', false)
+            comunas = response.map(c => c.nombre)
+            comunas.forEach(c => {
+              if (c == '<%= @user.town %>') {
+                $('#user_town').append(`<option class="temp-value" value="${c}" selected>${c}</option>`)
+              } else {
+                $('#user_town').append(`<option class="temp-value" value="${c}">${c}</option>`)
+              }
+            })
+          }
+        })
+      }
+    })
+  } else {
+    $('#user_town').attr('disabled', 'disabled')
+  }
+
+  if ($('#user_country').val() === 'Otro país') {
+    $('#custom-country').css('display', 'block');
+    $('#label-country').css('display', 'block');
+    $('option:contains("Otro país")').val($('#custom-country').val())
+  } else {
+    $('#custom-country').css('display', 'none');
+    $('#label-country').css('display', 'none');
+  }
+})
+
+$('#user_country').on('change', function() {
+  if (this.value === 'Otro país' || this.value === 'otro país') {
+    $('#custom-country').css('display', 'block');
+    $('#label-country').css('display', 'block');
+  } else {
+    $('#custom-country').css('display', 'none');
+    $('#label-country').css('display', 'none');
+  }
+})
+
+$('#custom-country').on('change', function(e) {
+  $('option:contains("Otro país")').val(e.target.value)
+})
+
+
+$('#user_region').on('change', function(e) {
+  if ($('#user_region').val() != '') {
+    $('#user_town').attr('disabled', 'disabled')
+    $('.temp-value').remove()
+    let comunas = []
+    $.ajax({
+      url: 'https://apis.digital.gob.cl/dpa/regiones',
+      dataType: 'jsonp',
+      success: function(regiones) {
+        let regionActual = regiones.find(r => r.nombre == $('#user_region').val())
+        $.ajax({
+          url: 'http://apis.digital.gob.cl/dpa/regiones/' + regionActual.codigo + '/comunas',
+          dataType: 'jsonp',
+          success: function(response) {
+            $('#user_town').attr('disabled', false)
+            comunas = response.map(c => c.nombre)
+            comunas.forEach(c => {
+              $('#user_town').append(`<option class="temp-value" value="${c}">${c}</option>`)
+            })
+          }
+        })
+      }
+    })
+  } else {
+    $('#user_town').attr('disabled', 'disabled')
+  }
+})
+</script>
