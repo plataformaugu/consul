@@ -15,6 +15,7 @@
 
 <%= render 'choose_type' %>
 <div class="jumbo highlight proceso-main">
+    <h3 class="text-center">¿Cómo te gustaría participar?</h3>
     <div class="row flexbox">
       <div class="proceso-card">
         <div class="card-section">
@@ -24,8 +25,9 @@
           >
         </div>
         <div class="card-section text-center">
-          <h4>Participar solo</h4>
-          <%= link_to 'Participar', new_quiz_path(type: 'individual'), class: 'button expanded' %>
+          <h4>Participar individualmente</h4>
+          <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small>
+          <%= link_to 'Participar', '/confirm_participation', class: 'button expanded' %>
         </div>
       </div>
     <% if current_user %>
@@ -39,6 +41,7 @@
           </div>
           <div class="card-section text-center">
             <h4>Participar grupalmente</h4>
+            <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
             <% if Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}.count > 0 %>
               <%= select_tag 'groups', options_from_collection_for_select(Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}, 'id', 'name'), prompt: 'Elige un grupo' %>
               <small>Solo aparecerán grupos con dos participantes o más</small><br/><br/>
@@ -75,6 +78,7 @@
         </div>
         <div class="card-section text-center">
           <h4>Participar grupalmente</h4>
+          <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
           <%= link_to 'Participar', new_user_session_path, class: 'button expanded' %>
         </div>
       </div>
@@ -95,33 +99,27 @@
         <div class="small-12 medium-12 column">
           <% if Quiz.where(visible: true).where.not(name: 'TMP').exists? %>
             <div class="feed-content">
-            <h3 class="title">Respuestas con más apoyos</h3>
+            <h3 class="title">Conoce y apoya otras propuestas</h3>
               <% Quiz.where(visible: true).where.not(name: 'TMP').sort_by {|quiz| quiz.votes}.reverse[0, 3].each_with_index do |quiz, idx| %>
                 <div class="row">
                   <div class="column">
                     <small>#<%= idx + 1 %></small>
                   </div>
-                  <div class="small-12 medium-3 column">
+                  <div class="small-12 medium-4 column">
                     <div class="proposal">
-                      <h5>Pregunta 1</h5>
+                      <h5>Problemas de DD.HH.</h5>
                       <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q1)['q3'] or 'Sin respuesta' %></p>
                     </div>
                   </div>
-                  <div class="small-12 medium-3 column">
+                  <div class="small-12 medium-4 column">
                     <div class="proposal">
-                      <h5>Pregunta 2</h5>
-                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q1)['q4'] or 'Sin respuesta' %></p>
-                    </div>
-                  </div>
-                  <div class="small-12 medium-3 column">
-                    <div class="proposal">
-                      <h5>Pregunta 3</h5>
+                      <h5>Ideas de solución</h5>
                       <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q2)['q7'] or 'Sin respuesta' %></p>
                     </div>
                   </div>
-                  <div class="small-12 medium-3 column">
+                  <div class="small-12 medium-4 column">
                     <div class="proposal">
-                      <h5>Pregunta 4</h5>
+                      <h5>Monitoreo</h5>
                       <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q3)['q8'] or 'Sin respuesta' %></p>
                     </div>
                   </div>

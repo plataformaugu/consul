@@ -1,0 +1,35 @@
+<% if current_user %>
+    <main>
+        <div class="row">
+            <h1>
+                Introducción
+            </h1><br/>
+            <p>
+                Cada cuatro años las autoridades se comprometen con acciones concretas para respetar,
+                proteger y garantizar los derechos humanos de las personas que viven en Chile. Estos
+                compromisos se escriben en el Plan Nacional de Derechos Humanos y tienen metas y
+                plazos para ser cumplidos. Este año los ministerios y servicios deberán asumir nuevos
+                compromisos para los próximos cuatro años y queremos <strong>que escuchen tu opinión respecto
+                de cuáles son los problemas de derechos humanos y tus ideas sobre cuáles deberían ser
+                las soluciones que comprometan en el plan.</strong><br/><br/>
+                Queremos invitarte a que nos digas qué problemas de derechos humanos afectan a las
+                personas hoy, a buscar soluciones para incluir en el Segundo Plan Nacional de Derechos
+                Humanos y a idear mecanismos para darle seguimiento.<br/><br/>
+                Pero.. ¡no es tan sencillo encontrar soluciones a los problemas! y lo sabemos. Por ello
+                vamos a apoyarnos en una técnica que hará que tu participación sea muy entretenida y
+                profunda a la vez: <a href="#">“El árbol de problemas”</a>.<br/><br/>
+                Esta técnica nos permite encontrar soluciones que realmente puedan resolver un problema;
+                es decir, que puedan resolver aquellas causas que lo provocan. Esto se logra imaginando
+                que la situación de derechos humanos que nos preocupa es un gran árbol. El problema que
+                identificamos es el tronco; las raíces son las causas del problema y las hojas del árbol son
+                los efectos del problema. Una vez que revisamos las relaciones entre el problema, sus
+                causas y sus efectos, podremos preguntarnos qué solución podría resolverlo.<br/><br/>
+                Te invitamos a <a href="#">descargar la guía para la participación individual</a>
+                para contestar las siguientes preguntas.<br/><br/>
+            </p><br/>
+            <%= link_to "Continuar", new_quiz_path(type: 'individual'), class: 'button' %>
+        </div>
+    </main>
+<% else %>
+    <% controller.redirect_to root_path %>
+<% end %>

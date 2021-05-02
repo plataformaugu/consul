@@ -1,56 +1,49 @@
 <% @q1_options = [
-  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos',
-  'Derecho a la educación',
-  'Derecho a la salud',
-  'Derecho al trabajo ',
-  'Derecho al agua ',
-  'Derecho a  Económicos, sociales, culturales y ambientales',
-  'Trata y tráfico de personas',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Educación para una sociedad sin discriminación',
+  'Salud y bienestar físico, mental y social de las personas',
+  'Acceso al agua',
+  'Trabajo digno y derechos de las y los trabajadores',
+  'Vivienda para vivir con seguridad, paz y dignidad',
+  'Pensiones dignas y apoyo económico frente a la necesidad',
+  'Alimentación para una vida sana y protección contra el hambre',
+  'Valoración de la diversidad cultural y acceso a la cultura',
+  'Protección del medio ambiente para la sostenibilidad de la vida en el planeta',
   'Prevención de la tortura y de la violencia institucional',
-  'Derechos Digitales',
+  'Datos protegidos y uso seguro del internet',
   'Acceso a la justicia',
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
-  'Educación en Derechos Humanos',
-  'Enfoque Basado en Derechos Humanos',
-  'Sistemas internacionales de Derechos Humanos',
+  'Educación en derechos humanos para una sociedad centrada en las personas',
+  'Participación',
 ] %>
 
 <% @q2_options = [
-  'Memoria, verdad, justicia y reparación',
-  'Derechos Económicos, sociales, culturales y ambientales',
-  'Trata y tráfico de personas',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Educación para una sociedad sin discriminación',
+  'Salud y bienestar físico, mental y social de las personas',
+  'Acceso al agua',
+  'Trabajo digno y derechos de las y los trabajadores',
+  'Vivienda para vivir con seguridad, paz y dignidad',
+  'Pensiones dignas y apoyo económico frente a la necesidad',
+  'Alimentación para una vida sana y protección contra el hambre',
+  'Valoración de la diversidad cultural y acceso a la cultura',
+  'Protección del medio ambiente para la sostenibilidad de la vida en el planeta',
   'Prevención de la tortura y de la violencia institucional',
-  'Derechos Digitales',
+  'Datos protegidos y uso seguro del internet',
   'Acceso a la justicia',
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
-  'Educación en Derechos Humanos',
-  'Enfoque Basado en Derechos Humanos',
-  'Sistemas internacionales de Derechos Humanos',
+  'Educación en derechos humanos para una sociedad centrada en las personas',
+  'Participación',
 ] %>
 
 <% @q5_options = [
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
+  'A personas mayores (mayores de 65 años)',
+  'A mujeres',
+  'A personas de la diversidad sexual LGBTIQ+',
+  'A personas con discapacidad',
+  'A Pueblos Indígenas y Tribales',
+  'A personas privadas de libertad',
+  'A personas migrantes y/o refugiadas',
+  'A niños, niñas y adolescentes',
+  'A otras personas. Especificar:',
 ]%>
 
 <% @q6_options = [
@@ -91,6 +84,7 @@
 
     <div class="small-12 column">
       <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
+      <span class="help-text">No es sencillo identificar un problema, así que puedes editar esta respuesta las veces que quieras.</span>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
@@ -98,8 +92,8 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q4">¿Cuál o cuáles crees que son las causas de ese problema?</label>
-      <p>Este problema se produce por...</p>
+      <label for="q4">¿Qué efectos tiene en las personas?</label>
+      <p>Este problema provoca...</p>
       <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
@@ -113,6 +107,7 @@
         <%= label_tag 'q5_%s' % [idx], option %><br/>
       <% end %>
       </div>
+      <input type="text" id="other-people" disabled>
       <br/><br/>
     </div>
 
@@ -198,6 +193,18 @@ $(document).ready(function() {
 
   $('input[name="q2"').on('change', function() {
     $('#text-after-q2').text('El problema que veo en ' + this.value + ' es...')
+  })
+
+  $('#q5_8').on('change', function() {
+    if ($('#q5_8').is(':checked')) {
+      $('#other-people').attr('disabled', false)
+    } else {
+      $('#other-people').attr('disabled', 'disabled')
+    }
+  })
+
+  $('#other-people').on('keyup', function(e) {
+    $('#q5_8').val(`A otras personas: ${e.target.value}`)
   })
 })
 </script>

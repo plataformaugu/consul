@@ -13,10 +13,10 @@
       <p>¡Cuéntale a tus amigos, familiares o conocidos que participaste con nosotros!</p>
       <%= render "shared/social_share",
         share_title: 'Compartir',
-        title: 'Participa con nosotros en:',
+        title: @social_text,
         url: request.base_url,
-        description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos.',
-        mobile: 'Participa con nosotros en:' %>
+        description: @social_text,
+        mobile: @social_text %>
     </p>
     <br/>
 

@@ -4,8 +4,8 @@
 <%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <label for="q7">Ya identificaste algunas causas del problema de derechos humanos, a quienes afecta y los lugares en que se manifiesta. ¿Qué ideas propones para que las autoridades aborden las causas que señalas y así solucionar el problema de derechos humanos?</label>
-      <small>(Limite: 1000 caracteres)</small>
+      <label for="q7">En tu opinión, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaste?</label>
+      <small>Puedes escribir una o varias soluciones (Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q7', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>

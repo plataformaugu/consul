@@ -14,6 +14,11 @@
       <div class="small-12 column">
         <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
         <h1 class="inline-block"><%= @title %></h1>
+        <% if params[:add].present? %>
+        <p>
+          Los participantes a quienes inscribas en tu grupo recibirán un correo electrónico que les permitirá dar su asentimiento informado para validar su participación.
+        </p>
+        <% end %>
       </div>
     </div>
     <div class="row">

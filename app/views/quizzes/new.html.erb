@@ -48,9 +48,38 @@
 
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
-		<%= back_link_to root_path %>
 		<h1><%= @title %></h1>
-		<h4><%= @progress < 4 ? 'Objetivo ' + 'I' * @progress : 'Caracterización' %></h4>
+		<% if @progress == 1 %>
+			<h4>Parte 1: IDENTIFICANDO LAS PARTES DE NUESTRO “ÁRBOL DE PROBLEMAS”</h4>
+			<small>
+				Hay muchos temas de derechos humanos que aún necesitan soluciones. En las siguientes
+				preguntas queremos saber qué tema te gustaría ayudar a resolver, para luego identificar el
+				problema, sus causas y efectos, y armar tu árbol de problemas.
+			</small><br/><br/>
+		<% elsif @progress == 2 %>
+			<h4>Parte 2: EN BUSCA DE LA SOLUCIÓN AL PROBLEMA</h4>
+			<small>
+				Ya has identificado un problema de derechos humanos, algunas de sus causas, las
+				personas afectadas y los lugares en que este problema se manifiesta. Ahora que conoces
+				las causas del problema es momento de pensar en soluciones, que puedan incluirse en el
+				Segundo Plan Nacional de Derechos Humanos.
+			</small><br/><br/>
+		<% elsif @progress == 3 %>
+			<h4>Parte 3: IDEAS PARA DAR SEGUIMIENTO A LOS COMPROMISOS DEL SEGUNDO PLAN NACIONAL DE DERECHOS HUMANOS</h4>
+			<small>
+				Este año los ministerios y servicios definirán compromisos para mejorar la situación de los
+				derechos humanos en Chile. Estos compromisos formarán el Plan Nacional de Derechos
+				Humanos 2022-2025.
+			</small><br/><br/>	
+		<% elsif @progress == 4 %>
+			<h4>Caracterización</h4>
+			<small>
+				Las siguientes preguntas tienen por objetivo conocerte un poco más.
+				Puedes contestarlas todas, una o varias si así lo deseas. Toda la información de esta parte
+				de la encuesta será tratada de manera confidencial, lo que quiere decir que nadie podrá
+				asociar tus respuestas con tu persona.
+			</small><br/><br/>
+		<% end %>
 		<small>Progreso: <%= @progress.to_s %> de 4 páginas</small>
 		<div class="success progress" role="progressbar" tabindex="0" aria-valuenow="<%= @progress * 25 %>" aria-valuemin="0" aria-valuemax="100">
 			<div class="progress-meter" style="width: <%= @progress * 25 %>%"></div>
@@ -85,20 +114,53 @@
 			<% end %>
 			<div class="sidebar-divider"></div>
 			<h2 class="sidebar-title">Información</h2><br/>
+			<small><i class="fas fa-file-pdf" style="color: #004a83;"></i> documento_falso.pdf</small><br/>
 			<small><i class="fas fa-file-pdf" style="color: #004a83;"></i> documento_falso.pdf</small>
-			<div class="sidebar-divider"></div>
-			<h2 class="sidebar-title">Enlaces</h2><br/>
-			<small>
-				<a href="https://meet.google.com/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Ir a Google Meet<br/></a>
-				<a href="https://zoom.us/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Ir a Zoom<br/></a>
-			</small>
-			<div class="sidebar-divider"></div>
-			<h2 class="sidebar-title">Ayuda</h2>
-			<ul class="recommendations" style="margin: 0 !important;">
-				<li style="margin: 0 !important;">Ayuda 1</li>
-				<li style="margin: 0 !important;">Ayuda 2</li>
-				<li style="margin: 0 !important;">Ayuda 3</li>
-			</ul>
+			<% if @group %>
+				<div class="sidebar-divider"></div>
+				<h2 class="sidebar-title">Enlaces para videollamada</h2><br/>
+				<small>
+					<a href="https://meet.google.com/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Google Meet<br/></a>
+					<a href="https://zoom.us/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Zoom<br/></a>
+					<a href="https://meet.jit.si/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Jitsi Meet<br/></a>
+				</small>
+			<% end %>
+			<% if @group and @progress == 2 %>
+				<div class="sidebar-divider"></div>
+				<h2 class="sidebar-title">Indicaciones</h2>
+				<small><br/>
+					Cada miembro del grupo puede votar por un (1) tema que es el que le
+					parece que menos se respeta. El guía de grupo anotará la cantidad de votos
+					que tiene cada tema y abrirá la conversación para escuchar las razones de
+					cada miembro para su elección. Después de la discusión el grupo definirá
+					cuál es aquel tema en que menos se respetan los derechos humanos y
+					trabajará sobre él en las siguientes preguntas.
+				</small>
+			<% end %>
+			<% if @progress == 3 %>
+				<% if @group %>
+					<div class="sidebar-divider"></div>
+					<h2 class="sidebar-title">Indicaciones</h2>
+					<small><br/>
+						Recuerden que las soluciones deben apuntar a las causas del problema,
+						para resolverlo. Si identificaste varias causas, pueden proponer una
+						solución para cada una, o una gran solución que incluya todas las causas.
+						<br/><br/>
+						Si utilizan el “Árbol del problema”, les recomendamos que las propuestas
+						apunten a solucionar aquello que escribieron en las <u>raíces</u> del árbol.
+					</small>
+				<% else %>
+					<div class="sidebar-divider"></div>
+					<h2 class="sidebar-title">Indicaciones</h2>
+					<small><br/>
+						Recuerda que para solucionar un problema es importante atacar las <u>causas</u>
+						que lo producen. Si identificaste varias causas, puedes proponer una
+						solución para cada una, o una gran solución que incluya todas las causas.
+						<br/><br/>
+						Si tienes dudas, apóyate en “El árbol de problemas”.
+					</small>
+				<% end %>
+			<% end %>
 		</aside>
 	</div>
 </div>

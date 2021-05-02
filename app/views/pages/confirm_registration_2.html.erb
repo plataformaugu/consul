@@ -1,0 +1,15 @@
+<% unless current_user %>
+    <main>
+        <div class="row">
+            <h1>
+                <i class="fas fa-check"></i> Has entregado tu Asentimiento Informado
+            </h1><br/><br/>
+            <p>
+                Muchas gracias por entregarnos tu asentimiento informado para participar junto a tu grupo.
+            </p><br/><br/>
+            <%= link_to "Ir a la plataforma participativa", new_user_registration_url, class: 'button' %>
+        </div>
+    </main>
+<% else %>
+    <% controller.redirect_to root_path %>
+<% end %>

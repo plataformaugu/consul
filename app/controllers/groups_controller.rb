@@ -70,7 +70,7 @@ class GroupsController < ApplicationController
       if @new_user.exists?
         if @group.users.count <= 15
           @group_user = GroupUser.create(name: params['name'], email: params['email'], group_id: @group.id)
-          Mailer.user_invite(params['email']).deliver_later
+          Mailer.user_invite(params['email'], @group.name).deliver_later
           flash[:notice] = '%s agregado correctamente al grupo.' % [params['name']]
           redirect_to @group
         else
@@ -80,7 +80,7 @@ class GroupsController < ApplicationController
       else
         if @group.users.count <= 15
           @group_user = GroupUser.create(name: params['name'], email: params['email'], group_id: @group.id)
-          Mailer.user_invite(params['email']).deliver_later
+          Mailer.user_invite(params['email'], @group.name).deliver_later
           flash[:notice] = '%s agregado correctamente al grupo.' % [params['name']]
           redirect_to @group
         else

@@ -5,36 +5,54 @@
   'Colombia',
   'Haití',
   'Perú',
+  'Prefiero no decir',
   'Otro',
 ] %>
 
 <% @q14_options = [
-    'No pertenece',
-    'Pueblo aymara',
-    'Pueblo quechua',
-    'Pueblo atacameño',
-    'Pueblo kolla',
-    'Pueblo diaguita',
-    'Pueblo rapanui',
-    'Pueblo mapuche',
-    'Pueblo yagán',
-    'Pueblo kawésqar',
+  'Mapuche',
+  'Aymara',
+  'Rapa Nui',
+  'Quechua',
+  'Colla',
+  'Diaguita',
+  'Chango',
+  'Kawashkar',
+  'Licanantay',
+  'Yámana o Yagán',
+  'Afrodescendiente',
+  'Otro',
+  'No pertenezco a ningún pueblo indígena ni tribal',
+  'Prefiero no decir',
 ] %>
+
+<% uri = URI('https://apis.digital.gob.cl/dpa/comunas') %>
+<% res = Net::HTTP.get_response(uri) %>
+<% @comunas = JSON.parse(res.body).map{|c| c['nombre']} %>
 
 <% if Quiz.find(params[:quiz_id]).group_id.nil? %>
   <%= form_for(@quiz, url: form_url) do |f| %>
 
     <div class="row column quiz-form">
       <div class="small-12 column">
-        <label for="q10">Género</label><br/>
+        <label for="q17">¿En qué comuna vives?</label>
+        <%= select_tag 'q17', options_for_select(@comunas), prompt: 'Elige una opción', required: true %><br/><br/>
+      </div>
+
+      <div class="small-12 column">
+        <label for="q10">¿Con cuál género te identificas?</label><br/>
           <%= radio_button_tag 'q10', 'Femenino' %>
           <%= label_tag "q10_Femenino", 'Femenino' %><br/>
           <%= radio_button_tag 'q10', 'Masculino' %>
           <%= label_tag "q10_Masculino", 'Masculino' %><br/>
+          <%= radio_button_tag 'q10', 'Transgénero' %>
+          <%= label_tag "q10_Transgénero", 'Transgénero' %><br/>
           <%= radio_button_tag 'q10', 'Otro' %>
           <%= label_tag "q10_Otro", 'Otro' %><br/>
-          <%= radio_button_tag 'q10', 'No sabe' %>
-          <%= label_tag "q10_No sabe", 'No sabe' %><br/>
+          <%= radio_button_tag 'q10', 'No sé' %>
+          <%= label_tag "q10_No sabe", 'No sé' %><br/>
+          <%= radio_button_tag 'q10', 'Prefiero no decir' %>
+          <%= label_tag "q10_No sabe", 'Prefiero no decir' %><br/>
         <br/><br/>
       </div>
 
@@ -46,6 +64,7 @@
 
       <div class="small-12 column">
         <label for="q12">¿Cuántos años tienes?</label>
+        <span class="help-text">Deja el número en 0 si prefieres no decir tu edad.</span>
         <%= number_field_tag 'q12', nil, min: 0, max: 99, required: true %>
         <br/><br/>
       </div>
@@ -60,17 +79,17 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q14">¿Perteneces a algún pueblo indígena?</label><br/>
-          <%= select_tag 'q14', options_for_select(@q14_options), required: true %>
+        <label for="q14">¿Perteneces a algún pueblo indígena o tribal?</label><br/>
+          <%= select_tag 'q14', options_for_select(@q14_options), required: true, prompt: 'Elige una opción' %>
         <br/><br/>
       </div>
 
       <div class="small-12 column">
         <label for="q15">¿Dónde vives actualmente?</label><br/>
-          <%= radio_button_tag 'q15', 'En un hospital, por tratamiento médico prolongado.', required: true %>
+          <%= radio_button_tag 'q15', 'En casa de mi familia o familiares' %>
+          <%= label_tag "q15_En casa de mi familia o familiares", 'En casa de mi familia o familiares' %><br/>
+          <%= radio_button_tag 'q15', 'En un hospital, por tratamiento médico prolongado.' %>
           <%= label_tag "q15_En un hospital, por tratamiento médico prolongado.", 'En un hospital, por tratamiento médico prolongado.' %><br/>
-          <%= radio_button_tag 'q15', 'En casa de familiares directos o lejanos' %>
-          <%= label_tag "q15_En casa de familiares directos o lejanos", 'En casa de familiares directos o lejanos' %><br/>
           <%= radio_button_tag 'q15', 'En un centro privativo de libertad' %>
           <%= label_tag "q15_En un centro privativo de libertad", 'En un centro privativo de libertad' %><br/>
           <%= radio_button_tag 'q15', 'En el internado de mi escuela' %>
@@ -79,15 +98,25 @@
           <%= label_tag "q15_En una residencia de protección", 'En una residencia de protección' %><br/>
           <%= radio_button_tag 'q15', 'Otro' %>
           <%= label_tag "q15_Otro", 'Otro' %><br/>
+          <%= radio_button_tag 'q15', 'Prefiero no decir' %>
+          <%= label_tag "q15_Prefiero no decir", 'Prefiero no decir' %><br/>
         <br/><br/>
       </div>
 
       <div class="small-12 column">
         <label for="q16">¿Cuál es tu orientación sexual?</label><br/>
+          <%= radio_button_tag 'q16', 'Bisexual' %>
+          <%= label_tag "q16_Bisexual", 'Bisexual' %><br/>
           <%= radio_button_tag 'q16', 'Heterosexual' %>
           <%= label_tag "q16_Heterosexual", 'Heterosexual' %><br/>
-          <%= radio_button_tag 'q16', 'Homosexual' %>
-          <%= label_tag "q16_Homosexual", 'Homosexual' %><br/>
+          <%= radio_button_tag 'q16', 'Homosexual (Lesbiana, gay)' %>
+          <%= label_tag "q16_Homosexual (Lesbiana, gay)", 'Homosexual (Lesbiana, gay)' %><br/>
+          <%= radio_button_tag 'q16', 'No sé' %>
+          <%= label_tag "q16_No sé", 'No sé' %><br/>
+          <%= radio_button_tag 'q16', 'Otra' %>
+          <%= label_tag "q16_Otra", 'Otra' %><br/>
+          <%= radio_button_tag 'q16', 'Prefiero no decir' %>
+          <%= label_tag "q16_Prefiero no decir", 'Prefiero no decir' %><br/>
         <br/><br/>
       </div>
 

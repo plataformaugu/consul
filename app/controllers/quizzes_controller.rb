@@ -89,6 +89,11 @@ class QuizzesController < ApplicationController
       @quiz.name = ''
       @quiz.save
       @title_text = 'Finalizaste la encuesta'
+      unless @quiz.group_id.nil?
+        @social_text = 'Con nuestro grupo hicimos propuestas para el Plan Nacional de Derechos Humanos, apóyala y suma nuevas propuestas aquí.'
+      else
+        @social_text = 'Participé en el Plan Nacional de Derechos Humanos, ¡Participa tú también!'
+      end
       render 'success'
     end
   end

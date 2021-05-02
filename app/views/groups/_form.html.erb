@@ -12,6 +12,7 @@
       required: true %>
 
     <label>Email</label>
+    <span class="help-text">Atención: si el correo tiene errores, el participante no recibirá el correo de confirmación y su participación no será válida.</span>
     <%= email_field_tag :email, params[:email], required: true %>
   <% else %>
     <%= form.text_field :name, label: 'Nombre', required: true %>

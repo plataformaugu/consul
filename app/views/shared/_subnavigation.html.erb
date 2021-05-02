@@ -3,28 +3,22 @@
     <%= raw content_block("subnavigation_left", I18n.locale) %>
 
       <li>
-        <%= layout_menu_link_to 'Enlace 1',
+        <%= layout_menu_link_to 'Cómo participar',
                                 '#',
                                 controller_name == "1",
                                 accesskey: "1" %>
       </li>
       <li>
-        <%= layout_menu_link_to 'Enlace 2',
+        <%= layout_menu_link_to 'Conoce más sobre DDHH',
                                 '#',
                                 controller_name == "2",
                                 accesskey: "2" %>
       </li>
       <li>
-        <%= layout_menu_link_to 'Enlace 3',
+        <%= layout_menu_link_to 'Sobre el PNDH',
                                 '#',
                                 controller_name == "3",
                                 accesskey: "3" %>
-      </li>
-      <li>
-        <%= layout_menu_link_to 'Accesibilidad',
-                                '/accesibilidad',
-                                controller_name == "accesibilidad",
-                                accesskey: "4" %>
       </li>
 
     <%= raw content_block("subnavigation_right", I18n.locale) %>

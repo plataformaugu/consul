@@ -41,7 +41,7 @@ es:
       ignore: ""
       text: "¡Te han invitado a participar grupalmente en %{org}! En unos segundos podrás empezar, sólo tienes que rellenar el siguiente formulario:"
       thanks: ""
-      title: "Bienvenido a %{org}"
+      title: "Bienvenid@ a %{org}"
       button: Completar registro
       subject: "Invitación a %{org_name}"
     budget_investment_created:
