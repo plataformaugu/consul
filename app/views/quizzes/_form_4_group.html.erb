@@ -1,65 +1,102 @@
+<% @q10_options = [
+  'Somos compañeros y compañeras de curso/escuela',
+  'Somos miembros de un Centro de Estudiantes',
+  'Somos un grupo de amigos y amigas',
+  'Vivimos en la misma casa',
+  'Somos familiares',
+  'Otro',
+  'Preferimos no decir',
+] %>
+
+<% @q11_options = [
+  'Actividades artísticas y/o culturales',
+  'Actividades educativas',
+  'Actividades de defensa y promoción de derechos humanos',
+  'Actividades deportivas',
+  'Actividades recreativas',
+  'Actividades religiosas',
+  'Actividades laborales',
+  'Otras actividades',
+  'Preferimos no decir',
+] %>
+
+<% @q14_options = [
+  'Mapuche',
+  'Aymara',
+  'Rapa Nui',
+  'Quechua',
+  'Colla',
+  'Diaguita',
+  'Chango',
+  'Kawashkar',
+  'Licanantay',
+  'Yámana o Yagán',
+  'Afrodescendiente',
+  'Otro',
+  'No pertenezco a ningún pueblo indígena ni tribal',
+  'Prefiero no decir',
+] %>
+
 <%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <label for="q10">Géneros</label><br/>
-        Femenino: <%= number_field_tag 'q10_femenino', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Masculino: <%= number_field_tag 'q10_masculino', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Otro: <%= number_field_tag 'q10_otro', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        No sabe: <%= number_field_tag 'q10_no', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      <br/><br/>
+      <label for="q10">¿Qué tipo de grupo forman ustedes?</label><br/>
+      <%= select_tag 'q10', options_for_select(@q10_options), prompt: 'Elijan una opción' %><br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q11">¿En qué país nacieron?</label><br/>
-      Chile: <%= number_field_tag 'q11_chile', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Bolivia: <%= number_field_tag 'q11_bolivia', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Venezuela: <%= number_field_tag 'q11_venezuela', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Colombia: <%= number_field_tag 'q11_colombia', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Haití: <%= number_field_tag 'q11_haiti', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Perú: <%= number_field_tag 'q11_peru', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Otro: <%= number_field_tag 'q11_otro', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      Prefiero no decir: <%= number_field_tag 'q11_otro', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      <br/><br/>
+      <label for="q11">¿Qué actividad o actividades definen mejor los intereses del grupo?</label><br/>
+      <% @q11_options.each_with_index do |option, idx| %>
+        <%= check_box_tag 'q11[]', option, false, {id: 'q11_%s' % [idx]} %>
+        <%= label_tag 'q11_%s' % [idx], option %><br/>
+      <% end %><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q12">¿Cuántos años tienen?</label>
-      <small>Ingresa las edad separadas por coma. Ejemplo: "15, 16, 19"</small>
-      <%= text_field_tag 'q12', nil, required: false %>
-      <br/><br/>
+      <label for="q12">¿En qué país nacieron?</label><br/>
+      Chile: <%= number_field_tag 'q12_chile', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Bolivia: <%= number_field_tag 'q12_bolivia', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Venezuela: <%= number_field_tag 'q12_venezuela', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Colombia: <%= number_field_tag 'q12_colombia', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Haití: <%= number_field_tag 'q12_haiti', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Perú: <%= number_field_tag 'q12_peru', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Otro: <%= number_field_tag 'q12_otro', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      Prefiero no decir: <%= number_field_tag 'q12_prefiero no decir', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      <br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q13">¿Tienen algún tipo de discapacidad?</label><br/>
+      <label for="q13">¿Hay algún miembro del grupo con algún tipo de discapacidad?</label><br/>
         Si: <%= number_field_tag 'q13_si', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         No: <%= number_field_tag 'q13_no', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+        Prefiero no decir: <%= number_field_tag 'q13_prefiero no decir', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q14">¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?</label><br/>
+      <%= select_tag 'q14', options_for_select(@q14_options), prompt: 'Elijan una opción' %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q14">¿Pertenecen a algún pueblo indígena?</label><br/>
-        No pertenece: <%= number_field_tag 'q14_no', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo aymara: <%= number_field_tag 'q14_aymara', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo quechua: <%= number_field_tag 'q14_quechua', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo atacameño: <%= number_field_tag 'q14_atacameño', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo kolla: <%= number_field_tag 'q14_kolla', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo diaguita: <%= number_field_tag 'q14_diaguita', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo rapanui: <%= number_field_tag 'q14_rapanui', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo mapuche: <%= number_field_tag 'q14_mapuche', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo yagán: <%= number_field_tag 'q14_yagán', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        Pueblo kawésqar: <%= number_field_tag 'q14_kawésqar', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      <br/><br/>
-    </div>
-
-    <div class="small-12 column">
-      <label for="q15">¿Dónde viven actualmente?</label><br/>
+      <label for="q15">¿Dónde viven los miembros del grupo actualmente?</label><br/>
         En un hospital, por tratamiento médico prolongado: <%= number_field_tag 'q15_En un hospital, por tratamiento médico prolongado', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-        En casa de familiares directos o lejanos: <%= number_field_tag 'q15_En casa de familiares directos o lejanos', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+        En casa de familiares: <%= number_field_tag 'q15_En casa de familiares', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         En un centro privativo de libertad: <%= number_field_tag 'q15_En un centro privativo de libertad', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         En el internado de mi escuela: <%= number_field_tag 'q15_En el internado de mi escuela', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         En una residencia de protección: <%= number_field_tag 'q15_En una residencia de protección', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         Otro: <%= number_field_tag 'q15_Otro', 0, class: 'number-selection', min: 0 %><br/>
+        Preferimos no decir: <%= number_field_tag 'q15_Preferimos no decir', 0, class: 'number-selection', min: 0 %><br/>
       <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q16">¿Qué edad tiene el o la participante más pequeño del grupo?</label>
+      <%= number_field_tag 'q16', 0, min: 0, max: 100 %>
+      <label for="q17">¿Qué edad tiene el o la participante más grande del grupo?</label>
+      <span class="help-text">Si los acompañó una persona adulta, no consideren su edad, sólo la de los miembros del grupo.</span>
+      <%= number_field_tag 'q17', 0, min: 0, max: 100 %><br/>
     </div>
 
     <div class="small-12 column">
