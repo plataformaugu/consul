@@ -1,45 +1,37 @@
 <% @q1_options = [
-  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos',
-  'Derecho a la educación',
-  'Derecho a la salud',
-  'Derecho al trabajo ',
-  'Derecho al agua ',
-  'Derecho a  Económicos, sociales, culturales y ambientales',
-  'Trata y tráfico de personas',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Educación para una sociedad sin discriminación',
+  'Salud y bienestar físico, mental y social de las personas',
+  'Acceso al agua',
+  'Trabajo digno y derechos de las y los trabajadores',
+  'Vivienda para vivir con seguridad, paz y dignidad',
+  'Pensiones dignas y apoyo económico frente a la necesidad',
+  'Alimentación para una vida sana y protección contra el hambre',
+  'Valoración de la diversidad cultural y acceso a la cultura',
+  'Protección del medio ambiente para la sostenibilidad de la vida en el planeta',
   'Prevención de la tortura y de la violencia institucional',
-  'Derechos Digitales',
+  'Datos protegidos y uso seguro del internet',
   'Acceso a la justicia',
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
-  'Educación en Derechos Humanos',
-  'Enfoque Basado en Derechos Humanos',
-  'Sistemas internacionales de Derechos Humanos',
+  'Educación en derechos humanos para una sociedad centrada en las personas',
+  'Participación',
 ] %>
 
 <% @q2_options = [
-  'Memoria, verdad, justicia y reparación',
-  'Derechos Económicos, sociales, culturales y ambientales',
-  'Trata y tráfico de personas',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Educación para una sociedad sin discriminación',
+  'Salud y bienestar físico, mental y social de las personas',
+  'Acceso al agua',
+  'Trabajo digno y derechos de las y los trabajadores',
+  'Vivienda para vivir con seguridad, paz y dignidad',
+  'Pensiones dignas y apoyo económico frente a la necesidad',
+  'Alimentación para una vida sana y protección contra el hambre',
+  'Valoración de la diversidad cultural y acceso a la cultura',
+  'Protección del medio ambiente para la sostenibilidad de la vida en el planeta',
   'Prevención de la tortura y de la violencia institucional',
-  'Derechos Digitales',
+  'Datos protegidos y uso seguro del internet',
   'Acceso a la justicia',
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
-  'Educación en Derechos Humanos',
-  'Enfoque Basado en Derechos Humanos',
-  'Sistemas internacionales de Derechos Humanos',
+  'Educación en derechos humanos para una sociedad centrada en las personas',
+  'Participación',
 ] %>
 
 <% @q5_options = [
@@ -66,14 +58,9 @@
 <%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
 
-    <div class="jumbo" style="padding: 15px;">
-      ¡Bienvenidxs! Esta es una encuesta que busca conocer las opiniones de su grupo / curso sobre temas de derechos humanos.<br/><br/>
-      Como estamos atravesando por una crisis sanitaria por el Covid-19 les recomendamos reunirse a través de videollamada. Pueden hacerlo desde la plataforma que prefieran. Acá te dejamos tres opciones gratuitas: Jitsi meet (no necesitas iniciar sesión, videollamada ilimitada) Meet (necesitas iniciar sesión en google, videollamada por tiempo ilimitado) / Zoom (necesitas registrarte en zoom, videollamada por 45 minutos).<br/><br/>Tus compañeros/as podrán ingresar a la videollamada a través del enlace que compartas y como guía de grupo podrás compartir pantalla de este sitio para que todos puedan ver la consulta y responder entre todos. 
-    </div>
-
     <div class="small-12 column">
-      <label for="q1">¿Cuáles de estos temas de derechos humanos son para ustedes los tres más importantes?</label>
-      <small class="help-text">Sugerencia: Elegir 3 opciones por persona.</small>
+      <label for="q1">¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?</label>
+      <small class="help-text">Escojan uno (1)</small>
       <div><br/>
       <% @q1_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');" %><br/>
@@ -83,15 +70,14 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q2">¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label><br/>
-      <% @q2_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q2_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      <% end %>
+      <label for="q2">A continuación, seleccionen el tema que escogió el grupo como aquel en que <u>menos se respetan</u> los derechos humanos.</label>
+      <span class="help-text">Pueden escoger el que obtuvo más votos u otro que el grupo acordó.</span>
+        <%= select_tag 'q2', options_for_select(@q2_options), required: true, prompt: 'Elijan una opción' %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
+      <label for="q3">En aquel tema en que se respetan menos los derechos humanos<span id="custom-option" display="none"></span>, ¿En qué nota el grupo que no se respetan y qué problema identifican? </label>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
@@ -99,16 +85,25 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q4">¿Cuál o cuáles crees que son las causas de ese problema?</label>
-      <p>Este problema se produce por...</p>
+      <label for="q4">¿Cuál o cuáles creen que son las <u>causas</u> de ese problema?</label>
+      <p>Este problema se produce por:</p>
       <small>(Limite: 1000 caracteres)</small>
       <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q5">¿A quienes crees que afecta este problema?</label>
-      <div><br/>
+      <label for="q0">¿Qué efectos tiene en las personas?</label>
+      <p>Este problema provoca:</p>
+      <small>(Limite: 1000 caracteres)</small>
+      <%= text_area_tag 'q0', nil, rows: 4, maxlength: 1000, required: true %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q5">¿A quienes creen que afecta este problema?</label>
+      <p>Marquen todas las casillas que crean necesario</p>
+      <div>
       <% @q5_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q5_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
@@ -118,7 +113,8 @@
 
     <div class="small-12 column">
       <label for="q6">¿En qué lugares crees que se vive este problema?</label>
-      <div><br/>
+      <p>Marquen todas las casillas que crean necesario</p>
+      <div>
       <% @q6_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q6_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
@@ -141,6 +137,10 @@
 
 <script>
 $(document).ready(function() {
-  $('#text-after-q2').text('El problema que veo es...')
+  $('#text-after-q2').text('El problema que identificamos es:')
+
+  $('#q2').on('change', function() {
+    $('#custom-option').text(`: ${$('#q2').val()}`)
+  })
 })
 </script>

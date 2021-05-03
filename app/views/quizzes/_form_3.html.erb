@@ -11,7 +11,11 @@
     </div>
 
     <div class="small-12 column">
+      <% if params[:group].present? %>
+      <label for="q9">¿Les interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
+      <% else %>
       <label for="q9">¿Te interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
+      <% end %>
         <%= radio_button_tag 'q9', 'Si' %>
         <%= label_tag "q9_Si", 'Si' %><br/>
         <%= radio_button_tag 'q9', 'No' %>

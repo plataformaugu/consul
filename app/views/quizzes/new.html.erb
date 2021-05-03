@@ -52,17 +52,25 @@
 		<% if @progress == 1 %>
 			<h4>Parte 1: IDENTIFICANDO LAS PARTES DE NUESTRO “ÁRBOL DE PROBLEMAS”</h4>
 			<small>
+				<% if @type == 'grupal' %>
+				Hay muchos temas de derechos humanos que aún necesitan soluciones. En las siguientes preguntas queremos saber qué tema les gustaría ayudar a resolver como grupo, para luego identificar el problema, sus causas y efectos, y armar su árbol de problemas.
+				<% else %>
 				Hay muchos temas de derechos humanos que aún necesitan soluciones. En las siguientes
 				preguntas queremos saber qué tema te gustaría ayudar a resolver, para luego identificar el
 				problema, sus causas y efectos, y armar tu árbol de problemas.
+				<% end %>
 			</small><br/><br/>
 		<% elsif @progress == 2 %>
 			<h4>Parte 2: EN BUSCA DE LA SOLUCIÓN AL PROBLEMA</h4>
 			<small>
+				<% if params[:group].present? %>
+				Han identificado un problema de derechos humanos, las personas afectadas, los lugares en que este problema se manifiesta y algunas de sus causas. Ahora que conocen las causas del problema es momento de pensar en soluciones que puedan incluirse en el Segundo Plan Nacional de Derechos Humanos.
+				<% else %>
 				Ya has identificado un problema de derechos humanos, algunas de sus causas, las
 				personas afectadas y los lugares en que este problema se manifiesta. Ahora que conoces
 				las causas del problema es momento de pensar en soluciones, que puedan incluirse en el
 				Segundo Plan Nacional de Derechos Humanos.
+				<% end %>
 			</small><br/><br/>
 		<% elsif @progress == 3 %>
 			<h4>Parte 3: IDEAS PARA DAR SEGUIMIENTO A LOS COMPROMISOS DEL SEGUNDO PLAN NACIONAL DE DERECHOS HUMANOS</h4>
@@ -74,10 +82,14 @@
 		<% elsif @progress == 4 %>
 			<h4>Caracterización</h4>
 			<small>
+				<% if params[:group].present? %>
+				Las siguientes preguntas nos servirán para conocer más a su grupo.  Recuerden que toda la información de esta encuesta será tratada de manera confidencial, lo que quiere decir que nadie podrá asociar sus respuestas a los miembros del grupo.
+				<% else %>
 				Las siguientes preguntas tienen por objetivo conocerte un poco más.
 				Puedes contestarlas todas, una o varias si así lo deseas. Toda la información de esta parte
 				de la encuesta será tratada de manera confidencial, lo que quiere decir que nadie podrá
 				asociar tus respuestas con tu persona.
+				<% end %>
 			</small><br/><br/>
 		<% end %>
 		<small>Progreso: <%= @progress.to_s %> de 4 páginas</small>

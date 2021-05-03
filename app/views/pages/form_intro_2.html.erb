@@ -1,0 +1,22 @@
+<% if current_user %>
+    <% if params[:group].present? %>
+        <main>
+            <div class="row">
+                <h1>
+                    Introducción
+                </h1><br/>
+                <p>
+                    Cada cuatro años las autoridades se comprometen con acciones concretas para respetar, proteger y garantizar los derechos humanos de las personas que viven en Chile. Estos compromisos se escriben en el Plan Nacional de Derechos Humanos y tienen metas y plazos para ser cumplidos. Este año los ministerios y servicios deberán asumir nuevos compromisos para los próximos cuatro años y queremos <strong>que escuchen la opinión de tu grupo respecto de cuáles son los problemas de derechos humanos y sus ideas sobre cuáles deberían ser las soluciones que comprometan en el plan.</strong><br/><br/>
+                    Queremos invitarles a que nos digan qué problemas de derechos humanos afectan a las personas hoy, a buscar soluciones para incluir en el Segundo Plan Nacional de Derechos Humanos y a idear mecanismos para darle seguimiento.<br/><br/>
+                    Pero... ¡no es tan sencillo encontrar soluciones a los problemas! y lo sabemos. Por ello vamos a apoyarnos en una técnica que hará que su participación sea muy entretenida y profunda a la vez: <a href="#">“El árbol de problemas”</a><br/><br/>
+                    Esta técnica nos permite encontrar soluciones que realmente puedan resolver un problema; es decir, que puedan resolver aquellas <strong>causas</strong> que lo provocan. Esto se logra imaginando que la situación de derechos humanos que nos preocupa es un gran árbol. El problema que identificamos es el tronco; las raíces son las causas del problema y las hojas del árbol son los efectos del problema. Una vez que revisamos las relaciones entre el problema, sus causas y sus efectos, podremos preguntarnos qué solución podría resolverlo.<br/><br/>
+                    El tiempo que necesitan para responder este cuestionario de manera grupal es de 1 hora y 30 minutos. Si no alcanzan a terminar en una sesión, podrán continuar otro día, hasta el 30 de mayo.<br/><br/>
+                    Les invitamos a <a href="#">descargar la guía para la participación grupal</a> para contestar las siguientes preguntas.<br/><br/>
+                </p><br/>
+                <%= link_to "Continuar", '/forms/new?type=grupal&group=' + params[:group], class: 'button' %>
+            </div>
+        </main>
+    <% end %>
+<% else %>
+    <% controller.redirect_to root_path %>
+<% end %>

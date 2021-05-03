@@ -59,6 +59,8 @@
       <div class="small-12 column">
         <label for="q11">¿En qué país naciste?</label><br/>
           <%= select_tag 'q11', options_for_select(@q11_options), required: true %>
+        <label id="custom-country-label" style="display: none">Ingresa el país</label>
+        <input type="text" id="custom-country" style="display: none">
         <br/><br/>
       </div>
 
@@ -75,12 +77,16 @@
           <%= label_tag "q13_Si", 'Si' %><br/>
           <%= radio_button_tag 'q13', 'No' %>
           <%= label_tag "q13_No", 'No' %><br/>
+          <%= radio_button_tag 'q13', 'Prefiero no decir' %>
+          <%= label_tag "q13_Prefiero no decir", 'Prefiero no decir' %><br/>
         <br/><br/>
       </div>
 
       <div class="small-12 column">
         <label for="q14">¿Perteneces a algún pueblo indígena o tribal?</label><br/>
           <%= select_tag 'q14', options_for_select(@q14_options), required: true, prompt: 'Elige una opción' %>
+          <label id="custom-indigenous-label" style="display: none">¿Cuál?</label>
+          <input type="text" id="custom-indigenous" style="display: none">
         <br/><br/>
       </div>
 
@@ -142,5 +148,43 @@ $(document).ready(function() {
   $('input[name="q10"]').attr('required', true)
   $('input[name="q13"]').attr('required', true)
   $('input[name="q16"]').attr('required', true)
+
+  $('#q11').on('change', function() {
+    if (this.value == 'Otro') {
+      $('#custom-country').css('display', 'block')
+      $('#custom-country-label').css('display', 'block')
+    } else {
+      $('#custom-country').css('display', 'none')
+      $('#custom-country-label').css('display', 'none')
+    }
+  })
+
+  $('#custom-country').on('change', function(e) {
+    if (document.getElementById('temp-country')) {
+      document.getElementById('temp-country').outerHTML = '';
+    }
+
+    $('#q11').append(`<option id="temp-country" value="${e.target.value}">${e.target.value}</option>`)
+    $(`option[value="${e.target.value}"]`).attr('selected', true)
+  })
+
+  $('#q14').on('change', function() {
+    if (this.value == 'Otro') {
+      $('#custom-indigenous').css('display', 'block')
+      $('#custom-indigenous-label').css('display', 'block')
+    } else {
+      $('#custom-indigenous').css('display', 'none')
+      $('#custom-indigenous-label').css('display', 'none')
+    }
+  })
+
+  $('#custom-indigenous').on('change', function(e) {
+    if (document.getElementById('temp-indigenous')) {
+      document.getElementById('temp-indigenous').outerHTML = '';
+    }
+
+    $('#q14').append(`<option id="temp-indigenous" value="${e.target.value}">${e.target.value}</option>`)
+    $(`option[value="${e.target.value}"]`).attr('selected', true)
+  })
 })
 </script>

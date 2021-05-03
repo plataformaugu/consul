@@ -1,32 +1,52 @@
 <% if current_user %>
-    <main>
-        <div class="row">
-            <h1>
-                <i class="fas fa-info-circle"></i> Tu participación es voluntaria e informada
-            </h1><br/>
-            <p>
-                ¡Hola! queremos que participes de manera informada; para ello te pedimos que leas la
-                siguiente declaración y si estás de acuerdo con participar, te invitamos a dar tu
-                asentimiento.<br/><br/>
-                “Has sido invitado/a a participar en Tu Opinión Cuenta, el proceso participativo para el
-                Segundo Plan Nacional de Derechos Humanos organizado por la Subsecretaría de Derechos
-                Humanos.<br/><br/>
-                Tu participación consistirá en contestar un cuestionario de preguntas opcionales, de forma
-                individual, a través de una plataforma virtual. Tus opiniones e ideas serán enviadas a los
-                ministerios para que puedan considerarlas en la redacción del Segundo Plan Nacional de
-                Derechos Humanos.<br/><br/>
-                Tus respuestas serán confidenciales, es decir que sólo serán conocidas aquellas que
-                decidas publicar en tus redes sociales, pero la Subsecretaría de Derechos Humanos no
-                podrá relacionar tus respuestas con tu identidad.<br/><br/>
-                Estás en tu derecho de dejar de participar en cualquier momento si así lo quieres, sin que
-                esta decisión te perjudique”.<br/><br/>
-                <strong>He leído esta hoja de asentimiento informado, estoy de acuerdo con su contenido, lo
-                comprendo y acepto participar en este taller.</strong>
-            </p><br/><br/>
-            <%= link_to "Quiero participar", '/form_intro', class: 'button' %>
-            <%= link_to "No quiero participar", root_url, class: 'button' %>
-        </div>
-    </main>
+    <% if params[:group].present? %>
+        <main>
+            <div class="row">
+                <h1>
+                    <i class="fas fa-info-circle"></i> Su participación es voluntaria e informada
+                </h1><br/>
+                <p>
+                    ¡Hola! queremos que todos los miembros del grupo participen de manera informada; para ello les pedimos que lean la siguiente declaración en voz alta y si todos están de acuerdo con participar, les invitamos a dar su asentimiento.<br/><br/>
+                    “Han sido invitados/as a participar en Tu Opinión Cuenta, el proceso participativo para el Segundo Plan Nacional de Derechos Humanos organizado por la Subsecretaría de Derechos Humanos.<br/><br/>
+                    Su participación consistirá en contestar un cuestionario de preguntas opcionales, de forma grupal, a través de una plataforma virtual. Sus opiniones e ideas serán enviadas a los ministerios para que puedan considerarlas en la redacción del Segundo Plan Nacional de Derechos Humanos.<br/><br/>
+                    Sus respuestas serán confidenciales, es decir que sólo serán conocidas aquellas que decidan publicar en sus redes sociales, pero la Subsecretaría de Derechos Humanos no podrá relacionar sus respuestas con la identidad de ninguno de sus miembros.<br/><br/>
+                    Estás en su derecho de dejar de participar en cualquier momento si así lo desean, sin que esta decisión les perjudique”.<br/><br/>
+                    <strong>Hemos leído esta hoja de asentimiento informado, estamos de acuerdo con su contenido, lo comprendemos y aceptamos participar en este taller.</strong>
+                </p><br/><br/>
+                <%= link_to "Queremos participar", '/form_intro?group=' + params[:group], class: 'button' %>
+                <%= link_to "No queremos participar", root_url, class: 'button' %>
+            </div>
+        </main>
+    <% else %>
+        <main>
+            <div class="row">
+                <h1>
+                    <i class="fas fa-info-circle"></i> Tu participación es voluntaria e informada
+                </h1><br/>
+                <p>
+                    ¡Hola! queremos que participes de manera informada; para ello te pedimos que leas la
+                    siguiente declaración y si estás de acuerdo con participar, te invitamos a dar tu
+                    asentimiento.<br/><br/>
+                    “Has sido invitado/a a participar en Tu Opinión Cuenta, el proceso participativo para el
+                    Segundo Plan Nacional de Derechos Humanos organizado por la Subsecretaría de Derechos
+                    Humanos.<br/><br/>
+                    Tu participación consistirá en contestar un cuestionario de preguntas opcionales, de forma
+                    individual, a través de una plataforma virtual. Tus opiniones e ideas serán enviadas a los
+                    ministerios para que puedan considerarlas en la redacción del Segundo Plan Nacional de
+                    Derechos Humanos.<br/><br/>
+                    Tus respuestas serán confidenciales, es decir que sólo serán conocidas aquellas que
+                    decidas publicar en tus redes sociales, pero la Subsecretaría de Derechos Humanos no
+                    podrá relacionar tus respuestas con tu identidad.<br/><br/>
+                    Estás en tu derecho de dejar de participar en cualquier momento si así lo quieres, sin que
+                    esta decisión te perjudique”.<br/><br/>
+                    <strong>He leído esta hoja de asentimiento informado, estoy de acuerdo con su contenido, lo
+                    comprendo y acepto participar en este taller.</strong>
+                </p><br/><br/>
+                <%= link_to "Quiero participar", '/form_intro', class: 'button' %>
+                <%= link_to "No quiero participar", root_url, class: 'button' %>
+            </div>
+        </main>
+    <% end %>
 <% else %>
     <% controller.redirect_to root_path %>
 <% end %>

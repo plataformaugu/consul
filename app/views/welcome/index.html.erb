@@ -27,7 +27,7 @@
         <div class="card-section text-center">
           <h4>Participar individualmente</h4>
           <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small>
-          <%= link_to 'Participar', '/confirm_participation', class: 'button expanded' %>
+          <%= link_to 'Participar', current_user ? '/confirm_participation' : new_user_session_path, class: 'button expanded' %>
         </div>
       </div>
     <% if current_user %>
@@ -164,7 +164,7 @@ $(document).ready(function() {
 
   $('#groups').on('change', function() {
     if (this.value.length > 0) {
-      $('#groups_submit').attr('href', '/forms/new?type=grupal&group=' + this.value)
+      $('#groups_submit').attr('href', '/confirm_participation?group=' + this.value)
       $('#groups_submit').removeAttr('disabled')
     } else {
       $('#groups_submit').attr('disabled', 'disabled')
