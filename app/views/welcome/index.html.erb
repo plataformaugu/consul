@@ -21,7 +21,7 @@
         <div class="card-section">
           <%= image_tag('participacion-individual.jpg') %>
         </div>
-        <div class="card-section text-center">
+        <div class="<%= current_user ? 'card-section custom-card-section text-center' : 'card-section text-center' %>">
           <h4>Participar individualmente</h4>
           <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small>
           <%= link_to 'Participar', current_user ? '/confirm_participation' : new_user_session_path, class: 'button expanded' %>
