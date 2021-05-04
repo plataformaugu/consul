@@ -34,7 +34,7 @@
             <%= image_tag('participacion-grupal.jpg') %>
           </div>
           <div class="card-section text-center">
-            <h4>Participar grupalmente</h4>
+            <h4>Participar <br/>grupalmente</h4>
             <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
             <% if Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}.count > 0 %>
               <%= select_tag 'groups', options_from_collection_for_select(Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}, 'id', 'name'), prompt: 'Elige un grupo' %>
@@ -53,7 +53,7 @@
                   <%= image_tag('participacion-grupal.jpg') %>
                 </div>
                 <div class="card-section text-center">
-                  <h4>Participar grupalmente</h4>
+                  <h4>Participar <br/>grupalmente</h4>
                   <small>No tienes un grupo creado, haz clic para crear uno.</small>
                 </div>
               </div>
@@ -65,7 +65,7 @@
           <%= image_tag('participacion-grupal.jpg') %>
         </div>
         <div class="card-section text-center">
-          <h4>Participar grupalmente</h4>
+          <h4>Participar <br/>grupalmente</h4>
           <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
           <%= link_to 'Participar', new_user_session_path, class: 'button expanded' %>
         </div>
