@@ -5,13 +5,13 @@
   <div class="row column quiz-form">
     <div class="small-12 column">
       <% if params[:group].present? %>
-      <label for="q7">En opinión del grupo, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaron?</label>
+      <label for="q8">8. En opinión del grupo, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaron?</label>
       <small>(Limite: 1000 caracteres)</small>
       <% else %>
-      <label for="q7">En tu opinión, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaste?</label>
+      <label for="q8">8. En tu opinión, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaste?</label>
       <small>Puedes escribir una o varias soluciones (Limite: 1000 caracteres)</small>
       <% end %>
-      <%= text_area_tag 'q7', nil, rows: 4, maxlength: 1000, required: true %>
+      <%= text_area_tag 'q8', nil, rows: 4, maxlength: 1000 %>
       <br/><br/>
     </div>
 

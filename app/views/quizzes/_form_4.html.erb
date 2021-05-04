@@ -1,4 +1,4 @@
-<% @q11_options = [
+<% @q13_options = [
   'Chile',
   'Bolivia',
   'Venezuela',
@@ -9,7 +9,7 @@
   'Otro',
 ] %>
 
-<% @q14_options = [
+<% @q16_options = [
   'Mapuche',
   'Aymara',
   'Rapa Nui',
@@ -35,99 +35,100 @@
 
     <div class="row column quiz-form">
       <div class="small-12 column">
-        <label for="q17">¿En qué comuna vives?</label>
-        <%= select_tag 'q17', options_for_select(@comunas), prompt: 'Elige una opción', required: true %><br/><br/>
+        <label for="q11">11. ¿En qué comuna vives?</label>
+        <small class="help-text">Puedes escoger sólo una.</small>
+        <%= select_tag 'q11', options_for_select(@comunas), prompt: 'Elige una opción' %><br/><br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q10">¿Con cuál género te identificas?</label><br/>
-          <%= radio_button_tag 'q10', 'Femenino' %>
-          <%= label_tag "q10_Femenino", 'Femenino' %><br/>
-          <%= radio_button_tag 'q10', 'Masculino' %>
-          <%= label_tag "q10_Masculino", 'Masculino' %><br/>
-          <%= radio_button_tag 'q10', 'Transgénero' %>
-          <%= label_tag "q10_Transgénero", 'Transgénero' %><br/>
-          <%= radio_button_tag 'q10', 'Otro' %>
-          <%= label_tag "q10_Otro", 'Otro' %><br/>
-          <%= radio_button_tag 'q10', 'No sé' %>
-          <%= label_tag "q10_No sabe", 'No sé' %><br/>
-          <%= radio_button_tag 'q10', 'Prefiero no decir' %>
-          <%= label_tag "q10_No sabe", 'Prefiero no decir' %><br/>
-        <br/><br/>
+        <label for="q12">12. ¿Con cuál género te identificas?</label><br/>
+          <%= radio_button_tag 'q12', 'Femenino' %>
+          <%= label_tag "q12_Femenino", 'Femenino' %><br/>
+          <%= radio_button_tag 'q12', 'Masculino' %>
+          <%= label_tag "q12_Masculino", 'Masculino' %><br/>
+          <%= radio_button_tag 'q12', 'Transgénero' %>
+          <%= label_tag "q12_Transgénero", 'Transgénero' %><br/>
+          <%= radio_button_tag 'q12', 'Otro' %>
+          <%= label_tag "q12_Otro", 'Otro' %><br/>
+          <%= radio_button_tag 'q12', 'No sé' %>
+          <%= label_tag "q12_No sabe", 'No sé' %><br/>
+          <%= radio_button_tag 'q12', 'Prefiero no decir' %>
+          <%= label_tag "q12_No sabe", 'Prefiero no decir' %><br/>
+        <br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q11">¿En qué país naciste?</label><br/>
-          <%= select_tag 'q11', options_for_select(@q11_options), required: true %>
+        <label for="q13">13. ¿En qué país naciste?</label><br/>
+          <%= select_tag 'q13', options_for_select(@q13_options) %>
         <label id="custom-country-label" style="display: none">Ingresa el país</label>
         <input type="text" id="custom-country" style="display: none">
         <br/><br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q12">¿Cuántos años tienes?</label>
+        <label for="q14">14. ¿Cuántos años tienes?</label>
         <span class="help-text">Deja el número en 0 si prefieres no decir tu edad.</span>
-        <%= number_field_tag 'q12', nil, min: 0, max: 99, required: true %>
-        <br/><br/>
+        <%= number_field_tag 'q14', nil, min: 0, max: 99 %>
+        <br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q13">¿Tienes algún tipo de discapacidad?</label><br/>
-          <%= radio_button_tag 'q13', 'Si' %>
-          <%= label_tag "q13_Si", 'Si' %><br/>
-          <%= radio_button_tag 'q13', 'No' %>
-          <%= label_tag "q13_No", 'No' %><br/>
-          <%= radio_button_tag 'q13', 'Prefiero no decir' %>
-          <%= label_tag "q13_Prefiero no decir", 'Prefiero no decir' %><br/>
-        <br/><br/>
-      </div>
-
-      <div class="small-12 column">
-        <label for="q14">¿Perteneces a algún pueblo indígena o tribal?</label><br/>
-          <%= select_tag 'q14', options_for_select(@q14_options), required: true, prompt: 'Elige una opción' %>
-          <label id="custom-indigenous-label" style="display: none">¿Cuál?</label>
-          <input type="text" id="custom-indigenous" style="display: none">
-        <br/><br/>
-      </div>
-
-      <div class="small-12 column">
-        <label for="q15">¿Dónde vives actualmente?</label><br/>
-          <%= radio_button_tag 'q15', 'En casa de mi familia o familiares' %>
-          <%= label_tag "q15_En casa de mi familia o familiares", 'En casa de mi familia o familiares' %><br/>
-          <%= radio_button_tag 'q15', 'En un hospital, por tratamiento médico prolongado.' %>
-          <%= label_tag "q15_En un hospital, por tratamiento médico prolongado.", 'En un hospital, por tratamiento médico prolongado.' %><br/>
-          <%= radio_button_tag 'q15', 'En un centro privativo de libertad' %>
-          <%= label_tag "q15_En un centro privativo de libertad", 'En un centro privativo de libertad' %><br/>
-          <%= radio_button_tag 'q15', 'En el internado de mi escuela' %>
-          <%= label_tag "q15_En el internado de mi escuela", 'En el internado de mi escuela' %><br/>
-          <%= radio_button_tag 'q15', 'En una residencia de protección' %>
-          <%= label_tag "q15_En una residencia de protección", 'En una residencia de protección' %><br/>
-          <%= radio_button_tag 'q15', 'Otro' %>
-          <%= label_tag "q15_Otro", 'Otro' %><br/>
+        <label for="q15">15. ¿Tienes algún tipo de discapacidad?</label><br/>
+          <%= radio_button_tag 'q15', 'Si' %>
+          <%= label_tag "q15_Si", 'Si' %><br/>
+          <%= radio_button_tag 'q15', 'No' %>
+          <%= label_tag "q15_No", 'No' %><br/>
           <%= radio_button_tag 'q15', 'Prefiero no decir' %>
           <%= label_tag "q15_Prefiero no decir", 'Prefiero no decir' %><br/>
         <br/><br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q16">¿Cuál es tu orientación sexual?</label><br/>
-          <%= radio_button_tag 'q16', 'Bisexual' %>
-          <%= label_tag "q16_Bisexual", 'Bisexual' %><br/>
-          <%= radio_button_tag 'q16', 'Heterosexual' %>
-          <%= label_tag "q16_Heterosexual", 'Heterosexual' %><br/>
-          <%= radio_button_tag 'q16', 'Homosexual (Lesbiana, gay)' %>
-          <%= label_tag "q16_Homosexual (Lesbiana, gay)", 'Homosexual (Lesbiana, gay)' %><br/>
-          <%= radio_button_tag 'q16', 'No sé' %>
-          <%= label_tag "q16_No sé", 'No sé' %><br/>
-          <%= radio_button_tag 'q16', 'Otra' %>
-          <%= label_tag "q16_Otra", 'Otra' %><br/>
-          <%= radio_button_tag 'q16', 'Prefiero no decir' %>
-          <%= label_tag "q16_Prefiero no decir", 'Prefiero no decir' %><br/>
+        <label for="q16">16. ¿Perteneces a algún pueblo indígena o tribal?</label><br/>
+          <%= select_tag 'q16', options_for_select(@q16_options), prompt: 'Elige una opción' %>
+          <label id="custom-indigenous-label" style="display: none">¿Cuál?</label>
+          <input type="text" id="custom-indigenous" style="display: none">
         <br/><br/>
       </div>
 
       <div class="small-12 column">
-        <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> serán visibles para otros usuarios.</small>
+        <label for="q17">17. ¿Dónde vives actualmente?</label><br/>
+          <%= radio_button_tag 'q17', 'En casa de mi familia o familiares' %>
+          <%= label_tag "q17_En casa de mi familia o familiares", 'En casa de mi familia o familiares' %><br/>
+          <%= radio_button_tag 'q17', 'En un hospital, por tratamiento médico prolongado.' %>
+          <%= label_tag "q17_En un hospital, por tratamiento médico prolongado.", 'En un hospital, por tratamiento médico prolongado.' %><br/>
+          <%= radio_button_tag 'q17', 'En un centro privativo de libertad' %>
+          <%= label_tag "q17_En un centro privativo de libertad", 'En un centro privativo de libertad' %><br/>
+          <%= radio_button_tag 'q17', 'En el internado de mi escuela' %>
+          <%= label_tag "q17_En el internado de mi escuela", 'En el internado de mi escuela' %><br/>
+          <%= radio_button_tag 'q17', 'En una residencia de protección' %>
+          <%= label_tag "q17_En una residencia de protección", 'En una residencia de protección' %><br/>
+          <%= radio_button_tag 'q17', 'Otro' %>
+          <%= label_tag "q17_Otro", 'Otro' %><br/>
+          <%= radio_button_tag 'q17', 'Prefiero no decir' %>
+          <%= label_tag "q17_Prefiero no decir", 'Prefiero no decir' %><br/>
+        <br/><br/>
+      </div>
+
+      <div class="small-12 column">
+        <label for="q18">18. ¿Cuál es tu orientación sexual?</label><br/>
+          <%= radio_button_tag 'q18', 'Bisexual' %>
+          <%= label_tag "q18_Bisexual", 'Bisexual' %><br/>
+          <%= radio_button_tag 'q18', 'Heterosexual' %>
+          <%= label_tag "q18_Heterosexual", 'Heterosexual' %><br/>
+          <%= radio_button_tag 'q18', 'Homosexual (Lesbiana, gay)' %>
+          <%= label_tag "q18_Homosexual (Lesbiana, gay)", 'Homosexual (Lesbiana, gay)' %><br/>
+          <%= radio_button_tag 'q18', 'No sé' %>
+          <%= label_tag "q18_No sé", 'No sé' %><br/>
+          <%= radio_button_tag 'q18', 'Otra' %>
+          <%= label_tag "q18_Otra", 'Otra' %><br/>
+          <%= radio_button_tag 'q18', 'Prefiero no decir' %>
+          <%= label_tag "q18_Prefiero no decir", 'Prefiero no decir' %><br/>
+        <br/>
+      </div>
+
+      <div class="small-12 column">
+        <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> (3, 8 y 9) serán visibles para otros usuarios.</small>
         <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
       </div>
 
@@ -145,11 +146,7 @@
 
 <script>
 $(document).ready(function() {
-  $('input[name="q10"]').attr('required', true)
-  $('input[name="q13"]').attr('required', true)
-  $('input[name="q16"]').attr('required', true)
-
-  $('#q11').on('change', function() {
+  $('#q13').on('change', function() {
     if (this.value == 'Otro') {
       $('#custom-country').css('display', 'block')
       $('#custom-country-label').css('display', 'block')
@@ -164,11 +161,11 @@ $(document).ready(function() {
       document.getElementById('temp-country').outerHTML = '';
     }
 
-    $('#q11').append(`<option id="temp-country" value="${e.target.value}">${e.target.value}</option>`)
+    $('#q13').append(`<option id="temp-country" value="${e.target.value}">${e.target.value}</option>`)
     $(`option[value="${e.target.value}"]`).attr('selected', true)
   })
 
-  $('#q14').on('change', function() {
+  $('#q16').on('change', function() {
     if (this.value == 'Otro') {
       $('#custom-indigenous').css('display', 'block')
       $('#custom-indigenous-label').css('display', 'block')

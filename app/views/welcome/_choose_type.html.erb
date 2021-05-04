@@ -3,7 +3,7 @@
         <div class="row flexbox" style="padding-top: 5vh;">
         </div>
         <p class="lead text-center">
-            Puedes participar individualmente o
+            Puedes participar individualmente o<br/>
             <% if Group.where(user_id: current_user.id).exists? %>
                 <%= link_to 'representando a tu grupo',
                     groups_path %>.

@@ -34,7 +34,7 @@
   'Participación',
 ] %>
 
-<% @q5_options = [
+<% @q6_options = [
   'Personas Mayores',
   'Mujeres',
   'LGBTIQ+',
@@ -59,8 +59,7 @@
   <div class="row column quiz-form">
 
     <div class="small-12 column">
-      <label for="q1">¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?</label>
-      <small class="help-text">Escojan uno (1)</small>
+      <label for="q1">1. ¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?</label>
       <div><br/>
       <% @q1_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');" %><br/>
@@ -70,53 +69,53 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q2">A continuación, seleccionen el tema que escogió el grupo como aquel en que <u>menos se respetan</u> los derechos humanos.</label>
+      <label for="q2">2. A continuación, seleccionen el tema que escogió el grupo como aquel en que <u>menos se respetan</u> los derechos humanos.</label>
       <span class="help-text">Pueden escoger el que obtuvo más votos u otro que el grupo acordó.</span>
-        <%= select_tag 'q2', options_for_select(@q2_options), required: true, prompt: 'Elijan una opción' %>
+        <%= select_tag 'q2', options_for_select(@q2_options), prompt: 'Elijan una opción' %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q3">En aquel tema en que se respetan menos los derechos humanos<span id="custom-option" display="none"></span>, ¿En qué nota el grupo que no se respetan y qué problema identifican? </label>
+      <label for="q3">3. En aquel tema en que se respetan menos los derechos humanos<span id="custom-option" display="none"></span>, ¿En qué nota el grupo que no se respetan y qué problema identifican? </label>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
-      <br/><br/>
+      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
+      <br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q4">¿Cuál o cuáles creen que son las <u>causas</u> de ese problema?</label>
+      <label for="q4">4. ¿Cuál o cuáles creen que son las <u>causas</u> de ese problema?</label>
       <p>Este problema se produce por:</p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
-      <br/><br/>
+      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
+      <br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q0">¿Qué efectos tiene en las personas?</label>
+      <label for="q5">5. ¿Qué efectos tiene en las personas?</label>
       <p>Este problema provoca:</p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q0', nil, rows: 4, maxlength: 1000, required: true %>
+      <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q5">¿A quienes creen que afecta este problema?</label>
-      <p>Marquen todas las casillas que crean necesario</p>
-      <div>
-      <% @q5_options.each do |option| %>
-        <%= option %>: <%= number_field_tag 'q5_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
-      <% end %>
-      </div>
-      <br/><br/>
-    </div>
-
-    <div class="small-12 column">
-      <label for="q6">¿En qué lugares crees que se vive este problema?</label>
-      <p>Marquen todas las casillas que crean necesario</p>
+      <label for="q6">6. ¿A quienes creen que afecta este problema?</label>
+      <small class="help-text">Marquen todas las casillas que crean necesario</small>
       <div>
       <% @q6_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q6_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
+      <% end %>
+      </div>
+      <br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q7">7. ¿En qué lugares crees que se vive este problema?</label>
+      <small class="help-text">Marquen todas las casillas que crean necesario</small>
+      <div>
+      <% @q6_options.each do |option| %>
+        <%= option %>: <%= number_field_tag 'q7_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -140,7 +139,7 @@ $(document).ready(function() {
   $('#text-after-q2').text('El problema que identificamos es:')
 
   $('#q2').on('change', function() {
-    $('#custom-option').text(`: ${$('#q2').val()}`)
+    $('#custom-option').text($('#q2').val() ? ` ${$('#q2').val()}` : '')
   })
 })
 </script>

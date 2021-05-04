@@ -48,6 +48,7 @@
 
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
+		<%= back_link_to @progress == 1 ? root_path : :back %>
 		<h1><%= @title %></h1>
 		<% if @progress == 1 %>
 			<h4>Parte 1: IDENTIFICANDO LAS PARTES DE NUESTRO “ÁRBOL DE PROBLEMAS”</h4>
@@ -104,7 +105,7 @@
 		<aside class="margin-bottom">
 			<% if @group %>
 				<div class="sidebar-divider"></div>
-				<h2 class="sidebar-title"><i class="fas fa-users" style="color: #004a83;"></i> Participación grupal</h2>
+				<h2 class="sidebar-title"><i class="fas fa-users" style="color: #60b0c6;"></i> Participación grupal</h2>
 				<div>
 				<small>
 					Estás participando con tu grupo <strong><%= @group.name %></strong>.<br/>
@@ -126,15 +127,15 @@
 			<% end %>
 			<div class="sidebar-divider"></div>
 			<h2 class="sidebar-title">Información</h2><br/>
-			<small><i class="fas fa-file-pdf" style="color: #004a83;"></i> documento_falso.pdf</small><br/>
-			<small><i class="fas fa-file-pdf" style="color: #004a83;"></i> documento_falso.pdf</small>
+			<small><i class="fas fa-file-pdf" style="color: #60b0c6;"></i> documento_falso.pdf</small><br/>
+			<small><i class="fas fa-file-pdf" style="color: #60b0c6;"></i> documento_falso.pdf</small>
 			<% if @group %>
 				<div class="sidebar-divider"></div>
 				<h2 class="sidebar-title">Enlaces para videollamada</h2><br/>
 				<small>
-					<a href="https://meet.google.com/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Google Meet<br/></a>
-					<a href="https://zoom.us/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Zoom<br/></a>
-					<a href="https://meet.jit.si/" target="_blank"><i class="fas fa-globe" style="color: #004a83;"></i> Jitsi Meet<br/></a>
+					<a href="https://meet.google.com/" target="_blank"><i class="fas fa-globe" style="color: #60b0c6;"></i> Google Meet<br/></a>
+					<a href="https://zoom.us/" target="_blank"><i class="fas fa-globe" style="color: #60b0c6;"></i> Zoom<br/></a>
+					<a href="https://meet.jit.si/" target="_blank"><i class="fas fa-globe" style="color: #60b0c6;"></i> Jitsi Meet<br/></a>
 				</small>
 			<% end %>
 			<% if @group and @progress == 2 %>

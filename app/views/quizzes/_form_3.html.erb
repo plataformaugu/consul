@@ -4,22 +4,22 @@
 
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <label for="q8">¿Cómo podrían los niños, niñas y adolescentes ayudar a monitorear que las autoridades cumplan con sus compromisos de derechos humanos?</label>
+      <label for="q9">9. ¿Cómo podrían los niños, niñas y adolescentes ayudar a monitorear que las autoridades cumplan con sus compromisos de derechos humanos?</label>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q8', nil, rows: 4, maxlength: 1000, required: true %>
+      <%= text_area_tag 'q9', nil, rows: 4, maxlength: 1000 %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
       <% if params[:group].present? %>
-      <label for="q9">¿Les interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
+      <label for="q10">10. ¿Les interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
       <% else %>
-      <label for="q9">¿Te interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
+      <label for="q10">10. ¿Te interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
       <% end %>
-        <%= radio_button_tag 'q9', 'Si' %>
-        <%= label_tag "q9_Si", 'Si' %><br/>
-        <%= radio_button_tag 'q9', 'No' %>
-        <%= label_tag "q9_No", 'No' %><br/>
+        <%= radio_button_tag 'q10', 'Si' %>
+        <%= label_tag "q10_Si", 'Si' %><br/>
+        <%= radio_button_tag 'q10', 'No' %>
+        <%= label_tag "q10_No", 'No' %><br/>
       <br/><br/>
     </div>
 

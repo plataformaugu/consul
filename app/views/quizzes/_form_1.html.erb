@@ -62,8 +62,8 @@
   <div class="row column quiz-form">
 
     <div class="small-12 column">
-      <label for="q1">¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
-      <small class="help-text">Debes elegir 3 opciones.</small>
+      <label for="q1">1. ¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
+      <small class="help-text">Puedes escoger hasta tres.</small>
       <div><br/>
       <% @q1_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q1[]', option, false, {id: 'q1_%s' % [idx]} %>
@@ -74,7 +74,9 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q2">¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label><br/>
+      <label for="q2">2. ¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label>
+      <small class="help-text">Puedes escoger sólo uno.</small>
+      <br/><br/>
       <% @q2_options.each_with_index do |option, idx| %>
         <%= radio_button_tag 'q2', option, nil, id: 'q2_%s' % [idx] %>
         <%= label_tag "q2_%s" % [idx], option %><br/>
@@ -83,28 +85,37 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q3">En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
+      <label for="q3">3. En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
       <span class="help-text">No es sencillo identificar un problema, así que puedes editar esta respuesta las veces que quieras.</span>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000, required: true %>
+      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q4">¿Qué efectos tiene en las personas?</label>
-      <p>Este problema provoca...</p>
+      <label for="q4">4. ¿Cuál o cuáles crees que son las causas de ese problema?</label>
+      <small class="help-text">Los problemas tienen múltiples causas. Escribe las que identifiques.</small><br/>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000, required: true %>
+      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q5">¿A quienes crees que afecta este problema?</label>
+      <label for="q5">5. ¿Qué efectos tiene en las personas?</label>
+      <p>Este problema provoca:</p>
+      <small>(Limite: 1000 caracteres)</small>
+      <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
+      <br/><br/>
+    </div>
+
+    <div class="small-12 column">
+      <label for="q6">6. ¿A quienes crees que afecta este problema?</label>
+      <small class="help-text">Marca todas las casillas que creas necesario</small>
       <div><br/>
       <% @q5_options.each_with_index do |option, idx| %>
-        <%= check_box_tag 'q5[]', option, false, {id: 'q5_%s' % [idx]} %>
-        <%= label_tag 'q5_%s' % [idx], option %><br/>
+        <%= check_box_tag 'q6[]', option, false, {id: 'q6_%s' % [idx]} %>
+        <%= label_tag 'q6_%s' % [idx], option %><br/>
       <% end %>
       </div>
       <input type="text" id="other-people" disabled>
@@ -112,11 +123,12 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q6">¿En qué lugares crees que se vive este problema?</label>
+      <label for="q7">7. ¿En qué lugares crees que se vive este problema?</label>
+      <small class="help-text">Marca todas las casillas que creas necesario</small>
       <div><br/>
       <% @q6_options.each_with_index do |option, idx| %>
-        <%= check_box_tag 'q6[]', option, false, {id: 'q6_%s' % [idx]} %>
-        <%= label_tag 'q6_%s' % [idx], option %><br/>
+        <%= check_box_tag 'q7[]', option, false, {id: 'q7_%s' % [idx]} %>
+        <%= label_tag 'q7_%s' % [idx], option %><br/>
       <% end %>
       </div>
       <br/><br/>
@@ -137,7 +149,6 @@
 
 <script>
 $(document).ready(function() {
-  $('input[name="q2"]').attr('required', true)
   $('#text-after-q2').text('El problema que veo es...')
 
   $('input[name="q1[]"]').on('change', function() {
@@ -162,43 +173,15 @@ $(document).ready(function() {
     }
   })
 
-  $('#new_quiz').on('submit', function(e) {
-    if ($('input[name="q1[]"]:checked').length < 3) {
-      $('[for="q1"]').css('color', 'red');
-      e.preventDefault();
-      window.scrollTo(0, 0);
-      return false;
-    } else {
-      $('[for="q1"]').css('color', 'black');
-    }
+  $('input[name="q2"]').on('change', function() {
+    $('#text-after-q2').text('El problema que veo en ' + this.value + ' es:')
   })
 
-  if ($('#quiz_visible').is(':checked')) {
-    $('#quiz_name').attr('required', true)
-    $('#quiz_description').attr('required', true)
-  } else {
-    $('#quiz_name').attr('required', false)
-    $('#quiz_description').attr('required', false)
-  }
-
-  $('#quiz_visible').on('change', function() {
-    if ($('#quiz_visible').is(':checked')) {
-      $('#quiz_name').attr('required', true)
-      $('#quiz_description').attr('required', true)
-    } else {
-      $('#quiz_name').attr('required', false)
-      $('#quiz_description').attr('required', false)
-    }
-  })
-
-  $('input[name="q2"').on('change', function() {
-    $('#text-after-q2').text('El problema que veo en ' + this.value + ' es...')
-  })
-
-  $('#q5_8').on('change', function() {
-    if ($('#q5_8').is(':checked')) {
+  $('#q6_8').on('change', function() {
+    if ($('#q6_8').is(':checked')) {
       $('#other-people').attr('disabled', false)
     } else {
+      $('#other-people').val('')
       $('#other-people').attr('disabled', 'disabled')
     }
   })

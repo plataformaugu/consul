@@ -66,18 +66,18 @@
                     <%= quiz.created_at.to_date %><br/><br/>
                     <strong>Tipo</strong><br/>
                     <% if quiz.group_id.nil? %>
-                      <i class="fas fa-user" style="color: #004a83;"></i> Individual
+                      <i class="fas fa-user" style="color: #60b0c6;"></i> Individual
                     <% else %>
-                      <i class="fas fa-users" style="color: #004a83;"></i> Grupal
+                      <i class="fas fa-users" style="color: #60b0c6;"></i> Grupal
                     <% end %>
                   </div>
                   <div class="small-12 medium-6 column supports-container">
                     <p><% eval(quiz.q1).each do |key, value| %>
                         <% if ['q3'].include?(key) %>
                           <% if quiz.group_id.nil? %>
-                            <strong>¿En qué notas que no se respetan los derechos humanos en: <%= eval(quiz.q1)['q2'] %>?</strong><br/>
-                          <% else %>
                             <strong>En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</strong><br/>
+                          <% else %>
+                            <strong>En aquel tema en que se respetan menos los derechos humanos, ¿En qué notan que no se respetan?</strong><br/>
                           <% end %>
                           <% if value.is_a?(Array) %>
                             <% value.each do |v| %>
@@ -88,21 +88,9 @@
                           <% end %>
                         <% end %></p>
                     <% end %>
-                    <p><% eval(quiz.q1).each do |key, value| %>
-                      <% if ['q4'].include?(key) %>
-                        <strong>¿Cuál o cuáles crees que son las causas de ese problema?</strong><br/>
-                        <% if value.is_a?(Array) %>
-                          <% value.each do |v| %>
-                            <li><%= v %></li>
-                          <% end %><br/>
-                        <% else %>
-                          <%= value %><br/><br/>
-                        <% end %>
-                      <% end %></p>
-                    <% end %>
                     <p><% eval(quiz.q2).each do |key, value| %>
-                      <% if ['q7'].include?(key) %>
-                        <strong>¿Qué ideas propones para que las autoridades aborden las causas que señalas y así solucionar el problema de derechos humanos?</strong><br/>
+                      <% if ['q8'].include?(key) %>
+                        <strong>¿Qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaste?</strong><br/>
                         <% if value.is_a?(Array) %>
                           <% value.each do |v| %>
                             <li><%= v %></li>
@@ -113,8 +101,8 @@
                       <% end %></p>
                     <% end %>
                     <p><% eval(quiz.q3).each do |key, value| %>
-                      <% if ['q8'].include?(key) %>
-                        <strong>¿Cómo pueden los niños, niñas y adolescentes colaborar con el seguimiento al cumplimiento del Plan Nacional de Derechos Humanos?</strong><br/>
+                      <% if ['q9'].include?(key) %>
+                        <strong>¿Cómo podrían los niños, niñas y adolescentes ayudar a monitorear que las autoridades cumplan con sus compromisos de derechos humanos?</strong><br/>
                         <% if value.is_a?(Array) %>
                           <% value.each do |v| %>
                             <li><%= v %></li>

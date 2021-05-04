@@ -50,7 +50,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def check_username
     if User.find_by username: params[:username]
-      render json: { available: false, message: t("devise_views.users.registrations.new.username_is_not_available") }
+      suggested_username = suggest_username(params[:username])
+      render json: { available: false, message: "Ese nombre ya está registrado, te recomendamos usar:\n #{suggested_username}" }
+    end
+  end
+
+  def suggest_username(username, count = nil)
+    @user_count = count ? count : 1
+    if User.where(username: username).exists?
+      suggest_username("#{username}#{@user_count}", @user_count + 1)
+    else
+      return username
     end
   end
 

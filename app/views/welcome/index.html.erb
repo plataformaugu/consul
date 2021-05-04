@@ -19,10 +19,7 @@
     <div class="row flexbox">
       <div class="proceso-card">
         <div class="card-section">
-          <img
-            class="process-card-image"
-            src="https://www.meetingsnet.com/sites/meetingsnet.com/files/styles/article_featured_retina/public/collaborate_puzzle.jpg"\
-          >
+          <%= image_tag('participacion-individual.jpg') %>
         </div>
         <div class="card-section text-center">
           <h4>Participar individualmente</h4>
@@ -34,10 +31,7 @@
       <% if Group.where(user_id: current_user.id).exists? %>
         <div class="proceso-card">
           <div class="card-section">
-            <img
-              class="process-card-image"
-              src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-            >
+            <%= image_tag('participacion-grupal.jpg') %>
           </div>
           <div class="card-section text-center">
             <h4>Participar grupalmente</h4>
@@ -56,10 +50,7 @@
         <%= link_to 'groups/new' do %>
               <div class="proceso-card disabled">
                 <div class="card-section">
-                  <img
-                    class="process-card-image"
-                    src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-                  >
+                  <%= image_tag('participacion-grupal.jpg') %>
                 </div>
                 <div class="card-section text-center">
                   <h4>Participar grupalmente</h4>
@@ -71,10 +62,7 @@
     <% else %>
       <div class="proceso-card">
         <div class="card-section">
-          <img
-            class="process-card-image"
-            src="https://www.coe.int/documents/9219724/14989924/participation.jpg/756b1497-3d6b-476e-96d5-d8b41cd62985?t=1456913070000"\
-          >
+          <%= image_tag('participacion-grupal.jpg') %>
         </div>
         <div class="card-section text-center">
           <h4>Participar grupalmente</h4>
@@ -114,13 +102,13 @@
                   <div class="small-12 medium-4 column">
                     <div class="proposal">
                       <h5>Ideas de solución</h5>
-                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q2)['q7'] or 'Sin respuesta' %></p>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q2)['q8'] or 'Sin respuesta' %></p>
                     </div>
                   </div>
                   <div class="small-12 medium-4 column">
                     <div class="proposal">
                       <h5>Monitoreo</h5>
-                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q3)['q8'] or 'Sin respuesta' %></p>
+                      <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><%= eval(quiz.q3)['q9'] or 'Sin respuesta' %></p>
                     </div>
                   </div>
                 </div>
@@ -128,7 +116,7 @@
               <% end %>
             </div>
             <br/>
-            <%= link_to 'Ver todas', proposals_path(:order => 'new') %>
+            <i class="fas fa-list-ul"></i> <strong><%= link_to 'Ver todas', proposals_path(:order => 'new') %></strong>
           <% end %>
         </div>
     </section>
