@@ -474,7 +474,7 @@ aside {
         font-size: 18px;
     }
 
-    @media (max-width: 640px) { 
+    @media (max-width: 1080px) { 
         position: relative;
         top: 0;
 
@@ -607,4 +607,14 @@ small, p, span, label, input, textarea {
 
 .help-text {
     font-style: normal;
+}
+
+.custom-jumbo {
+    @media (min-width: 641px) {
+        height: 500px;
+    }
+
+    @media (min-width: 1086px) {
+        height: 400px;
+    }
 }
