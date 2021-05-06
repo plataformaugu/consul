@@ -60,7 +60,7 @@
               <% css_class = { class: "is-active" } if params[:search] == category.name %>
               <%= link_to chapters_proposals_path(search: category.name), css_class || {} do %>
               <li class="inline-block chapter-small <%= 'is-active' if params[:search] == category.name %>">
-                <%= image_tag("temas/#{index + 1}", class: 'theme-image') %>
+                <%= image_tag("temas/#{index + 1}.png", class: 'theme-image') %>
                 <%= category.name %>
               </li>
               <% end %>
@@ -117,7 +117,7 @@
                     <h4 style="overflow: hidden; word-wrap: break-word;"><%= quiz.name || '(Sin título)' %></h4>
                     <strong>Tema</strong>
                     <% if quiz.tag %>
-                      <p><%= image_tag("temas/2", style: 'width: 20px;') %> <%= quiz.tag %></p>
+                      <p><%= image_tag("temas/2.png", style: 'width: 20px;') %> <%= quiz.tag %></p>
                     <% else %>
                       <p>Sin tema</p>
                     <% end %>
