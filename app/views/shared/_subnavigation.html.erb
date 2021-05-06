@@ -2,19 +2,40 @@
   <ul>
     <%= raw content_block("subnavigation_left", I18n.locale) %>
 
-    <% if feature?(:help_page) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.help"),
-                                help_path,
-                                current_page?(help_path),
-                                accesskey: "7" %>
-      </li>
-    <% end %>
+    <li>
+      <%= layout_menu_link_to 'Diagnósticos',
+                              chapters_proposals_path,
+                              current_page?(chapters_proposals_path),
+                              accesskey: "1" %>
+    </li>
+
+    <li>
+      <%= layout_menu_link_to 'Sugerencias',
+                              proposals_path,
+                              current_page?(proposals_path),
+                              accesskey: "2" %>
+    </li>
+
+    <li>
+      <%= layout_menu_link_to 'Monitoreo',
+                              monitoring_quizzes_path,
+                              current_page?(monitoring_quizzes_path),
+                              accesskey: "3" %>
+    </li>
+
+    <li>
+      <%= layout_menu_link_to 'Cómo participar',
+                              'https://www.tuopinioncuenta.gob.cl/como-participo',
+                              current_page?(''),
+                              target: '_blank',
+                              accesskey: "3" %>
+    </li>
+
       <li>
         <%= layout_menu_link_to 'Accesibilidad',
                                 '/accesibilidad',
                                 current_page?('accesibilidad'),
-                                accesskey: "7" %>
+                                accesskey: "5" %>
       </li>
     <%= raw content_block("subnavigation_right", I18n.locale) %>
   </ul>

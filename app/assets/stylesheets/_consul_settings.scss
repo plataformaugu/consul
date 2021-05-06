@@ -10,13 +10,13 @@
 // 1. CONSUL variables
 // --------------------
 
-$base-font-size:      17px;
+$base-font-size:      16px;
 $base-line:           rem-calc(26);
 $small-font-size:     rem-calc(14);
 $line-height:         rem-calc(24);
 $tiny-font-size:      rem-calc(12);
 
-$brand:             #004a83;
+$brand:             #36bf9b;
 $dark:              darken($brand, 10%);
 
 $text:              #222;
@@ -36,13 +36,13 @@ $unlike:            #ef8585;
 $delete:            #f04124;
 $check:             #46db91;
 
-$proposals:         #ffa42d;
+$proposals:         #ddd466;
 $proposals-dark:    #794500;
 
 $budget:            #7e328a;
 $budget-hover:      #7571bf;
 
-$highlight:         #e7f2fc;
+$highlight:         #60b0c620;
 $highlight-soft:    #f3f8fd;
 $light:             #f5f7fa;
 $featured:          #ffdc5c;
@@ -104,7 +104,8 @@ $sdg-colors: (
 $black: #222;
 $white: #fdfdfd;
 
-$body-font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif !important;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+$body-font-family: "Poppins", "Helvetica", "Arial", sans-serif !important;
 
 $header-font-family: $body-font-family;
 

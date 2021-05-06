@@ -36,7 +36,7 @@ a {
 .mobile-view {
     .mobile-menu {
         a {
-            color: #fff;
+            color: #333;
         }
 
         hr {
@@ -177,7 +177,13 @@ aside {
             background: none;
 
             a {
-                color: #fff;
+                color: #333;
+                text-decoration: none;
+                transition: all 0.2s ease-in;
+
+                &:hover {
+                    color: #60b0c6;
+                }
             }
         }
 
@@ -212,25 +218,26 @@ aside {
 
     .btn-registrar {
         border-radius: 25px;
-        background: #fff;
+        background: #36bf9b !important;
+        color: #FFF !important;
     }
 
     @media (min-width: 640px) {
         .btn-registrar:hover {
-            background: #ffffffCC !important;
+            background: lighten(#36bf9b, 20%) !important;
             transition: background 0.2s linear; 
         }
     }
 
     .btn-perfil {
         border-radius: 20px 20px 20px 20px;
-        background: #fff !important;
+        background: #36bf9b !important;
         color: #252525 !important;
         padding: 8px 30px 8px 8px !important;
         transition-duration: 0.2s;
       
         &:hover {
-            background: #ffffffCC !important;
+            background: #36bf9b !important;
             text-decoration: none;
         }
       
@@ -247,7 +254,7 @@ aside {
             content: '';
             border-bottom-width: 0;
             border-top-style: solid;
-            border-color: $brand transparent transparent;
+            border-color: #FFF transparent transparent;
             right: 10px;
             left: auto;
             margin-top: -3px;
@@ -297,9 +304,8 @@ aside {
     }
 
     background: #252525;
-    margin-top: $line-height * 2;
     padding-top: $line-height * 2;
-    border-top: 6px solid $brand;
+    border-top: 6px solid rgba(224,112,179,1);
     min-height: auto !important;
 
     ul {
@@ -320,19 +326,21 @@ aside {
 // Chapters
 
 .chapter-small {
-    background-color: inherit;
     color: inherit;
     border-radius: 15px;
     padding: 3px 12px;
     margin: 2px;
+    display: flex;
+    flex-direction: row; 
+    justify-content: left; 
+    align-items: start;
 
     a {
         margin-bottom: 0 !important;
     }
 
-    i {
+    img {
         margin-right: 10px;
-        font-size: 15px;
     }
 }
 
@@ -340,13 +348,11 @@ aside {
     a {
         &:active {
             color: #FFF;
-            background-color: #004a83;
         }
     }
 
     .is-active {
         color: #FFF;
-        background-color: #004a83;
     }
 }
 
@@ -357,7 +363,7 @@ aside {
 }
 
 .proceso-card {
-    background: white;
+    background: #e8eae9;
     border-radius: 15px;
     margin: 10px;
     box-sizing: border-box;
@@ -367,7 +373,6 @@ aside {
     height: 100%;
 
     &:hover {
-        background-color: rgba($brand, .05);
         box-shadow: 10px 10px 24px -15px rgba(0,0,0,0.50);
     }
 }
@@ -431,10 +436,8 @@ aside {
 
 .jumbo-image {
     width: 100vw;
-    height: 50vh;
     object-fit: cover;
     object-position: bottom;
-    opacity: 0.4;
 }
 
 .jumbo-content {
@@ -444,10 +447,45 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: calc(120px + 15vh);
+    top: calc(120px + 10vh);
     left: 0;
-    text-align: center;
     width: 100%;
+
+
+
+    h1 {
+        width: 30%;
+        text-align: center;
+        font-size: 30px;
+        font-family: 'Poppins';
+        color: rgb(10, 10, 10);
+        letter-spacing: -1.5px;
+
+        @media (max-width) {
+            font-size: 21px;
+        }
+    }
+
+    p {
+        text-align: center;
+        width: 40%;
+        color: #333;
+        font-family: 'Montserrat';
+        font-size: 18px;
+    }
+
+    @media (max-width: 640px) { 
+        position: relative;
+        top: 0;
+
+        h1 {
+            width: 90%;
+        }
+
+        p {
+            width: 90%;
+        }
+    }
 }
 
 .rounded-button {
@@ -471,8 +509,102 @@ aside {
         width: 30%;
         box-sizing: border-box;
     }
+
+    @media (max-width: 640px) {
+        display: block;
+
+        a {
+            width: 100%;
+        }
+    }
 }
 
 .custom-radio {
     margin: 0;
+}
+
+.pre-footer-img {
+    text-align: center;
+    width: 100%;
+
+    & img {
+        width: 60%;
+
+        @media (max-width: 640px) {
+            width: 90%;
+        }
+    }
+}
+
+small, p, span, label, input, textarea {
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+    font-family: 'Montserrat';
+} 
+
+.logo-image {
+    max-width: 230px;
+}
+
+.proceso-main {
+    padding-bottom: 60px;
+
+    a {
+        text-decoration: none !important;
+    }
+}
+
+.proceso-1 {
+    color: #333;
+
+    &:hover {
+        color: darken(#66bec2, 40%);
+    }
+}
+
+.proceso-2 {
+    color: #333;
+
+    &:hover {
+        color: darken(#e1dd82, 40%);
+    }
+}
+
+.proceso-3 {
+    color: #333;
+    transition: all 0.2s ease-in;
+
+    &:hover {
+        color: darken(#52c1a1, 40%);
+    }
+}
+
+.theme-image {
+    max-width: 20px;
+}
+
+.chapter-small {
+    color: #333;
+}
+
+.dark {
+    color: #333 !important;
+}
+
+#mi-perfil {
+    font-weight: bold; 
+    font-size: 16px; 
+    font-family: 'Poppins';
+
+    @media (max-width: 640px) {
+        font-weight: normal; 
+
+        a {
+            color: #333 !important;
+            padding: 0.7rem 1rem;
+        }
+    }
+}
+
+.help-text {
+    font-style: normal;
 }

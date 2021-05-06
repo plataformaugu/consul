@@ -22,19 +22,6 @@
     ) %>
   </li>
 
-  <li>
-    <a href="#" class="moderated-content-link"><%= t("admin.menu.title_moderated_content") %></a>
-    <%= link_list(
-      (hidden_proposals_link if feature?(:proposals)),
-      (hidden_debates_link if feature?(:debates)),
-      (hidden_budget_investments_link if feature?(:budgets)),
-      hidden_comments_link,
-      hidden_proposal_notifications_link,
-      hidden_users_link,
-      activity_link,
-      class: ("is-active" if moderated_content?)
-    ) %>
-  </li>
 
   <li>
     <a href="#" class="profiles-link"><%= t("admin.menu.title_profiles") %></a>

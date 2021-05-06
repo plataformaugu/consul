@@ -489,9 +489,10 @@ a {
 
 body > header,
 .wrapper > header {
-  background: $brand;
+  background: #FFF;
   border-bottom: 1px solid $border;
   margin-bottom: $line-height;
+  color: #333333;
 
   @include breakpoint(small down) {
     position: relative;
@@ -602,7 +603,7 @@ body > header,
     }
 
     a {
-      color: #fff;
+      color: #36bf9b;
       padding-left: 0;
 
       @include breakpoint(medium) {
@@ -673,8 +674,8 @@ body > header,
 
     &:hover::after,
     &::after {
-      background: #fff;
-      box-shadow: 0 7px 0 #fff, 0 14px 0 #fff;
+      background: #333;
+      box-shadow: 0 7px 0 #333, 0 14px 0 #333;
     }
   }
 }
@@ -755,7 +756,7 @@ body > header,
   }
 
   a {
-    color: #fff;
+    color: #333;
     display: inline-block;
     line-height: $line-height * 2;
     position: relative;
@@ -769,12 +770,12 @@ body > header,
       width: auto;
 
       &:hover {
-        color: $link;
+        color: $brand;
       }
     }
 
     &.is-active {
-      color: #fff;
+      font-weight: bold;
 
       @include breakpoint(medium) {
         border-bottom: 2px solid $brand;
@@ -913,7 +914,6 @@ footer {
 .footer {
   background: #f1f1f1;
   clear: both;
-  margin-top: $line-height * 2;
   min-height: $line-height * 12;
   padding-top: $line-height;
 }
@@ -974,7 +974,7 @@ footer {
 }
 
 .auth-image {
-  background: $brand image-url("auth_bg.jpg");
+  background: #60b0c640;
   background-repeat: no-repeat;
   background-size: cover;
 
