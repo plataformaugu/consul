@@ -8,23 +8,6 @@
       <% if current_user.administrator? %>
           <%= link_to t("layouts.header.administration"), admin_root_path %>
       <% end %>
-
-      <% if current_user.administrator? || current_user.moderator? %>
-          <%= link_to t("layouts.header.moderation"), moderation_root_path %>
-      <% end %>
-
-      <% if feature?(:budgets) &&
-            (current_user.administrator? || current_user.valuator?) %>
-          <%= link_to t("layouts.header.valuation"), valuation_root_path %>
-      <% end %>
-
-      <% if current_user.administrator? || current_user.manager? %>
-          <%= link_to t("layouts.header.management"), management_sign_in_path %>
-      <% end %>
-
-      <% if current_user.poll_officer? && Poll.current.any? %>
-          <%= link_to t("layouts.header.officing"), officing_root_path %>
-      <% end %>
       <hr>
       <%= layout_menu_link_to 'Grupos',
                               groups_path,
@@ -32,12 +15,6 @@
                               rel: "nofollow",
                               title: t("shared.go_to_page") +
                                     t("layouts.header.my_account_link") %>
-      <%= layout_menu_link_to t("layouts.header.my_account_link"),
-                              account_path,
-                              controller_name == "account",
-                              rel: "nofollow",
-                              title: t("shared.go_to_page") +
-                                     t("layouts.header.my_account_link") %>
       <%= link_to t("devise_views.menu.login_items.logout"),
                 destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
     </div>
@@ -48,23 +25,6 @@
     <% if current_user.administrator? %>
         <%= link_to t("layouts.header.administration"), admin_root_path %>
     <% end %>
-
-    <% if current_user.administrator? || current_user.moderator? %>
-        <%= link_to t("layouts.header.moderation"), moderation_root_path %>
-    <% end %>
-
-    <% if feature?(:budgets) &&
-          (current_user.administrator? || current_user.valuator?) %>
-        <%= link_to t("layouts.header.valuation"), valuation_root_path %>
-    <% end %>
-
-    <% if current_user.administrator? || current_user.manager? %>
-        <%= link_to t("layouts.header.management"), management_sign_in_path %>
-    <% end %>
-
-    <% if current_user.poll_officer? && Poll.current.any? %>
-        <%= link_to t("layouts.header.officing"), officing_root_path %>
-    <% end %>
     <hr>
     <%= layout_menu_link_to 'Grupos',
                             groups_path,
@@ -72,18 +32,6 @@
                             rel: "nofollow",
                             title: t("shared.go_to_page") +
                                   t("layouts.header.my_account_link") %>
-    <%= layout_menu_link_to t("layouts.header.my_account_link"),
-                            account_path,
-                            controller_name == "account",
-                            rel: "nofollow",
-                            title: t("shared.go_to_page") +
-                                    t("layouts.header.my_account_link") %>
-    <%= layout_menu_link_to t("layouts.header.my_activity_link"),
-                            user_path(current_user),
-                            controller_name == "users",
-                            rel: "nofollow",
-                            title: t("shared.go_to_page") +
-                                    t("layouts.header.my_activity_link") %>
     <%= link_to t("devise_views.menu.login_items.logout"),
               destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
   </div>

@@ -12,7 +12,7 @@
 
       <h1 class="top-bar-title desktop-view">
         <%= link_to root_path, accesskey: "0" do %>
-          <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: setting["org_name"]) %>
+          <%= image_tag(image_path_for("logo_header.png"), class: "float-left logo-image", alt: setting["org_name"]) %>
         <% end %>
       </h1>
 
@@ -38,10 +38,6 @@
         <div class="show-for-small-only">
           <div class="subnavigation row">
             <%= render "shared/subnavigation" %>
-            <div class="small-12 column">
-              <%= render "shared/top_links" %>
-            </div>
-            <hr>
           </div>
         </div>
         <div class="top-bar-right">

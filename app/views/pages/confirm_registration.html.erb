@@ -1,13 +1,13 @@
-<% unless current_user %>
-    <% if CustomTracking.where(page: request.fullpath).exists? %>
-        <% @custom_tracking = CustomTracking.where(page: request.fullpath).first %>
-        <% @custom_tracking.count += 1 %>
-        <% @custom_tracking.save %>
-    <% else %>
-        <% @custom_tracking = CustomTracking.create(page: request.fullpath, count: 1) %>
-    <% end %>
-    <main>
-        <div class="row">
+<% if CustomTracking.where(page: request.fullpath).exists? %>
+    <% @custom_tracking = CustomTracking.where(page: request.fullpath).first %>
+    <% @custom_tracking.count += 1 %>
+    <% @custom_tracking.save %>
+<% else %>
+    <% @custom_tracking = CustomTracking.create(page: request.fullpath, count: 1) %>
+<% end %>
+<main>
+    <div class="row">
+        <div class="small-12 column">
             <h1>
                 <i class="fas fa-info-circle"></i> Su participación es voluntaria e informada
             </h1><br/><br/>
@@ -33,7 +33,5 @@
             <%= link_to "Quiero participar", '/confirm_registration_2', class: 'button' %>
             <%= link_to "No quiero participar", root_url, class: 'button' %>
         </div>
-    </main>
-<% else %>
-    <% controller.redirect_to root_path %>
-<% end %>
+    </div>
+</main>

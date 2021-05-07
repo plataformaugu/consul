@@ -36,7 +36,7 @@ a {
 .mobile-view {
     .mobile-menu {
         a {
-            color: #fff;
+            color: #333;
         }
 
         hr {
@@ -217,26 +217,34 @@ aside {
     }
 
     .btn-registrar {
-        border-radius: 25px;
-        background: #fff;
+        @media (max-width: 810px) {
+            background: inherit;
+            color: #36bf9b;
+        }
+
+        @media (min-width: 811px) {
+            border-radius: 25px;
+            background: #36bf9b !important;
+            color: #FFF !important;
+        }
     }
 
     @media (min-width: 640px) {
         .btn-registrar:hover {
-            background: #ffffffCC !important;
+            background: lighten(#36bf9b, 20%) !important;
             transition: background 0.2s linear; 
         }
     }
 
     .btn-perfil {
         border-radius: 20px 20px 20px 20px;
-        background: #33333330 !important;
+        background: #36bf9b !important;
         color: #252525 !important;
         padding: 8px 30px 8px 8px !important;
         transition-duration: 0.2s;
       
         &:hover {
-            background: #33333330 !important;
+            background: #36bf9b !important;
             text-decoration: none;
         }
       
@@ -265,6 +273,10 @@ aside {
       
     .btn-negrita {
         font-weight: bold;
+
+        @media (max-width: 810px) {
+            padding-left: 1rem !important;
+        }
     }
 
     .perfil-dropdown {
@@ -438,10 +450,8 @@ aside {
 
 .jumbo-image {
     width: 100vw;
-    height: 50vh;
     object-fit: cover;
     object-position: bottom;
-    opacity: 0.4;
 }
 
 .jumbo-content {
@@ -451,10 +461,43 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: calc(120px + 15vh);
+    top: calc(120px + 10vh);
     left: 0;
-    text-align: center;
     width: 100%;
+
+    h1 {
+        width: 30%;
+        text-align: center;
+        font-size: 30px;
+        font-family: 'Poppins';
+        color: rgb(10, 10, 10);
+        letter-spacing: -1.5px;
+
+        @media (max-width) {
+            font-size: 21px;
+        }
+    }
+
+    p {
+        text-align: center;
+        width: 40%;
+        color: #333;
+        font-family: 'Montserrat';
+        font-size: 18px;
+    }
+
+    @media (max-width: 640px) { 
+        position: relative;
+        top: 0;
+
+        h1 {
+            width: 90%;
+        }
+
+        p {
+            width: 90%;
+        }
+    }
 }
 
 .rounded-button {
@@ -487,8 +530,7 @@ small, p, span, label, input, textarea {
 }
 
 .pre-footer-img {
-    display: flex;
-    justify-content: center;
+    text-align: center;
     width: 100%;
 
     & img {
@@ -498,5 +540,49 @@ small, p, span, label, input, textarea {
             width: 90%;
         }
     }
+}
 
+.help-text {
+    font-style: normal !important;
+}
+
+.proceso-main {
+    padding-bottom: 60px;
+
+    a {
+        text-decoration: none !important;
+    }
+}
+
+.dark {
+    color: #333 !important;
+}
+
+#mi-perfil {
+    font-weight: bold; 
+    font-size: 16px; 
+    font-family: 'Poppins';
+
+    @media (max-width: 640px) {
+        font-weight: normal; 
+
+        a {
+            color: #333 !important;
+            padding: 0.7rem 1rem;
+        }
+    }
+}
+
+input + label {
+    font-weight: normal !important;
+}
+
+.logo-image {
+    max-width: 230px;
+}
+
+#responsive-menu {
+    @media (max-width: 810px) {
+        width: 100% !important;
+    }
 }

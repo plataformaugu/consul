@@ -1,6 +1,6 @@
-<% unless current_user %>
-    <main>
-        <div class="row">
+<main>
+    <div class="row">
+        <div class="small-12 column">
             <h1>
                 <i class="fas fa-check"></i> Has entregado tu Asentimiento Informado
             </h1><br/><br/>
@@ -9,7 +9,5 @@
             </p><br/><br/>
             <%= link_to "Ir a la plataforma participativa", root_url, class: 'button' %>
         </div>
-    </main>
-<% else %>
-    <% controller.redirect_to root_path %>
-<% end %>
+    </div>
+</main>

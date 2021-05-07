@@ -2,7 +2,7 @@
 <% content_for :header_addon do %>
 <% end %>
 
-<% @quizzes = Quiz.where(visible: true).where.not(name: 'TMP') %>
+<% @quizzes = Quiz.where(visible: true).where(is_active: true).where.not(name: 'TMP') %>
 
 <% if params[:order].present? %>
   <% if params[:order] == 'new' %>
@@ -32,7 +32,7 @@
     </div>
     <div class="row">
       <div class="small-12 medium-9 column end">
-        <p>Esto es una descripción sobre el proceso participativo.</p>
+        <p>Te invitamos a ver y apoyar los aportes realizados por otros niños, niñas y adolescentes al Segundo Plan Nacional de Derechos Humanos.</p>
       </div>
     </div>
     <div class="row">
@@ -66,9 +66,9 @@
                     <%= quiz.created_at.to_date %><br/><br/>
                     <strong>Tipo</strong><br/>
                     <% if quiz.group_id.nil? %>
-                      <i class="fas fa-user" style="color: #60b0c6;"></i> Individual
+                      <i class="fas fa-user" style="color: #378370;"></i> Individual
                     <% else %>
-                      <i class="fas fa-users" style="color: #60b0c6;"></i> Grupal
+                      <i class="fas fa-users" style="color: #378370;"></i> Grupal
                     <% end %>
                   </div>
                   <div class="small-12 medium-6 column supports-container">

@@ -89,7 +89,11 @@
       <span class="help-text">No es sencillo identificar un problema, así que puedes editar esta respuesta las veces que quieras.</span>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q3', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q3', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/><br/>
     </div>
 
@@ -97,7 +101,11 @@
       <label for="q4">4. ¿Cuál o cuáles crees que son las causas de ese problema?</label>
       <small class="help-text">Los problemas tienen múltiples causas. Escribe las que identifiques.</small><br/>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q4', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q4', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/><br/>
     </div>
 
@@ -105,7 +113,11 @@
       <label for="q5">5. ¿Qué efectos tiene en las personas?</label>
       <p>Este problema provoca:</p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q5', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q5', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/><br/>
     </div>
 
@@ -134,7 +146,11 @@
       <br/><br/>
     </div>
 
-    <% @current_quiz = Quiz.create(name: 'TMP', user_id: current_user.id, visible: false) %>
+    <% if params[:quiz_id].present? %>
+      <% @current_quiz = Quiz.find(params[:quiz_id].to_i) %>
+    <% else %>
+      <% @current_quiz = Quiz.create(name: 'TMP', user_id: current_user.id, visible: false) %>
+    <% end %>
 
     <input type="hidden" id="quiz_id" name="quiz_id" value="<%= @current_quiz.id %>">
     <input type="hidden" id="step" name="step" value="1">

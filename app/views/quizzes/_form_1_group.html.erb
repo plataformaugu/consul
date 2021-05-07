@@ -79,7 +79,11 @@
       <label for="q3">3. En aquel tema en que se respetan menos los derechos humanos<span id="custom-option" display="none"></span>, ¿En qué nota el grupo que no se respetan y qué problema identifican? </label>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q3', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q3', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q3', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/>
     </div>
 
@@ -87,7 +91,11 @@
       <label for="q4">4. ¿Cuál o cuáles creen que son las <u>causas</u> de ese problema?</label>
       <p>Este problema se produce por:</p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q4', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q4', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q4', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/>
     </div>
 
@@ -95,7 +103,11 @@
       <label for="q5">5. ¿Qué efectos tiene en las personas?</label>
       <p>Este problema provoca:</p>
       <small>(Limite: 1000 caracteres)</small>
-      <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
+      <% if params[:quiz_id].present? %>
+        <%= text_area_tag 'q5', Quiz.find(params[:quiz_id]).q1.nil? ? '' : eval(Quiz.find(params[:quiz_id]).q1).fetch('q5', ''), rows: 4, maxlength: 1000 %>
+      <% else %>
+        <%= text_area_tag 'q5', nil, rows: 4, maxlength: 1000 %>
+      <% end %>
       <br/><br/>
     </div>
 

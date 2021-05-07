@@ -22,8 +22,10 @@ class QuizzesController < ApplicationController
       end
     else
       if params['step'].to_i == 1
-        if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
-          Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+        unless params[:quiz_id].present?
+          if Quiz.where(user_id: current_user.id, name: 'TMP').exists?
+            Quiz.where(user_id: current_user.id, name: 'TMP').destroy_all
+          end
         end
       end
     end
@@ -107,6 +109,21 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def go_prev_quiz
+    @quiz = Quiz.find(params[:quiz_id].to_i)
+    @progress = params[:progress].to_i
+
+    if [1, 2, 3, 4].include?(@progress)
+      if @quiz.group_id.nil?
+        redirect_to new_quiz_path(step: (@progress - 1).to_s, quiz_id: @quiz.id)
+      else
+        redirect_to new_quiz_path(step: (@progress - 1).to_s, quiz_id: @quiz.id, group: @quiz.group_id)
+      end
+    else
+      redirect_to root_path
+    end
+  end
+
   # DELETE /quizzes/1
   def destroy
     @quiz.destroy
@@ -142,7 +159,7 @@ class QuizzesController < ApplicationController
 
     Mailer.removed_content(@quiz.user.email, 'participación').deliver_later
 
-    @quiz.visible = false
+    @quiz.is_active = false
     @quiz.save
   end
 
