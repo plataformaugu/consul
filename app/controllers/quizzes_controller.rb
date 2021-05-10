@@ -42,7 +42,7 @@ class QuizzesController < ApplicationController
         else
           if Tag.category.where(id: params[:chapter].to_i).exists?
             @chapter = Tag.category.find(params[:chapter].to_i)
-            @title = 'Diagnósticos de acción por tema'
+            @title = 'Diagnósticos por tema'
             @options = get_options_by_chapter(@chapter.name)
           else
             redirect_to root_path
@@ -120,8 +120,8 @@ class QuizzesController < ApplicationController
       @quiz = Quiz.new(new_params)
 
       if @quiz.save
-        @title_text = 'Monitoreo enviado correctamente'
-        @send_text = 'Enviar otro monitoreo'
+        @title_text = 'Sugerencia de monitoreo enviada correctamente'
+        @send_text = 'Enviar otra sugerencia de monitoreo'
         @send_path = monitoring_quizzes_path
         @chapter = nil
         @type = new_params['quiz_type']
@@ -133,8 +133,8 @@ class QuizzesController < ApplicationController
       @quiz = Quiz.new(new_params)
 
       if @quiz.save
-        @title_text = 'Sugerencia enviada correctamente'
-        @send_text = 'Enviar otra sugerencia'
+        @title_text = 'Sugerencia de acción enviada correctamente'
+        @send_text = 'Enviar otra sugerencia de acción'
         @send_path = proposals_path
         @chapter = new_params['tag_id']
         @type = new_params['quiz_type']
@@ -201,7 +201,6 @@ class QuizzesController < ApplicationController
 
     Mailer.removed_content(@quiz.user.email, 'participación').deliver_later
 
-    @quiz.visible = false
     @quiz.is_active = false
     @quiz.save
   end

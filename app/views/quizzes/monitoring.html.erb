@@ -2,7 +2,7 @@
 <% content_for :header_addon do %>
 <% end %>
 
-<% @quizzes = Quiz.where(quiz_type: 2, visible: true) %>
+<% @quizzes = Quiz.where(quiz_type: 2, visible: true, is_active: true) %>
 
 <% if params[:order].present? %>
   <% if params[:order] == 'new' %>
@@ -48,16 +48,19 @@
             <%= link_to 'Ingresa tu propuesta',
               new_quiz_path(type: 2),
               class: "button expanded",
+              style: "background-color: #60b0c6; !important",
               disabled: !current_user %>
+            <small>Llevas <%= Quiz.where(quiz_type: 2, user_id: current_user.id).count %> de 6 monitoreos</small>
           <% else %>
-            <button disabled class="button expanded">Alcanzaste el límite</button>
+            <button style="background-color: #60b0c6; !important" disabled class="button expanded">Alcanzaste el límite</button>
+            <small>Llevas <%= Quiz.where(quiz_type: 2, user_id: current_user.id).count %> de 6 monitoreos</small>
           <% end %>
         <% else %>
         <div class="show-only-users">
           <div class="message">
               Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
             </div>
-            <button class="button expanded">Ingresa tu propuesta</button>
+            <button style="background-color: #60b0c6; !important" class="button expanded">Ingresa tu propuesta</button>
           </div>
         <% end %>
       </div>
@@ -111,7 +114,7 @@
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: 'doVote(this);',
+                                onclick: "doVote(this, #{quiz.id});",
                                 disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
@@ -148,7 +151,7 @@
                                 description: 'Participaciones individuales y grupales de plataforma de Derechos Humanos',
                                 mobile: 'Participa con nosotros en:' %>
                           <% else %>
-                            <div id="social-share-item" style="display: none;">
+                            <div id="social-share-item-<%= quiz.id %>" style="display: none;">
                               <%= render "shared/social_share",
                                 share_title: 'Compartir',
                                 title: 'Participa con nosotros en:',
@@ -176,16 +179,19 @@
             <%= link_to 'Ingresa tu propuesta',
               new_quiz_path(type: 2),
               class: "button expanded",
+              style: "background-color: #60b0c6; !important",
               disabled: !current_user %>
+            <small>Llevas <%= Quiz.where(quiz_type: 2, user_id: current_user.id).count %> de 6 monitoreos</small>
           <% else %>
-            <button disabled class="button expanded">Alcanzaste el límite</button>
+            <button style="background-color: #60b0c6; !important" disabled class="button expanded">Alcanzaste el límite</button>
+            <small>Llevas <%= Quiz.where(quiz_type: 2, user_id: current_user.id).count %> de 6 monitoreos</small>
           <% end %>
         <% else %>
         <div class="show-only-users">
           <div class="message">
               Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
             </div>
-            <button class="button expanded">Ingresa tu propuesta</button>
+            <button style="background-color: #60b0c6; !important" class="button expanded">Ingresa tu propuesta</button>
           </div>
         <% end %>
       </aside>
@@ -228,12 +234,12 @@
 </main>
 
 <script>
-function doVote(e) {
+function doVote(e, id) {
   if (!e.getAttribute('disabled')) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
-    $('#social-share-item').css("display", "block");
+    $('#social-share-item-' + id).css("display", "block");
   }
 }
 

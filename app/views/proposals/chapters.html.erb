@@ -2,7 +2,7 @@
 <% content_for :header_addon do %>
 <% end %>
 
-<% @quizzes = Quiz.where(quiz_type: 1, visible: true) %>
+<% @quizzes = Quiz.where(quiz_type: 1, visible: true, is_active: true) %>
 
 <% if params[:search].present? %>
   <% @tag = Tag.category.where(name: params[:search]).first %>
@@ -37,7 +37,7 @@
     <div class="row">
       <div class="small-12 column">
         <%= image_tag "help/help_icon_polls.png", alt: t("poll.icon_alt"), class: "align-sub" %>
-        <h1 class="inline-block">Diagnósticos de acción por tema</h1>
+        <h1 class="inline-block">Diagnósticos por tema</h1>
       </div>
     </div>
     <div class="row">
@@ -75,21 +75,25 @@
                 <% if Quiz.where(quiz_type: 1, user_id: current_user.id).count < 6 %>
                   <%= link_to 'Crear tu diagnóstico',
                       new_quiz_path(chapter: Tag.category.where({name: params[:search]}).first.id, type: 1),
-                      class: "button expanded" %>
+                      class: "button expanded",
+                      style: "background-color: #60b0c6; !important" %>
                 <% else %>
-                  <button disabled class="button expanded">Alcanzaste el límite</button>
+                  <button style="background-color: #60b0c6; !important" disabled class="button expanded">Alcanzaste el límite</button>
                 <% end %>
               <% else %>
               <div class="show-only-users">
                 <div class="message">
                     Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
                   </div>
-                  <button class="button expanded">Crear tu diagnóstico</button>
+                  <button style="background-color: #60b0c6; !important" class="button expanded">Crear tu diagnóstico</button>
                 </div>
               <% end %>
             <% else %>
-              <button disabled class="button expanded">Crear tu diagnóstico</button>
-              <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un capítulo.</small>
+              <button style="background-color: #60b0c6; !important" disabled class="button expanded">Crear tu diagnóstico</button>
+              <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un tema.</small><br/>
+            <% end %>
+            <% if current_user %>
+              <small>Llevas <%= Quiz.where(quiz_type: 1, user_id: current_user.id).count %> de 6 diagnósticos</small>
             <% end %>
           </aside>
         </div>
@@ -151,7 +155,7 @@
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: 'doVote(this);',
+                                onclick: "doVote(this, #{quiz.id});",
                                 disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
@@ -188,7 +192,7 @@
                                 description: 'Participaciones individuales y grupales de plataforma de Derechos Humanos',
                                 mobile: 'Participa con nosotros en:' %>
                           <% else %>
-                            <div id="social-share-item" style="display: none;">
+                            <div id="social-share-item-<%= quiz.id %>" style="display: none;">
                               <%= render "shared/social_share",
                                 share_title: 'Compartir',
                                 title: 'Participa con nosotros en:',
@@ -249,12 +253,12 @@
 </main>
 
 <script>
-function doVote(e) {
+function doVote(e, id) {
   if (!e.getAttribute('disabled')) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
-    $('#social-share-item').css("display", "block");
+    $('#social-share-item-' + id).css("display", "block");
   }
 }
 

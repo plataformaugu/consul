@@ -217,9 +217,13 @@ aside {
     }
 
     .btn-registrar {
-        border-radius: 25px;
-        background: #36bf9b !important;
-        color: #FFF !important;
+        color: #36bf9b !important;
+
+        @media (min-width: 800px) {
+            border-radius: 25px;
+            background: #36bf9b !important;
+            color: #FFF !important;
+        }
     }
 
     @media (min-width: 640px) {
@@ -265,6 +269,10 @@ aside {
     }
       
     .btn-negrita {
+        @media (max-width: 800px) {
+            padding-left: 1rem !important;
+        }
+
         font-weight: bold;
     }
 
@@ -610,11 +618,19 @@ small, p, span, label, input, textarea {
 }
 
 .custom-jumbo {
+    background-color: #fff !important;
+
     @media (min-width: 641px) {
         height: 500px;
     }
 
     @media (min-width: 1086px) {
         height: 400px;
+    }
+}
+
+#responsive-menu {
+    @media (max-width: 900px) {
+        width: 100%;
     }
 }

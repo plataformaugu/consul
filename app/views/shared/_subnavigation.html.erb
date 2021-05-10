@@ -4,21 +4,21 @@
 
     <li>
       <%= layout_menu_link_to 'Diagnósticos',
-                              chapters_proposals_path,
+                              chapters_proposals_path(order: 'new'),
                               current_page?(chapters_proposals_path),
                               accesskey: "1" %>
     </li>
 
     <li>
-      <%= layout_menu_link_to 'Sugerencias',
-                              proposals_path,
+      <%= layout_menu_link_to 'Acciones',
+                              proposals_path(order: 'new'),
                               current_page?(proposals_path),
                               accesskey: "2" %>
     </li>
 
     <li>
       <%= layout_menu_link_to 'Monitoreo',
-                              monitoring_quizzes_path,
+                              monitoring_quizzes_path(order: 'new'),
                               current_page?(monitoring_quizzes_path),
                               accesskey: "3" %>
     </li>

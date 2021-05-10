@@ -113,9 +113,10 @@ class Admin::StatsController < Admin::BaseController
             '¿A qué grupos de población afecta particularmente este problema (selecciona todas las opciones que quieras)?',
             '¿Es público?',
             '¿Está oculto?',
+            'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+            csv << [q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 2
           @quizzes = Quiz.where(quiz_type: 2)
@@ -127,9 +128,10 @@ class Admin::StatsController < Admin::BaseController
             'Ingrese la institución o tipo de instituciones que deben ser responsable de que su sugerencia se pueda realizar',
             '¿Es público?',
             '¿Está oculto?',
+            'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+            csv << [q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 3
           @quizzes = Quiz.where(quiz_type: 3)
@@ -141,9 +143,10 @@ class Admin::StatsController < Admin::BaseController
             'Selecciona la institución pública que debería comprometerse a realizar la iniciativa que sugeriste',
             '¿Es público?',
             '¿Está oculto?',
+            'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.tag.name, q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si']
+            csv << [q.tag.name, q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         end
       end

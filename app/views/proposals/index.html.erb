@@ -2,7 +2,7 @@
 <% content_for :header_addon do %>
 <% end %>
 
-<% @quizzes = Quiz.where(quiz_type: 3, visible: true) %>
+<% @quizzes = Quiz.where(quiz_type: 3, visible: true, is_active: true) %>
 
 <% if params[:search].present? %>
   <% @tag = Tag.category.where(name: params[:search]).first %>
@@ -60,21 +60,25 @@
               <% if Quiz.where(quiz_type: 3, user_id: current_user.id).count < 6 %>
                 <%= link_to 'Crear tu sugerencia',
                   new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
-                  class: "button expanded" %>
+                  class: "button expanded",
+                  style: "background-color: #60b0c6; !important"  %>
               <% else %>
-                <button disabled class="button expanded">Alcanzaste el límite</button>
+                <button style="background-color: #60b0c6; !important" disabled class="button expanded">Alcanzaste el límite</button>
               <% end %>
             <% else %>
             <div class="show-only-users">
               <div class="message">
                   Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
                 </div>
-                <button class="button expanded">Crear tu sugerencia</button>
+                <button style="background-color: #60b0c6; !important" class="button expanded">Crear tu sugerencia</button>
               </div>
             <% end %>
           <% else %>
-            <button disabled class="button expanded">Crear tu sugerencia</button>
-            <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un capítulo.</small>
+            <button style="background-color: #60b0c6; !important" disabled class="button expanded">Crear tu sugerencia</button>
+            <small><i class="fas fa-exclamation-circle"></i> Primero debes seleccionar un tema.</small><br/>
+          <% end %>
+          <% if current_user %>
+            <small>Llevas <%= Quiz.where(quiz_type: 3, user_id: current_user.id).count %> de 6 sugerencias</small>
           <% end %>
         </aside>
       </div>
@@ -137,7 +141,7 @@
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: 'doVote(this);',
+                                onclick: "doVote(this, #{quiz.id});",
                                 disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
@@ -174,7 +178,7 @@
                                 description: 'Participaciones individuales y grupales de plataforma de Derechos Humanos',
                                 mobile: 'Participa con nosotros en:' %>
                           <% else %>
-                            <div id="social-share-item" style="display: none;">
+                            <div id="social-share-item-<%= quiz.id %>" style="display: none;">
                               <%= render "shared/social_share",
                                 share_title: 'Compartir',
                                 title: 'Participa con nosotros en:',
@@ -235,12 +239,12 @@
 </main>
 
 <script>
-function doVote(e) {
+function doVote(e, id) {
   if (!e.getAttribute('disabled')) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
-    $('#social-share-item').css("display", "block");
+    $('#social-share-item-' + id).css("display", "block");
   }
 }
 

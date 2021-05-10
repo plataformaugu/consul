@@ -1,5 +1,16 @@
 <%= render "shared/globalize_locales", resource: @proposal %>
 
+<% @q4_options = [
+  'Mujeres',
+  'Niños, niñas y adolescentes',
+  'Personas con discapacidad',
+  'LGBTIQ+',
+  'Personas mayores',
+  'Personas migrantes y refugiadas',
+  'Personas privadas de libertad',
+  'Pueblos indígenas y tribales',
+] %>
+
 <%= form_for(@quiz, url: form_url) do |f| %>
 
   <div class="row column quiz-form">
@@ -58,37 +69,13 @@
 
     <div class="small-12 column">
       <%= f.label :q4, 'OPCIONAL: ¿A qué grupos de población afecta particularmente este problema (selecciona todas las opciones que quieras)?' %><br>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Mujeres' %>
-        Mujeres
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Niños, niñas y adolescentes' %>
-        Niños, niñas y adolescentes
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Personas con discapacidad' %>
-        Personas con discapacidad
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Personas LGBTIQ+' %>
-        Personas LGBTIQ+
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Personas mayores' %>
-        Personas mayores
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Personas migrantes y refugiadas' %>
-        Personas migrantes y refugiadas
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Personas privadas de libertad' %>
-        Personas privadas de libertad
-      <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
-        <%= check_box_tag 'q4[]', 'Pueblos indígenas y tribales' %>
-        Pueblos indígenas y tribales
+      <% @q4_options.each do |option| %>
+        <% unless option.downcase == Tag.find(params[:chapter].to_i).name.downcase %>
+          <%= label_tag nil, style: 'font-weight: normal' do %>
+            <%= check_box_tag 'q4[]', option %>
+            <%= option %>
+          <% end %>
+        <% end %>
       <% end %>
       <br/>
     </div>
@@ -97,7 +84,8 @@
     <%= f.hidden_field :tag_id, value: params[:chapter] %>
 
       <div class="small-12 column">
-        <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas. Importante: debes completar la pregunta abierta opcional si quieres hacer visible tu propuesta al público.</label>
+        <label>¿Quieres que este aporte sea público? Esto permite que sea visible a otras personas en esta plataforma, y que pueda recibir apoyo de ellas.</label>
+        <small>Importante: Debes completar los campos Título y Descripción si quieres hacer visible tu propuesta al público.</small><br/><br/>
         <%= f.check_box :visible, label: 'Sí, que sea público', checked: false %>
       <br/>
       </div>
