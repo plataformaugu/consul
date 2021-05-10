@@ -94,6 +94,125 @@ class Admin::StatsController < Admin::BaseController
     @goals = SDG::Goal.order(:code)
   end
 
+  def generate_csv
+    unless params['type'].present?
+      redirect_to root_path
+    else
+      @type = params['type'].to_i
+      csv = CSV.generate(:col_sep => ';') do |csv|
+      @filename = DateTime.now.strftime('%Y-%m-%d_%H-%m-%S_')
+        if @type == 1
+          @quizzes = Quiz.where(group_id: nil).where.not(name: 'TMP').order(created_at: :asc)
+          @filename += 'individual.csv'
+          csv << [
+            'Fecha de creación',
+            '¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?',
+            '¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?',
+            'En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?',
+            '¿Cuál o cuáles crees que son las causas de ese problema?',
+            '¿Qué efectos tiene en las personas?',
+            '¿A quienes crees que afecta este problema?',
+            '¿En qué lugares crees que se vive este problema?',
+            'En tu opinión, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaste?',
+            '¿Cómo podrían los niños, niñas y adolescentes ayudar a monitorear que las autoridades cumplan con sus compromisos de derechos humanos?',
+            '¿Te interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?',
+            '¿En qué comuna vives?',
+            '¿Con cuál género te identificas?',
+            '¿En qué país naciste?',
+            '¿Cuántos años tienes?',
+            '¿Tienes algún tipo de discapacidad?',
+            '¿Perteneces a algún pueblo indígena o tribal?',
+            '¿Dónde vives actualmente?',
+            '¿Cuál es tu orientación sexual?',
+            '¿Es público?',
+            '¿Está oculto?',
+          ]
+          @quizzes.each do |q|
+            csv << [
+              q.created_at.strftime('%Y-%m-%d'),
+              q.q1.nil? ? '' : (eval(q.q1).fetch('q1', '').is_a?(Array) ? eval(q.q1)['q1'].join(', ') : ''),
+              q.q1.nil? ? '' : eval(q.q1).fetch('q2', ''),
+              q.q1.nil? ? '' : eval(q.q1).fetch('q3', ''),
+              q.q1.nil? ? '' : eval(q.q1).fetch('q4', ''),
+              q.q1.nil? ? '' : eval(q.q1).fetch('q5', ''),
+              q.q1.nil? ? '' : (eval(q.q1).fetch('q6', '').is_a?(Array) ? eval(q.q1)['q6'].join(', ') : ''),
+              q.q1.nil? ? '' : (eval(q.q1).fetch('q7', '').is_a?(Array) ? eval(q.q1)['q7'].join(', ') : ''),
+              q.q2.nil? ? '' : eval(q.q2).fetch('q8', ''),
+              q.q3.nil? ? '' : eval(q.q3).fetch('q9', ''),
+              q.q3.nil? ? '' : eval(q.q3).fetch('q10', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q11', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q12', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q13', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q14', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q15', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q16', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q17', ''),
+              q.q4.nil? ? '' : eval(q.q4).fetch('q18', ''),
+              q.visible ? 'Si' : 'No',
+              q.is_active ? 'No' : 'Si',
+            ]
+          end
+        elsif @type == 2
+          @quizzes = Quiz.where.not(group_id: nil).where.not(name: 'TMP')
+          @filename += 'grupal.csv'
+          csv << [
+            'Fecha de creación',
+            'Participantes',
+            '¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?',
+            'A continuación, seleccionen el tema que escogió el grupo como aquel en que menos se respetan los derechos humanos',
+            'En aquel tema en que se respetan menos los derechos humanos, ¿En qué nota el grupo que no se respetan y qué problema identifican?',
+            '¿Cuál o cuáles creen que son las causas de ese problema?',
+            '¿Qué efectos tiene en las personas?',
+            '¿A quienes creen que afecta este problema?',
+            '¿En qué lugares crees que se vive este problema?',
+            'En opinión del grupo, ¿qué medidas o acciones deberían tomar las autoridades para solucionar el problema que identificaron?',
+            '¿Cómo podrían los niños, niñas y adolescentes ayudar a monitorear que las autoridades cumplan con sus compromisos de derechos humanos?',
+            '¿Les interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?',
+            '¿Qué tipo de grupo forman ustedes?',
+            '¿Qué actividad o actividades definen mejor los intereses del grupo?',
+            '¿En qué país nacieron?',
+            '¿Hay algún miembro del grupo con algún tipo de discapacidad?',
+            '¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?',
+            '¿Dónde viven los miembros del grupo actualmente?',
+            '¿Qué edad tiene el o la participante más pequeño del grupo?',
+            '¿Qué edad tiene el o la participante más grande del grupo?',
+            '¿En qué comuna vive la mayoría de los miembros del grupo?',
+            '¿Es público?',
+            '¿Está oculto?',
+          ]
+          @quizzes.each do |q|
+            csv << [
+              q.created_at.strftime('%Y-%m-%d'),
+              Group.find(q.group_id).users.map{|u| u[:name]}.join(', '),
+              eval(q.q1).select{|k, h| k.starts_with? 'q1' and h == "0" }.transform_keys{|k| k.tr('q1_', '')}.map{|k, h| "#{k}: #{h}"}.join(', '),
+              eval(q.q1).fetch('q2', ''),
+              eval(q.q1).fetch('q3', ''),
+              eval(q.q1).fetch('q4', ''),
+              eval(q.q1).fetch('q5', ''),
+              eval(q.q1).select{|k, h| k.starts_with? 'q6' and h == "0" }.transform_keys{|k| k.tr('q6_', '')}.map{|k, h| "#{k}: #{h}"}.join(', '),
+              eval(q.q1).select{|k, h| k.starts_with? 'q7' and h == "0" }.transform_keys{|k| k.tr('q7_', '')}.map{|k, h| "#{k}: #{h}"}.join(', '),
+              eval(q.q2).fetch('q8', ''),
+              eval(q.q3).fetch('q9', ''),
+              eval(q.q3).fetch('q10', ''),
+              eval(q.q4).fetch('q11', ''),
+              q.q4.nil? ? '' : (eval(q.q4).fetch('q12', '').is_a?(Array) ? eval(q.q4)['q12'].join(', ') : ''),
+              eval(q.q4).select{|k, h| k.starts_with? 'q13' and h == "0" }.transform_keys{|k| k.tr('q13_', '')}.map{|k, h| "#{k.capitalize}: #{h}"}.join(', '),
+              eval(q.q4).select{|k, h| k.starts_with? 'q14' and h == "0" }.transform_keys{|k| k.tr('q14_', '')}.map{|k, h| "#{k.capitalize}: #{h}"}.join(', '),
+              eval(q.q4).fetch('q15', ''),
+              eval(q.q4).select{|k, h| k.starts_with? 'q16' and h == "0" }.transform_keys{|k| k.tr('q16_', '')}.map{|k, h| "#{k.capitalize}: #{h}"}.join(', '),
+              eval(q.q4).fetch('q17', ''),
+              eval(q.q4).fetch('q18', ''),
+              eval(q.q4).fetch('q19', ''),
+              q.visible ? 'Si' : 'No',
+              q.is_active ? 'No' : 'Si',
+            ]
+          end
+        end
+      end
+      send_data(csv, type: 'text/csv', filename: @filename)
+    end
+  end
+
   private
 
     def voters_in_heading(heading)

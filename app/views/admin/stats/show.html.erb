@@ -1,19 +1,8 @@
 <div id="stats" class="stats">
+  <h3><i class="fas fa-download"></i> Selecciona el tipo de reporte que deseas descargar</h3>
   <ul class="menu align-center">
-    <li><a href="?type=1">Individual</a></li>
-    <li><a href="?type=2">Grupal</a></li>
+    <%= link_to 'Individual', generate_csv_admin_stats_path(type: 1), class: 'button', style: 'margin-right: 10px; margin-bottom: 10px;' %>
+    <%= link_to 'Grupal', generate_csv_admin_stats_path(type: 2), class: 'button', style: 'margin-right: 10px; margin-bottom: 10px;'  %>
   </ul>
-
-  <% @allow_params = ['1', '2'] %>
-
-  <% if params[:type].present? %>
-    <% if @allow_params.include? params[:type] %>
-      <%= render 'type_%s' % [params[:type]] %>
-    <% else %>
-      <%= render 'type_1' %>
-    <% end %>
-  <% else %>
-    <%= render 'type_1' %>
-  <% end %>
-
+  <small>El reporte se descargará en formato CSV utilizando punto y coma (;) como separador de columnas.</small>
 </div>
