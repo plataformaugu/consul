@@ -80,7 +80,8 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q15">15. ¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?</label><br/>
+      <label for="q15">15. ¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?</label>
+      <span class="help-text">En caso de que haya integrantes de más de un pueblo indígena o tribal, seleccionen la opción “Otros” y escríbanlos en el espacio disponible para ello. </span><br/>
       <%= select_tag 'q15', options_for_select(@q15_options), prompt: 'Elijan una opción' %>
       <label id="custom-indigenous-label" style="display: none">Especificar:</label>
       <input type="text" id="custom-indigenous" style="display: none">

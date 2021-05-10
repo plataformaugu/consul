@@ -35,17 +35,18 @@
 ] %>
 
 <% @q6_options = [
-  'Personas Mayores',
-  'Mujeres',
-  'LGBTIQ+',
-  'Personas con Discapacidad',
-  'Pueblos Indígenas y Tribales',
-  'Personas Privadas de Libertad',
-  'Personas Migrantes y Refugiadas',
-  'Niños, niñas y adolescentes',
+  'A personas mayores (mayores de 65 años)',
+  'A mujeres',
+  'A personas de la diversidad sexual LGBTIQ+',
+  'A personas con discapacidad',
+  'A pueblos indígenas y tribales',
+  'A personas privadas de libertad',
+  'A personas migrantes y/o refugiadas',
+  'A niños, niñas y adolescentes',
+  'A otras personas',
 ]%>
 
-<% @q6_options = [
+<% @q7_options = [
   'En casa de mi familia o personas cercanas',
   'En mi barrio',
   'En mi escuela',
@@ -126,7 +127,7 @@
       <label for="q7">7. ¿En qué lugares crees que se vive este problema?</label>
       <small class="help-text">Marquen todas las casillas que crean necesario</small>
       <div>
-      <% @q6_options.each do |option| %>
+      <% @q7_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q7_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       <% end %>
       </div>
