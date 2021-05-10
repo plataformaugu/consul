@@ -130,7 +130,7 @@
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: 'doVote(this);',
+                                onclick: "doVote(this, #{quiz.id});",
                                 disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
@@ -169,7 +169,7 @@
                                 description: 'Participaciones individuales y grupales de plataforma NNA de Derechos Humanos',
                                 mobile: 'Participa con nosotros en:' %>
                           <% else %>
-                            <div id="social-share-item" style="display: none;">
+                            <div id="social-share-item-<%= quiz.id %>" style="display: none;">
                               <%= render "shared/social_share",
                                 share_title: 'Compartir',
                                 title: 'Participa con nosotros en:',
@@ -230,12 +230,12 @@
 </main>
 
 <script>
-function doVote(e) {
+function doVote(e, id) {
   if (!e.getAttribute('disabled')) {
     e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
     e.setAttribute('disabled', 'disabled');
     e.innerText = 'Ya apoyaste';
-    $('#social-share-item').css("display", "block");
+    $('#social-share-item-' + id).css("display", "block");
   }
 }
 

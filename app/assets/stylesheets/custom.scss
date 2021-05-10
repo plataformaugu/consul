@@ -532,6 +532,7 @@ small, p, span, label, input, textarea {
 .pre-footer-img {
     text-align: center;
     width: 100%;
+    margin-bottom: -2px;
 
     & img {
         width: 60%;
@@ -585,4 +586,9 @@ input + label {
     @media (max-width: 810px) {
         width: 100% !important;
     }
+}
+
+.auth-image {
+    background-color: lighten(#b7a9d2, 10%) !important;
+    padding-right: 0 !important;
 }

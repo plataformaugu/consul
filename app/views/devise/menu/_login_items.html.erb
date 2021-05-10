@@ -14,6 +14,12 @@
                               controller_name == "groups",
                               rel: "nofollow",
                               title: t("shared.go_to_page") +
+                                    'Grupos' %>
+      <%= layout_menu_link_to 'Mi perfil',
+                              edit_user_registration_path,
+                              controller_name == "users",
+                              rel: "nofollow",
+                              title: t("shared.go_to_page") +
                                     t("layouts.header.my_account_link") %>
       <%= link_to t("devise_views.menu.login_items.logout"),
                 destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
@@ -32,6 +38,12 @@
                             rel: "nofollow",
                             title: t("shared.go_to_page") +
                                   t("layouts.header.my_account_link") %>
+      <%= layout_menu_link_to 'Mi perfil',
+                              edit_user_registration_path,
+                              controller_name == "users",
+                              rel: "nofollow",
+                              title: t("shared.go_to_page") +
+                                    t("layouts.header.my_account_link") %>
     <%= link_to t("devise_views.menu.login_items.logout"),
               destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
   </div>

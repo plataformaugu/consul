@@ -12,9 +12,12 @@
       <div class="auth-image small-12 medium-3 column">
         <h1 class="logo margin">
           <%= link_to root_path do %>
-            <%= image_tag(image_path_for("logo-transparencia-x.png"), class: "float-left", style: 'width: 150px;', alt: setting["org_name"]) %>
+            <%= image_tag(image_path_for("logo_header.png"), class: "float-left logo-image", alt: setting["org_name"]) %>
           <% end %>
         </h1>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <%= image_tag(image_path_for("nna-auth-image.png"), alt: setting["org_name"]) %>
+        </div>
       </div>
 
       <div class="small-12 medium-9 column">

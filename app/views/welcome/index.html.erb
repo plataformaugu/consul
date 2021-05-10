@@ -21,19 +21,19 @@
         <div class="card-section">
           <%= image_tag('participacion-individual.jpg') %>
         </div>
-        <div class="<%= current_user ? 'card-section custom-card-section text-center' : 'card-section text-center' %>">
+        <div class="<%= current_user ? 'card-section custom-card-section text-center' : 'card-section custom-card-section text-center' %>">
           <h4>Participar individualmente</h4>
-          <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small>
+          <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small><br/><br/>
           <%= link_to 'Participar', current_user ? '/confirm_participation' : new_user_session_path, class: 'button expanded' %>
         </div>
       </div>
     <% if current_user %>
       <% if Group.where(user_id: current_user.id).exists? %>
         <div class="proceso-card">
-          <div class="card-section">
+          <div class="card-section ">
             <%= image_tag('participacion-grupal.jpg') %>
           </div>
-          <div class="card-section text-center">
+          <div class="card-section custom-card-section text-center">
             <h4>Participar <br/>grupalmente</h4>
             <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
             <% if Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}.count > 0 %>
@@ -52,9 +52,9 @@
                 <div class="card-section">
                   <%= image_tag('participacion-grupal.jpg') %>
                 </div>
-                <div class="card-section text-center">
+                <div class="card-section custom-card-section text-center">
                   <h4>Participar <br/>grupalmente</h4>
-                  <small>No tienes un grupo creado, haz clic para crear uno.</small>
+                  <small>No tienes un grupo creado, haz clic para crear uno.</small><br/><br/>
                 </div>
               </div>
           <% end %>
@@ -64,9 +64,9 @@
         <div class="card-section">
           <%= image_tag('participacion-grupal.jpg') %>
         </div>
-        <div class="card-section text-center">
+        <div class="card-section custom-card-section text-center">
           <h4>Participar <br/>grupalmente</h4>
-          <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
+          <small>¿Qué opina tu grupo sobre los derechos humanos?</small><br/><br/>
           <%= link_to 'Participar', new_user_session_path, class: 'button expanded' %>
         </div>
       </div>
