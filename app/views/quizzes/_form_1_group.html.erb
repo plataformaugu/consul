@@ -1,5 +1,5 @@
 <% @q1_options = [
-  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos en la dictadura de 1973 a 1990',
   'Educación para una sociedad sin discriminación',
   'Salud y bienestar físico, mental y social de las personas',
   'Acceso al agua',
@@ -60,7 +60,7 @@
   <div class="row column quiz-form">
 
     <div class="small-12 column">
-      <label for="q1">1. ¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?</label>
+      <label for="q1">1. ¿En cuál de estos temas creen que es más urgente <u>avanzar</u>?</label>
       <div><br/>
       <% @q1_options.each do |option| %>
         <%= option %>: <%= number_field_tag 'q1_%s' % [option], 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');" %><br/>
@@ -70,14 +70,14 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q2">2. A continuación, seleccionen el tema que escogió el grupo como aquel en que <u>menos se respetan</u> los derechos humanos.</label>
+      <label for="q2">2. A continuación seleccionen el tema que escogió el grupo como aquel en que <u>es más urgente avanzar</u>.</label>
       <span class="help-text">Pueden escoger el que obtuvo más votos u otro que el grupo acordó.</span>
         <%= select_tag 'q2', options_for_select(@q2_options), prompt: 'Elijan una opción' %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q3">3. En aquel tema en que se respetan menos los derechos humanos<span id="custom-option" display="none"></span>, ¿En qué nota el grupo que no se respetan y qué problema identifican? </label>
+      <label for="q3">3. En aquel tema en que es más urgente avanzar<span id="custom-option" display="none"></span>, ¿qué problema identifica el grupo? </label>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
       <% if params[:quiz_id].present? %>
@@ -152,7 +152,7 @@ $(document).ready(function() {
   $('#text-after-q2').text('El problema que identificamos es:')
 
   $('#q2').on('change', function() {
-    $('#custom-option').text($('#q2').val() ? ` ${$('#q2').val()}` : '')
+    $('#custom-option').text($('#q2').val() ? `: ${$('#q2').val()}` : '')
   })
 })
 </script>

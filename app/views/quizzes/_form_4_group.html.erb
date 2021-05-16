@@ -54,7 +54,7 @@
       <label for="q12">12. ¿Qué actividad o actividades definen mejor los intereses del grupo?</label><br/>
       <% @q12_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q12[]', option, false, {id: 'q12_%s' % [idx]} %>
-        <%= label_tag 'q12_%s' % [idx], option %><br/>
+        <%= label_tag 'q12_%s' % [idx], option %><br/><br/>
       <% end %><br/>
     </div>
 

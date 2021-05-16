@@ -31,6 +31,10 @@
       <% if resource.use_redeemable_code %>
         <%= f.text_field :redeemable_code, placeholder: t("devise_views.users.registrations.new.redeemable_code") %>
       <% end %>
+      
+      <label style="font-size: 0.875rem; font-weight: normal;">
+        <input type="checkbox" value="0" onclick="showPassword();">Mostrar contraseña
+      </label>
 
       <%= f.check_box :terms_of_service,
         title: t("devise_views.users.registrations.new.terms_title"),
@@ -96,5 +100,17 @@ $('#user_document_number').keyup(function() {
   }
 })
 
+function showPassword() {
+  if ($("#user_password").attr('type') === 'password') {
+    $("#user_password").attr('type', 'text');
+  } else {
+    $("#user_password").attr('type', 'password');
+  }
+  if ($("#user_password_confirmation").attr('type') === 'password') {
+    $("#user_password_confirmation").attr('type', 'text');
+  } else {
+    $("#user_password_confirmation").attr('type', 'password');
+  }
+}
 
 </script>

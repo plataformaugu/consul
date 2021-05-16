@@ -461,9 +461,14 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: calc(120px + 10vh);
+    top: 120px;
     left: 0;
     width: 100%;
+    height: 477.797px;
+
+    @media (max-width: 800px) {
+        height: auto;
+    }
 
     h1 {
         width: 30%;
@@ -575,7 +580,20 @@ small, p, span, label, input, textarea {
 }
 
 input + label {
-    font-weight: normal !important;
+    display: inline !important;
+    font-weight: normal;
+}
+
+input[type='checkbox'] {
+    @media (max-width: 800px) {
+        margin-bottom: 0 !important;
+    }
+}
+
+input[type='radio'] {
+    @media (max-width: 800px) {
+        margin-bottom: 0 !important;
+    }
 }
 
 .logo-image {

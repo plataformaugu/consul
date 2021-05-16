@@ -1,5 +1,5 @@
 <% @q1_options = [
-  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos en la dictadura de 1973 a 1990.',
   'Educación para una sociedad sin discriminación',
   'Salud y bienestar físico, mental y social de las personas',
   'Acceso al agua',
@@ -17,7 +17,7 @@
 ] %>
 
 <% @q2_options = [
-  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos.',
+  'Memoria, verdad, justicia y reparación frente a las violaciones de derechos humanos en la dictadura de 1973 a 1990.',
   'Educación para una sociedad sin discriminación',
   'Salud y bienestar físico, mental y social de las personas',
   'Acceso al agua',
@@ -59,7 +59,7 @@
   <%= render 'form_1_group', form_url: form_url %>
 <% else %>
   <%= form_for(@quiz, url: form_url) do |f| %>
-  <div class="row column quiz-form">
+  <div class="row column quiz-form custom-form">
 
     <div class="small-12 column">
       <label for="q1">1. ¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?</label>
@@ -67,25 +67,25 @@
       <div><br/>
       <% @q1_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q1[]', option, false, {id: 'q1_%s' % [idx]} %>
-        <%= label_tag 'q1_%s' % [idx], option %><br/>
+        <%= label_tag 'q1_%s' % [idx], option %><br/><br/>
       <% end %>
       </div>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q2">2. ¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?</label>
+      <label for="q2">2. ¿En cuál de los siguientes temas crees que es más urgente avanzar?</label>
       <small class="help-text">Puedes escoger sólo uno.</small>
       <br/><br/>
       <% @q2_options.each_with_index do |option, idx| %>
         <%= radio_button_tag 'q2', option, nil, id: 'q2_%s' % [idx] %>
-        <%= label_tag "q2_%s" % [idx], option %><br/>
+        <%= label_tag "q2_%s" % [idx], option %><br/><br/>
       <% end %>
       <br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q3">3. En aquel tema en que se respetan menos los derechos humanos, ¿En qué notas que no se respetan?</label>
+      <label for="q3">3. En aquel tema en que es más urgente avanzar ¿Qué problema identificas?</label>
       <span class="help-text">No es sencillo identificar un problema, así que puedes editar esta respuesta las veces que quieras.</span>
       <p id="text-after-q2"></p>
       <small>(Limite: 1000 caracteres)</small>
@@ -127,7 +127,7 @@
       <div><br/>
       <% @q5_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q6[]', option, false, {id: 'q6_%s' % [idx]} %>
-        <%= label_tag 'q6_%s' % [idx], option %><br/>
+        <%= label_tag 'q6_%s' % [idx], option %><br/><br/>
       <% end %>
       </div>
       <input type="text" id="other-people" disabled>
@@ -140,7 +140,7 @@
       <div><br/>
       <% @q6_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q7[]', option, false, {id: 'q7_%s' % [idx]} %>
-        <%= label_tag 'q7_%s' % [idx], option %><br/>
+        <%= label_tag 'q7_%s' % [idx], option %><br/><br/>
       <% end %>
       </div>
       <br/><br/>

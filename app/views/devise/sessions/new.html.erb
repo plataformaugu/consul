@@ -19,6 +19,12 @@
       <%= link_to t("devise_views.shared.links.new_password"), new_password_path(resource_name), class: "float-right" %>
     </div>
 
+    <div class="small-12 column">
+      <label style="font-size: 0.875rem; font-weight: normal;">
+        <input type="checkbox" value="0" onclick="showPassword();">Mostrar contraseña
+      </label>
+    </div>
+
     <% if devise_mapping.rememberable? -%>
       <div class="small-12 column">
         <%= f.check_box :remember_me, label: t("devise_views.sessions.new.remember_me") %>
@@ -32,3 +38,18 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+function showPassword() {
+  if ($("#user_password").attr('type') === 'password') {
+    $("#user_password").attr('type', 'text');
+  } else {
+    $("#user_password").attr('type', 'password');
+  }
+  if ($("#user_password_confirmation").attr('type') === 'password') {
+    $("#user_password_confirmation").attr('type', 'text');
+  } else {
+    $("#user_password_confirmation").attr('type', 'password');
+  }
+}
+</script>

@@ -1,11 +1,10 @@
 <% if header.present? %>
   <div class="jumbo highlight" style="padding: 0; background-color: white !important;">
     <div>
-      <%= image_tag('bg-banner.png',
+      <%= image_tag('bg-banner.jpg',
                     class: "jumbo-image",
                     alt: header.image.title) %>
       <div class="jumbo-content">
-        <span><%= header.label %></span>
         <h1><%= header.title %></h1>
         <p class="lead"><%= header.description %></p>
       </div>
