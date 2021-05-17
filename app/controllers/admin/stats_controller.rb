@@ -153,7 +153,7 @@ class Admin::StatsController < Admin::BaseController
             ]
           end
         elsif @type == 2
-          @quizzes = Quiz.where.not(group_id: nil).where.not(name: 'TMP')
+          @quizzes = Quiz.where.not(group_id: nil).where.not(name: 'TMP').order(created_at: :asc)
           @filename += 'grupal.csv'
           csv << [
             'Fecha de creación',

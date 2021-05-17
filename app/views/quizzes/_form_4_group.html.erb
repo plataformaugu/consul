@@ -115,8 +115,9 @@
       </div>
 
     <div class="small-12 column">
-      <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> (3, 8 y 9) serán visibles para otros usuarios.</small>
-      <%= f.check_box :visible, label: 'Visible para los otros usuarios' %>
+      <small>Si marcas esta alternativa, las <u>preguntas abiertas</u> (3, 8 y 9) serán visibles para otros usuarios.</small><br/>
+      <small><strong>Importante:</strong> Para marcar esta casilla deben haber respondido las preguntas mencionadas anteriormente.</small><br/>
+      <%= f.check_box :visible, checked: false, label: 'Visible para los otros usuarios', disabled: [eval(Quiz.find(params[:quiz_id]).q1).fetch('q3').empty?, eval(Quiz.find(params[:quiz_id]).q2).fetch('q8').empty?, eval(Quiz.find(params[:quiz_id]).q3).fetch('q9').empty?].any? %>
     </div>
 
 
