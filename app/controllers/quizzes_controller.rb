@@ -214,33 +214,33 @@ class QuizzesController < ApplicationController
 
     if chapter.downcase == 'Memoria, verdad, justicia y reparación'.downcase
       @options = [
-        'Existencia de obstáculos legales que impiden el acceso a la verdad y justicia, como penas muy bajas y la aplicación de beneficios de reducción de condenas.',
-        'Ausencia de políticas de protección a sitios de memoria sobre las violaciones de derechos humanos ocurridas durante la dictadura.',
-        'Falta de medidas para la búsqueda e identificación de personas detenidas desaparecidas.',
-        'Medidas de reparación insuficientes para las víctimas de violaciones de derechos humanos durante la dictadura.',
-        'Insuficiencia de acceso a información en aspectos relevantes para el establecimiento de verdad y justicia, por situaciones como el secreto de los testimonios de informes Rettig y Valech, la falta de sistematización del estado de procesos judiciales y del estado de cumplimiento de sentencias.',
+        'Acciones que permitan continuar la búsqueda de verdad y justicia respecto de las causas judiciales en trámite en casos desaparición forzada y ejecución política, con el objeto de cumplir con las obligaciones de investigar, juzgar y sancionar.',
+        'Políticas de protección a sitios de memoria, así como de la memoria histórica, en relación con las violaciones de derechos humanos ocurridas durante la dictadura.',
+        'Acciones y medidas para la búsqueda e identificación de personas detenidas desaparecidas, así como para conocer su destino final.',
+        'Medidas de reparación para las víctimas de violaciones de derechos humanos durante la dictadura.',
+        'Sistematización del estado de juicios y cumplimiento de sentencias en casos de violaciones de los derechos humanos ocurridas en dictadura.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Derechos Económicos, sociales, culturales y ambientales'.downcase
       @options = [
-        'Los derechos laborales se ven afectados por brechas de género en el mercado laboral, problemas del sistema de seguridad social, precariedad del empleo informal, dificultades para el ejercicio de derechos sindicales, entre otros.',
-        'Los derechos de salud se ven afectados por problemas de acceso a servicios básicos, deficiencias en la calidad de la atención, y falencias en infraestructura, entre otros.',
-        'El derecho a la educación se ve afectado por las discriminaciones por causas socioeconómicas en el sistema educativo, brechas de calidad en el sistema, y problemas de infraestructura, entre otros.',
-        'El derecho a la vivienda se ve afectado por el déficit habitacional, las condiciones de segregación y los desafíos del derecho a la vivienda adecuada en materia de calidad y acceso a servicios, entre otros.',
-        'Dificultades de acceso a servicios de agua potable y el uso no sostenible del agua en la industria minera, entre otros.',
-        'El derecho a un medio ambiente libre de contaminación se ve afectado por deficiencias normativas y falta de facultades de fiscalización a organismos públicos, entre otros.',
+        'Derechos laborales: Brechas de género en el mercado laboral, problemas del sistema de seguridad social, empleo informal y dificultades en el ejercicio de derechos sindicales.',
+        'Derechos de salud: problemas de acceso a servicios básicos, deficiencias en la calidad de la atención y falencias en infraestructura.',
+        'Derecho a la educación: afectado por discriminaciones debido a causas socioeconómicas, brechas de calidad en el sistema, y problemas de infraestructura.',
+        'Derecho a la vivienda: afectado por el déficit habitacional y la segregación.',
+        'Derecho al agua: dificultades de acceso a servicios de agua potable y el uso no sostenible del agua.',
+        'Derecho a un medio ambiente libre de contaminación: afectado por deficiencias normativas y falta de facultades de fiscalización.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Trata y tráfico de personas'.downcase
       @options = [
-        'Insuficiencia de medidas preventivas de la trata de personas.',
-        'Falta de mecanismos de protección integral a las víctimas, que les permita el pleno goce y ejercicio de sus derechos, especialmente en los ámbitos de la salud y de acceso a la justicia.',
-        'Ausencia de mecanismos de identificación de víctimas de trata, por falta de un mecanismo independiente, con recursos suficientes para esta tarea.',
-        'Falencias de la legislación penal de trata de personas, que no permiten investigar y sancionar todas las formas de trata y tráfico de personas, con penas suficientemente severas, y reparación integral de las víctimas.',
+        'Medidas preventivas de la trata de personas.',
+        'Mecanismos de protección integral a las víctimas, que les permita el ejercicio de sus derechos, especialmente en salud y acceso a la justicia.',
+        'Mecanismos de identificación de víctimas de trata, por falta de un mecanismo independiente, con recursos suficientes para esta tarea.',
+        'Normativa que permita investigar y sancionar todas las formas de trata y tráfico de personas, con penas efectivas y reparación integral de las víctimas.',
         'Otro',
       ]
     end
@@ -248,19 +248,19 @@ class QuizzesController < ApplicationController
     if chapter.downcase == 'Prevención de la tortura y violencia institucional'.downcase
       @options = [
         'Existencia de casos de tortura y otros tratos o penas crueles, inhumanos o degradantes a personas privadas de libertad en recintos penitenciarios.',
-        'Existencia de casos de tortura y otros tratos o penas crueles, inhumanos o degradantes a personas internadas en residencias públicas o privadas, principalmente personas con discapacidad, personas mayores y niños, niñas y adolescentes.',
-        'Falta de implementación del Mecanismo Nacional de Prevención de la Tortura, como institucionalidad que contribuya a la prevención de este fenómeno.',
-        'Uso excesivo de la fuerza y prácticas de tortura por parte de fuerzas de orden y seguridad.',
-        'Falta de políticas de investigación, sanción y reparación ante casos de violaciones de derechos humanos por parte de las policías.',
+        'Existencia de casos de tortura y otros tratos o penas crueles, inhumanos o degradantes a personas internadas y bajo el cuidado del Estado, principalmente respecto de personas con discapacidad, personas mayores y niños, niñas y adolescentes.',
+        'Implementación del Mecanismo Nacional de Prevención de la Tortura, como institucionalidad que contribuya a la prevención de este fenómeno.',
+        'Uso de la fuerza por parte de fuerzas de orden y seguridad, con estándares internacionales de derechos humanos.',
+        'Investigación, juzgamiento y sanción ante denuncias de violaciones de derechos humanos por parte de agentes del Estado, y reparación a las víctimas.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Derechos Digitales'.downcase
       @options = [
-        'Falta de regulación del uso de datos personales que realizan empresas e instituciones del Estado, lo que pone en riesgo el derecho a la privacidad.', 
-        'Utilización de datos biométricos en casos de vigilancias ilegales y fines no consentidos.',
-        'Ausencia de un marco normativo para evitar que el Big Data y el Data Mining generen peligro de difusión o tráfico de datos personales.',
+        'Regulación del uso de datos personales que realizan empresas e instituciones del Estado, con el fin de evitar poner en riesgo el derecho a la privacidad.', 
+        'Regulación para el caso de la utilización de datos biométricos en casos de vigilancias ilegales y fines no consentidos.',
+        'Marco normativo para evitar que el Big Data y el Data Mining generen peligro de difusión o tráfico de datos personales.',
         'Inequidad en acceso a internet o limitaciones a su uso, que generan restricciones al ejercicio de la libertad de expresión y al acceso a la información.',
         'Otro',
       ]
@@ -268,124 +268,123 @@ class QuizzesController < ApplicationController
 
     if chapter.downcase == 'Acceso a la justicia'.downcase
       @options = [
-        'Las barreras económicas, sociales, culturales y legales provocan desigualdad ante la ley, particularmente a grupos de población más vulnerable.',
-        'Las Corporaciones de Asistencia Judicial (CAJ) requieren ampliar y mejorar su cobertura, para potenciar el acceso gratuito a servicios jurídicos.',
+        'Existencia de barreras económicas, sociales, culturales y legales que generan desigualdad ante la ley, particularmente respecto de grupos de población más vulnerable.',
+        'Corporaciones de Asistencia Judicial (CAJ) requieren ampliar y mejorar su cobertura, para potenciar el acceso gratuito a servicios jurídicos.',
         'Existencia de barreras de acceso que impiden a las personas con discapacidad ejercer sus derechos ante los tribunales.',
-        'La ausencia de medidas de pertinencia cultural dificulta a personas migrantes o personas de pueblos indígenas ejercer sus derechos ante los tribunales.',
-        'Necesidad de ajustar el funcionamiento actual de los sistemas de justicia militar y de justicia civil a los estándares internacionales de derechos humanos.',
+        'Medidas de pertinencia cultural para que personas migrantes o personas de pueblos indígenas puedan ejercer de manera efectiva sus derechos ante los tribunales.',
+        'Funcionamiento de los sistemas de justicia militar y de justicia civil con estándares internacionales de derechos humanos.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Personas Mayores'.downcase
       @options = [
-        'Casos de maltrato y violencia contra personas mayores, tanto en las residencias particulares como cuando se encuentran internados en establecimientos de larga estadía.',
-        'Insuficiencia de políticas públicas para que las personas mayores mantengan sus capacidades, vivan con independencia y puedan tener acceso a los cuidados que requieren.',
-        'Falta de mecanismos suficientes para que las personas mayores puedan acceder a información relevante, considerando su menor acceso a canales digitales de difusión.',
-        'Incapacidad de acceder a servicios sociales básicos, como consecuencia de pensiones que no les permiten un bienestar material mínimo.',
+        'Casos de maltrato contra personas mayores, tanto en residencias particulares como en establecimientos de larga estadía.',
+        'Políticas públicas para que las personas mayores mantengan sus capacidades, vivan con independencia y puedan tener acceso a los cuidados que requieren.',
+        'Mecanismos suficientes y adecuados para que las personas mayores puedan acceder a información relevante, considerando su menor acceso a canales digitales de difusión.',
+        'Acceso a servicios sociales básicos y sistema de seguridad social que permita un bienestar material adecuado.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Mujeres'.downcase
       @options = [
-        'Violencia contra las mujeres e inexistencia de políticas públicas suficientes para su prevención y abordaje.',
+        'Políticas públicas suficientes y adecuadas para prevenir y abordar integralmente la violencia en contra de las mujeres.',
         'Baja participación política y pública de mujeres, como consecuencia de obstáculos estructurales y estereotipos de género.',
         'Brechas laborales y económicas entre hombres y mujeres, expresadas en diferencias de ingreso por igual trabajo, diferencias en inserción laboral, roles de género que reproducen las desigualdades en este plano, entre otras.',
         'Vigencia de normas que imponen modelos discriminatorios contra la mujer en el matrimonio, como la administración de la sociedad conyugal.',
-        'Insuficiente cumplimiento de los derechos sexuales y reproductivos de las mujeres.',
+        'Derechos sexuales y reproductivos de las mujeres.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'LGBTIQ+'.downcase
       @options = [
-        'Existencia de normativas utilizadas discriminatoriamente para detener y hostilizar a las personas por su orientación sexual o identidad de género, como la penalización de las relaciones sexuales consentidas entre personas menores de edad del mismo sexo, entre otras.',
-        'Existencia de distinción y exclusión que impide a la población LGBTIQ+ ejercer parte de sus derechos civiles, como el matrimonio.',
-        'Necesidad de visibilizar y atender la situación de los niños, niñas intersex, para garantizar sus derechos.',
-        'Violencia contra la población LGBTIQ+ e inexistencia de políticas públicas suficientes para su prevención,  sanción y abordaje.',
+        'Normativa, políticas y acciones que promuevan y prevengan la discriminación arbitraria de  personas por su orientación sexual o identidad de género.',
+        'Institucionalidad pública para la promoción y protección de los derechos de las personas LGBTiQ+, así la eliminación de barreras legales que impidan a esta población ejercer plenamente sus derechos.',
+        'Visibilización y atención de la situación de los niños, niñas intersex, para garantizar sus derechos.',
+        'Violencia contra la población LGBTIQ+ y políticas públicas suficientes para su prevención, sanción y abordaje.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Personas con Discapacidad'.downcase
       @options = [
-        'Cumplimiento insatisfactorio de medidas que permitan la accesibilidad universal en infraestructura, derechos económicos y sociales, acceso a información y otras áreas.',
-        'Falta de ajustes de los procedimientos para hacer efectivo el acceso a la justicia de las personas con discapacidad y existencia de restricciones al ejercicio de la capacidad jurídica por el régimen de interdicción vigente.',
-        'Prácticas constitutivas de tortura en establecimientos residenciales, como: psicosirugías, tratamientos electroconvulsivos, aislamientos, tratos vejatorios, entre otros.',
-        'Falta de apoyos a las personas con discapacidad para que puedan vivir de manera independiente, con inclusión en sus comunidades.',
-        'Existencia de un sistema educativo que funciona para las personas con discapacidad con un formato de educación especial, que segrega a estas personas, y dificulta sus proceso de inclusión.',
-        'Persistencia de un modelo de salud con enfoque en la discapacidad y no con enfoque de derechos humanos, e insuficiencia de prestaciones de salud para personas con discapacidad en servicios como salud mental, ginecológicos, entre otros.',
-        'Existencia de brechas en aspectos laborales que sufren las personas con discapacidad y sus personas cuidadoras, especialmente para mujeres y personas mayores, que se refleja en barreras de acceso al trabajo, en sus niveles de ingresos, entre otros.',
+        'Medidas que permitan la accesibilidad universal en infraestructura, derechos económicos y sociales, acceso a información y otras áreas.',
+        'Procedimientos y acciones para hacer efectivo el acceso a la justicia de las personas con discapacidad y restricciones al ejercicio de su capacidad jurídica.',
+        'Prácticas constitutivas de tortura, tratos crueles, inhumanos o degradantes en establecimientos residenciales, como: psicocirugías, tratamientos electroconvulsivos, aislamientos, tratos vejatorios, entre otros.',
+        'Apoyos a las personas con discapacidad para que puedan vivir de manera independiente, con inclusión en sus comunidades.',
+        'Necesidad de un sistema educativo inclusivo para personas con discapacidad.',
+        'Modelo de salud con enfoque de derechos humanos.',
+        'Existencia de brechas en aspectos laborales que sufren las personas con discapacidad y sus personas cuidadoras, que se refleja en barreras de acceso al trabajo y en sus niveles de ingresos.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Pueblos Indígenas y Tribales'.downcase
       @options = [
-        'Marginación y discriminación histórica de los pueblos indígenas, derivadas de los procesos de conquista y ocupación territorial.',
-        'Criminalización de la protesta social indígena con base en el anhelo de reivindicación territorial y cultural. Aplicación desproporcionada de métodos de persecución penal como la Ley Antiterrorista contra líderes indígenas, especialmente del Pueblo Mapuche.',
-        'Uso desproporcionado e indiscriminado de la fuerza por parte de agentes policiales en procedimientos investigativos al interior de comunidades indígenas, que afecta especialmente a mujeres, personas mayores y niños, niñas y adolescentes.',
-        'Falta de respuesta suficiente por parte del Estado para asegurar el derecho a usar y proteger los territorios ancestrales indígenas.',
-        'Discriminación y desigualdad para la realización de derechos económicos, sociales y culturales, así como en los casos de conflictos socioambientales. ',
-        'Falta del reconocimiento de los pueblos indígenas a nivel constitucional.',
+        'Uso de la fuerza por parte de agentes policiales en procedimientos investigativos al interior de comunidades indígenas, esto afecta especialmente a mujeres, niños, niñas y adolescentes y personas mayores.',
+        'Protección de los territorios ancestrales indígenas.',
+        'Discriminación interseccional, desigualdad y pobreza en la realización de derechos económicos, sociales y culturales.',
+        'Reconocimiento constitucional de los pueblos indígenas y afrodescendientes que habitan en Chile.',
+        'Necesidad de fortalecer y proteger el derecho a la participación y consulta indígena.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Personas Privadas de Libertad'.downcase
       @options = [
-        'Hacinamiento y falta de condiciones mínimas en relación a infraestructura, equipamiento y funcionalidad de recintos penitenciarios.',
+        'Condiciones mínimas de habitabilidad, infraestructura, equipamiento y funcionalidad de recintos penitenciarios.',
         'Existencia de prácticas que constituyen tratos crueles, inhumanos o degradantes.',
         'Precariedad de la red de salud a la que tienen acceso las personas privadas de libertad, particularmente en medicina especializada, con importantes brechas a lo largo del país.',
-        'Insuficiencia en la protección de grupos especialmente vulnerables, con énfasis en mujeres, pueblos indígenas, niños, niñas y adolescentes, entre otros.',
-        'Prácticas denigrantes durante la revisión de las personas que visitan a las personas privadas de libertad, incluyendo prácticas de desnudamientos a adultos/as y en algunos casos a niños, niñas y adolescentes.',
-        'El sistema actual de justicia juvenil no cumple aún con estándares, recursos y mecanismos que protejan la integridad, el desarrollo y derechos de las y los adolescentes.',
-        'Se requiere mejorar la oferta de educación, su calidad, oportunidad y adaptabilidad, para toda la población privada de libertad, y particularmente para quienes son adolescentes.',
+        'Protección de personas privadas de libertad pertenecientes a grupos especialmente vulnerables, con énfasis en mujeres, pueblos indígenas, adolescentes, entre otros.',
+        'Políticas con enfoque de derecho humanos respecto de familiares y personas que visitan a las personas privadas de libertad.',
+        'Sistema de justicia juvenil con estándares, recursos y mecanismos que protejan la integridad, el desarrollo y derechos de las y los adolescentes.',
+        'Derecho a la educación, su calidad, oportunidad y adaptabilidad, para toda la población privada de libertad, y particularmente para adolescentes.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Personas Migrantes y Refugiadas'.downcase
       @options = [
-        'Críticas a la nueva ley de migración y extranjería, en particular a los espacios de participación ciudadana en el nuevo servicio, la incertidumbre sobre el uso de los datos del Registro Nacional de Extranjeros y la forma en cómo se implementarán las visas consulares.',
-        'Falta de políticas para la protección de derechos económicos, sociales y culturales para personas migrantes, especialmente en vivienda, salud y educación, que le permitan acceder a estos derechos sin discriminación por situación migratoria.',
-        'Falta de armonización normativa plena entre el derecho nacional y el derecho internacional de los derechos humanos especialmente en lo relativo a la protección de los trabajadores migratorios y sus familiares.',
-        'Falta de medidas para la protección de niños, niñas y adolescentes migrantes o hijos e hijas de migrantes.',
-        'Falta de acceso efectivo al procedimiento de determinación de condición de refugiado sin prácticas de pre-admisibilidad.',
+        'Implementación de la nueva ley de migración, en particular respecto de los espacios de participación ciudadana en el nuevo Servicio, uso de los datos del Registro Nacional de Extranjeros y la forma en cómo se implementarán las visas consulares.',
+        'Políticas para la protección de derechos económicos, sociales y culturales para personas migrantes, especialmente en vivienda, salud y educación, que le permitan acceder a estos derechos sin discriminación por situación migratoria.',
+        'Armonización normativa, especialmente en lo relativo a la protección de protección de los trabajadores migratorios y sus familiares.',
+        'Medidas para la protección de niños, niñas y adolescentes migrantes o hijos e hijas de migrantes.',
+        'Acceso efectivo al procedimiento de determinación de condición de refugiado.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Niños, niñas y adolescentes'.downcase
       @options = [
-        'Inexistencia de medidas suficientes para que niños, niñas y adolescentes que viven en centros de acogida puedan potenciar y/o mantener lazos con su entorno familiar.',
-        'Ausencia de medidas suficientes para la prevención, investigación y sanción de las situaciones de violencia y malos tratos contra niños, niñas y adolescentes.',
+        'Medidas para que niños, niñas y adolescentes que viven en centros de acogida puedan potenciar y/o mantener lazos con su entorno familiar.',
+        'Acciones para la prevención, investigación y sanción de las situaciones de violencia y malos tratos contra niños, niñas y adolescentes.',
         'Brechas en sistema de asistencia sanitaria para niños, niñas y adolescentes, en materias de salud mental, rehabilitación en drogas y alcohol y educación sexual.',
-        'No se garantiza el derecho a educación de calidad para todos los niños, niñas y adolescentes, por distintos problemas de nuestro sistema educativo, como la segregación y la baja calidad de sus resultados.',
-        'Falta de mecanismos de participación de niños, niñas y adolescentes, para garantizar que sean escuchados en la adopción de todas las medidas que les afecten.',
-        'Se deben adoptar medidas para erradicar el trabajo de infantil.',
-        'Faltan medidas que garanticen la protección de los derechos   de niños, niñas y adolescentes que participen en procesos judiciales y la generación de un sistema especializado para su representación judicial.',
+        'Garantizar el derecho a educación de calidad para todos los niños, niñas y adolescentes, sin discriminación.',
+        'Mecanismos de participación de niños, niñas y adolescentes, para garantizar que sean escuchados en la adopción de todas las medidas que les afecten.',
+        'Medidas para erradicar el trabajo de infantil.',
+        'Medidas de protección de los derechos de niños, niñas y adolescentes en procesos judiciales y un sistema especializado para su representación judicial.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Enfoque Basado en Derechos Humanos'.downcase
       @options = [
-        'Baja existencia y efectividad de canales de denuncia administrativos, que sean conocidos por la comunidad, e incidan en el desarrollo de las políticas públicas.',
-        'Baja incidencia en las  políticas públicas de los mecanismos de participación ciudadana actualmente implementados por las instituciones públicas.',
-        'Necesidad de mejorar la normativa vigente para avanzar en procesos participativos más significativos.',
-        'Falta de espacios de participación institucional para grupos de especial protección, particularmente en los casos de niños, niñas y adolescentes, y de pueblos indígenas.',
-        'Falencias en la cantidad y/o calidad de la información producida por instituciones públicas, que permitan dar seguimiento a la situación de derechos humanos de la población.',
+        'Canales de denuncia administrativos, que sean conocidos por la comunidad, e incidan en el desarrollo de las políticas públicas.',
+        'Mecanismos de incidencia en las políticas públicas en los procesos de participación ciudadana implementados por las instituciones públicas.',
+        'Espacios de participación institucional para grupos de especial protección, particularmente en los casos de niños, niñas y adolescentes, y de pueblos indígenas.',
+        'Cantidad y/o calidad de la información producida por instituciones públicas, que permitan dar seguimiento a la situación de derechos humanos.',
         'Otro',
       ]
     end
 
     if chapter.downcase == 'Educación en Derechos Humanos'.downcase
       @options = [
-        'Aunque hay esfuerzos por incorporar materias de derechos humanos en el currículo escolar, estos son aún insuficientes y suelen terminar como materias poco profundizadas.',
-        'Brecha en estándar de formación en derechos humanos en fuerzas de orden y seguridad, tanto en los procesos formativos iniciales de las y los funcionarios, como en capacitaciones que reciban durante el ejercicio de sus funciones.',
-        'Formación en derechos humanos en el Estado cuenta con distintos problemas que limitan su impacto, como falta de aplicación práctica de contenidos, baja participación de estamentos directivos, entre otros.',
+        'Incorporación de la educación en  derechos humanos en el currículo escolar.',
+        'Formación y capacitación en derechos humanos para funcionarios/as del Estado, que considere aplicación práctica de contenidos y participación de estamentos directivos.',
+        'Formación en derechos humanos en fuerzas de orden y seguridad y Fuerzas Armadas, tanto en los procesos formativos iniciales, como en capacitaciones durante el ejercicio de sus funciones.',
+        'Formación en derechos humanos en el Estado cuenta con problemas que limitan su impacto, como falta de aplicación práctica de contenidos, baja participación de estamentos directivos, entre otros.',
         'Otro',
       ]
     end
@@ -393,8 +392,8 @@ class QuizzesController < ApplicationController
     if chapter.downcase == 'Sistemas internacionales de Derechos Humanos'.downcase
       @options = [
         'Necesidad de evaluar la ratificación, firma y retiro de reservas de tratados internacionales de derechos humanos que se encuentran pendientes.',
-        'Necesidad de mejorar los mecanismos internos para el cumplimento de los compromisos internacionales adquiridos en el seno de los sistemas universal e interamericano de derechos humanos.',
-        'Necesidad de que el Estado dé a conocer a la ciudadanía los tratados de derechos humanos que ha ratificado, las recomendaciones para su cumplimiento que ha recibido y establezca un  mecanismo de seguimiento de las recomendaciones, con participación ciudadana.',
+        'Mecanismos internos para el cumplimento de los compromisos internacionales adquiridos en los sistemas universal e interamericano de derechos humanos, así como respecto del cumplimiento de sentencias de la Corte Interamericana de Derechos Humanos.',
+        'Mecanismos adecuados para que el Estado dé a conocer a la ciudadanía los tratados de derechos humanos que ha ratificado, las recomendaciones para su cumplimiento que ha recibido y que establecimiento de un mecanismo de seguimiento de las recomendaciones, con participación ciudadana.',
         'Otro',
       ]
     end
