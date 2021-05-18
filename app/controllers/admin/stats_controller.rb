@@ -105,6 +105,7 @@ class Admin::StatsController < Admin::BaseController
           @quizzes = Quiz.where(quiz_type: 1)
           @filename += 'diagnosticos.csv'
           csv << [
+            'ID',
             'Tema',
             'Titulo pregunta abierta',
             '¿De qué forma se manifiesta este desafío?',
@@ -116,12 +117,13 @@ class Admin::StatsController < Admin::BaseController
             'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
+            csv << [q.id, q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 2
           @quizzes = Quiz.where(quiz_type: 2)
           @filename += 'monitoreos.csv'
           csv << [
+            'ID',
             'Titulo pregunta abierta',
             'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
             'Selecciona el área en la que quieres ingresar tu sugerencia para que la sociedad civil pueda dar seguimiento activo a la implementación del Segundo PNDH',
@@ -131,12 +133,13 @@ class Admin::StatsController < Admin::BaseController
             'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
+            csv << [q.id, q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 3
           @quizzes = Quiz.where(quiz_type: 3)
           @filename += 'sugerencias.csv'
           csv << [
+            'ID',
             'Tema',
             'Titulo pregunta abierta',
             'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
@@ -146,7 +149,7 @@ class Admin::StatsController < Admin::BaseController
             'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.tag.name, q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
+            csv << [q.id, q.tag.name, q.name, q.description, q.q2, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         end
       end
