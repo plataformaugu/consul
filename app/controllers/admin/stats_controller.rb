@@ -105,6 +105,7 @@ class Admin::StatsController < Admin::BaseController
           @quizzes = Quiz.where(group_id: nil).where.not(name: 'TMP').order(created_at: :asc)
           @filename += 'individual.csv'
           csv << [
+            'ID',
             'Fecha de creación',
             '¿Cuáles de estos temas de derechos humanos son para tí los tres más importantes?',
             '¿En cuál de estos temas crees que se respetan menos los derechos humanos de las personas?',
@@ -129,6 +130,7 @@ class Admin::StatsController < Admin::BaseController
           ]
           @quizzes.each do |q|
             csv << [
+              q.id,
               q.created_at.strftime('%Y-%m-%d'),
               q.q1.nil? ? '' : (eval(q.q1).fetch('q1', '').is_a?(Array) ? eval(q.q1)['q1'].join(', ') : ''),
               q.q1.nil? ? '' : eval(q.q1).fetch('q2', ''),
@@ -156,6 +158,7 @@ class Admin::StatsController < Admin::BaseController
           @quizzes = Quiz.where.not(group_id: nil).where.not(name: 'TMP').order(created_at: :asc)
           @filename += 'grupal.csv'
           csv << [
+            'ID',
             'Fecha de creación',
             'Participantes',
             '¿En cuál de estos temas creen que se respetan menos los derechos humanos de las personas?',
@@ -182,6 +185,7 @@ class Admin::StatsController < Admin::BaseController
           ]
           @quizzes.each do |q|
             csv << [
+              q.id,
               q.created_at.strftime('%Y-%m-%d'),
               Group.find(q.group_id).users.map{|u| u[:name]}.join(', '),
               eval(q.q1).select{|k, h| k.starts_with? 'q1'}.transform_keys{|k| k.tr('q1_', '')}.map{|k, h| "#{k}: #{h}"}.join(', '),
