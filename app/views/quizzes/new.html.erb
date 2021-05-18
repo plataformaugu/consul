@@ -48,7 +48,11 @@
 
 <div class="proposal-form row">
 	<div class="small-12 medium-9 column">
-		<%= back_link_to @progress == 1 ? root_path : go_prev_quiz_quizzes_path(progress: @progress, quiz_id: params[:quiz_id].to_i) %>
+		<% if @progress == 2 and params[:group].present? %>
+			<%= back_link_to @progress == 1 ? root_path : go_prev_quiz_quizzes_path(progress: @progress, quiz_id: params[:quiz_id].to_i, type: 'grupal') %>
+		<% else %>
+			<%= back_link_to @progress == 1 ? root_path : go_prev_quiz_quizzes_path(progress: @progress, quiz_id: params[:quiz_id].to_i) %>
+		<% end %>
 		<h1><%= @title %></h1>
 		<% if @progress == 1 %>
 			<h4>Parte 1: IDENTIFICANDO LAS PARTES DE NUESTRO “ÁRBOL DE PROBLEMAS”</h4>

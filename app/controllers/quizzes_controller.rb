@@ -117,7 +117,7 @@ class QuizzesController < ApplicationController
       if @quiz.group_id.nil?
         redirect_to new_quiz_path(step: (@progress - 1).to_s, quiz_id: @quiz.id)
       else
-        redirect_to new_quiz_path(step: (@progress - 1).to_s, quiz_id: @quiz.id, group: @quiz.group_id)
+        redirect_to new_quiz_path(step: (@progress - 1).to_s, quiz_id: @quiz.id, group: @quiz.group_id, type: 'grupal')
       end
     else
       redirect_to root_path

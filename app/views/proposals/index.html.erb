@@ -59,7 +59,10 @@
         <% if @quizzes && @quizzes.any? %>
           <% @quizzes.each do |quiz| %>
             <div class="proposal clear">
-              <div class="panel panel-customized" id="panel-<%= quiz.id %>" onclick="controlPanel(this)">
+              <div style="position: relative;" class="panel panel-customized" id="panel-<%= quiz.id %>" onclick="controlPanel(this)">
+                <div style="position: absolute; top: 5px; right: 10px">
+                  <small style="color: #00000040; font-size: 0.8em;">#<%= quiz.id %></small>
+                </div>
                 <div class="row">
                   <div class="small-12 medium-3 column">
                     <strong>Fecha</strong><br/>
