@@ -115,7 +115,10 @@
         <% if @quizzes && @quizzes.any? %>
           <% @quizzes.each do |quiz| %>
             <div class="proposal clear">
-              <div class="panel">
+              <div style="position: relative;" class="panel">
+                <div style="position: absolute; top: 5px; right: 10px">
+                  <small style="color: #00000040; font-size: 0.8em;">#<%= quiz.id %></small>
+                </div>
                 <div class="row">
                   <div class="small-12 medium-3 column">
                     <h4 style="overflow: hidden; word-wrap: break-word;"><%= quiz.name || '(Sin título)' %></h4>
