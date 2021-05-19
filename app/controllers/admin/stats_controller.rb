@@ -107,9 +107,9 @@ class Admin::StatsController < Admin::BaseController
           csv << [
             'ID',
             'Tema',
-            'Titulo pregunta abierta',
-            '¿De qué forma se manifiesta este desafío?',
             'Del siguiente listado, selecciona el que crees es el principal desafío de derechos humanos para este tema',
+            'Título De qué forma se manifiesta este desafío',
+            'Descripción De qué forma se  manifiesta este desafío',
             '¿Cuál es el alcance geográfico de este desafío?',
             '¿A qué grupos de población afecta particularmente este desafío (selecciona todas las opciones que quieras)?',
             '¿Es público?',
@@ -117,23 +117,23 @@ class Admin::StatsController < Admin::BaseController
             'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.id, q.tag.name, q.name, q.description, q.q1, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
+            csv << [q.id, q.tag.name, q.q1, q.name, q.description, q.q3, q.q4, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 2
           @quizzes = Quiz.where(quiz_type: 2)
           @filename += 'monitoreos.csv'
           csv << [
             'ID',
-            'Titulo pregunta abierta',
-            'Ingresa una propuesta de iniciativa que creas deba ser comprometida por alguna institución pública en el Segundo PNDH',
             'Selecciona el área en la que quieres ingresar tu sugerencia para que la sociedad civil pueda dar seguimiento activo a la implementación del Segundo PNDH',
+            'Titulo sugerencia',
+            'Descripción sugerencia',
             'Ingrese la institución o tipo de instituciones que deben ser responsable de que su sugerencia se pueda realizar',
             '¿Es público?',
             '¿Está oculto?',
             'Tipo de participación',
           ]
           @quizzes.each do |q|
-            csv << [q.id, q.name, q.description, q.q1, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
+            csv << [q.id, q.q1, q.name, q.description, q.q3, q.visible ? 'Si' : 'No', q.is_active ? 'No' : 'Si', q.user.is_individual? ? 'Individual' : 'Grupal']
           end
         elsif @type == 3
           @quizzes = Quiz.where(quiz_type: 3)
