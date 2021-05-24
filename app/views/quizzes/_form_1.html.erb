@@ -17,7 +17,7 @@
     <div class="small-12 column custom-form">
       <%= f.label :q1, 'Del siguiente listado, selecciona el que crees es el principal desafío de derechos humanos para este tema' %><br><br>
         <% @options.each do |option| %>
-          <%= f.radio_button :q1, option, label: nil, class: 'custom-radio' %><br><br>
+          <%= f.radio_button :q1, option, label: option, class: 'custom-radio' %><br><br>
         <% end %>
     </div>
 

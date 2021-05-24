@@ -300,8 +300,8 @@ class QuizzesController < ApplicationController
 
     if chapter.downcase == 'LGBTIQ+'.downcase
       @options = [
-        'Normativa, políticas y acciones que promuevan y prevengan la discriminación arbitraria de  personas por su orientación sexual o identidad de género.',
-        'Institucionalidad pública para la promoción y protección de los derechos de las personas LGBTiQ+, así la eliminación de barreras legales que impidan a esta población ejercer plenamente sus derechos.',
+        'Normativa, políticas y acciones que prevengan la discriminación arbitraria de  personas por su orientación sexual o identidad de género.',
+        'Institucionalidad pública para la promoción y protección de los derechos de las personas LGBTIQ+, así la eliminación de barreras legales que impidan a esta población ejercer plenamente sus derechos.',
         'Visibilización y atención de la situación de los niños, niñas intersex, para garantizar sus derechos.',
         'Violencia contra la población LGBTIQ+ y políticas públicas suficientes para su prevención, sanción y abordaje.',
         'Otro',
@@ -311,7 +311,7 @@ class QuizzesController < ApplicationController
     if chapter.downcase == 'Personas con Discapacidad'.downcase
       @options = [
         'Medidas que permitan la accesibilidad universal en infraestructura, derechos económicos y sociales, acceso a información y otras áreas.',
-        'Procedimientos y acciones para hacer efectivo el acceso a la justicia de las personas con discapacidad y restricciones al ejercicio de su capacidad jurídica.',
+        'Procedimientos y acciones para hacer efectivo el acceso a la justicia de las personas con discapacidad y superación de las restricciones al ejercicio de su capacidad jurídica.',
         'Prácticas constitutivas de tortura, tratos crueles, inhumanos o degradantes en establecimientos residenciales, como: psicocirugías, tratamientos electroconvulsivos, aislamientos, tratos vejatorios, entre otros.',
         'Apoyos a las personas con discapacidad para que puedan vivir de manera independiente, con inclusión en sus comunidades.',
         'Necesidad de un sistema educativo inclusivo para personas con discapacidad.',
@@ -372,7 +372,7 @@ class QuizzesController < ApplicationController
     if chapter.downcase == 'Enfoque Basado en Derechos Humanos'.downcase
       @options = [
         'Canales de denuncia administrativos, que sean conocidos por la comunidad, e incidan en el desarrollo de las políticas públicas.',
-        'Mecanismos de incidencia en las políticas públicas en los procesos de participación ciudadana implementados por las instituciones públicas.',
+        'Mecanismos de incidencia en las políticas públicas de los procesos de participación ciudadana implementados por las instituciones públicas.',
         'Espacios de participación institucional para grupos de especial protección, particularmente en los casos de niños, niñas y adolescentes, y de pueblos indígenas.',
         'Cantidad y/o calidad de la información producida por instituciones públicas, que permitan dar seguimiento a la situación de derechos humanos.',
         'Otro',
@@ -383,7 +383,7 @@ class QuizzesController < ApplicationController
       @options = [
         'Incorporación de la educación en  derechos humanos en el currículo escolar.',
         'Formación y capacitación en derechos humanos para funcionarios/as del Estado, que considere aplicación práctica de contenidos y participación de estamentos directivos.',
-        'Formación en derechos humanos en fuerzas de orden y seguridad y Fuerzas Armadas, tanto en los procesos formativos iniciales, como en capacitaciones durante el ejercicio de sus funciones.',
+        'Formación en derechos humanos en Fuerzas de Orden y Seguridad y Fuerzas Armadas”, tanto en los procesos formativos iniciales, como en capacitaciones durante el ejercicio de sus funciones.',
         'Formación en derechos humanos en el Estado cuenta con problemas que limitan su impacto, como falta de aplicación práctica de contenidos, baja participación de estamentos directivos, entre otros.',
         'Otro',
       ]
@@ -393,7 +393,7 @@ class QuizzesController < ApplicationController
       @options = [
         'Necesidad de evaluar la ratificación, firma y retiro de reservas de tratados internacionales de derechos humanos que se encuentran pendientes.',
         'Mecanismos internos para el cumplimento de los compromisos internacionales adquiridos en los sistemas universal e interamericano de derechos humanos, así como respecto del cumplimiento de sentencias de la Corte Interamericana de Derechos Humanos.',
-        'Mecanismos adecuados para que el Estado dé a conocer a la ciudadanía los tratados de derechos humanos que ha ratificado, las recomendaciones para su cumplimiento que ha recibido y que establecimiento de un mecanismo de seguimiento de las recomendaciones, con participación ciudadana.',
+        'Mecanismos adecuados para que el Estado dé a conocer a la ciudadanía los tratados de derechos humanos que ha ratificado, las recomendaciones para su cumplimiento que ha recibido y el establecimiento de un mecanismo de seguimiento de las recomendaciones, con participación ciudadana.',
         'Otro',
       ]
     end
