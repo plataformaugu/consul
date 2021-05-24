@@ -10,6 +10,8 @@
   <% elsif params[:order] == 'support' %>
     <% @quizzes = @quizzes.sort_by {|quiz| quiz.votes}.reverse %>
   <% end %>
+<% else %>
+  <% redirect_with_query_params_to(order: :new)%>
 <% end %>
 
 <% if params[:page].present? %>

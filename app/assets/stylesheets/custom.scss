@@ -466,6 +466,26 @@ aside {
     width: 100%;
     height: 477.797px;
 
+    @media (max-width: 1800px) {
+        height: 450px;
+    }
+
+    @media (max-width: 1700px) {
+        height: 430px;
+    }
+
+    @media (max-width: 1550px) {
+        height: 410px;
+    }
+
+    @media (max-width: 1450px) {
+        height: 390px;
+    }
+
+    @media (max-width: 1361px) {
+        height: 370px;
+    }
+
     @media (max-width: 800px) {
         height: auto;
     }

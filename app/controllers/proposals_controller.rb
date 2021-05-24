@@ -45,6 +45,15 @@ class ProposalsController < ApplicationController
 
   def created; end
 
+  def redirect_with_query_params_to(options, response_status = {})
+    path_options = { controller: params[:controller] }.merge(options).merge(only_path: true)
+    path = url_for(request.query_parameters.merge(path_options))
+
+    redirect_to path, response_status
+  end
+
+  helper_method :redirect_with_query_params_to
+
   def index_customization
     discard_draft
     discard_archived
