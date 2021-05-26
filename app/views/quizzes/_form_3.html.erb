@@ -10,19 +10,6 @@
       <br/><br/>
     </div>
 
-    <div class="small-12 column">
-      <% if params[:group].present? %>
-      <label for="q10">10. ¿Les interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
-      <% else %>
-      <label for="q10">10. ¿Te interesaría participar del monitoreo o seguimiento al Plan Nacional de Derechos Humanos?</label><br/>
-      <% end %>
-        <%= radio_button_tag 'q10', 'Si' %>
-        <%= label_tag "q10_Si", 'Si' %><br/>
-        <%= radio_button_tag 'q10', 'No' %>
-        <%= label_tag "q10_No", 'No' %><br/>
-      <br/><br/>
-    </div>
-
     <input type="hidden" id="quiz_id" name="quiz_id" value="<%= params[:quiz_id] %>">
     <input type="hidden" id="step" name="step" value="3">
 
