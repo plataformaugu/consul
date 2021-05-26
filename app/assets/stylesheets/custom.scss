@@ -634,3 +634,11 @@ small, p, span, label, input, textarea {
         width: 100%;
     }
 }
+
+.custom-input {
+    display: inline;
+    
+    input {
+        margin: 0 !important;
+    }
+}

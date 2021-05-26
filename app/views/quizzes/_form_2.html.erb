@@ -33,17 +33,17 @@
 
     <div class="small-12 column">
       <%= f.label :q3, 'Ingrese la institución o tipo de instituciones que deben ser responsable de que su sugerencia se pueda realizar (Seleccione todas las que estime pertinente)' %><br/>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
+      <%= label_tag nil, style: 'font-weight: normal; display: inline;', class: 'custom-input' do %>
         <%= check_box_tag 'q3[]', 'Subsecretaría de Derechos Humanos' %>
-        Subsecretaría de Derechos Humanos
+        Subsecretaría de Derechos Humanos<br/><br/>
       <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
+      <%= label_tag nil, style: 'font-weight: normal', class: 'custom-input' do %>
         <%= check_box_tag 'q3[]', 'Todas las instituciones con compromisos en el Plan' %>
-        Todas las instituciones con compromisos en el Plan
+        Todas las instituciones con compromisos en el Plan<br/><br/>
       <% end %>
-      <%= label_tag nil, style: 'font-weight: normal' do %>
+      <%= label_tag nil, style: 'font-weight: normal', class: 'custom-input' do %>
         <%= check_box_tag 'q3[]', 'Organismos autónomos de derechos humanos (INDH, Defensoría de la Niñez).' %>
-        Organismos autónomos de derechos humanos (INDH, Defensoría de la Niñez).
+        Organismos autónomos de derechos humanos (INDH, Defensoría de la Niñez).<br/><br/>
       <% end %>
       <br/>
     </div>

@@ -383,7 +383,7 @@ class QuizzesController < ApplicationController
       @options = [
         'Incorporación de la educación en  derechos humanos en el currículo escolar.',
         'Formación y capacitación en derechos humanos para funcionarios/as del Estado, que considere aplicación práctica de contenidos y participación de estamentos directivos.',
-        'Formación en derechos humanos en Fuerzas de Orden y Seguridad y Fuerzas Armadas”, tanto en los procesos formativos iniciales, como en capacitaciones durante el ejercicio de sus funciones.',
+        'Formación en derechos humanos en Fuerzas de Orden y Seguridad y Fuerzas Armadas, tanto en los procesos formativos iniciales, como en capacitaciones durante el ejercicio de sus funciones.',
         'Formación en derechos humanos en el Estado cuenta con problemas que limitan su impacto, como falta de aplicación práctica de contenidos, baja participación de estamentos directivos, entre otros.',
         'Otro',
       ]
