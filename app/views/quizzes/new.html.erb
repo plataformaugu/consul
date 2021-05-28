@@ -131,8 +131,11 @@
 			<% end %>
 			<div class="sidebar-divider"></div>
 			<h2 class="sidebar-title">Información</h2><br/>
-			<small><i class="fas fa-file-pdf" style="color: #378370;"></i> documento_falso.pdf</small><br/>
-			<small><i class="fas fa-file-pdf" style="color: #378370;"></i> documento_falso.pdf</small>
+			<small><%= link_to('/docs/el_arbol_de_problemas.pdf', target: '_blank') do %><i class="fas fa-file-pdf" style="color: #378370;"></i> El árbol de problemas (PDF)</small><% end %><br/>
+			<% if @group %>
+				<small><%= link_to('/docs/guia_para_adultos_que_acompañan_a_NNA.pdf', target: '_blank') do %><i class="fas fa-file-pdf" style="color: #378370;"></i> Guía para adultos que acompañan a NNA (PDF)</small><% end %><br/>
+				<small><%= link_to('/docs/guía_para_la_participación_grupal.pdf', target: '_blank') do %><i class="fas fa-file-pdf" style="color: #378370;"></i> Guía para la participación grupal (PDF)</small><% end %><br/>
+			<% end %>
 			<% if @group and @progress == 1 %>
 				<div class="sidebar-divider"></div>
 				<h2 class="sidebar-title">Enlaces para videollamada</h2><br/>

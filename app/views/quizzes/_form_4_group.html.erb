@@ -44,14 +44,14 @@
 <%= form_for(@quiz, url: form_url) do |f| %>
   <div class="row column quiz-form">
     <div class="small-12 column">
-      <label for="q11">11. ¿Qué tipo de grupo forman ustedes?</label><br/>
+      <label for="q11">10. ¿Qué tipo de grupo forman ustedes?</label><br/>
       <%= select_tag 'q11', options_for_select(@q11_options), prompt: 'Elijan una opción' %>
       <label id="custom-group-label" style="display: none">Especificar:</label>
       <input type="text" id="custom-group" style="display: none"><br/><br/>
     </div>
 
     <div class="small-12 column">
-      <label for="q12">12. ¿Qué actividad o actividades definen mejor los intereses del grupo?</label><br/>
+      <label for="q12">11. ¿Qué actividad o actividades definen mejor los intereses del grupo?</label><br/>
       <% @q12_options.each_with_index do |option, idx| %>
         <%= check_box_tag 'q12[]', option, false, {id: 'q12_%s' % [idx]} %>
         <%= label_tag 'q12_%s' % [idx], option %><br/><br/>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q13">13. ¿En qué país nacieron?</label><br/>
+      <label for="q13">12. ¿En qué país nacieron?</label><br/>
       Chile: <%= number_field_tag 'q13_chile', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       Bolivia: <%= number_field_tag 'q13_bolivia', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
       Venezuela: <%= number_field_tag 'q13_venezuela', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q14">14. ¿Hay algún miembro del grupo con algún tipo de discapacidad?</label><br/>
+      <label for="q14">13. ¿Hay algún miembro del grupo con algún tipo de discapacidad?</label><br/>
         Si: <%= number_field_tag 'q14_si', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         No: <%= number_field_tag 'q14_no', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         Prefiero no decir: <%= number_field_tag 'q14_prefiero no decir', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
@@ -80,7 +80,7 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q15">15. ¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?</label>
+      <label for="q15">14. ¿A qué pueblo o pueblos indígenas o tribales pertenecen los miembros del grupo?</label>
       <span class="help-text">En caso de que haya integrantes de más de un pueblo indígena o tribal, seleccionen la opción “Otros” y escríbanlos en el espacio disponible para ello. </span><br/>
       <%= select_tag 'q15', options_for_select(@q15_options), prompt: 'Elijan una opción' %>
       <label id="custom-indigenous-label" style="display: none">Especificar:</label>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q16">16. ¿Dónde viven los miembros del grupo actualmente?</label><br/>
+      <label for="q16">15. ¿Dónde viven los miembros del grupo actualmente?</label><br/>
         En un hospital, por tratamiento médico prolongado: <%= number_field_tag 'q16_En un hospital, por tratamiento médico prolongado', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         En casa de familiares: <%= number_field_tag 'q16_En casa de familiares', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
         En un centro privativo de libertad: <%= number_field_tag 'q16_En un centro privativo de libertad', 0, class: 'number-selection', min: 0, oninput: "this.value=this.value.replace(/[^0-9]/g,'');"  %><br/>
@@ -101,15 +101,15 @@
     </div>
 
     <div class="small-12 column">
-      <label for="q17">17. ¿Qué edad tiene el o la participante más pequeño del grupo?</label>
+      <label for="q17">16. ¿Qué edad tiene el o la participante más pequeño del grupo?</label>
       <%= number_field_tag 'q17', 0, min: 0, max: 100 %><br/>
-      <label for="q18">18. ¿Qué edad tiene el o la participante más grande del grupo?</label>
+      <label for="q18">17. ¿Qué edad tiene el o la participante más grande del grupo?</label>
       <span class="help-text">Si los acompañó una persona adulta, no consideren su edad, sólo la de los miembros del grupo.</span>
       <%= number_field_tag 'q18', 0, min: 0, max: 100 %><br/>
     </div>
 
       <div class="small-12 column">
-        <label for="q19">19. ¿En qué comuna vive la mayoría de los miembros del grupo?</label>
+        <label for="q19">18. ¿En qué comuna vive la mayoría de los miembros del grupo?</label>
         <small class="help-text">Puedes escoger sólo una.</small>
         <%= select_tag 'q19', options_for_select(@comunas), prompt: 'Elijan una opción' %><br/><br/>
       </div>

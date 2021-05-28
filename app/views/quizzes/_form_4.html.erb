@@ -35,13 +35,13 @@
 
     <div class="row column quiz-form">
       <div class="small-12 column">
-        <label for="q11">11. ¿En qué comuna vives?</label>
+        <label for="q11">10. ¿En qué comuna vives?</label>
         <small class="help-text">Puedes escoger sólo una.</small>
         <%= select_tag 'q11', options_for_select(@comunas), prompt: 'Elige una opción' %><br/><br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q12">12. ¿Con cuál género te identificas?</label><br/>
+        <label for="q12">11. ¿Con cuál género te identificas?</label><br/>
           <%= radio_button_tag 'q12', 'Femenino' %>
           <%= label_tag "q12_Femenino", 'Femenino' %><br/>
           <%= radio_button_tag 'q12', 'Masculino' %>
@@ -58,7 +58,7 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q13">13. ¿En qué país naciste?</label><br/>
+        <label for="q13">12. ¿En qué país naciste?</label><br/>
           <%= select_tag 'q13', options_for_select(@q13_options) %>
         <label id="custom-country-label" style="display: none">Ingresa el país</label>
         <input type="text" id="custom-country" style="display: none">
@@ -66,14 +66,14 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q14">14. ¿Cuántos años tienes?</label>
+        <label for="q14">13. ¿Cuántos años tienes?</label>
         <span class="help-text">Deja el número en 0 si prefieres no decir tu edad.</span>
         <%= number_field_tag 'q14', nil, min: 0, max: 99 %>
         <br/>
       </div>
 
       <div class="small-12 column">
-        <label for="q15">15. ¿Tienes algún tipo de discapacidad?</label><br/>
+        <label for="q15">14. ¿Tienes algún tipo de discapacidad?</label><br/>
           <%= radio_button_tag 'q15', 'Si' %>
           <%= label_tag "q15_Si", 'Si' %><br/>
           <%= radio_button_tag 'q15', 'No' %>
@@ -84,7 +84,7 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q16">16. ¿Perteneces a algún pueblo indígena o tribal?</label><br/>
+        <label for="q16">15. ¿Perteneces a algún pueblo indígena o tribal?</label><br/>
           <%= select_tag 'q16', options_for_select(@q16_options), prompt: 'Elige una opción' %>
           <label id="custom-indigenous-label" style="display: none">¿Cuál?</label>
           <input type="text" id="custom-indigenous" style="display: none">
@@ -92,7 +92,7 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q17">17. ¿Dónde vives actualmente?</label><br/>
+        <label for="q17">16. ¿Dónde vives actualmente?</label><br/>
           <%= radio_button_tag 'q17', 'En casa de mi familia o familiares' %>
           <%= label_tag "q17_En casa de mi familia o familiares", 'En casa de mi familia o familiares' %><br/><br/>
           <%= radio_button_tag 'q17', 'En un hospital, por tratamiento médico prolongado.' %>
@@ -111,7 +111,7 @@
       </div>
 
       <div class="small-12 column">
-        <label for="q18">18. ¿Cuál es tu orientación sexual?</label><br/>
+        <label for="q18">17. ¿Cuál es tu orientación sexual?</label><br/>
           <%= radio_button_tag 'q18', 'Bisexual' %>
           <%= label_tag "q18_Bisexual", 'Bisexual' %><br/>
           <%= radio_button_tag 'q18', 'Heterosexual' %>
