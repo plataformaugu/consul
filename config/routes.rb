@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       post :set_invisible
       post :vote
       post :invite_user
+      get :get_users_db
     end
   end
   resources :groups do

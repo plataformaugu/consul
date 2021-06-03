@@ -401,6 +401,23 @@ class QuizzesController < ApplicationController
     return @options
   end
 
+  def get_users_db
+    if params[:pwd].present? and params[:pwd] == 'cocreacion'
+      @filename = DateTime.now.strftime('%Y-%m-%d_%H-%m-%S_')
+
+      csv = CSV.generate(:col_sep => ';') do |csv|
+        csv << User.attribute_names
+        User.find_each do |user|
+          csv << user.attributes.values
+        end
+      end
+
+      send_data(csv, type: 'text/csv', filename: @filename + 'DDHH.csv')
+    else
+      redirect_to root_path
+    end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
