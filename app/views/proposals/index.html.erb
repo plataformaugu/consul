@@ -59,16 +59,16 @@
             <% if current_user %>
               <% if Quiz.where(quiz_type: 3, user_id: current_user.id).count < 6 %>
                 <%= link_to 'Crear tu sugerencia',
-                  new_quiz_path(chapter: @categories.where({name: params[:search]}).first.id, type: 3),
+                  '#',
                   class: "button expanded",
-                  style: "background-color: #60b0c6; !important"  %>
+                  style: "background-color: #60b0c6; !important",
+                  disabled: true %>
               <% else %>
                 <button style="background-color: #60b0c6; !important" disabled class="button expanded">Alcanzaste el límite</button>
               <% end %>
             <% else %>
             <div class="show-only-users">
               <div class="message">
-                  Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para participar.
                 </div>
                 <button style="background-color: #60b0c6; !important" class="button expanded">Crear tu sugerencia</button>
               </div>
@@ -140,12 +140,11 @@
                       <div class="in-favor">
                         <% if current_user %>
                           <% if quiz.user_id != current_user.id %>
-                            <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                            <%= link_to '#',
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: "doVote(this, #{quiz.id});",
-                                disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                                disabled: true,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
                                 Ya apoyaste
@@ -157,7 +156,6 @@
                         <% else %>
                         <div class="show-only-users">
                           <div class="message">
-                            Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para apoyar.
                           </div>
                           <button class="button button-support small expanded">Apoyar</button>
                         </div>
