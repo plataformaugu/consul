@@ -25,7 +25,7 @@
         <div class="<%= current_user ? 'card-section custom-card-section text-center' : 'card-section custom-card-section text-center' %>">
           <h4>Participar individualmente</h4>
           <small>¡Queremos escuchar tu opinión sobre los derechos humanos!</small><br/><br/>
-          <%= link_to 'Participar', current_user ? '/confirm_participation' : new_user_session_path, class: 'button expanded' %>
+          <%= link_to 'Participar', current_user ? '#' : new_user_session_path, class: 'button expanded', disabled: true %>
         </div>
       </div>
     <% if current_user %>
@@ -38,7 +38,7 @@
             <h4>Participar <br/>grupalmente</h4>
             <small>¿Qué opina tu grupo sobre los derechos humanos?</small>
             <% if Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}.count > 0 %>
-              <%= select_tag 'groups', options_from_collection_for_select(Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}, 'id', 'name'), prompt: 'Elige un grupo' %>
+              <%= select_tag 'groups', options_from_collection_for_select(Group.where(user_id: current_user.id).select{|g| g if g.users.count > 1}, 'id', 'name'), prompt: 'Elige un grupo', disabled: true %>
               <small>Solo aparecerán grupos con dos participantes o más</small><br/><br/>
               <%= link_to 'Participar', '#', class: 'button expanded', id: 'groups_submit', disabled: true %>
             <% else %>
@@ -68,7 +68,7 @@
         <div class="card-section custom-card-section text-center">
           <h4>Participar <br/>grupalmente</h4>
           <small>¿Qué opina tu grupo sobre los derechos humanos?</small><br/><br/>
-          <%= link_to 'Participar', new_user_session_path, class: 'button expanded' %>
+          <%= link_to 'Participar', '#', class: 'button expanded', disabled: true %>
         </div>
       </div>
     <% end %>

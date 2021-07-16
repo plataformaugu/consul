@@ -131,12 +131,11 @@
                       <div class="in-favor">
                         <% if current_user %>
                           <% if quiz.user_id != current_user.id %>
-                            <%= link_to Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? ? nil : vote_quizzes_path(quiz_id: quiz.id),
+                            <%= link_to '#',
                                 class: "button button-support small expanded",
                                 title: 'Apoyar',
                                 method: "post",
-                                onclick: "doVote(this, #{quiz.id});",
-                                disabled: Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists?,
+                                disabled: true,
                                 remote: true do %>
                               <% if Vote.where(votable_type: "Quiz", votable_id: quiz.id, voter_id: current_user.id).exists? %>
                                 Ya apoyaste
@@ -150,7 +149,6 @@
                         <% else %>
                           <div class="show-only-users">
                             <div class="message">
-                              Debes <a href="/users/sign_in">iniciar sesión</a> o <a href="/users/sign_up">registrarte</a> para apoyar.
                             </div>
                             <button class="button button-support small expanded">Apoyar</button>
                           </div>
@@ -235,14 +233,6 @@
 </main>
 
 <script>
-function doVote(e, id) {
-  if (!e.getAttribute('disabled')) {
-    e.parentElement.parentElement.getElementsByClassName("total-supports")[0].innerText++;
-    e.setAttribute('disabled', 'disabled');
-    e.innerText = 'Ya apoyaste';
-    $('#social-share-item-' + id).css("display", "block");
-  }
-}
 
 $(document).on('confirm:complete', function (e, answer) {
   if (answer) {

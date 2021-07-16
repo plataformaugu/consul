@@ -72,14 +72,14 @@
         <div class="sidebar-divider"></div>
           <h2 class="sidebar-title">Acciones</h2>
           <% if @group.users.count < 15 %>
-            <%= link_to 'Agregar participante', edit_group_path(@group, add: true), class: 'button expanded' %>
+            <%= link_to 'Agregar participante', '#', class: 'button expanded', disabled: true %>
           <% else %>
             <button disabled class="button expanded">Agregar participante</button>
             <small>El grupo alcanzó el limite de 15 participantes</small>
           <% end %>
-          <%= link_to 'Editar grupo', edit_group_path(@group), class: 'button expanded' %>
+          <%= link_to 'Editar grupo', '#', class: 'button expanded', disabled: true %>
           <% if @group.users.count > 1 %>
-            <%= link_to 'Ir a participar', '/confirm_participation?group=%s' % [@group.id], class: 'button expanded' %>
+            <%= link_to 'Ir a participar', '#', class: 'button expanded', disabled: true %>
           <% else %>
             <%= link_to 'Ir a participar', nil, class: 'button expanded', disabled: true %>
           <% end %>

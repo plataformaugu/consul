@@ -30,18 +30,5 @@
 <% end %>
 
 <main>
-  <div class="jumbo light">
-    <div class="row">
-      <div class="small-12 column">
-        <%= image_tag "help/help_icon_debates.png", alt: t("poll.icon_alt"), class: "align-sub" %>
-        <h1 class="inline-block">Crear grupo</h1>
-      </div>
-    </div>
-    <div class="row">
-      <%= back_link_to groups_path %>
-    </div>
-  </div>
-  <div class="row">
-    <%= render 'form', group: @group %>
-  </div>
+
 </main>
