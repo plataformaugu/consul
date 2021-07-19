@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       post :invite_user
       get :go_prev_quiz
       get :get_users_db
+      get :get_votes_by_id
     end
   end
   resources :groups do
