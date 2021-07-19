@@ -418,6 +418,33 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def get_quiz_type(type)
+    if type === 1
+      return 'Diagnóstico'
+    elsif type === 2
+      return 'Monitoreo'
+    elsif type === 3
+      return 'Sugerencia'
+    end
+  end
+
+  def get_votes_by_id
+    if params[:pwd].present? and params[:pwd] == 'cocreacion'
+      @filename = DateTime.now.strftime('%Y-%m-%d_%H-%m-%S_')
+
+      csv = CSV.generate(:col_sep => ';') do |csv|
+        csv << ['ID', 'Tipo', 'Votos']
+        Quiz.find_each do |quiz|
+          csv << [quiz.id, get_quiz_type(quiz.quiz_type), quiz.votes]
+        end
+      end
+
+      send_data(csv, type: 'text/csv', filename: @filename + 'votos_DDHH.csv')
+    else
+      redirect_to root_path
+    end
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.

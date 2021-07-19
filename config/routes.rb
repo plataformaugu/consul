@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       post :vote
       post :invite_user
       get :get_users_db
+      get :get_votes_by_id
     end
   end
   resources :groups do
