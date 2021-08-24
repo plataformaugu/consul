@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Forms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Q1</th>
+      <th>Q1o</th>
+      <th>Q21</th>
+      <th>Q21o</th>
+      <th>Q22</th>
+      <th>Q22o</th>
+      <th>Q23</th>
+      <th>Q23o</th>
+      <th>Q3</th>
+      <th>Q41</th>
+      <th>Q42</th>
+      <th>Q43</th>
+      <th>Q5</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @forms.each do |form| %>
+      <tr>
+        <td><%= form.q1 %></td>
+        <td><%= form.q1o %></td>
+        <td><%= form.q21 %></td>
+        <td><%= form.q21o %></td>
+        <td><%= form.q22 %></td>
+        <td><%= form.q22o %></td>
+        <td><%= form.q23 %></td>
+        <td><%= form.q23o %></td>
+        <td><%= form.q3 %></td>
+        <td><%= form.q41 %></td>
+        <td><%= form.q42 %></td>
+        <td><%= form.q43 %></td>
+        <td><%= form.q5 %></td>
+        <td><%= link_to 'Show', form %></td>
+        <td><%= link_to 'Edit', edit_form_path(form) %></td>
+        <td><%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Form', new_form_path %>

@@ -3,3 +3,24 @@
 // * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#css
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
+
+.custom-form-root {
+    label {
+        font-weight: normal;
+    }
+}
+
+#sortable {
+    height: auto !important;
+
+    li {
+        cursor: move;
+        margin-bottom: 10px;
+    }
+}
+
+.custom-ordered-list {
+    .other {
+        list-style: none;
+    }
+}

@@ -1,0 +1,265 @@
+<%= form_with(model: form, local: true) do |form| %>
+  <ol class="custom-form-root">
+    <li>
+      <label for="form_q1" style="font-weight: normal;">
+      En todas las sociedades existen grupos de personas que están más expuestas a la vulneración de  sus derechos, no sólo por el accionar del Estado sino también por la actividad de las empresas, sean éstas públicas o privadas. Respecto de la interacción con las empresas, <strong>¿cuáles de los siguientes grupos requieren de una preocupación preferente, en el marco del segundo Plan de Acción Nacional de Derechos Humanos y Empresas? Ordene del 1 al 8 de acuerdo a su opinión.</strong></label>
+      <br>
+      <ol class="custom-ordered-list">
+        <%= form.hidden_field :q1 %>
+        <div id="sortable">
+          <li>Comunidades en zonas de vulnerabilidad socio ambiental</li>
+          <li>Mujeres</li>
+          <li>Niños, Niñas y Adolescentes</li>
+          <li>Comunidad LGBTIQ+</li>
+          <li>Migrantes o refugiados</li>
+          <li>Población indígena</li>
+          <li>Personas con discapacidad</li>
+          <li>Personas mayores</li>
+        </div>
+        <li class="other">Otro(a):
+          <br>
+          <small>(100 caracteres)</small>
+          <%= form.text_field :q1o, label: false, maxlength: 100 %>
+        </li>
+      </ol>
+    </li>
+    <br>
+
+    <li>
+      <ol>
+        <!-- 2.1 -->
+        <li>
+          <label for="form_q21" style="font-weight: normal;">
+            La relación entre las personas y las empresas, sean públicas o privadas, puede traducirse en diversos tipos de interacciones. Las más habituales son aquellas que sitúan a la persona como consumidor, trabajador(a) o miembro de una comunidad que convive con la actividad industrial de una empresa.
+            <strong>Desde su experiencia como trabajador(a), ¿cuál de los siguientes ámbitos requiere de una preocupación preferente por parte de la empresa? Seleccione hasta tres opciones.</strong>
+          </label>
+          <br>
+          <%= check_box_tag 'q21[]', 'Políticas de Inclusión y no discriminación', false, {id: 'q21_1'} %>
+          <%= label_tag 'q21_1', 'Políticas de Inclusión y no discriminación' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'Derechos sindicales', false, {id: 'q21_2'} %>
+          <%= label_tag 'q21_2', 'Derechos sindicales' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'Resguardo de la privacidad e intimidad de los trabajadores/as', false, {id: 'q21_3'} %>
+          <%= label_tag 'q21_3', 'Resguardo de la privacidad e intimidad de los trabajadores/as' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'Condiciones de seguridad en el trabajo', false, {id: 'q21_4'} %>
+          <%= label_tag 'q21_4', 'Condiciones de seguridad en el trabajo' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'Políticas de conciliación trabajo y familia', false, {id: 'q21_5'} %>
+          <%= label_tag 'q21_5', 'Políticas de conciliación trabajo y familia' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'Equidad salarial', false, {id: 'q21_6'} %>
+          <%= label_tag 'q21_6', 'Equidad salarial' %>
+          <br>
+          <%= check_box_tag 'q21[]', 'No aplica (*)', false, {id: 'q21_8'} %>
+          <%= label_tag 'q21_8', 'No aplica (*)' %>
+          <br>
+          <small>* En caso de que usted nunca haya trabajado en una empresa, por favor marque esta opción.</small>
+          <br>
+          Otro(a):
+            <br>
+            <small>(100 caracteres)</small>
+            <%= form.text_field :q21o, label: false, maxlength: 100 %>
+        </li>
+        <br>
+        <!-- 2.2 -->
+        <li>
+          <label for="form_q22" style="font-weight: normal;">
+            Desde su experiencia como miembro de una comunidad que convive con la actividad de una empresa, ¿cuál de los siguientes ámbitos requiere de una preocupación preferente por parte de ella? Seleccione hasta tres opciones.
+          </label>
+          <br>
+          <%= check_box_tag 'q22[]', 'Cuidado del medio ambiente y biodiversidad', false, {id: 'q22_1'} %>
+          <%= label_tag 'q22_1', 'Cuidado del medio ambiente y biodiversidad' %>
+          <br>
+          <%= check_box_tag 'q22[]', 'Salud de los miembros de la comunidad', false, {id: 'q22_2'} %>
+          <%= label_tag 'q22_2', 'Salud de los miembros de la comunidad' %>
+          <br>
+          <%= check_box_tag 'q22[]', 'Políticas de calidad de vida para la comunidad', false, {id: 'q22_3'} %>
+          <%= label_tag 'q22_3', 'Políticas de calidad de vida para la comunidad' %>
+          <br>
+          <%= check_box_tag 'q22[]', 'Acceso la información y transparencia respecto de las actividades de la empresa', false, {id: 'q22_4'} %>
+          <%= label_tag 'q22_4', 'Acceso la información y transparencia respecto de las actividades de la empresa' %>
+          <br>
+          <%= check_box_tag 'q22[]', 'Acceso a mecanismos de participación o consulta comunitaria', false, {id: 'q22_5'} %>
+          <%= label_tag 'q22_5', 'Acceso a mecanismos de participación o consulta comunitaria' %>
+          <br>
+          <%= check_box_tag 'q22[]', 'Acceso a medidas de reclamación y reparación por parte de la empresa', false, {id: 'q22_6'} %>
+          <%= label_tag 'q22_6', 'Acceso a medidas de reclamación y reparación por parte de la empresa' %>
+          <br>
+          Otro(a):
+            <br>
+            <small>(100 caracteres)</small>
+            <%= form.text_field :q22o, label: false, maxlength: 100 %>
+        </li>
+        <br>
+        <!-- 2.3 -->
+        <li>
+          <label for="form_q23" style="font-weight: normal;">
+            Desde su experiencia como cliente/consumidor, ¿cuál de los siguientes ámbitos requiere una preocupación preferente por parte de las empresas? Seleccione hasta tres opciones.
+          </label>
+          <br>
+          <%= check_box_tag 'q23[]', 'Asegurar la igualdad y no discriminación en el trato a los/as clientes/consumidores', false, {id: 'q23_1'} %>
+          <%= label_tag 'q23_1', 'Asegurar la igualdad y no discriminación en el trato a los/as clientes/consumidores' %>
+          <br>
+          <%= check_box_tag 'q23[]', 'Preocuparse de la salud mental y física de los/las clientes/consumidores', false, {id: 'q23_2'} %>
+          <%= label_tag 'q23_2', 'Preocuparse de la salud mental y física de los/las clientes/consumidores' %>
+          <br>
+          <%= check_box_tag 'q23[]', 'Acceso a la información y transparencia de los productos y servicios que ofrece la empresa', false, {id: 'q23_3'} %>
+          <%= label_tag 'q23_3', 'Acceso a la información y transparencia de los productos y servicios que ofrece la empresa' %>
+          <br>
+          <%= check_box_tag 'q23[]', 'Cuidar el resguardo de la privacidad e intimidad de los/as clientes/consumidores', false, {id: 'q23_4'} %>
+          <%= label_tag 'q23_4', 'Cuidar el resguardo de la privacidad e intimidad de los/as clientes/consumidores' %>
+          <br>
+          <%= check_box_tag 'q23[]', 'Proteger el Medio Ambiente y ocuparse del cambio climático', false, {id: 'q23_5'} %>
+          <%= label_tag 'q23_5', 'Proteger el Medio Ambiente y ocuparse del cambio climático' %>
+          <br>
+          Otro(a):
+            <br>
+            <small>(100 caracteres)</small>
+            <%= form.text_field :q23o, label: false, maxlength: 100 %>
+        </li>
+      </ol>
+    </li>
+    <br>
+
+    <!-- 3 -->
+    <li>
+      <label for="form_q3" style="font-weight: normal;">
+        En el proceso de elaboración del segundo Plan de Acción Nacional de Derechos Humanos y Empresas, se han identificado los siguientes ámbitos en los que sería prioritario profundizar, a través de determinadas acciones:
+      </label>
+      <br>
+      <ol>
+        <li>Incorporar procesos de identificación y gestión de impactos (debida diligencia en derechos humanos) en las empresas públicas</li>
+        <li>Incorporar el enfoque de género de manera transversal en las empresas, públicas y privadas</li>
+        <li>Avanzar en el establecimiento de mecanismos de reparación por parte de la empresa ante eventuales vulneraciones de derechos humanos producto de su operación</li>
+        <li>Incorporar la temática de empresas y DDHH en las pequeñas y medianas empresas</li>
+        <li>Que las empresas extiendan sus políticas de DDHH a toda su cadena de suministros</li>
+      </ol>
+      <br>
+      <%= form.label :q3, '¿Considera que hay otro(s) ámbito(s) que debería(n) ser abordado(s) por el segundo Plan?', style: 'font-weight: bold' %>
+      <small>(1300 caracteres)</small>
+      <%= form.text_area :q3, label: false, rows: 4, maxlength: 1300 %>
+    </li>
+    <br>
+    
+    <!-- 4 -->
+    <li>
+      <label for="form_q4" style="font-weight: normal;">
+        El Primer Plan de Acción Nacional de Derechos Humanos y Empresas contempló 146 acciones comprometidas por 17 instituciones del Estado. Algunas de las medidas implementadas fueron la agenda de “género y energía”, cuyo objetivo fue potenciar el rol de la mujer en el desarrollo del sector energético nacional.
+        <br><br>
+        Otra de las acciones desarrolladas fueron las “Guías Chile de Derechos Humanos y Empresas”, documento con recomendaciones para que las empresas integren a sus prácticas el enfoque de derechos humanos, con foco en dos grupos de especial protección: migrantes y adultos mayores.
+        <br><br>
+        <strong>En este contexto, le pedimos que proponga hasta un máximo de tres acciones que puedan ser incorporadas en la segunda versión del PAN, indicando la institución pública que debería llevarla a cabo.</strong>
+        <br><small>(Describa en un máximo de 650 caracteres cada acción)</small>
+      </label>
+      <br>
+      <%= form.text_area :q41, label: false, rows: 3, maxlength: 650 %>
+      <%= form.text_area :q42, label: false, rows: 3, maxlength: 650 %>
+      <%= form.text_area :q43, label: false, rows: 3, maxlength: 650 %>
+    </li>
+    <br>
+
+    <!-- 5 -->
+    <li>
+      <label for="form_q5" style="font-weight: normal;">
+        En la relación de las empresas con las personas, se pueden producir situaciones que impliquen la afectación de sus derechos humanos. Por ejemplo, cuando se discrimina a un cliente(a) por su género u origen étnico; o bien cuando los trabajadores no cuentan con las condiciones mínimas de seguridad para su labor. También podría existir una vulneración de derechos en caso de que, debido a su operación, la empresa genere un impacto ambiental que produce un daño en la salud de las comunidades con las que interactúa.
+        <br><br>
+        <strong>En este sentido, ¿Conoce alguna situación en la que se hayan visto afectados sus derechos o el de otras personas producto de la actividad de una empresa?</strong>
+        <br><small>(Describa en un máximo de 1300 caracteres)</small>
+      </label>
+      <br>
+      <%= form.text_area :q5, label: false, rows: 4, maxlength: 1300 %>
+    </li>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  </ol>
+<% end %>
+
+<script>
+let firstLoad = true;
+
+$( function() {
+  $( "#sortable" ).sortable();
+  $( "#sortable" ).disableSelection();
+} );
+
+$(document).ready(function() {
+  let result = [];
+  
+  $('#sortable').sortable();
+
+  if (firstLoad) {
+    result = []
+ 
+    $('#sortable li').each(function() {
+      result.push($(this).text())
+    });
+
+    $('#form_q1').val(result.join(', '));
+    firstLoad = false;
+  }
+
+  $('#sortable').on('sortstop', function() {
+    result = []
+ 
+    $('#sortable li').each(function() {
+      result.push($(this).text())
+    });
+    $('#form_q1').val(result.join(', '));
+  });
+
+  $('input[name="q21[]"]').on('change', function() {
+    if ($('input[id="q21_8"]').is(':checked')) {
+      $('input[name="q21[]"]').each(function() {
+        if ($(this).attr('id') !== 'q21_8') {
+          $(this).attr('disabled', true)
+          $(this).prop('checked', false)
+        }
+      })
+    } else {
+      if ($('input[name="q21[]"]:checked').length >= 3) {
+      $('input[name="q21[]"]').each(function() {
+        if (!this.checked) {
+          $(this).attr('disabled', true)
+        }
+      })
+    } else {
+      $('input[name="q21[]"]').each(function() {
+        $(this).attr('disabled', false)
+      })
+    }
+    }
+  })
+
+  $('input[name="q22[]"]').on('change', function() {
+    if ($('input[name="q22[]"]:checked').length >= 3) {
+      $('input[name="q22[]"]').each(function() {
+        if (!this.checked) {
+          $(this).attr('disabled', true)
+        }
+      })
+    } else {
+      $('input[name="q22[]"]').each(function() {
+        $(this).attr('disabled', false)
+      })
+    }
+  })
+
+  $('input[name="q23[]"]').on('change', function() {
+    if ($('input[name="q23[]"]:checked').length >= 3) {
+      $('input[name="q23[]"]').each(function() {
+        if (!this.checked) {
+          $(this).attr('disabled', true)
+        }
+      })
+    } else {
+      $('input[name="q23[]"]').each(function() {
+        $(this).attr('disabled', false)
+      })
+    }
+  })
+});
+</script>

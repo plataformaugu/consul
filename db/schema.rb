@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_100638) do
+ActiveRecord::Schema.define(version: 2021_08_24_010132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -589,6 +589,24 @@ ActiveRecord::Schema.define(version: 2021_01_23_100638) do
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["user_id", "followable_type", "followable_id"], name: "access_follows"
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "q1"
+    t.text "q1o"
+    t.string "q21"
+    t.text "q21o"
+    t.string "q22"
+    t.text "q22o"
+    t.string "q23"
+    t.text "q23o"
+    t.text "q3"
+    t.text "q41"
+    t.text "q42"
+    t.text "q43"
+    t.text "q5"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "geozones", id: :serial, force: :cascade do |t|
