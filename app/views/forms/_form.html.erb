@@ -1,6 +1,7 @@
 <%= form_with(model: form, local: true) do |form| %>
   <ol class="custom-form-root">
-    <li>
+    <!-- 1 -->
+    <li id="step_1">
       <label for="form_q1" style="font-weight: normal;">
       En todas las sociedades existen grupos de personas que están más expuestas a la vulneración de  sus derechos, no sólo por el accionar del Estado sino también por la actividad de las empresas, sean éstas públicas o privadas. Respecto de la interacción con las empresas, <strong>¿cuáles de los siguientes grupos requieren de una preocupación preferente, en el marco del segundo Plan de Acción Nacional de Derechos Humanos y Empresas? Ordene del 1 al 8 de acuerdo a su opinión.</strong></label>
       <br>
@@ -22,10 +23,11 @@
           <%= form.text_field :q1o, label: false, maxlength: 100 %>
         </li>
       </ol>
-    </li>
     <br>
+    </li>
 
-    <li>
+    <!-- 2 -->
+    <li id="step_2" value="2">
       <ol>
         <!-- 2.1 -->
         <li>
@@ -120,11 +122,11 @@
             <%= form.text_field :q23o, label: false, maxlength: 100 %>
         </li>
       </ol>
-    </li>
     <br>
+    </li>
 
     <!-- 3 -->
-    <li>
+    <li id="step_3" value="3">
       <label for="form_q3" style="font-weight: normal;">
         En el proceso de elaboración del segundo Plan de Acción Nacional de Derechos Humanos y Empresas, se han identificado los siguientes ámbitos en los que sería prioritario profundizar, a través de determinadas acciones:
       </label>
@@ -140,11 +142,11 @@
       <%= form.label :q3, '¿Considera que hay otro(s) ámbito(s) que debería(n) ser abordado(s) por el segundo Plan?', style: 'font-weight: bold' %>
       <small>(1300 caracteres)</small>
       <%= form.text_area :q3, label: false, rows: 4, maxlength: 1300 %>
-    </li>
     <br>
+    </li>
     
     <!-- 4 -->
-    <li>
+    <li id="step_4a" value="4">
       <label for="form_q4" style="font-weight: normal;">
         El Primer Plan de Acción Nacional de Derechos Humanos y Empresas contempló 146 acciones comprometidas por 17 instituciones del Estado. Algunas de las medidas implementadas fueron la agenda de “género y energía”, cuyo objetivo fue potenciar el rol de la mujer en el desarrollo del sector energético nacional.
         <br><br>
@@ -157,11 +159,11 @@
       <%= form.text_area :q41, label: false, rows: 3, maxlength: 650 %>
       <%= form.text_area :q42, label: false, rows: 3, maxlength: 650 %>
       <%= form.text_area :q43, label: false, rows: 3, maxlength: 650 %>
-    </li>
     <br>
+    </li>
 
     <!-- 5 -->
-    <li>
+    <li id="step_4b">
       <label for="form_q5" style="font-weight: normal;">
         En la relación de las empresas con las personas, se pueden producir situaciones que impliquen la afectación de sus derechos humanos. Por ejemplo, cuando se discrimina a un cliente(a) por su género u origen étnico; o bien cuando los trabajadores no cuentan con las condiciones mínimas de seguridad para su labor. También podría existir una vulneración de derechos en caso de que, debido a su operación, la empresa genere un impacto ambiental que produce un daño en la salud de las comunidades con las que interactúa.
         <br><br>
@@ -172,8 +174,13 @@
       <%= form.text_area :q5, label: false, rows: 4, maxlength: 1300 %>
     </li>
 
+    <div id="wizard-controls" style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+      <button onclick="changeStep('PREVIOUS');" id="prev-button" type="button" class="button" style="background-color: #004a83;">Anterior</button>
+      <button onclick="changeStep('NEXT');" id="next-button" type="button" class="button" style="background-color: #004a83;">Siguiente</button>
+    </div>
+
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit 'Enviar', id: 'submit-button' %>
     </div>
   </ol>
 <% end %>
@@ -262,4 +269,50 @@ $(document).ready(function() {
     }
   })
 });
+</script>
+
+<script>
+// Wizard
+const NEXT = 'NEXT';
+const PREVIOUS = 'PREVIOUS';
+
+let currentStep = 1;
+$('#submit-button').hide()
+
+changeStep(null)
+
+function changeStep(type) {
+  if (type === NEXT && currentStep < 4) {
+    currentStep += 1;
+  }
+  else if (type === PREVIOUS && currentStep > 1) {
+    currentStep -= 1;
+  }
+
+  for(var i = 1; i < 4; i++) {
+    $('#step_' + i).hide()
+  }
+  $('#step_4a').hide()
+  $('#step_4b').hide()
+
+  if (currentStep === 4) {
+    $('#step_4a').show()
+    $('#step_4b').show()
+    $('#submit-button').show()
+  } else {
+    $('#step_' + currentStep).show()
+    $('#submit-button').hide()
+  }
+
+  if (currentStep === 4) {
+    $('#next-button').css('visibility', 'hidden')
+  } else if (currentStep === 1) {
+    $('#prev-button').css('visibility', 'hidden')
+  } else {
+    $('#prev-button').css('visibility', 'visible')
+    $('#next-button').css('visibility', 'visible')
+  }
+  window.scrollTo(0, 0);
+}
+
 </script>

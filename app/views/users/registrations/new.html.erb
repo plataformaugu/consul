@@ -1,3 +1,48 @@
+<% 
+  @regions = ["Antofagasta","Arica y Parinacota","Atacama","Aysén del Gral. Carlos Ibáñez del Campo","Coquimbo","De la Araucanía","De los Lagos","De los Ríos","Del Biobío","Del Libertador Gral. Bernardo O’Higgins","Del Maule","Magallanes y de la Antártica Chilena","Metropolitana de Santiago","Tarapacá","Valparaíso","Ñuble"]
+%>
+
+<%
+  @gender = [
+    'Femenino',
+    'Masculino',
+    'Transgénero',
+    'Otro',
+    'No sé',
+    'Prefiero no decir',
+  ]
+%>
+
+<%
+  @education = [
+    'Sin educación formal',
+    'Básica incompleta',
+    'Básica completa',
+    'Media incompleta',
+    'Media completa',
+    'Superior incompleta',
+    'Superior completa',
+    'Otra',
+    'Prefiero no decir',
+  ]
+%>
+
+<% @indigenous_options = [
+  'Mapuche',
+  'Aymara',
+  'Rapa Nui',
+  'Quechua',
+  'Colla',
+  'Diaguita',
+  'Chango',
+  'Kawashkar',
+  'Licanantay',
+  'Yámana o Yagán',
+  'Afrodescendiente',
+  'No pertenezco a ningún pueblo indígena ni tribal',
+  'Prefiero no decir',
+] %>
+
 <% provide :title do %><%= t("devise_views.users.registrations.new.title") %><% end %>
 <h2><%= t("devise_views.users.registrations.new.title") %></h2>
 
@@ -23,7 +68,43 @@
 
       <%= f.invisible_captcha :address %>
 
+      <%= f.text_field :document_number,
+        minlength: 8,
+        maxlength: 10,
+        placeholder: 'Ejemplo: 12345678-9',
+        label: 'RUT',
+        hint: 'Ingrese su RUT con guión y sin puntos' %>
+
       <%= f.email_field :email, placeholder: t("devise_views.users.registrations.new.email_label") %>
+
+      <%= f.number_field :age, placeholder: 'Edad', label: 'Edad', min: 0, required: true, max: 100 %>
+
+      <%= f.select :gender,
+        options_for_select(@gender),
+        label: 'Género',
+        required: true %>
+
+      <%= f.text_field :nationality, maxlength: 20,
+                                   placeholder: 'Nacionalidad',
+                                   label: 'Nacionalidad' %>
+
+      <%= f.select :region,
+        options_for_select(@regions),
+        label: 'Región donde reside',
+        required: true %>
+      
+      <%= f.select :education,
+        options_for_select(@education),
+        label: 'Nivel educacional',
+        required: true %>
+
+      <label for="user_disability">¿Tiene alguna discapacidad?</label>
+      <%= f.check_box :disability, label: 'Si' %>
+
+      <%= f.select :indigenous,
+        options_for_select(@indigenous_options),
+        label: '¿Pertenece a algún pueblo indígena?',
+        required: true %>
 
       <%= f.password_field :password, autocomplete: "off",
                            placeholder: t("devise_views.users.registrations.new.password_label") %>
@@ -43,12 +124,79 @@
                                 title: t("shared.target_blank"),
                                 target: "_blank")
                 ) %>
+      
+      <label for="show_password">
+        <input type="checkbox" value="0" name="show_password" id="show_password" onchange="showPassword()">
+        <span class="checkbox" style="margin-left: -4px;">Mostrar contraseñas</span>
+      </label>
 
       <div class="small-12 medium-6 small-centered">
         <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>
       </div>
     </div>
   </div>
+<script>
+  function showPassword(event) {
+    if ($("#user_password").attr('type') === 'password') {
+        $("#user_password").attr('type', 'text');
+    } else {
+        $("#user_password").attr('type', 'password');
+    }
+    if ($("#user_password_confirmation").attr('type') === 'password') {
+        $("#user_password_confirmation").attr('type', 'text');
+    } else {
+        $("#user_password_confirmation").attr('type', 'password');
+    }
+  }
+
+// RUT
+
+const validarRUT = (rut) => {
+  if (typeof rut === 'string' || typeof rut === 'number') {
+    const rutSinFormato = limpiarRUT(rut);
+    const rutSinDv = rutSinFormato.slice(0, -1);
+    const rutDv = rutSinFormato.length > 0 ? rutSinFormato.split('').pop().toLowerCase() : undefined
+
+    return calcularDv(rutSinDv) === rutDv;
+  }
+  else {
+    return false;
+  }
+};
+
+const limpiarRUT = rut => {
+  let cleanRut = String(rut).replace(/[^0-9a-z]/gi, '');
+  
+  if (cleanRut.length > 9) {
+    cleanRut = cleanRut.substring(0, cleanRut.length - (cleanRut.length - 9))
+  }
+
+  return String(rut).replace(/[^0-9a-z]/gi, '');
+}
+
+const calcularDv = rut => {
+  let suma = 0;
+  let rutReversa = limpiarRUT(rut).split('').reverse();
+
+  for (let i = 0, j = 2; i < rutReversa.length; i++, j < 7 ? j++ : j = 2) {
+    suma += rutReversa[i] * j;
+  }
+
+  let resultado = 11 - (suma % 11)
+  if (resultado === 11) return '0';
+  if (resultado === 10) return 'k';
+  return String(resultado);
+};
+
+$('#user_document_number').keyup(function() {
+  let rutElement = document.getElementById('user_document_number');
+  if (!validarRUT(rutElement.value)) {
+    rutElement.setCustomValidity('El RUT no es válido.')
+  } else {
+    rutElement.setCustomValidity('')
+  }
+})
+</script>
 <% end %>
 
 <%= render "devise/shared/links" %>
