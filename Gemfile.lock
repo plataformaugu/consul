@@ -349,7 +349,7 @@ GEM
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
-      mimemagic (~> 0.3.7)
+      mimemagic (~> 0.3.2)
     mdl (0.11.0)
       kramdown (~> 2.3)
       kramdown-parser-gfm (~> 1.1)
