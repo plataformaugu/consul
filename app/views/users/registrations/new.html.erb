@@ -1,5 +1,22 @@
 <% 
-  @regions = ["Antofagasta","Arica y Parinacota","Atacama","Aysén del Gral. Carlos Ibáñez del Campo","Coquimbo","De la Araucanía","De los Lagos","De los Ríos","Del Biobío","Del Libertador Gral. Bernardo O’Higgins","Del Maule","Magallanes y de la Antártica Chilena","Metropolitana de Santiago","Tarapacá","Valparaíso","Ñuble"]
+  @regions = [
+    "Arica y Parinacota",
+    "Tarapacá",
+    "Antofagasta",
+    "Atacama",
+    "Coquimbo",
+    "Valparaíso",
+    "Metropolitana de Santiago",
+    "Del Libertador Gral. Bernardo O’Higgins",
+    "Del Maule",
+    "Ñuble",
+    "Del Biobío",
+    "De la Araucanía",
+    "De los Ríos",
+    "De los Lagos",
+    "Aysén del Gral. Carlos Ibáñez del Campo",
+    "Magallanes y de la Antártica Chilena",
+  ]
 %>
 
 <%
@@ -51,11 +68,6 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "shared/errors", resource: resource %>
 
-  <p>
-    <%= sanitize(t("devise_views.users.registrations.new.organization_signup",
-        signup_link: link_to(t("devise_views.users.registrations.new.organization_signup_link"), new_organization_registration_path))) %>
-  </p>
-
   <div class="row">
     <div class="small-12 column">
 
@@ -64,7 +76,7 @@
 
       <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
                                    placeholder: t("devise_views.users.registrations.new.username_label"),
-                                   hint: t("devise_views.users.registrations.new.username_note") %>
+                                   hint: 'Este nombre no será visible para otros usuarios dentro de la plataforma' %>
 
       <%= f.invisible_captcha :address %>
 
