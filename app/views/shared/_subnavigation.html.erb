@@ -1,58 +1,41 @@
-<div class="small-12 medium-9 column">
+<div class="small-12 column">
   <ul>
     <%= raw content_block("subnavigation_left", I18n.locale) %>
 
-    <% if feature?(:debates) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.debates"),
-                                debates_path,
-                                controller_name == "debates",
-                                accesskey: "1" %>
-      </li>
-    <% end %>
-    <% if feature?(:proposals) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.proposals"),
-                                proposals_path,
-                                controller.class == ProposalsController,
-                                accesskey: "2" %>
-      </li>
-    <% end %>
-    <% if feature?(:polls) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.poll_questions"),
-                                  polls_path,
-                                  controller_name == "polls" || (controller_name == "questions" && controller.class.parent == Polls),
-                                  accesskey: "3" %>
-      </li>
-    <% end %>
-    <% if feature?(:legislation) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
-                                legislation_processes_path,
-                                controller.class.parent == Legislation,
-                                accesskey: "4" %>
-      </li>
-    <% end %>
-    <% if feature?(:budgets) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.budgets"),
-                                  budgets_path,
-                                  controller_name == "budgets" || controller_name == "investments",
-                                  accesskey: "5" %>
-      </li>
-    <% end %>
-    <!--
-    <% if feature?(:help_page) %>
-      <li>
-        <%= layout_menu_link_to t("layouts.header.help"),
-                                help_path,
-                                current_page?(help_path),
-                                accesskey: "7" %>
-      </li>
-    <% end %>
-    -->
+    <li>
+      <%= layout_menu_link_to 'Inicio',
+                              root_path,
+                              url_for(only_path: true) == '/',
+                              accesskey: "1" %>
+    </li>
 
+    <li>
+      <%= layout_menu_link_to '¿Qué es el PAN?',
+                              'que-es-el-pan',
+                              url_for(only_path: true) == '/que-es-el-pan',
+                              accesskey: "2" %>
+    </li>
+
+    <li>
+      <%= layout_menu_link_to '¿Qué son los DD.HH. y empresas?',
+                              'que-son-ddhh-empresas',
+                              url_for(only_path: true) == '/que-son-ddhh-empresas',
+                              accesskey: "3" %>
+    </li>
+
+    <li>
+      <%= layout_menu_link_to '¿Cómo participar?',
+                              'como-participar',
+                              url_for(only_path: true) == '/como-participar',
+                              accesskey: "4" %>
+    </li>
+
+      <li>
+        <%= layout_menu_link_to 'Accesibilidad',
+                                'accesibilidad',
+                                url_for(only_path: true) == '/accesibilidad',
+                                accesskey: "5" %>
+      </li>
     <%= raw content_block("subnavigation_right", I18n.locale) %>
   </ul>
 </div>
