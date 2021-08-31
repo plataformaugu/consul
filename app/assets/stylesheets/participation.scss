@@ -1065,6 +1065,7 @@
 
 .featured-proposals {
   background: $featured;
+  border-radius: 10px;
 
   .proposal-featured {
     min-height: $line-height * 3.5;
@@ -1137,7 +1138,7 @@
 // -----------
 
 .budget-header {
-  background: $budget;
+  background: linear-gradient(to right, #ff7267 0%, #ff8b59 100%);
   margin-top: -$line-height;
   padding-bottom: $line-height;
   padding-top: $line-height;

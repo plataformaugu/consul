@@ -1,12 +1,12 @@
 <% if header.present? %>
   <div class="jumbo highlight">
     <div class="row">
-      <div class="small-12 medium-6 column <%= "medium-9 small-centered text-center" unless header.image.present? %>">
+      <div class="small-12 medium-6 column <%= "medium-12 small-centered text-center" unless header.image.present? %>" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
         <span><%= header.label %></span>
         <h1><%= header.title %></h1>
-        <p class="lead"><%= header.description %></p>
-        <div class="small-12 medium-6 large-4 <%= "small-centered" unless header.image.present? %>">
-          <%= link_to header.link_text, header.link_url, class: "button expanded large" %>
+        <p><%= header.description %></p>
+        <div class="small-12 medium-6 large-6 <%= "small-centered" unless header.image.present? %>">
+          <%= link_to header.link_text, header.link_url, class: "button expanded" %>
         </div>
       </div>
 
@@ -19,5 +19,4 @@
       <% end %>
     </div>
   </div>
-  <div class="background-header"></div>
 <% end %>

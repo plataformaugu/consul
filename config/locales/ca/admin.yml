@@ -1003,7 +1003,7 @@ ca:
           help_text: "Aquest text apareixerà a l’encapçalament de la pàgina de les enquestes. Es pot utilitzar per afegir un context a les enquestes obertes."
     polls:
       index:
-        title: "Listado de votaciones"
+        title: "Listado de consultas"
         no_polls: "No hi ha enquestes."
         create: "Crear votación"
         name: "Nome"

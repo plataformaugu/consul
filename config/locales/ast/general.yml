@@ -18,7 +18,7 @@ ast:
       user_permission_title: Participación
       user_permission_verify: Pa poder realizar toles acciones, verifica la to cuenta.
       user_permission_verify_info: "* Namás usuarios empadronaos."
-      user_permission_votes: Participar nes votaciones finales
+      user_permission_votes: Participar nes consultas finales
       username_label: Nome d'usuariu
       verified_account: Cuenta verificada
       verify_my_account: Verificar mi cuenta
@@ -173,7 +173,7 @@ ast:
       my_activity_link: Mi actividad
       open_gov: Gobierno abiertu
       proposals: Propuestes
-      poll_questions: Votaciones
+      poll_questions: Consultas
       budgets: Presupuestos participativos
       notification_item:
         new_notifications:
@@ -336,7 +336,7 @@ ast:
       filters:
         current: "Abiertu"
         expired: "Terminadas"
-      title: "Votaciones"
+      title: "Consultas"
       participate_button: "Participar en esta votación"
       participate_button_expired: "Votación terminada"
       no_geozone_restricted: "Toda la ciudad"
@@ -346,7 +346,7 @@ ast:
       not_logged_in: "Necesitas iniciar sesión o registrarte para participar"
       cant_answer: "Esta votación no está disponible en tu zona"
       section_header:
-        title: Votaciones
+        title: Consultas
     show:
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar en el debate."
       comments_tab: Comentarios
@@ -526,7 +526,7 @@ ast:
       user_permission_verify: "Pa poder realizar toles acciones, verifica la to cuenta."
       user_permission_verify_info: "* Namás usuarios empadronaos."
       user_permission_verify_my_account: Verificar mi cuenta
-      user_permission_votes: Participar nes votaciones finales
+      user_permission_votes: Participar nes consultas finales
   invisible_captcha:
     sentence_for_humans: "Si eres humano, por favor ignora este campo"
     timestamp_error_message: "Eso ha sido demasiado rápido. Por favor, reenvía el formulario."

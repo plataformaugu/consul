@@ -84,7 +84,7 @@ es-PE:
         other: "Temas"
       poll:
         one: "Votación"
-        other: "Votaciones"
+        other: "Consultas"
     attributes:
       budget:
         name: "Nombre"

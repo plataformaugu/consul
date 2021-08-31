@@ -11,7 +11,7 @@ es-PE:
         debates: "Discusiones"
         proposals: "Propuestas"
         budgets: "Presupuestos participativos"
-        polls: "Votaciones"
+        polls: "Consultas"
         other: "Otra información de interés"
         processes: "Procesos"
       debates:
@@ -23,7 +23,7 @@ es-PE:
         figcaption: 'Botones "Estoy de acuerdo" y "No estoy de acuerdo" para valorar los debates.'
       proposals:
         title: "Propuestas"
-        description: "En la sección de %{link} puedes plantear propuestas para que el Consejo Municipal las lleve a cabo. Las propuestas necesitan apoyo, y si alcanzan el apoyo necesario, se someten a votación ciudadana. Las propuestas aprobadas en estas votaciones ciudadanas son asumidas por el Consejo Municipal y se llevan a cabo."
+        description: "En la sección de %{link} puedes plantear propuestas para que el Consejo Municipal las lleve a cabo. Las propuestas necesitan apoyo, y si alcanzan el apoyo necesario, se someten a votación ciudadana. Las propuestas aprobadas en estas consultas ciudadanas son asumidas por el Consejo Municipal y se llevan a cabo."
         link: "propuestas ciudadanas"
         image_alt: "Botón para apoyar una propuesta"
       budgets:
@@ -32,10 +32,10 @@ es-PE:
         link: "presupuestos participativos"
         image_alt: "Diferentes fases de un presupuesto participativo"
       polls:
-        title: "Votaciones"
+        title: "Consultas"
         description: "La sección de %{link} se activa cada vez que una propuesta alcanza el 1% de apoyo y pasa a votación o cuando el Consejo Municipal propone un tema para que la gente decida sobre él."
         link: "encuentas"
-        feature_1: "Para participar en las votaciones tienes que %{link} y verificar tu cuenta."
+        feature_1: "Para participar en las consultas tienes que %{link} y verificar tu cuenta."
         feature_1_link: "regístrate en %{org_name}"
       processes:
         title: "Procesos"

@@ -375,7 +375,7 @@ ast:
       admin_notifications: Notificaciones
       valuators: Evaluaores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Allugamientu d'urnes
       officials: Cargos Públicos
       organizations: Organizaciones
@@ -388,7 +388,7 @@ ast:
         information_texts_menu:
           debates: "Alderique"
           proposals: "Propuestes"
-          polls: "Votaciones"
+          polls: "Consultas"
           mailers: "Emails"
           management: "Gestión"
           welcome: "Bienveníu/a"
@@ -522,7 +522,7 @@ ast:
         table_location: "Allugamientu"
     polls:
       index:
-        title: "Llistáu de votaciones"
+        title: "Llistáu de consultas"
         create: "Crear votación"
         name: "Nome"
         dates: "Feches"
@@ -786,7 +786,7 @@ ast:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
       direct_messages:
         title: Mensajes directos
         total: Total
@@ -796,7 +796,7 @@ ast:
         total: Total
         proposals_with_notifications: Propuestas con notificaciones
       polls:
-        all: Votaciones
+        all: Consultas
         table:
           poll_name: Votación
           question_name: Entruga

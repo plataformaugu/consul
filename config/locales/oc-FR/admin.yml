@@ -1001,7 +1001,7 @@ oc:
           help_text: "Aquel tèxt apareisserà a l’encapçalament de la pagina de las enquèstas. Se pòt utilizar per apondre un contèxt a las enquèstas dubèrtas."
     polls:
       index:
-        title: "Listado de votaciones"
+        title: "Listado de consultas"
         no_polls: "I a pas d'enquèstas."
         create: "Crear votación"
         name: "Nome"

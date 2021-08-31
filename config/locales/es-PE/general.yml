@@ -192,7 +192,7 @@ es-PE:
       my_activity_link: Minha atividade
       open_gov: Governo aberto
       proposals: Propuestas
-      poll_questions: Votaciones
+      poll_questions: Consultas
       budgets: Presupuestos participativos
       notification_item:
         new_notifications:
@@ -371,7 +371,7 @@ es-PE:
       filters:
         current: "Abierto"
         expired: "Terminadas"
-      title: "Votaciones"
+      title: "Consultas"
       participate_button: "Participar en esta votación"
       participate_button_expired: "Votación terminada"
       no_geozone_restricted: "Toda la ciudad"
@@ -379,15 +379,15 @@ es-PE:
       geozone_info: "Pueden participar las personas empadronadas en: "
       already_answer: "Ya has participado en esta votación"
       section_header:
-        icon_alt: Icono de Votaciones
-        title: Votaciones
-        help: Ayuda sobre las votaciones
+        icon_alt: Icono de Consultas
+        title: Consultas
+        help: Ayuda sobre las consultas
       section_footer:
-        title: Ayuda sobre las votaciones
+        title: Ayuda sobre las consultas
     show:
       already_voted_in_booth: "Ya has participado en esta votación en urnas presenciales, no puedes volver a participar."
       already_voted_in_web: "Ya has participado en esta votación. Si vuelves a votar se sobreescribirá tu resultado anterior."
-      back: Volver a votaciones
+      back: Volver a consultas
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar en el debate."
       comments_tab: Comentarios
       verify_link: "verifica tu cuenta"
@@ -601,7 +601,7 @@ es-PE:
       user_permission_verify: "Para poder realizar todas las acciones verifica tu cuenta."
       user_permission_verify_info: "* Somente usuários no Censo de Madrid"
       user_permission_verify_my_account: Verificar mi cuenta
-      user_permission_votes: Participar en las votaciones finales*
+      user_permission_votes: Participar en las consultas finales*
   invisible_captcha:
     sentence_for_humans: "Si eres humano, por favor ignora este campo"
     timestamp_error_message: "Eso ha sido demasiado rápido. Por favor, reenvía el formulario."

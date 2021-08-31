@@ -673,7 +673,7 @@ es:
       emails_download: Descarga de emails
       valuators: Evaluadores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Ubicación de urnas
       poll_booth_assignments: Asignación de urnas
       poll_shifts: Asignar turnos
@@ -694,7 +694,7 @@ es:
           debates: "Debates"
           community: "Comunidad"
           proposals: "Propuestas"
-          polls: "Votaciones"
+          polls: "Consultas"
           layouts: "Plantillas"
           mailers: "Correos"
           management: "Gestión"
@@ -1003,14 +1003,14 @@ es:
         table_location: "Ubicación"
     active_polls:
       edit:
-        title: "Descripción general de votaciones"
+        title: "Descripción general de consultas"
       form:
         description:
-          help_text: "Este texto aparecerá en la cabecera de la página de votaciones. Puedes usarlo para añadir un contexto a las votaciones abiertas"
+          help_text: "Este texto aparecerá en la cabecera de la página de consultas. Puedes usarlo para añadir un contexto a las consultas abiertas"
     polls:
       index:
-        title: "Listado de votaciones"
-        no_polls: "No hay votaciones."
+        title: "Listado de consultas"
+        no_polls: "No hay consultas."
         create: "Crear votación"
         name: "Nombre"
         dates: "Fechas"
@@ -1040,10 +1040,10 @@ es:
       destroy:
         alert: "Esta acción eliminará la votación y todas sus preguntas asociadas."
         success_notice: "Votación eliminada correctamente"
-        unable_notice: "No se pueden eliminar votaciones con votos"
+        unable_notice: "No se pueden eliminar consultas con votos"
     questions:
       index:
-        title: "Preguntas de votaciones"
+        title: "Preguntas de consultas"
         create: "Crear pregunta ciudadana"
         no_questions: "No hay ninguna pregunta ciudadana."
         filter_poll: Filtrar por votación
@@ -1293,7 +1293,7 @@ es:
           organizations: "Nombre, email o teléfono"
           poll_officers: "Buscar presidentes de mesa"
           poll_questions: "Buscar preguntas"
-          polls: "Buscar votaciones por nombre o descripción"
+          polls: "Buscar consultas por nombre o descripción"
           proposals: "Buscar propuestas por título, código, descripción o pregunta"
           users: "Buscar usuario por nombre o email"
         search: "Buscar"
@@ -1395,7 +1395,7 @@ es:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
         sdg: ODS
       graph:
         debate_created: Debates
@@ -1429,8 +1429,8 @@ es:
         proposals_with_notifications: Propuestas con notificaciones
         not_available: "Esta propuesta ya no está disponible"
       polls:
-        title: Estadísticas de votaciones
-        all: Votaciones
+        title: Estadísticas de consultas
+        all: Consultas
         web_participants: Participantes en Web
         total_participants: Participantes totales
         poll_questions: "Preguntas de votación: %{poll}"
@@ -1445,7 +1445,7 @@ es:
           winners: "Proyectos de inversión ganadores"
           sent: "Proyectos de inversión enviados"
         debates: "Debates"
-        polls: "Votaciones"
+        polls: "Consultas"
         proposals: "Propuestas"
         title: "Objetivos de Desarrollo Sostenible - Estadísticas"
     tags:

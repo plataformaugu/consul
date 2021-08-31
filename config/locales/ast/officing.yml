@@ -1,16 +1,16 @@
 ast:
   officing:
     header:
-      title: Votaciones
+      title: Consultas
     dashboard:
       index:
-        title: Presidir mesa de votaciones
+        title: Presidir mesa de consultas
         info: Aquí puedes validar documentos de ciudadanos y guardar los resultados de las urnas
     menu:
       voters: Validar documento
     polls:
       final:
-        title: Listado de votaciones finalizadas
+        title: Listado de consultas finalizadas
         no_polls: No tienes permiso para recuento final en ninguna votación reciente
         select_poll: Selecciona votación
         add_results: Añadir resultados
@@ -46,9 +46,9 @@ ast:
         form_errors: evitaron verificar este documento
     voters:
       new:
-        title: Votaciones
+        title: Consultas
         table_poll: Votación
-        table_status: Estado de las votaciones
+        table_status: Estado de las consultas
         table_actions: Acciones
       show:
         can_vote: Puede votar

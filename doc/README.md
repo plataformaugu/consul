@@ -94,13 +94,13 @@ Cuando un moderador o un administrador bloquea a un usuario desde la web aparece
 * Al pulsar "Confirmar" se acepta el bloqueo; se considera que se ha hecho correctamente.
 * Si se considera que el bloqueo ha sido erróneo, al pulsar "Volver a mostrar" se revierte el bloqueo y el usuario vuelve a estar activo.
 
-#### Votaciones ![votaciones](imgs/icon_polls.png?raw=true "votaciones")
+#### Consultas ![consultas](imgs/icon_polls.png?raw=true "consultas")
 
 Se puede crear una votación pulsando "Crear votación" y definiendo un nombre, fecha de apertura y de cierre. Adicionalmente se puede restringir la votación a unas zonas determinadas marcando "Restringir por zonas". Las zonas disponibles se definen en el menú [Gestionar distritos](#gestionar-distritos).
 
 Los usuarios tienen que estar verificados para poder participar en la votación.
 
-Una vez que se ha creado la votación, se definen y se agregan sus componentes. Las votaciones tienen tres componentes: Preguntas ciudadanas, Presidentes de mesa y Ubicación de las urnas.
+Una vez que se ha creado la votación, se definen y se agregan sus componentes. Las consultas tienen tres componentes: Preguntas ciudadanas, Presidentes de mesa y Ubicación de las urnas.
 
 ##### Preguntas ciudadanas
 

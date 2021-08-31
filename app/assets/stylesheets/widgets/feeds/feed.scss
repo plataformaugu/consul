@@ -1,6 +1,9 @@
 .widget-feed {
 
   .feed-description {
+    @media (min-width: 701px) {
+      padding-left: 0 !important;
+    }
 
     p {
       font-size: $small-font-size;

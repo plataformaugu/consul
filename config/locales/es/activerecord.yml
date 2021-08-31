@@ -129,7 +129,7 @@ es:
         other: "Temas"
       poll:
         one: "Votación"
-        other: "Votaciones"
+        other: "Consultas"
       proposal_notification:
         one: "Notificación de propuesta"
         other: "Notificaciones de propuestas"

@@ -397,7 +397,7 @@ es-PE:
       admin_notifications: Notificaciones
       valuators: Evaluadores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Ubicación de urnas
       poll_booth_assignments: Asignación de urnas
       poll_shifts: Asignar turnos
@@ -412,7 +412,7 @@ es-PE:
         information_texts_menu:
           community: "Comunidad"
           proposals: "Propuestas"
-          polls: "Votaciones"
+          polls: "Consultas"
           management: "Gestión"
           welcome: "Bienvenido/a"
         buttons:
@@ -577,7 +577,7 @@ es-PE:
         table_location: "Ubicación"
     polls:
       index:
-        title: "Listado de votaciones"
+        title: "Listado de consultas"
         create: "Crear votación"
         name: "Nombre"
         dates: "Fechas"
@@ -885,7 +885,7 @@ es-PE:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
       direct_messages:
         title: Mensajes directos
         users_who_have_sent_message: Usuarios que han enviado un mensaje privado
@@ -893,8 +893,8 @@ es-PE:
         title: Notificaciones de propuestas
         proposals_with_notifications: Propuestas con notificaciones
       polls:
-        title: Estadísticas de votaciones
-        all: Votaciones
+        title: Estadísticas de consultas
+        all: Consultas
         web_participants: Participantes Web
         total_participants: Participantes totales
         poll_questions: "Preguntas de votación: %{poll}"

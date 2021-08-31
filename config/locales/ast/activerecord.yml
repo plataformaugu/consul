@@ -81,7 +81,7 @@ ast:
         other: "Imaxes"
       poll:
         one: "Votación"
-        other: "Votaciones"
+        other: "Consultas"
     attributes:
       budget:
         name: "Nome"
