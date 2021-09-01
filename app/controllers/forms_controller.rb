@@ -46,7 +46,7 @@ class FormsController < ApplicationController
     end
 
     if @form.save
-      redirect_to @form, notice: 'Form was successfully created.'
+      redirect_to "/users/edit"
     else
       render :new
     end

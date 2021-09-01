@@ -1,65 +1,3 @@
-<% 
-  @regions = [
-    "Arica y Parinacota",
-    "Tarapacá",
-    "Antofagasta",
-    "Atacama",
-    "Coquimbo",
-    "Valparaíso",
-    "Metropolitana de Santiago",
-    "Del Libertador Gral. Bernardo O’Higgins",
-    "Del Maule",
-    "Ñuble",
-    "Del Biobío",
-    "De la Araucanía",
-    "De los Ríos",
-    "De los Lagos",
-    "Aysén del Gral. Carlos Ibáñez del Campo",
-    "Magallanes y de la Antártica Chilena",
-  ]
-%>
-
-<%
-  @gender = [
-    'Femenino',
-    'Masculino',
-    'Transgénero',
-    'Otro',
-    'No sé',
-    'Prefiero no decir',
-  ]
-%>
-
-<%
-  @education = [
-    'Sin educación formal',
-    'Básica incompleta',
-    'Básica completa',
-    'Media incompleta',
-    'Media completa',
-    'Superior incompleta',
-    'Superior completa',
-    'Otra',
-    'Prefiero no decir',
-  ]
-%>
-
-<% @indigenous_options = [
-  'Mapuche',
-  'Aymara',
-  'Rapa Nui',
-  'Quechua',
-  'Colla',
-  'Diaguita',
-  'Chango',
-  'Kawashkar',
-  'Licanantay',
-  'Yámana o Yagán',
-  'Afrodescendiente',
-  'No pertenezco a ningún pueblo indígena ni tribal',
-  'Prefiero no decir',
-] %>
-
 <% provide :title do %><%= t("devise_views.users.registrations.new.title") %><% end %>
 <h2><%= t("devise_views.users.registrations.new.title") %></h2>
 
@@ -88,35 +26,6 @@
         hint: 'Ingrese su RUT con guión y sin puntos' %>
 
       <%= f.email_field :email, placeholder: t("devise_views.users.registrations.new.email_label") %>
-
-      <%= f.number_field :age, placeholder: 'Edad', label: 'Edad', min: 0, required: true, max: 100 %>
-
-      <%= f.select :gender,
-        options_for_select(@gender),
-        label: 'Género',
-        required: true %>
-
-      <%= f.text_field :nationality, maxlength: 20,
-                                   placeholder: 'Nacionalidad',
-                                   label: 'Nacionalidad' %>
-
-      <%= f.select :region,
-        options_for_select(@regions),
-        label: 'Región donde reside',
-        required: true %>
-      
-      <%= f.select :education,
-        options_for_select(@education),
-        label: 'Nivel educacional',
-        required: true %>
-
-      <label for="user_disability">¿Tiene alguna discapacidad?</label>
-      <%= f.check_box :disability, label: 'Si' %>
-
-      <%= f.select :indigenous,
-        options_for_select(@indigenous_options),
-        label: '¿Pertenece a algún pueblo indígena?',
-        required: true %>
 
       <%= f.password_field :password, autocomplete: "off",
                            placeholder: t("devise_views.users.registrations.new.password_label") %>

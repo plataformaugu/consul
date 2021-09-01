@@ -1,15 +1,112 @@
-<%= back_link_to %>
+<% 
+  @regions = [
+    "Arica y Parinacota",
+    "Tarapacá",
+    "Antofagasta",
+    "Atacama",
+    "Coquimbo",
+    "Valparaíso",
+    "Metropolitana de Santiago",
+    "Del Libertador Gral. Bernardo O’Higgins",
+    "Del Maule",
+    "Ñuble",
+    "Del Biobío",
+    "De la Araucanía",
+    "De los Ríos",
+    "De los Lagos",
+    "Aysén del Gral. Carlos Ibáñez del Campo",
+    "Magallanes y de la Antártica Chilena",
+  ]
+%>
 
-<h2><%= t("devise_views.users.registrations.edit.edit") %></h2>
+<%
+  @gender = [
+    'Femenino',
+    'Masculino',
+    'Transgénero',
+    'Otro',
+    'No sé',
+    'Prefiero no decir',
+  ]
+%>
+
+<%
+  @education = [
+    'Sin educación formal',
+    'Básica incompleta',
+    'Básica completa',
+    'Media incompleta',
+    'Media completa',
+    'Superior incompleta',
+    'Superior completa',
+    'Otra',
+    'Prefiero no decir',
+  ]
+%>
+
+<% @indigenous_options = [
+  'Mapuche',
+  'Aymara',
+  'Rapa Nui',
+  'Quechua',
+  'Colla',
+  'Diaguita',
+  'Chango',
+  'Kawashkar',
+  'Licanantay',
+  'Yámana o Yagán',
+  'Afrodescendiente',
+  'No pertenezco a ningún pueblo indígena ni tribal',
+  'Prefiero no decir',
+] %>
+
+<h2>Rellena con tu información</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "shared/errors", resource: resource %>
   <div class="row">
     <div class="small-12 column">
-      <%= f.email_field :email,
-        label: t("devise_views.users.registrations.edit.email_label"),
-        autofocus: true,
-        placeholder: t("devise_views.users.registrations.edit.email_label") %>
+      <%= f.number_field :age, placeholder: 'Edad', label: 'Edad', min: 0, required: true, max: 100, value: current_user.age %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :gender,
+        options_for_select(@gender, :selected => current_user.gender || nil),
+        label: 'Género',
+        required: true %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.text_field :nationality, maxlength: 20,
+        placeholder: 'Nacionalidad',
+        label: 'Nacionalidad',
+        required: true %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :region,
+        options_for_select(@regions, :selected => current_user.region || nil),
+        label: 'Región donde reside',
+        required: true %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :education,
+        options_for_select(@education, :selected => current_user.education || nil),
+        label: 'Nivel educacional',
+        required: true %>
+    </div>
+
+    <div class="small-12 column">
+      <label for="user_disability">¿Tiene alguna discapacidad?</label>
+      <%= f.check_box :disability, label: 'Si' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= f.select :indigenous,
+        options_for_select(@indigenous_options, :selected => current_user.indigenous || nil),
+        label: '¿Pertenece a algún pueblo indígena?',
+        required: true %>
     </div>
 
     <div class="small-12 column">
@@ -19,30 +116,7 @@
     </div>
 
     <div class="small-12 column">
-      <%= f.password_field :password,
-        autocomplete: "off",
-        label: t("devise_views.users.registrations.edit.password_label"),
-        placeholder: t("devise_views.users.registrations.edit.password_label"),
-        hint: t("devise_views.users.registrations.edit.leave_blank") %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.password_field :password_confirmation,
-        label: t("devise_views.users.registrations.edit.password_confirmation_label"),
-        autocomplete: "off",
-        placeholder: t("devise_views.users.registrations.edit.password_confirmation_label") %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.password_field :current_password,
-        label: t("devise_views.users.registrations.edit.current_password_label"),
-        autocomplete: "off",
-        placeholder: t("devise_views.users.registrations.edit.current_password_label"),
-        hint: t("devise_views.users.registrations.edit.need_current") %>
-    </div>
-
-    <div class="small-12 column">
-      <%= f.submit t("devise_views.users.registrations.edit.update_submit"), class: "button" %>
+      <%= f.submit "Enviar", class: "button" %>
     </div>
   </div>
 <% end %>
