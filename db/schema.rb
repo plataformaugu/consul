@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_012219) do
+ActiveRecord::Schema.define(version: 2021_09_06_025216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -607,6 +607,8 @@ ActiveRecord::Schema.define(version: 2021_08_25_012219) do
     t.text "q5"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
   create_table "geozones", id: :serial, force: :cascade do |t|
@@ -1717,6 +1719,7 @@ ActiveRecord::Schema.define(version: 2021_08_25_012219) do
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
   add_foreign_key "follows", "users"
+  add_foreign_key "forms", "users"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"

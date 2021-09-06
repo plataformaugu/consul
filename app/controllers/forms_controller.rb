@@ -15,6 +15,10 @@ class FormsController < ApplicationController
 
   # GET /forms/new
   def new
+    if current_user && Form.where(user_id: current_user.id).exists?
+      render :template => 'forms/form_ready'
+    end
+
     @form = Form.new
   end
 
@@ -25,6 +29,10 @@ class FormsController < ApplicationController
 
   # POST /forms
   def create
+    if Form.where(user_id: current_user.id).exists?
+      render :template => 'forms/form_ready'
+    end
+
     @form = Form.new(form_params)
 
     if params['q21']
@@ -44,6 +52,8 @@ class FormsController < ApplicationController
     else
       @form.q23 = ''
     end
+
+    @form.user_id = current_user.id
 
     if @form.save
       redirect_to "/users/edit"
