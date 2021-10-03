@@ -335,9 +335,10 @@ aside {
     height: 0;
     display: flex;
     text-align:center;
+    justify-content: center;
 }
 
-.video-container iframe {
+.video-container video {
     width: 1024px;
     height: 600px;
     max-width: 90vw;
@@ -353,8 +354,8 @@ aside {
 }
 
 .ui-accordion-header-active {
-    background: #004a83 !important;
-    border: 1px solid #003258 !important;
+    background: #344193 !important;
+    border: 1px solid darken(#344193, 20%) !important;
 }
 
 .accordion-content-custom {
@@ -363,6 +364,12 @@ aside {
     justify-content: space-between;
     align-items: center;
 
+    @media (min-width: 701px)  {
+        div {
+            width: 70%;
+        }
+    }
+
     @media (max-width: 700px) {
         display: flex;
         flex-direction: column;
@@ -370,6 +377,14 @@ aside {
 
     & > *:nth-child(2) {
         margin: 0 10px;
+    }
+
+    button {
+        background-color: #66b135 !important;
+
+        &:hover {
+            background-color: lighten($color: #66b135, $amount: 20%) !important;
+        }
     }
 }
 

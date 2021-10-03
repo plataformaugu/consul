@@ -84,9 +84,7 @@ class FormsController < ApplicationController
       indigenous: user_params['user_indigenous'],
     )
 
-    if Form.where(user_id: current_user.id).exists?
-      redirect_to root_path
-    else
+    if !Form.where(user_id: current_user.id).exists?
       if @form.save
         render :template => 'forms/form_finish'
       else

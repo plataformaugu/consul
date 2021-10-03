@@ -61,7 +61,7 @@
 ] %>
 
 <script src="/js/jquery.steps.min.js"></script>
-<%= form_with(model: form, local: true, id: 'form') do |form| %>
+<%= form_with(model: form, validate: true, local: true, id: 'form') do |form| %>
   <ol class="custom-form-root">
     <div id="wizard">
       <h1>Paso 1</h1>
@@ -539,7 +539,9 @@ $(document).ready(function() {
       next: 'Siguiente',
       finish: 'Finalizar',
     },
-    onFinishing: function() {$('#form').submit();},
+    onFinishing: function() {
+      $('#form').submit();
+    },
     onStepChanged: function() {window.scrollTo(0, 0);}
   });
 
@@ -561,6 +563,18 @@ $(document).ready(function () {
       $('#c-q33').hide()
     }
   })
+})
+</script>
+
+<script>
+// Validation
+$('form').submit(function(e) {
+  e.preventDefault()
+  if (!document.getElementById('form').checkValidity()) {
+    document.getElementById('form').reportValidity();
+  } else {
+    document.getElementById('form').submit()
+  }
 })
 </script>
   
@@ -587,7 +601,7 @@ ul[role=menu] > li > a {
   color: white;
   padding: 0.85em 1em;
   border-radius: 3px;
-  transition: all 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
 }
 
 ul[role=menu] > li > a:hover {
