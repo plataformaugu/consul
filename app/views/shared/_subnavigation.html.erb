@@ -3,13 +3,6 @@
     <%= raw content_block("subnavigation_left", I18n.locale) %>
 
     <li>
-      <%= layout_menu_link_to 'Inicio',
-                              root_path,
-                              url_for(only_path: true) == '/',
-                              accesskey: "1" %>
-    </li>
-
-    <li>
       <%= layout_menu_link_to '¿Qué es el PAN?',
                               '/que-es-el-pan',
                               url_for(only_path: true) == '/que-es-el-pan',

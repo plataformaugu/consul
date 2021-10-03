@@ -290,7 +290,7 @@ aside {
 
     background: #252525;
     padding-top: $line-height * 2;
-    border-top: 6px solid #1779ba;
+    border-top: 6px solid #66b135;
     min-height: auto !important;
 
     ul {
@@ -374,5 +374,17 @@ aside {
 }
 
 .ui-accordion, button {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.custom-il {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+
+    input {
+        margin: 0;
+    }
 }

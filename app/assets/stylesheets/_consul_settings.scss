@@ -16,7 +16,7 @@ $small-font-size:     rem-calc(14);
 $line-height:         rem-calc(24);
 $tiny-font-size:      rem-calc(12);
 
-$brand:             #004a83;
+$brand:             #344193;
 $dark:              darken($brand, 10%);
 
 $text:              #222;
@@ -104,9 +104,9 @@ $sdg-colors: (
 $black: #222;
 $white: #fdfdfd;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
-$body-font-family: "Poppins", "Source Sans Pro", "Helvetica", "Arial", sans-serif !important;
+$body-font-family: "Montserrat", "Source Sans Pro", "Helvetica", "Arial", sans-serif !important;
 
 $header-font-family: $body-font-family;
 

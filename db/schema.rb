@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_06_025216) do
+ActiveRecord::Schema.define(version: 2021_10_03_003632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -600,14 +600,16 @@ ActiveRecord::Schema.define(version: 2021_09_06_025216) do
     t.text "q22o"
     t.string "q23"
     t.text "q23o"
-    t.text "q3"
-    t.text "q41"
-    t.text "q42"
-    t.text "q43"
-    t.text "q5"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "q31"
+    t.string "q32"
+    t.string "q32o"
+    t.string "q33"
+    t.string "q34"
+    t.string "q34o"
+    t.string "q4"
     t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
@@ -1586,6 +1588,7 @@ ActiveRecord::Schema.define(version: 2021_09_06_025216) do
     t.text "education"
     t.text "indigenous"
     t.boolean "disability"
+    t.integer "custom_age"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["geozone_id"], name: "index_users_on_geozone_id"
