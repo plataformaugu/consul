@@ -360,7 +360,8 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.1104)
-    mimemagic (0.3.5)
+    mimemagic (0.3.7)
+      nokogiri (~> 1.11.2)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -416,7 +417,7 @@ GEM
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       mime-types
-      mimemagic (~> 0.3.0)
+      mimemagic (~> 0.3.7)
       terrapin (~> 0.6.0)
     parallel (1.19.2)
     paranoia (2.4.2)
