@@ -394,7 +394,7 @@ aside {
 
 .custom-jumbo {
     height: 55vh;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url("/assets/LasCondes.jpg");
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), asset_url("LasCondes.jpg");
     background-repeat: no-repeat;
     background-position: 0 45%;
     background-size: cover;
