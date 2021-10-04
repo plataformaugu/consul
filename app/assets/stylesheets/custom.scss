@@ -383,10 +383,19 @@ aside {
 
   h2 {
     color: #333 !important;
-    border-top: 4px solid #ff7267 !important;
+    border-top: 4px solid #9766a8 !important;
   }
 
   a {
     color: #333 !important;
   }
+}
+
+.custom-jumbo {
+    background: linear-gradient(to right, #c5ccd4 0%, #d8dfe7 100%);
+    color: #cc2236;
+}
+
+.red-bg {
+    background: linear-gradient(to right, #cd303e 0%, #d23c70 100%)
 }

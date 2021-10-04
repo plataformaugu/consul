@@ -1064,7 +1064,7 @@
 }
 
 .featured-proposals {
-  background: $featured;
+  background: transparentize($featured, 0.6);
   border-radius: 10px;
 
   .proposal-featured {

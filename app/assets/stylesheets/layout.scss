@@ -83,7 +83,7 @@ a {
 
 .button {
   @extend %button;
-  background: linear-gradient(to right, $brand 0%, lighten($brand, 15%) 100%);
+  background: linear-gradient(to right, #cd303e 0%, #d23c70 100%);
   transition: box-shadow 0.2s ease-in-out !important;
 
   &.warning,
@@ -101,8 +101,12 @@ a {
 }
 
 .button.hollow {
-  border: 1px solid $link;
+  border: none !important;
   color: #FFF;
+
+  &:hover {
+    border: none !important;
+  }
 }
 
 .button.hollow.error {
@@ -201,10 +205,6 @@ a {
 
 .light {
   background: $light;
-}
-
-.highlight {
-  background: linear-gradient(135deg, #78568c 0%, #9766a8 100%);
 }
 
 .icon-check {
@@ -1208,9 +1208,10 @@ form {
   }
 
   &.primary {
-    background-color: $info-bg;
-    border-color: $info-border;
-    color: $color-info;
+    background-color: #0fbbd410;
+    border-color: #0fbbd440;
+    color: darken(#0fbbd4, 20%);
+    border-radius: 15px;
 
     a {
       color: $link !important;
