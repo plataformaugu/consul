@@ -92,10 +92,11 @@ a {
 
 .input-group-button {
     padding-bottom: 0 !important;
+    padding-right: 5px;
 
     button {
-        background: $brand !important;
-        border: 0 !important;
+        background: darken($brand, 5%) !important;
+        border: 1px solid darken($brand, 5%);
         color: #fff !important;
         border-radius: 0 25px 25px 0 !important;
         height: 40px;
