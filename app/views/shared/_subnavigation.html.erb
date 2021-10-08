@@ -3,21 +3,21 @@
     <%= raw content_block("subnavigation_left", I18n.locale) %>
 
     <li>
-      <%= layout_menu_link_to '¿Qué es el PAN?',
+      <%= layout_menu_link_to '¿Qué es el PLAN?',
                               '/que-es-el-pan',
                               url_for(only_path: true) == '/que-es-el-pan',
                               accesskey: "2" %>
     </li>
 
     <li>
-      <%= layout_menu_link_to '¿Qué son los DD.HH. y empresas?',
+      <%= layout_menu_link_to 'Empresas y Derechos Humanos',
                               '/que-son-ddhh-empresas',
                               url_for(only_path: true) == '/que-son-ddhh-empresas',
                               accesskey: "3" %>
     </li>
 
     <li>
-      <%= layout_menu_link_to '¿Cómo participar?',
+      <%= layout_menu_link_to 'Cómo participo',
                               '/como-participar',
                               url_for(only_path: true) == '/como-participar',
                               accesskey: "4" %>

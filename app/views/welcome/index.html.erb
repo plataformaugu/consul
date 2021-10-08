@@ -14,27 +14,76 @@
 <%= render "shared/header", header: @header %>
 
 <main>
-  <%= render "feeds" %>
-
   <div class="row">
-    <% if @cards.any? %>
-      <div class="small-12 column <%= "large-8" if feed_processes_enabled? %>">
-        <h2 class="title"><%= t("welcome.cards.title") %></h2>
-
-        <%= render "shared/cards", cards: @cards %>
+    <div class="small-12 column">
+      <h2 class="title" style="border-bottom: none; margin-bottom: 25px;">Cómo participo</h2>
+      <div class="cards-container">
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container">
+          <figure class="figure-card custom-card">
+            <%= image_tag('pndhe-09.png', style: 'object-fit: contain') %>
+            <figcaption>
+              <h5>Consulta Digital</h5>
+            </figcaption>
+          </figure>
+          <p>Ingresa y aporta con tus ideas para definir desafíos y acciones por el 2° Plan de Acción Nacional.</p>
+        </div>
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container">
+          <figure class="figure-card custom-card">
+            <%= image_tag('pndhe-10.png', style: 'object-fit: contain') %>
+            <figcaption>
+              <h5>Proceso participativo para representantes de la sociedad civil</h5>
+            </figcaption>
+          </figure>
+          <p>Inscríbete y participa de una sesión telemática para aportar en el 2° Plan de Acción Nacional.</p>
+        </div>
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container">
+          <figure class="figure-card custom-card">
+            <%= image_tag('pndhe-11.png', style: 'object-fit: contain') %>
+            <figcaption>
+              <h5>Proceso participativo para representantes de pueblos indígenas y tribales</h5>
+            </figcaption>
+          </figure>
+          <p>Inscríbete y participa de una sesión telemática para aportar en el 2° Plan de Acción Nacional.</p>
+        </div>
       </div>
-    <% end %>
+    </div>
 
-    <% if feed_processes_enabled? %>
-      <div class="small-12 large-4 column">
-        <%= render "processes" %>
+
+    <div class="small-12 column" style="margin-top: 5vh">
+      <h2 class="title" style="border-bottom: none; margin-bottom: 25px;">Conoce más de los derechos humanos</h2>
+      <div class="cards-container">
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container-border">
+          <div class="custom-card">
+            <%= image_tag('pndhe-12.png', style: 'object-fit: contain') %>
+            <h5>Plan de acción nacional de ddhh y empresas</h5>
+            <div>
+              <a href="#" class="button"><i class="fas fa-download"></i> Descargar PDF</a>
+            </div>
+          </div>
+        </div>
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container-border">
+          <div class="custom-card">
+            <%= image_tag('pndhe-13.png', style: 'object-fit: contain') %>
+            <h5>Reporte de finalización plan 2017- 2020</h5>
+            <div>
+              <a href="#" class="button"><i class="fas fa-download"></i> Descargar PDF</a>
+            </div>
+          </div>
+        </div>
+        <div class="card small-12 medium-4 column margin-bottom end custom-card-container-border">
+          <div class="custom-card">
+            <%= image_tag('pndhe-14.png', style: 'object-fit: contain') %>
+            <h5>Reporte 2017 - 2019</h5>
+            <div>
+              <a href="#" class="button"><i class="fas fa-download"></i> Descargar PDF</a>
+            </div>
+          </div>
+        </div>
       </div>
-    <% end %>
+    </div>
+
+    <div class="small-12 column" style="margin-top: 5vh; display: flex; justify-content: center;">
+      <%= image_tag('pndhe-25.png', style: 'width: 97%') %>
+    </div>
   </div>
-
-  <% if feature?("user.recommendations") && (@recommended_debates.present? || @recommended_proposals.present?) %>
-    <%= render "recommended",
-                recommended_debates: @recommended_debates,
-                recommended_proposals: @recommended_proposals %>
-  <% end %>
 </main>

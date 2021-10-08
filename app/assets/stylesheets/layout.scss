@@ -489,8 +489,8 @@ a {
 
 body > header,
 .wrapper > header {
-  background: $brand;
-  border-bottom: 1px solid $border;
+  background: #FFF;
+  border-bottom: none;
   margin-bottom: $line-height;
 
   @include breakpoint(small down) {
@@ -602,7 +602,7 @@ body > header,
     }
 
     a {
-      color: #fff;
+      color: $brand;
       padding-left: 0;
 
       @include breakpoint(medium) {
@@ -616,8 +616,8 @@ body > header,
       text-align: left;
 
       @include breakpoint(medium) {
-        background: #fff;
-        color: $brand;
+        background: #88c8a6;
+        color: #FFF;
         text-align: center;
       }
     }
@@ -673,8 +673,8 @@ body > header,
 
     &:hover::after,
     &::after {
-      background: #fff;
-      box-shadow: 0 7px 0 #fff, 0 14px 0 #fff;
+      background: $brand;
+      box-shadow: 0 7px 0 $brand, 0 14px 0 $brand;
     }
   }
 }
@@ -738,7 +738,7 @@ body > header,
 .subnavigation {
 
   @include breakpoint(medium) {
-    background: #fff;
+    background: $brand;
     padding-bottom: 0;
   }
 
@@ -755,12 +755,13 @@ body > header,
   }
 
   a {
-    color: #fff;
+    color: $brand;
     display: inline-block;
     line-height: $line-height * 2;
     position: relative;
     text-align: left;
     width: 100%;
+    font-weight: bold;
 
     @include breakpoint(medium) {
       color: $text;
@@ -974,9 +975,14 @@ footer {
 }
 
 .auth-image {
-  background: $brand image-url("auth_bg.jpg");
+  background: $brand asset_url("pndhe-18.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: bottom center;
+
+  @media (max-width: 700px) {
+    background-size: cover;
+  }
 
   @include breakpoint(medium) {
     min-height: $line-height * 42;

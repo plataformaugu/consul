@@ -115,7 +115,7 @@
       <br>
         <ol>
           <!-- 2.1 -->
-          <li>
+          <li class="custom-li" number="2" value="1">
             <label for="form_q21" style="font-weight: normal;">
               Desde su experiencia como integrante de una comunidad que convive con
               actividades empresariales, <strong>¿Cuáles de los siguientes ámbitos requieren de
@@ -140,8 +140,8 @@
             <%= label_tag 'q21_4', 'Mecanismos de información y transparencia.' %>
             </div>
             <div class="custom-il">
-            <%= check_box_tag 'q21[]', 'Condiciones de seguridad en el trabajo..', false, {id: 'q21_5'} %>
-            <%= label_tag 'q21_5', 'Condiciones de seguridad en el trabajo..' %>
+            <%= check_box_tag 'q21[]', 'Políticas de calidad de vida para la comunidad.', false, {id: 'q21_5'} %>
+            <%= label_tag 'q21_5', 'Políticas de calidad de vida para la comunidad.' %>
             </div>
             <div class="custom-il">
             <%= check_box_tag 'q21[]', 'Mecanismos de participación o consulta comunitaria.', false, {id: 'q21_6'} %>
@@ -159,7 +159,7 @@
           </li>
           <br>
           <!-- 2.2 -->
-          <li>
+          <li class="custom-li" number="2" value="2">
             <label for="form_q22" style="font-weight: normal;">
               Desde su experiencia como trabajador(a), <strong>¿cuáles de los siguientes ámbitos
               requieren de una atención preferente por parte de las empresas?</strong> Seleccione
@@ -202,7 +202,7 @@
           </li>
           <br>
           <!-- 2.3 -->
-          <li>
+          <li class="custom-li" number="2" value="3">
             <label for="form_q23" style="font-weight: normal;">
               Desde su experiencia como cliente de una empresa o consumidor de un
               servicio, <strong>¿cuáles de los siguientes ámbitos requieren de una atención
@@ -252,7 +252,7 @@
         <br><br>
         <ol>
           <!-- 3.1 -->
-          <li>
+          <li class="custom-li" number="3" value="1">
             <label for="form_q31" style="font-weight: normal;"><strong>
               En tal sentido, ¿Conoce alguna situación en que sus derechos o los de otras
               personas se vieran afectados por la actividad de una empresa?
@@ -265,7 +265,7 @@
           <br>
           </li>
           <!-- 3.2 -->
-          <li id="c-q32">
+          <li class="custom-li" number="3" value="2" id="c-q32">
             <label for="form_q32" style="font-weight: normal;"><strong>
               En caso de haber respondido afirmativamente, ¿qué acciones realizó usted, la
               persona o comunidad afectada?
@@ -299,7 +299,7 @@
           <br>
           </li>
           <!-- 3.3 -->
-          <li id="c-q33">
+          <li class="custom-li" number="3" value="3" id="c-q33">
             <label for="form_q33" style="font-weight: normal;"><strong>
               En caso de haber realizado alguna una acción, ¿obtuvo una respuesta satisfactoria?
             </strong></label>
@@ -311,7 +311,7 @@
           <br>
           </li>
           <!-- 3.4 -->
-          <li>
+          <li class="custom-li" id="li-34" number="3" value="4">
             <label for="form_q34" style="font-weight: normal;"><strong>
               En su opinión, ¿qué inconvenientes enfrentan las personas o comunidades
               para realizar acciones de denuncia, reclamación o queja en caso de afectación
@@ -363,6 +363,11 @@
           <br>
         </label>
         <br>
+        <label>Acción 1:</label>
+        <%= form.text_area :q4, label: false, rows: 6, maxlength: 600 %>
+        <label>Acción 2:</label>
+        <%= form.text_area :q4, label: false, rows: 6, maxlength: 600 %>
+        <label>Acción 3:</label>
         <%= form.text_area :q4, label: false, rows: 6, maxlength: 600 %>
       <br>
       </li>
@@ -373,12 +378,13 @@
       <div class="row" style="margin-bottom: 30px">
         <div class="small-12 column">
           <label style="font-weight: bold;">Edad</label>
-          <%= number_field_tag 'user_age', current_user.custom_age, min: 0, max: 100 %>
+          <%= number_field_tag 'user_age', current_user.custom_age, min: 0, max: 100, placeholder: 'Edad' %>
         </div>
         <div class="small-12 column">
           <label style="font-weight: bold;">Género</label>
           <%= select_tag 'user_gender',
-            options_for_select(@gender, :selected => current_user.gender || nil)
+            options_for_select(@gender, :selected => current_user.gender || 'nil'),
+            prompt: 'Elija una opción'
           %>
         </div>
         <div class="small-12 column">
@@ -390,23 +396,26 @@
         <div class="small-12 column">
           <label style="font-weight: bold;">Región donde reside</label>
           <%= select_tag 'user_region',
-            options_for_select(@regions, :selected => current_user.region || nil)
+            options_for_select(@regions, :selected => current_user.region || nil),
+            prompt: 'Elija una opción'
           %>
         </div>
         <div class="small-12 column">
           <label style="font-weight: bold;">Nivel educacional</label>
           <%= select_tag 'user_education',
-            options_for_select(@education, :selected => current_user.education || nil)
+            options_for_select(@education, :selected => current_user.education || nil),
+            prompt: 'Elija una opción'
           %>
         </div>
         <div class="small-12 column">
           <label style="font-weight: bold;">¿Tiene alguna discapacidad?</label>
-          <%= check_box_tag 'user_disability', current_user.disability, label: 'Si' %> Sí
+          <%= check_box_tag 'user_disability', current_user.disability?, current_user.disability?, label: 'Si' %> Sí
         </div>
         <div class="small-12 column">
           <label style="font-weight: bold;">¿Pertenece a algún pueblo indígena?</label>
           <%= select_tag 'user_indigenous',
-            options_for_select(@indigenous_options, :selected => current_user.indigenous || nil)
+            options_for_select(@indigenous_options, :selected => current_user.indigenous || nil),
+            prompt: 'Elija una opción'
           %>
         </div>
         <div class="small-12 column">
@@ -554,6 +563,7 @@ $(document).ready(function() {
 $(document).ready(function () {
   $('#c-q32').hide()
   $('#c-q33').hide()
+
   $('input[name="form[q31]"]').change(function() {
     if ($('#form_q31_sí:checked')[0]) {
       $('#c-q32').show()

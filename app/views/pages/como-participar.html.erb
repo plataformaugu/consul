@@ -6,67 +6,105 @@ $( function() {
 } );
 </script>
 
-<div class="jumbo light">
+<div class="jumbo custom-jumbo-section">
     <div class="row" style="text-align: center;">
-    <div class="small-12 column">
-        <h2>¿Cómo participar?</h2>
-    </div>
-
-    <div class="small-12 medium-12 column">
-        <p>(Pequeño texto explicativo + objetivos del proceso de participación)</p>
-    </div>
+        <div class="small-12 column custom-jumbo-section-title" style="max-width: 100%;">
+            <h2>Cómo participo</h2>
+        </div>
     </div>
 </div>
 <div class="row margin-top">
+  <div class="small-12 medium-12 column" style="text-align: center;">
+    <br>
+    <h3>
+        <span class="custom-page-min-title">El proceso participativo busca que las personas puedan:</span>
+    </h3>
+    <br>
+    <br>
+    <div class="how-participate-text-container">
+        <div>
+            <%= image_tag('pndhe-23.png') %>
+            <div style="display: flex; flex-direction: column; padding-left: 15px;">
+                <div class="desktop-only" style="border-top: 7px solid #88c8a6; width: 35px;"></div>
+                <p>Determinar ámbitos y temáticas de preocupación preferente en derechos humanos y empresas.</p>
+            </div>
+        </div>
+        <div>
+            <%= image_tag('pndhe-24.png') %>
+            <div style="display: flex; flex-direction: column; padding-left: 15px;">
+                <div class="desktop-only" style="border-top: 7px solid #88c8a6; width: 35px;"></div>
+                <p>Determinar ámbitos y temáticas de preocupación preferente en derechos humanos y empresas.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+  </div>
   <div class="small-12 medium-12 column">
-    <h2 style="text-align: center;">Modalidades de participación</h2>
+    <h2 class="custom-ac-title">Modalidades de participación</h2>
     <div id="accordion">
         <h3>Consulta Digital</h3>
         <div class="accordion-content-custom">
-            <%# <img src="https://via.placeholder.com/250"> %>
+            <%= image_tag('pndhe-09.png')%>
             <div>
             <p>
-                En la Consulta Digital te proponemos una <strong>serie de preguntas</strong> vinculadas a los pilares de los Principios Rectores
-                y un espacio para proponer hasta de <strong>tres acciones</strong> que puedan ser incorporadas en el 2° Plan de Acción Nacional de Derechos Humanos y Empresas. 
+                En la Consulta Digital te proponemos una serie de preguntas
+                vinculadas a los pilares de los Principios Rectores y un espacio
+                para proponer hasta de tres acciones que puedan ser
+                incorporadas en el 2° Plan de Acción Nacional de Derechos
+                Humanos y Empresas.
             </p>
             <p>
-                Podrás a responder la consulta hasta el 30 de octubre. 
+                Podrás a responder la consulta hasta el 30 de octubre. Ten en
+                consideración que tus propuestas sólo quedarán registradas una
+                vez que hagas click en el botón enviar al final del cuestionario.
             </p>
             </div>
-            <button class="button">Si ¡Quiero participar!</button>
+            <button class="button" style="background-color: #344193 !important;">¡Quiero participar!</button>
         </div>
         <h3>Proceso participativo para representantes de la sociedad civil</h3>
         <div class="accordion-content-custom">
+            <%= image_tag('pndhe-10.png')%>
             <div>
             <p>
-                Si eres representante de una organización de la sociedad civil, te puedes inscribir en los encuentros que haremos por el 2° PAN.
+                Si eres representante de una organización de la sociedad civil, te
+                puedes inscribir en los encuentros que haremos por el 2° PAN.
             </p>
             <p>
-                Nos reuniremos a través de la plataforma de videollamada zoom con organizaciones interesadas, para determinar ámbitos y temáticas
-                de preocupación preferente en derechos humanos y empresas y levantar propuestas de acciones a incorporar en la segunda versión del Plan.
+                Nos reuniremos a través de la plataforma de videollamada zoom
+                con organizaciones interesadas, para determinar ámbitos y
+                temáticas de preocupación preferente en derechos humanos y
+                empresas y levantar propuestas de acciones a incorporar en la
+                segunda versión del Plan.
             </p>
             <p>
-                Completa este formulario e inscríbete para ser parte del proceso.
+                <strong>Completa este formulario e inscríbete para ser parte del proceso.</strong>
             </p>
             </div>
-            <button class="button">Si ¡Quiero participar!</button>
+            <button class="button" style="background-color: #344193 !important;">¡Quiero participar!</button>
         </div>
         <h3>Proceso participativo para representantes y autoridades de pueblos indígenas y tribales</h3>
         <div class="accordion-content-custom">
+            <%= image_tag('pndhe-11.png')%>
             <div>
             <p>
-                Si eres representante indígena o afrodescendiente te puedes inscribir en algún encuentro de tu pueblo, para discutir y aportar en los encuentros
-                que haremos por el 2° Plan de Acción Nacional de Derechos Humanos y Empresas.
+                Si eres representante indígena o afrodescendiente te puedes
+                inscribir en algún encuentro de tu pueblo, para discutir y aportar
+                en los encuentros que haremos por el 2° Plan de Acción Nacional
+                de Derechos Humanos y Empresas.
             </p>
             <p>
-                Nos reuniremos a través de la plataforma de videollamada zoom, con el objetivo de determinar ámbitos y temáticas de preocupación preferente
-                en derechos humanos y empresas y levantar propuestas de acciones a incorporar en la 2° versión del Plan.
+                Nos reuniremos a través de la plataforma de videollamada zoom,
+                con el objetivo de determinar ámbitos y temáticas de
+                preocupación preferente en derechos humanos y empresas y
+                levantar propuestas de acciones a incorporar en la 2° versión del
+                Plan.
             </p>
             <p>
-                Completa este formulario e inscríbete para ser parte del proceso.
+                <strong>Completa este formulario e inscríbete para ser parte del proceso.</strong>
             </p>
             </div>
-            <button class="button">Si ¡Quiero participar!</button>
+            <button class="button" style="background-color: #344193 !important;">¡Quiero participar!</button>
         </div>
   </div>
 </div>

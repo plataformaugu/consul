@@ -9,10 +9,10 @@
   <body class="auth-page">
     <%= raw setting["html.per_page_code_body"] %>
     <div class="wrapper">
-      <div class="auth-image small-12 medium-3 column">
-        <h1 class="logo margin">
+      <div class="auth-image small-12 medium-3 column" style="display: flex; justify-content: center;">
+        <h1 style="margin-top: 0;">
           <%= link_to root_path do %>
-            <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: setting["org_name"]) %>
+            <%= image_tag('pndhe-19.png', class: "float-left", alt: setting["org_name"], style: 'margin: 0 auto;') %>
           <% end %>
         </h1>
       </div>

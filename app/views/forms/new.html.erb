@@ -1,17 +1,24 @@
-<div class="jumbo light">
-    <div class="row">
-    <div class="small-12 column">
-        <span class="uppercase">Prueba</span>
-        <h2>Título del cuestionario</h2>
-    </div>
-
-    <div class="small-12 medium-9 column end">
-        <p>Descripción, instrucciones, etc...</p>
-    </div>
+<div class="jumbo custom-jumbo-section">
+    <div class="row" style="text-align: center;">
+        <div class="small-12 column custom-jumbo-section-title" style="max-width: 100%; flex-direction: column;">
+            <h2>Consulta digital</h2>
+            <p class="lead">2° Plan de Acción Nacional de Derechos Humanos y Empresas</p>
+        </div>
     </div>
 </div>
-<div class="row margin-top">
-  
-<%= render 'form', form: @form %>
-
+<br>
+<div class="row margin-top custom-form-layout">
+    <div class="small-12 medium-9 large-9">
+        <%= render 'form', form: @form %>
+    </div>
+    <div class="small-12 medium-3 large-3 pl-90">
+        <div class="desktop-only" style="border-top: 7px solid #88c8a6; width: 35px; margin-bottom: 15px;"></div>
+        <h5>Material de apoyo</h5>
+        <ul>
+            <a><li><small>Reporte 2017 - 2019</small></li></a>
+            <a><li><small>libro 1</small></li></a>
+            <a><li><small>Reporte de finalización plan 2017- 2020</small></li></a>
+            <a><li><small>Plan de acción nacional de ddhh y empresas</small></li></a>
+        </ul>
+    </div>
 </div>

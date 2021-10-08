@@ -4,25 +4,29 @@
     <div class="footer-sections small-12 large-12 column">
 
       <div class="small-12 medium-3 column mt20">
-        LOGO
+        <%= image_tag('pndhe-16.png', width: 391) %>
       </div>
 
-      <div class="small-12 medium-3 column mt20">
-        <h4>
-          Sitios de interés
-        </h4>
+      <div class="small-12 medium-4 column mt20">
+        <h5>
+          SITIOS DE INTERÉS
+        </h5>
         <p class="texto-footer">
           <i class="fas fa-link icono-contacto-footer"></i>
           <span class="texto-footer">
-            <a target="blank" href="#">Link 1</a>
+            <a target="blank" href="https://www.minjusticia.gob.cl/">Ministerio de Justicia y Derechos Humanos</a>
           </span><br/>
           <i class="fas fa-link icono-contacto-footer"></i>
           <span class="texto-footer">
-            <a target="blank" href="#">Link 2</a>
+            <a target="blank" href="https://ddhh.minjusticia.gob.cl/">Subsecretaría de Derechos Humanos</a>
           </span><br/>
           <i class="fas fa-link icono-contacto-footer"></i>
           <span class="texto-footer">
-            <a target="blank" href="#">Link 3</a>
+            <a target="blank" href="https://planderechoshumanos.gob.cl/">Plan Nacional de Derechos Humanos</a>
+          </span><br/>
+          <i class="fas fa-link icono-contacto-footer"></i>
+          <span class="texto-footer">
+            <a target="blank" href="https://www.ohchr.org/SP/Issues/Business/Pages/UNGPsBizHRsnext10.aspx">Naciones Unidas Derechos Humanos</a>
           </span>
         </p>
       </div>
@@ -30,18 +34,19 @@
       
 
       <div class="small-12 medium-3 column mt20">
-        <h4>
-          Mesa de ayuda
-        </h4>
-        <p class="contact-info  etepa-creacion2">
-          Información...
+        <h5>
+          MESA DE AYUDA
+        </h5>
+        <p class="contact-info etepa-creacion2">
+          Si tienes problemas técnicos al usar la plataforma, escríbenos a: <br>
+          <i class="fas fa-envelope icono-contacto-footer"></i> <a href="mailto:mesadeayudaagu@minjusticia.cl">mesadeayudaagu@minjusticia.cl</a>
         </p>
       </div>
 
-      <div class="small-12 medium-3 column mt20 social">
-        <h4>
-          Redes sociales
-        </h4>
+      <div class="small-12 medium-2 column mt20 social">
+        <h5>
+          REDES SOCIALES
+        </h5>
         <ul>
         <% if setting["twitter_handle"] %>
           <li class="inline-block">
@@ -95,8 +100,11 @@
     </div>
   </div>
 
-  <div class="subfooter row texto-footer">
-    <div class="small-12 column ">
+  <div class="subfooter row texto-footer" style="font-size: 0.8em;">
+    <div class="small-12 column">
+      Ministerio de Justicia y Derechos Humanos, <%= Time.now.year %> | Morandé 107, Santiago - Teléfonos (56-2) 26473100
+    </div>
+    <div class="small-12 column">
       Involúcrate Crea Decide, <%= Time.now.year %> | 
       <ul class="no-bullet inline-block">
         <li class="inline-block"><a href="/condiciones">Condiciones de uso</a>&nbsp;|</li>
