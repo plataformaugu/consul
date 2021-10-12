@@ -657,3 +657,11 @@ aside {
         text-align-last: start !important;
     }
 }
+
+.footer-sections {
+    @media (max-width: 700px) {
+        div {
+            margin-bottom: 15px;
+        }
+    }
+}
