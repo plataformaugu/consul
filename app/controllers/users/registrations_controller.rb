@@ -11,15 +11,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    current_user.age = sign_up_params["age"]
-    current_user.gender = sign_up_params["gender"]
-    current_user.nationality = sign_up_params["nationality"]
-    current_user.region = sign_up_params["region"]
-    current_user.education = sign_up_params["education"]
-    current_user.disability = sign_up_params["disability"]
-    current_user.indigenous = sign_up_params["indigenous"]
-    current_user.save!
-    redirect_to "/form-submitted"
   end
 
   def create

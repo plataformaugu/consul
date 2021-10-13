@@ -78,10 +78,10 @@ class FormsController < ApplicationController
       custom_age: user_params['user_age'],
       gender: user_params['user_gender'],
       nationality: user_params['user_nationality'],
-      region: user_params['user_region'],
-      education: user_params['user_education'],
+      comuna: user_params['user_comuna'],
       disability: user_params['user_disability'],
       indigenous: user_params['user_indigenous'],
+      sexual_orientation: user_params['user_sexual_orientation'],
     )
 
     if !Form.where(user_id: current_user.id).exists?
@@ -116,6 +116,6 @@ class FormsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def form_params
-      params.require(:form).permit(:q1, :q1o, :q21, :q21o, :q22, :q22o, :q23, :q23o, :q31, :q32, :q32o, :q33, :q34, :q34o, :q4)
+      params.require(:form).permit(:q1, :q1o, :q21, :q21o, :q22, :q22o, :q23, :q23o, :q31, :q32, :q32o, :q33, :q34, :q34o, :q4, :q42, :q43)
     end
 end

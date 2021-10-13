@@ -468,6 +468,11 @@ aside {
 .custom-card-container {
     display: flex;
     flex-direction: column;
+    
+    &:hover {
+        border: none !important;
+        box-shadow: none !important;
+    }
 
     p {
         font-size: 1em;

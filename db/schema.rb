@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_03_003632) do
+ActiveRecord::Schema.define(version: 2021_10_13_005933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -610,6 +610,8 @@ ActiveRecord::Schema.define(version: 2021_10_03_003632) do
     t.string "q34"
     t.string "q34o"
     t.string "q4"
+    t.string "q42"
+    t.string "q43"
     t.index ["user_id"], name: "index_forms_on_user_id"
   end
 
@@ -1587,8 +1589,10 @@ ActiveRecord::Schema.define(version: 2021_10_03_003632) do
     t.text "region"
     t.text "education"
     t.text "indigenous"
-    t.boolean "disability"
+    t.string "disability"
     t.integer "custom_age"
+    t.string "comuna"
+    t.string "sexual_orientation"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["geozone_id"], name: "index_users_on_geozone_id"

@@ -1,7 +1,8 @@
 <script>
 $( function() {
     $( "#accordion" ).accordion({
-        heightStyle: "content"
+        heightStyle: "content",
+        active: <%= Integer(request.query_parameters['section']) rescue 0 %>,
     });
 } );
 </script>
