@@ -337,10 +337,9 @@ aside {
     height: 0;
     display: flex;
     text-align:center;
-    justify-content: center;
 }
 
-.video-container video {
+.video-container iframe {
     width: 1024px;
     height: 600px;
     max-width: 90vw;
