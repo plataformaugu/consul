@@ -1,14 +1,19 @@
 <%= content_for :body_class, "custom-page" %>
 <% provide :title do %><%= @custom_page.title %><% end %>
 
-<div class="row margin-top">
+  <div class="jumbo custom-jumbo-section">
+    <div class="row" style="text-align: center;">
+        <div class="small-12 column custom-jumbo-section-title" style="max-width: 100%; flex-direction: column;">
+          <h2><%= @custom_page.title %></h2>
+          <% if @custom_page.subtitle.present? %>
+            <p class="lead"><%= @custom_page.subtitle %></p>
+          <% end %>
+        </div>
+    </div>
+  </div>
+<div class="row margin-top" style="margin-top: 45px !important;">
 
   <div class="small-12 medium-9 column">
-    <h1><%= @custom_page.title %></h1>
-    <% if @custom_page.subtitle.present? %>
-      <h2><%= @custom_page.subtitle %></h2>
-    <% end %>
-
     <%= auto_link_already_sanitized_html AdminWYSIWYGSanitizer.new.sanitize(@custom_page.content) %>
   </div>
 
