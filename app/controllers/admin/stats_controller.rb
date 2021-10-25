@@ -94,6 +94,59 @@ class Admin::StatsController < Admin::BaseController
     @goals = SDG::Goal.order(:code)
   end
 
+  def generate_csv
+    csv = CSV.generate(:col_sep => ';') do |csv|
+      @filename = 'reporte_' + DateTime.now.strftime('%Y-%m-%d_%H-%m-%S') + '.csv'
+      @forms = Form.order(created_at: :asc)
+      csv << [
+        'ID',
+        'Fecha',
+        '1',
+        '1 Otro',
+        '2.1',
+        '2.1 Otro',
+        '2.2',
+        '2.2 Otro',
+        '2.3',
+        '2.3 Otro',
+        '3.1',
+        '3.2',
+        '3.2 Otro',
+        '3.3',
+        '3.4',
+        '3.4 Otro',
+        '4 Acción 1',
+        '4 Acción 2',
+        '4 Acción 3',
+      ]
+      @forms.each do |f|
+        csv << [
+          f.id,
+          f.created_at.strftime('%Y-%m-%d'),
+          f.q1,
+          f.q1o,
+          f.q21,
+          f.q21o,
+          f.q22 ? f.q22 : '',
+          f.q22o,
+          f.q23,
+          f.q23o,
+          f.q31 ? f.q31 : '',
+          f.q32,
+          f.q32o,
+          f.q33 ? f.q33 : '',
+          f.q34,
+          f.q34o,
+          f.q4,
+          f.q42,
+          f.q43,
+        ]
+      end
+    end
+  
+    send_data(csv, type: 'text/csv', filename: @filename)
+  end
+
   private
 
     def voters_in_heading(heading)

@@ -1,23 +1,5 @@
 <div id="stats" class="stats">
-  <div class="row">
-    <div class="small-12 column">
-      <h1 class="inline-block"><%= t "admin.stats.show.stats_title" %></h1>
-
-      <div class="clear"></div>
-
-      <div class="row stats-numbers">
-        <div class="small-12 medium-3 column">
-          <p class="featured">
-            <%= link_to t("admin.stats.show.summary.visits"),
-                        graph_admin_stats_path(id: "visits", count: @visits) %> <br>
-            <span class="number"><%= number_with_delimiter(@visits) %></span>
-          </p>
-          <p class="featured">
-            <%= t "admin.stats.show.summary.users" %> <br>
-            <span class="number"><%= number_with_delimiter(@users) %></span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3><i class="fas fa-download"></i> Reporte</h3>
+  <%= link_to 'Descargar', generate_csv_admin_stats_path(), class: 'button', style: 'margin-right: 10px; margin-bottom: 10px;' %><br>
+  <small>El reporte se descargará en formato CSV utilizando punto y coma (;) como separador de columnas.</small>
 </div>
