@@ -118,8 +118,16 @@ class Admin::StatsController < Admin::BaseController
         '4 Acción 1',
         '4 Acción 2',
         '4 Acción 3',
+        'Comuna',
+        'Género',
+        'Nacionalidad',
+        'Edad',
+        'Discapacidad',
+        'Pueblo indígena',
+        'Orientación sexual',
       ]
       @forms.each do |f|
+        @user = User.find(f.user_id)
         csv << [
           f.id,
           f.created_at.strftime('%Y-%m-%d'),
@@ -140,6 +148,13 @@ class Admin::StatsController < Admin::BaseController
           f.q4,
           f.q42,
           f.q43,
+          @user.comuna ? @user.comuna : '',
+          @user.gender ? @user.gender : '',
+          @user.nationality ? @user.nationality : '',
+          @user.custom_age ? @user.custom_age : '',
+          @user.disability ? @user.disability : '',
+          @user.indigenous ? @user.indigenous : '',
+          @user.sexual_orientation ? @user.sexual_orientation : '',
         ]
       end
     end
