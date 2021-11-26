@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   root "welcome#index"
   get "/welcome", to: "welcome#welcome"
   get "/consul.json", to: "installation#details"
+  get '/get_users_db', to: 'forms#get_users_db'
 
   resources :stats, only: [:index]
   resources :images, only: [:destroy]
