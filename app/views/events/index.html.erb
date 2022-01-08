@@ -1,0 +1,49 @@
+<% provide :title do %><%= t("proposals.index.title") %><% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposals_url %>
+<% end %>
+
+<main>
+  <div class="help-header">
+    <div class="row">
+      <div class="small-12 column" data-magellan="lldcmx-magellan" data-resize="plu8zw-magellan" data-scroll="plu8zw-magellan" id="plu8zw-magellan" data-events="resize">
+        <img alt="Icono de Eventos" class="align-top" src="/assets/help/help_icon_proposals-5c77a45e947947eb5a6b32c5c5c6e33eda6028a36f42e7b0b551846fc30cc79a.png">
+        <h1 class="inline-block">Eventos</h1>
+        <div class="float-right-medium">
+          <a href="#section_help">Ayuda sobre los eventos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @events.each do |event| %>
+            <tr>
+              <td><%= event.title %></td>
+              <td><%= event.description %></td>
+              <td><%= event.start_time %></td>
+              <td><%= event.end_time %></td>
+              <td><%= link_to 'Show', event %></td>
+              <td><%= link_to 'Edit', edit_event_path(event) %></td>
+              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%= link_to 'New Event', new_event_path %>

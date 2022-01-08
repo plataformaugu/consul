@@ -7,6 +7,7 @@ module Abilities
       can [:read, :map, :summary, :share], Proposal
       can :read, Comment
       can :read, Poll
+      can :read, Event
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids
       can :stats, Poll, id: Poll.expired.stats_enabled.not_budget.ids
       can :read, Poll::Question

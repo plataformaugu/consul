@@ -1,0 +1,78 @@
+<% provide :title do %><%= @event.title %><% end %>
+<% content_for :meta_description do %><%= truncate(@event.description) %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+              social_url: event_url(@event),
+              social_title: @event.title,
+              social_description: truncate(@event.description) %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: event_url(@event) %>
+<% end %>
+
+<div class="proposal-show">
+  <div id="<%= dom_id(@event) %>" class="row">
+    <div class="small-12 medium-9 column">
+        <%= back_link_to events_path %>
+
+        <h1><%= @event.title %></h1>
+
+        <p>
+          Inicio: <strong><%= @event.start_time.strftime('%d/%m/%Y %H:%M') %></strong>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          Término: <strong><%= @event.end_time.strftime('%d/%m/%Y %H:%M') %></strong>
+        </p>
+
+        <p><%= @event.description %></p>
+      </div>
+    <aside class="small-12 medium-3 column">
+      <% if current_user %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title">Participación</p>
+        <div class="show-actions-menu">
+          <div class="supports text-center">
+            <span class="total-supports" style="margin-bottom: 5px;">
+              NIL participantes
+            </span>
+            <%=
+              link_to 'Participar',
+              edit_event_path(@event),
+              style: 'color: white;',
+              class: 'button success expanded'
+            %>
+            </button>
+          </div>
+        </div>
+      <% end %>
+
+      <% if current_user and current_user.administrator? %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title">Administrar</p>
+        <div class="show-actions-menu">
+          <%=
+            link_to 'Editar evento',
+            edit_event_path(@event),
+            style: 'color: white;',
+            class: 'button small expanded'
+          %>
+          <%=
+            link_to 'Eliminar evento',
+            edit_event_path(@event),
+            style: 'color: white;',
+            class: 'button small alert expanded',
+            method: :delete,
+            data: { confirm: '¿Estás segur@ que deseas eliminar este evento?' }
+          %>
+        </div>
+      <% end %>
+
+      <%=
+        render "shared/social_share",
+        title: @event.title,
+        url: event_url(@event),
+        share_title: t("proposals.show.share")
+      %>
+
+    </aside>
+  </div>
+</div>
