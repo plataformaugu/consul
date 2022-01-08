@@ -4,7 +4,7 @@ ast:
       budget_investments: "Presupuestu participativu"
       debates: "Alderique"
       legislation_processes: "Procesos legislativos"
-      polls: "Votaciones"
+      polls: "Consultas"
       proposals: "Propuestes"
     relations:
       index:

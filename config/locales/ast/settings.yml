@@ -23,7 +23,7 @@ ast:
     meta_keywords: "Palabras clave (SEO)"
     min_age_to_participate: Edad mínima para participar
     proposals:
-      poll_short_title: Votaciones
+      poll_short_title: Consultas
       email_short_title: Corréu electrónicu
     feature:
       twitter_login: "Registro con Twitter"
@@ -33,7 +33,7 @@ ast:
     process:
       debates: "Alderique"
       proposals: "Propuestes"
-      polls: "Votaciones"
+      polls: "Consultas"
       budgets: "Presupuestos participativos"
       legislation: "Lexislación collaborativa"
     html:

@@ -26,7 +26,7 @@ es-PE:
     meta_keywords: "Palabras clave (SEO)"
     min_age_to_participate: Edad mínima para participar
     proposals:
-      poll_short_title: Votaciones
+      poll_short_title: Consultas
       email_short_title: Tu correo electrónico
     feature:
       twitter_login: "Registro con Twitter"
@@ -42,7 +42,7 @@ es-PE:
     process:
       debates: "Discusiones"
       proposals: "Propuestas"
-      polls: "Votaciones"
+      polls: "Consultas"
       budgets: "Presupuestos participativos"
       legislation: "Legislación colaborativa"
     html:

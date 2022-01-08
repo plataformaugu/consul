@@ -28,7 +28,7 @@ es:
       heading: "Distrito"
       investments_sent: "Propuestas<br>enviadas"
       participants_support_phase: "Participantes fase apoyos"
-      participants_vote_phase: "Participantes fase votación"
+      participants_vote_phase: "Participantes fase consulta"
       participants_every_phase: "Total de participantes"
       percent_total_participants: "% Total participantes"
       percent_heading_census: "% Censo distrito"

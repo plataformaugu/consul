@@ -15,9 +15,16 @@
   margin-top: rem-calc(-24);
   padding-bottom: $line-height;
   padding-top: $line-height;
+  display: flex;
+  font-weight: bold;
+  color: #232323;
+
+  h1 {
+    margin-top: -10px;
+  }
 
   @include breakpoint(medium) {
-    padding: rem-calc(24) 0;
+    padding: rem-calc(64) 0;
   }
 
   &.light {

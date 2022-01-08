@@ -1,31 +1,94 @@
 <% if user_signed_in? %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.my_activity_link"),
-                              user_path(current_user),
-                              controller_name == "users",
-                              rel: "nofollow",
-                              title: t("shared.go_to_page") +
-                                     t("layouts.header.my_activity_link") %>
-  </li>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.my_account_link"),
+<div class="desktop-view">
+  <li class="menu-desktop perfil-dropdown">
+    <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta">
+      <%= avatar_image(current_user, seed: current_user.id, size: 18) %>
+    </a>
+    <div class="perfil-dropdown-content">
+      <% if current_user.administrator? %>
+          <%= link_to t("layouts.header.administration"), admin_root_path %>
+      <% end %>
+
+      <% if current_user.administrator? || current_user.moderator? %>
+          <%= link_to t("layouts.header.moderation"), moderation_root_path %>
+      <% end %>
+
+      <% if feature?(:budgets) &&
+            (current_user.administrator? || current_user.valuator?) %>
+          <%= link_to t("layouts.header.valuation"), valuation_root_path %>
+      <% end %>
+
+      <% if current_user.administrator? || current_user.manager? %>
+          <%= link_to t("layouts.header.management"), management_sign_in_path %>
+      <% end %>
+
+      <% if current_user.poll_officer? && Poll.current.any? %>
+          <%= link_to t("layouts.header.officing"), officing_root_path %>
+      <% end %>
+
+      <% if feature?(:sdg) && (current_user.administrator? || current_user.sdg_manager?) %>
+          <%= link_to t("sdg_management.header.title"), sdg_management_root_path %>
+      <% end %>
+      <hr>
+      <%= layout_menu_link_to t("layouts.header.my_account_link"),
                               account_path,
                               controller_name == "account",
                               rel: "nofollow",
                               title: t("shared.go_to_page") +
                                      t("layouts.header.my_account_link") %>
+      <% if not current_page?(management_users_path) %>
+      <% end %>
+      <%= link_to t("devise_views.menu.login_items.logout"),
+                destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
+    </div>
   </li>
-  <li>
+</div>
+<div class="mobile-view">
+  <div class="mobile-menu">
+    <% if current_user.administrator? %>
+        <%= link_to t("layouts.header.administration"), admin_root_path %>
+    <% end %>
+
+    <% if current_user.administrator? || current_user.moderator? %>
+        <%= link_to t("layouts.header.moderation"), moderation_root_path %>
+    <% end %> 
+
+    <% if feature?(:budgets) &&
+          (current_user.administrator? || current_user.valuator?) %>
+        <%= link_to t("layouts.header.valuation"), valuation_root_path %>
+    <% end %>
+
+    <% if current_user.administrator? || current_user.manager? %>
+        <%= link_to t("layouts.header.management"), management_sign_in_path %>
+    <% end %>
+
+    <% if current_user.poll_officer? && Poll.current.any? %>
+        <%= link_to t("layouts.header.officing"), officing_root_path %>
+    <% end %>
+
+    <% if feature?(:sdg) && (current_user.administrator? || current_user.sdg_manager?) %>
+      <li>
+        <%= link_to t("sdg_management.header.title"), sdg_management_root_path %>
+      </li>
+    <% end %>
+    <hr>
+    <%= layout_menu_link_to t("layouts.header.my_account_link"),
+                            account_path,
+                            controller_name == "account",
+                            rel: "nofollow",
+                            title: t("shared.go_to_page") +
+                                    t("layouts.header.my_account_link") %>
     <%= link_to t("devise_views.menu.login_items.logout"),
-                destroy_user_session_path, rel: "nofollow", method: :delete %>
-  </li>
+              destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
+  </div>
+</div>
 <% else %>
   <li>
     <%= link_to t("devise_views.menu.login_items.login"),
-                new_user_session_path, rel: "nofollow" %>
+                new_user_session_path, rel: "nofollow", class: "btn-negrita"%>
   </li>
   <li>
     <%= link_to t("devise_views.menu.login_items.signup"),
-                new_user_registration_path, rel: "nofollow", class: "button" %>
+                new_user_registration_path, rel: "nofollow", class: "button btn-registrar btn-negrita" %>
   </li>
 <% end %>

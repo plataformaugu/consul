@@ -11,7 +11,7 @@ gl:
         debates: "Debates"
         proposals: "Propostas cidadás"
         budgets: "Orzamentos participativos"
-        polls: "Votacións"
+        polls: "Consultas"
         other: "Outra información de interese"
         processes: "Procesos"
       debates:
@@ -24,7 +24,7 @@ gl:
         figcaption: 'Botones "estou de acordo" e "non estou de acordo" para avaliar os debates.'
       proposals:
         title: "Propostas cidadás"
-        description: "Na sección %{link} podes formular propostas para que o Concello as leve a cabo. As propostas obteñen apoios e se alcanzan abondos sométense a votación cidadá. As propostas aprobadas nestas votacións cidadás son asumidas polo Concello e lévanse a cabo."
+        description: "Na sección %{link} podes formular propostas para que o Concello as leve a cabo. As propostas obteñen apoios e se alcanzan abondos sométense a consulta cidadá. As propostas aprobadas nestas consultas cidadás son asumidas polo Concello e lévanse a cabo."
         link: "propostas cidadás"
         image_alt: "Botón para apoiar unha proposta"
         figcaption: 'Botón para apoiar unha proposta.'
@@ -33,12 +33,12 @@ gl:
         description: "A sección de %{link} serve para que a xente decida de maneira directa a que se destina unha parte do orzamento municipal."
         link: "orzamentos participativos"
         image_alt: "Diferentes fases dun orzamento participativo"
-        figcaption: 'Fase de "apoios" e de "votación" dos orzamentos participativos.'
+        figcaption: 'Fase de "apoios" e de "consulta" dos orzamentos participativos.'
       polls:
-        title: "Votacións"
-        description: "A sección de %{link} actívase cada vez que unha proposta acada o 1% dos apoios e pasa á votación ou cando o Concello propón un tema para que a xente decida sobre el."
-        link: "votacións"
-        feature_1: "Para participares na votación, tes que %{link} e verificar a túa conta."
+        title: "Consultas"
+        description: "A sección de %{link} actívase cada vez que unha proposta acada o 1% dos apoios e pasa á consulta ou cando o Concello propón un tema para que a xente decida sobre el."
+        link: "consultas"
+        feature_1: "Para participares na consulta, tes que %{link} e verificar a túa conta."
         feature_1_link: "rexistrarte en %{org_name}"
       processes:
         title: "Procesos"

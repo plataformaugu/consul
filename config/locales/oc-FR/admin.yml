@@ -896,14 +896,14 @@ oc:
     poll_officer_assignments:
       index:
         officers_title: "Listado de presidents de taula asignados"
-        no_officers: "I a pas de presidents de taula asignados a aquela votación."
+        no_officers: "I a pas de presidents de taula asignados a aquela consulta."
         table_name: "Nome"
         table_email: "Lo tieu corrièr electronic"
       by_officer:
         date: "data"
         booth: "urna"
         assignments: "de Torns coma president de taula en aquela votacion"
-        no_assignments: "Pas tiene de torns como president de taula en aquela votación."
+        no_assignments: "Pas tiene de torns como president de taula en aquela consulta."
     poll_shifts:
       new:
         add_shift: "Apondre torn"
@@ -970,33 +970,33 @@ oc:
           help_text: "Aquel tèxt apareisserà a l’encapçalament de la pagina de las enquèstas. Se pòt utilizar per apondre un contèxt a las enquèstas dubèrtas."
     polls:
       index:
-        title: "Listado de votaciones"
+        title: "Listado de consultas"
         no_polls: "I a pas d'enquèstas."
-        create: "Crear votación"
+        create: "Crear consulta"
         name: "Nome"
         dates: "Fechas"
         start_date: "Fecha de apertura"
         closing_date: "Fecha de cierre"
         geozone_restricted: "Restringit als districtes"
       new:
-        title: "Nueva votación"
-        submit_button: "Crear votación"
+        title: "Nueva consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Demandas de ciutadanas
         booths_tab: de bóstias
         officers_tab: de Presidents de taula
         recounts_tab: de Recomptes
         results_tab: de resultats
-        no_questions: "I a pas de questions asignadas a aquela votación."
+        no_questions: "I a pas de questions asignadas a aquela consulta."
         questions_title: "Listat de questions assignadas"
         table_title: "Títol"
         edit_answers: Edita las responsas
         see_proposal: "(Veire proposicion)"
       flash:
-        question_added: "Question añadida a aquela votación"
+        question_added: "Question añadida a aquela consulta"
         error_on_question_added: "Se pudi pas asignar la question"
       destroy:
         alert: "Aquesta acció eliminarà l'enquesta i totes les seves preguntes associades."

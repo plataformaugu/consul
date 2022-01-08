@@ -7,7 +7,7 @@ ast:
         debates: "Alderique"
         proposals: "Propuestes"
         budgets: "Presupuestu participativu"
-        polls: "Votaciones"
+        polls: "Consultas"
         other: "Otra información de interés"
         processes: "Procesos"
       debates:
@@ -21,7 +21,7 @@ ast:
         title: "Presupuestos participativos"
         image_alt: "Diferentes fases de un presupuesto participativo"
       polls:
-        title: "Votaciones"
+        title: "Consultas"
       processes:
         title: "Procesos"
       faq:

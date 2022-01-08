@@ -18,7 +18,7 @@ es:
       user_permission_title: Participación
       user_permission_verify: Para poder realizar todas las acciones, verifica tu cuenta.
       user_permission_verify_info: "* Sólo usuarios empadronados."
-      user_permission_votes: Participar en las votaciones finales*
+      user_permission_votes: Participar en las consultas finales*
       verified_account: Cuenta verificada
       verify_my_account: Verificar mi cuenta
   application:
@@ -235,7 +235,7 @@ es:
       my_activity_link: Mi contenido
       open_gov: Gobierno abierto
       proposals: Propuestas
-      poll_questions: Votaciones
+      poll_questions: Consultas
       budgets: Presupuestos participativos
       notification_item:
         new_notifications:
@@ -384,7 +384,7 @@ es:
         help: Ayuda sobre las propuestas
       section_footer:
         title: Ayuda sobre las propuestas
-        description: Las propuestas ciudadanas son una oportunidad para que los vecinos y colectivos decidan directamente cómo quieren que sea su ciudad, después de conseguir los apoyos suficientes y de someterse a votación ciudadana.
+        description: Las propuestas ciudadanas son una oportunidad para que los vecinos y colectivos decidan directamente cómo quieren que sea su ciudad, después de conseguir los apoyos suficientes y de someterse a consulta ciudadana.
     new:
       form:
         submit_button: Crear propuesta
@@ -599,34 +599,34 @@ es:
       filters:
         current: "Abiertas"
         expired: "Terminadas"
-      title: "Votaciones"
-      participate_button: "Participar en esta votación"
-      participate_button_expired: "Votación terminada"
+      title: "Consultas"
+      participate_button: "Participar en esta consulta"
+      participate_button_expired: "Consulta terminada"
       no_geozone_restricted: "Toda la ciudad"
       geozone_restricted: "Distritos"
       geozone_info: "Pueden participar las personas empadronadas en: "
-      already_answer: "Ya has participado en esta votación"
+      already_answer: "Ya has participado en esta consulta"
       not_logged_in: "Necesitas iniciar sesión o registrarte para participar"
       unverified: "Por favor verifica tu cuenta para participar"
-      cant_answer: "Esta votación no está disponible en tu zona"
+      cant_answer: "Esta consulta no está disponible en tu zona"
       section_header:
-        icon_alt: Icono de Votaciones
-        title: Votaciones
-        help: Ayuda sobre las votaciones
+        icon_alt: Icono de Consultas
+        title: Consultas
+        help: Ayuda sobre las consultas
       section_footer:
-        title: Ayuda sobre las votaciones
-        description: Las votaciones ciudadanas son un mecanismo de participación por el que la ciudadanía con derecho a voto puede tomar decisiones de forma directa.
-      no_polls: "No hay votaciones abiertas."
+        title: Ayuda sobre las consultas
+        description: Las consultas ciudadanas son un mecanismo de participación por el que la ciudadanía con derecho a voto puede tomar decisiones de forma directa.
+      no_polls: "No hay consultas abiertas."
     show:
-      already_voted_in_booth: "Ya has participado en esta votación en urnas presenciales, no puedes volver a participar."
-      already_voted_in_web: "Ya has participado en esta votación. Si vuelves a votar se sobreescribirá tu resultado anterior."
-      back: Volver a votaciones
+      already_voted_in_booth: "Ya has participado en esta consulta en urnas presenciales, no puedes volver a participar."
+      already_voted_in_web: "Ya has participado en esta consulta. Si vuelves a votar se sobreescribirá tu resultado anterior."
+      back: Volver a consultas
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar."
       comments_tab: Comentarios
       cant_answer_verify: "Por favor %{verify_link} para poder responder."
       verify_link: "verifica tu cuenta"
-      cant_answer_expired: "Esta votación ha terminado."
-      cant_answer_wrong_geozone: "Esta votación no está disponible en tu zona."
+      cant_answer_expired: "Esta consulta ha terminado."
+      cant_answer_wrong_geozone: "Esta consulta no está disponible en tu zona."
       more_info_title: "Más información"
       documents: Documentos
       zoom_plus: Ampliar imagen
@@ -635,7 +635,7 @@ es:
       videos: "Vídeo externo"
       info_menu: "Información"
       stats_menu: "Estadísticas de participación"
-      results_menu: "Resultados de la votación"
+      results_menu: "Resultados de la consulta"
       stats:
         total_votes: "Nº total de votos emitidos"
         votes: "VOTOS"
@@ -858,7 +858,7 @@ es:
       not_verified: Los proyectos de gasto sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
       organization: Las organizaciones no pueden votar.
       unfeasible: No se pueden votar propuestas inviables.
-      not_voting_allowed: El periodo de votación está cerrado.
+      not_voting_allowed: El periodo de consulta está cerrado.
       different_heading_assigned:
         one: "Sólo puedes apoyar proyectos de gasto de %{count} distrito. Ya has apoyado en %{supported_headings}."
         other: "Sólo puedes apoyar proyectos de gasto de %{count} distritos. Ya has apoyado en %{supported_headings}."
@@ -903,7 +903,7 @@ es:
       user_permission_verify: "Para poder realizar las siguientes acciones, verifica tu cuenta."
       user_permission_verify_info: "* Sólo usuarios empadronados."
       user_permission_verify_my_account: Verificar mi cuenta
-      user_permission_votes: Participar en las votaciones finales*
+      user_permission_votes: Participar en las consultas finales*
   invisible_captcha:
     sentence_for_humans: "Si eres humano, por favor ignora este campo"
     timestamp_error_message: "Eso ha sido demasiado rápido. Por favor, reenvía el formulario."

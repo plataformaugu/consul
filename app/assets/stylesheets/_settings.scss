@@ -67,7 +67,7 @@ $global-font-size: 100% !default;
 $global-width: rem-calc(1200) !default;
 $global-lineheight: 1.5 !default;
 $foundation-palette: (
-  primary: #1779ba,
+  primary: lighten(#0fbbd4, 20%),
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,

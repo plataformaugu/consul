@@ -224,7 +224,7 @@ ast:
           order: Orden
           default:
             email: Corréu electrónicu
-            polls: Votaciones
+            polls: Consultas
         form:
           submit_button: Guardar
       administrator_tasks:
@@ -381,12 +381,12 @@ ast:
         index:
           back: Volver
           title: Entrugues acomuñaes a esti procesu
-          create: Crear entruga pa votación
+          create: Crear entruga pa consulta
           delete: Borrar
         new:
           back: Volver
           title: Crear nueva entruga
-          submit_button: Crear entruga pa votación
+          submit_button: Crear entruga pa consulta
         table:
           title: Títulu
           question_options: Opciones de respuesta zarrada
@@ -421,7 +421,7 @@ ast:
       admin_notifications: Notificaciones
       valuators: Evaluaores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Allugamientu d'urnes
       officials: Cargos Públicos
       organizations: Organizaciones
@@ -434,7 +434,7 @@ ast:
         information_texts_menu:
           debates: "Alderique"
           proposals: "Propuestes"
-          polls: "Votaciones"
+          polls: "Consultas"
           mailers: "Emails"
           management: "Gestión"
           welcome: "Bienveníu/a"
@@ -521,14 +521,14 @@ ast:
     poll_officer_assignments:
       index:
         officers_title: "Llistáu de presidentes de mesa asignaos"
-        no_officers: "Nun hai presidentes de mesa asignaos a esta votación."
+        no_officers: "Nun hai presidentes de mesa asignaos a esta consulta."
         table_name: "Nome"
         table_email: "Corréu electrónicu"
       by_officer:
         date: "Día"
         booth: "Urna"
-        assignments: "Turnos como presidente de mesa nesta votación"
-        no_assignments: "Nun tien turnos como presidente de mesa nesta votación."
+        assignments: "Turnos como presidente de mesa nesta consulta"
+        no_assignments: "Nun tien turnos como presidente de mesa nesta consulta."
     poll_shifts:
       new:
         add_shift: "Añedir turnu"
@@ -560,54 +560,54 @@ ast:
         count_by_system: "Votos (automáticu)"
       index:
         booths_title: "Llista d'urnes"
-        no_booths: "Nun hai urnes asignaes a esta votación."
+        no_booths: "Nun hai urnes asignaes a esta consulta."
         table_name: "Nome"
         table_location: "Allugamientu"
     polls:
       index:
-        title: "Llistáu de votaciones"
-        no_polls: "Nun hai nenguna votación."
-        create: "Crear votación"
+        title: "Llistáu de consultas"
+        no_polls: "Nun hai nenguna consulta."
+        create: "Crear consulta"
         name: "Nome"
         dates: "Feches"
         start_date: "Fecha d'apertura"
         closing_date: "Fecha de zarru"
       new:
-        title: "Nueva votación"
-        submit_button: "Crear votación"
+        title: "Nueva consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Entruges
         booths_tab: Urnes
         officers_tab: Presidentes de mesa
         recounts_tab: Recuentos
         results_tab: Resultancies
-        no_questions: "Nun hai entrugues asignaes a esta votación."
+        no_questions: "Nun hai entrugues asignaes a esta consulta."
         questions_title: "Llistáu d'entrugues asignaes"
         table_title: "Títulu"
       flash:
-        question_added: "Entruga añedida a esta votación"
+        question_added: "Entruga añedida a esta consulta"
         error_on_question_added: "Non pudo asignase la entruga"
     questions:
       index:
         title: "Entruges"
-        create: "Crear entruga pa votación"
+        create: "Crear entruga pa consulta"
         no_questions: "Nun hai nenguna entruga ciudadana."
-        filter_poll: Peñerar por votación
-        select_poll: Escoyer votación
+        filter_poll: Peñerar por consulta
+        select_poll: Escoyer consulta
         questions_tab: "Entruges"
         successful_proposals_tab: "Propuestes que superaron l'estragal"
-        create_question: "Crear entruga pa votación"
+        create_question: "Crear entruga pa consulta"
         table_proposal: "la propuesta"
         table_question: "Entruga"
-        table_poll: "Votación"
+        table_poll: "Consulta"
       edit:
         title: "Editar entruga ciudadana"
       new:
         title: "Crear entruga ciudadana para la encuesta %{poll}"
-        title_proposal: "Crear entruga pa votación"
+        title_proposal: "Crear entruga pa consulta"
       show:
         proposal: Propuesta ciudadana orixinal
         author: Autor
@@ -829,7 +829,7 @@ ast:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
       graph:
         debate_created: Alderique
         visit: Visitas
@@ -848,13 +848,13 @@ ast:
         total: Total
         proposals_with_notifications: Propuestas con notificaciones
       polls:
-        all: Votaciones
+        all: Consultas
         table:
-          poll_name: Votación
+          poll_name: Consulta
           question_name: Entruga
       sdg:
         debates: "Alderique"
-        polls: "Votaciones"
+        polls: "Consultas"
         proposals: "Propuestes"
     tags:
       index:

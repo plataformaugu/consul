@@ -15,7 +15,7 @@ ast:
         organization: Les organizaciones nun puen votar
         not_selected: Non puen votase propuestes invidables
         not_enough_money: "Yá asignasti'l presupuestu disponible.<br><small>Recuerda que pues %{change_ballot} en cualesquier momentu</small>"
-        no_ballots_allowed: El periodu de votación ta zarráu
+        no_ballots_allowed: El periodu de consulta ta zarráu
         change_ballot: camudar los tos votos
     groups:
       show:

@@ -4,7 +4,7 @@ es-PE:
       budget_investments: "Presupuestos participativos"
       debates: "Discusiones"
       legislation_processes: "Procesos legislativos"
-      polls: "Votaciones"
+      polls: "Consultas"
       proposals: "Propuestas"
     relations:
       index:

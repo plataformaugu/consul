@@ -144,12 +144,17 @@ button,
   &.medium {
     font-size: $small-font-size;
   }
+
+  border: 1px solid transparent;
+  border-radius: 35px;
+  font-weight: bold;
+  color: #FFF !important;
 }
 
 .button.hollow {
   @include normal-selection;
   border: 1px solid;
-  color: $link;
+  color: #FFF;
 }
 
 .button.hollow.error {
@@ -232,7 +237,7 @@ button,
 }
 
 .highlight {
-  background: $highlight;
+  background: linear-gradient(135deg, #78568c 0%, #9766a8 100%);
 }
 
 .icon-check {
@@ -618,6 +623,7 @@ body > header,
       @include breakpoint(medium) {
         @include brand-text;
         background: $body-background;
+        color: $brand !important;
         text-align: center;
       }
     }

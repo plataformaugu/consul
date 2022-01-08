@@ -15,7 +15,7 @@ es-PE:
         organization: Las organizaciones no pueden votar
         not_selected: No se pueden votar propuestas inviables.
         not_enough_money: "Ya has asignado el presupuesto disponible.<br><small>Recuerda que puedes %{change_ballot} en cualquier momento</small>"
-        no_ballots_allowed: El periodo de votación está cerrado.
+        no_ballots_allowed: El periodo de consulta está cerrado.
         change_ballot: cambiar tus votos
     groups:
       show:
@@ -135,7 +135,7 @@ es-PE:
       discarded: "Propuesta de inversión descartada: "
       investment_proyects: Ver lista completa de proyectos de inversión
       unfeasible_investment_proyects: Ver lista de proyectos de inversión inviables
-      not_selected_investment_proyects: Ver lista de proyectos de inversión no seleccionados para la votación final
+      not_selected_investment_proyects: Ver lista de proyectos de inversión no seleccionados para la consulta final
     executions:
       link: "Seguimiento"
       heading_selection_title: "Ámbito de actuación"

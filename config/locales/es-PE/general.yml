@@ -201,7 +201,7 @@ es-PE:
       my_activity_link: Minha atividade
       open_gov: Governo aberto
       proposals: Propuestas
-      poll_questions: Votaciones
+      poll_questions: Consultas
       budgets: Presupuestos participativos
       notification_item:
         new_notifications:
@@ -380,7 +380,7 @@ es-PE:
   dashboard:
     menu:
       community: Comunidad
-      polls: Votaciones
+      polls: Consultas
       related_content: Contenido relacionado
     progress:
       supports: Apoyos
@@ -397,13 +397,13 @@ es-PE:
       comments: Comentarios
     polls:
       index:
-        title: Votaciones
-        create: Crear votación
+        title: Consultas
+        create: Crear consulta
       new:
-        title: Nueva votación
-        submit: Crear votación
+        title: Nueva consulta
+        submit: Crear consulta
       edit:
-        submit: Actualizar votación
+        submit: Actualizar consulta
       question_fields:
         add_answer: Añadir respuesta
     poster:
@@ -424,29 +424,29 @@ es-PE:
       filters:
         current: "Abierto"
         expired: "Terminadas"
-      title: "Votaciones"
-      participate_button: "Participar en esta votación"
-      participate_button_expired: "Votación terminada"
+      title: "Consultas"
+      participate_button: "Participar en esta consulta"
+      participate_button_expired: "Consulta terminada"
       no_geozone_restricted: "Toda la ciudad"
       geozone_restricted: "Distritos"
       geozone_info: "Pueden participar las personas empadronadas en: "
-      already_answer: "Ya has participado en esta votación"
+      already_answer: "Ya has participado en esta consulta"
       section_header:
-        icon_alt: Icono de Votaciones
-        title: Votaciones
-        help: Ayuda sobre las votaciones
+        icon_alt: Icono de Consultas
+        title: Consultas
+        help: Ayuda sobre las consultas
       section_footer:
-        title: Ayuda sobre las votaciones
+        title: Ayuda sobre las consultas
     show:
-      already_voted_in_booth: "Ya has participado en esta votación en urnas presenciales, no puedes volver a participar."
-      already_voted_in_web: "Ya has participado en esta votación. Si vuelves a votar se sobreescribirá tu resultado anterior."
-      back: Volver a votaciones
+      already_voted_in_booth: "Ya has participado en esta consulta en urnas presenciales, no puedes volver a participar."
+      already_voted_in_web: "Ya has participado en esta consulta. Si vuelves a votar se sobreescribirá tu resultado anterior."
+      back: Volver a consultas
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar en el debate."
       comments_tab: Comentarios
       cant_answer_verify: "Por favor %{verify_link} para poder responder."
       verify_link: "verifica tu cuenta"
-      cant_answer_expired: "Esta votación ha terminado."
-      cant_answer_wrong_geozone: "Esta votación no está disponible en tu zona."
+      cant_answer_expired: "Esta consulta ha terminado."
+      cant_answer_wrong_geozone: "Esta consulta no está disponible en tu zona."
       more_info_title: "Más información"
       documents: Documentos
       zoom_plus: Ampliar imagen
@@ -455,7 +455,7 @@ es-PE:
       videos: "Video externo"
       info_menu: "Información"
       stats_menu: "Estadísticas de participación"
-      results_menu: "Resultados de la votación"
+      results_menu: "Resultados de la consulta"
       stats:
         total_votes: "Nº total de votos emitidos"
         votes: "VOTOS"
@@ -632,7 +632,7 @@ es-PE:
       not_verified: Los proyectos de inversión sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
       organization: Las organizaciones no pueden votar
       unfeasible: No se pueden votar propuestas inviables.
-      not_voting_allowed: El periodo de votación está cerrado.
+      not_voting_allowed: El periodo de consulta está cerrado.
   welcome:
     feed:
       most_active:
@@ -665,7 +665,7 @@ es-PE:
       user_permission_verify: "Para poder realizar todas las acciones verifica tu cuenta."
       user_permission_verify_info: "* Somente usuários no Censo de Madrid"
       user_permission_verify_my_account: Verificar mi cuenta
-      user_permission_votes: Participar en las votaciones finales*
+      user_permission_votes: Participar en las consultas finales*
   invisible_captcha:
     sentence_for_humans: "Si eres humano, por favor ignora este campo"
     timestamp_error_message: "Eso ha sido demasiado rápido. Por favor, reenvía el formulario."

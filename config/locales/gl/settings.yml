@@ -61,8 +61,8 @@ gl:
     min_age_to_participate: Idade mínima para participar
     min_age_to_participate_description: "Os usuarios maiores desta idade poden participar en todos os procesos"
     proposals:
-      poll_short_title: Votacións
-      poll_description: Descrición de votacións
+      poll_short_title: Consultas
+      poll_description: Descrición de consultas
       email_short_title: O teu correo electrónico
       poster_short_title: Cartel
     analytics_url: "URL de analytics"
@@ -111,8 +111,8 @@ gl:
       debates: "Debates"
       debates_description: "O espazo de debate da cidadanía está dirixido a calquera que poida presentar problemas que lles afecten e sobre os que queren compartir as súas opinións con outros"
       proposals: "Propostas cidadás"
-      polls: "Votacións"
-      polls_description: "As votacións da cidadanía son un proceso participativo polo cal os veciños con dereito a voto poden tomar decisións dun modo directo"
+      polls: "Consultas"
+      polls_description: "As consultas da cidadanía son un proceso participativo polo cal os veciños con dereito a voto poden tomar decisións dun modo directo"
       budgets: "Orzamentos participativos"
       legislation: "Lexislación colaborativa"
     html:

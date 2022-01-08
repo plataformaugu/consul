@@ -23,7 +23,7 @@ gl:
       errors:
         incorrect_code: Código de verificación incorrecto
       new:
-        explanation: "Para participar nas votacións finais podes:"
+        explanation: "Para participar nas consultas finais podes:"
         go_to_index: Ver propostas
         office: Verifique en calquera oficina de apoio ao cidadán
         send_letter: Solicitar unha carta por correo postal
@@ -88,7 +88,7 @@ gl:
     user_permission_info: Comprobando a túa información serás capaz de...
     user_permission_proposal: Crear novas propostas
     user_permission_support_proposal: Apoiar propostas*
-    user_permission_votes: Participar nas votacións finais
+    user_permission_votes: Participar nas consultas finais
     verified_user:
       form:
         submit_button: Enviar código
