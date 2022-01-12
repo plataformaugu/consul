@@ -1,5 +1,9 @@
-<h1>New Event</h1>
+<div class="proposal-show">
+    <div class="small-12 medium-12 column">
+        <%= back_link_to events_path %>
 
-<%= render 'form', event: @event %>
+        <h1>Crear evento</h1>
 
-<%= link_to 'Back', events_path %>
+        <%= render 'form', event: @event %>
+    </div>
+</div>

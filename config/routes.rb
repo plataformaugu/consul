@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events do
+    collection do
+      post :join_to_event
+      post :left_event
+    end
+  end
+
   mount Ckeditor::Engine => "/ckeditor"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 

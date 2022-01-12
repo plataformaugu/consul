@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_201711) do
+ActiveRecord::Schema.define(version: 2022_01_09_003217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -594,6 +594,11 @@ ActiveRecord::Schema.define(version: 2022_01_08_201711) do
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
   end
 
   create_table "failed_census_calls", id: :serial, force: :cascade do |t|

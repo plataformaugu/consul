@@ -12,7 +12,7 @@ module Abilities
         debate.editable_by?(user)
       end
 
-      can :read, Event
+      can [:read, :join_to_event, :left_event], Event
 
       can :read, Proposal
       can :update, Proposal do |proposal|

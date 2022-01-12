@@ -964,3 +964,7 @@ es:
   machine_learning:
     comments_summary: "Resumen de comentarios"
     info_text: "Contenido generado mediante IA / Machine Learning"
+  simple_calendar:
+    previous: '« Mes anterior'
+    next: 'Mes siguiente »'
+    week: 'Semana'

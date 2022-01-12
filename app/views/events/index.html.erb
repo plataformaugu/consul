@@ -15,35 +15,20 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div id="proposals" class="proposals-list small-12 medium-9 column">
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @events.each do |event| %>
-            <tr>
-              <td><%= event.title %></td>
-              <td><%= event.description %></td>
-              <td><%= event.start_time %></td>
-              <td><%= event.end_time %></td>
-              <td><%= link_to 'Show', event %></td>
-              <td><%= link_to 'Edit', edit_event_path(event) %></td>
-              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <ul class="tabs" data-tabs data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="events-tabs">
+    <li class="tabs-title is-active"><a href="#all-events" aria-selected="true">Todos los eventos</a></li>
+    <% if current_user %>
+      <li class="tabs-title"><a data-tabs-target="my-events" href="#my-events">Mis eventos</a></li>
+    <% end %>
+  </ul>
+  <div class="tabs-content" data-tabs-content="events-tabs">
+    <div class="tabs-panel is-active" id="all-events">
+      <%= render 'all_events' %>
     </div>
+    <% if current_user %>
+      <div class="tabs-panel" id="my-events">
+        <%= render 'user_events' %>
+      </div>
+    <% end %>
   </div>
 </main>
-
-<%= link_to 'New Event', new_event_path %>
