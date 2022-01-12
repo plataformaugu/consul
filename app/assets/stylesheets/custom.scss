@@ -4,6 +4,21 @@
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
 
+.wrapper {
+    .jumbo.highlight::before {
+        left: calc(37.5rem - 50vw);
+        right: calc(37.5rem - 50vw);
+        bottom: 0;
+        content: "";
+        display: block;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        background: inherit;
+        z-index: -1;
+    }
+}
+
 a { 
     outline: none !important;
 }
@@ -532,4 +547,21 @@ header::after {
     box-shadow: 0 1px 3px 0 #dee0e3;
     padding: 20px 10px;
     width: 100%;
+}
+
+.row.globalize-languages.column.padding-top.highlight,
+.translatable-fields.js-globalize-attribute.highlight 
+{
+    background: none;
+}
+
+.auth-page {
+    .footer {
+        background: #252525 !important;
+        border-top: 6px solid #0fbbd4;
+    }
+}
+
+.featured-proposals {
+    background: #ff8b5960;
 }
