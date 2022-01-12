@@ -36,6 +36,10 @@
   </div>
 
   <div class="actions">
-    <%= form.submit 'Crear' %>
+    <% if action == 'edit' %>
+      <%= form.submit 'Editar' %>
+    <% else %>
+      <%= form.submit 'Crear' %>
+    <% end %>
   </div>
 <% end %>
