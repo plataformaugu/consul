@@ -8,17 +8,31 @@
                     polls_admin_stats_path, class: "button hollow" %>
         <%= link_to t("admin.stats.show.participatory_budgets"),
                     budgets_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.direct_messages"),
-                    direct_messages_admin_stats_path, class: "button hollow" %>
+        <% if true == false %>
         <%= link_to t("admin.stats.show.proposal_notifications"),
                     proposal_notifications_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.incomplete_verifications"),
-                     admin_verifications_path, class: "button hollow" %>
+        <% end %>
         <%= link_to t("admin.stats.show.sdg"),
                      sdg_admin_stats_path, class: "button hollow" if feature?(:sdg) %>
       </div>
 
       <div class="clear"></div>
+      <div class="small-12 callout">
+        <h5>Descarga de reportes</h5>
+        <%= link_to 'Descargar propuestas',
+          generate_report_admin_stats_path('proposals'),
+          class: 'button success small',
+          style: 'margin-left: 0'
+        %>
+        <%= link_to 'Descargar consultas',
+          generate_report_admin_stats_path('polls'),
+          class: 'button success small'
+        %>
+        <%= link_to 'Descargar eventos',
+          generate_report_admin_stats_path('events'),
+          class: 'button success small'
+        %>
+      </div>
 
       <div class="row stats-numbers">
         <div class="small-12 medium-3 column">

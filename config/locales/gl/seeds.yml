@@ -32,7 +32,7 @@ gl:
       environment: Medio Ambiente
     budgets:
       budget: Orzamento participativo
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Toda a Cidade
         districts: Zonas

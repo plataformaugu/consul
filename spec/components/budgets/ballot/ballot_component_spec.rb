@@ -24,7 +24,7 @@ describe Budgets::Ballot::BallotComponent do
 
         render_inline Budgets::Ballot::BallotComponent.new(ballot)
 
-        expect(page).to have_link "Still available to you €800",
+        expect(page).to have_link "Still available to you $800",
                                   href: budget_investments_path(budget, heading_id: heading.id)
       end
     end
@@ -45,7 +45,7 @@ describe Budgets::Ballot::BallotComponent do
 
         render_inline Budgets::Ballot::BallotComponent.new(ballot)
 
-        expect(page).to have_link "Still available to you €800",
+        expect(page).to have_link "Still available to you $800",
                                   href: budget_group_path(budget, group)
       end
     end

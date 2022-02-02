@@ -32,7 +32,7 @@ tr:
       environment: Çevre
     budgets:
       budget: Katılımcı bütçe
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Tüm şehir
         districts: İlçeler

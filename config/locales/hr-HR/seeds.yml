@@ -32,7 +32,7 @@ hr:
       environment: Okoliš
     budgets:
       budget: Participativni proračun
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Cijeli Grad
         districts: Četvrti

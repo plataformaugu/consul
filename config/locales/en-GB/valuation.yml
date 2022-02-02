@@ -36,7 +36,7 @@ en-GB:
         dossier: Досьє
         edit_dossier: Редагувати досьє
         price: Вартість
-        currency: "€"
+        currency: "$"
         feasibility: Доцільність
         feasible: Реалізація доцільна
         unfeasible: Недоцільно

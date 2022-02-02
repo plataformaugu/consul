@@ -43,7 +43,7 @@ bg:
         edit_dossier: Редактиране на досието
         price: Цена
         price_first_year: Разходи през първата година
-        currency: "€"
+        currency: "$"
         feasibility: Изпълнимост
         feasible: Изпълним
         unfeasible: Неизпълним

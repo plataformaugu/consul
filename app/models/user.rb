@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   include Verification
 
+  after_create :set_username
+  after_create :set_coordinates
+
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable, :password_expirable, :secure_validatable,
          authentication_keys: [:login]
@@ -79,7 +82,7 @@ class User < ApplicationRecord
   belongs_to :geozone
   has_and_belongs_to_many :events
 
-  validates :username, presence: true, if: :username_required?
+  validates :username, presence: false
   validates :username, uniqueness: { scope: :registering_with_oauth }, if: :username_required?
   validates :document_number, uniqueness: { scope: :document_type }, allow_nil: true
 
@@ -429,5 +432,23 @@ class User < ApplicationRecord
         attributes: :username,
         maximum: User.username_max_length)
       validator.validate(self)
+    end
+
+    def set_username
+      self.username = "#{self.first_name.gsub(' ', '')}#{self.last_name[0..1]}#{self.maiden_name[0..1]}#{self.document_number[0..4]}".downcase.parameterize.gsub(' ', '')
+      self.save!
+    end
+
+    def set_coordinates
+      if self.comuna.downcase.include? 'condes'
+        url = URI("https://nominatim.openstreetmap.org/search.php?street=#{self.street}%2C+#{self.house_number}&city=Las+condes&country=Chile&format=jsonv2")
+        response = Net::HTTP.get(url)
+        data = JSON.parse(response)
+        if data.any?
+          self.lat = data[0]['lat']
+          self.long = data[0]['lon']
+          self.save!
+        end
+      end
     end
 end

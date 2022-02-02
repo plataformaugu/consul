@@ -327,7 +327,7 @@ describe "Valuation budget investments" do
     end
 
     scenario "Feasibility selection makes proper fields visible" do
-      feasible_fields = ["Price (€)", "Cost during the first year (€)", "Price explanation",
+      feasible_fields = ["Price ($)", "Cost during the first year ($)", "Price explanation",
                          "Time scope"]
       unfeasible_fields = ["Feasibility explanation"]
       any_feasibility_fields = ["Valuation finished"]
@@ -440,7 +440,7 @@ describe "Valuation budget investments" do
         expect(page).to have_content("Valuation finished")
         expect(page).to have_content("Feasibility: Feasible")
         expect(page).to have_content("Feasibility explanation: Explanation is explanatory")
-        expect(page).to have_content("Price (€): 999")
+        expect(page).to have_content("Price ($): 999")
         expect(page).to have_content("Cost during the first year: 666")
         expect(page).to have_content("Price explanation: Democracy is not cheap")
         expect(page).to have_content("Time scope: 1 light year")
@@ -453,8 +453,8 @@ describe "Valuation budget investments" do
 
       visit edit_valuation_budget_budget_investment_path(budget, investment)
 
-      fill_in "Price (€)", with: "12345,98"
-      fill_in "Cost during the first year (€) (optional, data not public)", with: "9876.6"
+      fill_in "Price ($)", with: "12345,98"
+      fill_in "Cost during the first year ($) (optional, data not public)", with: "9876.6"
       click_button "Save changes"
 
       expect(page).to have_content("2 errors")

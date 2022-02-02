@@ -32,7 +32,7 @@ oc:
       environment: Mitan ambient
     budgets:
       budget: Budgèt participatiu
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Tota la vila
         districts: de Districtes

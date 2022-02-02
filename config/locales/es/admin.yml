@@ -334,11 +334,11 @@ es:
           back: "Volver a editar grupo"
       heading_mode:
         multiple:
-          description: "Crea un proceso con múltiples grupos, distritos o temas. Tienes algo como varias bolsas de dinero. Por ejemplo, 25.000€ para \"Distrito norte\", 30.000€ para \"Distrito centro\", 28.000€ para \"Distrito sur\" y toda la ciudad. O para varios temas como deporte, cultura o salud."
+          description: "Crea un proceso con múltiples grupos, distritos o temas. Tienes algo como varias bolsas de dinero. Por ejemplo, 25.000$ para \"Distrito norte\", 30.000$ para \"Distrito centro\", 28.000$ para \"Distrito sur\" y toda la ciudad. O para varios temas como deporte, cultura o salud."
           link: "Crear presupuesto de múltiples partidas"
           title: "Presupuesto de <strong>múltiples partidas</strong>"
         single:
-          description: "Crea un proceso con un grupo, distrito o tema. Tienes algo como una bolsa de dinero. Por ejemplo, 25.000€ para un distrito, o 10.000€ para cultura."
+          description: "Crea un proceso con un grupo, distrito o tema. Tienes algo como una bolsa de dinero. Por ejemplo, 25.000$ para un distrito, o 10.000$ para cultura."
           link: "Crear presupuesto de partida única"
           title: "Presupuesto de <strong>partida única</strong>"
         title: Tipo de presupuesto participativo
@@ -1526,6 +1526,7 @@ es:
         filters:
           active: Activos
           erased: Borrados
+          without_coordenates: Sin coordenadas
       search:
         placeholder: Buscar usuario por email, nombre o DNI
     verifications:

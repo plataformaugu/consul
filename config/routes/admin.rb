@@ -220,6 +220,7 @@ namespace :admin do
     get :direct_messages, on: :collection
     get :polls, on: :collection
     get :sdg, on: :collection
+    get :generate_report, on: :collection
   end
 
   namespace :legislation do

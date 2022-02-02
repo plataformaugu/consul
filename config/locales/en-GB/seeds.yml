@@ -3,6 +3,6 @@ en-GB:
     categories:
       participation: Участь
     budgets:
-      currency: '€'
+      currency: '$'
       groups:
         districts: Дільниці

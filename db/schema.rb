@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_09_003217) do
+ActiveRecord::Schema.define(version: 2022_02_02_152307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1639,6 +1639,24 @@ ActiveRecord::Schema.define(version: 2022_01_09_003217) do
     t.boolean "public_interests", default: false
     t.boolean "recommended_debates", default: true
     t.boolean "recommended_proposals", default: true
+    t.string "first_name"
+    t.string "last_name"
+    t.string "maiden_name"
+    t.string "street"
+    t.string "house_number"
+    t.string "house_apartment"
+    t.string "house_block"
+    t.string "civil_status"
+    t.string "profession"
+    t.string "occupation"
+    t.string "prevision"
+    t.integer "children_amount"
+    t.integer "pets_amount"
+    t.string "neighborhood_unit"
+    t.string "nationality"
+    t.string "comuna"
+    t.decimal "lat", precision: 15, scale: 13
+    t.decimal "long", precision: 15, scale: 13
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true

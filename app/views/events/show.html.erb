@@ -22,7 +22,7 @@
           Hasta: <strong><%= @event.end_time.strftime('%d/%m/%Y %H:%M') %></strong>
         </p>
 
-        <p><%= @event.description %></p>
+        <p><%= wysiwyg(@event.description) %></p>
       </div>
     <aside class="small-12 medium-3 column">
       <div class="sidebar-divider"></div>

@@ -94,6 +94,104 @@ class Admin::StatsController < Admin::BaseController
     @goals = SDG::Goal.order(:code)
   end
 
+  def generate_report
+    csv = nil
+    case params['format']
+    when 'proposals'
+      csv = report_proposals
+    when 'polls'
+      csv = report_polls
+    when 'events'
+      csv = report_events
+    end
+
+    if csv != nil
+      send_data(csv, type: 'text/csv', filename: "#{params['format']}_#{Time.now.strftime('%Y%m%d_%H%M')}")
+    end
+  end
+
+  def report_proposals
+    CSV.generate(headers: true, col_sep: ';') do |csv|
+      csv << [
+        'ID',
+        'Título',
+        'Comentarios',
+        'Votos',
+        'Usuario',
+        'Palabra clave'
+      ]
+
+      # Keyword
+      most_repeated_word = nil
+      words = Rails::Html::FullSanitizer.new.sanitize(Proposal.first.description).split(' ').map{|w| w.downcase }
+      words_count = words.map{|w| {word: w, count: words.count(w) } }.uniq
+      ordered_words = words_count.sort_by {|hsh| hsh[:count]}.reverse!
+
+      if ordered_words.any?
+          most_repeated_word = ordered_words[0][:word]
+      end
+
+      Proposal.all.each do |p|
+        csv << [
+          p.id,
+          p.title,
+          p.comments.count,
+          p.total_votes,
+          p.author_id,
+          most_repeated_word
+        ]
+      end
+    end
+  end
+
+  def report_polls
+    CSV.generate(headers: true, col_sep: ';') do |csv|
+      csv << [
+        'ID', 
+        'Título', 
+        'Comentarios', 
+        'Pregunta', 
+        'Respuesta', 
+        'Votos'
+      ]
+
+      Poll::Question::Answer.all.joins(:question).order('poll_questions.poll_id ASC').each do |p|
+        csv << [
+          p.question.poll_id,
+          p.question.poll.title,
+          p.question.poll.comments.count,
+          p.question.title,
+          p.title,
+          p.total_votes
+        ]
+      end
+
+      csv = csv.sort_by { |csv| csv[0] }
+    end
+  end
+
+  def report_events
+    CSV.generate(headers: true, col_sep: ';') do |csv|
+      csv << [
+        'ID', 
+        'Título', 
+        'Fecha de inicio', 
+        'Fecha de término', 
+        'Participantes', 
+      ]
+
+      Event.all.each do |e|
+        csv << [
+          e.id,
+          e.title,
+          e.start_time.strftime('%d-%m-%Y %H:%M'),
+          e.end_time.strftime('%d-%m-%Y %H:%M'),
+          e.users.count
+        ]
+      end
+    end
+  end
+
   private
 
     def voters_in_heading(heading)

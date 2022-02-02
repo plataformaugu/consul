@@ -6,33 +6,299 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "shared/errors", resource: resource %>
 
+  <% result = result ? result : {} %>
+
   <p>
     <%= sanitize(t("devise_views.users.registrations.new.organization_signup",
         signup_link: link_to(t("devise_views.users.registrations.new.organization_signup_link"), new_organization_registration_path))) %>
   </p>
 
   <div class="row">
-    <div class="small-12 column">
-
       <%= f.hidden_field :use_redeemable_code %>
       <%= f.hidden_field :locale, value: I18n.locale %>
-
-      <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
-                                   hint: t("devise_views.users.registrations.new.username_note") %>
-
+      <%= hidden_field_tag :check_location, result.count <= 1 %>
       <%= f.invisible_captcha :address %>
 
-      <%= f.email_field :email %>
+      <%= f.hidden_field :username, 
+          autofocus: true,
+          maxlength: User.username_max_length,
+          value: (result[:correo] or '@').split('@').first or SecureRandom.uuid
+      %>
 
-      <%= f.password_field :password, autocomplete: "off" %>
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :document_number, 
+            maxlength: 10,
+            value: (result[:rut_vecino] or resource.document_number or ''),
+            label: 'RUT',
+            readonly: !(result[:rut_vecino] or '').empty?,
+            required: true
+        %>
+      </div>
 
-      <%= f.password_field :password_confirmation, autocomplete: "off",
-                           label: t("devise_views.users.registrations.new.password_confirmation_label") %>
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :first_name, 
+            maxlength: 24,
+            label: 'Nombre',
+            value: (result[:nombre_vecino] or resource.first_name or '').titleize,
+            readonly: !(result[:nombre_vecino] or '').empty?,
+            required: true
+        %>
+      </div>
+    </div>
 
-      <% if resource.use_redeemable_code %>
-        <%= f.text_field :redeemable_code %>
-      <% end %>
 
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :last_name, 
+            maxlength: 24,
+            label: 'Apellido paterno',
+            value: (result[:apellido_paterno] or resource.last_name or '').titleize,
+            readonly: !(result[:apellido_paterno] or '').empty?,
+            required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :maiden_name, 
+            maxlength: 24,
+            label: 'Apellido materno',
+            value: (result[:apellido_materno] or resource.maiden_name or '').titleize,
+            readonly: !(result[:apellido_materno] or '').empty?,
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.email_field :email,
+          value: (result[:correo] or resource.email or '').downcase,
+          readonly: !(result[:correo] or '').empty?,
+          required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.date_field :date_of_birth, 
+            label: 'Fecha de nacimiento',
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.select :civil_status,
+            [
+              'Soltero o soltera',
+              'Casado o casada',
+              'Viudo o viuda',
+              'Divorciado o divorciada',
+              'Conviviente civil',
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Estado civil'
+            },
+            {
+              class: 'form-control',
+              required: true
+            }
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :phone_number, 
+            label: 'Teléfono de contacto',
+            maxlength: 12,
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 column">
+        <%= f.select :gender,
+            [
+              'Masculino',
+              'Femenino',
+              'Otro'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Género'
+            },
+            {
+              class: 'form-control',
+              required: true
+            }
+        %>
+
+        <%= f.text_field :gender,
+          id: 'custom_gender',
+          style: 'display: none;',
+          placeholder: 'Ingresa tu género',
+          label: false
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-10 column">
+        <%= f.text_field :street, 
+            maxlength: 24,
+            label: 'Calle',
+            value: (result[:calle] or resource.street or '').titleize,
+            readonly: !(result[:calle] or '').empty?,
+            required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-2 column">
+        <%= f.text_field :house_number, 
+            maxlength: 24,
+            label: 'Número',
+            value: result[:numero] ? result[:numero].to_i.to_s : (resource.house_number or ''),
+            readonly: !(result[:numero] or '').empty?,
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :house_apartment, 
+            maxlength: 24,
+            label: 'Departamento',
+            value: (result[:depto] or resource.house_apartment or '').titleize,
+            readonly: !(result[:depto] or '').empty?
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :house_block, 
+            maxlength: 24,
+            label: 'Block',
+            value: (result[:block] or resource.house_block or '').titleize,
+            readonly: !(result[:block] or '').empty?
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.select :nationality,
+            @countries.pluck('name').sort,
+            {
+              include_blank: 'Elija una opción',
+              label: 'Nacionalidad'
+            },
+            {
+              class: 'form-control',
+              required: true
+            }
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :comuna, 
+            maxlength: 24,
+            label: 'Comuna de Residencia',
+            value: result.count > 1 ? 'Las Condes' : (resource.comuna or '').downcase.titleize,
+            readonly: result.count > 1,
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :profession, 
+            maxlength: 24,
+            label: 'Profesión',
+            required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :occupation, 
+            maxlength: 24,
+            label: 'Ocupación',
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 column">
+        <%= f.select :prevision,
+            [
+              'Isapre',
+              'Fonasa',
+              'Mutuales',
+              'FF.AA.',
+              'Otro'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Previsión'
+            },
+            {
+              class: 'form-control',
+              required: true
+            }
+        %>
+
+        <%= f.text_field :prevision,
+          id: 'custom_prevision',
+          style: 'display: none;',
+          placeholder: 'Ingresa tu previsión',
+          label: false
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.number_field :children_amount, 
+            min: 0,
+            max: 20,
+            label: 'Nº de Hijos',
+            value: 0,
+            required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.number_field :pets_amount, 
+            min: 0,
+            max: 100,
+            label: 'Nº de Mascotas',
+            value: 0,
+            required: true
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 column">
+        <%= f.password_field :password, autocomplete: "off", min_length: 8, required: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 column">
+        <%= f.password_field :password_confirmation,
+          autocomplete: "off",
+          min_length: 8,
+          label: t("devise_views.users.registrations.new.password_confirmation_label"),
+          required: true
+        %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
       <%= f.check_box :terms_of_service,
         title: t("devise_views.users.registrations.new.terms_title"),
         label: t("devise_views.users.registrations.new.terms",
@@ -40,6 +306,7 @@
                                 title: t("shared.target_blank"),
                                 target: "_blank")
                 ) %>
+    </div>
 
       <div class="small-12 medium-6 small-centered">
         <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>
@@ -49,3 +316,29 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+$('#user_gender').on('change', function() {
+  if (this.value == 'Otro') {
+    $('#custom_gender').val('')
+    $('#custom_gender').css('display', 'block')
+    $('#custom_gender').attr('required', true)
+  } else {
+    $('#custom_gender').val(this.value)
+    $('#custom_gender').css('display', 'none')
+    $('#custom_gender').attr('required', false)
+  }
+})
+
+$('#user_prevision').on('change', function() {
+  if (this.value == 'Otro') {
+    $('#custom_prevision').val('')
+    $('#custom_prevision').css('display', 'block')
+    $('#custom_prevision').attr('required', true)
+  } else {
+    $('#custom_prevision').val(this.value)
+    $('#custom_prevision').css('display', 'none')
+    $('#custom_prevision').attr('required', false)
+  }
+})
+</script>

@@ -110,23 +110,23 @@ describe "Ballots" do
         visit budget_investments_path(budget, heading_id: new_york)
         add_to_ballot("Bring back King Kong")
 
-        expect(page).to have_css("#total_amount", text: "€10,000")
-        expect(page).to have_css("#amount_available", text: "€990,000")
+        expect(page).to have_css("#total_amount", text: "$10,000")
+        expect(page).to have_css("#amount_available", text: "$990,000")
 
         within("#sidebar") do
           expect(page).to have_content "Bring back King Kong"
-          expect(page).to have_content "€10,000"
+          expect(page).to have_content "$10,000"
           expect(page).to have_link "Submit my ballot"
         end
 
         add_to_ballot("Paint cabs black")
 
-        expect(page).to have_css("#total_amount", text: "€30,000")
-        expect(page).to have_css("#amount_available", text: "€970,000")
+        expect(page).to have_css("#total_amount", text: "$30,000")
+        expect(page).to have_css("#amount_available", text: "$970,000")
 
         within("#sidebar") do
           expect(page).to have_content "Paint cabs black"
-          expect(page).to have_content "€20,000"
+          expect(page).to have_content "$20,000"
           expect(page).to have_link "Submit my ballot"
         end
       end
@@ -137,12 +137,12 @@ describe "Ballots" do
         visit budget_investments_path(budget, heading_id: new_york)
 
         expect(page).to have_content investment.title
-        expect(page).to have_css("#total_amount", text: "€10,000")
-        expect(page).to have_css("#amount_available", text: "€990,000")
+        expect(page).to have_css("#total_amount", text: "$10,000")
+        expect(page).to have_css("#amount_available", text: "$990,000")
 
         within("#sidebar") do
           expect(page).to have_content investment.title
-          expect(page).to have_content "€10,000"
+          expect(page).to have_content "$10,000"
           expect(page).to have_link "Submit my ballot"
         end
 
@@ -150,12 +150,12 @@ describe "Ballots" do
           find(".remove a").click
         end
 
-        expect(page).to have_css("#total_amount", text: "€0")
-        expect(page).to have_css("#amount_available", text: "€1,000,000")
+        expect(page).to have_css("#total_amount", text: "$0")
+        expect(page).to have_css("#amount_available", text: "$1,000,000")
 
         within("#sidebar") do
           expect(page).not_to have_content investment.title
-          expect(page).not_to have_content "€10,000"
+          expect(page).not_to have_content "$10,000"
           expect(page).to have_link "Submit my ballot"
         end
       end
@@ -202,43 +202,43 @@ describe "Ballots" do
 
         add_to_ballot("Cheap")
 
-        expect(page).to have_css("#total_amount",     text: "€10,000")
-        expect(page).to have_css("#amount_available", text: "€9,990,000")
+        expect(page).to have_css("#total_amount",     text: "$10,000")
+        expect(page).to have_css("#amount_available", text: "$9,990,000")
 
         within("#sidebar") do
           expect(page).to have_content "Cheap"
-          expect(page).to have_content "€10,000"
+          expect(page).to have_content "$10,000"
         end
 
         visit budget_investments_path(budget, heading_id: district_heading1)
 
-        expect(page).to have_css("#total_amount", text: "€0")
-        expect(page).to have_css("#amount_available", text: "€1,000,000")
+        expect(page).to have_css("#total_amount", text: "$0")
+        expect(page).to have_css("#amount_available", text: "$1,000,000")
 
         add_to_ballot("Average")
 
-        expect(page).to have_css("#total_amount",     text: "€20,000")
-        expect(page).to have_css("#amount_available", text: "€980,000")
+        expect(page).to have_css("#total_amount",     text: "$20,000")
+        expect(page).to have_css("#amount_available", text: "$980,000")
 
         within("#sidebar") do
           expect(page).to have_content "Average"
-          expect(page).to have_content "€20,000"
+          expect(page).to have_content "$20,000"
 
           expect(page).not_to have_content "Cheap"
-          expect(page).not_to have_content "€10,000"
+          expect(page).not_to have_content "$10,000"
         end
 
         visit budget_investments_path(budget, heading_id: city_heading)
 
-        expect(page).to have_css("#total_amount",     text: "€10,000")
-        expect(page).to have_css("#amount_available", text: "€9,990,000")
+        expect(page).to have_css("#total_amount",     text: "$10,000")
+        expect(page).to have_css("#amount_available", text: "$9,990,000")
 
         within("#sidebar") do
           expect(page).to have_content "Cheap"
-          expect(page).to have_content "€10,000"
+          expect(page).to have_content "$10,000"
 
           expect(page).not_to have_content "Average"
-          expect(page).not_to have_content "€20,000"
+          expect(page).not_to have_content "$20,000"
         end
 
         visit budget_investments_path(budget, heading_id: district_heading2)
@@ -255,7 +255,7 @@ describe "Ballots" do
       add_to_ballot("Park expansion")
 
       within("#progress_bar") do
-        expect(page).to have_css("#total_amount", text: "€10,000")
+        expect(page).to have_css("#total_amount", text: "$10,000")
       end
     end
   end
@@ -334,14 +334,14 @@ describe "Ballots" do
 
       within("#budget_group_#{group1.id}") do
         expect(page).to have_content "#{group1.name} - #{heading1.name}"
-        expect(page).to have_content "Amount spent €20"
-        expect(page).to have_link "Still available to you €80", href: budget_group_path(budget, group1)
+        expect(page).to have_content "Amount spent $20"
+        expect(page).to have_link "Still available to you $80", href: budget_group_path(budget, group1)
       end
 
       within("#budget_group_#{group2.id}") do
         expect(page).to have_content "#{group2.name} - #{heading2.name}"
-        expect(page).to have_content "Amount spent €15"
-        expect(page).to have_content "Still available to you €35"
+        expect(page).to have_content "Amount spent $15"
+        expect(page).to have_content "Still available to you $35"
       end
     end
   end
@@ -371,30 +371,30 @@ describe "Ballots" do
     login_as(user)
     visit budget_investments_path(budget, heading_id: new_york.id)
 
-    expect(page).to have_css("#total_amount", text: "€30,000")
-    expect(page).to have_css("#amount_available", text: "€970,000")
+    expect(page).to have_css("#total_amount", text: "$30,000")
+    expect(page).to have_css("#amount_available", text: "$970,000")
 
     within("#sidebar") do
       expect(page).to have_content investment1.title
-      expect(page).to have_content "€10,000"
+      expect(page).to have_content "$10,000"
 
       expect(page).to have_content investment2.title
-      expect(page).to have_content "€20,000"
+      expect(page).to have_content "$20,000"
     end
 
     within("#sidebar #budget_investment_#{investment1.id}_sidebar") do
       click_link "Remove vote"
     end
 
-    expect(page).to have_css("#total_amount", text: "€20,000")
-    expect(page).to have_css("#amount_available", text: "€980,000")
+    expect(page).to have_css("#total_amount", text: "$20,000")
+    expect(page).to have_css("#amount_available", text: "$980,000")
 
     within("#sidebar") do
       expect(page).not_to have_content investment1.title
-      expect(page).not_to have_content "€10,000"
+      expect(page).not_to have_content "$10,000"
 
       expect(page).to have_content investment2.title
-      expect(page).to have_content "€20,000"
+      expect(page).to have_content "$20,000"
     end
   end
 
@@ -634,7 +634,7 @@ describe "Ballots" do
         expect(page).to have_content "Heading updated successfully"
 
         within "tr", text: "New York" do
-          expect(page).to have_css "td", exact_text: "€10"
+          expect(page).to have_css "td", exact_text: "$10"
         end
       end
 

@@ -32,7 +32,7 @@ el:
       environment: Περιβάλλον
     budgets:
       budget: Συμμετοχικοί προϋπολογισμοί
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Όλες οι πόλεις
         districts: Περιφέριες

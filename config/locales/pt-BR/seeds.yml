@@ -32,7 +32,7 @@ pt-BR:
       environment: Meio Ambiente
     budgets:
       budget: Orçamento participativo
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Toda a cidade
         districts: Distritos

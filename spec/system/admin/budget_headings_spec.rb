@@ -39,9 +39,9 @@ describe "Admin budget headings", :admin do
         within "tbody" do
           expect(page).to have_selector "tr", count: 3
 
-          within("tr", text: "Laptops") { expect(page).to have_content "€1,000" }
-          within("tr", text: "Tablets") { expect(page).to have_content "€2,000" }
-          within("tr", text: "Phones") { expect(page).to have_content "€3,000" }
+          within("tr", text: "Laptops") { expect(page).to have_content "$1,000" }
+          within("tr", text: "Tablets") { expect(page).to have_content "$2,000" }
+          within("tr", text: "Phones") { expect(page).to have_content "$3,000" }
         end
       end
     end
@@ -96,7 +96,7 @@ describe "Admin budget headings", :admin do
       expect(page).to have_content "Heading created successfully!"
 
       within "tr", text: "All City" do
-        expect(page).to have_content "€1,000"
+        expect(page).to have_content "$1,000"
 
         click_link "Edit"
       end

@@ -81,9 +81,9 @@ describe "Budgets" do
         expect(page).to have_content group1.name
         expect(page).to have_content group2.name
         expect(page).to have_content heading1.name
-        expect(page).to have_content "1.000.000 €"
+        expect(page).to have_content "1.000.000 $"
         expect(page).to have_content heading2.name
-        expect(page).to have_content "2.000.000 €"
+        expect(page).to have_content "2.000.000 $"
       end
     end
 
@@ -95,7 +95,7 @@ describe "Budgets" do
 
       within("#budget_info") do
         expect(page).not_to have_link heading.name
-        expect(page).to have_content "#{heading.name}\n€1,000,000"
+        expect(page).to have_content "#{heading.name}\n$1,000,000"
 
         expect(page).not_to have_link("List of all investment projects")
         expect(page).not_to have_link("List of all unfeasible investment projects")
@@ -113,7 +113,7 @@ describe "Budgets" do
 
       within("#budget_info") do
         expect(page).not_to have_link heading.name
-        expect(page).to have_content "#{heading.name}\n€1,000,000"
+        expect(page).to have_content "#{heading.name}\n$1,000,000"
 
         expect(page).to have_css("div.map")
       end
@@ -137,7 +137,7 @@ describe "Budgets" do
 
       within ".single-heading" do
         expect(page).to have_content "New heading"
-        expect(page).to have_content "€10,000"
+        expect(page).to have_content "$10,000"
       end
     end
 
@@ -151,9 +151,9 @@ describe "Budgets" do
       within("#groups_and_headings") do
         expect(page).to have_content "New group"
         expect(page).to have_content "New heading"
-        expect(page).to have_content "€10,000"
+        expect(page).to have_content "$10,000"
         expect(page).to have_content "Other new heading"
-        expect(page).to have_content "€30,000"
+        expect(page).to have_content "$30,000"
       end
     end
   end

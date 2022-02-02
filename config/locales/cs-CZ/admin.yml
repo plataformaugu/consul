@@ -336,11 +336,11 @@ cs:
           back: "Zpět na úpravu skupiny"
       heading_mode:
         multiple:
-          description: "Vytvoření procesu s více skupinami, oblastmi nebo tématy. Máte něco jako několik pytlů s penězi. Například 25 000 € pro \"Severní čtvrť\", 30 000 € pro \"Střední čtvrť\", 28 000 € pro \"Jižní čtvrť\" a celé město. Nebo na několik témat, jako je sport, kultura nebo zdraví."
+          description: "Vytvoření procesu s více skupinami, oblastmi nebo tématy. Máte něco jako několik pytlů s penězi. Například 25 000 $ pro \"Severní čtvrť\", 30 000 $ pro \"Střední čtvrť\", 28 000 $ pro \"Jižní čtvrť\" a celé město. Nebo na několik témat, jako je sport, kultura nebo zdraví."
           link: "Vytvořit rozpočet s více položkami"
           title: "<strong>Vícepoložkový</strong> rozpočet"
         single:
-          description: "Vytvořte proces se skupinou, městskou částí nebo tématem. Máte něco jako pytel peněz. Například 25 000 € pro městskou část nebo 10 000 € pro kulturu."
+          description: "Vytvořte proces se skupinou, městskou částí nebo tématem. Máte něco jako pytel peněz. Například 25 000 $ pro městskou část nebo 10 000 $ pro kulturu."
           link: "Vytvořit rozpočet s jednou položkou"
           title: "<strong>Jednopoložkový</strong> rozpočet"
         title: "Typ participativního rozpočtu"

@@ -32,7 +32,7 @@ sr:
       environment: Околина
     budgets:
       budget: Партиципативни буџет
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Цео Град
         districts: Дистрикти

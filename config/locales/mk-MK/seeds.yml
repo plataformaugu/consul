@@ -32,7 +32,7 @@ mk:
       environment: Животна средина
     budgets:
       budget: Партиципативен Буџет
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Сите Градови
         districts: Области

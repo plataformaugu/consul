@@ -43,7 +43,7 @@ oc:
         edit_dossier: Editar informe
         price: Còst
         price_first_year: Còst en lo primièr an
-        currency: "€"
+        currency: "$"
         feasibility: Viabilitat
         feasible: Viable
         unfeasible: Pas viables

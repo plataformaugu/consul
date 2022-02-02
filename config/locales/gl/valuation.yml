@@ -43,7 +43,7 @@ gl:
         edit_dossier: Editar informe
         price: Custo
         price_first_year: Custo no primeiro ano
-        currency: "€"
+        currency: "$"
         feasibility: Viabilidade
         feasible: Viable
         unfeasible: Non viables

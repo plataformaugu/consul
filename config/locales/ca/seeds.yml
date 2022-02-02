@@ -32,7 +32,7 @@ ca:
       environment: Medi ambient
     budgets:
       budget: Pressupost participatiu
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Tota la ciutat
         districts: Districtes

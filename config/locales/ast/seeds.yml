@@ -4,6 +4,6 @@ ast:
       participation: Participación
       transparency: Transparencia
     budgets:
-      currency: '€'
+      currency: '$'
       groups:
         districts: Distritos

@@ -32,7 +32,7 @@ ka:
       environment: გარემო
     budgets:
       budget: მონაწილეობითი ბიუჯეტი
-      currency: '€'
+      currency: '$'
       groups:
         all_city: მთელი ქალაქი
         districts: ოლქები

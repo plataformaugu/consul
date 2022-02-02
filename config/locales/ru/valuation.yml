@@ -43,7 +43,7 @@ ru:
         edit_dossier: Редактировать пакет документов
         price: Цена
         price_first_year: Стоимость в течение первого года
-        currency: "€"
+        currency: "$"
         feasibility: Выполнимость
         feasible: Выполнимо
         unfeasible: Не выполнимо

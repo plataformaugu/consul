@@ -32,7 +32,7 @@ sq:
       environment: Mjedis
     budgets:
       budget: Buxhetet  pjesëmarrës
-      currency: '€'
+      currency: '$'
       groups:
         all_city: I gjithë qyteti
         districts: Zonë

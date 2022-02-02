@@ -43,7 +43,7 @@ uk-UA:
         edit_dossier: Редагувати досьє
         price: Ціна
         price_first_year: Вартість впродовж першого року
-        currency: "€"
+        currency: "$"
         feasibility: Доцільність
         feasible: Доцільно
         unfeasible: Недоцільно

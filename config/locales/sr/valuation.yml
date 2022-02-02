@@ -43,7 +43,7 @@ sr:
         edit_dossier: Промени досије
         price: Цена
         price_first_year: Цена током прве године
-        currency: "€"
+        currency: "$"
         feasibility: Изводљивост
         feasible: Изводљиво
         unfeasible: Неизводљиво

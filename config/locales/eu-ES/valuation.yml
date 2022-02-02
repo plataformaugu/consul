@@ -42,7 +42,7 @@ eu:
         edit_dossier: Txostena editatu
         price: Kostua
         price_first_year: Lehen urteko kostua
-        currency: "€"
+        currency: "$"
         feasibility: Bideragarritasuna
         feasible: Bideragarria
         unfeasible: Bideragabezina

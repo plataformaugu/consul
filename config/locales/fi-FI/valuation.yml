@@ -20,7 +20,7 @@ fi:
         info: Tietoa tekijästä
         by: Lähettäjä
         price: Hinta
-        currency: "€"
+        currency: "$"
         feasibility: Toteutettavuus
         unfeasible: Toteuttamiskelvoton
         undefined: Määrittelemätön

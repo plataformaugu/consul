@@ -32,7 +32,7 @@ eu:
       environment: Ingurumena
     budgets:
       budget: Partaidetzazko Aurrekontuak
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Herri osoa
         districts: Auzoak

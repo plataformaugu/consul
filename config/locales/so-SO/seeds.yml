@@ -32,7 +32,7 @@ so:
       environment: Degaan
     budgets:
       budget: Misaaniyada kaqayb qadashada
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Dhamaan Magalooyinka
         districts: Degmooyinka

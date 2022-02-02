@@ -43,7 +43,7 @@ pl:
         edit_dossier: Edytuj dokumentację
         price: Koszt
         price_first_year: Kosztów w pierwszym roku
-        currency: "€"
+        currency: "$"
         feasibility: Wykonalność
         feasible: Wykonalne
         unfeasible: Niewykonalne

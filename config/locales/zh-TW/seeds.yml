@@ -32,7 +32,7 @@ zh-TW:
       environment: 環境
     budgets:
       budget: 參與性預算
-      currency: '€'
+      currency: '$'
       groups:
         all_city: 所有城市
         districts: 地區

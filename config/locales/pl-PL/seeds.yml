@@ -32,7 +32,7 @@ pl:
       environment: Środowisko
     budgets:
       budget: Budżet partycypacyjny
-      currency: '€'
+      currency: '$'
       groups:
         all_city: Całe miasto
         districts: Podział dzielnicy

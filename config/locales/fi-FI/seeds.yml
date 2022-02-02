@@ -17,6 +17,6 @@ fi:
       security_emergencies: Turvallisuus ja hätätilanteet
       environment: Ympäristö
     budgets:
-      currency: '€'
+      currency: '$'
       valuator_groups:
         culture_and_sports: Kulttuuri & urheilu
