@@ -455,14 +455,15 @@ class User < ApplicationRecord
         response = Net::HTTP.get(url)
         data = JSON.parse(response)
         if data.any?
-          # begin
+          begin
             self.lat = data[0]['lat']
             self.long = data[0]['lon']
+            self.save!
             self.sector_id = Sector.find_by(name: get_sector(self.lat.to_f, self.long.to_f)).id
             self.save!
-          # rescue
-          #   puts '[Error] set_coordinates'
-          # end
+          rescue
+            puts '[Error] set_coordinates'
+          end
         end
       end
     end
