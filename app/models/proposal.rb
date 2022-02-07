@@ -42,6 +42,9 @@ class Proposal < ApplicationRecord
   has_many :polls, as: :related, inverse_of: :related
   has_one :summary_comment, as: :commentable, class_name: "MlSummaryComment", dependent: :destroy
 
+  has_many :proposal_sectors
+  has_many :sectors, through: :proposal_sectors
+
   validates_translation :title, presence: true, length: { in: 4..Proposal.title_max_length }
   validates_translation :description, length: { maximum: Proposal.description_max_length }
   validates_translation :summary, presence: true

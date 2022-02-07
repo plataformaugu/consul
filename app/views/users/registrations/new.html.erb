@@ -82,7 +82,8 @@
       <div class="small-12 medium-6 column">
         <%= f.date_field :date_of_birth, 
             label: 'Fecha de nacimiento',
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
     </div>
@@ -91,10 +92,10 @@
       <div class="small-12 medium-6 column">
         <%= f.select :civil_status,
             [
-              'Soltero o soltera',
-              'Casado o casada',
-              'Viudo o viuda',
-              'Divorciado o divorciada',
+              'Soltero/a',
+              'Casado/a',
+              'Viudo/a',
+              'Divorciado/a',
               'Conviviente civil',
             ],
             {
@@ -102,7 +103,7 @@
               label: 'Estado civil'
             },
             {
-              class: 'form-control',
+              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -112,7 +113,8 @@
         <%= f.text_field :phone_number, 
             label: 'Teléfono de contacto',
             maxlength: 12,
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
     </div>
@@ -130,7 +132,7 @@
               label: 'Género'
             },
             {
-              class: 'form-control',
+              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -166,25 +168,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="small-12 medium-6 column">
-        <%= f.text_field :house_apartment, 
-            maxlength: 24,
-            label: 'Departamento',
-            value: (result[:depto] or resource.house_apartment or '').titleize,
-            readonly: !(result[:depto] or '').empty?
-        %>
-      </div>
 
-      <div class="small-12 medium-6 column">
-        <%= f.text_field :house_block, 
-            maxlength: 24,
-            label: 'Block',
-            value: (result[:block] or resource.house_block or '').titleize,
-            readonly: !(result[:block] or '').empty?
-        %>
-      </div>
-    </div>
 
     <div class="row">
       <div class="small-12 medium-6 column">
@@ -214,18 +198,40 @@
 
     <div class="row">
       <div class="small-12 medium-6 column">
-        <%= f.text_field :profession, 
+        <%= f.text_field :house_apartment, 
             maxlength: 24,
+            label: 'Departamento',
+            value: (result[:depto] or resource.house_apartment or '').titleize,
+            readonly: !(result[:depto] or '').empty?
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :house_block, 
+            maxlength: 24,
+            label: 'Block',
+            value: (result[:block] or resource.house_block or '').titleize,
+            readonly: !(result[:block] or '').empty?
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :profession, 
+            maxlength: 64,
             label: 'Profesión',
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
 
       <div class="small-12 medium-6 column">
         <%= f.text_field :occupation, 
-            maxlength: 24,
+            maxlength: 64,
             label: 'Ocupación',
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
     </div>
@@ -245,7 +251,7 @@
               label: 'Previsión'
             },
             {
-              class: 'form-control',
+              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -254,7 +260,8 @@
           id: 'custom_prevision',
           style: 'display: none;',
           placeholder: 'Ingresa tu previsión',
-          label: false
+          label: false,
+          class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
     </div>
@@ -266,7 +273,8 @@
             max: 20,
             label: 'Nº de Hijos',
             value: 0,
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
 

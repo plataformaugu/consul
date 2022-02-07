@@ -97,7 +97,7 @@ module Abilities
       can :manage, Widget::Card
 
       can :access, :ckeditor
-      can :manage, Ckeditor::Picture
+      can [:index, :manage], Ckeditor::Picture
 
       can [:read, :debate, :draft_publication, :allegations, :result_publication,
            :milestones], Legislation::Process

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_02_152307) do
+ActiveRecord::Schema.define(version: 2022_02_07_022959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1283,6 +1283,13 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.datetime "confirmed_hide_at"
   end
 
+  create_table "proposal_sectors", force: :cascade do |t|
+    t.bigint "proposal_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["proposal_id"], name: "index_proposal_sectors_on_proposal_id"
+    t.index ["sector_id"], name: "index_proposal_sectors_on_sector_id"
+  end
+
   create_table "proposal_translations", id: :serial, force: :cascade do |t|
     t.integer "proposal_id", null: false
     t.string "locale", null: false
@@ -1319,6 +1326,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.integer "community_id"
     t.datetime "published_at"
     t.boolean "selected", default: false
+    t.bigint "sector_id"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
@@ -1327,6 +1335,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.index ["geozone_id"], name: "index_proposals_on_geozone_id"
     t.index ["hidden_at"], name: "index_proposals_on_hidden_at"
     t.index ["hot_score"], name: "index_proposals_on_hot_score"
+    t.index ["sector_id"], name: "index_proposals_on_sector_id"
     t.index ["selected"], name: "index_proposals_on_selected"
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
   end
@@ -1450,6 +1459,10 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_sdg_targets_on_code", unique: true
     t.index ["goal_id"], name: "index_sdg_targets_on_goal_id"
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "settings", id: :serial, force: :cascade do |t|
@@ -1657,6 +1670,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.string "comuna"
     t.decimal "lat", precision: 15, scale: 13
     t.decimal "long", precision: 15, scale: 13
+    t.bigint "sector_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1665,6 +1679,7 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
     t.index ["hidden_at"], name: "index_users_on_hidden_at"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sector_id"], name: "index_users_on_sector_id"
     t.index ["username"], name: "index_users_on_username"
   end
 
@@ -1821,6 +1836,8 @@ ActiveRecord::Schema.define(version: 2022_02_02_152307) do
   add_foreign_key "poll_recounts", "poll_officer_assignments", column: "officer_assignment_id"
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
+  add_foreign_key "proposal_sectors", "proposals"
+  add_foreign_key "proposal_sectors", "sectors"
   add_foreign_key "proposals", "communities"
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"

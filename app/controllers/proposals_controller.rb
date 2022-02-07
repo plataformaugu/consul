@@ -37,6 +37,17 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
+
+    if params['proposal']['sector_ids']
+      params['proposal']['sector_ids'].each do |s|
+        begin
+          sector = Sector.find_by(name: s)
+          @proposal.sectors.append(sector)
+        rescue
+        end
+      end
+    end
+
     if @proposal.save
       @proposal.publish
       redirect_to share_proposal_path(@proposal), notice: t("proposals.notice.published")
@@ -101,7 +112,7 @@ class ProposalsController < ApplicationController
 
     def proposal_params
       attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
-                    :geozone_id, :related_sdg_list,
+                    :related_sdg_list,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,
                     map_location_attributes: map_location_attributes]

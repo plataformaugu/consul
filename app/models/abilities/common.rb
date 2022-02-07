@@ -6,6 +6,7 @@ module Abilities
       merge Abilities::Everyone.new(user)
 
       can [:read, :update], User, id: user.id
+      can [:index], Ckeditor::Picture
 
       can :read, Debate
       can :update, Debate do |debate|

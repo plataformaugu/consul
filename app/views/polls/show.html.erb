@@ -18,19 +18,6 @@
     <div class="small-12 medium-9 column">
       <%= render "callout" %>
 
-      <% if @poll.voted_in_booth?(current_user) %>
-        <div class="callout warning">
-          <%= t("polls.show.already_voted_in_booth") %>
-        </div>
-      <% else %>
-
-        <% if current_user && @poll.voted_in_web?(current_user) && !@poll.expired? %>
-          <div class="callout warning">
-            <%= t("polls.show.already_voted_in_web") %>
-          </div>
-        <% end %>
-      <% end %>
-
       <% @questions.each do |question| %>
         <%= render "polls/questions/question", question: question, token: @token %>
       <% end %>

@@ -106,7 +106,7 @@ class Admin::StatsController < Admin::BaseController
     end
 
     if csv != nil
-      send_data(csv, type: 'text/csv', filename: "#{params['format']}_#{Time.now.strftime('%Y%m%d_%H%M')}")
+      send_data(csv, type: 'text/csv', filename: "#{params['format']}_#{Time.now.strftime('%Y%m%d_%H%M')}.csv")
     end
   end
 

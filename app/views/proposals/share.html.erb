@@ -16,8 +16,7 @@
       <h1><%= t("proposals.proposal.created") %></h1>
 
       <p>
-        <span class="lead"><%= t("proposals.proposal.share.guide") %></span><br>
-        <%= t("proposals.proposal.share.edit") %>
+        <span class="lead"><%= t("proposals.proposal.share.guide") %></span>
       </p>
 
       <%= render "shared/social_share",
@@ -37,10 +36,6 @@
           </div>
         </div>
       <% end %>
-
-      <div class="small margin-bottom">
-        <%= link_to t("proposals.proposal.share.view_proposal"), proposal_path(@proposal) %>
-      </div>
     </div>
 
     <div class="small-12 medium-4 column">

@@ -36,7 +36,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       begin
         if params['check_location'] == 'true' and sign_up_params[:comuna].downcase.include? 'condes'
-          url = URI("https://arcgislc.lascondes.cl/api/buscador/direccion/?calle=#{sign_up_params[:street]}&numero=#{sign_up_params[:house_number]}&format=json")
+          url = URI("https://arcgislc.lascondes.cl/api/buscador/direccion/?calle=#{clear_street(sign_up_params[:street])}&numero=#{sign_up_params[:house_number]}&format=json")
           response = Net::HTTP.get(url)
           data = JSON.parse(response)
           if data["mensaje"].downcase != 'ok'
@@ -159,5 +159,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_inactive_sign_up_path_for(resource_or_scope)
       users_sign_up_success_path
+    end
+
+    def clear_street(street)
+      return street.downcase.gsub(/avenida|calle|av\.|psje\.|pasaje|pje.|pj.|ave./, '').squeeze(' ').strip
     end
 end
