@@ -152,12 +152,6 @@
     @include grid-column-gutter;
   }
 
-  [type="submit"] {
-    @include regular-button;
-    font-size: map-get($button-sizes, large);
-    margin-top: $line-height;
-  }
-
   .actions {
     border: 6px solid $border;
     border-radius: rem-calc(12);

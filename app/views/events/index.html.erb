@@ -1,34 +1,32 @@
-<% provide :title do %><%= t("proposals.index.title") %><% end %>
+<% provide :title do %>Eventos<% end %>
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: proposals_url %>
 <% end %>
 
 <main>
-  <div class="help-header">
-    <div class="row">
-      <div class="small-12 column" data-magellan="lldcmx-magellan" data-resize="plu8zw-magellan" data-scroll="plu8zw-magellan" id="plu8zw-magellan" data-events="resize">
-        <img alt="Icono de Eventos" class="align-top" src="/assets/help/help_icon_proposals-5c77a45e947947eb5a6b32c5c5c6e33eda6028a36f42e7b0b551846fc30cc79a.png">
-        <h1 class="inline-block">Eventos</h1>
-        <div class="float-right-medium">
-          <a href="#section_help">Ayuda sobre los eventos</a>
-        </div>
-      </div>
+  <div class="custom-help-header custom-help-header-events">
+    <div class="left-side-help-header">
+      <h1 style="text-transform: uppercase;">Eventos</h1>
+    </div>
+    <div class="right-side-help-header">
     </div>
   </div>
-  <ul class="tabs" data-tabs data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="events-tabs">
-    <li class="tabs-title is-active"><a href="#all-events" aria-selected="true">Todos los eventos</a></li>
-    <% if current_user %>
-      <li class="tabs-title"><a data-tabs-target="my-events" href="#my-events">Mis eventos</a></li>
-    <% end %>
-  </ul>
-  <div class="tabs-content" data-tabs-content="events-tabs">
-    <div class="tabs-panel is-active" id="all-events">
-      <%= render 'all_events' %>
-    </div>
-    <% if current_user %>
-      <div class="tabs-panel" id="my-events">
-        <%= render 'user_events' %>
+  <div class="row">
+    <ul class="tabs" data-tabs data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="events-tabs">
+      <li class="tabs-title is-active"><a href="#all-events" aria-selected="true">Todos los eventos</a></li>
+      <% if current_user %>
+        <li class="tabs-title"><a data-tabs-target="my-events" href="#my-events">Mis eventos</a></li>
+      <% end %>
+    </ul>
+    <div class="tabs-content" data-tabs-content="events-tabs">
+      <div class="tabs-panel is-active" id="all-events">
+        <%= render 'all_events' %>
       </div>
-    <% end %>
+      <% if current_user %>
+        <div class="tabs-panel" id="my-events">
+          <%= render 'user_events' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </main>

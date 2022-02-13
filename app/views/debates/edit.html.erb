@@ -1,14 +1,17 @@
+
+<%= render "shared/section_header", i18n_namespace: "debates.index.section_header", image: "debates" %>
 <div class="debate-edit">
+  <div class="row">
+    <div class="small-12 column">
+      <%= back_link_to %>
 
-  <div class="small-12 column">
-    <%= back_link_to %>
+      <div class="float-right">
+        <%= link_to t("debates.edit.show_link"), @debate %>
+      </div>
 
-    <div class="float-right">
-      <%= link_to t("debates.edit.show_link"), @debate %>
+      <h1><%= t("debates.edit.editing") %></h1>
+
+      <%= render "form" %>
     </div>
-
-    <h1><%= t("debates.edit.editing") %></h1>
-
-    <%= render "form" %>
   </div>
 </div>

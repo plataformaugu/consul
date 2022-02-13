@@ -4,7 +4,15 @@
     <%= raw content_block("subnavigation_left") %>
 
     <li>
-      <a href="#">Procesos participativos</a>
+      <a href="/">INICIO</a>
+    </li>
+
+    <li>
+      <a href="#">SOBRE NOSOTROS</a>
+    </li>
+
+    <li>
+      <a href="#">PARTICIPAR</a>
       <ul class="menu custom-menu">
         <% if feature?(:debates) %>
           <li>
@@ -76,12 +84,23 @@
     <% end %>
 
     <%= raw content_block("subnavigation_right") %>
+    <li>
+      <a href="#">AYUDA</a>
+    </li>
   </ul>
 
   <!-- Mobile view -->
   <ul class="mobile-view">
     <%= raw content_block("subnavigation_left") %>
 
+    <li>
+      <a href="/">INICIO</a>
+    </li>
+
+    <li>
+      <a href="#">SOBRE NOSOTROS</a>
+    </li>
+  
     <% if feature?(:debates) %>
       <li>
         <%= layout_menu_link_to t("layouts.header.debates"),
@@ -138,6 +157,10 @@
                                 accesskey: "7" %>
       </li>
     <% end %>
+    <li>
+      <a href="#">AYUDA</a>
+    </li>
+
 
     <%= raw content_block("subnavigation_right") %>
   </ul>

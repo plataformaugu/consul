@@ -110,12 +110,19 @@
       </div>
 
       <div class="small-12 medium-6 column">
-        <%= f.text_field :phone_number, 
-            label: 'Teléfono de contacto',
-            maxlength: 12,
-            required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
-        %>
+        <%= f.label :phone_number, 'Teléfono de contacto' %>
+        <div class="input-group">
+          <span class="input-group-label" style="height: 3rem; user-select: none;">
+            +56
+          </span>
+          <%= f.text_field :phone_number, 
+              label: 'Teléfono de contacto',
+              maxlength: 12,
+              required: true,
+              class: result.count > 1 ? 'highlight_input' : '',
+              label: false
+          %>
+        </div>
       </div>
     </div>
 
@@ -142,28 +149,6 @@
           style: 'display: none;',
           placeholder: 'Ingresa tu género',
           label: false
-        %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 medium-10 column">
-        <%= f.text_field :street, 
-            maxlength: 24,
-            label: 'Calle',
-            value: (result[:calle] or resource.street or '').titleize,
-            readonly: !(result[:calle] or '').empty?,
-            required: true
-        %>
-      </div>
-
-      <div class="small-12 medium-2 column">
-        <%= f.text_field :house_number, 
-            maxlength: 24,
-            label: 'Número',
-            value: result[:numero] ? result[:numero].to_i.to_s : (resource.house_number or ''),
-            readonly: !(result[:numero] or '').empty?,
-            required: true
         %>
       </div>
     </div>
@@ -195,6 +180,29 @@
         %>
       </div>
     </div>
+  
+    <div class="row">
+      <div class="small-12 medium-10 column">
+        <%= f.text_field :street, 
+            maxlength: 24,
+            label: 'Calle',
+            value: (result[:calle] or resource.street or '').titleize,
+            readonly: !(result[:calle] or '').empty?,
+            required: true
+        %>
+      </div>
+
+      <div class="small-12 medium-2 column">
+        <%= f.text_field :house_number, 
+            maxlength: 24,
+            label: 'Número',
+            value: result[:numero] ? result[:numero].to_i.to_s : (resource.house_number or ''),
+            readonly: !(result[:numero] or '').empty?,
+            required: true
+        %>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="small-12 medium-6 column">
@@ -284,7 +292,8 @@
             max: 100,
             label: 'Nº de Mascotas',
             value: 0,
-            required: true
+            required: true,
+            class: result.count > 1 ? 'highlight_input' : ''
         %>
       </div>
     </div>

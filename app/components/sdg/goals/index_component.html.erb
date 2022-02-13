@@ -1,25 +1,26 @@
 <% provide(:title) { title } %>
 
+<div class="custom-help-header custom-help-header-ods">
+  <div class="left-side-help-header">
+    <h1 style="text-transform: uppercase;">ODS</h1>
+  </div>
+  <div class="right-side-help-header">
+  </div>
+</div>
 <main class="sdg-goals-index">
-  <% if header.present? %>
-    <%= render "shared/header", header: header %>
-  <% else %>
-    <header class="section-header">
-      <h1><%= title %></h1>
-    </header>
-  <% end %>
+  <div class="row">
+    <%= render Shared::BannerComponent.new("sdg") %>
 
-  <%= render Shared::BannerComponent.new("sdg") %>
+    <%= link_list(*goal_links, class: "sdg-goal-list") %>
 
-  <%= link_list(*goal_links, class: "sdg-goal-list") %>
+    <% phases.each do |phase| %>
+      <section class="sdg-phase" id="sdg_phase_<%= phase.kind %>">
+        <header>
+          <h2 class="title"><%= phase.title %></h2>
+        </header>
 
-  <% phases.each do |phase| %>
-    <section class="sdg-phase" id="sdg_phase_<%= phase.kind %>">
-      <header>
-        <h2 class="title"><%= phase.title %></h2>
-      </header>
-
-      <%= render "shared/cards", cards: phase.cards %>
-    </section>
-  <% end %>
+        <%= render "shared/cards", cards: phase.cards %>
+      </section>
+    <% end %>
+  </div>
 </main>

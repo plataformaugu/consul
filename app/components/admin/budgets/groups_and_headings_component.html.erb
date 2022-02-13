@@ -1,4 +1,5 @@
-<% budget.groups.each do |group| %>
+<div class="row">
+  <% budget.groups.each do |group| %>
   <section id="<%= dom_id(group) %>" aria-labelledby="<%= dom_id(group, :header) %>">
     <h4 id="<%= dom_id(group, :header) %>"><%= group.name %></h4>
 
@@ -22,5 +23,6 @@
     <%= render Admin::BudgetHeadings::HeadingsComponent.new(group.headings) %>
   </section>
 <% end %>
+</div>
 
 <%= action(:new, budget, text: t("admin.budgets.show.add_group"), path: new_admin_budget_group_path(budget)) %>

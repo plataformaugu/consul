@@ -1,5 +1,6 @@
 <% provide :title do %><%= @poll.name %><% end %>
 
+<%= render "shared/section_header", i18n_namespace: "polls.index.section_header", image: "polls" %>
 <div class="polls-results-stats">
   <%= render "poll_header" %>
 

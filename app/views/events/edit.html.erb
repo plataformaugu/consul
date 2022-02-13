@@ -1,9 +1,19 @@
-<div class="proposal-show">
+
+  <div class="custom-help-header custom-help-header-events">
+    <div class="left-side-help-header">
+      <h1 style="text-transform: uppercase;">Eventos</h1>
+    </div>
+    <div class="right-side-help-header">
+    </div>
+  </div>
+  <div class="proposal-show">
+    <div class="row">
     <div class="small-12 medium-12 column">
         <%= back_link_to events_path %>
 
         <h1>Editar evento</h1>
 
         <%= render 'form', event: @event, action: 'edit' %>
+    </div>
     </div>
 </div>

@@ -23,7 +23,7 @@
     <% if respond_to?(:single_heading?) && single_heading? %>
       <%= f.submit t("admin.budgets_wizard.groups.continue"), class: "button success" %>
     <% else %>
-      <%= f.submit t("admin.budget_groups.form.#{action}"), class: "button hollow" %>
+      <%= f.submit t("admin.budget_groups.form.#{action}"), class: "button" %>
     <% end %>
   </div>
 <% end %>

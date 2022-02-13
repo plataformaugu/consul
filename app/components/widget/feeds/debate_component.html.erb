@@ -1,4 +1,19 @@
-<div class="debate">
-  <strong><%= link_to debate.title, url_for(debate) %></strong>
-  <%= render SDG::TagListComponent.new(debate, limit: 5) %>
+<div class="proposal clear" data-type="proposal">
+  <div class="panel with-image">
+    <div class="row custom-feed-row">
+
+    <div class="small-12 medium-9 column">
+      <div class="proposal-content">
+        <h3><%= link_to debate.title, url_for(debate) %></h3>
+        <p class="proposal-info">
+          <%= truncate(strip_tags(debate.description), :length => 35) %>
+        </p>
+        <%= render SDG::TagListComponent.new(debate, limit: 5) %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-3 column" style="display: flex; justify-content: end; align-items: center">
+      <%= link_to 'Participa aquí', url_for(debate), class: 'button', style: 'margin: 0;' %>
+    </div>
+  </div>
 </div>

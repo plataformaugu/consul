@@ -622,9 +622,10 @@ body > header,
 
       @include breakpoint(medium) {
         @include brand-text;
-        background: $body-background;
-        color: $brand !important;
+        background: #323232;
+        color: #FFF;
         text-align: center;
+        border-radius: 0;
       }
     }
   }
@@ -974,10 +975,13 @@ footer {
 
 .categories a,
 .geozone a {
-  background: $highlight;
-  color: $link;
+  background: #323232;
+  color: white;
 
-  &:hover,
+  &:hover {
+    background: lighten(#323232, 20%);
+  }
+
   &.is-active {
     @extend %brand-background;
   }

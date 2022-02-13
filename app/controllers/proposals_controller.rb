@@ -9,6 +9,7 @@ class ProposalsController < ApplicationController
 
   before_action :load_categories, only: [:index, :map, :summary]
   before_action :load_geozones, only: [:edit, :map, :summary]
+  before_action :set_color
   before_action :authenticate_user!, except: [:index, :show, :map, :summary]
   before_action :destroy_map_location_association, only: :update
   before_action :set_view, only: :index
@@ -193,5 +194,9 @@ class ProposalsController < ApplicationController
       if Setting["feature.user.recommendations_on_proposals"] && current_user.recommended_proposals
         @recommended_proposals = Proposal.recommendations(current_user).sort_by_random.limit(3)
       end
+    end
+
+    def set_color
+      @color = '#f37969'
     end
 end

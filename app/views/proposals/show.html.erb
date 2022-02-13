@@ -20,6 +20,7 @@
           @proposal.followed_by?(current_user),
           @proposal_votes] do %>
   <div class="proposal-show">
+    <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
     <div id="<%= dom_id(@proposal) %>" class="row">
       <div class="small-12 medium-9 column">
         <%= back_link_to proposals_path unless preview %>
@@ -58,7 +59,7 @@
             <h2><%= t("proposals.show.author") %></h2>
             <div class="show-actions-menu">
               <%= link_to progress_proposal_dashboard_path(@proposal),
-                          class: "button hollow expanded",
+                          class: "button expanded",
                           id: "proposal-dashboard-#{@proposal.id}" do %>
                 <span class="icon-edit"></span>
                 <%= t("proposals.show.dashboard_proposal_link") %>

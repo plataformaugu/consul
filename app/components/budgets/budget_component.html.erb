@@ -20,6 +20,7 @@
   </div>
 </div>
 
+<div class="row"> 
 <%= render Budgets::SubheaderComponent.new(budget) %>
 <%= render Budgets::PhasesComponent.new(budget) %>
 
@@ -43,5 +44,6 @@
     </div>
   </div>
 </div>
-
 <%= render Budgets::InvestmentsListComponent.new(budget) %>
+
+</div>

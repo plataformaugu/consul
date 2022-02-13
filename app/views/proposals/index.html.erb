@@ -1,8 +1,5 @@
 <% provide :title do %><%= t("proposals.index.title") %><% end %>
 <% content_for :header_addon do %>
-  <%= render "shared/search_form",
-             search_path: proposals_path(page: 1),
-             i18n_namespace: "proposals.index.search_form" %>
 <% end %>
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: proposals_url %>
@@ -15,6 +12,7 @@
           params[:retired].present?,
           params[:selected].present?
         ].any? %>
+    <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
     <div class="search-results-summary">
       <div class="row">
         <div class="small-12 column">
@@ -115,16 +113,13 @@
 
     <div class="small-12 medium-3 column">
       <aside class="margin-bottom">
+        <%= render "shared/search_form",
+          search_path: proposals_path(page: 1),
+          i18n_namespace: "proposals.index.search_form"
+        %>
         <%= link_to t("proposals.index.start_proposal"),
                     new_proposal_path,
                     class: "button expanded" %>
-
-        <div class="sidebar-divider"></div>
-        <h2 class="sidebar-title"><%= t("proposals.index.selected_proposals") %></h2>
-        <br>
-        <p class="small">
-          <%= link_to t("proposals.index.selected_proposals_link"), proposals_path(selected: "all") %>
-        </p>
 
         <% if params[:retired].blank? %>
           <%= render "categories" %>

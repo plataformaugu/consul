@@ -210,8 +210,8 @@
 }
 
 .participation-not-allowed {
-  background: $warning-bg;
-  color: $color-warning;
+  background: white;
+  color: black;
   left: 0;
   line-height: $line-height;
   min-height: 100%;
@@ -1055,7 +1055,7 @@
     }
 
     .participation-not-allowed {
-      background: $featured;
+      background: #f6ddc1;
       font-size: $small-font-size;
       padding-top: 0;
 

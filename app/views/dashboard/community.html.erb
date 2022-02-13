@@ -4,7 +4,7 @@
   <div class="small-12 medium-9 column">
     <%= link_to t("dashboard.community.access_community"),
                 community_path(proposal.community),
-                class: "button hollow",
+                class: "button",
                 target: "_blank" %>
     <% if proposal.community.latest_activity.present? %>
       <p class="help-text">

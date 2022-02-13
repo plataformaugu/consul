@@ -69,7 +69,7 @@ module ProposalsHelper
       html_class = "button expanded"
     else
       button_text = t("admin.proposals.index.select")
-      html_class = "button hollow expanded"
+      html_class = "button expanded"
     end
 
     case proposal.class.to_s

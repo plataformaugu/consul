@@ -2,7 +2,7 @@
 
 <%= link_to t("admin.progress_bars.manage"),
             admin_polymorphic_path(milestoneable.progress_bars.new),
-            class: "button hollow float-right" %>
+            class: "button float-right" %>
 
 <% if milestoneable.milestone_tag_list.any? %>
   <div>
@@ -65,5 +65,5 @@
 <p>
   <%= link_to t("admin.milestones.index.new_milestone"),
               admin_polymorphic_path(milestoneable.milestones.new, action: :new),
-              class: "button hollow" %>
+              class: "button" %>
 </p>

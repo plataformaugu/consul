@@ -5,15 +5,15 @@
 
       <div class="float-right clear">
         <%= link_to t("admin.stats.show.polls"),
-                    polls_admin_stats_path, class: "button hollow" %>
+                    polls_admin_stats_path, class: "button" %>
         <%= link_to t("admin.stats.show.participatory_budgets"),
-                    budgets_admin_stats_path, class: "button hollow" %>
+                    budgets_admin_stats_path, class: "button" %>
         <% if true == false %>
         <%= link_to t("admin.stats.show.proposal_notifications"),
-                    proposal_notifications_admin_stats_path, class: "button hollow" %>
+                    proposal_notifications_admin_stats_path, class: "button" %>
         <% end %>
         <%= link_to t("admin.stats.show.sdg"),
-                     sdg_admin_stats_path, class: "button hollow" if feature?(:sdg) %>
+                     sdg_admin_stats_path, class: "button" if feature?(:sdg) %>
       </div>
 
       <div class="clear"></div>

@@ -2,7 +2,7 @@
 <div class="desktop-view">
   <li class="menu-desktop perfil-dropdown">
     <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta">
-      <%= avatar_image(current_user, seed: current_user.id, size: 18) %>
+      <i class="fa fa-user"></i>
     </a>
     <div class="perfil-dropdown-content">
       <% if current_user.administrator? %>
@@ -89,6 +89,6 @@
   </li>
   <li>
     <%= link_to t("devise_views.menu.login_items.signup"),
-                new_user_registration_path, rel: "nofollow", class: "button btn-registrar btn-negrita" %>
+                new_user_registration_path, rel: "nofollow", class: "btn-registrar btn-negrita" %>
   </li>
 <% end %>

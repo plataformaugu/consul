@@ -5,7 +5,7 @@
     <% if can?(:edit, investment) %>
       <%= link_to t("shared.edit"),
                   edit_budget_investment_path(investment.budget, investment),
-                  method: :get, class: "button hollow expanded" %>
+                  method: :get, class: "button expanded" %>
     <% else %>
         <%= link_to image_path(investment.image),
                     method: :delete,
