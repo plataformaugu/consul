@@ -10,7 +10,7 @@
       </div>
       <% end %>
 
-    <div class="small-12 medium-7 column <%= proposal.image.present? ? 'medium-9' : 'medium-7' %>">
+    <div class="small-12 medium-7 column <%= proposal.image.present? ? 'medium-7' : 'medium-9' %>">
       <div class="proposal-content">
         <h3><%= link_to proposal.title, url_for(proposal) %></h3>
         <p class="proposal-info">
