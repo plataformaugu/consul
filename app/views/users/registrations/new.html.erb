@@ -171,12 +171,16 @@
       </div>
 
       <div class="small-12 medium-6 column">
-        <%= f.text_field :comuna, 
-            maxlength: 24,
-            label: 'Comuna de Residencia',
-            value: result.count > 1 ? 'Las Condes' : (resource.comuna or '').downcase.titleize,
-            readonly: result.count > 1,
-            required: true
+        <%= f.select :comuna,
+            @comunas.pluck('name'),
+            {
+              include_blank: 'Elija una opción',
+              label: 'Comuna'
+            },
+            {
+              class: 'form-control',
+              required: true
+            }
         %>
       </div>
     </div>

@@ -50,14 +50,11 @@
     <% end %>
 
     <% if feature?(:map) %>
-      <%= check_box_tag 'show_map' %>
-      <%= label_tag 'show_map', '¿La propuesta estará enfocada en algunos sectores de la comuna?' %>
-      <br>
       <div id="leaflet-container">
         <div style="display: none;">
           <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
         </div>
-        <%= label_tag 'leaflet', 'Elige los sectores' %>
+        <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta. Si no eliges alguno quedará abierta para todos los usuarios.' %>
         <p class="help-text" id="tag-list-help-text">
           Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
         </p>
@@ -66,6 +63,7 @@
     <% end %>
 
     <div>
+      <br>
       <%= f.label :tag_list, t("proposals.form.tags_label") %>
       <p class="help-text" id="tag-list-help-text"><%= t("proposals.form.tags_instructions") %></p>
 
@@ -112,22 +110,6 @@
 <% end %>
 
 <script>
-$(document).ready(function () {
-  if ($('#show_map').is(':checked')) {
-      $('#leaflet-container').show()
-    } else {
-      $('#leaflet-container').hide()
-    }
-  })
-
-$('#show_map').on('change', function() {
-  if ($('#show_map').is(':checked')) {
-    $('#leaflet-container').show()
-  } else {
-    $('#leaflet-container').hide()
-  }
-})
-
 // MAP
 const map = new L.Map('leaflet')
 

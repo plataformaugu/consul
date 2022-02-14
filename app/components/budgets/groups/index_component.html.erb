@@ -3,7 +3,7 @@
 <% end %>
 
 <main class="budget-groups-index">
-    <div style="padding-top: 160px"></div>
+    <div class="padding-top-for-header"></div>
     <%= header(before: back_link_to(budget_path(budget))) %>
     <%= render Budgets::GroupsAndHeadingsComponent.new(budget) %>
 </main>

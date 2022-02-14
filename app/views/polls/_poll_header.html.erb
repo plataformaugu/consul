@@ -11,9 +11,11 @@
 
       <%= auto_link_already_sanitized_html simple_format(@poll.summary) %>
 
-      <% if @poll.geozones.any? %>
-        <ul class="margin-top tags">
-          <% @poll.geozones.each do |g| %>
+      <% if @poll.sectors.any? %>
+
+        <small><strong>Sectores de la comuna:</strong></small>
+        <ul class="tags">
+          <% @poll.sectors.each do |g| %>
             <li><span><%= g.name %></span></li>
           <% end %>
         </ul>

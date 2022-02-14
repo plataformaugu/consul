@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_07_022959) do
+ActiveRecord::Schema.define(version: 2022_02_14_000411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1178,6 +1178,13 @@ ActiveRecord::Schema.define(version: 2022_02_07_022959) do
     t.index ["officer_assignment_id"], name: "index_poll_recounts_on_officer_assignment_id"
   end
 
+  create_table "poll_sectors", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["poll_id"], name: "index_poll_sectors_on_poll_id"
+    t.index ["sector_id"], name: "index_poll_sectors_on_sector_id"
+  end
+
   create_table "poll_shifts", id: :serial, force: :cascade do |t|
     t.integer "booth_id"
     t.integer "officer_id"
@@ -1245,9 +1252,11 @@ ActiveRecord::Schema.define(version: 2022_02_07_022959) do
     t.string "related_type"
     t.integer "related_id"
     t.tsvector "tsv"
+    t.bigint "sector_id"
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
+    t.index ["sector_id"], name: "index_polls_on_sector_id"
     t.index ["starts_at", "ends_at"], name: "index_polls_on_starts_at_and_ends_at"
   end
 
@@ -1834,6 +1843,8 @@ ActiveRecord::Schema.define(version: 2022_02_07_022959) do
   add_foreign_key "poll_questions", "users", column: "author_id"
   add_foreign_key "poll_recounts", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_recounts", "poll_officer_assignments", column: "officer_assignment_id"
+  add_foreign_key "poll_sectors", "polls"
+  add_foreign_key "poll_sectors", "sectors"
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
   add_foreign_key "proposal_sectors", "proposals"

@@ -21,6 +21,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @countries = get_countries
+    @comunas = get_comunas
+
     if params[:type] == 'pre'
       result = get_tarjeta_vecino_data(params[:document_number])
 
@@ -106,6 +108,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def get_countries
     JSON.parse(File.read(File.join(File.dirname(__FILE__), 'countries.json')))
+  end
+
+  def get_comunas
+    JSON.parse(File.read(File.join(File.dirname(__FILE__), 'comunas.json')))
   end
 
   private

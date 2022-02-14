@@ -86,7 +86,9 @@
   </li>
 
   <li class="<%= "is-active" if controller_name == "stats" %>">
-    <%= link_to t("admin.menu.stats"), admin_stats_path, class: "stats-link" %>
+    <a href="<%= admin_stats_path %>" title="<%= t("admin.menu.stats") %>" data-turbolinks="false" class="stats-link">
+      <%= t("admin.menu.stats") %>
+    </a>
   </li>
 
   <li>

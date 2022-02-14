@@ -5,6 +5,16 @@ class Polls::QuestionsController < ApplicationController
   has_orders %w[most_voted newest oldest], only: :show
 
   def answer
+    if @question.poll.sectors.any?
+      if current_user.sector.nil?
+        redirect_to poll_path(@question.poll), alert: 'No perteneces al sector de participación.' and return
+      else
+        unless @question.poll.sectors.pluck(:id).include?(current_user.sector.id)
+          redirect_to poll_path(@question.poll), alert: 'No perteneces al sector de participación.' and return
+        end
+      end
+    end
+
     answer = @question.answers.find_or_initialize_by(author: current_user)
     token = params[:token]
 

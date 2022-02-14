@@ -35,6 +35,9 @@ class Poll < ApplicationRecord
   belongs_to :related, polymorphic: true
   belongs_to :budget
 
+  has_many :poll_sectors
+  has_many :sectors, through: :poll_sectors
+
   validates_translation :name, presence: true
   validate :date_range
   validate :only_one_active, unless: :public?

@@ -510,15 +510,15 @@ header::after {
 
     .custom-event {
         border-radius: 15px;
-        background-color: #dff0d8;
+        background-color: #f7939750;
         padding: 5px 10px;
         cursor: pointer;
         color: black;
         text-decoration: none;
-        border: 1px solid #c7dbbf;
+        border: 1px solid #f7939780;
 
         &:hover {
-            background-color: #D2EEC6;
+            background-color: #f7939780;
             text-decoration: none !important;
         }
     }
@@ -891,7 +891,6 @@ body {
     max-width: 75vw;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 160px;
 }
 
 html, body {
@@ -1054,4 +1053,38 @@ html, body {
     .heading {
         color: #323232 !important;
     }
+}
+
+.padding-top-for-header {
+    padding-top: 160px;
+
+    @media (max-width: 640px) {
+        padding-top: 120px;
+    }
+}
+
+.comments {
+    background: transparent !important;
+}
+
+.simple-calendar {
+    .table.table-striped {
+        border: 2px solid #323232 !important;
+    }
+}
+
+.additional-content .filter-subnav {
+    background: transparent !important;
+}
+
+#responsive-menu .is-active {
+    color: #323232 !important;
+}
+
+body.admin {
+    height: auto !important;
+}
+
+.polls-show-header {
+    background: transparent !important;
 }

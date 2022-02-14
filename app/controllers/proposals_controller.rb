@@ -69,6 +69,16 @@ class ProposalsController < ApplicationController
   end
 
   def vote
+    if @proposal.sectors.any?
+      if current_user.sector.nil?
+        redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return
+      else
+        unless @proposal.sectors.pluck(:id).include?(current_user.sector.id)
+          redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return
+        end
+      end
+    end
+
     @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
     @proposal.register_vote(current_user, "yes")
     set_proposal_votes(@proposal)

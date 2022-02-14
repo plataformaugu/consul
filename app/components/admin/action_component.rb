@@ -37,7 +37,8 @@ class Admin::ActionComponent < ApplicationComponent
         data: {
           confirm: confirmation_text,
           disable_with: (text if button?)
-        }
+        },
+        'data-turbolinks': false
       }.merge(options.except(:"aria-describedby", :"aria-label", :class, :confirm, :path, :text))
     end
 

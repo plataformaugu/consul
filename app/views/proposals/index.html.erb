@@ -117,10 +117,9 @@
           search_path: proposals_path(page: 1),
           i18n_namespace: "proposals.index.search_form"
         %>
-        <%= link_to t("proposals.index.start_proposal"),
-                    new_proposal_path,
-                    class: "button expanded" %>
-
+        <a href="<%= new_proposal_path %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="button expanded">
+          <%= t("proposals.index.start_proposal") %>
+        </a>
         <% if params[:retired].blank? %>
           <%= render "categories" %>
           <%= render "shared/tag_cloud", taggable: "Proposal" %>

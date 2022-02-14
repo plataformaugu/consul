@@ -1,3 +1,4 @@
+<div class="padding-top-for-header"></div>
 <div class="row account">
   <div class="small-12 column">
     <div class="float-right text-right">
@@ -16,12 +17,15 @@
           </strong></label>
           <%= current_user.first_name %> <%= current_user.last_name %> <%= current_user.maiden_name %>
         </p>
+        <% unless current_user.comuna.nil? %>
         <p>
           <label><strong>
             Comuna
           </strong></label>
           <%= current_user.comuna.downcase.titleize %>
         </p>
+        <% end %>
+        <% unless current_user.street.nil? %>
         <p>
           <label><strong>
             Dirección
@@ -34,13 +38,16 @@
             - Block <%= current_user.house_block %>
           <% end %>
         </p>
-        <% if current_user.comuna.downcase.include?('condes') %>
-          <p>
-            <label><strong>
-              Sector de la comuna
-            </strong></label>
-            <%= current_user.sector.name %>
-          </p>
+        <% end %>
+        <% unless current_user.street.nil? %>
+          <% if current_user.comuna.downcase.include?('condes') %>
+            <p>
+              <label><strong>
+                Sector de la comuna
+              </strong></label>
+              <%= current_user.sector.name %>
+            </p>
+          <% end %>
         <% end %>
       </div>
     </div>

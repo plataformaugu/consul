@@ -41,7 +41,17 @@
         <% end %>
 
         <%= render "proposals/info", proposal: @proposal %>
-        <%= render "shared/geozone", geozonable: @proposal %>
+
+        <% if @proposal.sectors.any? %>
+        <ul id="geozone" class="no-bullet geozone">
+          <small><strong>Sectores de la comuna:</strong></small><br>
+          <% @proposal.sectors.each do |sector| %>
+            <li class="inline-block">
+              <a><%= sector.name %></a>
+            </li>
+          <% end %>
+        </ul>
+        <% end %>
 
         <% unless @proposal.selected? %>
           <%= render "relationable/related_content", relationable: @proposal %>

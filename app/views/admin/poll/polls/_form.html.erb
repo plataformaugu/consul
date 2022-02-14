@@ -37,21 +37,19 @@
     </div>
 
     <div class="clear">
-      <div class="small-6 medium-6 column">
-        <%= f.check_box :geozone_restricted, data: { checkbox_toggle: "#geozones" } %>
-      </div>
     </div>
   </div>
 
-  <div id="geozones" style="<%= @poll.geozone_restricted? ? "" : "display:none" %>">
-    <div class="row">
-      <%= f.collection_check_boxes(:geozone_ids, @geozones, :id, :name) do |b| %>
-        <div class="small-6 medium-3 column">
-          <%= b.label do %>
-            <%= b.check_box + b.text %>
-          <% end %>
-        </div>
-      <% end %>
+  <div class="row">
+    <div id="leaflet-container">
+      <div style="display: none;">
+        <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+      </div>
+      <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta. Si no eliges alguno quedará abierta para todos los usuarios.' %>
+      <p class="help-text" id="tag-list-help-text">
+        Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
+      </p>
+      <div id="leaflet"></div>
     </div>
   </div>
 
@@ -71,3 +69,72 @@
   </div>
 
 <% end %>
+
+<script src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js"></script>
+<script>
+// MAP
+const map = new L.Map('leaflet')
+
+$.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+  const osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    boundary: lasCondesSectors,
+  });
+  map.addLayer(osm)
+
+  // Variables for map
+  let selectedFeatures = []
+  const defaultStyle = {
+      color: 'gray',
+      fillOpacity: 0,
+      weight: 2,
+  }
+
+  // Actions
+  function colorlayer(feature, layer) {
+    layer.setStyle(defaultStyle)
+
+    layer.on('click', function(e) {
+      const name = feature.properties.name.replaceAll('-', '')
+
+      if (selectedFeatures.includes(name)) {
+        layer.setStyle(defaultStyle)
+        selectedFeatures = selectedFeatures.filter(sf => sf !== name)
+      } else {
+        selectedFeatures.push(name)
+        layer.setStyle({
+          color: "#00008c",
+          opacity: 0.6,
+          fillOpacity: 0.5
+        })
+      }
+
+      Array.from(Array(25).keys()).forEach(function(n) {
+        $('#poll_sector_ids_c' + (n + 1)).prop('checked', false)
+      })
+
+      selectedFeatures.forEach(function(sf) {
+        $('#poll_sector_ids_' + sf.toLowerCase()).prop('checked', true)
+      })
+      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+    })
+  }
+
+  // Bounds
+  const gjLayer = L.geoJSON(lasCondesSectors);
+  map.fitBounds(gjLayer.getBounds());
+
+  // Load features
+  L.geoJSON(lasCondesSectors, {
+      onEachFeature: colorlayer
+  }).addTo(map)
+
+  // Map config
+  map.dragging.disable()
+  map.touchZoom.disable();
+  map.doubleClickZoom.disable();
+  map.scrollWheelZoom.disable();
+  map.boxZoom.disable();
+  map.keyboard.disable();
+})
+
+</script>

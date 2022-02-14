@@ -20,6 +20,17 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
   def create
     @poll = Poll.new(poll_params.merge(author: current_user))
+
+    if params['poll']['sector_ids']
+      params['poll']['sector_ids'].each do |s|
+        begin
+          sector = Sector.find_by(name: s)
+          @poll.sectors.append(sector)
+        rescue
+        end
+      end
+    end
+
     if @poll.save
       notice = t("flash.actions.create.poll")
       if @poll.budget.present?
@@ -77,7 +88,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
     def poll_params
       attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list,
-                    geozone_ids: [], image_attributes: image_attributes]
+                    image_attributes: image_attributes]
 
       params.require(:poll).permit(*attributes, *report_attributes, translation_params(Poll))
     end
