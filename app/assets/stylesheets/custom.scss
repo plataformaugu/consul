@@ -1088,3 +1088,50 @@ body.admin {
 .polls-show-header {
     background: transparent !important;
 }
+
+body.auth-page {
+    height: 100% !important;
+    overflow-x: initial;
+
+    .wrapper {
+
+        .auth-image {
+            height: 100%;
+            background: rgb(145,216,178);
+            background: linear-gradient(180deg, rgba(145,216,178,1) 0%, rgba(89,161,212,1) 100%);
+
+            @media (max-width: 640px) {
+                max-height: 6.7rem;
+                background: linear-gradient(90deg, rgba(145,216,178,1) 0%, rgba(89,161,212,1) 100%);
+            }
+        }
+    }
+}
+
+.admin-sidebar {
+    background: linear-gradient(180deg, darken(#f7a339, 15%) 0%, #f7a339 100%);
+}
+
+.admin-sidebar li a {
+    &:hover {
+        background: darken(#f7a339, 20%) !important;
+    }
+}
+
+.admin-sidebar li.is-active a {
+    background: darken(#f7a339, 25%) !important;
+}
+
+.admin-sidebar li[aria-current] a {
+    background: darken(#f7a339, 25%) !important;
+}
+
+.admin-sidebar li ul {
+    border-left: 1px solid white !important;
+}
+
+body.admin {
+    header {
+        border-bottom: 2px solid #32323260;
+    }
+}
