@@ -1,6 +1,46 @@
 <div class="sidebar-divider"></div>
-<h2 class="sidebar-title"><%= t("shared.tags_cloud.districts") %></h2>
+<h2 class="sidebar-title">Unidades vecinales</h2>
 <br>
-<%= link_to map_proposals_path, id: "map", title: t("shared.tags_cloud.districts_list") do %>
-  <%= image_tag(image_path_for("map.jpg"), alt: t("shared.tags_cloud.districts_list")) %>
-<% end %>
+<div id="leaflet"></div>
+
+<script>
+$(document).ready(function() {
+  console.log('jajaja')
+})
+
+var map = new L.Map('leaflet')
+
+$.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+  let osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    boundary: lasCondesSectors,
+  });
+  map.addLayer(osm)
+
+  // Variables for map
+  let defaultStyle = {
+      color: 'gray',
+      fillOpacity: 0,
+      weight: 2,
+  }
+
+  // Actions
+  function colorlayer(feature, layer) {
+    layer.bindPopup('<h5>'+feature.properties.name.replace('-', '')+'</h5>', {closeButton: false});
+    layer.on('mouseover', function() { layer.openPopup(); });
+    layer.on('mouseout', function() { layer.closePopup(); });
+  }
+
+  // Bounds
+  let gjLayer = L.geoJSON(lasCondesSectors);
+  map.fitBounds(gjLayer.getBounds());
+
+  // Load features
+  L.geoJSON(lasCondesSectors, {
+      onEachFeature: colorlayer
+  }).addTo(map)
+
+  // Map config
+  map.keyboard.disable();
+})
+
+</script>
