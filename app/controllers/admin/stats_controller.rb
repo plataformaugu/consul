@@ -111,6 +111,23 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def report_proposals
+    excluded_words = [
+      'donde',
+      'porque',
+      'porqué',
+      'cuando',
+      'están',
+      'desde',
+      'dónde',
+      'fueron',
+      'fuesen',
+      'sobre',
+      'altas',
+      'altos',
+      'bajos',
+      'bajas',
+    ]
+
     CSV.generate(headers: true, col_sep: ';') do |csv|
       csv << [
         'ID',
@@ -121,17 +138,13 @@ class Admin::StatsController < Admin::BaseController
         'Palabra clave'
       ]
 
-      # Keyword
-      most_repeated_word = nil
-      words = Rails::Html::FullSanitizer.new.sanitize(Proposal.first.description).split(' ').map{|w| w.downcase }
-      words_count = words.map{|w| {word: w, count: words.count(w) } }.uniq
-      ordered_words = words_count.sort_by {|hsh| hsh[:count]}.reverse!
+      Proposal.order(:id).each do |p|
+        most_repeated_word = nil
+        words = Rails::Html::FullSanitizer.new.sanitize(p.description).split(' ').map{|w| w.downcase }.filter{|w| w.length > 4 and not excluded_words.include?(w)}.map{|w| w.downcase }.tally.sort_by(&:last).reverse.to_h
+        if words.any?
+            most_repeated_word = words.keys[0]
+        end
 
-      if ordered_words.any?
-          most_repeated_word = ordered_words[0][:word]
-      end
-
-      Proposal.all.each do |p|
         csv << [
           p.id,
           p.title,

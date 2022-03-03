@@ -94,8 +94,17 @@
         %>
         <%= link_to t("debates.index.start_debate"), new_debate_path, class: "button expanded" %>
         <%= render "shared/tag_cloud", taggable: "Debate" %>
+        <div class="sidebar-divider"></div>
+        <h2 class="sidebar-title">Palabras claves</h2>
+        <canvas id="cloud-tag"></canvas>
       </aside>
     </div>
 
   </div>
 </main>
+
+
+<%= javascript_tag do %>
+var tags = <%= raw(Rails::Html::FullSanitizer.new.sanitize(Debate.all.pluck(:description).join(' ')).split(' ').map{|w| w.downcase }.filter{|w| w.length > 4 and not ['donde','porque','porqué','cuando','están','desde','dónde','fueron','fuesen','sobre','altas','altos','bajos','bajas'].include?(w)}.tally.sort_by(&:last).reverse[0..4].reverse.map.with_index{|a, i| [a[0], i + 1]}) %>
+WordCloud(document.getElementById('cloud-tag'), { list: tags, weightFactor: 10, backgroundColor: 'transparent' } );
+<% end %>
