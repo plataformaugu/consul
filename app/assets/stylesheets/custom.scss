@@ -447,11 +447,24 @@ header::after {
 }
 
 .custom-menu {
+    z-index: 9000 !important;
     li {
         a {
             color: black !important;
         }
     }
+}
+
+.submenu {
+    z-index: 9000 !important;
+}
+
+.menu {
+    z-index: 9000 !important;
+}
+
+.is-submenu-item {
+    z-index: 9000 !important;
 }
 
 .top-bar-title {
@@ -623,9 +636,17 @@ header::after {
 }
 
 .custom-jumbo-home {
-    background-color: transparent;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #568ade;
     padding: 0;
-    padding-top: 120px;
+    padding-top: 170px;
+    margin-bottom: 0 !important;
+
+    @media (max-width: 640px) {
+        padding-top: 100px;
+    }
 }
 
 #navigation_bar {
@@ -1135,3 +1156,485 @@ body.admin {
         border-bottom: 2px solid #32323260;
     }
 }
+
+
+// BANNER
+
+.banner-sky {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #568ade;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+
+    @media (max-width: 640px) {
+        padding-top: 50px;
+        padding-bottom: 150px;
+    }
+
+    .banner-cloud-1 {
+        position: absolute;
+        top: 2%;
+        animation: move_cloud_1 45s linear 0s infinite;
+        width: 200px;
+
+        @media (max-width: 640px) {
+            top: 1%;
+        }
+    }
+
+    .banner-cloud-2 {
+        position: absolute;
+        top: 10%;
+        animation: move_cloud_2 90s linear 0s infinite;
+        width: 500px;
+
+        @media (max-width: 640px) {
+            top: 5%;
+        }
+    }
+
+    .banner-cloud-3 {
+        position: absolute;
+        top: 10%;
+        animation: move_cloud_3 75s linear 0s infinite;
+        width: 200px;
+
+        @media (max-width: 640px) {
+            top: 5%;
+        }
+    }
+
+    .banner-airplane {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: 0;
+        right: 2%;
+        animation: shake 3s linear infinite;
+
+        .banner-airplane-img {
+            z-index: 510;
+            width: 150px;
+        }
+
+        .banner-airplane-flag {
+            z-index: 500;
+            margin-left: -25px;
+            width: 350px;
+        }
+
+        p {
+            position: absolute;
+            right: 9%;
+            top: 46%;
+            width: 200px;
+            z-index: 520;
+            transform: rotate(5deg);
+            font-weight: 800;
+            color: #e84a3d;
+        }
+
+        @media (max-width: 640px) {
+            display: none;
+        }
+    }
+    
+    .banner-sky-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding-top: 15px;
+        z-index: 10;
+
+        img {
+            width: 120px;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            color: #FFF;
+            line-height: 100%;
+
+            @media (max-width: 640px) {
+                font-size: 2.5em;
+            }
+        }
+    }
+
+    .banner-sky-subtitle {
+        margin-top: -10px;
+        color: #FFF;
+        z-index: 10;
+
+        h4 {
+            font-weight: 500 !important;
+
+            @media (max-width: 640px) {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 640px) {
+            margin-top: 0;
+        }
+    }
+
+    .banner-sky-buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+        margin-top: 20px;
+        z-index: 10;
+
+        .banner-sky-button {
+            color: #FFF;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 7em;
+            height: 7em;
+            background-color: #d7bc0b;
+            border-radius: 50%;
+            border: 3px solid #FFF;
+            gap: 5px;
+
+            p {
+                font-weight: 700;
+                margin-bottom: 0;
+            }
+
+            @media (max-width: 640px) {
+                width: 6em;
+                height: 6em;
+            }
+        }
+
+        .banner-sky-button-1 {
+            box-shadow: 0px 0px 0px 6px #d7bc0b;
+            background-color: #d7bc0b;
+        }
+        .banner-sky-button-2 {
+            box-shadow:  0px 0px 0px 6px #98d5f4;
+            background-color: #98d5f4;
+        }
+        .banner-sky-button-3 {
+            box-shadow:  0px 0px 0px 6px #db0738;
+            background-color: #db0738;
+        }
+    }
+
+    .banner-slider-container {
+        position: relative;
+        width: 60%;
+        height: 700px;
+        z-index: 50;
+
+        @media (max-width: 640px) {
+            display: none;
+        }
+
+        img {
+            width: 100%;
+            height: 640px;
+            object-fit: contain;
+        }
+    }
+
+    .banner-sky-buildings-back {
+        position: absolute;
+        width: 100%;
+        bottom: -10%;
+        z-index: 1;
+
+        img {
+            opacity: 0.5;
+        }
+    }
+
+    .banner-sky-buildings {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100%;
+        bottom: -2%;
+        z-index: 100;
+
+        @media (max-width: 1500px) {
+            display: none !important;
+        }
+
+        img {
+            max-height: 220px;
+        }
+
+        .banner-slider-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 80%;
+            width: 50%;
+            z-index: 250;
+
+            div {
+                width: 60%;
+                background-color: #d7bc0b;
+                color: #FFF;
+                padding: 15px;
+                position: relative;
+                text-align: center;
+
+                .shake-left {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    animation: v-center-shake 2s linear infinite;
+                }
+
+                .shake-right {
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    animation: v-center-shake 2s linear infinite;
+                }
+
+                p {
+                    text-align: center;
+                    font-weight: 700;
+                    font-size: 1.3em;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.banner-grass-desktop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+
+    @media (max-width: 1500px) {
+        display: none;
+    }
+
+    .grass {
+        background-color: #60a360;
+        height: 200px;
+    }
+
+    .last-grass {
+        background-color: #82be78;
+        height: 350px;
+    }
+
+    .last-grass-2 {
+        background-color: #8dcfef;
+    }
+
+    .themes {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 100px;
+    }
+
+
+    .themes-column-1 {
+        display: flex;
+        flex-direction: column;
+        gap: 80px;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .themes-column-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        justify-content: flex-end;
+        height: 100%;
+    }
+
+    .main-theme {
+        position: relative;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+
+        .circle {
+            visibility: hidden;
+            position: absolute;
+            opacity: 0;
+            border: 8px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 180px;
+            height: 180px;
+            transition: visibility 0s, opacity 0.1s linear;
+        }
+
+        &:hover {
+            .circle {
+                visibility: visible;
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+    
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space;
+            border-bottom: none;
+            margin: 0;
+            gap: 5px;
+            color: #FFF;
+        }
+
+        img {
+            user-select: none;
+            height: 180px;
+            width: 180px;
+        }
+    }
+
+    .themes-row {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: 15px;
+        width: 90%;
+        justify-content: space-between;
+    }
+}
+
+.banner-grass-mobile {
+    background-color: #60a360;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 1501px) {
+        display: none;
+    }
+
+    h4 {
+        text-align: center;
+        margin: 25px 0;
+    }
+
+    .orbit-figure {
+        margin: 0 25px 25px 25px;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 15px 0;
+        text-align: center;
+
+        img {
+            height: 340px;
+        }
+    }
+}
+
+.banner-grass-1 {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.plus-button {
+    display:inline-block;
+    width: 2em;
+    height: 2em;
+    background:
+      linear-gradient(#fff 2 0),
+      linear-gradient(#fff 0 0),
+      transparent;
+    background-position:center;
+    background-size: 70% 2px,2px 70%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+    border-radius:50%;
+    border: 2px solid #FFF;
+
+    @media (max-width: 640px) {
+        display: none;
+    }
+}
+
+.plus-button-sm {
+    display:inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    background:
+      linear-gradient(#fff 2 0),
+      linear-gradient(#fff 0 0),
+      transparent;
+    background-position:center;
+    background-size: 70% 2px,2px 70%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+    border-radius:50%;
+    border: 2px solid #FFF;
+
+    @media (max-width: 640px) {
+        display: none;
+    }
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+@keyframes move_cloud_1 {
+    from {left: -10%;}
+    to {left: 100%;}
+}
+
+@keyframes move_cloud_2 {
+    from {left: -20%;}
+    to {left: 100%;}
+}
+
+@keyframes move_cloud_3 {
+    from {left: -60%;}
+    to {left: 100%;}
+}
+
+@keyframes shake {
+    0%, 100% {
+      top: 6%;
+    }
+    50% {
+      top: 4%;
+    }
+  }
+
+@keyframes v-center-shake {
+    0%, 100% {
+      top: 45%;
+    }
+    50% {
+      top: 55%;
+    }
+  }
