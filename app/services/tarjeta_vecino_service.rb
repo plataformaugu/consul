@@ -26,6 +26,8 @@ module TarjetaVecino
             end
 
             return result
+        rescue Net::OpenTimeout
+            return nil
         rescue
             return nil
         rescue Exception
