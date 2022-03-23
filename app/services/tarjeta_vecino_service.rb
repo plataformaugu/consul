@@ -6,6 +6,8 @@ module TarjetaVecino
             client = Savon.client(
                 wsdl: 'https://www.lascondesonline.cl/web_service/Ws_DecomTarjeta/ConsultaVecino.asmx?wsdl',
                 pretty_print_xml: true,
+                open_timeout: 15,
+                read_timeout: 15,
             )
             response = client.call(
                 :consulta_estado_tarjeta,

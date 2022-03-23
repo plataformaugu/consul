@@ -24,14 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @comunas = get_comunas
 
     if params[:type] == 'pre'
-      begin
-        result = get_tarjeta_vecino_data(params[:document_number])
-      rescue Savon::Error => e
-        result = nil
-      rescue Net::OpenTimeout => e
-        result = nil
-      end
-
+      result = get_tarjeta_vecino_data(params[:document_number])
 
       build_resource({})
       if result == nil
