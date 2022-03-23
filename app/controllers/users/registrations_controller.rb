@@ -26,7 +26,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if params[:type] == 'pre'
       begin
         result = get_tarjeta_vecino_data(params[:document_number])
-      rescue Exception => e
+      rescue Savon::Error => e
+        result = nil
+      rescue Net::OpenTimeout => e
         result = nil
       end
 

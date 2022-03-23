@@ -26,11 +26,13 @@ module TarjetaVecino
             end
 
             return result
-        rescue Net::OpenTimeout
+        rescue Savon::Error => e
+            return nil
+        rescue Net::OpenTimeout => e
             return nil
         rescue
             return nil
-        rescue Exception
+        rescue Exception => e
             return nil
         end
     end 
