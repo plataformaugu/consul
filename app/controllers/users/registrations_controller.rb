@@ -24,7 +24,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @comunas = get_comunas
 
     if params[:type] == 'pre'
-      result = get_tarjeta_vecino_data(params[:document_number])
+      begin
+        result = get_tarjeta_vecino_data(params[:document_number])
+      rescue Exception => e
+        result = nil
+      end
 
 
       build_resource({})
