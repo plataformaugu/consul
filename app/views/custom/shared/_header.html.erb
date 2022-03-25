@@ -7,7 +7,7 @@
     <div class="banner-airplane">
       <%= image_tag "/images/b-avion.svg", class: 'banner-airplane-img' %>
       <%= image_tag "/images/b-lienzo.svg", class: 'banner-airplane-flag' %>
-      <p>Propuestas activas</p>
+      <%= image_tag "/images/b-tlienzo.svg", class: 'banner-airplane-text' %>
     </div>
 
     <div class="banner-sky-title">
@@ -42,11 +42,17 @@
           <%= image_tag "/images/slider-banner-1.svg" %>
         </div>
         <div class="orbit-slide">
-          <%= image_tag "/images/slider-banner-2.svg" %>
+          <%= image_tag "/images/slider-banner-1.svg" %>
         </div>
         <div class="orbit-slide">
-          <%= image_tag "/images/slider-banner-3.svg" %>
+          <%= image_tag "/images/slider-banner-1.svg" %>
         </div>
+      </div>
+
+      <div class="b-s-c-text">
+        <p>
+          ¡Conoce todas las<br> formas de participar!
+        </p>
       </div>
     </div>
 
@@ -62,13 +68,7 @@
           <span class="vertical-text shake-right">>></span>
         </div>
       </div>
-      <%= image_tag "/images/e-observatorio.svg" %>
-      <%= image_tag "/images/e-hospital.svg" %>
-      <%= image_tag "/images/e-edificios.svg" %>
-      <%= image_tag "/images/e-paradero.svg" %>
-      <%= image_tag "/images/e-cafeteria.svg" %>
-      <%= image_tag "/images/e-municipal.svg" %>
-      <%= image_tag "/images/e-viviendas.svg" %>
+      <%= image_tag "/images/e-skyline-f.svg" %>
     </div>
   </div>
 
@@ -80,6 +80,9 @@
     <div class="last-grass-2">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#82be78" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
     </div>
+
+    <%= image_tag "/images/arbusto.svg", class: 'arbusto-1' %>
+    <%= image_tag "/images/arbusto.svg", class: 'arbusto-2' %>
 
     <div class="themes">
       <div class="themes-row">
@@ -111,11 +114,6 @@
 
       <div class="themes-column-2">
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Mascotas</div>
-          <%= image_tag "/images/t-mascotas.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
           <div class="title"><div class="plus-button-sm"></div>Emprendimiento</div>
           <%= image_tag "/images/t-emprendimiento.svg" %>
           <div class="circle"></div>
@@ -140,7 +138,7 @@
         </div>
       </div>
 
-      <div class="themes-column-1">
+      <div class="themes-column-2">
         <div class="main-theme">
           <div class="title"><div class="plus-button-sm"></div>Adulto Mayor</div>
           <%= image_tag "/images/t-adultomayor.svg" %>
@@ -166,7 +164,12 @@
         </div>
       </div>
 
-      <div class="themes-column-1">
+      <div class="themes-column-3">
+        <div class="main-theme">
+          <div class="title"><div class="plus-button-sm"></div>Mascotas</div>
+          <%= image_tag "/images/t-mascotas.svg" %>
+          <div class="circle"></div>
+        </div>
         <div class="main-theme">
           <div class="title"><div class="plus-button-sm"></div>Cultura y Recreación</div>
           <%= image_tag "/images/t-cultura.svg" %>

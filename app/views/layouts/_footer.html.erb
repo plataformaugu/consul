@@ -1,75 +1,58 @@
 <footer>
 	<div class="row">
+    <div class="footer-columns">
 
-    <div class="footer-sections small-12 large-12 column">
-      <div class="small-12 medium-3 column mt20">
-        <h4>
-          Sitios de interés
-        </h4>
-        <p class="texto-footer">
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 1</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 2</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 3</a>
-          </span>
-        </p>
+      <div class="footer-column">
+        <h1 class="color-1">SITIOS DE INTERÉS</h1>
+        <ul>
+          <li>Teatro municipal</li>
+          <li>Corporación Cultural Las Condes</li>
+          <li>Corporación Educación y Salud</li>
+          <li>Parque Padre Hurtado</li>
+          <li>AMUCH</li>
+          <li>Ciclo Recreo Via</li>
+          <li>Parque Cordillera</li>
+          <li>MUI</li>
+          <li>Academia Subdere</li>
+          <li>Mercado Las Condes</li>
+        </ul>
       </div>
 
-
-      <div class="small-12 medium-3 column mt20">
-        <h4>
-          Preguntas frecuentes
-        </h4>
-        <p class="texto-footer">
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 1</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 2</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 3</a>
-          </span>
-        </p>
+      <div class="footer-column">
+        <h1 class="color-2">PREGUNTAS FRECUENTES</h1>
+        <ul>
+          <li>Aseo y áreas verdes</li>
+          <li>Asistencia social</li>
+          <li>Centros de urgencia</li>
+          <li>Deporte</li>
+          <li>Higiene</li>
+          <li>Dirección de obras municipales</li>
+          <li>Empleo y Emprendimiento</li>
+          <li>Permisos de circulación</li>
+          <li>Licencia de conducir</li>
+        </ul>
       </div>
 
-      
-
-      <div class="small-12 medium-3 column mt20">
-        <h4>
-          Información de apoyo
-        </h4>
-        <p class="texto-footer">
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 1</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 2</a>
-          </span><br/>
-          <i class="fas fa-link icono-contacto-footer"></i>
-          <span class="texto-footer">
-            <a target="blank" href="#">Link 3</a>
-          </span>
-        </p>
+      <div class="footer-column">
+        <h1 class="color-3">INFORMACIÓN DE APOYO</h1>
+        <ul>
+          <li>Condiciones de Uso</li>
+          <li>Políticas de Privacidad</li>
+          <li>Webmail</li>
+          <li>RRHH</li>
+          <li>Admin atención al vecino</li>
+        </ul>
       </div>
 
-      <div class="small-12 medium-3 column mt20">
-        <h4>
-          Redes sociales
-        </h4>
-        <ul class="custom-social">
+      <div class="footer-column">
+        <div>
+          <%= image_tag "/images/f-sc.png" %>
+        </div>
+        <div>
+          <%= image_tag "/images/f-sosafe.png" %>
+        </div>
+        <div>
+          <ul class="custom-social">
         <% if setting["twitter_handle"] %>
           <li class="inline-block">
             <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
@@ -118,17 +101,9 @@
         <% end %>
         <%= raw content_block("footer", I18n.locale) %>
       </ul>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="subfooter row texto-footer">
-    <div class="small-12 column ">
-      Involúcrate Crea Decide, <%= Time.now.year %> | 
-      <ul class="no-bullet inline-block">
-        <li class="inline-block"><a href="/condiciones">Condiciones de uso</a>&nbsp;|</li>
-        <li class="inline-block"><a href="/accesibilidad">Accesibilidad</a></li>
-      </ul>
     </div>
   </div>
 </footer>
