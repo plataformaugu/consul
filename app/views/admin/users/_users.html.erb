@@ -38,7 +38,7 @@
                 <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
                 <td><%= user.erase_reason %></td>
               <% else %>
-                <td><%= link_to user.name, user_path(user), target: "_blank" %></td>
+                <td><%= link_to user.first_name && user.last_name ? "#{user.first_name} #{user.last_name}" : user.name, user_path(user), target: "_blank" %></td>
                 <td><%= user.email %></td>
                 <td><%= user.document_number %></td>
                 <td><%= display_user_roles(user) %></td>
