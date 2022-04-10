@@ -5,42 +5,48 @@
             :title2 => 'ciudadanas',
             :color => '#f25b86',
             :image => '/images/p-icon-1.svg',
-            :text => 'Ve las propuestas activas'
+            :text => 'Ve las propuestas activas',
+            :path => polls_path,
         },
         {
             :title => 'Encuestas',
             :title2 => nil,
             :color => '#fe6b01',
             :image => '/images/p-icon-2.svg',
-            :text => 'Responde una encuesta'
+            :text => 'Responde una encuesta',
+            :path => nil
         },
         {
             :title => 'Propuestas',
             :title2 => 'e ideas',
             :color => '#33cc9d',
             :image => '/images/p-icon-3.svg',
-            :text => 'Sube tu propuesta'
+            :text => 'Sube tu propuesta',
+            :path => proposals_path
         },
         {
             :title => 'Iniciativas',
             :title2 => nil,
             :color => '#3ba5df',
             :image => '/images/p-icon-4.svg',
-            :text => 'Plantea tu iniciativa'
+            :text => 'Plantea tu iniciativa',
+            :path => nil
         },
         {
             :title => 'Debates',
             :title2 => nil,
             :color => '#9ecc46',
             :image => '/images/p-icon-5.svg',
-            :text => 'Abrir debate'
+            :text => 'Abrir debate',
+            :path => debates_path
         },
         {
             :title => 'Presupuestos',
             :title2 => 'Participativos',
             :color => '#8148b3',
             :image => '/images/p-icon-6.svg',
-            :text => 'Revisa presupuestos'
+            :text => 'Revisa presupuestos',
+            :path => budgets_path
         },
     ]
 %>
@@ -83,15 +89,17 @@
     <div class="lc-container">
         <div class="lc-cards-container">
         <% @cards.each do |card| %>
-            <div class="lc-card">
-                <div class="lc-card-header" style="background-color: <%= card[:color] %>">
-                    <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>
+            <%= link_to card[:path] do %>
+                <div class="lc-card">
+                    <div class="lc-card-header" style="background-color: <%= card[:color] %>">
+                        <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>
+                    </div>
+                    <div class="lc-card-body">
+                        <%= image_tag "#{card[:image]}" %>
+                        <h3><%= card[:text] %></h3>
+                    </div>
                 </div>
-                <div class="lc-card-body">
-                    <%= image_tag "#{card[:image]}" %>
-                    <h3><%= card[:text] %></h3>
-                </div>
-            </div>
+            <% end %>
         <% end %>
         </div>
     </div>
