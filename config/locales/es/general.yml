@@ -268,7 +268,7 @@ es:
   map:
     title: "Distritos"
     proposal_for_district: "Crea una propuesta para tu distrito"
-    start_proposal: Crea una propuesta
+    start_proposal: Sube tu Propuesta
   omniauth:
     facebook:
       sign_in: Entra con Facebook
@@ -374,7 +374,7 @@ es:
         one: " que contiene <strong>'%{search_term}'</strong>"
         other: " que contienen <strong>'%{search_term}'</strong>"
       select_order_long: "Estas viendo las propuestas"
-      start_proposal: Crea una propuesta
+      start_proposal: Sube tu Propuesta
       title: Propuestas ciudadanas
       top: Top semanal
       top_link_proposals: Propuestas más apoyadas por categoría

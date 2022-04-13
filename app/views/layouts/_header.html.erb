@@ -1,4 +1,13 @@
-<header class="main-header">
+<%
+  @bg_paths = [
+    '/budgets',
+    '/account',
+    '/users',
+    '/comments',
+  ]
+%>
+
+<header class="main-header" style="background-color: <%= defined?(bg) ? bg : @bg_paths.any? { |p| request.fullpath.start_with?(p) } ? '#568ade' : 'transparent' %>">
   <% if display_remote_translation_info?(@remote_translations, I18n.locale) %>
     <%= render "shared/remote_translations_button", remote_translations: @remote_translations %>
   <% end %>

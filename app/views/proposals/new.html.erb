@@ -1,2 +1,8 @@
-<%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
+<%= render "shared/section_header",
+    color: "#2fba8f",
+    section_image: "/images/propuestas-image.svg",
+    title: "Sube una propuesta",
+    title2: "y mejora tu comuna",
+    show_buildings: true
+%>
 <%= render Proposals::NewComponent.new(@proposal) %>

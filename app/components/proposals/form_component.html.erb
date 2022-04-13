@@ -2,7 +2,7 @@
   <%= render "shared/errors", resource: proposal %>
 
   <fieldset class="required-fields">
-    <legend><%= t("shared.required") %></legend>
+    <h2>Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu propuesta.</h2>
 
     <%= render "shared/globalize_locales", resource: proposal %>
 
@@ -10,14 +10,18 @@
       <div>
         <%= translations_form.text_field :title,
               maxlength: Proposal.title_max_length,
-              data: suggest_data(proposal) %>
+              data: suggest_data(proposal),
+              class: 'custom-input',
+              placeholder: 'Frase corta que resume tu proyecto' %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 
       <div>
         <%= translations_form.text_area :summary,
                                         rows: 4, maxlength: 200,
-                                        hint: t("proposals.form.proposal_summary_note") %>
+                                        hint: t("proposals.form.proposal_summary_note"),
+                                        class: 'custom-textarea',
+                                        placeholder: 'Describe tu idea' %>
       </div>
 
       <div>
@@ -31,10 +35,9 @@
   <%= f.invisible_captcha :subtitle %>
 
   <fieldset>
-    <legend><%= t("shared.optional") %></legend>
 
     <div>
-      <%= f.text_field :video_url, hint: t("proposals.form.proposal_video_url_note") %>
+      <%= f.text_field :video_url, hint: t("proposals.form.proposal_video_url_note"), class: 'custom-input' %>
     </div>
 
     <% if feature?(:allow_images) %>
@@ -78,7 +81,7 @@
       <%= f.text_field :tag_list, value: proposal.tag_list.to_s,
                         label: false,
                         placeholder: t("proposals.form.tags_placeholder"),
-                        class: "js-tag-list tag-autocomplete",
+                        class: "js-tag-list tag-autocomplete custom-input",
                         aria: { describedby: "tag-list-help-text" },
                         data: { js_url: suggest_tags_path } %>
     </div>
@@ -93,7 +96,7 @@
     <%= render SDG::RelatedListSelectorComponent.new(f) %>
   </fieldset>
 
-  <div class="actions">
+  <div class="actions" style="border: none;">
     <% if proposal.new_record? %>
       <div>
         <%= f.check_box :terms_of_service,
@@ -105,7 +108,7 @@
       </div>
     <% end %>
 
-    <%= f.submit(class: "button", value: t("proposals.#{action_name}.form.submit_button")) %>
+    <%= f.submit(class: "create-button", value: 'Enviar propuesta') %>
   </div>
 <% end %>
 

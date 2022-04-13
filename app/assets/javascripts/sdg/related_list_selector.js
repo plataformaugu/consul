@@ -41,7 +41,7 @@
           checkSimilar: false
         });
         amsify_suggestags.classes.focus = ".sdg-related-list-focus";
-        amsify_suggestags.classes.sTagsInput = ".sdg-related-list-selector-input";
+        amsify_suggestags.classes.sTagsInput = ".sdg-related-list-selector-input custom-input";
         amsify_suggestags._init();
         App.SDGRelatedListSelector.manage_icons(amsify_suggestags);
         App.SDGRelatedListSelector.fix_label(amsify_suggestags);

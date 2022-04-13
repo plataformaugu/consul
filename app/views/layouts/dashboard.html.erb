@@ -24,16 +24,19 @@
 
     <h1 class="show-for-sr"><%= setting["org_name"] %></h1>
 
-    <%= render "layouts/header", with_subnavigation: false %>
+    <%= render "layouts/header", with_subnavigation: false, bg: '#2fba8f' %>
 
     <div class="menu-and-content">
+    
       <%= check_box_tag :show_menu, nil, false, role: "switch" %>
 
       <nav id="side_menu" class="dashboard-sidebar">
         <%= render "dashboard/menu" %>
+        
       </nav>
 
       <div class="admin-content">
+        
         <%= label_tag :show_menu, t("admin.menu.admin"),
                       "aria-hidden": true, class: "button expanded" %>
 

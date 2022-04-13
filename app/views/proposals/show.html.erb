@@ -20,96 +20,38 @@
           @proposal.followed_by?(current_user),
           @proposal_votes] do %>
   <div class="proposal-show">
-    <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
+    <%= render "shared/section_header",
+      color: "#f6b617",
+      section_image: "/images/propuestas-image.svg",
+      title: @proposal.title,
+      show_buildings: true
+    %>
     <div id="<%= dom_id(@proposal) %>" class="row">
-      <div class="small-12 medium-9 column">
-        <%= back_link_to proposals_path unless preview %>
-
-        <h1><%= @proposal.title %></h1>
-        <% if @proposal.retired? %>
-          <div data-alert class="callout alert margin-top proposal-retired">
-            <strong>
-              <%= t("proposals.show.retired_warning") %><br>
-              <%= link_to t("proposals.show.retired_warning_link_to_explanation"),
-                          "#retired_explanation" %>
-            </strong>
-          </div>
-        <% elsif @proposal.conflictive? %>
-          <div data-alert class="callout alert margin-top">
-            <strong><%= t("proposals.show.flag") %></strong>
-          </div>
-        <% end %>
-
+      <div class="small-12 medium-12 column">
         <%= render "proposals/info", proposal: @proposal %>
 
-        <% if @proposal.sectors.any? %>
-        <ul id="geozone" class="no-bullet geozone">
-          <small><strong>Sectores de la comuna:</strong></small><br>
-          <% @proposal.sectors.each do |sector| %>
-            <li class="inline-block">
-              <a><%= sector.name %></a>
-            </li>
-          <% end %>
-        </ul>
-        <% end %>
+        <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
 
         <% unless @proposal.selected? %>
           <%= render "relationable/related_content", relationable: @proposal %>
         <% end %>
 
         <div class="js-moderator-proposal-actions margin">
+          <% if @proposal.author == current_user %>
+            <%= link_to 'Panel de control', progress_proposal_dashboard_path(@proposal) %> |
+          <% end %>
           <%= render "proposals/actions", proposal: @proposal %>
         </div>
       </div>
-
-      <% unless preview %>
-        <aside class="small-12 medium-3 column">
-          <% if can?(:dashboard, @proposal) %>
-            <div class="sidebar-divider"></div>
-            <h2><%= t("proposals.show.author") %></h2>
-            <div class="show-actions-menu">
-              <%= link_to progress_proposal_dashboard_path(@proposal),
-                          class: "button expanded",
-                          id: "proposal-dashboard-#{@proposal.id}" do %>
-                <span class="icon-edit"></span>
-                <%= t("proposals.show.dashboard_proposal_link") %>
-              <% end %>
-            </div>
-          <% end %>
-
-          <%= render "proposals/support_status", proposal: @proposal %>
-
-          <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
-
-          <% if current_user and true == false %>
-            <div class="sidebar-divider"></div>
-            <p class="sidebar-title"><%= t("shared.follow") %></p>
-
-            <%= render "follows/follow_button", follow: find_or_build_follow(current_user, @proposal) %>
-          <% end %>
-        </aside>
-      <% end %>
     </div>
   </div>
 <% end %>
 
-<% unless preview %>
-  <div class="additional-content">
-    <div class="filter-subnav">
-      <div class="row">
-        <div class="small-12 column">
-          <%= render "proposals/filter_subnav" %>
-        </div>
-      </div>
-    </div>
+<div class="tabs-content" data-tabs-content="proposals_tabs">
+  <div class="tabs-panel is-active" id="tab-comments">
+    <%= render "proposals/comments" %>
   </div>
 
-  <div class="tabs-content" data-tabs-content="proposals_tabs">
-    <div class="tabs-panel is-active" id="tab-comments">
-      <%= render "proposals/comments" %>
-    </div>
-
-    <%= render "proposals/notifications" %>
-    <%= render "milestones/milestones", milestoneable: @proposal %>
-  </div>
-<% end %>
+  <%= render "proposals/notifications" %>
+  <%= render "milestones/milestones", milestoneable: @proposal %>
+</div>
