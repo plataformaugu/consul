@@ -9,9 +9,6 @@
   <div class="p-c-duo">
     <div>
       <blockquote><%= @proposal.summary %></blockquote>
-      <% if @proposal.image.present? %>
-      <%= image_tag @proposal.image_url(:medium), class: 'p-c-image' %>
-      <% end %>
 
       <div class="p-c-description">
       <%= auto_link_already_sanitized_html wysiwyg(@proposal.description) %>
@@ -44,18 +41,14 @@
           <h1>Apoya</h1>
         </div>
         <div class="info-card-body">
-          <p>¿Apoya usted la idea de <%= @proposal.title %>?</p>
-          <% if voted_for?(@proposal_votes, proposal) %>
-            <button class="solid-button" disabled>Ya apoyaste</button>
-          <% elsif user_signed_in? && proposal.votable_by?(current_user) %>
-            <%= link_to vote_proposal_path(proposal, value: "yes"), method: "post", remote: true do %>
-            <button class="solid-button">Apoyo</button>
-            <% end %>
-          <% else %>
-            <button class="solid-button" disabled>Apoyo</button>
-          <% end %>
-          <br>
-          <small>Han apoyado: <strong><%= @proposal.total_votes %></strong></small>
+          <p><%= @proposal.title %></p>
+          
+          <div class="custom-supports">
+          <%=
+            render "votes",
+            { proposal: proposal, vote_url: vote_proposal_path(proposal, value: "yes") }
+          %>
+          </div>
         </div>
         <% unless current_user %>
         <div class="info-card-footer">
@@ -63,6 +56,11 @@
         </div>
         <% end %>
       </div>
+      <% if @proposal.image.present? %>
+        <div style="margin-top: 50px;">
+        <%= image_tag @proposal.image_url(:original) %>
+        </div>
+      <% end %>
       <% if @proposal.sectors.any? %>
       <div class="custom-icon-message mt-3">
         <div class="c-i-m-left">

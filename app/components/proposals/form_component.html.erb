@@ -2,7 +2,9 @@
   <%= render "shared/errors", resource: proposal %>
 
   <fieldset class="required-fields">
+    <% if current_page?(new_proposal_path) %>
     <h2>Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu propuesta.</h2>
+    <% end %>
 
     <%= render "shared/globalize_locales", resource: proposal %>
 

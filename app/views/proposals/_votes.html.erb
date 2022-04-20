@@ -8,14 +8,14 @@
       </div>
     <% elsif user_signed_in? && proposal.votable_by?(current_user) %>
       <%= link_to vote_url,
-          class: "button button-support small expanded",
-          title: t("proposals.proposal.support_title"), method: "post", remote: true do %>
+          class: "solid-button",
+          title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do %>
         <%= t("proposals.proposal.support") %>
       <% end %>
     <% else %>
-      <div class="button button-support small expanded">
+      <a class="solid-button">
         <%= t("proposals.proposal.support") %>
-      </div>
+      </a>
     <% end %>
   </div>
 

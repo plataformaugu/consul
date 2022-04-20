@@ -2,10 +2,12 @@
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-1' %>
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
-  <% if defined?(description) %>
+  <% if defined?(description) and (defined?(title) or defined?(title2)) %>
     <div class="left-side-help-header">
       <h1>
+        <% if defined?(title) %>
         <%= title %>
+        <% end %>
         <% if defined?(title2) %>
         <br>
         <%= title2 %>
@@ -13,6 +15,10 @@
       </h1>
     </div>
     <div class="right-side-help-header">
+      <p><%= description %></p>
+    </div>
+  <% elsif defined?(description) and not defined?(title) and not defined?(title2) %>
+    <div class="full-help-header">
       <p><%= description %></p>
     </div>
   <% else %>

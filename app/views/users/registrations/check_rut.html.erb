@@ -9,18 +9,19 @@
         <%=
             f.text_field :document_number,
             autofocus: true,
-            label: 'RUT',
+            label: false,
             maxlength: 10,
             hint: 'Ingresa tu RUT con el siguiente formato: 12345678-9',
             pattern: '^(\d{7,8}-[\dkK])$',
-            class: 'form-control',
-            required: true
+            class: 'custom-input',
+            required: true,
+            placeholder: 'RUT'
         %>
         <%= f.hidden_field :type, value: 'pre' %>
         <%= f.invisible_captcha :address %>
 
-      <div class="small-12 medium-6 small-centered">
-        <%= f.submit 'Continuar', class: "button expanded" %>
+      <div class="small-12 text-center">
+        <%= f.submit 'Continuar', class: "solid-button rounded-xl" %>
       </div>
     </div>
   </div>

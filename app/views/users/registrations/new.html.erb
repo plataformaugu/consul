@@ -32,7 +32,8 @@
             value: (result[:rut_vecino] or resource.document_number or ''),
             label: 'RUT',
             readonly: !(result[:rut_vecino] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
 
@@ -42,7 +43,8 @@
             label: 'Nombre',
             value: (result[:nombre_vecino] or resource.first_name or '').titleize,
             readonly: !(result[:nombre_vecino] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
     </div>
@@ -55,7 +57,8 @@
             label: 'Apellido paterno',
             value: (result[:apellido_paterno] or resource.last_name or '').titleize,
             readonly: !(result[:apellido_paterno] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
 
@@ -65,7 +68,8 @@
             label: 'Apellido materno',
             value: (result[:apellido_materno] or resource.maiden_name or '').titleize,
             readonly: !(result[:apellido_materno] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
     </div>
@@ -75,7 +79,8 @@
         <%= f.email_field :email,
           value: (result[:correo] or resource.email or '').downcase,
           readonly: !(result[:correo] or '').empty?,
-          required: true
+          required: true,
+            class: 'custom-input'
         %>
       </div>
 
@@ -83,7 +88,7 @@
         <%= f.date_field :date_of_birth, 
             label: 'Fecha de nacimiento',
             required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
+            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
     </div>
@@ -103,7 +108,7 @@
               label: 'Estado civil'
             },
             {
-              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
+              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -112,14 +117,14 @@
       <div class="small-12 medium-6 column">
         <%= f.label :phone_number, 'Teléfono de contacto' %>
         <div class="input-group">
-          <span class="input-group-label" style="height: 3rem; user-select: none;">
+          <span style="height: 3rem; user-select: none; display: flex; align-items: center; color: black;">
             +56
           </span>
           <%= f.text_field :phone_number, 
               label: 'Teléfono de contacto',
               maxlength: 12,
               required: true,
-              class: result.count > 1 ? 'highlight_input' : '',
+              class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input',
               label: false
           %>
         </div>
@@ -139,7 +144,7 @@
               label: 'Género'
             },
             {
-              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
+              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -164,7 +169,7 @@
               label: 'Nacionalidad'
             },
             {
-              class: 'form-control',
+              class: 'custom-input',
               required: true
             }
         %>
@@ -178,7 +183,7 @@
               label: 'Comuna'
             },
             {
-              class: 'form-control',
+              class: 'custom-input',
               required: true
             }
         %>
@@ -192,7 +197,8 @@
             label: 'Calle',
             value: (result[:calle] or resource.street or '').titleize,
             readonly: !(result[:calle] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
 
@@ -202,7 +208,8 @@
             label: 'Número',
             value: result[:numero] ? result[:numero].to_i.to_s : (resource.house_number or ''),
             readonly: !(result[:numero] or '').empty?,
-            required: true
+            required: true,
+            class: 'custom-input'
         %>
       </div>
     </div>
@@ -214,7 +221,8 @@
             maxlength: 24,
             label: 'Departamento',
             value: (result[:depto] or resource.house_apartment or '').titleize,
-            readonly: !(result[:depto] or '').empty?
+            readonly: !(result[:depto] or '').empty?,
+            class: 'custom-input'
         %>
       </div>
 
@@ -223,7 +231,8 @@
             maxlength: 24,
             label: 'Block',
             value: (result[:block] or resource.house_block or '').titleize,
-            readonly: !(result[:block] or '').empty?
+            readonly: !(result[:block] or '').empty?,
+            class: 'custom-input'
         %>
       </div>
     </div>
@@ -234,7 +243,7 @@
             maxlength: 64,
             label: 'Profesión',
             required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
+            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
 
@@ -243,7 +252,7 @@
             maxlength: 64,
             label: 'Ocupación',
             required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
+            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
     </div>
@@ -263,7 +272,7 @@
               label: 'Previsión'
             },
             {
-              class: 'form-control' + (result.count > 1 ? ' highlight_input' : ''),
+              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
               required: true
             }
         %>
@@ -273,7 +282,7 @@
           style: 'display: none;',
           placeholder: 'Ingresa tu previsión',
           label: false,
-          class: result.count > 1 ? 'highlight_input' : ''
+          class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
     </div>
@@ -286,7 +295,7 @@
             label: 'Nº de Hijos',
             value: 0,
             required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
+            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
 
@@ -297,14 +306,14 @@
             label: 'Nº de Mascotas',
             value: 0,
             required: true,
-            class: result.count > 1 ? 'highlight_input' : ''
+            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
         %>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 column">
-        <%= f.password_field :password, autocomplete: "off", min_length: 8, required: true %>
+        <%= f.password_field :password, autocomplete: "off", min_length: 8, required: true, class: 'custom-input' %>
       </div>
     </div>
 
@@ -314,7 +323,8 @@
           autocomplete: "off",
           min_length: 8,
           label: t("devise_views.users.registrations.new.password_confirmation_label"),
-          required: true
+          required: true,
+          class: 'custom-input'
         %>
       </div>
     </div>
@@ -329,8 +339,8 @@
                 ) %>
     </div>
 
-      <div class="small-12 medium-6 small-centered">
-        <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>
+      <div class="small-12 text-center">
+        <%= f.submit t("devise_views.users.registrations.new.submit"), class: "solid-button rounded-xl" %>
       </div>
     </div>
   </div>

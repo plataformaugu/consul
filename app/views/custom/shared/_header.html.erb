@@ -19,18 +19,24 @@
     </div>
 
     <div class="banner-sky-buttons">
+      <%= link_to new_user_registration_path do %>
       <div class="banner-sky-button banner-sky-button-1">
         <p>Únete</p>
         <div class="plus-button"></div>
       </div>
+      <% end %>
+      <%= link_to 'sobre-nosotros' do %>
       <div class="banner-sky-button banner-sky-button-2">
         <p>Participa</p>
         <div class="plus-button"></div>
       </div>
+      <% end %>
+      <%= link_to 'participar' do %>
       <div class="banner-sky-button banner-sky-button-3">
         <p>Decide</p>
         <div class="plus-button"></div>
       </div>
+      <% end %>
     </div>
 
     <div class="banner-slider-container">
@@ -63,7 +69,7 @@
     <div class="banner-sky-buildings">
       <div class="banner-slider-box">
         <div>
-          <p>Descubre los Ejes Temáticos<br>en que puedes votar</p>
+          <p>Descubre los Ejes Temáticos<br>en los que puedes participar</p>
         </div>
       </div>
       <%= image_tag "/images/e-skyline-f.svg" %>
@@ -89,18 +95,18 @@
         </div>
 
         <div class="main-theme">
-          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Viviendas Sociales</div>
+          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Mejor Vivienda</div>
         </div>
 
         <div class="main-theme">
-          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Planificación Urbana</div>
+          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Nuevo Plan Regulador</div>
         </div>
       </div>
 
-      <div class="themes-column-1">
+      <div class="themes-column-three">
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Clase Media</div>
-          <%= image_tag "/images/t-clasemedia.svg" %>
+          <div class="title"><div class="plus-button-sm"></div>Apoyo Social</div>
+          <%= image_tag "/images/t-apoyosocial.svg" %>
           <div class="circle"></div>
         </div>
         <div class="main-theme">
@@ -108,11 +114,16 @@
           <%= image_tag "/images/t-smartcity.svg" %>
           <div class="circle"></div>
         </div>
+        <div class="main-theme">
+          <div class="title"><div class="plus-button-sm"></div>Salud Mental</div>
+          <%= image_tag "/images/t-saludmental.svg" %>
+          <div class="circle"></div>
+        </div>
       </div>
 
       <div class="themes-column-2">
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Emprendimiento</div>
+          <div class="title"><div class="plus-button-sm"></div>Emprendedores</div>
           <%= image_tag "/images/t-emprendimiento.svg" %>
           <div class="circle"></div>
         </div>
@@ -130,7 +141,7 @@
           <div class="circle"></div>
         </div>
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Grandes Eventos</div>
+          <div class="title"><div class="plus-button-sm"></div>Eventos</div>
           <%= image_tag "/images/t-grandeseventos.svg" %>
           <div class="circle"></div>
         </div>
@@ -156,7 +167,7 @@
           <div class="circle"></div>
         </div>
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Sustentable</div>
+          <div class="title"><div class="plus-button-sm"></div>Desarrollo Sostenible</div>
           <%= image_tag "/images/t-sustentable.svg" %>
           <div class="circle"></div>
         </div>
@@ -182,7 +193,7 @@
           <div class="circle"></div>
         </div>
         <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Parques y Cerros</div>
+          <div class="title"><div class="plus-button-sm"></div>Vida al aire libre</div>
           <%= image_tag "/images/t-parquesycerros.svg" %>
           <div class="circle"></div>
         </div>
@@ -191,7 +202,7 @@
   </div>
 
   <div class="banner-grass-mobile">
-    <h4>Descubre los Ejes Temáticos en que puedes votar</h4>
+    <h4>Descubre los Ejes Temáticos en los que puedes participar</h4>
     <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
       <div class="orbit-wrapper">
         <div class="orbit-controls">
@@ -199,88 +210,94 @@
           <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
         </div>
         <ul class="orbit-container">
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
-              <h2>Clase Media</h2>
-              <%= image_tag "/images/t-clasemedia.svg" %>
+              <h2>Apoyo Social</h2>
+              <%= image_tag "/images/t-apoyosocial.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Smart City</h2>
               <%= image_tag "/images/t-smartcity.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Mascotas</h2>
               <%= image_tag "/images/t-mascotas.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
-              <h2>Emprendimiento</h2>
+              <h2>Emprendedores</h2>
               <%= image_tag "/images/t-emprendimiento.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Seguridad</h2>
               <%= image_tag "/images/t-seguridad.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Mujeres</h2>
               <%= image_tag "/images/t-mujeres.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
-              <h2>Grandes Eventos</h2>
+              <h2>Eventos</h2>
               <%= image_tag "/images/t-grandeseventos.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Adulto Mayor</h2>
               <%= image_tag "/images/t-adultomayor.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Ciclovías</h2>
               <%= image_tag "/images/t-ciclovia.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Jóvenes</h2>
               <%= image_tag "/images/t-jovenes.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
-              <h2>Sustentable</h2>
+              <h2>Desarrollo Sostenible</h2>
               <%= image_tag "/images/t-sustentable.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Cultura y Recreación</h2>
               <%= image_tag "/images/t-cultura.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
               <h2>Educación</h2>
               <%= image_tag "/images/t-educacion.svg" %>
             </figure>
           </li>
-          <li class="is-active orbit-slide">
+          <li class="orbit-slide">
             <figure class="orbit-figure">
-              <h2>Parques y Cerros</h2>
+              <h2>Vida al aire libre</h2>
               <%= image_tag "/images/t-parquesycerros.svg" %>
+            </figure>
+          </li>
+          <li class="orbit-slide">
+            <figure class="orbit-figure">
+              <h2>Salud Mental</h2>
+              <%= image_tag "/images/t-saludmental.svg" %>
             </figure>
           </li>
         </ul>

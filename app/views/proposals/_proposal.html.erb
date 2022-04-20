@@ -1,17 +1,23 @@
 <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
+  <div class="custom-card-header">
+    <h3>Categoría</h3>
+  </div>
   <% if proposal.image.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.image_url(:medium) %>
+    </div>
+  <% else %>
+    <div class="custom-card-image">
+      <%= image_tag 'https://picsum.photos/500' %>
     </div>
   <% end %>
   <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
     <div>
       <h3><%= proposal.title %></h3>
-      <p><%= Rails::Html::FullSanitizer.new.sanitize(proposal.description).truncate(80) %></p>
     </div>
     <div class="custom-card-content-footer">
       <div style="display: flex; flex-direction: row; justify-content: space-between;">
-        <span>Han votado</span><strong><%= proposal.total_votes %></strong>
+        <span>Votos</span><strong><%= proposal.total_votes %></strong>
       </div>
       <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
     </div>

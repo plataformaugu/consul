@@ -21,9 +21,16 @@
       <div class="home-proposals-cards">
         <% Proposal.order(id: :desc).first(3).each do |p| %>
           <div class="home-proposals-card">
+            <div class="home-proposals-cards-header">
+              <h3>Categoría</h3>
+            </div>
             <% if p.image.present? %>
               <div class="home-proposals-cards-image">
                 <%= image_tag p.image_url(:medium) %>
+              </div>
+            <% else %>
+              <div class="home-proposals-cards-image">
+                <%= image_tag 'https://picsum.photos/500' %>
               </div>
             <% end %>
             <div class="home-proposals-cards-content" style="<%= p.image.present? ? 'height: 50%;' : 'height: 100%;' %>">

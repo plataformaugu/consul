@@ -1,0 +1,167 @@
+<%
+    @categories = [
+        {
+            :name => 'Vivir<br> Seguro',
+            :bg => 'bg-red',
+            :themes => [
+                {
+                    :name => 'Seguridad',
+                },
+            ],
+        },
+        {
+            :name => 'Las Condes<br> Sostenible',
+            :bg => 'bg-green',
+            :themes => [
+                {
+                    :name => 'Parques y cerros',
+                },
+                {
+                    :name => 'Sustentabilidad',
+                },
+                {
+                    :name => 'Ciclovías',
+                },
+                {
+                    :name => 'Planificación urbana',
+                },
+            ],
+        },
+        {
+            :name => 'Justicia e<br> integración',
+            :bg => 'bg-blue',
+            :themes => [
+                {
+                    :name => 'Adulto mayor',
+                },
+                {
+                    :name => 'Clase media',
+                },
+                {
+                    :name => 'Salud',
+                },
+                {
+                    :name => 'Educación',
+                },
+                {
+                    :name => 'Viviendas sociales',
+                },
+                {
+                    :name => 'Mujer',
+                },
+                {
+                    :name => 'Cultura y recreación',
+                },
+                {
+                    :name => 'Jóvenes',
+                },
+                {
+                    :name => 'Mascotas',
+                },
+            ],
+        },
+        {
+            :name => 'Las Condes<br> Vanguardista',
+            :bg => 'bg-yellow',
+            :themes => [
+                {
+                    :name => 'Grandes eventos',
+                },
+                {
+                    :name => 'Emprendimiento',
+                },
+                {
+                    :name => 'Smart City',
+                },
+                {
+                    :name => 'Participación',
+                },
+            ],
+        }
+    ]
+%>
+
+<%= render "shared/section_header",
+    color: "#c93358",
+    section_image: "/images/h-sobrenosotros.svg",
+    title: 'Sobre Nosotros',
+    description: 'Este es un espacio virtual abierto a la creatividad, al diálogo, al encuentro ciudadano, a la co-construcción, las ideas, los proyectos e iniciativas que busquen generar una mejor comuna',
+    show_buildings: true
+%>
+<div class="row info-page-container">
+    <div class="i-p-c-section">
+        <h1>Misión</h1>
+        <p>
+            Buscamos construir una comuna del futuro, que sea capaz de escuchar los sueños e ideas de nuestros vecinos para construir un mejor espacio para todos.
+        </p>
+        <div class="i-p-c-video-container">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/C0DPdy98e4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="i-p-c-section">
+        <h1>¿Qué es la Participación Ciudadana?</h1>
+        <p>
+            La participación ciudadana es un proceso por medio del cual los interesados influencian y comparten el control de las iniciativas y de las decisiones y de los recursos que los afectan. Esta permite a la ciudadanía, en su calidad de individuos o como miembros de organizaciones,
+            de influir en el diseño, toma de decisiones y ejecución de las políticas públicas.
+        </p>
+        <p class="i-p-c-highlight">
+            Sé parte, involúcrate y construyamos juntos una comunidad más participativa, transparente y colaborativa. <a href="/participar">Participa aquí</a>.
+        </p>
+    </div>
+</div>
+<div class="info-page-footer">
+    <div class="separator">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#FFFFFF" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+    </div>
+    <div class="i-p-f-container">
+        <h1>
+            Ejes Temáticos de la comuna
+        </h2>
+        <div class="i-p-f-c-buttons">
+            <div class="flex f-row f-space-between f-column-mobile mt-3">
+                <% @categories.each_with_index do |c, index| %>
+                <div class="i-p-f-b-container">
+                    <button onclick="show(<%= index %>);" class="main-theme-dropdown <%= c[:bg] %>">
+                        <%= sanitize c[:name] %>
+                        <div class="m-t-d-icon" id="<%= index %>-icon">></div>
+                    </button>
+                    <div class="main-theme-themes" id="<%= index %>">
+                        <div class="main-theme-divider <%= c[:bg] %>"></div>
+                        <% c[:themes].each do |t| %>
+                            <div class="sub-button <%= c[:bg] %>-transparent">
+                                <%= t[:name] %>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="info-page-footer-footer">
+        <%= image_tag "/images/e-skyline-v.svg", class: 'back-buildings' %>
+        <%= render 'shared/waves_footer', color1: '#c93358', color2: '#d2647d', content: '<h1>Hola</h1>' do %>
+            <%= image_tag "/images/fw-sobrenosotros.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
+        <% end %>
+    </div>
+</div>
+
+<script>
+function show(id) {
+    var element = $(`#${id}`);
+
+    if (element.is(':hidden')) {
+        element.slideDown({
+            start: function () {
+                $(this).css({
+                display: "flex"
+                })
+            }
+        });
+        $(`#${id}-icon`).text('<');
+    } else {
+        element.slideUp();
+        $(`#${id}-icon`).text('>');
+    }
+}
+</script>

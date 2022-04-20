@@ -5,8 +5,9 @@
             :title2 => 'ciudadanas',
             :color => '#f25b86',
             :image => '/images/p-icon-1.svg',
-            :text => 'Ve las propuestas activas',
+            :text => 'Vota en las consultas',
             :path => polls_path,
+            :is_active => feature?(:polls)
         },
         {
             :title => 'Encuestas',
@@ -14,23 +15,26 @@
             :color => '#fe6b01',
             :image => '/images/p-icon-2.svg',
             :text => 'Responde una encuesta',
-            :path => nil
+            :path => '/encuestas',
+            :is_active => true
         },
         {
-            :title => 'Propuestas',
-            :title2 => 'e ideas',
+            :title => 'Propuestas ciudadanas',
+            :title2 => nil,
             :color => '#33cc9d',
             :image => '/images/p-icon-3.svg',
             :text => 'Sube tu propuesta',
-            :path => proposals_path
+            :path => proposals_path,
+            :is_active => feature?(:proposals)
         },
         {
-            :title => 'Iniciativas',
+            :title => 'Iniciativas municipales',
             :title2 => nil,
             :color => '#3ba5df',
             :image => '/images/p-icon-4.svg',
-            :text => 'Plantea tu iniciativa',
-            :path => nil
+            :text => 'Apoya las iniciativas',
+            :path => nil,
+            :is_active => feature?(:proposals)
         },
         {
             :title => 'Debates',
@@ -38,7 +42,8 @@
             :color => '#9ecc46',
             :image => '/images/p-icon-5.svg',
             :text => 'Abrir debate',
-            :path => debates_path
+            :path => debates_path,
+            :is_active => feature?(:debates)
         },
         {
             :title => 'Presupuestos',
@@ -46,7 +51,8 @@
             :color => '#8148b3',
             :image => '/images/p-icon-6.svg',
             :text => 'Revisa presupuestos',
-            :path => budgets_path
+            :path => budgets_path,
+            :is_active => feature?(:budgets)
         },
     ]
 %>
@@ -89,16 +95,18 @@
     <div class="lc-container">
         <div class="lc-cards-container">
         <% @cards.each do |card| %>
-            <%= link_to card[:path] do %>
-                <div class="lc-card">
-                    <div class="lc-card-header" style="background-color: <%= card[:color] %>">
-                        <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>
+            <% if card[:is_active] %>
+                <%= link_to card[:path] do %>
+                    <div class="lc-card">
+                        <div class="lc-card-header" style="background-color: <%= card[:color] %>">
+                            <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>
+                        </div>
+                        <div class="lc-card-body">
+                            <%= image_tag "#{card[:image]}" %>
+                            <h3><%= card[:text] %></h3>
+                        </div>
                     </div>
-                    <div class="lc-card-body">
-                        <%= image_tag "#{card[:image]}" %>
-                        <h3><%= card[:text] %></h3>
-                    </div>
-                </div>
+                <% end %>
             <% end %>
         <% end %>
         </div>

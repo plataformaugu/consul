@@ -3,51 +3,83 @@
   <%= render "shared/canonical", href: help_url %>
 <% end %>
 
-<%= render Shared::BannerComponent.new("help_page") %>
+<%= render "shared/section_header",
+  color: "#b897c0",
+  section_image: "/images/h-ayuda.svg",
+  title: 'Portal de Ayuda',
+  show_buildings: true
+%>
 
-<div class="jumbo light">
+<div id="more-info" class="help-page">
   <div class="row">
-    <div class="small-12 medium-9 column">
-      <h2><%= t("pages.help.title", org: setting["org_name"]) %></h2>
-      <p><%= t("pages.help.guide", org: setting["org_name"]) %></p>
+    <div class="small-12 column">
+      <h2>Portal de Ayuda</h2>
+      <p>
+        Podrás encontrar respuesta a las preguntas mas frecuentes que se hacen nuestros vecinos.
+      </p>
+      <div class="mt-5">
+        <p><a href="#participacion-ciudadana">¿Qué es la Participación Ciudadana?</a></p>
+        <p><a href="#participar">¿Por qué participar?</a></p>
+        <p><a href="#ejes">¿Cuáles son los ejes participativos de la comuna de Las Condes?</a></p>
+        <p><a href="#participacion-digital">¿Qué tipo de procesos participativos digitales implementa la Municipalidad?</a></p>
+        <p><a href="#fechas-procesos">¿Cómo informarse sobre las fechas de los procesos participativos?</a></p>
+      </div>
+
+      <div class="help-page-content">
+        <div class="mt-5" id="participacion-ciudadana">
+          <h2>¿Qué es la Participación Ciudadana?</h2>
+          <p>
+            La participación ciudadana es un proceso por medio del cual los interesados influencian y comparten el control de las iniciativas y de las decisiones y de los recursos que los afectan. Esta permite a la ciudadanía, en su calidad de individuos o como miembros de organizaciones, de influir en el diseño, toma de decisiones y ejecución de las políticas públicas. (DOS, 2016)
+          </p>
+        </div>
+
+        <div class="mt-5" id="participar">
+          <h2>¿Por qué participar?</h2>
+          <p>Es importante participar ya que la participación ciudadana permite:</p>
+          <p>1) Entender mejor las necesidades de las personas y responder a una creciente diversidad social.</p>
+          <p>2) Levantar la información, las ideas y los recursos que poseen las organizaciones de la sociedad civil, los ciudadanos y las empresas para abordar problemas complejos y mejorar la calidad de los servicios públicos.</p>
+          <p>3) Hacer más eficientes las políticas públicas locales.</p>
+        </div>
+
+        <div class="mt-5" id="ejes">
+          <h2>¿Cuáles son los ejes participativos de la comuna de Las Condes?</h2>
+          <ul>
+            <li>Vivir seguro</li>
+            <li>Las Condes sostenible</li>
+            <li>Justicia e integración</li>
+            <li>Las Condes vanguardista</li>
+          </ul>
+        </div>
+
+        <div class="mt-5" id="participacion-digital">
+          <h2>¿Qué tipo de procesos participativos digitales implementa la Municipalidad?</h2>
+          <ul>
+            <li>Consultas Ciudadanas</li>
+            <li>Encuestas</li>
+            <li>Propuestas Ciudadanas</li>
+            <li>Iniciativas Municipales</li>
+            <li>Debates</li>
+            <li>Presupuestos Participativos</li>
+          </ul>
+        </div>
+
+        <div class="mt-5" id="fechas-procesos">
+          <h2>¿Cómo informarse sobre las fechas de los procesos participativos?</h2>
+          <p>
+            En nuestra sección <a href="/events">Calendario de Eventos</a> podrás ver las fechas de todos las actividades relacionadas a la participación ciudadana en nuestra comuna para poder estar al tanto de los futuros eventos.
+          </p>
+        </div>
+
+        <div style="text-align: center;" class="mt-5">
+          <h3 style="font-weight: 400; letter-spacing: -1px;">Si tienes alguna otra duda o requerimiento, puedes escribirnos a través de nuestro formulario de contacto o a <a href="mailto:elcorreoquequieres@correo.com">participación@lascondes.cl</a></h3>
+        </div>
+      </div>
+
     </div>
   </div>
-
-  <%= render "pages/help/menu" %>
 </div>
 
-<div id="more-info" class="more-info-content">
-  <div class="row">
-    <div class="small-12 medium-7 large-8 column">
-      <% if feature?(:debates) %>
-        <%= render "pages/help/debates" %>
-      <% end %>
-
-      <% if feature?(:proposals) %>
-        <%= render "pages/help/proposals" %>
-      <% end %>
-
-      <% if feature?(:budgets) %>
-        <%= render "pages/help/budgets" %>
-      <% end %>
-
-      <% if feature?(:polls) %>
-        <%= render "pages/help/polls" %>
-      <% end %>
-
-      <% if feature?(:legislation) %>
-        <%= render "pages/help/processes" %>
-      <% end %>
-    </div>
-    <div class="small-12 medium-4 large-3 column more-info-sidebar">
-      <%= render "pages/help/sidebar" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <hr>
-    <div class="small-12 column">
-      <%= render "pages/help/other" %>
-    </div>
-  </div>
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#dca3c6', color2: '#b897c0' do %>
+    <% end %>
 </div>

@@ -1,0 +1,120 @@
+<div class="proposal-info">
+  <%= l poll.created_at.to_date %>
+</div>
+
+<div class="proposal-content-container">
+  <div class="p-c-duo">
+    <div>
+      <blockquote><%= poll.summary %></blockquote>
+
+      <div class="p-c-description">
+      <%= auto_link_already_sanitized_html wysiwyg(poll.description) %>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div class="info-card">
+        <div class="info-card-header" style="background-color: #f25b86;">
+          <h1>Apoya</h1>
+        </div>
+        <div class="info-card-body">
+          <p><%= poll.title %></p>
+
+            <div style="display: flex; flex-direction: column;">
+              <% @questions.each do |question| %>
+                <%= render "polls/questions/question", question: question, token: @token %>
+              <% end %>
+            </div>
+        </div>
+
+        <% unless current_user %>
+        <div class="info-card-footer">
+          <p>Necesitas <span style="color: #5eb7d9;"><%= link_to "iniciar sesión", new_user_session_path %></span> o <span style="color: #5eb7d9;"><%= link_to "registrarte", new_user_registration_path %></span> para participar</p>
+        </div>
+        <% end %>
+      </div>
+      <% if poll.image.present? %>
+        <div style="margin-top: 50px;">
+        <%= image_tag poll.image_url(:original) %>
+        </div>
+      <% end %>
+      <% if poll.sectors.any? %>
+      <div class="custom-icon-message mt-3" style="background-color: #f25b86;">
+        <div class="c-i-m-left" style="background-color: #f25b86;">
+          !
+        </div>
+        <div class="c-i-m-right" style="background-color: #f25b86;">
+          Esta consulta está habilitada sólo para <br>vecinos de la(s) unidad(es) vecinal(es):<br>
+          <strong><%= poll.sectors.map{ |s| s.name }.join(', ') %>.</strong>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="poll_more_info_answers" class="expanded poll-more-info-answers mt-3">
+    <div class="row padding">
+      <% @poll_questions_answers.each do |answer| %>
+        <div class="small-12 medium-6 column end answer <%= cycle("first", "") %>" id="answer_<%= answer.id %>">
+          <h3><%= answer.title %></h3>
+
+          <% if answer.images.any? %>
+            <%= render "gallery", answer: answer %>
+          <% end %>
+
+          <% if answer.description.present? %>
+            <div class="margin-top">
+              <div id="answer_description_<%= answer.id %>" class="answer-description short" data-toggler="short">
+                <%= wysiwyg(answer.description) %>
+              </div>
+              <div class="read-more">
+                <button type="button" id="read_more_<%= answer.id %>"
+                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
+                   data-toggler="hide">
+                  <%= t("polls.show.read_more", answer: answer.title) %>
+                </button>
+                <button type="button" id="read_less_<%= answer.id %>"
+                   data-toggle="answer_description_<%= answer.id %> read_more_<%= answer.id %> read_less_<%= answer.id %>"
+                   data-toggler="hide"
+                   class="hide">
+                  <%= t("polls.show.read_less", answer: answer.title) %>
+                </button>
+              </div>
+            </div>
+          <% end %>
+
+          <% if answer.documents.present? %>
+            <div class="document-link">
+              <p>
+                <span class="icon-document"></span>&nbsp;
+                <strong><%= t("polls.show.documents") %></strong>
+              </p>
+
+              <% answer.documents.each do |document| %>
+                  <%= link_to document.title,
+                              document.attachment.url,
+                              target: "_blank",
+                              rel: "nofollow" %><br>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if answer.videos.present? %>
+            <div class="video-link">
+              <p>
+                <span class="icon-video"></span>&nbsp;
+                <strong><%= t("polls.show.videos") %></strong>
+              </p>
+
+              <% answer.videos.each do |video| %>
+                  <%= link_to video.title,
+                              video.url,
+                              target: "_blank",
+                              rel: "nofollow" %><br>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

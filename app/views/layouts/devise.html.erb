@@ -6,26 +6,16 @@
     <%= raw setting["html.per_page_code_head"] %>
   </head>
 
-  <body class="auth-page">
-    <%= raw setting["html.per_page_code_body"] %>
-    <div class="wrapper">
-      <div class="auth-image small-12 medium-3 column">
-        <h1 class="logo margin">
-          <%= link_to root_path do %>
-            <%= image_tag(image_path_for("logo_header.png"), class: "float-left", alt: setting["org_name"]) %>
-          <% end %>
-        </h1>
-      </div>
-
-      <div class="small-12 medium-9 column">
-        <div class="row">
-          <div class="small-12 medium-9 large-7 small-centered column">
-            <div class="auth-form margin">
-              <%= render "layouts/flash" %>
-
-              <%= yield %>
-            </div>
-          </div>
+  <body class="auth-page" style="color: white;">
+    <div class="wrapper <%= yield(:wrapper_class) %> custom-auth">
+      <%= render "layouts/header", with_subnavigation: true %>
+      <%= render "layouts/flash" %>
+      <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-1' %>
+      <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
+      <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
+      <div class="custom-auth-content">
+        <div class="custom-auth-box">
+          <%= yield %>
         </div>
       </div>
     </div>

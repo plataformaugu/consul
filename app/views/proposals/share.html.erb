@@ -10,7 +10,13 @@
 <% end %>
 
 <% cache [locale_and_user_status(@proposal), @proposal, @proposal.author, Flag.flagged?(current_user, @proposal), @proposal_votes] do %>
-    <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
+  <%= render "shared/section_header",
+    color: "#33cc9d",
+    section_image: "/images/propuestas-image.svg",
+    title: "Propuestas",
+    title2: "Ciudadanas",
+    description: "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
+  %>  
   <div id="<%= dom_id(@proposal) %>" class="row">
     <div class="small-12 medium-8 column">
 

@@ -8,7 +8,7 @@
     </li>
 
     <li>
-      <a href="#">Sobre nosotros</a>
+      <a href="/sobre-nosotros">Sobre nosotros</a>
     </li>
 
     <li>
@@ -16,11 +16,15 @@
     </li>
 
     <li>
-      <a href="#">Calendario</a>
+      <a href="/events">Calendario de Eventos</a>
     </li>
 
     <li>
-      <a href="#">Resultados</a>
+      <a href="/resultados">Resultados</a>
+    </li>
+
+    <li>
+      <a href="/portal-fiscalizacion">Portal de Fiscalización Ciudadana</a>
     </li>
 
     <% if feature?(:help_page) %>
@@ -33,9 +37,6 @@
     <% end %>
 
     <%= raw content_block("subnavigation_right") %>
-    <li>
-      <a href="#">Ayuda</a>
-    </li>
   </ul>
 
   <!-- Mobile view -->
@@ -47,13 +48,24 @@
     </li>
 
     <li>
-      <a href="#">Sobre nosotros</a>
+      <a href="/sobre-nosotros">Sobre nosotros</a>
     </li>
 
     <li>
-      <a href="/participar">Participar</a>
+      <a href="/participar">¡Participa!</a>
+    </li>
+    <li>
+      <a href="/events">Calendario de Eventos</a>
     </li>
 
+    <li>
+      <a href="/resultados">Resultados</a>
+    </li>
+
+    <li>
+      <a href="/portal-fiscalizacion">Portal de Fiscalización Ciudadana</a>
+    </li>
+  
     <% if feature?(:help_page) %>
       <li>
         <%= layout_menu_link_to t("layouts.header.help"),
@@ -62,17 +74,6 @@
                                 accesskey: "7" %>
       </li>
     <% end %>
-    <li>
-      <a href="#">Calendario</a>
-    </li>
-
-    <li>
-      <a href="#">Resultados</a>
-    </li>
-  
-    <li>
-      <a href="#">Ayuda</a>
-    </li>
 
 
     <%= raw content_block("subnavigation_right") %>

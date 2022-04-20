@@ -26,6 +26,11 @@ class ProposalsController < ApplicationController
   helper_method :resource_model, :resource_name
   respond_to :html, :js
 
+  def index
+    @proposals = Kaminari.paginate_array(
+      @proposals).page(params[:page])
+  end
+
   def show
     super
     @notifications = @proposal.notifications
@@ -82,6 +87,9 @@ class ProposalsController < ApplicationController
     @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
     @proposal.register_vote(current_user, "yes")
     set_proposal_votes(@proposal)
+    respond_to do |format|
+      format.html { redirect_to proposal_path(@proposal.id) }
+    end
   end
 
   def retire

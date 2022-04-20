@@ -1,7 +1,13 @@
 <% provide :title do %><%= @poll.name %><% end %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<%= render "shared/section_header", i18n_namespace: "polls.index.section_header", image: "polls" %>
+
+<%= render "shared/section_header",
+    color: "#f25b86",
+    section_image: "/images/h-consultas.svg",
+    title: @poll.title,
+    show_buildings: true
+%>
 <div class="polls-results-stats">
   <%= render "poll_header" %>
 
@@ -87,3 +93,10 @@
     <% end %>
   <% end %>
 <% end %>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
+      <%= image_tag "/images/fw-arbustorojo.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
+      <%= image_tag "/images/fw-arbolrojo.svg", style: 'position: absolute; bottom: 60px; left: 5%; height: 12vw;' %>
+    <% end %>
+</div>

@@ -8,7 +8,12 @@
 
 <%= render_custom_partial "social_meta_tags" %>
 
-<%= render "shared/section_header", i18n_namespace: "polls.index.section_header", image: "polls" %>
+<%= render "shared/section_header",
+    color: "#f25b86",
+    section_image: "/images/h-consultas.svg",
+    title: 'Consultas Ciudadanas',
+    description: 'Las consultas ciudadanas consisten en una forma ágil y segura de votación, la cual permite poner a escrutinio público distintas ideas, temáticas y/o proyectos'
+%>
 
 <div class="row">
   <div class="small-12 column">
@@ -18,38 +23,26 @@
       </div>
     <% end %>
 
-    <%= render "shared/filter_subnav", i18n_namespace: "polls.index" %>
-
     <% if @polls.any? %>
-      <% polls_by_geozone_restriction = @polls.group_by(&:geozone_restricted) %>
-
-      <% if polls_by_geozone_restriction[false].present? %>
-        <h3 class="section-title-divider">
-          <span><%= t("polls.index.no_geozone_restricted") %></span>
-        </h3>
-        <%= render "poll_group", poll_group: polls_by_geozone_restriction[false] %>
-      <% end %>
-
-      <% if polls_by_geozone_restriction[true].present? %>
-        <h3 class="section-title-divider">
-          <span><%= t("polls.index.geozone_restricted") %></span>
-        </h3>
-        <%= render "poll_group", poll_group: polls_by_geozone_restriction[true] %>
-      <% end %>
-
-      <%= paginate @polls %>
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% @polls.each do |poll| %>
+            <%= render "poll", poll: poll %>
+          <% end %>
+          <%= paginate @polls %>
+        </div>
+      </div>
     <% else %>
       <div class="callout primary margin-top">
         <%= t("polls.index.no_polls") %>
       </div>
     <% end %>
 
-    <div id="section_help" class="margin" data-magellan-target="section_help">
-      <p class="lead">
-        <strong><%= t("polls.index.section_footer.title") %></strong>
-      </p>
-      <p><%= t("polls.index.section_footer.description") %></p>
-      <%= render_custom_partial "footer" %>
-    </div>
   </div>
+</div>
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
+      <%= image_tag "/images/fw-arbustorojo.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
+      <%= image_tag "/images/fw-arbolrojo.svg", style: 'position: absolute; bottom: 60px; left: 5%; height: 12vw;' %>
+    <% end %>
 </div>

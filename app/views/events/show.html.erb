@@ -11,13 +11,14 @@
 <% end %>
 
 
-  <div class="custom-help-header custom-help-header-events">
-    <div class="left-side-help-header">
-      <h1 style="text-transform: uppercase;">Eventos</h1>
-    </div>
-    <div class="right-side-help-header">
-    </div>
-  </div>
+<%= render "shared/section_header",
+  color: "#2f4ac6",
+  section_image: "/images/h-eventos.svg",
+  title: 'Calendario',
+  title2: 'de Eventos',
+  description: 'Aquí encontrarás los principales eventos relacionados a Participación Ciudadana en la comuna',
+  show_buildings: true
+%>
 <div class="proposal-show">
   <div id="<%= dom_id(@event) %>" class="row">
     <div class="small-12 medium-9 column">
@@ -95,4 +96,8 @@
 
     </aside>
   </div>
+</div>
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#236ad8', color2: '#2f4ac6' do %>
+    <% end %>
 </div>

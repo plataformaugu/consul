@@ -45,7 +45,7 @@
       color: "#33cc9d",
       section_image: "/images/propuestas-image.svg",
       title: "Propuestas",
-      title2: "e Ideas",
+      title2: "Ciudadanas",
       description: "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
     %>  
   <% end %>
@@ -78,9 +78,13 @@
           <% else %>
             <%= empty_recommended_proposals_message_text(current_user) %>
           <% end %>
-          <%= paginate @proposals %>
         </div>
       </div>
+      <%= paginate @proposals %>
     </div>
+  </div>
+  <div class="general-footer-container">
+      <%= render 'shared/waves_footer', color1: '#16664d', color2: '#33cc9d' do %>
+      <% end %>
   </div>
 </main>

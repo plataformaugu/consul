@@ -1,0 +1,71 @@
+<%= render "shared/section_header",
+    color: "#6295d6",
+    section_image: "/images/h-pfc.svg",
+    title: 'Portal de Fiscalización',
+    title2: 'Ciudadana',
+    show_buildings: true
+%>
+<div class="row pfc-page">
+    <h2>Portal de Fiscalización Ciudadana</h2>
+    <p>
+        Este portal te permite colaborar con la labor de fiscalización que realiza la Municipalidad de Las Condes para construir juntos una mejor comuna.
+    </p>
+    <p>
+        <strong>¡Tu ayuda es fundamental!</strong>
+    </p>
+    <div class="cards-container mt-3">
+        <%= link_to 'https://www.leylobby.gob.cl/instituciones/MU135', target: "_blank" do %>
+        <div class="info-card">
+            <div class="info-card-header" style="background-color: #7aa7de;">
+                <h3>Ley del Lobby</h3>
+            </div>
+            <div class="info-card-body">
+            </div>
+        </div>
+        <% end %>
+
+        <%= link_to 'https://www.lascondes.cl/atencion-vecino/portada.html', target: "_blank" do %>
+        <div class="info-card">
+            <div class="info-card-header" style="background-color: #7aa7de;">
+                <h3>Atención al vecino</h3>
+            </div>
+            <div class="info-card-body">
+            </div>
+        </div>
+        <% end %>
+
+        <%= link_to 'https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=MU135', target: "_blank" do %>
+        <div class="info-card">
+            <div class="info-card-header" style="background-color: #7aa7de;">
+                <h3>Ley de transparencia</h3>
+            </div>
+            <div class="info-card-body"></div>
+        </div>
+        <% end %>
+
+        <div class="info-card">
+            <div class="info-card-header" style="background-color: #7aa7de;">
+                <h3>Concejo municipal</h3>
+            </div>
+            <div class="info-card-body">
+                <%= image_tag "/images/i-concejo-municipal.svg" %>
+            </div>
+        </div>
+
+        <%= link_to '/equipo-territorial', target: "_blank" do %>
+        <div class="info-card">
+            <div class="info-card-header" style="background-color: #7aa7de;">
+                <h3>Equipo territorial</h3>
+            </div>
+            <div class="info-card-body">
+                <%= image_tag "/images/i-equipo-territorial.svg" %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+    <% end %>
+</div>

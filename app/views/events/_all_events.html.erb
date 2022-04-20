@@ -17,13 +17,28 @@
       <small>(Hoy)</small></strong>
     <% end %>
 
-    <% events.each do |event| %>
+    <% events.first(2).each do |event| %>
       <%= link_to event, style: 'text-decoration: none;' do %>
         <div class="custom-event">
-          <strong><%= event.title %></strong><br/>
-          <%= event.start_time.strftime('%H:%M') %> a <%= event.end_time.strftime('%H:%M') %>
+          <div class="plus-button-xsm"></div> <span><%= event.title %></span>
         </div>
       <% end %>
+    <% end %>
+    <% if events.length() > 2 %>
+      <div class="day-dropdown">
+        <button class="show-more-button">
+          Otros eventos del día +
+        </button><br>
+        <div class="day-dropdown-content">
+          <% events[2..].each do |event| %>
+            <%= link_to event, style: 'text-decoration: none;' do %>
+              <div class="custom-event">
+                <div class="plus-button-xsm"></div> <span><%= event.title %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>
