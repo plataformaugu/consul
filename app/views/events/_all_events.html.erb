@@ -17,6 +17,10 @@
       <small>(Hoy)</small></strong>
     <% end %>
 
+
+    <div class="custom-event" style="visibility: hidden; height: 1px;">
+      <div class="plus-button-xsm"></div> <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14</span>
+    </div>
     <% events.first(2).each do |event| %>
       <%= link_to event, style: 'text-decoration: none;' do %>
         <div class="custom-event">
