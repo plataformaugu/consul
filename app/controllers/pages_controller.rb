@@ -16,4 +16,12 @@ class PagesController < ApplicationController
   rescue ActionView::MissingTemplate
     head :not_found, content_type: "text/html"
   end
+
+  def send_contact_form
+    author = params['author']
+    body = params['body']
+    Mailer.contact_form(author, body).deliver_later
+    flash[:notice] = "Formulario de contacto enviado."
+    redirect_to help_path
+  end
 end

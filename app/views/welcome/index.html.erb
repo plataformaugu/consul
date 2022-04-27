@@ -19,31 +19,40 @@
       <h1>Revisa las propuestas más activas</h1>
 
       <div class="home-proposals-cards">
-        <% Proposal.order(id: :desc).first(3).each do |p| %>
-          <div class="home-proposals-card">
-            <div class="home-proposals-cards-header">
-              <h3>Categoría</h3>
-            </div>
-            <% if p.image.present? %>
-              <div class="home-proposals-cards-image">
-                <%= image_tag p.image_url(:medium) %>
-              </div>
-            <% else %>
-              <div class="home-proposals-cards-image">
-                <%= image_tag 'https://picsum.photos/500' %>
+        <div class="orbit" style="position: relative; z-index: 8000;" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
+          <ul class="orbit-container">
+          <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
+          <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
+          <% Proposal.order(id: :desc).in_groups_of(2)[..2].each do |p_group| %>
+            <div class="is-active orbit-slide custom-orbit-slide">
+            <% p_group.each do |p| %>
+              <div class="home-proposals-card">
+                <div class="home-proposals-cards-header">
+                  <h3>Categoría</h3>
+                </div>
+                <% if p.image.present? %>
+                  <div class="home-proposals-cards-image">
+                    <%= image_tag p.image_url(:medium) %>
+                  </div>
+                <% else %>
+                  <div class="home-proposals-cards-image">
+                    <%= image_tag 'https://picsum.photos/500' %>
+                  </div>
+                <% end %>
+                <div class="home-proposals-cards-content" style="<%= p.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                  <div>
+                    <h3><%= p.title %></h3>
+                    <p><%= Rails::Html::FullSanitizer.new.sanitize(p.description).truncate(80) %></p>
+                  </div>
+                  <div class="home-proposals-cards-content-footer">
+                    <%= link_to 'Participar', proposal_path(p.id), class: 'button expanded large', target: '_blank' %>
+                  </div>
+                </div>
               </div>
             <% end %>
-            <div class="home-proposals-cards-content" style="<%= p.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
-              <div>
-                <h3><%= p.title %></h3>
-                <p><%= Rails::Html::FullSanitizer.new.sanitize(p.description).truncate(80) %></p>
-              </div>
-              <div class="home-proposals-cards-content-footer">
-                <%= link_to 'Participar', proposal_path(p.id), class: 'button expanded large', target: '_blank' %>
-              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
 
@@ -88,7 +97,7 @@
     </div>
   </div>
 
-  <div class="home-data" id="home-data">
+  <div class="home-data" id="home-data" style="display: none;">
     <div class="h-d-container">
       <h1>Datos relevantes de la comuna</h1>
       <div class="h-d-cards">
@@ -136,7 +145,7 @@
     </div>
   </div>
 
-  <div class="home-social">
+  <div class="home-social" style="display: none;">
     <div class="h-s-container">
       <div class="h-s-c-text">
         <h1>¡Tu opinión nos interesa!</h1>

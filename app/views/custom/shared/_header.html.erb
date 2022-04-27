@@ -4,11 +4,13 @@
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
 
+    <%= link_to proposals_path do %>
     <div class="banner-airplane">
       <%= image_tag "/images/b-avion.svg", class: 'banner-airplane-img' %>
       <%= image_tag "/images/b-lienzo.svg", class: 'banner-airplane-flag' %>
       <%= image_tag "/images/b-tlienzo.svg", class: 'banner-airplane-text' %>
     </div>
+    <% end %>
 
     <div class="banner-sky-title">
       <%= image_tag "/images/b-icono.svg" %>
@@ -46,9 +48,6 @@
         <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
         <div class="is-active orbit-slide">
           <%= image_tag "/images/slider-1.svg" %>
-        </div>
-        <div class="orbit-slide">
-          <%= image_tag "/images/slider-2.svg" %>
         </div>
         <div class="orbit-slide">
           <%= image_tag "/images/slider-3.png" %>
@@ -92,14 +91,17 @@
       <div class="themes-row">
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Salud</div>
+          <div class="circle alt-circle" style="left: -40%;"></div>
         </div>
 
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Mejor Vivienda</div>
+          <div class="circle alt-circle"></div>
         </div>
 
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Nuevo Plan Regulador</div>
+          <div class="circle alt-circle" style="left: 10%;"></div>
         </div>
       </div>
 

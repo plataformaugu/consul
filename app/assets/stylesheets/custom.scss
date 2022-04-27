@@ -918,6 +918,7 @@ body {
     flex-direction: row;
     height: 800px;
     position: relative;
+    padding-bottom: 25px;
     margin-bottom: 25px;
 
     @media (max-width: 1200px) {
@@ -1504,7 +1505,7 @@ body.admin {
     .banner-slider-container {
         position: relative;
         width: 60%;
-        height: 750px;
+        height: 700px;
         z-index: 50;
         margin-top: -50px;
 
@@ -1512,6 +1513,10 @@ body.admin {
             height: auto !important;
             width: 100%;
             margin-top: 0;
+        }
+
+        @media (max-width: 1600px) {
+            height: 600px;
         }
 
         .b-s-c-text {
@@ -1736,6 +1741,11 @@ body.admin {
             }
         }
 
+        .alt-circle {
+            top: -100px;
+            z-index: 5000;
+        }
+
         &:hover {
             .circle {
                 visibility: visible;
@@ -1845,6 +1855,21 @@ body.admin {
     @media (max-width: 640px) {
         display: none;
     }
+}
+
+.plus-button-participa {
+    display:inline-block;
+    width: 2em;
+    height: 2em;
+    background:
+      linear-gradient(#959595 2 0),
+      linear-gradient(#959595 0 0),
+      transparent;
+    background-position:center;
+    background-size: 70% 2px,2px 70%; /*thickness = 2px, length = 50% (25px)*/
+    background-repeat:no-repeat;
+    border-radius:50%;
+    border: 2px solid #959595;
 }
 
 .plus-button-sm {
@@ -2603,7 +2628,8 @@ body.admin {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 50px;
 
     a:link {
         text-decoration: none;
@@ -2684,7 +2710,7 @@ body.admin {
 
 .desktop-only {
     @media (max-width: 1200px) {
-        display: none;;
+        display: none;
     }
 }
 
@@ -3612,5 +3638,44 @@ main {
                 left: 5%;
             }
         }
+    }
+}
+
+.custom-orbit-slide {
+    display: flex;
+    flex-direction: row;
+    margin-left: 60px;
+    margin-right: 60px;
+    gap: 25px;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .home-proposals-card {
+        @media (max-width: 1200px) {
+            width: 80% !important;
+        }
+    }
+}
+
+.circle-container {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: #236ad8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    text-decoration: none;
+
+    &:link, &:hover {
+        text-decoration: none;
+        color: white;
+        background-color: lighten(#236ad8, 10%);
     }
 }

@@ -127,6 +127,13 @@ class Mailer < ApplicationMailer
     mail(to: @email_to.email, subject: @email.subject) if @email.can_be_sent?
   end
 
+  def contact_form(author, body)
+    @author = author
+    @body = body
+
+    mail(to: 'contacto@ugu.cl', subject: 'Formulario de Contacto')
+  end
+
   def machine_learning_error(user)
     @email_to = user.email
 

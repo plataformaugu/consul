@@ -52,4 +52,8 @@ Rails.application.routes.draw do
 
   # Static pages
   resources :pages, path: "/", only: [:show]
+
+  resources :pages do
+    post 'send_contact_form', :on => :collection
+  end
 end
