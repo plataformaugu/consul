@@ -34,6 +34,7 @@ class Poll < ApplicationRecord
   belongs_to :author, -> { with_hidden }, class_name: "User", inverse_of: :polls
   belongs_to :related, polymorphic: true
   belongs_to :budget
+  belongs_to :main_theme
 
   has_many :poll_sectors
   has_many :sectors, through: :poll_sectors

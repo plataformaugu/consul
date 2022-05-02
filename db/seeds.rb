@@ -1,16 +1,18 @@
-# Default admin user (change password after first deploy to a server!)
-if Administrator.count == 0 && !Rails.env.test?
-  admin = User.create!(username: "admin", email: "admin@consul.dev", password: "12345678",
-                       password_confirmation: "12345678", confirmed_at: Time.current,
-                       terms_of_service: "1")
-  admin.create_administrator
-end
-
-Setting.reset_defaults
-load Rails.root.join("db", "web_sections.rb")
-
-# Default custom pages
-load Rails.root.join("db", "pages.rb")
-
-# Sustainable Development Goals
-load Rails.root.join("db", "sdg.rb")
+MainTheme.create(name: 'Adulto Mayor', icon: '/images/ejes-tematicos/adultomayor.png')
+MainTheme.create(name: 'Vida al Aire Libre', icon: '/images/ejes-tematicos/airelibre.png')
+MainTheme.create(name: 'Apoyo Social', icon: '/images/ejes-tematicos/apoyo-social.png')
+MainTheme.create(name: 'Ciclovías', icon: '/images/ejes-tematicos/ciclovias.png')
+MainTheme.create(name: 'Cultura y Recreación', icon: '/images/ejes-tematicos/cultura-enttretencion.png')
+MainTheme.create(name: 'Educación', icon: '/images/ejes-tematicos/educacion.png')
+MainTheme.create(name: 'Emprendedores', icon: '/images/ejes-tematicos/emprendedores.png')
+MainTheme.create(name: 'Eventos', icon: '/images/ejes-tematicos/eventos.png')
+MainTheme.create(name: 'Jóvenes', icon: '/images/ejes-tematicos/jovenes.png')
+MainTheme.create(name: 'Mascotas', icon: '/images/ejes-tematicos/mascotas.png')
+MainTheme.create(name: 'Mujeres', icon: '/images/ejes-tematicos/mujeres.png')
+MainTheme.create(name: 'Nuevo Plan Regulador', icon: '/images/ejes-tematicos/planificacionurbana.png')
+MainTheme.create(name: 'Salud Mental', icon: '/images/ejes-tematicos/salud-mental.png')
+MainTheme.create(name: 'Salud', icon: '/images/ejes-tematicos/salud.png')
+MainTheme.create(name: 'Seguridad', icon: '/images/ejes-tematicos/seguridad.png')
+MainTheme.create(name: 'Smart City', icon: '/images/ejes-tematicos/smartcity.png')
+MainTheme.create(name: 'Desarrollo Sostenible', icon: '/images/ejes-tematicos/sustentabilidad.png')
+MainTheme.create(name: 'Mejor Vivienda', icon: '/images/ejes-tematicos/vivienda.png')

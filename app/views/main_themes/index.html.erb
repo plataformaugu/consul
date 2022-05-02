@@ -1,0 +1,48 @@
+<% provide :title do %>Ejes Temáticos<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposals_url %>
+<% end %>
+
+<main>
+  <%= render "shared/section_header",
+      color: "#2f4ac6",
+      title: 'Ejes',
+      title2: 'Temáticos',
+      show_buildings: true
+  %>
+  <div class="row">
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Color 1</th>
+        <th>Color 2</th>
+        <th>Icono</th>
+        <th>Imagen</th>
+        <th>Imagen 2</th>
+        <th>Propuestas</th>
+        <th>Consultas</th>
+      </tr>
+      <% @main_themes.each do |theme| %>
+        <tr>
+          <td><%= theme.name %></td>
+          <td><%= theme.description %></td>
+          <td><%= theme.primary_color %></td>
+          <td><%= theme.secondary_color %></td>
+          <td><%= image_tag theme.icon, width: '50px' %></td>
+          <td><%= theme.image %></td>
+          <td><%= theme.extra_image %></td>
+          <td><%= theme.proposals.count %></td>
+          <td><%= theme.polls.count %></td>
+          <td><%= link_to 'Ver', theme %></td>
+          <td><%= link_to 'Editar', edit_main_theme_path(theme) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</main>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#236ad8', color2: '#2f4ac6' do %>
+    <% end %>
+</div>

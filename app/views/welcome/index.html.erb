@@ -15,24 +15,40 @@
 
 <main>
   <div class="home-proposals">
-    <div class="home-proposals-container">
-      <h1>Revisa las propuestas más activas</h1>
+    <div class="home-proposals-container" id="hot-proposals">
+      <h1>Revisa los procesos destacados</h1>
 
       <div class="home-proposals-cards">
         <div class="orbit" style="position: relative; z-index: 8000;" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
           <ul class="orbit-container">
           <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
           <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
-          <% Proposal.order(id: :desc).in_groups_of(2)[..2].each do |p_group| %>
+          <% Proposal.reorder(hot_score: :desc).in_groups_of(2)[..2].each do |p_group| %>
             <div class="is-active orbit-slide custom-orbit-slide">
             <% p_group.each do |p| %>
               <div class="home-proposals-card">
                 <div class="home-proposals-cards-header">
-                  <h3>Categoría</h3>
+                  <% if p.main_theme.present? %>
+                    <%= link_to p.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                      <div class="h-p-c-h-theme-container">
+                        <div><%= image_tag p.main_theme.icon %></div>
+                        <h3><%= p.main_theme.name %></h3>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <h3>
+                      Categoría
+                    </h3>
+                  <% end %>
                 </div>
+                
                 <% if p.image.present? %>
                   <div class="home-proposals-cards-image">
                     <%= image_tag p.image_url(:medium) %>
+                  </div>
+                <% elsif p.main_theme.present? %>
+                  <div class="home-proposals-cards-image">
+                    <%= image_tag p.main_theme.icon %>
                   </div>
                 <% else %>
                   <div class="home-proposals-cards-image">
@@ -69,6 +85,7 @@
       <h1>Paso a paso para participar</h1>
 
       <div class="home-steps-cards">
+        <%= link_to new_user_registration_path, style: 'text-decoration: none;' do %>
         <div class="home-steps-card-container-1 bg-color-1">
           <div class="home-steps-card color-1">
             <h1>1</h1>
@@ -76,6 +93,8 @@
             <div class="plus-button plus-btn-color-1"></div>
           </div>
         </div>
+        <% end %>
+        <%= link_to '/participar', style: 'text-decoration: none;' do %>
         <div class="home-steps-card-container-2 bg-color-2">
           <div class="home-steps-card color-2">
             <h1>2</h1>
@@ -83,6 +102,8 @@
             <div class="plus-button plus-btn-color-2"></div>
           </div>
         </div>
+        <% end %>
+        <%= link_to '#hot-proposals', style: 'text-decoration: none;' do %>
         <div class="home-steps-card-container-3 bg-color-3">
           <div class="home-steps-card color-3">
             <h1>3</h1>
@@ -90,6 +111,7 @@
             <div class="plus-button plus-btn-color-3"></div>
           </div>
         </div>
+        <% end %>
       </div>
     </div>
     <div class="separator">

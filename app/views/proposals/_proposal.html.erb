@@ -1,10 +1,25 @@
 <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
   <div class="custom-card-header">
-    <h3>Categoría</h3>
+    <% if proposal.main_theme.present? %>
+      <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+      <div class="c-c-h-theme-container">
+        <div><%= image_tag proposal.main_theme.icon %></div>
+        <h3><%= proposal.main_theme.name %></h3>
+      </div>
+      <% end %>
+    <% else %>
+      <h3>
+        Categoría
+      </h3>
+    <% end %>
   </div>
   <% if proposal.image.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.image_url(:medium) %>
+    </div>
+  <% elsif proposal.main_theme.present? %>
+    <div class="custom-card-image">
+      <%= image_tag proposal.main_theme.icon %>
     </div>
   <% else %>
     <div class="custom-card-image">

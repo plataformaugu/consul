@@ -14,54 +14,56 @@
         <strong>¡Tu ayuda es fundamental!</strong>
     </p>
     <div class="cards-container mt-3">
-        <%= link_to 'https://www.leylobby.gob.cl/instituciones/MU135', target: "_blank", style: 'flex-basis: 45%;' do %>
-        <div class="info-card">
+        <div class="info-card" style="flex-basis: 45%;">
             <div class="info-card-header" style="background-color: #7aa7de;">
                 <h3>Ley del Lobby</h3>
             </div>
             <div class="info-card-body">
                 <div style="display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center;">
-                    <%= image_tag "/images/icon-lobby-plataforma.svg" %>
-                    <%= image_tag "/images/historico-lobby.svg" %>
+                    <%= link_to 'https://www.leylobby.gob.cl/instituciones/MU135', target: "_blank" do %>
+                        <%= image_tag "/images/icon-lobby-plataforma.svg" %>
+                    <% end %>
+                    <%= link_to 'https://leylobby.lascondes.cl/', target: "_blank"  do %>
+                        <%= image_tag "/images/historico-lobby.svg" %>
+                    <% end %>
                 </div>
             </div>
         </div>
-        <% end %>
 
-        <%= link_to 'https://www.lascondes.cl/atencion-vecino/portada.html', target: "_blank", style: 'flex-basis: 45%;' do %>
-        <div class="info-card">
+        <div class="info-card" style="flex-basis: 45%;">
             <div class="info-card-header" style="background-color: #7aa7de;">
                 <h3>Atención al vecino</h3>
             </div>
             <div class="info-card-body">
             </div>
         </div>
-        <% end %>
 
-        <%= link_to 'https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=MU135', target: "_blank", style: 'flex-basis: 45%;' do %>
-        <div class="info-card">
+        <div class="info-card" style="flex-basis: 45%;">
             <div class="info-card-header" style="background-color: #7aa7de;">
                 <h3>Ley de transparencia</h3>
             </div>
             <div class="info-card-body">
                 <div style="display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center;">
-                <%= image_tag "/images/icon-transparencia-activa.svg" %>
-                <%= image_tag "/images/icon-transparencia-solicita.svg" %>
+                    <%= link_to 'https://www.portaltransparencia.cl/PortalPdT/directorio-de-organismos-regulados/?org=MU135', target: "_blank" do %>
+                        <%= image_tag "/images/icon-transparencia-activa.svg" %>
+                    <% end %>
+                    <%= link_to 'https://www.portaltransparencia.cl/PortalPdT/ingreso-sai-v2?idOrg=575', target: "_blank" do %>
+                        <%= image_tag "/images/icon-transparencia-solicita.svg" %>
+                    <% end %>
                 </div>
             </div>
         </div>
-        <% end %>
 
-        <%= link_to '/equipo-territorial', target: "_blank", style: 'flex-basis: 45%;' do %>
-        <div class="info-card">
+        <div class="info-card" style="flex-basis: 45%;">
             <div class="info-card-header" style="background-color: #7aa7de;">
                 <h3>Equipo territorial</h3>
             </div>
             <div class="info-card-body">
-                <%= image_tag "/images/i-equipo-territorial.svg" %>
+                <%= link_to '/equipo-territorial', target: "_blank" do %>
+                    <%= image_tag "/images/i-equipo-territorial.svg" %>
+                <% end %>
             </div>
         </div>
-        <% end %>
     </div>
 </div>
 

@@ -55,7 +55,16 @@
 
   <div class="row">
     <div class="small-12 column">
-      <%= render SDG::RelatedListSelectorComponent.new(f) %>
+      <div class="mt-2">
+        <%=
+          f.collection_select :main_theme_id,
+          MainTheme.all,
+          :id,
+          :name,
+          {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+          {class: 'custom-input', style: 'width: 100%;', required: true}
+        %>
+      </div>
     </div>
   </div>
 

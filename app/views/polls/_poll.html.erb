@@ -1,10 +1,33 @@
 <div id="<%= dom_id(poll) %>" class="custom-card" data-type="poll">
   <div class="custom-card-header">
-    <h3>Categoría</h3>
+    <% if poll.main_theme.present? %>
+      <%= link_to poll.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+      <div class="c-c-h-theme-container">
+        <div><%= image_tag poll.main_theme.icon %></div>
+        <h3><%= poll.main_theme.name %></h3>
+      </div>
+      <% end %>
+    <% else %>
+      <h3>
+        Categoría
+      </h3>
+    <% end %>
   </div>
   <% if poll.image.present? %>
     <div class="custom-card-image">
       <%= image_tag poll.image_url(:medium) %>
+
+      <% if poll.expired? %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Consulta Finalizada</h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% elsif poll.main_theme.present? %>
+    <div class="custom-card-image">
+      <%= image_tag poll.main_theme.icon %>
 
       <% if poll.expired? %>
         <div class="custom-card-image-container-text">

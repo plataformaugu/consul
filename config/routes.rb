@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :main_themes, :path => 'ejes-tematicos'
   resources :events do
     collection do
       post :join_to_event

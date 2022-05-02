@@ -1,0 +1,52 @@
+<%= form_with(model: main_theme, local: true) do |form| %>
+  <% if main_theme.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(main_theme.errors.count, "error") %> prohibited this main_theme from being saved:</h2>
+
+      <ul>
+      <% main_theme.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :primary_color %>
+    <%= form.text_field :primary_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :secondary_color %>
+    <%= form.text_field :secondary_color %>
+  </div>
+
+  <div class="field">
+    <%= form.label :icon %>
+    <%= form.text_field :icon %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.text_field :image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :extra_image %>
+    <%= form.text_field :extra_image %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,160 @@
+<% provide :title do %><%= @main_theme.name %><% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposals_url %>
+<% end %>
+
+<main>
+  <%= render "shared/section_header",
+      color: @main_theme.primary_color.present? ? @main_theme.primary_color : "#2f4ac6",
+      title: @main_theme.name,
+      show_buildings: true
+  %>
+  <div class="row main-themes-container">
+    <div class="small-12 column">
+      <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', proposals_path %>
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% unless @main_theme.proposals.any? %>
+            No hay ninguna propuesta.
+          <% end %>
+          <% @main_theme.proposals.order(created_at: :desc)[..2].each do |proposal| %>
+            <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
+              <div class="custom-card-header">
+                <% if proposal.main_theme.present? %>
+                  <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                  <div class="c-c-h-theme-container">
+                    <div><%= image_tag proposal.main_theme.icon %></div>
+                    <h3><%= proposal.main_theme.name %></h3>
+                  </div>
+                  <% end %>
+                <% else %>
+                  <h3>
+                    Categoría
+                  </h3>
+                <% end %>
+              </div>
+              <% if proposal.image.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.image_url(:medium) %>
+                </div>
+              <% elsif proposal.main_theme.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.main_theme.icon %>
+                </div>
+              <% else %>
+                <div class="custom-card-image">
+                  <%= image_tag 'https://picsum.photos/500' %>
+                </div>
+              <% end %>
+              <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                <div>
+                  <h3><%= proposal.title %></h3>
+                </div>
+                <div class="custom-card-content-footer">
+                  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <span>Votos</span><strong><%= proposal.total_votes %></strong>
+                  </div>
+                  <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="small-12 column mt-4">
+      <h1>Últimas consultas</h1><%= link_to 'Ver Todas', polls_path %>
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% unless @main_theme.polls.any? %>
+            No hay ninguna consulta.
+          <% end %>
+          <% @main_theme.polls.order(created_at: :desc)[..2].each do |poll| %>
+            <div id="<%= dom_id(poll) %>" class="custom-card" data-type="poll">
+              <div class="custom-card-header">
+                <% if poll.main_theme.present? %>
+                  <%= link_to poll.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                  <div class="c-c-h-theme-container">
+                    <div><%= image_tag poll.main_theme.icon %></div>
+                    <h3><%= poll.main_theme.name %></h3>
+                  </div>
+                  <% end %>
+                <% else %>
+                  <h3>
+                    Categoría
+                  </h3>
+                <% end %>
+              </div>
+              <% if poll.image.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag poll.image_url(:medium) %>
+
+                  <% if poll.expired? %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Consulta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% elsif poll.main_theme.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag poll.main_theme.icon %>
+
+                  <% if poll.expired? %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Consulta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="custom-card-image">
+                  <%= image_tag 'https://picsum.photos/500' %>
+                  <% if poll.expired? %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Consulta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="custom-card-content" style="<%= poll.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                <div>
+                  <h3><%= poll.title %></h3>
+                </div>
+                <div class="custom-card-content-footer">
+                  <div class="c-c-c-supports-container">
+                    <div>
+                      <span>Días para cerrar la votación</span>
+                      <strong>
+                        <% if poll.current? %>
+                          <%= (poll.ends_at.to_date - Time.now.to_date).to_i >= 0 ? (poll.ends_at.to_date - Time.now.to_date).to_i : 0 %></strong>
+                        <% else %>
+                          0
+                        <% end %>
+                      </strong>
+                    </div>
+                    <div>
+                      <span>Han votado</span>
+                      <strong><%= poll.voters.count %></strong>
+                    </div>
+                  </div>
+                    
+                  <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: @main_theme.primary_color.present? ? @main_theme.primary_color : '#236ad8', color2: @main_theme.secondary_color.present? ? @main_theme.secondary_color : '#2f4ac6' do %>
+    <% end %>
+</div>

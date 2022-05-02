@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_000411) do
+ActiveRecord::Schema.define(version: 2022_05_02_014329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -938,6 +938,18 @@ ActiveRecord::Schema.define(version: 2022_02_14_000411) do
     t.index ["user_id"], name: "index_machine_learning_jobs_on_user_id"
   end
 
+  create_table "main_themes", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "primary_color"
+    t.string "secondary_color"
+    t.string "icon"
+    t.string "image"
+    t.string "extra_image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "managers", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.index ["user_id"], name: "index_managers_on_user_id"
@@ -1253,8 +1265,10 @@ ActiveRecord::Schema.define(version: 2022_02_14_000411) do
     t.integer "related_id"
     t.tsvector "tsv"
     t.bigint "sector_id"
+    t.bigint "main_theme_id"
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
+    t.index ["main_theme_id"], name: "index_polls_on_main_theme_id"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
     t.index ["sector_id"], name: "index_polls_on_sector_id"
     t.index ["starts_at", "ends_at"], name: "index_polls_on_starts_at_and_ends_at"
@@ -1336,6 +1350,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_000411) do
     t.datetime "published_at"
     t.boolean "selected", default: false
     t.bigint "sector_id"
+    t.bigint "main_theme_id"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
@@ -1344,6 +1359,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_000411) do
     t.index ["geozone_id"], name: "index_proposals_on_geozone_id"
     t.index ["hidden_at"], name: "index_proposals_on_hidden_at"
     t.index ["hot_score"], name: "index_proposals_on_hot_score"
+    t.index ["main_theme_id"], name: "index_proposals_on_main_theme_id"
     t.index ["sector_id"], name: "index_proposals_on_sector_id"
     t.index ["selected"], name: "index_proposals_on_selected"
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
