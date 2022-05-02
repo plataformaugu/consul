@@ -6,7 +6,7 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
-      can [:index, :read, :create, :edit], MainTheme
+      can [:index, :read, :create, :edit, :update], MainTheme
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil
 

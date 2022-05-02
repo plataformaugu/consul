@@ -7,13 +7,15 @@
   <%= render "shared/section_header",
       color: @main_theme.primary_color.present? ? @main_theme.primary_color : "#2f4ac6",
       title: @main_theme.name,
+      section_image: @main_theme.image.present? ? @main_theme.image : nil,
+      image_style: @main_theme.name == 'Vida al Aire Libre' ? 'bottom: 10%;' : '',
       show_buildings: true
   %>
   <div class="row main-themes-container">
     <div class="small-12 column">
       <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', proposals_path %>
       <div class="custom-cards-container">
-        <div class="custom-cards">
+        <div class="custom-cards mt-1">
           <% unless @main_theme.proposals.any? %>
             No hay ninguna propuesta.
           <% end %>
@@ -65,7 +67,7 @@
     <div class="small-12 column mt-4">
       <h1>Últimas consultas</h1><%= link_to 'Ver Todas', polls_path %>
       <div class="custom-cards-container">
-        <div class="custom-cards">
+        <div class="custom-cards mt-1">
           <% unless @main_theme.polls.any? %>
             No hay ninguna consulta.
           <% end %>

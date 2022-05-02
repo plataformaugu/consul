@@ -13,6 +13,7 @@
     color: "#f25b86",
     section_image: "/images/h-consultas.svg",
     title: @poll.title,
+    pre_title: @poll.main_theme.present? ? @poll.main_theme.name : nil,
     show_buildings: true
 %>
 <div class="polls-show">

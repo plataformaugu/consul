@@ -22,7 +22,11 @@
       <p><%= description %></p>
     </div>
   <% else %>
-    <div class="full-help-header">
+    <div class="full-help-header" style="<%= defined?(pre_title) and !pre_title.nil? ? 'flex-direction: column; align-items: center; justify-content: start;' : '' %>">
+      <% if defined?(pre_title) and !pre_title.nil? %>
+        <h4><%= pre_title %></h4>
+      <% end %>
+
       <% if defined?(title) %>
         <h1><%= title %>
         <% if defined?(title2) %>
@@ -32,7 +36,7 @@
       <% end %>
     </div>
   <% end %>
-  <% if defined?(section_image) %>
+  <% if defined?(section_image) and !section_image.nil? %>
     <%= image_tag section_image, class: 'header-image desktop-only', style: defined?(image_style) ? image_style : '' %>
   <% end %>
   <% if defined?(show_buildings) %>

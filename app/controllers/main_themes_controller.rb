@@ -19,7 +19,11 @@ class MainThemesController < ApplicationController
 
   # GET /main_themes/new
   def new
-    @main_theme = MainTheme.new
+    if current_user and current_user.administrator?
+      @main_theme = MainTheme.new
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /main_themes/1/edit
@@ -28,28 +32,40 @@ class MainThemesController < ApplicationController
 
   # POST /main_themes
   def create
-    @main_theme = MainTheme.new(main_theme_params)
-
-    if @main_theme.save
-      redirect_to @main_theme, notice: 'Main theme was successfully created.'
+    if current_user and current_user.administrator?
+      @main_theme = MainTheme.new(main_theme_params)
+  
+      if @main_theme.save
+        redirect_to @main_theme, notice: 'Main theme was successfully created.'
+      else
+        render :new
+      end
     else
-      render :new
+      redirect_to root_path
     end
   end
 
   # PATCH/PUT /main_themes/1
   def update
-    if @main_theme.update(main_theme_params)
-      redirect_to @main_theme, notice: 'Main theme was successfully updated.'
+    if current_user and current_user.administrator?
+      if @main_theme.update(main_theme_params)
+        redirect_to @main_theme, notice: 'Main theme was successfully updated.'
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to root_path
     end
   end
 
   # DELETE /main_themes/1
   def destroy
-    @main_theme.destroy
-    redirect_to main_themes_url, notice: 'Main theme was successfully destroyed.'
+    if current_user and current_user.administrator?
+      @main_theme.destroy
+      redirect_to main_themes_url, notice: 'Main theme was successfully destroyed.'
+    else
+      redirect_to root_path
+    end
   end
 
   private

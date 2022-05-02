@@ -89,116 +89,152 @@
 
     <div class="themes">
       <div class="themes-row">
+        <%= link_to MainTheme.where('name LIKE ?', 'Salud').first, style: 'text-decoration: none;', target: '_blank' do %>
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Salud</div>
           <div class="circle alt-circle" style="left: -40%;"></div>
         </div>
+        <% end %>
 
+        <%= link_to MainTheme.where('name LIKE ?', 'Mejor Vivienda').first, style: 'text-decoration: none;', target: '_blank' do %>
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Mejor Vivienda</div>
           <div class="circle alt-circle"></div>
         </div>
+        <% end %>
 
+        <%= link_to MainTheme.where('name LIKE ?', 'Nuevo Plan Regulador').first, style: 'text-decoration: none;', target: '_blank' do %>
         <div class="main-theme">
           <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div>Nuevo Plan Regulador</div>
           <div class="circle alt-circle" style="left: 10%;"></div>
         </div>
+        <% end %>
       </div>
 
       <div class="themes-column-three">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Apoyo Social</div>
-          <%= image_tag "/images/t-apoyosocial.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Smart City</div>
-          <%= image_tag "/images/t-smartcity.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Salud Mental</div>
-          <%= image_tag "/images/t-saludmental.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Apoyo Social').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Apoyo Social</div>
+            <%= image_tag "/images/t-apoyosocial.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Smart City').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Smart City</div>
+            <%= image_tag "/images/t-smartcity.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Salud Mental').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Salud Mental</div>
+            <%= image_tag "/images/t-saludmental.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-2">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Emprendedores</div>
-          <%= image_tag "/images/t-emprendimiento.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Seguridad</div>
-          <%= image_tag "/images/t-seguridad.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Emprendedores').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Emprendedores</div>
+            <%= image_tag "/images/t-emprendimiento.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Seguridad').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Seguridad</div>
+            <%= image_tag "/images/t-seguridad.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-1">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Mujeres</div>
-          <%= image_tag "/images/t-mujeres.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Eventos</div>
-          <%= image_tag "/images/t-grandeseventos.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Mujeres').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Mujeres</div>
+            <%= image_tag "/images/t-mujeres.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Eventos').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Eventos</div>
+            <%= image_tag "/images/t-grandeseventos.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-2">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Adulto Mayor</div>
-          <%= image_tag "/images/t-adultomayor.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Ciclovías</div>
-          <%= image_tag "/images/t-ciclovia.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Adulto Mayor').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Adulto Mayor</div>
+            <%= image_tag "/images/t-adultomayor.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Ciclovías').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Ciclovías</div>
+            <%= image_tag "/images/t-ciclovia.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-1">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Jóvenes</div>
-          <%= image_tag "/images/t-jovenes.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Desarrollo Sostenible</div>
-          <%= image_tag "/images/t-sustentable.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Jóvenes').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Jóvenes</div>
+            <%= image_tag "/images/t-jovenes.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Desarrollo Sostenible').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Desarrollo Sostenible</div>
+            <%= image_tag "/images/t-sustentable.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-3">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Mascotas</div>
-          <%= image_tag "/images/t-mascotas.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Cultura y Recreación</div>
-          <%= image_tag "/images/t-cultura.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Mascotas').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Mascotas</div>
+            <%= image_tag "/images/t-mascotas.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Cultura y Recreación').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Cultura y Recreación</div>
+            <%= image_tag "/images/t-cultura.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
 
       <div class="themes-column-1">
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Educación</div>
-          <%= image_tag "/images/t-educacion.svg" %>
-          <div class="circle"></div>
-        </div>
-        <div class="main-theme">
-          <div class="title"><div class="plus-button-sm"></div>Vida al aire libre</div>
-          <%= image_tag "/images/t-parquesycerros.svg" %>
-          <div class="circle"></div>
-        </div>
+        <%= link_to MainTheme.where('name LIKE ?', 'Educación').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Educación</div>
+            <%= image_tag "/images/t-educacion.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%= link_to MainTheme.where('name LIKE ?', 'Vida al Aire Libre').first, style: 'text-decoration: none;', target: '_blank' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div>Vida al aire libre</div>
+            <%= image_tag "/images/t-parquesycerros.svg" %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,6 +1,17 @@
-<h1>Editing Main Theme</h1>
+<% provide :title do %><%= @main_theme.name %><% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposals_url %>
+<% end %>
 
-<%= render 'form', main_theme: @main_theme %>
-
-<%= link_to 'Show', @main_theme %> |
-<%= link_to 'Back', main_themes_path %>
+<main>
+  <%= render "shared/section_header",
+      color: @main_theme.primary_color.present? ? @main_theme.primary_color : "#2f4ac6",
+      title: @main_theme.name,
+      section_image: @main_theme.image.present? ? @main_theme.image : nil,
+      image_style: @main_theme.name == 'Vida al Aire Libre' ? 'bottom: 10%;' : '',
+      show_buildings: true
+  %>
+    <div class="row">
+        <%= render 'form', main_theme: @main_theme %>
+    </div>
+</main>

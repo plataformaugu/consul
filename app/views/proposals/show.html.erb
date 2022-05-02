@@ -24,6 +24,7 @@
       color: "#f6b617",
       section_image: "/images/propuestas-image.svg",
       title: @proposal.title,
+      pre_title: @proposal.main_theme.present? ? @proposal.main_theme.name : nil,
       show_buildings: true
     %>
     <div id="<%= dom_id(@proposal) %>" class="row">
