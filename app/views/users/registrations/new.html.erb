@@ -6,32 +6,22 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "shared/errors", resource: resource %>
 
-  <% result = result ? result : {} %>
-
-  <p>
-    <%= sanitize(t("devise_views.users.registrations.new.organization_signup",
-        signup_link: link_to(t("devise_views.users.registrations.new.organization_signup_link"), new_organization_registration_path))) %>
-  </p>
-
   <div class="row">
       <%= f.hidden_field :use_redeemable_code %>
       <%= f.hidden_field :locale, value: I18n.locale %>
-      <%= hidden_field_tag :check_location, result.count <= 1 %>
       <%= f.invisible_captcha :address %>
-
-      <%= f.hidden_field :username, 
-          autofocus: true,
-          maxlength: User.username_max_length,
-          value: (result[:correo] or '@').split('@').first or SecureRandom.uuid
-      %>
+      <%= f.hidden_field :username %>
+      <%= f.hidden_field :nationality %>
+      <%= f.hidden_field :profession %>
+      <%= f.hidden_field :civil_status %>
+      <%= f.hidden_field :date_of_birth %>
 
     <div class="row">
       <div class="small-12 medium-6 column">
         <%= f.text_field :document_number, 
             maxlength: 10,
-            value: (result[:rut_vecino] or resource.document_number or ''),
             label: 'RUT',
-            readonly: !(result[:rut_vecino] or '').empty?,
+            readonly: true,
             required: true,
             class: 'custom-input'
         %>
@@ -41,8 +31,7 @@
         <%= f.text_field :first_name, 
             maxlength: 24,
             label: 'Nombre',
-            value: (result[:nombre_vecino] or resource.first_name or '').titleize,
-            readonly: !(result[:nombre_vecino] or '').empty?,
+            readonly: true,
             required: true,
             class: 'custom-input'
         %>
@@ -55,8 +44,7 @@
         <%= f.text_field :last_name, 
             maxlength: 24,
             label: 'Apellido paterno',
-            value: (result[:apellido_paterno] or resource.last_name or '').titleize,
-            readonly: !(result[:apellido_paterno] or '').empty?,
+            readonly: true,
             required: true,
             class: 'custom-input'
         %>
@@ -66,8 +54,7 @@
         <%= f.text_field :maiden_name, 
             maxlength: 24,
             label: 'Apellido materno',
-            value: (result[:apellido_materno] or resource.maiden_name or '').titleize,
-            readonly: !(result[:apellido_materno] or '').empty?,
+            readonly: true,
             required: true,
             class: 'custom-input'
         %>
@@ -77,40 +64,46 @@
     <div class="row">
       <div class="small-12 medium-6 column">
         <%= f.email_field :email,
-          value: (result[:correo] or resource.email or '').downcase,
-          readonly: !(result[:correo] or '').empty?,
           required: true,
-            class: 'custom-input'
+          class: 'custom-input'
         %>
       </div>
 
       <div class="small-12 medium-6 column">
-        <%= f.date_field :date_of_birth, 
-            label: 'Fecha de nacimiento',
-            required: true,
-            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
+        <label for="email_verification">Validar email</label>
+        <%= email_field_tag 'email_verification',
+          nil,
+          class: 'custom-input',
+          required: true,
+          onpaste: 'return false;'
         %>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 medium-6 column">
-        <%= f.select :civil_status,
+        <%= f.select :gender,
             [
-              'Soltero/a',
-              'Casado/a',
-              'Viudo/a',
-              'Divorciado/a',
-              'Conviviente civil',
+              'Masculino',
+              'Femenino',
+              'Otro'
             ],
             {
               include_blank: 'Elija una opción',
-              label: 'Estado civil'
+              label: 'Género'
             },
             {
-              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
+              class: 'custom-input',
               required: true
             }
+        %>
+
+        <%= f.text_field :gender,
+          id: 'custom_gender',
+          style: 'display: none;',
+          class: 'custom-input',
+          placeholder: 'Ingresa tu género',
+          label: false
         %>
       </div>
 
@@ -124,7 +117,7 @@
               label: 'Teléfono de contacto',
               maxlength: 12,
               required: true,
-              class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input',
+              class: 'custom-input',
               label: false
           %>
         </div>
@@ -133,49 +126,6 @@
 
     <div class="row">
       <div class="small-12 medium-12 column">
-        <%= f.select :gender,
-            [
-              'Masculino',
-              'Femenino',
-              'Otro'
-            ],
-            {
-              include_blank: 'Elija una opción',
-              label: 'Género'
-            },
-            {
-              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
-              required: true
-            }
-        %>
-
-        <%= f.text_field :gender,
-          id: 'custom_gender',
-          style: 'display: none;',
-          placeholder: 'Ingresa tu género',
-          label: false
-        %>
-      </div>
-    </div>
-
-
-
-    <div class="row">
-      <div class="small-12 medium-6 column">
-        <%= f.select :nationality,
-            @countries.pluck('name').sort,
-            {
-              include_blank: 'Elija una opción',
-              label: 'Nacionalidad'
-            },
-            {
-              class: 'custom-input',
-              required: true
-            }
-        %>
-      </div>
-
-      <div class="small-12 medium-6 column">
         <%= f.select :comuna,
             @comunas.pluck('name'),
             {
@@ -195,8 +145,6 @@
         <%= f.text_field :street, 
             maxlength: 24,
             label: 'Calle',
-            value: (result[:calle] or resource.street or '').titleize,
-            readonly: !(result[:calle] or '').empty?,
             required: true,
             class: 'custom-input'
         %>
@@ -206,8 +154,6 @@
         <%= f.text_field :house_number, 
             maxlength: 24,
             label: 'Número',
-            value: result[:numero] ? result[:numero].to_i.to_s : (resource.house_number or ''),
-            readonly: !(result[:numero] or '').empty?,
             required: true,
             class: 'custom-input'
         %>
@@ -219,46 +165,13 @@
       <div class="small-12 medium-6 column">
         <%= f.text_field :house_apartment, 
             maxlength: 24,
-            label: 'Departamento',
-            value: (result[:depto] or resource.house_apartment or '').titleize,
-            readonly: !(result[:depto] or '').empty?,
+            label: 'Casa/Depto/Oficina',
             class: 'custom-input'
         %>
       </div>
 
+      
       <div class="small-12 medium-6 column">
-        <%= f.text_field :house_block, 
-            maxlength: 24,
-            label: 'Block',
-            value: (result[:block] or resource.house_block or '').titleize,
-            readonly: !(result[:block] or '').empty?,
-            class: 'custom-input'
-        %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 medium-6 column">
-        <%= f.text_field :profession, 
-            maxlength: 64,
-            label: 'Profesión',
-            required: true,
-            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
-        %>
-      </div>
-
-      <div class="small-12 medium-6 column">
-        <%= f.text_field :occupation, 
-            maxlength: 64,
-            label: 'Ocupación',
-            required: true,
-            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
-        %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 column">
         <%= f.select :prevision,
             [
               'Isapre',
@@ -272,7 +185,7 @@
               label: 'Previsión'
             },
             {
-              class: 'custom-input' + (result.count > 1 ? ' highlight_input' : ''),
+              class: 'custom-input',
               required: true
             }
         %>
@@ -282,7 +195,7 @@
           style: 'display: none;',
           placeholder: 'Ingresa tu previsión',
           label: false,
-          class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
+          class: 'custom-input'
         %>
       </div>
     </div>
@@ -295,7 +208,7 @@
             label: 'Nº de Hijos',
             value: 0,
             required: true,
-            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
+            class: 'custom-input'
         %>
       </div>
 
@@ -306,25 +219,7 @@
             label: 'Nº de Mascotas',
             value: 0,
             required: true,
-            class: result.count > 1 ? 'highlight_input custom-input' : 'custom-input'
-        %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 column">
-        <%= f.password_field :password, autocomplete: "off", min_length: 8, required: true, class: 'custom-input' %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 column">
-        <%= f.password_field :password_confirmation,
-          autocomplete: "off",
-          min_length: 8,
-          label: t("devise_views.users.registrations.new.password_confirmation_label"),
-          required: true,
-          class: 'custom-input'
+            class: 'custom-input'
         %>
       </div>
     </div>
@@ -370,6 +265,14 @@ $('#user_prevision').on('change', function() {
     $('#custom_prevision').val(this.value)
     $('#custom_prevision').css('display', 'none')
     $('#custom_prevision').attr('required', false)
+  }
+})
+
+$('#email_verification').on('keyup', function() {
+  if (this.value !== $('#user_email').val()) {
+    this.setCustomValidity('Los email no coinciden.')
+  } else {
+    this.setCustomValidity('')
   }
 })
 </script>

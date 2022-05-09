@@ -1,0 +1,10 @@
+<div class="c-u-box">
+    <h2>Ingresar</h2>
+    <%= form_with(url: accounts_login_path, method: 'post') do |f| %>
+    <div class="row mt-2 flex" style="justify-content: center;">
+        <button type="submit" class="solid-button s-b-clave-unica rounded-xl" style="display: flex; align-items: center;">
+            <%= image_tag '/images/clave-unica-icon.svg', style: 'width: 30px' %> Clave Única
+        </a>
+    </div>
+    <% end %>
+</div>

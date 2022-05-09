@@ -2,14 +2,14 @@
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="row">
-      <h3>Inicia sesión</h3>
+      <h3>Ingresar</h3>
 
       <div class="small-12 column">
         <%= f.text_field :login, autofocus: true, class: 'custom-input', placeholder: 'Email', label: false %>
       </div>
 
       <div class="small-12 column">
-        <%= f.password_field :password, autocomplete: "off", class: 'custom-input', placeholder: 'Clave', label: false %>
+        <%= f.hidden_field :password, autocomplete: "off", class: 'custom-input', placeholder: 'Clave', label: false, value: '12345678' %>
       </div>
 
       <% if devise_mapping.rememberable? -%>

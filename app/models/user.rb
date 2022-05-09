@@ -440,7 +440,7 @@ class User < ApplicationRecord
     end
 
     def set_username
-      self.username = "#{self.first_name.gsub(' ', '')}#{self.last_name[0..1]}#{self.maiden_name[0..1]}#{self.document_number[0..4]}".downcase.parameterize.gsub(' ', '')
+      self.username = "#{self.first_name.gsub(' ', '')}#{self.last_name}#{self.document_number[0..4]}".downcase.parameterize.gsub(' ', '')
       self.save!
     end
 

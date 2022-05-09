@@ -57,4 +57,6 @@ Rails.application.routes.draw do
   resources :pages do
     post 'send_contact_form', :on => :collection
   end
+
+  post 'accounts/login' => 'users#login'
 end

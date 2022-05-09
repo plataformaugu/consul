@@ -3223,6 +3223,16 @@ main {
     }
 }
 
+.s-b-clave-unica {
+    background-color: #0F69C4;
+    padding: 10px 25px;
+    font-size: 1.2em;
+
+    &:hover {
+        background-color: darken(#0F69C4, 10%);
+    }
+}
+
 .custom-icon-message {
     display: flex;
     flex-direction: row;
@@ -3617,7 +3627,6 @@ main {
     justify-content: center;
     align-items: center;
     align-items: flex-start;
-    padding-bottom: 400px;
 
     .banner-cloud-1 {
         top: 10%;
@@ -3627,16 +3636,19 @@ main {
     }
 
     .custom-auth-content {
-        margin-top: 160px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        z-index: 9000;
+        justify-content: center;
+        z-index: 1000;
+        width: 100%;
+        margin-top: 200px;
+        margin-bottom: 100px;
 
         .custom-auth-box {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 50px;
-            width: 70%;
+            min-width: 40%;
             color: #797b7e !important;
             border-radius: 40px;
 
@@ -3735,5 +3747,37 @@ main {
 .main-themes-container {
     h1 {
         color: #7b7a7f !important;
+    }
+}
+
+.clave-unica-button {
+    background-color: #0F69C4;
+
+    &:hover {
+        background-color: darken(#0F69C4, 0.2) !important;
+    }
+}
+
+.clave-unica-container {
+    background-color: #568ade;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .c-u-box {
+        z-index: 500;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 50px;
+        width: 30%;
+        color: #797b7e !important;
+        border-radius: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media (max-width: 1200px) {
+            width: 95%;
+        }
     }
 }

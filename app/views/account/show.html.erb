@@ -39,14 +39,16 @@
           <% end %>
         </p>
         <% end %>
-        <% unless current_user.street.nil? %>
-          <% if current_user.comuna.downcase.include?('condes') %>
-            <p>
-              <label><strong>
-                Sector de la comuna
-              </strong></label>
-              <%= current_user.sector.name %>
-            </p>
+        <% if current_user.sector.present? %>
+          <% unless current_user.street.nil? %>
+            <% if current_user.comuna.downcase.include?('condes') %>
+              <p>
+                <label><strong>
+                  Sector de la comuna
+                </strong></label>
+                  <%= current_user.sector.name %>
+              </p>
+            <% end %>
           <% end %>
         <% end %>
       </div>

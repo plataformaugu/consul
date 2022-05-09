@@ -5,66 +5,89 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup]
   before_action :configure_permitted_parameters
 
-  def check_rut
-  end
-
   def new
-    if params['action'] == 'new'
-      render :check_rut
-      return
-    else
-      super do |user|
-        user.use_redeemable_code = true if params[:use_redeemable_code].present?
+    if params['codigo'].present? and params['estado'].present?
+      response = validate_clave_unica_response
+
+      if response.nil?
+        flash[:alert] = "Ocurrió un error inesperado. Inténtalo más tarde."
+        redirect_to new_user_registration_path
+        return
       end
+
+      if response[:found_user].present?
+        if response[:found_user].deleted?
+          flash[:alert] = 'Tu cuenta ha sido eliminada. Si quieres recuperarla contacta con nosotros.'
+          redirect_to root_path
+          return
+        end
+
+        if response[:found_user].confirmed?
+          sign_in(:user, response[:found_user])
+          redirect_to root_path
+        else
+          flash[:notice] = "Para ingresar debes confirmar tu cuenta en el correo que te enviamos."
+          redirect_to root_path
+        end
+      else
+        born_data = registro_civil_request(response[:data]['rut'], 'certificado-nacimiento')
+        profession_data = registro_civil_request(response[:data]['rut'], 'informacion-profesion')
+        home_data = registro_civil_request(response[:data]['rut'], 'informacion-domicilio')
+
+        if born_data.nil? or profession_data.nil? or home_data.nil?
+          flash[:alert] = "Ocurrió un error inesperado. Inténtalo más tarde."
+          redirect_to new_user_registration_path
+          return
+        end
+
+        born_data = born_data['CertificadoNacimiento']
+        profession_data = profession_data['datosPersona']['datosProfesion']
+        home_data = home_data['datoPersona']
+
+        build_resource({
+          username: "#{response[:data]['nombre'].downcase[0]}#{response[:data]['apellido_paterno'].downcase}#{response[:data]['rut'][..4]}",
+          document_number: response[:data]['rut'],
+          first_name: response[:data]['nombre'],
+          last_name: response[:data]['apellido_paterno'],
+          maiden_name: response[:data]['apellido_materno'],
+          date_of_birth: Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d'),
+          civil_status: home_data['estadoCivil'],
+          nationality: born_data['nacionalidadNacimiento'].titleize,
+          profession: profession_data['tituloProfesional'] ? profession_data['tituloProfesional'].titleize : nil
+        })
+
+        @countries = get_countries
+        @comunas = get_comunas
+        render :new, locals: {temporal_resource: resource}
+      end
+    else
+      render :clave_unica
+      return
     end
   end
 
   def create
-    @countries = get_countries
-    @comunas = get_comunas
+    build_resource(sign_up_params)
+    resource.password = resource.username
 
-    if params[:type] == 'pre'
-      result = get_tarjeta_vecino_data(params[:document_number])
-
-      build_resource({})
-      if result == nil
-        resource.document_number = params['document_number']
-      end
-      render :new, locals: {result: result}
-      return
-    else
-      valid_location = true
-
+    if resource.valid?
       begin
-        if params['check_location'] == 'true' and sign_up_params[:comuna].downcase.include? 'condes'
-          url = URI("https://arcgislc.lascondes.cl/api/buscador/direccion/?calle=#{clear_street(sign_up_params[:street])}&numero=#{sign_up_params[:house_number]}&format=json")
-          response = Net::HTTP.get(url)
-          data = JSON.parse(response)
-          if data["mensaje"].downcase != 'ok'
-            valid_location = false
-          end
-        end
+        resource.save
       rescue
-        valid_location = true
-      rescue Exception
-        valid_location = true
+        flash[:alert] = 'Tu cuenta ha sido eliminada. Si quieres recuperarla contacta con nosotros.'
+        redirect_to root_path
+        return
       end
 
-      build_resource(sign_up_params)
-      if resource.valid? and valid_location
-        super
-      else
-        result = get_tarjeta_vecino_data(params['user']['document_number'])
-        if result == nil
-          result = {:rut_vecino => params['user']['document_number']}
-        end
+      render :success
+    end
+  end
 
-        unless valid_location
-          resource.errors.add(:street, 'dirección no encontrada en la comuna')
-        end
+  def search
+    if params['search'].present?
+      search = params['search']
 
-        render :new, locals: {result: result}
-      end
+      render json: ['hola', 'mundo']
     end
   end
 
@@ -115,14 +138,58 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+    def validate_clave_unica_response
+      @secret = '23bdf471bf3fab3a563bce73a3d1568d'
+      @code = params['codigo']
+      result = clave_unica_request
+      found_user = User.with_deleted.where(document_number: result['rut'].gsub(/[^0-9a-z ]/i, '')).first
+
+      return {
+        data: result,
+        found_user: found_user
+      }
+    end
+
+    def clave_unica_request
+      begin
+        uri = URI('https://claveunica.lascondes.cl/clave-unica/auth-info')
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+        request.body = {code: @code, secret: @secret}.to_json
+        response = https.request(request)
+        result = JSON.parse(response.body)
+        return result
+      rescue
+        return nil
+      end
+    end
+
+    def registro_civil_request(rut, type)
+      begin
+        uri = URI("https://bus-datos.lascondes.cl/api/srcei/#{type}/")
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+        request["Authorization"] = "Bearer A8Vq8HmOepf38i38i7D95RkF3kxhmeSOVlItK4rFim12tK4rFim12diVun3aHe9k9Ll0"
+        request.body = JSON.dump({
+          "rut": rut.split('-')[0],
+          "dv": rut.split('-')[1]
+        })
+        response = https.request(request)
+        result = JSON.parse(response.body)
+        return result
+      rescue
+        return nil
+      end
+    end
+
     def sign_up_params
       params[:user].delete(:redeemable_code) if params[:user].present? && params[:user][:redeemable_code].blank?
       params[:user].delete(:address) if params[:user].present? && params[:user][:address].blank?
       params.require(:user).permit(
         :document_number,
         :email,
-        :password,
-        :password_confirmation, 
         :terms_of_service, 
         :locale,
         :redeemable_code, 
@@ -134,7 +201,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :house_number,
         :username,
         :house_apartment,
-        :house_block,
         :comuna,
         :neighbordhood_unit,
         :date_of_birth,
@@ -143,7 +209,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :phone_number,
         :nationality,
         :profession,
-        :occupation,
         :prevision,
         :children_amount,
         :pets_amount
@@ -151,7 +216,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def user_sign_up_params
-      sign_up_params.merge username: "#{sign_up_params['first_name'].gsub(' ', '')}#{sign_up_params['last_name'][0..1]}#{sign_up_params['maiden_name'][0..1]}#{sign_up_params['document_number'][0..4]}".downcase.parameterize.gsub(' ', '')
+      sign_up_params.merge password: sign_up_params['username']
     end
 
     def configure_permitted_parameters
