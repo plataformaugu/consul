@@ -440,8 +440,12 @@ class User < ApplicationRecord
     end
 
     def set_username
-      self.username = "#{self.first_name.gsub(' ', '')}#{self.last_name}#{self.document_number[0..4]}".downcase.parameterize.gsub(' ', '')
-      self.save!
+      begin
+        self.username = "#{self.first_name.gsub(' ', '')}#{self.last_name}#{self.document_number[0..4]}".downcase.parameterize.gsub(' ', '')
+        self.save!
+      rescue NoMethodError
+        return
+      end
     end
 
     def set_street
