@@ -31,11 +31,8 @@
             Dirección
           </strong></label>
           <%= current_user.street.downcase.titleize %> #<%= current_user.house_number %>
-          <% unless current_user.house_apartment.empty? %>
-            - Depto <%= current_user.house_apartment %>
-          <% end %>
-          <% unless current_user.house_block.empty? %>
-            - Block <%= current_user.house_block %>
+          <% if current_user.house_apartment.present? and current_user.house_apartment != '' %>
+            - Casa/Depto/Oficina <%= current_user.house_apartment %>
           <% end %>
         </p>
         <% end %>
