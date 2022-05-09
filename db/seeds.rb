@@ -1,3 +1,19 @@
+if Administrator.count == 0 && !Rails.env.test?
+    admin = User.create!(username: "admin", email: "admin@consul.dev", password: "12345678",
+                         password_confirmation: "12345678", confirmed_at: Time.current,
+                         terms_of_service: "1")
+    admin.create_administrator
+end
+  
+Setting.reset_defaults
+load Rails.root.join("db", "web_sections.rb")
+
+# Default custom pages
+load Rails.root.join("db", "pages.rb")
+
+# Sustainable Development Goals
+load Rails.root.join("db", "sdg.rb")
+
 MainTheme.create(name: 'Adulto Mayor', icon: '/images/ejes-tematicos/adultomayor.png', image: '/images/t-adultomayor.svg')
 MainTheme.create(name: 'Vida al Aire Libre', icon: '/images/ejes-tematicos/airelibre.png', image: '/images/t-parquesycerros.svg')
 MainTheme.create(name: 'Apoyo Social', icon: '/images/ejes-tematicos/apoyo-social.png', image: '/images/t-apoyosocial.svg')
