@@ -925,6 +925,13 @@ body {
         height: auto;
     }
 
+    @media (min-width: 2000px) {
+        height: 900px;
+    }
+    @media (min-width: 2200px) {
+        height: 1000px;
+    }
+
     .back-buildings {
         position: absolute;
         bottom: 0;
@@ -941,6 +948,10 @@ body {
         transform: translateX(-50%);
         height: 400px;
         z-index: 100;
+
+        @media (min-width: 2000px) {
+            bottom: 10%;
+        }
     }
 
     .left-side-help-header {
@@ -1813,7 +1824,7 @@ body.admin {
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 1501px) {
+    @media (min-width: 1200px) {
         display: none;
     }
 
