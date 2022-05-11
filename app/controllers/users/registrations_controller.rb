@@ -70,10 +70,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.password = resource.username
 
+    if resource.comuna == 'Las Condes'
+      resource.sector = Sector.where(name: "C#{params['sector']}").first
+      has_tarjeta_vecino = get_tarjeta_vecino_data(resource.document_number)
+
+      if has_tarjeta_vecino.nil?
+        resource.has_tarjeta_vecino = false
+      else
+        resource.has_tarjeta_vecino = true
+      end
+    end
+
     if resource.valid?
       begin
         resource.save
-      rescue
+      rescue Exception => e
+        puts e.to_json
+        raise
         flash[:alert] = 'Tu cuenta ha sido eliminada. Si quieres recuperarla contacta con nosotros.'
         redirect_to root_path
         return
@@ -84,10 +97,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def search
-    if params['search'].present?
+    if params['search'].present? and params['search'] != ''
       search = params['search']
 
-      render json: ['hola', 'mundo']
+      uri = URI("https://bus-datos.lascondes.cl/api/maestros/direcciones/direccion-like")
+      https = Net::HTTP.new(uri.host, uri.port)
+      https.use_ssl = true
+      request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+      request["Authorization"] = "Bearer A8Vq8HmOepf38i38i7D95RkF3kxhmeSOVlItK4rFim12tK4rFim12diVun3aHe9k9Ll0"
+      request.body = JSON.dump({
+        "q": search,
+      })
+      response = https.request(request)
+      
+      if response.kind_of? Net::HTTPSuccess
+        render json: JSON.parse(response.body)['result']
+      else
+        render json: []
+      end
     end
   end
 
@@ -188,30 +215,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user].delete(:redeemable_code) if params[:user].present? && params[:user][:redeemable_code].blank?
       params[:user].delete(:address) if params[:user].present? && params[:user][:address].blank?
       params.require(:user).permit(
-        :document_number,
-        :email,
         :terms_of_service, 
-        :locale,
         :redeemable_code, 
         :use_redeemable_code,
+        :document_number,
+        :email,
+        :locale,
         :first_name,
         :last_name,
         :maiden_name,
-        :street,
+        :address,
         :house_number,
         :username,
-        :house_apartment,
+        :house_reference,
         :comuna,
-        :neighbordhood_unit,
         :date_of_birth,
         :civil_status,
         :gender,
         :phone_number,
         :nationality,
         :profession,
-        :prevision,
+        :education,
         :children_amount,
-        :pets_amount
+        :pets_amount,
+        :lat,
+        :long
       )
     end
 

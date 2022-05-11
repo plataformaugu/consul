@@ -7,14 +7,17 @@
   <%= render "shared/errors", resource: resource %>
 
   <div class="row">
-      <%= f.hidden_field :use_redeemable_code %>
-      <%= f.hidden_field :locale, value: I18n.locale %>
-      <%= f.invisible_captcha :address %>
-      <%= f.hidden_field :username %>
-      <%= f.hidden_field :nationality %>
-      <%= f.hidden_field :profession %>
-      <%= f.hidden_field :civil_status %>
-      <%= f.hidden_field :date_of_birth %>
+    <%= f.hidden_field :use_redeemable_code %>
+    <%= f.hidden_field :locale, value: I18n.locale %>
+    <%= f.hidden_field :username %>
+    <%= f.hidden_field :nationality %>
+    <%= f.hidden_field :profession %>
+    <%= f.hidden_field :civil_status %>
+    <%= f.hidden_field :date_of_birth %>
+    <%= f.hidden_field :lat %>
+    <%= f.hidden_field :long %>
+
+    <%= hidden_field_tag 'sector' %>
 
     <div class="row">
       <div class="small-12 medium-6 column">
@@ -75,7 +78,8 @@
           nil,
           class: 'custom-input',
           required: true,
-          onpaste: 'return false;'
+          onpaste: 'return false;',
+          autocomplete: 'off'
         %>
       </div>
     </div>
@@ -125,77 +129,59 @@
     </div>
 
     <div class="row">
-      <div class="small-12 medium-12 column">
-        <%= f.select :comuna,
-            @comunas.pluck('name'),
-            {
-              include_blank: 'Elija una opción',
-              label: 'Comuna'
-            },
-            {
-              class: 'custom-input',
-              required: true
-            }
-        %>
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="small-12 medium-10 column">
-        <%= f.text_field :street, 
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :comuna,
             maxlength: 24,
-            label: 'Calle',
+            label: 'Comuna',
             required: true,
             class: 'custom-input'
         %>
       </div>
-
-      <div class="small-12 medium-2 column">
-        <%= f.text_field :house_number, 
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :address, 
             maxlength: 24,
-            label: 'Número',
+            label: 'Dirección',
             required: true,
             class: 'custom-input'
         %>
       </div>
     </div>
-
 
     <div class="row">
       <div class="small-12 medium-6 column">
-        <%= f.text_field :house_apartment, 
+        <%= f.text_field :house_number, 
             maxlength: 24,
             label: 'Casa/Depto/Oficina',
             class: 'custom-input'
         %>
       </div>
 
-      
       <div class="small-12 medium-6 column">
-        <%= f.select :prevision,
+        <%= f.text_field :house_reference, 
+            maxlength: 128,
+            label: 'Aclaratoria',
+            class: 'custom-input'
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 column">
+        <%= f.select :education,
             [
-              'Isapre',
-              'Fonasa',
-              'Mutuales',
-              'FF.AA.',
-              'Otro'
+              'Enseñanza Básica',
+              'Enseñanza Media',
+              'Técnico',
+              'Profesional',
             ],
             {
               include_blank: 'Elija una opción',
-              label: 'Previsión'
+              label: 'Nivel Educacional'
             },
             {
               class: 'custom-input',
               required: true
             }
-        %>
-
-        <%= f.text_field :prevision,
-          id: 'custom_prevision',
-          style: 'display: none;',
-          placeholder: 'Ingresa tu previsión',
-          label: false,
-          class: 'custom-input'
         %>
       </div>
     </div>
@@ -243,36 +229,85 @@
 
 <%= render "devise/shared/links" %>
 
-<script>
-$('#user_gender').on('change', function() {
-  if (this.value == 'Otro') {
-    $('#custom_gender').val('')
-    $('#custom_gender').css('display', 'block')
-    $('#custom_gender').attr('required', true)
-  } else {
-    $('#custom_gender').val(this.value)
-    $('#custom_gender').css('display', 'none')
-    $('#custom_gender').attr('required', false)
-  }
-})
+<%= javascript_tag do %>
+  $(document).ready(function () {
+    $('#user_gender').on('change', function() {
+      if (this.value == 'Otro') {
+        $('#custom_gender').val('')
+        $('#custom_gender').css('display', 'block')
+        $('#custom_gender').attr('required', true)
+      } else {
+        $('#custom_gender').val(this.value)
+        $('#custom_gender').css('display', 'none')
+        $('#custom_gender').attr('required', false)
+      }
+    })
 
-$('#user_prevision').on('change', function() {
-  if (this.value == 'Otro') {
-    $('#custom_prevision').val('')
-    $('#custom_prevision').css('display', 'block')
-    $('#custom_prevision').attr('required', true)
-  } else {
-    $('#custom_prevision').val(this.value)
-    $('#custom_prevision').css('display', 'none')
-    $('#custom_prevision').attr('required', false)
-  }
-})
+    $('#email_verification').on('keyup', function() {
+      if (this.value !== $('#user_email').val()) {
+        this.setCustomValidity('Los email no coinciden.')
+      } else {
+        this.setCustomValidity('')
+      }
+    })
 
-$('#email_verification').on('keyup', function() {
-  if (this.value !== $('#user_email').val()) {
-    this.setCustomValidity('Los email no coinciden.')
-  } else {
-    this.setCustomValidity('')
-  }
-})
-</script>
+    $('#user_comuna').autocomplete({
+      source: <%= raw(@comunas.pluck('name')) %>,
+      change: function(event, ui) {
+        if (!ui.item) {
+          $('#user_comuna').val('')
+        }
+      }
+    })
+
+    $('#user_comuna').on('change', function() {
+      if (this.value === 'Las Condes') {
+        if ($('#user_address').val()) {
+          $('#user_address').val('')
+        }
+
+        $('#user_address').autocomplete({
+          source: function(request, response) {
+            $.ajax({
+              dataType: 'json',
+              type: 'get',
+              url: `<%= user_registrations_search_path %>?search=${request.term}`,
+              success: function(data) {
+                response(data.map(function(record) {
+                  return {
+                    label: record.nm_direccion,
+                    value: record.nm_direccion,
+                    sector: record.cod_unidadvecinal,
+                    lat: record.str_latitud,
+                    long: record.str_longitud
+                  }
+                }).slice(0, 10));
+              }
+            })
+          },
+          change: function(event, ui) {
+            if (!ui.item) {
+              $('#user_address').val('')
+              $('#sector').val('')
+              $('#user_lat').val('')
+              $('#user_long').val('')
+            } else {
+              $('#sector').val(ui.item.sector)
+              $('#user_lat').val(parseFloat(ui.item.lat.replace(',', '.')))
+              $('#user_long').val(parseFloat(ui.item.long.replace(',', '.')))
+            }
+          },
+          search: function(event, ui) {
+            var value = $('#user_address').val()
+
+            if (value.length < 5) {
+              event.preventDefault()
+            }
+          }
+        })
+      } else {
+        $('#user_address').autocomplete('destroy')
+      }
+    })
+  })
+<% end %>

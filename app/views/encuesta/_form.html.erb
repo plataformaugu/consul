@@ -1,0 +1,37 @@
+<%= form_with(model: encuestum, local: true) do |form| %>
+  <% if encuestum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(encuestum.errors.count, "error") %> prohibited this encuestum from being saved:</h2>
+
+      <ul>
+      <% encuestum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_field :name, label: 'Nombre', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :description, label: 'Descripción', class: 'custom-textarea', rows: 3 %>
+  </div>
+
+  <div class="field">
+    <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :code, label: 'Código HTML', rows: 7, class: 'custom-textarea' %>
+  </div>
+
+  <div class="actions">
+    <% if @encuestum.new_record? %>
+      <%= form.submit 'Agregar Encuesta' %>
+    <% else %>
+      <%= form.submit 'Editar Encuesta' %>
+    <% end %>
+  </div>
+<% end %>

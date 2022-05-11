@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_014329) do
+ActiveRecord::Schema.define(version: 2022_05_10_131938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -585,6 +585,15 @@ ActiveRecord::Schema.define(version: 2022_05_02_014329) do
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id"
     t.index ["user_id", "documentable_type", "documentable_id"], name: "access_documents"
     t.index ["user_id"], name: "index_documents_on_user_id"
+  end
+
+  create_table "encuesta", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "image"
+    t.text "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -1680,22 +1689,20 @@ ActiveRecord::Schema.define(version: 2022_05_02_014329) do
     t.string "first_name"
     t.string "last_name"
     t.string "maiden_name"
-    t.string "street"
     t.string "house_number"
-    t.string "house_apartment"
-    t.string "house_block"
     t.string "civil_status"
     t.string "profession"
-    t.string "occupation"
-    t.string "prevision"
     t.integer "children_amount"
     t.integer "pets_amount"
-    t.string "neighborhood_unit"
     t.string "nationality"
     t.string "comuna"
     t.decimal "lat", precision: 15, scale: 13
     t.decimal "long", precision: 15, scale: 13
     t.bigint "sector_id"
+    t.string "education"
+    t.boolean "has_tarjeta_vecino", default: false
+    t.string "house_reference"
+    t.string "address"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true

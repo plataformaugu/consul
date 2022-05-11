@@ -1,0 +1,24 @@
+<%= render "shared/section_header",
+    color: "#fe6b01",
+    section_image: "/images/h-encuestas.svg",
+    title: @encuestum.name,
+    description: @encuestum.description
+%>
+  <% if !current_user.nil? %>
+    <div class="row single-encuesta">
+      <%= @encuestum.code.html_safe %>
+    </div>
+  <% else %>
+    <div class="row">
+      <div class="text-center">
+        <h4>Debes ingresar con tu cuenta para participar en esta encuesta.</h4>
+        <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#e5965d', color2: '#fe6b01' do %>
+    <% end %>
+</div>

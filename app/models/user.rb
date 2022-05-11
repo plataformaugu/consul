@@ -5,8 +5,6 @@ class User < ApplicationRecord
   include GeoServices
 
   after_create :set_username
-  after_create :set_street
-  after_create :set_coordinates
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable, :password_expirable, :secure_validatable,
@@ -445,30 +443,6 @@ class User < ApplicationRecord
         self.save!
       rescue NoMethodError
         return
-      end
-    end
-
-    def set_street
-      self.street = street.downcase.gsub(/avenida|calle|av\.|psje\.|pasaje|pje.|pj.|ave./, '').squeeze(' ').strip.capitalize
-      self.save!
-    end
-
-    def set_coordinates
-      if self.comuna.downcase.include? 'condes'
-        url = URI("https://nominatim.openstreetmap.org/search.php?street=#{self.street}%2C+#{self.house_number}&city=Las+condes&country=Chile&format=jsonv2")
-        response = Net::HTTP.get(url)
-        data = JSON.parse(response)
-        if data.any?
-          begin
-            self.lat = data[0]['lat']
-            self.long = data[0]['lon']
-            self.save!
-            self.sector_id = Sector.find_by(name: get_sector(self.lat.to_f, self.long.to_f)).id
-            self.save!
-          rescue
-            puts '[Error] set_coordinates'
-          end
-        end
       end
     end
 end

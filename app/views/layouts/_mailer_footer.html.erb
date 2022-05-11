@@ -1,12 +1,71 @@
-<table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width:100%; margin-bottom: 40px; padding: 0 20px;">
+<table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width:100%; margin-bottom: 40px;">
   <tbody>
     <tr>
-      <td style="text-align: center; border-top: 1px solid #dadfe1; padding-top: 20px;">
-        <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; margin: 0;padding: 0;line-height: 1.5em;color: #797f7f; font-size: 12px;">
-        <%= setting["org_name"] %></p>
+      <td>
+        <div style="display: flex; flex-direction: column; font-family: 'Open Sans', 'Helvetica Neue', arial, sans-serif; background-color: #262626; padding: 25px; color: white; align-items: center; gap: 20px;">
+          <div style="display: flex; flex-direction: row; gap: 50px; align-items: center;">
+            <div>
+              <%= link_to root_url, target: '_blank' do %>
+                <%= image_tag "logo_lc.png", width: '150px' %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to events_url, target: '_blank', style: 'display: flex; flex-direction: row; align-items: center; gap: 10px; color: white; text-decoration: none;' do %>
+                <%= image_tag "icon_calendar.png", width: '32px' %> <span>Calendario de Eventos</span>
+              <% end %>
+            </div>
+          </div>
 
-        <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; margin: 0;padding: 0;line-height: 1.5em;color: #222; font-size: 10px; margin-top: 12px;">
-        <%= t("mailers.no_reply") %></p>
+          <div style="display: flex; flex-direction: row; gap: 20px;">
+            <% if setting["twitter_handle"] %>
+            <div>
+              <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
+                          title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
+                              <%= image_tag "icon_twitter.svg", width: '25px' %>
+              <% end %>
+            </div>
+            <% end %>
+            <% if setting["facebook_handle"] %>
+              <div>
+                <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
+                            title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
+                            <%= image_tag "icon_facebook.svg", width: '25px' %>
+                <% end %>
+              </div>
+            <% end %>
+            <% if setting["youtube_handle"] %>
+              <div>
+                <%=
+                  link_to "https://www.youtube.com/#{setting["youtube_handle"]}",
+                  target: "_blank",
+                  title: t("shared.go_to_page") + t("social.youtube",
+                  org: setting["org_name"]) + t("shared.target_blank") do %>
+                  <%= image_tag "icon_youtube.svg", width: '25px' %>
+                <% end %>
+              </div>
+            <% end %>
+            <% if setting["instagram_handle"] %>
+              <div>
+                <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
+                            title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
+                            <%= image_tag "icon_instagram.svg", width: '25px' %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
+            <%= link_to 'https://www.lascondes.cl/', target: '_blank' do %>
+              <%= image_tag "logo_lc_original.png", height: '40px' %>
+            <% end %>
+            <%= link_to 'https://www.lascondes.cl/seguridad/servicios/sosafe.html', target: '_blank' do %>
+              <%= image_tag "icon_sosafe.png", height: '40px' %>
+            <% end %>
+            <%= link_to 'https://www.lascondes.cl/seguridad/seguridad.html', target: '_blank' do %>
+              <%= image_tag "icon_sc.png", height: '40px' %>
+            <% end %>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>

@@ -5,6 +5,7 @@ module Abilities
     def initialize(user)
       merge Abilities::Everyone.new(user)
 
+      can [:index, :show], Encuestum
       can [:read, :update], User, id: user.id
       can [:index], Ckeditor::Picture
 

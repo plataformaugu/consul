@@ -1,10 +1,11 @@
 <%= render "shared/section_header",
     color: "#fe6b01",
     section_image: "/images/h-encuestas.svg",
-    title: 'Encuestas',
-    description: 'Las encuestas son procesos dinámicos que buscan conocer mejor tus sueños, expectativas y requerimientos'
+    title: 'Editar Encuesta'
 %>
 <div class="row">
+
+<%= render 'form', encuestum: @encuestum %>
 </div>
 
 <div class="general-footer-container">
