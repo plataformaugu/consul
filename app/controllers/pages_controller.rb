@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   def send_contact_form
     author = params['author']
     body = params['body']
-    Mailer.contact_form(author, body).deliver_later
+    Mailer.contact_form(body, author, 'contacto@ugu.cl').deliver_later
     flash[:notice] = "Formulario de contacto enviado."
     redirect_to help_path
   end
