@@ -1,0 +1,44 @@
+<% provide :title do %>Iniciativas ciudadanas<% end %>
+<% content_for :header_addon do %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposals_url %>
+<% end %>
+
+<main>
+  <%= render "shared/section_header",
+    color: "#3ba5df",
+    section_image: "/images/h-iniciativas.svg",
+    title: "Iniciativas",
+    title2: "Ciudadanas",
+    description: "En esta sección los usuarios pueden plantear sus iniciativas respecto a ciertos temas que se propongan desde la institución. Dichas iniciativas podrán ser apoyadas por el resto de los usuarios que lo estimen pertinente."
+  %>
+
+  <% if current_user and current_user.administrator? %>
+  <div class="section-header-container">
+    <a href="<%= new_proposal_path(is_initiative: true) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-iniciativa">
+      Crear Iniciativa
+    </a>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% if @proposals.any? || current_user.blank? %>
+            <%= render partial: "proposals/proposal", collection: @proposals %>
+          <% else %>
+            <%= empty_recommended_proposals_message_text(current_user) %>
+          <% end %>
+        </div>
+      </div>
+      <%= paginate @proposals %>
+    </div>
+  </div>
+  <div class="general-footer-container">
+      <%= render 'shared/waves_footer', color1: '#1171a3', color2: '#3ba5df' do %>
+      <% end %>
+  </div>
+</main>

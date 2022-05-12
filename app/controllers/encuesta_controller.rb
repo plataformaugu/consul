@@ -5,7 +5,7 @@ class EncuestaController < ApplicationController
 
   # GET /encuesta
   def index
-    @encuesta = Encuestum.all
+    @encuesta = Kaminari.paginate_array(Encuestum.all).page(params[:page])
   end
 
   # GET /encuesta/1
@@ -55,6 +55,6 @@ class EncuestaController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def encuestum_params
-      params.require(:encuestum).permit(:name, :description, :image, :code)
+      params.require(:encuestum).permit(:name, :description, :image, :code, :main_theme_id, :limit_date)
     end
 end

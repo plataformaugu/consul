@@ -1,72 +1,75 @@
-<table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width:100%; margin-bottom: 40px;">
-  <tbody>
-    <tr>
-      <td>
-        <div style="display: flex; flex-direction: column; font-family: 'Open Sans', 'Helvetica Neue', arial, sans-serif; background-color: #262626; padding: 25px; color: white; align-items: center; gap: 20px;">
-          <div style="display: flex; flex-direction: row; gap: 50px; align-items: center;">
-            <div>
+<table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Open Sans', 'Helvetica Neue', arial, sans-serif; background-color: #262626; padding: 25px; color: white; margin: 0 auto; max-width: 700px; width:100%;">
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width:100%; text-align: center;">
+        <tbody>
+          <tr>
+            <td width="50%">
               <%= link_to root_url, target: '_blank' do %>
                 <%= image_tag "logo_lc.png", width: '150px' %>
               <% end %>
-            </div>
-            <div>
+            </td>
+            <td width="50%">
               <%= link_to events_url, target: '_blank', style: 'display: flex; flex-direction: row; align-items: center; gap: 10px; color: white; text-decoration: none;' do %>
                 <%= image_tag "icon_calendar.png", width: '32px' %> <span>Calendario de Eventos</span>
               <% end %>
-            </div>
-          </div>
-
-          <div style="display: flex; flex-direction: row; gap: 20px;">
-            <% if setting["twitter_handle"] %>
-            <div>
-              <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
-                          title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
-                              <%= image_tag "icon_twitter.svg", width: '25px' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 400px; width: 100%; text-align: center;">
+        <tbody>
+          <tr>
+            <td>
+              <% if setting["twitter_handle"] %>
+                <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
+                            title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
+                                <%= image_tag "icon_twitter.svg", width: '25px', style: 'margin: 10px;' %>
+                <% end %>
               <% end %>
-            </div>
-            <% end %>
-            <% if setting["facebook_handle"] %>
-              <div>
+              <% if setting["facebook_handle"] %>
                 <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
-                            title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
-                            <%= image_tag "icon_facebook.svg", width: '25px' %>
+                            title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
+                            <%= image_tag "icon_facebook.svg", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
-              </div>
-            <% end %>
-            <% if setting["youtube_handle"] %>
-              <div>
-                <%=
-                  link_to "https://www.youtube.com/#{setting["youtube_handle"]}",
-                  target: "_blank",
-                  title: t("shared.go_to_page") + t("social.youtube",
-                  org: setting["org_name"]) + t("shared.target_blank") do %>
-                  <%= image_tag "icon_youtube.svg", width: '25px' %>
+              <% end %>
+              <% if setting["youtube_handle"] %>
+                <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
+                            title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
+                            <%= image_tag "icon_youtube.svg", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
-              </div>
-            <% end %>
-            <% if setting["instagram_handle"] %>
-              <div>
+              <% end %>
+              <% if setting["instagram_handle"] %>
                 <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
-                            title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
-                            <%= image_tag "icon_instagram.svg", width: '25px' %>
+                            title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
+                            <%= image_tag "icon_instagram.svg", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
-              </div>
-            <% end %>
-          </div>
-
-          <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%;">
-            <%= link_to 'https://www.lascondes.cl/', target: '_blank' do %>
-              <%= image_tag "logo_lc_original.png", height: '40px' %>
-            <% end %>
-            <%= link_to 'https://www.lascondes.cl/seguridad/servicios/sosafe.html', target: '_blank' do %>
-              <%= image_tag "icon_sosafe.png", height: '40px' %>
-            <% end %>
-            <%= link_to 'https://www.lascondes.cl/seguridad/seguridad.html', target: '_blank' do %>
-              <%= image_tag "icon_sc.png", height: '40px' %>
-            <% end %>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </tbody>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto; max-width: 700px; width: 100%; text-align: center;">
+        <tbody>
+          <tr>
+            <td width="33%">
+              <%= link_to 'https://www.lascondes.cl/', target: '_blank' do %>
+                <%= image_tag "logo_lc_original.png", height: '40px' %>
+              <% end %>
+            </td>
+            <td width="33%">
+              <%= link_to 'https://www.lascondes.cl/seguridad/servicios/sosafe.html', target: '_blank' do %>
+                <%= image_tag "icon_sosafe.png", height: '40px' %>
+              <% end %>
+            </td>
+            <td width="33%">
+              <%= link_to 'https://www.lascondes.cl/seguridad/seguridad.html', target: '_blank' do %>
+                <%= image_tag "icon_sc.png", height: '40px' %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
 </table>

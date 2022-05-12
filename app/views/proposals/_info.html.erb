@@ -1,7 +1,9 @@
 <div class="proposal-info">
+  <% if !@proposal.is_initiative %>
   <%= render "/shared/author_info", resource: @proposal %>
 
   <span class="bullet">&nbsp;&bull;&nbsp;</span>
+  <% end %>
   <%= l @proposal.created_at.to_date %>
 </div>
 
@@ -37,7 +39,7 @@
     </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="info-card">
-        <div class="info-card-header">
+        <div class="info-card-header" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df' : '' %>">
           <h1>Apoya</h1>
         </div>
         <div class="info-card-body">
@@ -62,11 +64,11 @@
         </div>
       <% end %>
       <% if @proposal.sectors.any? %>
-      <div class="custom-icon-message mt-3">
-        <div class="c-i-m-left">
+      <div class="custom-icon-message mt-3" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+        <div class="c-i-m-left" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
           !
         </div>
-        <div class="c-i-m-right">
+        <div class="c-i-m-right" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
           Esta consulta está habilitada sólo para <br>vecinos de la(s) unidad(es) vecinal(es):<br>
           <strong><%= @proposal.sectors.map{ |s| s.name }.join(', ') %>.</strong>
         </div>

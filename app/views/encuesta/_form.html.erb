@@ -1,37 +1,62 @@
-<%= form_with(model: encuestum, local: true) do |form| %>
-  <% if encuestum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(encuestum.errors.count, "error") %> prohibited this encuestum from being saved:</h2>
+<div class="row">
+  <%= form_with(model: encuestum, local: true) do |form| %>
+    <div class="small-12 column">
+      <div class="field">
+        <%=
+          form.datetime_local_field :limit_date,
+          required: true,
+          label: 'Fecha límite',
+          min: (Time.now + 15.minutes).strftime('%Y-%m-%dT%H:%M:00'),
+          class: 'custom-input'
+        %>
+      </div>
+    </div>
 
-      <ul>
-      <% encuestum.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="small-12 column">
+      <div class="field">
+        <%= form.text_field :name, label: 'Nombre', class: 'custom-input', required: true %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="field">
+        <%= form.text_area :description, label: 'Descripción', class: 'html-area', rows: 3, required: true %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="field">
+        <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="field">
+        <%= form.text_area :code, label: 'Código HTML', rows: 7, class: 'custom-textarea', required: true %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="field">
+        <%=
+          form.collection_select :main_theme_id,
+          MainTheme.all,
+          :id,
+          :name,
+          {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+          {class: 'custom-input', style: 'width: 100%;', required: true}
+        %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="actions mt-2" style="text-align: center;">
+        <% if @encuestum.new_record? %>
+          <%= form.submit 'Agregar', class: 'create-button' %>
+        <% else %>
+          <%= form.submit 'Editar', class: 'create-button' %>
+        <% end %>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.text_field :name, label: 'Nombre', class: 'custom-input' %>
-  </div>
-
-  <div class="field">
-    <%= form.text_area :description, label: 'Descripción', class: 'custom-textarea', rows: 3 %>
-  </div>
-
-  <div class="field">
-    <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
-  </div>
-
-  <div class="field">
-    <%= form.text_area :code, label: 'Código HTML', rows: 7, class: 'custom-textarea' %>
-  </div>
-
-  <div class="actions">
-    <% if @encuestum.new_record? %>
-      <%= form.submit 'Agregar Encuesta' %>
-    <% else %>
-      <%= form.submit 'Editar Encuesta' %>
-    <% end %>
-  </div>
-<% end %>
+</div>

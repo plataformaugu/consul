@@ -10,7 +10,7 @@ class ProposalsController < ApplicationController
   before_action :load_categories, only: [:index, :map, :summary]
   before_action :load_geozones, only: [:edit, :map, :summary]
   before_action :set_color
-  before_action :authenticate_user!, except: [:index, :show, :map, :summary]
+  before_action :authenticate_user!, except: [:index, :show, :map, :summary, :initiatives]
   before_action :destroy_map_location_association, only: :update
   before_action :set_view, only: :index
   before_action :proposals_recommendations, only: :index, if: :current_user
@@ -28,7 +28,12 @@ class ProposalsController < ApplicationController
 
   def index
     @proposals = Kaminari.paginate_array(
-      @proposals).page(params[:page])
+      @proposals.where(is_initiative: false)).page(params[:page])
+  end
+
+  def initiatives
+    @proposals = Kaminari.paginate_array(
+      @proposals.where(is_initiative: true)).page(params[:page])
   end
 
   def show
@@ -132,6 +137,7 @@ class ProposalsController < ApplicationController
     def proposal_params
       attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
                     :related_sdg_list,
+                    :is_initiative,
                     :main_theme_id,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,

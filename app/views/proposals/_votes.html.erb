@@ -8,36 +8,16 @@
       </div>
     <% elsif user_signed_in? && proposal.votable_by?(current_user) %>
       <%= link_to vote_url,
-          class: "solid-button",
+          class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button",
           title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do %>
         <%= t("proposals.proposal.support") %>
       <% end %>
     <% else %>
-      <a class="solid-button">
+      <a class="<%= proposal.is_initiative ? 'iniciativa-solid-button' : 'solid-button' %>">
         <%= t("proposals.proposal.support") %>
       </a>
     <% end %>
   </div>
-
-  <% if user_signed_in? && current_user.organization? %>
-    <div class="participation-not-allowed" style="display:none" aria-hidden="false">
-      <p>
-        <%= t("votes.organizations") %>
-      </p>
-    </div>
-  <% elsif user_signed_in? && !proposal.votable_by?(current_user) %>
-    <div tabindex="0">
-      <div class="participation-not-allowed" style="display:none" aria-hidden="false">
-        <p>
-          <%= sanitize(t("votes.verified_only", verify_account: link_to_verify_account)) %>
-        </p>
-      </div>
-    </div>
-  <% elsif !user_signed_in? %>
-    <div tabindex="0">
-      <%= render "shared/login_to_vote" %>
-    </div>
-  <% end %>
 
   <% if voted_for?(@proposal_votes, proposal) && setting["twitter_handle"] %>
     <div class="share-supported">

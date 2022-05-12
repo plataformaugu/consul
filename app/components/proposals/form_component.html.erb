@@ -1,12 +1,14 @@
 <%= translatable_form_for(proposal, url: url, html: { class: "proposal-form" }) do |f| %>
   <%= render "shared/errors", resource: proposal %>
+  <% @type_name = @is_initiative ? 'iniciativa' : 'propuesta' %>
 
   <fieldset class="required-fields">
     <% if current_page?(new_proposal_path) %>
-    <h2 class="mb-2">Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu propuesta.</h2>
+    <h2 class="mb-2">Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu <%= @type_name %>.</h2>
     <% end %>
 
     <%= render "shared/globalize_locales", resource: proposal %>
+    <%= f.hidden_field :is_initiative, value: @is_initiative %>
 
     <%= f.translatable_fields do |translations_form| %>
       <div>
@@ -14,6 +16,7 @@
               maxlength: Proposal.title_max_length,
               data: suggest_data(proposal),
               class: 'custom-input',
+              label: "Título de la #{@type_name}",
               placeholder: 'Frase corta que resume tu proyecto' %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
@@ -22,6 +25,7 @@
         <%= translations_form.text_area :summary,
                                         rows: 4, maxlength: 200,
                                         hint: t("proposals.form.proposal_summary_note"),
+                                        label: "Resumen de la #{@type_name}",
                                         class: 'custom-textarea',
                                         placeholder: 'Describe tu idea' %>
       </div>
@@ -29,6 +33,7 @@
       <div>
         <%= translations_form.text_area :description,
                                         maxlength: Proposal.description_max_length,
+                                        label: "Texto desarrollado de la #{@type_name}",
                                         class: "html-area" %>
       </div>
     <% end %>
@@ -59,7 +64,7 @@
         <div style="display: none;">
           <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
         </div>
-        <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta. Si no eliges alguno quedará abierta para todos los usuarios.' %>
+        <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}. Si no eliges alguno quedará abierta para todos los usuarios." %>
         <p class="help-text" id="tag-list-help-text">
           Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
         </p>
@@ -91,7 +96,7 @@
       </div>
     <% end %>
 
-    <%= f.submit(class: "create-button", value: 'Enviar') %>
+    <%= f.submit(class: "#{@is_initiative ? 'create-iniciativa' : 'create-button'}", value: 'Enviar') %>
   </div>
 <% end %>
 

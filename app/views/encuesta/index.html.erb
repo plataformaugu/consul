@@ -15,15 +15,47 @@
     <div class="custom-cards">
       <% @encuesta.each do |e| %>
         <div id="encuesta_<%= e.id %>" class="custom-card">
-            <div class="custom-card-image">
-              <%= image_tag e.image %>
-            </div>
+          <div class="custom-card-header">
+            <% if e.main_theme.present? %>
+              <%= link_to e.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+              <div class="c-c-h-theme-container">
+                <div><%= image_tag e.main_theme.icon %></div>
+                <h3><%= e.main_theme.name %></h3>
+              </div>
+              <% end %>
+            <% else %>
+              <h3>
+                Categoría
+              </h3>
+            <% end %>
+          </div>
+          <div class="custom-card-image">
+            <%= image_tag e.image %>
+
+            <% if e.limit_date < Time.now %>
+              <div class="custom-card-image-container-text">
+                <div class="custom-card-image-text">
+                  <h4>Encuesta Finalizada</h4>
+                </div>
+              </div>
+            <% end %>
+          </div>
           <div class="custom-card-content" style="height: 50%;">
             <div>
               <h3><%= e.name %></h3>
             </div>
             <div class="encuesta-card-footer">
-              <%= link_to 'Participar', e, class: 'button expanded large' %>
+              <div>
+                <span>Días para cerrar la votación</span>
+                <strong>
+                  <% if e.limit_date > Time.now %>
+                    <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
+                  <% else %>
+                    0
+                  <% end %>
+                </strong>
+              </div>
+              <%= link_to e.limit_date < Time.now ? 'Finalizada' : 'Participar', e.limit_date < Time.now ? '#' : e, class: 'button expanded large', disabled: e.limit_date < Time.now %>
               <% if current_user and current_user.administrator? %>
                 <%= link_to 'Editar', edit_encuestum_path(e), class: 'button expanded large' %>
                 <%= link_to 'Eliminar', e, method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta encuesta?' }, class: 'button expanded large' %>
@@ -34,6 +66,7 @@
       <% end %>
     </div>
   </div>
+  <%= paginate @encuesta %>
 </div>
 
 <div class="general-footer-container">

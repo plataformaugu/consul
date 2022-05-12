@@ -13,7 +13,7 @@
       <%= f.hidden_field :parent_id, value: parent_id, id: "comment_parent_id_#{css_id}" %>
       <%= f.hidden_field :valuation, value: valuation, id: "comment_valuation_#{css_id}" %>
 
-      <%= f.submit 'Comentar', class: "solid-button", style: 'background-color: #f8c22a;', id: "publish_comment_#{css_id}" %>
+      <%= f.submit 'Comentar', class: "solid-button", style: 'background-color: #343434;', id: "publish_comment_#{css_id}" %>
 
       <% if can? :comment_as_moderator, commentable %>
         <div class="float-right">

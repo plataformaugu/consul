@@ -157,6 +157,6 @@
 </main>
 
 <div class="general-footer-container">
-    <%= render 'shared/waves_footer', color1: @main_theme.primary_color.present? ? @main_theme.primary_color : '#236ad8', color2: @main_theme.secondary_color.present? ? @main_theme.secondary_color : '#2f4ac6' do %>
+    <%= render 'shared/waves_footer', color1: @main_theme.secondary_color.present? ? @main_theme.secondary_color : '#2f4ac6', color2: @main_theme.primary_color.present? ? @main_theme.primary_color : '#236ad8' do %>
     <% end %>
 </div>

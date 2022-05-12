@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_10_131938) do
+ActiveRecord::Schema.define(version: 2022_05_12_022455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -594,6 +594,9 @@ ActiveRecord::Schema.define(version: 2022_05_10_131938) do
     t.text "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "limit_date"
+    t.bigint "main_theme_id"
+    t.index ["main_theme_id"], name: "index_encuesta_on_main_theme_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -1360,6 +1363,7 @@ ActiveRecord::Schema.define(version: 2022_05_10_131938) do
     t.boolean "selected", default: false
     t.bigint "sector_id"
     t.bigint "main_theme_id"
+    t.boolean "is_initiative", default: false
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"

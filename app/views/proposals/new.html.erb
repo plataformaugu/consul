@@ -1,8 +1,9 @@
+<% @is_initiative = params['is_initiative'].present? and params['is_initiative'] %>
+
 <%= render "shared/section_header",
-    color: "#2fba8f",
-    section_image: "/images/propuestas-image.svg",
-    title: "Sube una propuesta",
-    title2: "y mejora tu comuna",
+    color: @is_initiative ? "#3ba5df" : "#2fba8f",
+    section_image: @is_initiative ? "/images/h-iniciativas.svg" : "/images/propuestas-image.svg",
+    title: "Sube una iniciativa",
     show_buildings: true
 %>
-<%= render Proposals::NewComponent.new(@proposal) %>
+<%= render Proposals::NewComponent.new(@proposal, (params['is_initiative'].present? && params['is_initiative'])) %>

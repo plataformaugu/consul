@@ -11,16 +11,16 @@
 
 <% cache [locale_and_user_status(@proposal), @proposal, @proposal.author, Flag.flagged?(current_user, @proposal), @proposal_votes] do %>
   <%= render "shared/section_header",
-    color: "#33cc9d",
-    section_image: "/images/propuestas-image.svg",
-    title: "Propuestas",
+    color: @proposal.is_initiative ? "#3ba5df" : "#33cc9d",
+    section_image: @proposal.is_initiative ? "/images/h-iniciativas.svg" : "/images/propuestas-image.svg",
+    title: @proposal.is_initiative ? "Iniciativas" : "Propuestas",
     title2: "Ciudadanas",
-    description: "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
+    description: @proposal.is_initiative ? "En esta sección los usuarios pueden plantear sus iniciativas respecto a ciertos temas que se propongan desde la institución. Dichas iniciativas podrán ser apoyadas por el resto de los usuarios que lo estimen pertinente." : "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
   %>  
-  <div id="<%= dom_id(@proposal) %>" class="row">
+  <div id="<%= dom_id(@proposal) %>" class="row mb-5">
     <div class="small-12 medium-8 column">
 
-      <h1><%= t("proposals.proposal.created") %></h1>
+      <h1>¡Has creado una <%= @proposal.is_initiative ? 'iniciativa' : 'propuesta' %>!</h1>
 
       <p>
         <span class="lead"><%= t("proposals.proposal.share.guide") %></span>
@@ -32,24 +32,13 @@
         description: @proposal.summary,
         mobile: @proposal.title %>
 
-      <% if can?(:dashboard, @proposal) %>
-        <div class="callout light margin">
-          <p class="text-center">
-            <strong><%= t("proposals.share.improve_it") %></strong>
-          </p>
-          <div class="small-12 medium-6 large-4 column small-centered">
-            <%= link_to t("proposals.share.dashboard"),
-                        progress_proposal_dashboard_path(@proposal), class: "button expanded" %>
-          </div>
-        </div>
-      <% end %>
     </div>
 
     <div class="small-12 medium-4 column">
       <div class="callout light">
         <p>
           <strong><%= @proposal.title %></strong><br>
-          <%= t("proposals.show.code") %> <%= @proposal.code %>
+          Código de la <%= @proposal.is_initiative ? 'iniciativa' : 'propuesta' %>: <%= @proposal.code %>
         </p>
       </div>
     </div>

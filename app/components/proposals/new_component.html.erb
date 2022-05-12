@@ -1,5 +1,5 @@
 <main class="proposal-new">
-
+  <% if !@is_initiative %>
   <aside>
     <h2><%= t("proposals.new.recommendations_title") %></h2>
 
@@ -9,6 +9,7 @@
       <li><%= t("proposals.new.recommendation_three") %></li>
     </ul>
   </aside>
+  <% end %>
 
-  <%= render Proposals::FormComponent.new(proposal, url: proposals_path) %>
+  <%= render Proposals::FormComponent.new(proposal, @is_initiative, url: proposals_path) %>
 </main>

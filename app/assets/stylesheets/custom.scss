@@ -3858,6 +3858,28 @@ main {
     }
 }
 
+.create-iniciativa {
+    @extend .create-button;
+    background-color: #3ba5df;
+
+    &:hover {
+        background: lighten(#3ba5df, 10%) !important;
+        color: white;
+        text-decoration: none;
+    }
+}
+
+.iniciativa-solid-button {
+    @extend .solid-button;
+
+    background-color: #3ba5df;
+
+    &:hover {
+        background-color: lighten(#3ba5df, 10%);
+    }
+    
+}
+
 .encuesta-card-footer {
     @extend .custom-card-content-footer;
 

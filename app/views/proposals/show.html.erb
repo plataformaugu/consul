@@ -20,13 +20,22 @@
           @proposal.followed_by?(current_user),
           @proposal_votes] do %>
   <div class="proposal-show">
-    <%= render "shared/section_header",
-      color: "#f6b617",
-      section_image: "/images/propuestas-image.svg",
-      title: @proposal.title,
-      pre_title: @proposal.main_theme.present? ? @proposal.main_theme.name : nil,
-      show_buildings: true
-    %>
+    <% if @proposal.main_theme.present? %>
+      <%= render "shared/section_header",
+        color: @proposal.main_theme.primary_color.present? ? @proposal.main_theme.primary_color : "#f6b617",
+        section_image: @proposal.main_theme.image,
+        title: @proposal.title,
+        pre_title: @proposal.main_theme.name,
+        show_buildings: true
+      %>
+    <% else %>
+      <%= render "shared/section_header",
+        color: "#f6b617",
+        section_image: "/images/propuestas-image.svg",
+        title: @proposal.title,
+        show_buildings: true
+      %>
+    <% end %>
     <div id="<%= dom_id(@proposal) %>" class="row">
       <div class="small-12 medium-12 column">
         <%= render "proposals/info", proposal: @proposal %>
@@ -57,7 +66,14 @@
   <%= render "milestones/milestones", milestoneable: @proposal %>
 </div>
 
-<div class="general-footer-container">
+<% if @proposal.main_theme.present? %>
+  <div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: @proposal.main_theme.secondary_color, color2: @proposal.main_theme.primary_color do %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="general-footer-container">
     <%= render 'shared/waves_footer', color1: '#fce57d', color2: '#f5b517' do %>
     <% end %>
-</div>
+  </div>
+<% end %>

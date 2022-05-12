@@ -16,6 +16,7 @@ module Abilities
 
       can [:read, :join_to_event, :left_event], Event
 
+      can :initiatives, Proposal
       can :read, Proposal
       can :update, Proposal do |proposal|
         proposal.editable_by?(user)

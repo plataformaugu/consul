@@ -1,24 +1,58 @@
+<% provide :title do %><%= @encuestum.name %><% end %>
 <%= render "shared/section_header",
-    color: "#fe6b01",
-    section_image: "/images/h-encuestas.svg",
+    color: @encuestum.main_theme.primary_color.present? ? @encuestum.main_theme.primary_color : "#fe6b01",
+    section_image: @encuestum.main_theme.image,
     title: @encuestum.name,
-    description: @encuestum.description
+    pre_title: @encuestum.main_theme.name,
+    show_buildings: true
 %>
-  <% if !current_user.nil? %>
-    <div class="row single-encuesta">
-      <%= @encuestum.code.html_safe %>
-    </div>
-  <% else %>
-    <div class="row">
-      <div class="text-center">
-        <h4>Debes ingresar con tu cuenta para participar en esta encuesta.</h4>
-        <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+
+<div class="row">
+  <div class="small-12 medium-12 column">
+    <small>Fecha límite: <strong><%= l @encuestum.limit_date.to_date %></strong></small>
+  </div>
+
+  <div class="small-12 medium-12 column">
+    <div class="proposal-content-container mt-1">
+      <div class="p-c-duo">
+        <div class="p-c-description">
+          <%= wysiwyg(@encuestum.description) %>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <div class="info-card">
+            <div class="info-card-header" style="background-color: #fe6b01;">
+              <h1>Responde</h1>
+            </div>
+            <div class="info-card-body" style="padding: 0;">
+              <% if !current_user.nil? and @encuestum.limit_date > Time.now %>
+                <%= @encuestum.code.html_safe %>
+              <% elsif @encuestum.limit_date < Time.now %>
+                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+                  <h4>Encuesta finalizada</h4>
+                </div>
+              <% else %>
+                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+                  <h4>Debes ingresar con tu cuenta para participar en esta encuesta.</h4>
+                  <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <% if @encuestum.image.present? %>
+            <div style="margin-top: 50px;">
+            <%= image_tag @encuestum.image %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  <% end %>
+  </div>
 </div>
 
 <div class="general-footer-container">
-    <%= render 'shared/waves_footer', color1: '#e5965d', color2: '#fe6b01' do %>
+    <%=
+      render 'shared/waves_footer',
+      color1: @encuestum.main_theme.primary_color,
+      color2: @encuestum.main_theme.secondary_color do %>
     <% end %>
 </div>
