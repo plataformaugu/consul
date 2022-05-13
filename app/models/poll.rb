@@ -80,6 +80,10 @@ class Poll < ApplicationRecord
     ends_at < timestamp
   end
 
+  def has_results?
+    return Report.where(process_type: 'Poll', process_id: id, results: true).exists?
+  end
+
   def recounts_confirmed?
     ends_at < 1.month.ago
   end
