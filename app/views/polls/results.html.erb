@@ -44,12 +44,10 @@
         <h1><%= @poll.voters.count %></h1>
     </div>
 
-    <% if @poll.sectors.any? %>
     <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
       <h3 class="custom-h">Votos por unidad vecinal</h3>
         <canvas id="votes-by-sector"></canvas>
     </div>
-    <% end %>
 
     <div class="small-12 medium-6 column mt-3" data-equalizer-watch>
       <h3 class="custom-h">Votos por género</h3>
@@ -169,7 +167,7 @@
       drawPieChart(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
     <% end %>
 
-    drawBarChart('votes-by-sector', <%= raw(@poll.voters.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.map{|p| p.user.sector.name}.tally.values) %>)
+    drawBarChart('votes-by-sector', <%= raw(@poll.voters.filter{|p| p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values) %>)
     drawDonutChart('votes-by-gender', <%= raw(@poll.voters.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.map{|p| p.user.gender}.tally.values) %>)
 
     
