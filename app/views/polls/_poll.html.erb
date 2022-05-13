@@ -71,7 +71,7 @@
         </div>
       </div>
         
-      <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
+      <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll.current? ? poll_path(poll.id) : results_poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
     </div>
   </div>
 </div>

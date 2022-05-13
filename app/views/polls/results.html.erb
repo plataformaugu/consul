@@ -1,69 +1,88 @@
 <% provide :title do %><%= @poll.name %><% end %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<%
+  @age_groups = {
+    '16 a 19' => [16, 19],
+    '20 a 24' => [20, 24],
+    '25 a 29' => [25, 29],
+    '30 a 34' => [30, 34],
+    '35 a 39' => [35, 39],
+    '40 a 44' => [40, 44],
+    '45 a 49' => [45, 49],
+    '50 a 54' => [50, 54],
+    '55 a 59' => [55, 59],
+    '60 a 64' => [60, 64],
+    '65 a 69' => [65, 69],
+    '70 a 74' => [70, 74],
+    '75 a 79' => [75, 79],
+    '80 a 84' => [80, 84],
+    '85 a 89' => [85, 89],
+    '90 a 150' => [90, 150]
+  }
+%>
+
+<% @age_groups_votes =  @age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h %>
 
 <%= render "shared/section_header",
-    color: "#f25b86",
-    section_image: "/images/h-consultas.svg",
+    color: "#c93358",
+    section_image: "/images/h-resultados.svg",
     title: @poll.title,
+    pre_title: @poll.main_theme.present? ? @poll.main_theme.name : nil,
     show_buildings: true
 %>
 <div class="polls-results-stats">
-  <%= render "poll_header" %>
-
-  <%= render "poll_subnav" %>
+  <div class="row">
+    <div class="small-12 medium-9 column padding" style="padding-top: 0;">
+      <h2 class="custom-h">Resultados</h2>
+    </div>
+  </div>
 
   <div class="row margin" data-equalizer data-equalize-on="medium">
-    <div class="small-12 medium-3 column sidebar" data-equalizer-watch>
-      <p><strong><%= t("polls.show.results.title") %></strong></p>
-      <ul class="menu vertical">
-        <%- @poll.questions.each do |question| %>
-          <li><%= link_to question.title, "##{question.title.parameterize}" %></li>
-        <% end %>
-      </ul>
+    <div class="small-12 medium-12 column" data-equalizer-watch>
+      <h3 class="custom-h">Cantidad de votos</h3>
+        <h1><%= @poll.voters.count %></h1>
     </div>
 
-    <div class="small-12 medium-9 column" data-equalizer-watch>
-      <%- @poll.questions.each do |question| %>
-        <% most_voted_answer_id = question.most_voted_answer_id %>
-        <h3 id="<%= question.title.parameterize %>"><%= question.title %></h3>
-        <table id="question_<%= question.id %>_results_table">
-          <thead>
-            <tr>
-              <%- question.question_answers.each do |answer| %>
-                <th scope="col" <%= answer.id == most_voted_answer_id ? "class=win" : "" %>>
-                  <% if answer.id == most_voted_answer_id %>
-                    <span class="show-for-sr"><%= t("polls.show.results.most_voted_answer") %></span>
-                  <% end %>
-                  <%= answer.title %>
-                </th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <%- question.question_answers.each do |answer| %>
-                <td id="answer_<%= answer.id %>_result" <%= answer.id == most_voted_answer_id ? "class=win" : "" %>>
-                  <%= answer.total_votes %>
-                  (<%= answer.total_votes_percentage.round(2) %>%)
-                </td>
-              <% end %>
-            </tr>
-          </tbody>
-        </table>
-        <div style="width: 100%; display: flex; justify-content: center;">
-          <div style="width: 250px;">
-            <canvas id="chart-<%= question.id %>"></canvas>
+    <% if @poll.sectors.any? %>
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
+      <h3 class="custom-h">Votos por unidad vecinal</h3>
+        <canvas id="votes-by-sector"></canvas>
+    </div>
+    <% end %>
+
+    <div class="small-12 medium-6 column mt-3" data-equalizer-watch>
+      <h3 class="custom-h">Votos por género</h3>
+        <canvas id="votes-by-gender"></canvas>
+    </div>
+
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
+      <h3 class="custom-h">Votos por rango etario</h3>
+        <canvas id="votes-by-age-group"></canvas>
+    </div>
+
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
+      <h3 class="custom-h">Resultados de la consulta</h3>
+
+      <div class="responsive-row">
+        <%- @poll.questions.each do |question| %>
+          <div>
+            <p class="text-gray text-center" id="<%= question.title.parameterize %>"><%= question.title %></p>
+            <div style="width: 100%; display: flex; justify-content: center;">
+              <div style="width: 250px;">
+                <canvas id="pie-chart-<%= question.id %>"></canvas>
+              </div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
 <% if current_page?(results_poll_path) %>
   <%= javascript_tag do %>
-    function drawGraphic(id, labels, votes) {
+    function drawPieChart(id, labels, votes) {
       var graphicData = {
         labels: labels,
         datasets: [{
@@ -84,13 +103,77 @@
       }
 
       var chart = new Chart(
-        document.getElementById('chart-' + id),
+        document.getElementById('pie-chart-' + id),
         graphicConfig
       )
     }
+
+    function drawBarChart(id, labels, votes) {
+      var graphicData = {
+        labels: labels,
+        datasets: [{
+          label: 'Votos',
+          data: votes,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      }
+      var graphicConfig = {
+        type: 'bar',
+        data: graphicData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      }
+      var chart = new Chart(
+        document.getElementById(id),
+        graphicConfig
+      )
+    }
+
+    function drawDonutChart(id, labels, votes) {
+      var graphicData = {
+        labels: labels,
+        datasets: [{
+          label: 'Donut Chart',
+          data: votes,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }]
+      }
+
+      var graphicConfig = {
+        type: 'doughnut',
+        data: graphicData
+      }
+
+      var chart = new Chart(
+        document.getElementById(id),
+        graphicConfig
+      )
+    }
+
     <% @poll.questions.each do |question| %>
-      drawGraphic(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
+      drawPieChart(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
     <% end %>
+
+    drawBarChart('votes-by-sector', <%= raw(@poll.voters.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.map{|p| p.user.sector.name}.tally.values) %>)
+    drawDonutChart('votes-by-gender', <%= raw(@poll.voters.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.map{|p| p.user.gender}.tally.values) %>)
+
+    
+    drawBarChart('votes-by-age-group', <%= raw(@age_groups_votes.tally.keys) %>, <%= raw(@age_groups_votes.tally.values) %>)
   <% end %>
 <% end %>
 

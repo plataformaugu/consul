@@ -3908,3 +3908,27 @@ main {
 .ui-helper-hidden-accessible {
     display: none !important;
 }
+
+.custom-h {
+    color: #727176 !important;
+    letter-spacing: -1px;
+}
+
+.text-gray {
+    color: #7b7a7f !important;
+}
+
+.responsive-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

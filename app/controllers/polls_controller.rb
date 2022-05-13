@@ -4,8 +4,8 @@ class PollsController < ApplicationController
 
   feature_flag :polls
 
-  before_action :load_poll, except: [:index]
-  before_action :load_active_poll, only: :index
+  before_action :load_poll, except: [:index, :results_index]
+  before_action :load_active_poll, only: [:index, :results_index]
 
   load_and_authorize_resource
 
@@ -15,6 +15,12 @@ class PollsController < ApplicationController
   def index
     @polls = Kaminari.paginate_array(
       @polls.created_by_admin.not_budget.includes(:geozones).sort_for_list(current_user)
+    ).page(params[:page])
+  end
+
+  def results_index
+    @polls = Kaminari.paginate_array(
+      @polls.created_by_admin.with_results.not_budget.includes(:geozones).sort_for_list(current_user)
     ).page(params[:page])
   end
 

@@ -35,14 +35,12 @@
         </p>
         <% end %>
         <% if current_user.sector.present? %>
-          <% if current_user.comuna.downcase.include?('condes') %>
-            <p>
-              <label><strong>
-                Sector de la comuna
-              </strong></label>
-                <%= current_user.sector.name %>
-            </p>
-          <% end %>
+          <p>
+            <label><strong>
+              Sector de la comuna
+            </strong></label>
+              <%= current_user.sector.name %>
+          </p>
         <% end %>
       </div>
     </div>
