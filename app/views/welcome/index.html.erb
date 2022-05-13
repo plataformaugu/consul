@@ -114,126 +114,130 @@
         <% end %>
       </div>
     </div>
-    <div class="separator">
+    <div class="separator" style="background-color: #2e4ac7; position: relative;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#2e4ac7" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+      <%= image_tag '/images/arbol-gris.svg', class: 'desktop-only', style: 'position: absolute; bottom: 0; left: 10%; height: 300px; mix-blend-mode: multiply;' %>
+      <%= image_tag '/images/arbusto-gris.svg', class: 'desktop-only', style: 'position: absolute; bottom: 0; left: 60%; width: 20%; mix-blend-mode: multiply;' %>
     </div>
   </div>
 
-  <div class="home-data" id="home-data">
-    <div class="h-d-container">
-      <h1>Datos relevantes de la comuna</h1>
-      <div class="h-d-cards">
+  <% if true == false %>
+    <div class="home-data" id="home-data">
+      <div class="h-d-container">
+        <h1>Datos relevantes de la comuna</h1>
+        <div class="h-d-cards">
 
-        <div class="h-d-card">
-          <div class="h-d-c-circle">
-            <h2 class="h-d-c-count">294000</h2>
-          </div>
-          <div class="h-d-c-text">
-            <h4>Habitantes <br><strong>de la comuna</strong></h4>
-          </div>
-        </div>
-
-        <div class="h-d-card">
-          <div class="h-d-c-circle">
-            <h2 class="h-d-c-count">99</h2>
-          </div>
-          <div class="h-d-c-text">
-            <h4>Km² <br><strong>Superficie</strong></h4>
-          </div>
-        </div>
-
-        <div class="h-d-card">
-          <div class="h-d-c-circle">
-            <h2 class="h-d-c-count">121</h2>
-          </div>
-          <div class="h-d-c-text">
-            <h4>Años creación <br><strong>de la comuna</strong></h4>
-          </div>
-        </div>
-
-        <div class="h-d-card">
-          <div class="h-d-c-circle">
-            <h2 class="h-d-c-count">8</h2>
-          </div>
-          <div class="h-d-c-text">
-            <h4>Plazas con <br><strong>Canil</strong></h4>
-          </div>
-        </div>
-  
-      </div>
-    </div>
-    <div class="separator">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#c93358" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
-    </div>
-  </div>
-
-  <div class="home-social">
-    <div class="h-s-container">
-      <div class="h-s-c-text">
-        <h1>¡Tu opinión nos interesa!</h1>
-        <p>Revisa lo que opinan nuestros vecinos</p>
-      </div>
-      <div class="h-s-c-cards">
-
-        <div>
-          <div class="h-s-c-card">
-            <div class="h-s-c-c-body">
-              Ahora el barrio es mucho más seguro!!
+          <div class="h-d-card">
+            <div class="h-d-c-circle">
+              <h2 class="h-d-c-count">294000</h2>
             </div>
-            <div class="h-s-c-c-footer">
-              <div>
-                <strong>Cata Perez</strong><br>
-                Vecina Unidad Vecinal B2
-              </div>
-              <div>
-                * * *
-              </div>
+            <div class="h-d-c-text">
+              <h4>Habitantes <br><strong>de la comuna</strong></h4>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div class="h-s-c-card">
-            <div class="h-s-c-c-body">
-              Nos deja muy contentos este arreglo que
-              hicieron en el parque al lado de nuestras
-              casa, asi con la iluminación nueva es
-              mucho mas seguro
+          <div class="h-d-card">
+            <div class="h-d-c-circle">
+              <h2 class="h-d-c-count">99</h2>
             </div>
-            <div class="h-s-c-c-footer">
-              <div>
-                <strong>Carolina Rodriguez</strong><br>
-                Vecina Unidad Vecinal C6
-              </div>
-              <div>
-                * * *
-              </div>
+            <div class="h-d-c-text">
+              <h4>Km² <br><strong>Superficie</strong></h4>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div class="h-s-c-card">
-            <div class="h-s-c-c-body">
-              Estoy orgullosa de haber propuesto esta
-              mejora en la comuna fue muy fácil de
-              hacerlo.
+          <div class="h-d-card">
+            <div class="h-d-c-circle">
+              <h2 class="h-d-c-count">121</h2>
             </div>
-            <div class="h-s-c-c-footer">
-              <div>
-                <strong>Alicia Vasquez</strong><br>
-                Vecina Unidad Vecinal A1
-              </div>
-              <div>
-                * * *
-              </div>
+            <div class="h-d-c-text">
+              <h4>Años creación <br><strong>de la comuna</strong></h4>
             </div>
           </div>
+
+          <div class="h-d-card">
+            <div class="h-d-c-circle">
+              <h2 class="h-d-c-count">8</h2>
+            </div>
+            <div class="h-d-c-text">
+              <h4>Plazas con <br><strong>Canil</strong></h4>
+            </div>
+          </div>
+    
         </div>
       </div>
+      <div class="separator">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#c93358" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+      </div>
     </div>
-    <%= image_tag "/images/joven-datos.svg", class: 'image-background' %>
-  </div>
+
+    <div class="home-social">
+      <div class="h-s-container">
+        <div class="h-s-c-text">
+          <h1>¡Tu opinión nos interesa!</h1>
+          <p>Revisa lo que opinan nuestros vecinos</p>
+        </div>
+        <div class="h-s-c-cards">
+
+          <div>
+            <div class="h-s-c-card">
+              <div class="h-s-c-c-body">
+                Ahora el barrio es mucho más seguro!!
+              </div>
+              <div class="h-s-c-c-footer">
+                <div>
+                  <strong>Cata Perez</strong><br>
+                  Vecina Unidad Vecinal B2
+                </div>
+                <div>
+                  * * *
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="h-s-c-card">
+              <div class="h-s-c-c-body">
+                Nos deja muy contentos este arreglo que
+                hicieron en el parque al lado de nuestras
+                casa, asi con la iluminación nueva es
+                mucho mas seguro
+              </div>
+              <div class="h-s-c-c-footer">
+                <div>
+                  <strong>Carolina Rodriguez</strong><br>
+                  Vecina Unidad Vecinal C6
+                </div>
+                <div>
+                  * * *
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="h-s-c-card">
+              <div class="h-s-c-c-body">
+                Estoy orgullosa de haber propuesto esta
+                mejora en la comuna fue muy fácil de
+                hacerlo.
+              </div>
+              <div class="h-s-c-c-footer">
+                <div>
+                  <strong>Alicia Vasquez</strong><br>
+                  Vecina Unidad Vecinal A1
+                </div>
+                <div>
+                  * * *
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= image_tag "/images/joven-datos.svg", class: 'image-background' %>
+    </div>
+  <% end %>
 </main>
 
 <script>

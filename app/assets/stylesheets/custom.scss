@@ -3625,6 +3625,17 @@ main {
         align-items: center;
         height: 300px;
 
+        .group-card {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            gap: 10px;
+
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
+        }
+
         img {
             max-height: 50%;
             max-width: 70%;

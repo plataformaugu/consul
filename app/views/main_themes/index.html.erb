@@ -22,6 +22,7 @@
         <th>Imagen 2</th>
         <th>Propuestas</th>
         <th>Consultas</th>
+        <th>Encuestas</th>
       </tr>
       <% @main_themes.each do |theme| %>
         <tr>
@@ -34,6 +35,7 @@
           <td><%= theme.extra_image %></td>
           <td><%= theme.proposals.count %></td>
           <td><%= theme.polls.count %></td>
+          <td><%= theme.encuestum.count %></td>
           <td><%= link_to 'Ver', theme %></td>
           <td><%= link_to 'Editar', edit_main_theme_path(theme) %></td>
         </tr>
