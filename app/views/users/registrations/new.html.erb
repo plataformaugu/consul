@@ -68,7 +68,8 @@
       <div class="small-12 medium-6 column">
         <%= f.email_field :email,
           required: true,
-          class: 'custom-input'
+          class: 'custom-input',
+          placeholder: 'ejemplo@correo.com'
         %>
       </div>
 
@@ -79,7 +80,8 @@
           class: 'custom-input',
           required: true,
           onpaste: 'return false;',
-          autocomplete: 'off'
+          autocomplete: 'off',
+          placeholder: 'Repite el email anterior'
         %>
         <span class="error-input-message" id="email-verification-message">
           El email no coincide
@@ -125,9 +127,11 @@
           <%= f.text_field :phone_number, 
               label: 'Teléfono de contacto',
               maxlength: 9,
+              minlength: 9,
               required: true,
               class: 'custom-input',
-              label: false
+              label: false,
+              placeholder: '912345678'
           %>
         </div>
       </div>
@@ -152,7 +156,8 @@
             maxlength: 24,
             label: 'Dirección',
             required: true,
-            class: 'custom-input'
+            class: 'custom-input',
+            placeholder: 'Calle 123'
         %>
       </div>
     </div>
@@ -167,7 +172,7 @@
             ],
             {
               include_blank: 'Elija una opción',
-              label: 'Tipo de dirección'
+              label: 'Casa/Depto/Oficina'
             },
             {
               class: 'custom-input',
@@ -176,20 +181,11 @@
       </div>
 
       <div class="small-12 medium-6 column">
-        <%= f.text_field :house_number, 
-            maxlength: 24,
-            label: 'Número de dirección',
-            class: 'custom-input'
-        %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 medium-12 column">
         <%= f.text_field :house_reference, 
             maxlength: 128,
             label: 'Aclaratoria',
-            class: 'custom-input'
+            class: 'custom-input',
+            placeholder: 'Nro. Depto. | Nro. Casa | Otra aclaración del lugar'
         %>
       </div>
     </div>

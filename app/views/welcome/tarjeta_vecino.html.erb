@@ -6,18 +6,29 @@
 %>
 <div class="row pfc-page">
   <div class="small-12 column">
-    <h2>Te invitamos a formar parte de nuestra comunidad y podrás participar de:</h2>
-    <ul>
-      <li>Consultas ciudadanas</li>
-      <li>Encuestas</li>
-      <li>Propuestas ciudadanas</li>
-      <li>Iniciativas municipales</li>
-      <li>Debates</li>
-      <li>Presupuestos participativos</li>
-    </ul>
+    <% if not @renewal %>
+      <h2>Te invitamos a formar parte de nuestra comunidad y podrás participar de:</h2>
+    <% else %>
+      <h2>Para que puedas participar de todos nuestros procesos te invitamos a renovar tu tarjeta</h2>
+    <% end %>
 
-    <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
-      <%= image_tag '/images/tv-button.png' %>
+    <% if not @renewal %>
+      <ul>
+        <li>Consultas ciudadanas</li>
+        <li>Encuestas</li>
+        <li>Propuestas ciudadanas</li>
+        <li>Iniciativas municipales</li>
+        <li>Debates</li>
+        <li>Presupuestos participativos</li>
+      </ul>
+
+      <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
+        <%= image_tag '/images/tv-button.png' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'https://app.tvlascondes.cl/login', target: '_blank' do %>
+        <%= image_tag '/images/tv-button.png' %>
+      <% end %>
     <% end %>
   </div>
 </div>

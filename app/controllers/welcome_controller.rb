@@ -24,10 +24,16 @@ class WelcomeController < ApplicationController
   end
 
   def tarjeta_vecino
-    if current_user and current_user.comuna == 'Las Condes' and current_user.has_tarjeta_vecino == false
-      tarjeta_vecino_data = get_tarjeta_vecino_data(current_user.document_number)
+    if current_user and current_user.comuna == 'Las Condes'
+      result = get_tarjeta_vecino_data(current_user.document_number)
 
-      if tarjeta_vecino_data.nil?
+      if result[:has_tarjeta_vecino] == false or (result[:has_tarjeta_vecino] and result[:is_tarjeta_vecino_active] == false)
+        @renewal = false
+
+        if result[:has_tarjeta_vecino] == false and result[:is_tarjeta_vecino_active]
+          @renewal = true
+        end
+
         render :tarjeta_vecino
       else
         redirect_to root_path

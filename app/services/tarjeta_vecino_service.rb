@@ -2,6 +2,12 @@ require 'savon'
 
 module TarjetaVecino
     def get_tarjeta_vecino_data(rut)
+        final_result = {
+            :has_tarjeta_vecino => false,
+            :is_tarjeta_vecino_active => false,
+            :data => {},
+        }
+
         begin
             client = Savon.client(
                 wsdl: 'https://www.lascondesonline.cl/web_service/Ws_DecomTarjeta/ConsultaVecino.asmx?wsdl',
@@ -23,19 +29,27 @@ module TarjetaVecino
             )
             result = response.body[:consulta_estado_tarjeta_response][:consulta_estado_tarjeta_result]
 
-            if result[:mensaje] == 'RUT NO REGISTRADO EN SISTEMA SOCIAL'
-                return nil
+            if result[:mensaje].nil?
+                final_result[:status] = true
+                final_result[:has_tarjeta_vecino] = true
+                final_result[:is_tarjeta_vecino_active] = true
+                final_result[:data] = result
+            elsif result[:mensaje].kind_of?(String)
+                if result[:mensaje].include? 'NO VIGENTE'
+                    final_result[:has_tarjeta_vecino] = true
+                    final_result[:is_tarjeta_vecino_active] = false
+                end
             end
 
-            return result
+            return final_result
         rescue Savon::Error => e
-            return nil
+            return final_result
         rescue Net::OpenTimeout => e
-            return nil
+            return final_result
         rescue
-            return nil
+            return final_result
         rescue Exception => e
-            return nil
+            return final_result
         end
     end 
 end

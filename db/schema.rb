@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_012624) do
+ActiveRecord::Schema.define(version: 2022_05_16_194928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1695,7 +1695,6 @@ ActiveRecord::Schema.define(version: 2022_05_16_012624) do
     t.string "first_name"
     t.string "last_name"
     t.string "maiden_name"
-    t.string "house_number"
     t.string "civil_status"
     t.string "profession"
     t.integer "children_amount"
@@ -1710,6 +1709,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_012624) do
     t.string "house_reference"
     t.string "address"
     t.string "house_type"
+    t.boolean "is_tarjeta_vecino_active", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
