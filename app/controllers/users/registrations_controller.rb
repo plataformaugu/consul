@@ -85,9 +85,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       begin
         resource.save
       rescue Exception => e
-        puts e.to_json
-        raise
-        flash[:alert] = 'Tu cuenta ha sido eliminada. Si quieres recuperarla contacta con nosotros.'
+        flash[:alert] = 'Ocurrió un error inesperado. Inténtalo más tarde o contacta con nosotros.'
         redirect_to root_path
         return
       end
@@ -160,7 +158,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def get_comunas
-    JSON.parse(File.read(File.join(File.dirname(__FILE__), 'comunas.json')))
+    comunas = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'comunas.json')))
+    comunas = comunas.pluck('name')
+    comunas.delete('Las Condes')
+    comunas.sort
+    comunas.insert(0, 'Las Condes')
+
+    return comunas
   end
 
   private
@@ -225,6 +229,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :last_name,
         :maiden_name,
         :address,
+        :house_type,
         :house_number,
         :username,
         :house_reference,

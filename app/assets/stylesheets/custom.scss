@@ -3943,3 +3943,14 @@ main {
         gap: 15px;
     }
 }
+
+.error-input {
+    border: 1px solid red !important;
+}
+
+.error-input-message {
+    margin-top: -15px;
+    display: none;
+    font-size: 0.8em;
+    color: red;
+}

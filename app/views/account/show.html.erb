@@ -29,8 +29,8 @@
             Dirección
           </strong></label>
           <%= current_user.address %>
-          <% if current_user.house_number.present? and current_user.house_number != '' %>
-            - Casa/Depto/Oficina: <%= current_user.house_number %>
+          <% if current_user.house_number.present? and current_user.house_number != '' and current_user.house_type.present? and current_user.house_type != '' %>
+            - <%= current_user.house_type %> <%= current_user.house_number %>
           <% end %>
         </p>
         <% end %>

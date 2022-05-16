@@ -81,6 +81,9 @@
           onpaste: 'return false;',
           autocomplete: 'off'
         %>
+        <span class="error-input-message" id="email-verification-message">
+          El email no coincide
+        </span>
       </div>
     </div>
 
@@ -107,6 +110,8 @@
           style: 'display: none;',
           class: 'custom-input',
           placeholder: 'Ingresa tu género',
+          onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+          maxlength: 20,
           label: false
         %>
       </div>
@@ -119,7 +124,7 @@
           </span>
           <%= f.text_field :phone_number, 
               label: 'Teléfono de contacto',
-              maxlength: 12,
+              maxlength: 9,
               required: true,
               class: 'custom-input',
               label: false
@@ -130,11 +135,16 @@
 
     <div class="row">
       <div class="small-12 medium-6 column">
-        <%= f.text_field :comuna,
-            maxlength: 24,
-            label: 'Comuna',
-            required: true,
-            class: 'custom-input'
+        <%= f.select :comuna,
+            ['Las Condes'] + @comunas.sort,
+            {
+              include_blank: 'Elija una opción',
+              label: 'Comuna'
+            },
+            {
+              class: 'custom-input',
+              required: true
+            }
         %>
       </div>
       <div class="small-12 medium-6 column">
@@ -149,14 +159,33 @@
 
     <div class="row">
       <div class="small-12 medium-6 column">
-        <%= f.text_field :house_number, 
-            maxlength: 24,
-            label: 'Casa/Depto/Oficina',
-            class: 'custom-input'
+        <%= f.select :house_type,
+            [
+              'Casa',
+              'Departamento',
+              'Oficina'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Tipo de dirección'
+            },
+            {
+              class: 'custom-input',
+            }
         %>
       </div>
 
       <div class="small-12 medium-6 column">
+        <%= f.text_field :house_number, 
+            maxlength: 24,
+            label: 'Número de dirección',
+            class: 'custom-input'
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 column">
         <%= f.text_field :house_reference, 
             maxlength: 128,
             label: 'Aclaratoria',
@@ -171,8 +200,10 @@
             [
               'Enseñanza Básica',
               'Enseñanza Media',
-              'Técnico',
+              'Técnico Profesional',
+              'Técnico Superior',
               'Profesional',
+              'Postgrado'
             ],
             {
               include_blank: 'Elija una opción',
@@ -231,6 +262,8 @@
 
 <%= javascript_tag do %>
   $(document).ready(function () {
+    $('a[href="/condiciones"]').attr('target', '_blank')
+
     $('#user_gender').on('change', function() {
       if (this.value == 'Otro') {
         $('#custom_gender').val('')
@@ -246,17 +279,12 @@
     $('#email_verification').on('keyup', function() {
       if (this.value !== $('#user_email').val()) {
         this.setCustomValidity('Los email no coinciden.')
+        $('#email_verification').addClass('error-input');
+        $('#email-verification-message').show();
       } else {
         this.setCustomValidity('')
-      }
-    })
-
-    $('#user_comuna').autocomplete({
-      source: <%= raw(@comunas.pluck('name')) %>,
-      change: function(event, ui) {
-        if (!ui.item) {
-          $('#user_comuna').val('')
-        }
+        $('#email_verification').removeClass('error-input');
+        $('#email-verification-message').hide();
       }
     })
 
@@ -287,7 +315,6 @@
           },
           change: function(event, ui) {
             if (!ui.item) {
-              $('#user_address').val('')
               $('#sector').val('')
               $('#user_lat').val('')
               $('#user_long').val('')
