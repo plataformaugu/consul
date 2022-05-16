@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_002557) do
+ActiveRecord::Schema.define(version: 2022_05_16_012624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -606,6 +606,8 @@ ActiveRecord::Schema.define(version: 2022_05_16_002557) do
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "main_theme_id"
+    t.index ["main_theme_id"], name: "index_events_on_main_theme_id"
   end
 
   create_table "events_users", id: false, force: :cascade do |t|

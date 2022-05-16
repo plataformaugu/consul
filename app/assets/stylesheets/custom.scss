@@ -566,8 +566,6 @@ header::after {
                             min-width: 160px;
                             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
                             z-index: 1;
-                            top: -50%;
-                            right: -150%;
                             border-radius: 15px;
                           }
 
@@ -3315,8 +3313,6 @@ main {
 
         .i-p-c-video-container {
             margin-top: 25px;
-            border-radius: 35px;
-            box-shadow: 0px 2px 13px -2px rgba(0,0,0,0.3);
             padding: 35px;
             position: relative;
             width: 100%;

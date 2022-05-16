@@ -23,7 +23,7 @@
     </div>
     <% events.first(2).each do |event| %>
       <%= link_to event, style: 'text-decoration: none;' do %>
-        <div class="custom-event">
+        <div class="custom-event" style="background-color: <%= event.main_theme.present? && event.main_theme.primary_color.present? ? event.main_theme.primary_color + '50' : '' %>;">
           <div class="plus-button-xsm"></div> <span><%= event.title %></span>
         </div>
       <% end %>

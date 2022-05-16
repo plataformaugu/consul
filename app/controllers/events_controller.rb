@@ -106,6 +106,6 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:title, :description, :start_time, :end_time)
+      params.require(:event).permit(:title, :description, :start_time, :end_time, :main_theme_id)
     end
 end

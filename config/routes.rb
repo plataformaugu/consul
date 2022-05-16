@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   draw :verification
 
   root "welcome#index"
+  get "/tarjeta-vecino", to: "welcome#tarjeta_vecino"
   get "/welcome", to: "welcome#welcome"
   get "/consul.json", to: "installation#details"
   get 'iniciativas' => 'proposals#initiatives'

@@ -1,4 +1,7 @@
+require_relative '../services/tarjeta_vecino_service'
+
 class WelcomeController < ApplicationController
+  include TarjetaVecino
   include RemotelyTranslatable
 
   skip_authorization_check
@@ -18,6 +21,20 @@ class WelcomeController < ApplicationController
 
   def welcome
     redirect_to root_path
+  end
+
+  def tarjeta_vecino
+    if current_user and current_user.comuna == 'Las Condes' and current_user.has_tarjeta_vecino == false
+      tarjeta_vecino_data = get_tarjeta_vecino_data(current_user.document_number)
+
+      if tarjeta_vecino_data.nil?
+        render :tarjeta_vecino
+      else
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   private

@@ -39,6 +39,17 @@
     %>
   </div>
 
+  <div class="field">
+    <%=
+      form.collection_select :main_theme_id,
+      MainTheme.all,
+      :id,
+      :name,
+      {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+      {class: 'custom-input', style: 'width: 100%;', required: true}
+    %>
+  </div>
+
   <div class="actions">
     <% if action == 'edit' %>
       <%= form.submit 'Editar' %>

@@ -16,7 +16,7 @@
                 <span class="bullet">&nbsp;&bull;&nbsp;</span>
                 Hora: <strong><%= event.start_time.strftime('%H:%M') %></strong> a <strong><%= event.end_time.strftime('%H:%M') %></strong>
               </p>
-              <p><%= event.description.truncate(198) %></p>
+              <p><%= strip_tags(event.description).truncate(198) %></p>
               <div class="truncate"></div>
             </div>
           </div>

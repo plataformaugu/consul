@@ -24,7 +24,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         if response[:found_user].confirmed?
           sign_in(:user, response[:found_user])
-          redirect_to root_path
+
+          if current_user.sign_in_count <= 1 and current_user.comuna == 'Las Condes' and current_user.has_tarjeta_vecino == false
+            redirect_to tarjeta_vecino_path
+          else
+            redirect_to root_path
+          end
         else
           flash[:notice] = "Para ingresar debes confirmar tu cuenta en el correo que te enviamos."
           redirect_to root_path
@@ -72,9 +77,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource.comuna == 'Las Condes'
       resource.sector = Sector.where(name: "C#{params['sector']}").first
-      has_tarjeta_vecino = get_tarjeta_vecino_data(resource.document_number)
+      tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
 
-      if has_tarjeta_vecino.nil?
+      if tarjeta_vecino_data.nil?
         resource.has_tarjeta_vecino = false
       else
         resource.has_tarjeta_vecino = true

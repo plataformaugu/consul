@@ -41,6 +41,10 @@
       <% end %>
     </div>
 
+    <div class="reveal" id="video-popup" data-reveal style="width: 680px">
+      <iframe title="vimeo-player" src="https://player.vimeo.com/video/708859849?h=66ff349f18" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+    </div>
+
     <div class="banner-slider-container">
       <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
         <ul class="orbit-container">
@@ -50,7 +54,9 @@
           <%= image_tag "/images/slider-1.svg" %>
         </div>
         <div class="orbit-slide">
-          <%= image_tag "/images/slider-3.png" %>
+          <%= link_to 'javascript:void(0)', data: {open: 'video-popup'} do %>
+            <%= image_tag "/images/slider-3.png" %>
+          <% end %>
         </div>
       </div>
 
