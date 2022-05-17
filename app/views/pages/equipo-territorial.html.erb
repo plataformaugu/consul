@@ -1,21 +1,237 @@
+<%
+  @unidades = {
+    'MT-01': {
+      :sectors => ['C-20', 'C-21', 'C-24', 'C-25'],
+      :persons => [
+        {
+          :name => 'Nicole Lagos',
+          :email => 'nlagosk@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Melanie Bonilla',
+          :email => 'mbonilla@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Hernan Rodrigo',
+          :email => 'hrodrigo@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    },
+    'MT-02': {
+      :sectors => ['C-1', 'C-2', 'C-10', 'C-18'],
+      :persons => [
+        {
+          :name => 'Cristopher Pardo',
+          :email => 'cpardo@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Jose Ignacio Reyes',
+          :email => 'jose.reyes@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Vicente Rojas',
+          :email => 'vicente.rojas@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    },
+    'MT-03': {
+      :sectors => ['C-3', 'C-4', 'C-5', 'C-6', 'C-7', 'C-8'],
+      :persons => [
+        {
+          :name => 'Cristopher Pardo',
+          :email => 'cpardo@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Francisca Pereira',
+          :email => 'fpereira@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Victor Arratia',
+          :email => 'varratia@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    },
+    'MT-04': {
+      :sectors => ['C-11', 'C-12', 'C-17', 'C-19'],
+      :persons => [
+        {
+          :name => 'Matias Camilo',
+          :email => 'mcamilo@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Samuel Rojas',
+          :email => 'srojas@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    },
+    'MT-05': {
+      :sectors => ['C-13', 'C-14', 'C-15', 'C-16'],
+      :persons => [
+        {
+          :name => 'Mauricio Araneda',
+          :email => 'maraneda@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Hugo Farias',
+          :email => 'hugo.farias@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Ignacio Sorano',
+          :email => 'isoriano@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    },
+    'MT-06': {
+      :sectors => ['C-9', 'C-22', 'C-23'],
+      :persons => [
+        {
+          :name => 'Rodrigo Gonzalez',
+          :email => 'ragonzalez@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Catalina Altamirano',
+          :email => 'caltamirano@lascondes.cl',
+          :photo => nil
+        },
+        {
+          :name => 'Danny Lagos',
+          :email => 'dlagos@lascondes.cl',
+          :photo => nil
+        }
+      ]
+    }
+  }
+%>
+
 <%= render "shared/section_header",
-    color: "#6195d6",
-    section_image: "/images/h-equipo-territorial.svg",
-    title: 'Equipo Territorial',
-    show_buildings: true,
-    image_style: 'left: 40%;'
+  color: "#6195d6",
+  section_image: "/images/h-equipo-territorial.svg",
+  title: 'Equipo Territorial',
+  show_buildings: true,
+  image_style: 'left: 40%;'
 %>
 <div class="row pfc-page">
+  <div class="small-12 column">
     <h2>¿Qué hace el equipo territorial?</h2>
     <p>
-        La misión del equipo territorial es ser un canal efectivo de comunicación entre la municipalidad y los vecinos con el fin de lograr una comuna más conectada con su comunidad y sus requerimientos.
+      La misión del equipo territorial es ser un canal efectivo de comunicación entre la municipalidad y los vecinos con el fin de lograr una comuna más conectada con su comunidad y sus requerimientos.
     </p>
     <p>
-        <strong>Conoce al territorial de tu sector en el siguiente mapa:</strong>
+      <strong>Conoce al territorial de tu sector en el siguiente mapa:</strong>
     </p>
+  </div>
+</div>
+<div class="row pfc-page">
+  <div class="small-12 medium-8 column mt-2">
+    <div id="leaflet"></div>
+  </div>
+  <div class="small-12 medium-4 column mt-2">
+    <div class="info-card">
+      <div class="info-card-header" style="background-color: #4082d8;">
+        <h3 style="font-size: 1.4em;">Equipo Territorial <span id="mt-name"></span></h3>
+      </div>
+      <div class="info-card-body" style="flex-direction: column; height: auto;">
+        <p style="font-size: 1em;">
+          <span id="uv-or-message">Selecciona una zona del mapa para ver la información.</span><br>
+          <span id="mt-sectors"></span>
+        </p>
+        <div id="orbit-parent" class="orbit" role="region" aria-label="Favorite Space Pictures" data-use-m-u-i="false" data-orbit data-auto-play="false" style="flex-direction: column; display: none;">
+          <div class="orbit-wrapper">
+            <ul class="orbit-container" id="mt-persons">
+            </ul>
+          </div>
+          <nav class="orbit-bullets" style="margin-top: 0;" id="mt-orbit-bullets">
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="general-footer-container">
-    <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6195d6' do %>
-    <% end %>
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6195d6' do %>
+  <% end %>
 </div>
+
+<%= javascript_tag do %>
+var map = new L.Map('leaflet')
+
+$.getJSON('/mt.geojson', function(geojson) {
+  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    boundary: geojson,
+  });
+  map.addLayer(osm)
+
+  var selectedFeature
+  var unidades = <%= raw(@unidades.to_json) %>
+
+  const defaultStyle = {
+    color: 'gray',
+    fillOpacity: 0,
+    weight: 2,
+  }
+
+  function onEachFeature(feature, layer) {
+    layer.on('click', function() {
+      var currentFeature = feature.properties['MACRO_T']
+
+      if (selectedFeature !== currentFeature) {
+        selectedFeature = currentFeature
+        var selectedMT = unidades[selectedFeature]
+        $('#mt-name').text(selectedFeature)
+        $('#uv-or-message').text('Unidades vecinales')
+        $('#mt-sectors').text(selectedMT['sectors'].join(' / '))
+        $('#mt-persons').html('')
+        $('#mt-orbit-bullets').html('')
+
+        selectedMT['persons'].forEach(function(person, index) {
+          $('#mt-persons').append(`<li class="orbit-slide ${index === 0 ? 'is-active' : ''}">
+              <p style="font-size: 1em; font-weight: normal;">
+                ${person['name']}<br>
+                <a href="mailto:${person['email']}">${person['email']}</a><br>
+                <%= image_tag 'http://placehold.jp/200x300.png', style: 'max-height: none; max-width: none;' %>
+              </p>
+            </div>`)
+          $('#mt-orbit-bullets').append(`<button data-slide="${index}" class="${index === 0 ? 'is-active' : ''}">
+              <span class="show-for-sr"></span>
+            </button>`)
+        })
+        Foundation.reInit($('.orbit'))
+        $('#orbit-parent').show()
+      }
+    })
+
+  }
+
+  var gjLayer = L.geoJSON(geojson)
+  map.fitBounds(gjLayer.getBounds());
+  L.geoJSON(geojson, {
+    onEachFeature: onEachFeature,
+    pointToLayer: function (feature, latlng) {
+            return L.Marker(latlng, labelMarkerOptions);
+    },
+  }).addTo(map)
+
+  map.dragging.disable()
+  map.touchZoom.disable()
+  map.doubleClickZoom.disable()
+  map.scrollWheelZoom.disable()
+  map.boxZoom.disable()
+  map.keyboard.disable()
+})
+<% end %>
