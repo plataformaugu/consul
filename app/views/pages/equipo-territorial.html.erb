@@ -146,9 +146,9 @@
         <h3 style="font-size: 1.4em;">Equipo Territorial <span id="mt-name"></span></h3>
       </div>
       <div class="info-card-body" style="flex-direction: column; height: auto;">
-        <p style="font-size: 1em;">
-          <span id="uv-or-message">Selecciona una zona del mapa para ver la información.</span><br>
-          <span id="mt-sectors"></span>
+        <p style="font-size: 1em; color: #222222;">
+          <span id="uv-or-message" style="font-weight: normal;">Selecciona una zona del mapa para ver la información.</span><br>
+          <span id="mt-sectors" style="color: #4081d8;"></span>
         </p>
         <div id="orbit-parent" class="orbit" role="region" aria-label="Favorite Space Pictures" data-use-m-u-i="false" data-orbit data-auto-play="false" style="flex-direction: column; display: none;">
           <div class="orbit-wrapper">
@@ -180,12 +180,6 @@ $.getJSON('/mt.geojson', function(geojson) {
   var selectedFeature
   var unidades = <%= raw(@unidades.to_json) %>
 
-  const defaultStyle = {
-    color: 'gray',
-    fillOpacity: 0,
-    weight: 2,
-  }
-
   function onEachFeature(feature, layer) {
     layer.on('click', function() {
       var currentFeature = feature.properties['MACRO_T']
@@ -201,10 +195,10 @@ $.getJSON('/mt.geojson', function(geojson) {
 
         selectedMT['persons'].forEach(function(person, index) {
           $('#mt-persons').append(`<li class="orbit-slide ${index === 0 ? 'is-active' : ''}">
-              <p style="font-size: 1em; font-weight: normal;">
+              <p style="font-size: 1em; font-weight: normal; color: #222222;">
                 ${person['name']}<br>
-                <a href="mailto:${person['email']}">${person['email']}</a><br>
-                <%= image_tag 'http://placehold.jp/200x300.png', style: 'max-height: none; max-width: none;' %>
+                <a href="mailto:${person['email']}" style="color: #4081d8;">${person['email']}</a><br>
+                <%= image_tag 'http://placehold.jp/200x250.png', style: 'max-height: none; max-width: none;' %>
               </p>
             </div>`)
           $('#mt-orbit-bullets').append(`<button data-slide="${index}" class="${index === 0 ? 'is-active' : ''}">
@@ -222,9 +216,6 @@ $.getJSON('/mt.geojson', function(geojson) {
   map.fitBounds(gjLayer.getBounds());
   L.geoJSON(geojson, {
     onEachFeature: onEachFeature,
-    pointToLayer: function (feature, latlng) {
-            return L.Marker(latlng, labelMarkerOptions);
-    },
   }).addTo(map)
 
   map.dragging.disable()
