@@ -1,0 +1,44 @@
+<%= render "shared/section_header",
+  color: "#33cc9d",
+  section_image: "/images/propuestas-image.svg",
+  title: @proposals_theme.title,
+  show_buildings: true
+%>
+
+<div class="row">
+  <div class="small-12 column">
+    <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title.downcase %></h2>
+    <p class="text-gray"><%= @proposals_theme.description %></p>
+    <% if Time.now < @proposals_theme.end_date %>
+    <div class="text-center mt-3">
+      <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
+        <%= t("proposals.index.start_proposal") %>
+      </a>
+    </div>
+    <% end %>
+    <div class="proposals-subtitle mt-3">
+      <h2>Revisa las propuestas ciudadanas para <%= @proposals_theme.title.downcase %></h2>
+    </div>
+
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+    <% if @proposals.any? %>
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <%= render partial: "proposals/proposal", collection: @proposals %>
+        </div>
+      </div>
+    <% else %>
+      <div class="text-center mt-5">
+        No hay propuestas creadas para este tema.
+      </div>
+    <% end %>
+    </div>
+    <%= paginate @proposals %>
+
+  </div>
+</div>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#16664d', color2: '#33cc9d' do %>
+  <% end %>
+</div>

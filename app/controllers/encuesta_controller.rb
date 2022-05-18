@@ -35,7 +35,7 @@ class EncuestaController < ApplicationController
   # PATCH/PUT /encuesta/1
   def update
     if @encuestum.update(encuestum_params)
-      redirect_to @encuestum, notice: 'La encuesta fue actualizada correctamente.'
+      redirect_to @encuestum, notice: 'La encuesta fue actualizada.'
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class EncuestaController < ApplicationController
   # DELETE /encuesta/1
   def destroy
     @encuestum.destroy
-    redirect_to encuesta_url, notice: 'Encuestum was successfully destroyed.'
+    redirect_to encuesta_url, notice: 'La encuesta fue eliminada.'
   end
 
   private

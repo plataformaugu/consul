@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :proposals_themes, :path => 'propuestas'
   resources :encuesta, :path => 'encuestas'
   resources :main_themes, :path => 'ejes-tematicos'
   resources :events do

@@ -9,6 +9,7 @@
 
     <%= render "shared/globalize_locales", resource: proposal %>
     <%= f.hidden_field :is_initiative, value: @is_initiative %>
+    <%= f.hidden_field :proposals_theme_id, value: @proposals_theme ? @proposals_theme.id : nil %>
 
     <%= f.translatable_fields do |translations_form| %>
       <div>
@@ -66,6 +67,9 @@
         </div>
         <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}. Si no eliges alguno quedará abierta para todos los usuarios." %>
         <p class="help-text" id="tag-list-help-text">
+          <% if @proposals_theme %>
+            Sectores disponibles según Tema seleccionado: <strong><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong><br>
+          <% end %>
           Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
         </p>
         <div id="leaflet"></div>
@@ -102,7 +106,7 @@
 
 <script>
 // MAP
-const map = new L.Map('leaflet')
+var map = new L.Map('leaflet')
 
 $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   const osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -111,30 +115,61 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   map.addLayer(osm)
 
   // Variables for map
-  let selectedFeatures = []
-  const defaultStyle = {
+  var selectedFeatures = []
+  var defaultStyle = {
       color: 'gray',
       fillOpacity: 0,
       weight: 2,
   }
+  <% if @proposals_theme %>
+  var availableSectors = <%= raw(@proposals_theme.sectors.pluck(:name)) %>
+  <% end %>
 
   // Actions
   function colorlayer(feature, layer) {
+
+    <% if @proposals_theme %>
+    if (availableSectors.includes(feature.properties.name.replace('-', ''))) {
+      map.removeLayer(layer)
+    } else {
+      layer.setStyle(defaultStyle)
+    }
+    <% else %>
     layer.setStyle(defaultStyle)
+    <% end %>
 
     layer.on('click', function(e) {
-      const name = feature.properties.name.replaceAll('-', '')
+      var name = feature.properties.name.replaceAll('-', '')
 
       if (selectedFeatures.includes(name)) {
+        <% if @proposals_theme %>
+        layer.setStyle({
+          color: "#3388ff",
+          opacity: 1,
+          fillOpacity: 0.2
+        })
+        <% else %>
         layer.setStyle(defaultStyle)
+        <% end %>
         selectedFeatures = selectedFeatures.filter(sf => sf !== name)
       } else {
+        <% if @proposals_theme %>
+          if (availableSectors.includes(name)) {
+            selectedFeatures.push(name)
+            layer.setStyle({
+              color: "#00a000",
+              opacity: 1,
+              fillOpacity: 0.5
+            })
+          }
+        <% else %>
         selectedFeatures.push(name)
         layer.setStyle({
           color: "#00008c",
           opacity: 0.6,
           fillOpacity: 0.5
         })
+        <% end %>
       }
 
       Array.from(Array(25).keys()).forEach(function(n) {
@@ -149,7 +184,7 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   }
 
   // Bounds
-  const gjLayer = L.geoJSON(lasCondesSectors);
+  var gjLayer = L.geoJSON(lasCondesSectors);
   map.fitBounds(gjLayer.getBounds());
 
   // Load features

@@ -1,0 +1,111 @@
+<%= form_with(model: proposals_theme, local: true) do |form| %>
+  <div class="field">
+    <%= form.text_field :title, required: true, class: 'custom-input', label: 'Título' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :description, required: true, class: 'custom-textarea', label: 'Descripción', rows: 4 %>
+  </div>
+
+  <div class="field">
+    <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.date_field :start_date, required: true, class: 'custom-input', label: 'Fecha de inicio', value: Time.now.strftime('%Y-%m-%d') %>
+  </div>
+
+  <div class="field">
+    <%= form.date_field :end_date, required: true, class: 'custom-input', label: 'Fecha de término' %>
+  </div>
+
+  <div class="field">
+    <div id="leaflet-container">
+      <div style="display: none;">
+        <%= form.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+      </div>
+      <%= label_tag 'leaflet', "Unidades vecinales" %>
+      <p class="help-text" id="tag-list-help-text">
+        Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
+      </p>
+      <div id="leaflet"></div>
+    </div>
+  </div>
+
+  <div class="field mt-1">
+    <span class="help-text">Si dejas esta opción sin marcar, solo podrán participar personas con <strong>Tarjeta Vecino</strong>.</span>
+    <%= form.check_box :is_public, label: 'Para todo el público' %>
+  </div>
+
+  <div class="actions text-center mt-2">
+    <%= form.submit button_name, class: 'solid-button' %>
+  </div>
+<% end %>
+
+<script>
+// MAP
+var map = new L.Map('leaflet')
+
+$.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    boundary: lasCondesSectors,
+  });
+  map.addLayer(osm)
+
+  // Variables for map
+  var selectedFeatures = []
+  var defaultStyle = {
+      color: 'gray',
+      fillOpacity: 0,
+      weight: 2,
+  }
+
+  // Actions
+  function colorlayer(feature, layer) {
+    layer.setStyle(defaultStyle)
+
+    layer.on('click', function(e) {
+      var name = feature.properties.name.replaceAll('-', '')
+
+      if (selectedFeatures.includes(name)) {
+        layer.setStyle(defaultStyle)
+        selectedFeatures = selectedFeatures.filter(sf => sf !== name)
+      } else {
+        selectedFeatures.push(name)
+        layer.setStyle({
+          color: "#00008c",
+          opacity: 0.6,
+          fillOpacity: 0.5
+        })
+      }
+
+      Array.from(Array(25).keys()).forEach(function(n) {
+        $('#proposals_theme_sector_ids_c' + (n + 1)).prop('checked', false)
+      })
+
+      selectedFeatures.forEach(function(sf) {
+        $('#proposals_theme_sector_ids_' + sf.toLowerCase()).prop('checked', true)
+      })
+      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+    })
+  }
+
+  // Bounds
+  var gjLayer = L.geoJSON(lasCondesSectors);
+  map.fitBounds(gjLayer.getBounds());
+
+  // Load features
+  L.geoJSON(lasCondesSectors, {
+      onEachFeature: colorlayer
+  }).addTo(map)
+
+  // Map config
+  map.dragging.disable()
+  map.touchZoom.disable();
+  map.doubleClickZoom.disable();
+  map.scrollWheelZoom.disable();
+  map.boxZoom.disable();
+  map.keyboard.disable();
+})
+
+</script>

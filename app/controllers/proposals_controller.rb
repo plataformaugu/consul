@@ -27,6 +27,8 @@ class ProposalsController < ApplicationController
   respond_to :html, :js
 
   def index
+    redirect_to root_path
+
     @proposals = Kaminari.paginate_array(
       @proposals.where(is_initiative: false)).page(params[:page])
   end
@@ -44,6 +46,31 @@ class ProposalsController < ApplicationController
     if request.path != proposal_path(@proposal)
       redirect_to proposal_path(@proposal), status: :moved_permanently
     end
+  end
+
+  def new
+    @is_initiative = params['is_initiative']
+    @proposals_theme = ProposalsTheme.find_by_id(params['proposals_theme_id'])
+
+    if @is_initiative and @proposals_theme.present?
+      redirect_to '/iniciativas'
+    end
+
+    if @proposals_theme.present?
+      if Time.now > @proposals_theme.end_date
+        redirect_to proposals_themes_path
+      end
+    end
+
+    if !@is_initiative and @proposals_theme.nil?
+      redirect_to proposals_themes_path
+    end
+
+    if @is_initiative and !current_user.administrator?
+      redirect_to root_path
+    end
+
+    super
   end
 
   def create
@@ -138,6 +165,7 @@ class ProposalsController < ApplicationController
       attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
                     :related_sdg_list,
                     :is_initiative,
+                    :proposals_theme_id,
                     :main_theme_id,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,

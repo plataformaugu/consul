@@ -1,4 +1,4 @@
-require_relative '../services/tarjeta_vecino_service'
+require "#{Rails.root}/lib/tarjeta_vecino_service"
 
 class WelcomeController < ApplicationController
   include TarjetaVecino

@@ -1,0 +1,18 @@
+<%= render "shared/section_header",
+  color: "#33cc9d",
+  section_image: "/images/propuestas-image.svg",
+  title: "Editar",
+  title2: "Tema",
+  show_buildings: true
+%>
+
+<div class="row">
+  <div class="small-12 column">
+    <%= render 'form', proposals_theme: @proposals_theme, button_name: 'Editar' %>
+  </div>
+</div>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#16664d', color2: '#33cc9d' do %>
+  <% end %>
+</div>

@@ -1,0 +1,45 @@
+<%= render "shared/section_header",
+  color: "#33cc9d",
+  section_image: "/images/propuestas-image.svg",
+  title: "Propuestas",
+  title2: "Ciudadanas",
+  description: "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
+%>
+<main>
+  <div class="section-header-container" style="flex-direction: column;">
+    <div class="proposals-subtitle" style="margin-top: 0;">
+      <h2>Revisa los temas en los que puedes subir tus propuestas</h2>
+    </div>
+    <% if current_user and current_user.administrator? %>
+      <div class="text-center mt-3">
+        <a href="<%= new_proposals_theme_path %>" title="Crear tema" data-turbolinks="false" class="create-button">
+          Crear tema
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div id="proposals" class="proposals-list small-12 medium-9 column">
+      <div class="custom-cards-container">
+        <% if @proposals_themes.any? %>
+          <div class="custom-cards">
+            <% @proposals_themes.each do |theme| %>
+              <%= render "card", theme: theme %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center mt-5">
+            No hay temas creados.
+          </div>
+        <% end %>
+      </div>
+      <%= paginate @proposals_themes %>
+    </div>
+  </div>
+
+  <div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#16664d', color2: '#33cc9d' do %>
+    <% end %>
+  </div>
+</main>

@@ -36,6 +36,7 @@ class Proposal < ApplicationRecord
   belongs_to :author, -> { with_hidden }, class_name: "User", inverse_of: :proposals
   belongs_to :geozone
   belongs_to :main_theme
+  belongs_to :proposals_theme
   has_many :comments, as: :commentable, inverse_of: :commentable, dependent: :destroy
   has_many :proposal_notifications, dependent: :destroy
   has_many :dashboard_executed_actions, dependent: :destroy, class_name: "Dashboard::ExecutedAction"

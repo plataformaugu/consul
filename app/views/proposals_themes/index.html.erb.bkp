@@ -1,0 +1,44 @@
+<%= render "shared/section_header",
+  color: "#33cc9d",
+  section_image: "/images/propuestas-image.svg",
+  title: "Propuestas",
+  title2: "Ciudadanas",
+  description: "En esta sección podrás realizar propuestas con el objetivo de mejorar la Municipalidad y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes."
+%>  
+    <p id="notice"><%= notice %></p>
+
+<h1>Proposals Themes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Image</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Is public</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @proposals_themes.each do |proposals_theme| %>
+      <tr>
+        <td><%= proposals_theme.title %></td>
+        <td><%= proposals_theme.description %></td>
+        <td><%= proposals_theme.image %></td>
+        <td><%= proposals_theme.start_date %></td>
+        <td><%= proposals_theme.end_date %></td>
+        <td><%= proposals_theme.is_public %></td>
+        <td><%= link_to 'Show', proposals_theme %></td>
+        <td><%= link_to 'Edit', edit_proposals_theme_path(proposals_theme) %></td>
+        <td><%= link_to 'Destroy', proposals_theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Proposals Theme', new_proposals_theme_path %>

@@ -1,0 +1,25 @@
+<div id="<%= dom_id(theme) %>" class="custom-card">
+  <div class="custom-card-header">
+    <h3>
+      <%= theme.title %>
+    </h3>
+  </div>
+  <div class="custom-card-image">
+    <%= image_tag theme.image %>
+  </div>
+  <div class="custom-card-content">
+    <div>
+      <h4>Sube tus propuestas relacionada a <%= theme.title.downcase %></h4>
+    </div>
+    <div class="custom-card-content-footer">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <span>Sube tu propuesta hasta</span><strong><%= theme.end_date.strftime('%d-%m-%Y') %></strong>
+      </div>
+      <%= link_to 'Ver más', theme, class: 'button expanded large', target: '_blank', style: "#{current_user and current_user.administrator? ? 'margin-bottom: 5px;' : ''}" %>
+      <% if current_user and current_user.administrator? %>
+        <%= link_to 'Editar', edit_proposals_theme_path(theme), class: 'button expanded large', style: 'margin-bottom: 5px;' %>
+        <%= link_to 'Eliminar', theme, method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este Tema?' }, class: 'button expanded large' %>
+      <% end %>
+    </div>
+  </div>
+</div>

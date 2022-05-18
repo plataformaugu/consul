@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_16_194928) do
+ActiveRecord::Schema.define(version: 2022_05_18_040825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1366,6 +1366,7 @@ ActiveRecord::Schema.define(version: 2022_05_16_194928) do
     t.bigint "sector_id"
     t.bigint "main_theme_id"
     t.boolean "is_initiative", default: false
+    t.bigint "proposals_theme_id"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
@@ -1375,9 +1376,30 @@ ActiveRecord::Schema.define(version: 2022_05_16_194928) do
     t.index ["hidden_at"], name: "index_proposals_on_hidden_at"
     t.index ["hot_score"], name: "index_proposals_on_hot_score"
     t.index ["main_theme_id"], name: "index_proposals_on_main_theme_id"
+    t.index ["proposals_theme_id"], name: "index_proposals_on_proposals_theme_id"
     t.index ["sector_id"], name: "index_proposals_on_sector_id"
     t.index ["selected"], name: "index_proposals_on_selected"
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
+  end
+
+  create_table "proposals_theme_sectors", force: :cascade do |t|
+    t.bigint "proposals_theme_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["proposals_theme_id"], name: "index_proposals_theme_sectors_on_proposals_theme_id"
+    t.index ["sector_id"], name: "index_proposals_theme_sectors_on_sector_id"
+  end
+
+  create_table "proposals_themes", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "is_public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "sector_id"
+    t.index ["sector_id"], name: "index_proposals_themes_on_sector_id"
   end
 
   create_table "related_content_scores", id: :serial, force: :cascade do |t|
@@ -1880,6 +1902,8 @@ ActiveRecord::Schema.define(version: 2022_05_16_194928) do
   add_foreign_key "proposal_sectors", "proposals"
   add_foreign_key "proposal_sectors", "sectors"
   add_foreign_key "proposals", "communities"
+  add_foreign_key "proposals_theme_sectors", "proposals_themes"
+  add_foreign_key "proposals_theme_sectors", "sectors"
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"

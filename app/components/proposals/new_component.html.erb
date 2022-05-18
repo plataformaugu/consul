@@ -11,5 +11,5 @@
   </aside>
   <% end %>
 
-  <%= render Proposals::FormComponent.new(proposal, @is_initiative, url: proposals_path) %>
+  <%= render Proposals::FormComponent.new(proposal, @is_initiative, @proposals_theme, url: proposals_path) %>
 </main>
