@@ -71,6 +71,9 @@
           class: 'custom-input',
           placeholder: 'ejemplo@correo.com'
         %>
+        <span class="error-input-message" id="email-exists-message">
+          El email ya está registrado
+        </span>
       </div>
 
       <div class="small-12 medium-6 column">
@@ -282,6 +285,21 @@
         $('#email_verification').removeClass('error-input');
         $('#email-verification-message').hide();
       }
+    })
+
+    $('#user_email').on('change', function() {
+      var request = $.get("/user/registrations/check_email?email=" + this.value);
+      request.done(function(response) {
+        if (!response.available) {
+          $('#user_email')[0].setCustomValidity('El email ya está registrado.')
+          $('#user_email').addClass('error-input');
+          $('#email-exists-message').show();
+        } else {
+          $('#user_email')[0].setCustomValidity('')
+          $('#user_email').removeClass('error-input');
+          $('#email-exists-message').hide();
+        }
+      });
     })
 
     $('#user_comuna').on('change', function() {

@@ -39,15 +39,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         profession_data = registro_civil_request(response[:data]['rut'], 'informacion-profesion')
         home_data = registro_civil_request(response[:data]['rut'], 'informacion-domicilio')
 
-        if born_data.nil? or profession_data.nil? or home_data.nil?
+        if born_data.nil? or profession_data.nil? or home_data.nil? or born_data.fetch('message', '') == 'Server Error' or profession_data.fetch('message', '') == 'Server Error' or home_data.fetch('message', '') == 'Server Error'
           flash[:alert] = "Ocurrió un error inesperado. Inténtalo más tarde."
           redirect_to new_user_registration_path
           return
         end
 
-        born_data = born_data['CertificadoNacimiento']
-        profession_data = profession_data['datosPersona']['datosProfesion']
-        home_data = home_data['datoPersona']
+        born_data = born_data.fetch('CertificadoNacimiento', {})
+        profession_data = profession_data.fetch('datosPersona', {}).fetch('datosProfesion', {})
+        home_data = home_data.fetch('datoPersona', {})
 
         build_resource({
           username: "#{response[:data]['nombre'].downcase[0]}#{response[:data]['apellido_paterno'].downcase}#{response[:data]['rut'][..4]}",
@@ -55,10 +55,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
           first_name: response[:data]['nombre'],
           last_name: response[:data]['apellido_paterno'],
           maiden_name: response[:data]['apellido_materno'],
-          date_of_birth: Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d'),
-          civil_status: home_data['estadoCivil'],
-          nationality: born_data['nacionalidadNacimiento'].titleize,
-          profession: profession_data['tituloProfesional'] ? profession_data['tituloProfesional'].titleize : nil
+          date_of_birth: !born_data.fetch('fechaNacimiento', nil).nil? ? Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d') : nil,
+          civil_status: home_data.fetch('estadoCivil', nil),
+          nationality: born_data.fetch('nacionalidadNacimiento', '').titleize,
+          profession: !profession_data.fetch('tituloProfesional', nil).nil? ? profession_data['tituloProfesional'].titleize : nil
         })
 
         @countries = get_countries
@@ -79,10 +79,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.sector = Sector.where(name: "C#{params['sector']}").first
       tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
 
-      if result[:has_tarjeta_vecino]
+      if tarjeta_vecino_data[:has_tarjeta_vecino]
         resource.has_tarjeta_vecino = true
 
-        if result[:is_tarjeta_vecino_active]
+        if tarjeta_vecino_data[:is_tarjeta_vecino_active]
           resource.is_tarjeta_vecino_active = true
         end
       end
@@ -157,6 +157,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render json: { available: false, message: t("devise_views.users.registrations.new.username_is_not_available") }
     else
       render json: { available: true, message: t("devise_views.users.registrations.new.username_is_available") }
+    end
+  end
+
+  def check_email
+    if User.find_by email: params[:email]
+      render json: { available: false }
+    else
+      render json: { available: true }
     end
   end
 
