@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         if response[:found_user].confirmed?
           sign_in(:user, response[:found_user])
 
-          if current_user.sign_in_count <= 1 and current_user.comuna == 'Las Condes'
+          if current_user.sign_in_count <= 1
             redirect_to tarjeta_vecino_path
           else
             redirect_to root_path
@@ -77,14 +77,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource.comuna == 'Las Condes'
       resource.sector = Sector.where(name: "C#{params['sector']}").first
-      tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
+    end
 
-      if tarjeta_vecino_data[:has_tarjeta_vecino]
-        resource.has_tarjeta_vecino = true
+    tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
 
-        if tarjeta_vecino_data[:is_tarjeta_vecino_active]
-          resource.is_tarjeta_vecino_active = true
-        end
+    if tarjeta_vecino_data[:has_tarjeta_vecino]
+      resource.has_tarjeta_vecino = true
+
+      if tarjeta_vecino_data[:is_tarjeta_vecino_active]
+        resource.is_tarjeta_vecino_active = true
       end
     end
 

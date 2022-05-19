@@ -82,7 +82,7 @@ class ProposalsController < ApplicationController
   end
 
   def create
-    @proposal = Proposal.new(proposal_params.merge(author: current_user))
+    @proposal = Proposal.new(proposal_params.merge(author: current_user, terms_of_service: true))
 
     if params['proposal']['sector_ids']
       params['proposal']['sector_ids'].each do |s|
@@ -101,7 +101,12 @@ class ProposalsController < ApplicationController
 
       redirect_to share_proposal_path(@proposal)
     else
-      render :new
+      if @proposal.is_initiative
+        render :new
+      else
+        @proposals_theme = ProposalsTheme.find(@proposal.proposals_theme_id)
+        render :new
+      end
     end
   end
 
@@ -173,7 +178,7 @@ class ProposalsController < ApplicationController
   private
 
     def proposal_params
-      attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
+      attributes = [:video_url, :responsible_name, :tag_list,
                     :related_sdg_list,
                     :is_initiative,
                     :proposals_theme_id,

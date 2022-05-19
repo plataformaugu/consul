@@ -13,10 +13,10 @@
   %>
   <div class="row main-themes-container">
     <div class="small-12 column">
-      <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', proposals_path %>
+      <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', '/propuestas' %>
       <div class="custom-cards-container">
         <div class="custom-cards mt-1">
-          <% unless @main_theme.proposals.where(is_initiative: false).any? %>
+          <% unless @main_theme.proposals.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).published.any? %>
             No hay ninguna propuesta.
           <% end %>
           <% @main_theme.proposals.where(is_initiative: false).order(created_at: :desc)[..2].each do |proposal| %>

@@ -1755,6 +1755,7 @@ body.admin {
         }
 
         .alt-circle {
+            border: 8px solid rgba(255, 255, 255, 0.4);
             top: -100px;
             z-index: 5000;
         }
@@ -3955,4 +3956,38 @@ main {
     color: red;
     font-size: 0.8em;
     display: none;
+}
+
+.c-h-h-small {
+    height: 600px;
+
+    @media (max-width: 1200px) {
+        height: auto;
+    }
+}
+
+.terms-and-conditions {
+    h1, h2, h3, h4 {
+        color: #727176 !important;
+    }
+
+    p {
+        color: #7b7a7f !important;
+        text-align: justify;
+        text-justify: inter-word;
+        text-indent: 50px;
+    }
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.pl-50 {
+    text-indent: 0px !important;
+    padding-left: 50px;
 }

@@ -6,6 +6,7 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
+      can :publish, Proposal
       can [:new, :edit, :update, :create, :destroy], ProposalsTheme
       can [:index, :read, :create, :edit, :update, :destroy], Encuestum
       can [:index, :read, :create, :edit, :update], MainTheme

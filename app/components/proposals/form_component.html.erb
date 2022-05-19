@@ -68,7 +68,7 @@
         <div style="display: none;">
           <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
         </div>
-        <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}. Si no eliges alguno quedará abierta para todos los usuarios." %>
+        <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}." %>
         <p class="help-text" id="tag-list-help-text">
           Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong><br>
           <% if @proposals_theme and @proposals_theme.sectors.any? %>
@@ -96,14 +96,14 @@
 
   <div class="actions" style="border: none;">
     <% if proposal.new_record? %>
-      <div>
+      <div style="display: none;">
         <%= f.check_box :terms_of_service,
           title: t("form.accept_terms_title"),
           label: t("form.accept_terms",
                    policy: link_to(t("form.policy"), "/privacy", target: "blank"),
                    conditions: link_to(t("form.conditions"), "/condiciones", target: "blank")
                   ),
-          required: true
+          checked: true
          %>
       </div>
     <% end %>
@@ -115,7 +115,7 @@
 <script>
 // MAP
 var map = new L.Map('leaflet')
-<% if @proposals_theme %>
+<% if @proposals_theme and @proposals_theme.sectors.any? %>
 $('#proposal_sector_ids_c1')[0].setCustomValidity('error')
 $('#leaflet-error').show()
 <% end %>
@@ -193,7 +193,7 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
       })
       $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
 
-      <% if @proposals_theme %>
+      <% if @proposals_theme and @proposals_theme.sectors.any? %>
       if (!selectedFeatures.length) {
         $('#proposal_sector_ids_c1')[0].setCustomValidity('error')
         $('#leaflet-error').show()

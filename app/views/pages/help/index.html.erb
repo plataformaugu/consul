@@ -79,13 +79,14 @@
         </div>
 
         <div style="text-align: center;" class="mt-5">
-          <h3 style="font-weight: 400; letter-spacing: -1px;">Si tienes alguna otra duda o requerimiento, puedes escribirnos a través de nuestro formulario de contacto o a <a href="mailto:elcorreoquequieres@correo.com">participación@lascondes.cl</a></h3>
+          <h3 style="font-weight: 400; letter-spacing: -1px;">Si tienes alguna otra duda o requerimiento, puedes escribirnos a través de nuestro formulario de contacto o a <a href="mailto:participación@lascondes.cl">participación@lascondes.cl</a></h3>
         </div>
 
         <div class="mt-5">
           <h1>Contáctanos</h1>
           <%= form_tag send_contact_form_pages_path, method: :post do %>
             <%= text_field_tag "author", nil, maxlength: 50, class: 'custom-input', placeholder: 'Nombre', required: true %>
+            <%= email_field_tag "author_email", nil, maxlength: 50, class: 'custom-input', placeholder: 'Email', required: true %>
             <%= text_area_tag "body", nil, rows: 5, class: 'custom-input', placeholder: 'Mensaje', style: 'padding-top: 15px !important;', required: true %>
             <div class="flex flex-row" style="justify-content: space-between; align-items: center;">
               <div>¿No estás registrad@? <%= link_to 'Regístrate', new_user_registration_path, style: "color: #2fbb90 !important; font-weight: 600;" %></div>

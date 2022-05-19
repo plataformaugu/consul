@@ -45,7 +45,7 @@
       <div style="display: none;">
         <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
       </div>
-      <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta. Si no eliges alguno quedará abierta para todos los usuarios.' %>
+      <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta.' %>
       <p class="help-text" id="tag-list-help-text">
         Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
       </p>

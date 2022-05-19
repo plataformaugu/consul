@@ -42,10 +42,6 @@
 
         <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
 
-        <% unless @proposal.selected? %>
-          <%= render "relationable/related_content", relationable: @proposal %>
-        <% end %>
-
         <div class="js-moderator-proposal-actions margin">
           <% if @proposal.author == current_user %>
             <%= link_to 'Panel de control', progress_proposal_dashboard_path(@proposal) %> |

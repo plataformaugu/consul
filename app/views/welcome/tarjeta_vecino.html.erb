@@ -2,7 +2,8 @@
     color: "#6295d6",
     title: 'Tarjeta',
     title2: 'Vecino',
-    show_buildings: true
+    show_buildings: true,
+    small_height: true
 %>
 <div class="row pfc-page">
   <div class="small-12 column">
@@ -13,18 +14,20 @@
     <% end %>
 
     <% if not @renewal %>
-      <ul>
-        <li>Consultas ciudadanas</li>
-        <li>Encuestas</li>
-        <li>Propuestas ciudadanas</li>
-        <li>Iniciativas municipales</li>
-        <li>Debates</li>
-        <li>Presupuestos participativos</li>
-      </ul>
+      <div style="display: flex; flex-direction: row; gap: 25px; align-items: center;">
+        <ul>
+          <li>Consultas ciudadanas</li>
+          <li>Encuestas</li>
+          <li>Propuestas ciudadanas</li>
+          <li>Iniciativas municipales</li>
+          <li>Debates</li>
+          <li>Presupuestos participativos</li>
+        </ul>
 
-      <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
-        <%= image_tag '/images/tv-button.png' %>
-      <% end %>
+        <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
+          <%= image_tag '/images/tv-button.png' %>
+        <% end %>
+      </div>
     <% else %>
       <%= link_to 'https://app.tvlascondes.cl/login', target: '_blank' do %>
         <%= image_tag '/images/tv-button.png' %>

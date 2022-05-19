@@ -1,7 +1,7 @@
 <%= render "shared/section_header",
     color: @is_initiative ? "#3ba5df" : "#2fba8f",
     section_image: @is_initiative ? "/images/h-iniciativas.svg" : "/images/propuestas-image.svg",
-    title: "Sube una iniciativa",
+    title: "Sube una #{@is_initiative ? 'iniciativa' : 'propuesta'}",
     show_buildings: true
 %>
 <%= render Proposals::NewComponent.new(@proposal, @is_initiative, @proposals_theme) %>
