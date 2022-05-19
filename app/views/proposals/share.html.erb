@@ -22,16 +22,21 @@
 
       <h1>¡Has creado una <%= @proposal.is_initiative ? 'iniciativa' : 'propuesta' %>!</h1>
 
-      <p>
-        <span class="lead"><%= t("proposals.proposal.share.guide") %></span>
-      </p>
+      <% if !@proposal.is_initiative %>
+        <p>
+          <span class="lead">Tu propuesta estará pendiente de revisión y será publicada cuando sea aceptada.</span>
+        </p>
+        <% else %>
+        <p>
+          <span class="lead"><%= t("proposals.proposal.share.guide") %></span>
+        </p>
 
-      <%= render "shared/social_share",
-        title: @proposal.title,
-        url: proposal_url(@proposal),
-        description: @proposal.summary,
-        mobile: @proposal.title %>
-
+        <%= render "shared/social_share",
+          title: @proposal.title,
+          url: proposal_url(@proposal),
+          description: @proposal.summary,
+          mobile: @proposal.title %>
+      <% end %>
     </div>
 
     <div class="small-12 medium-4 column">

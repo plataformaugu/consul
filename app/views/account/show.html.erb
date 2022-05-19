@@ -1,9 +1,11 @@
 <div class="padding-top-for-header"></div>
 <div class="row account mb-2">
   <div class="small-12 column">
+    <% if true == false %>
     <div class="float-right text-right">
       <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
     </div>
+    <% end %>
 
     <h1 class="inline-block"><%= t("account.show.title") %></h1>
 

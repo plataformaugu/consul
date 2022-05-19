@@ -23,7 +23,7 @@
           <ul class="orbit-container">
           <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
           <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
-          <% Proposal.reorder(hot_score: :desc).in_groups_of(2)[..2].each do |p_group| %>
+          <% Proposal.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).order(id: :desc).in_groups_of(2)[..2].each do |p_group| %>
             <div class="is-active orbit-slide custom-orbit-slide">
             <% p_group.each do |p| %>
               <div class="home-proposals-card">
@@ -57,8 +57,7 @@
                 <% end %>
                 <div class="home-proposals-cards-content" style="<%= p.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
                   <div>
-                    <h3><%= p.title %></h3>
-                    <p><%= Rails::Html::FullSanitizer.new.sanitize(p.description).truncate(80) %></p>
+                    <h3><%= p.title.truncate_words(6, omission: '...') %></h3>
                   </div>
                   <div class="home-proposals-cards-content-footer">
                     <%= link_to 'Participar', proposal_path(p.id), class: 'button expanded large', target: '_blank' %>

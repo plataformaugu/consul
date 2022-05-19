@@ -18,7 +18,8 @@
               data: suggest_data(proposal),
               class: 'custom-input',
               label: "Título de la #{@type_name}",
-              placeholder: 'Frase corta que resume tu proyecto' %>
+              placeholder: 'Frase corta que resume tu proyecto',
+              required: true %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 
@@ -28,14 +29,16 @@
                                         hint: t("proposals.form.proposal_summary_note"),
                                         label: "Resumen de la #{@type_name}",
                                         class: 'custom-textarea',
-                                        placeholder: 'Describe tu idea' %>
+                                        placeholder: 'Describe tu idea',
+                                        required: true %>
       </div>
 
       <div>
         <%= translations_form.text_area :description,
                                         maxlength: Proposal.description_max_length,
                                         label: "Texto desarrollado de la #{@type_name}",
-                                        class: "html-area" %>
+                                        class: "html-area",
+                                        required: true %>
       </div>
     <% end %>
   </fieldset>
@@ -67,10 +70,13 @@
         </div>
         <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}. Si no eliges alguno quedará abierta para todos los usuarios." %>
         <p class="help-text" id="tag-list-help-text">
-          <% if @proposals_theme %>
+          Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong><br>
+          <% if @proposals_theme and @proposals_theme.sectors.any? %>
             Sectores disponibles según Tema seleccionado: <strong><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong><br>
+            <div id="leaflet-error" class="error-message">
+              <strong>Aviso:</strong> Debes seleccionar, como mínimo, 1 sector.
+            </div>
           <% end %>
-          Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
         </p>
         <div id="leaflet"></div>
       </div>
@@ -96,7 +102,9 @@
           label: t("form.accept_terms",
                    policy: link_to(t("form.policy"), "/privacy", target: "blank"),
                    conditions: link_to(t("form.conditions"), "/condiciones", target: "blank")
-                  ) %>
+                  ),
+          required: true
+         %>
       </div>
     <% end %>
 
@@ -107,6 +115,10 @@
 <script>
 // MAP
 var map = new L.Map('leaflet')
+<% if @proposals_theme %>
+$('#proposal_sector_ids_c1')[0].setCustomValidity('error')
+$('#leaflet-error').show()
+<% end %>
 
 $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   const osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -180,6 +192,16 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
         $('#proposal_sector_ids_' + sf.toLowerCase()).prop('checked', true)
       })
       $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+
+      <% if @proposals_theme %>
+      if (!selectedFeatures.length) {
+        $('#proposal_sector_ids_c1')[0].setCustomValidity('error')
+        $('#leaflet-error').show()
+      } else {
+        $('#proposal_sector_ids_c1')[0].setCustomValidity('')
+        $('#leaflet-error').hide()
+      }
+      <% end %>
     })
   }
 

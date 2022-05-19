@@ -27,7 +27,7 @@
         <div class="plus-button"></div>
       </div>
       <% end %>
-      <%= link_to 'sobre-nosotros' do %>
+      <%= link_to '#themes' do %>
       <div class="banner-sky-button banner-sky-button-2">
         <p>Participa</p>
         <div class="plus-button"></div>
@@ -93,7 +93,7 @@
     <%= image_tag "/images/arbusto.svg", class: 'arbusto-1' %>
     <%= image_tag "/images/arbusto.svg", class: 'arbusto-2' %>
 
-    <div class="themes">
+    <div class="themes" id="themes">
       <div class="themes-row">
         <%= link_to MainTheme.where('name LIKE ?', 'Salud').first, style: 'text-decoration: none;', target: '_blank' do %>
         <div class="main-theme">

@@ -39,6 +39,14 @@ class ProposalsController < ApplicationController
   end
 
   def show
+    if @proposal.published_at.nil?
+      if current_user and current_user.administrator?
+        nil
+      else
+        redirect_to root_path
+      end
+    end
+
     super
     @notifications = @proposal.notifications
     @notifications = @proposal.notifications.not_moderated
@@ -87,8 +95,11 @@ class ProposalsController < ApplicationController
     end
 
     if @proposal.save
-      @proposal.publish
-      redirect_to share_proposal_path(@proposal), notice: t("proposals.notice.published")
+      if @proposal.is_initiative
+        @proposal.publish
+      end
+
+      redirect_to share_proposal_path(@proposal)
     else
       render :new
     end
@@ -156,7 +167,7 @@ class ProposalsController < ApplicationController
 
   def publish
     @proposal.publish
-    redirect_to share_proposal_path(@proposal), notice: t("proposals.notice.published")
+    redirect_to moderation_proposals_path, notice: t("proposals.notice.published")
   end
 
   private

@@ -1,5 +1,6 @@
-<%= render Moderation::Shared::IndexComponent.new(@proposals) do %>
-  <table class="clear">
+<h2>Propuestas pendientes de revisión</h2>
+
+<table class="clear">
     <thead>
       <tr>
         <th><%= t("moderation.proposals.index.headers.proposal") %></th>
@@ -15,19 +16,13 @@
             <br>
             <span class="date"><%= l proposal.updated_at.to_date %></span>
             <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= proposal.flags_count %><span class="icon-flag flag-disable"></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= proposal.author.username %>
+            <%= proposal.author.first_name %> <%= proposal.author.last_name %> (<%= proposal.author.document_number %>)
             <br>
-            <div class="moderation-description">
-              <%= wysiwyg(proposal.description) %>
-            </div>
           </td>
-          <td class="text-center">
-            <%= check_box_tag "proposal_ids[]", proposal.id, nil, id: "#{dom_id(proposal)}_check" %>
+          <td >
+            <%= link_to 'Publicar', publish_proposal_path(proposal.id), method: :patch, class: 'solid-button', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar esta propuesta?'} %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-<% end %>

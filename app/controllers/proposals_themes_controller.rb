@@ -10,7 +10,7 @@ class ProposalsThemesController < ApplicationController
 
   # GET /proposals_themes/1
   def show
-    @proposals = Kaminari.paginate_array(ProposalsTheme.find(params['id']).proposals).page(params[:page])
+    @proposals = Kaminari.paginate_array(ProposalsTheme.find(params['id']).proposals.published).page(params[:page])
   end
 
   # GET /proposals_themes/new
