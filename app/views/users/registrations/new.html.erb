@@ -160,8 +160,15 @@
             label: 'Dirección',
             required: true,
             class: 'custom-input',
-            placeholder: 'Calle 123'
+            placeholder: 'Calle 123',
+            maxlength: 58
         %>
+        <div id="alternative-address">
+          <label>Calle</label>
+          <%= text_field_tag 'alt-street', nil, class: 'custom-input' %>
+          <label>Número</label>
+          <%= text_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
+        </div>
       </div>
     </div>
 
@@ -263,7 +270,43 @@
 
 <%= javascript_tag do %>
   $(document).ready(function () {
+    var streets = []
+    var streetsRequest = $.get("/las-condes/streets");
+    streetsRequest.done(function(response) {
+      streets = response
+    })
+
+    $('#alternative-address').hide()
     $('a[href="/condiciones"]').attr('target', '_blank')
+
+    function showAltAddress() {
+      $('#alternative-address').show()
+      $('#alt-street').attr('required', true)
+      $('#alt-number').attr('required', true)
+      $('#alt-street').autocomplete({
+        source: function(request, response) {
+          var results = $.ui.autocomplete.filter(streets, request.term)
+          response(results.slice(0, 10))
+        },
+        change: function(event, ui) {
+          if (!ui.item) {
+            $('#alt-street').val('')
+          }
+        }
+      })
+    }
+
+    function hideAltAddress() {
+      $('#alternative-address').hide()
+      $('#alt-street').attr('required', false)
+      $('#alt-street').val('')
+      $('#alt-number').attr('required', false)
+      $('#alt-number').val('')
+
+      try {
+        $('#alt-street').autocomplete("destroy");
+      } catch (error) { }
+    }
 
     $('#user_gender').on('change', function() {
       if (this.value == 'Otro') {
@@ -329,15 +372,24 @@
               }
             })
           },
+          response: function(event, ui) {
+            if (!ui.content.length) {
+              showAltAddress()
+            } else {
+              hideAltAddress()
+            }
+          },
           change: function(event, ui) {
             if (!ui.item) {
               $('#sector').val('')
               $('#user_lat').val('')
               $('#user_long').val('')
+              showAltAddress()
             } else {
               $('#sector').val(ui.item.sector)
               $('#user_lat').val(parseFloat(ui.item.lat.replace(',', '.')))
               $('#user_long').val(parseFloat(ui.item.long.replace(',', '.')))
+              hideAltAddress()
             }
           },
           search: function(event, ui) {
@@ -349,7 +401,10 @@
           }
         })
       } else {
-        $('#user_address').autocomplete('destroy')
+        try {
+          $('#user_address').autocomplete('destroy')
+        } catch (error) {}
+        hideAltAddress()
       }
     })
   })

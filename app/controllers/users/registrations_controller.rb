@@ -2,7 +2,7 @@ require "#{Rails.root}/lib/tarjeta_vecino_service"
 
 class Users::RegistrationsController < Devise::RegistrationsController
   include TarjetaVecino
-  prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup]
+  prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup, :streets]
   before_action :configure_permitted_parameters
 
   def new
@@ -75,8 +75,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.password = resource.username
 
-    if resource.comuna == 'Las Condes'
+    if resource.comuna == 'Las Condes' and !params['sector'].empty?
       resource.sector = Sector.where(name: "C#{params['sector']}").first
+    end
+
+    if !params['alt-street'].empty?
+      resource.address = "#{params['alt-street']} #{params['alt-number']}"
     end
 
     tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)

@@ -25,12 +25,10 @@ class WelcomeController < ApplicationController
 
   def tarjeta_vecino
     if current_user
-      result = get_tarjeta_vecino_data(current_user.document_number)
-
-      if result[:has_tarjeta_vecino] == false or (result[:has_tarjeta_vecino] and result[:is_tarjeta_vecino_active] == false)
+      if current_user.has_tarjeta_vecino == false or (current_user.has_tarjeta_vecino and current_user.is_tarjeta_vecino_active == false)
         @renewal = false
 
-        if result[:has_tarjeta_vecino] == true and result[:is_tarjeta_vecino_active] == false
+        if current_user.has_tarjeta_vecino == true and current_user.is_tarjeta_vecino_active == false
           @renewal = true
         end
 
