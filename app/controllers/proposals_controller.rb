@@ -132,6 +132,12 @@ class ProposalsController < ApplicationController
       end
     end
 
+    if @proposal.proposals_theme.present? and !@proposal.proposals_theme.is_public
+      if current_user and !current_user.has_tarjeta_vecino
+        redirect_to proposal_path(@proposal), alert: 'Necesitas tener Tarjeta Vecino para participar.' and return
+      end
+    end
+
     @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
     @proposal.register_vote(current_user, "yes")
     set_proposal_votes(@proposal)

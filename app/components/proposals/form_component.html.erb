@@ -133,14 +133,14 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
       fillOpacity: 0,
       weight: 2,
   }
-  <% if @proposals_theme %>
+  <% if @proposals_theme and @proposals_theme.sectors.any? %>
   var availableSectors = <%= raw(@proposals_theme.sectors.pluck(:name)) %>
   <% end %>
 
   // Actions
   function colorlayer(feature, layer) {
 
-    <% if @proposals_theme %>
+    <% if @proposals_theme and @proposals_theme.sectors.any? %>
     if (availableSectors.includes(feature.properties.name.replace('-', ''))) {
       map.removeLayer(layer)
     } else {
@@ -154,7 +154,7 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
       var name = feature.properties.name.replaceAll('-', '')
 
       if (selectedFeatures.includes(name)) {
-        <% if @proposals_theme %>
+        <% if @proposals_theme and @proposals_theme.sectors.any? %>
         layer.setStyle({
           color: "#3388ff",
           opacity: 1,
@@ -165,7 +165,7 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
         <% end %>
         selectedFeatures = selectedFeatures.filter(sf => sf !== name)
       } else {
-        <% if @proposals_theme %>
+        <% if @proposals_theme and @proposals_theme.sectors.any? %>
           if (availableSectors.includes(name)) {
             selectedFeatures.push(name)
             layer.setStyle({
