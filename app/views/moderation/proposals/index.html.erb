@@ -1,28 +1,30 @@
 <h2>Propuestas pendientes de revisión</h2>
 
 <table class="clear">
-    <thead>
-      <tr>
-        <th><%= t("moderation.proposals.index.headers.proposal") %></th>
-        <th><%= t("moderation.proposals.index.headers.moderate") %></th>
-      </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th><%= t("moderation.proposals.index.headers.proposal") %></th>
+      <th><%= t("moderation.proposals.index.headers.moderate") %></th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% @proposals.each do |proposal| %>
-        <tr id="proposal_<%= proposal.id %>">
-          <td>
-            <%= link_to proposal.title, proposal, target: "_blank" %>
-            <br>
-            <span class="date"><%= l proposal.updated_at.to_date %></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= proposal.author.first_name %> <%= proposal.author.last_name %> (<%= proposal.author.document_number %>)
-            <br>
-          </td>
-          <td >
-            <%= link_to 'Publicar', publish_proposal_path(proposal.id), method: :patch, class: 'solid-button', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar esta propuesta?'} %>
-          </td>
-        </tr>
+  <tbody>
+    <% @proposals.each do |proposal| %>
+      <% if !proposal.author.nil? %>
+      <tr id="proposal_<%= proposal.id %>">
+        <td>
+          <%= link_to proposal.title, proposal, target: "_blank" %>
+          <br>
+          <span class="date"><%= l proposal.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= proposal.author.first_name %> <%= proposal.author.last_name %> (<%= proposal.author.document_number %>)
+          <br>
+        </td>
+        <td >
+          <%= link_to 'Publicar', publish_proposal_path(proposal.id), method: :patch, class: 'solid-button', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar esta propuesta?'} %>
+        </td>
+      </tr>
       <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>

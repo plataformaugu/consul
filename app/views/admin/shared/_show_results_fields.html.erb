@@ -1,11 +1,9 @@
 <fieldset aria-describedby="results_and_stats_reminder">
-  <legend><%= t("admin.shared.show_results_and_stats") %></legend>
+  <legend>Mostrar resultados</legend>
 
   <p class="help-text" id="results_and_stats_reminder">
-    <%= t("admin.shared.results_and_stats_reminder") %>
+    Si marcas estas casillas los resultados serán públicos y podrán verlos todos los usuarios.
   </p>
 
   <%= form.check_box :results_enabled %>
-  <%= form.check_box :stats_enabled %>
-  <%= form.check_box :advanced_stats_enabled %>
 </fieldset>

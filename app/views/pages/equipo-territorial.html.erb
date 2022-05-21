@@ -142,7 +142,7 @@
   </div>
   <div class="small-12 medium-4 column mt-2">
     <div class="info-card">
-      <div class="info-card-header" style="background-color: #4082d8;">
+      <div class="info-card-header" style="background-color: #4082d8;" id="card-header">
         <h3 style="font-size: 1.4em;">Equipo Territorial <span id="mt-name"></span></h3>
       </div>
       <div class="info-card-body" style="flex-direction: column; height: auto;">
@@ -170,6 +170,14 @@
 
 <%= javascript_tag do %>
 var map = new L.Map('leaflet')
+var mtColors = {
+  'MT-01': '#c93358',
+  'MT-02': '#33cc9d',
+  'MT-03': '#fe6b01',
+  'MT-04': '#f25b86',
+  'MT-05': '#3ba5df',
+  'MT-06': '#8148b3'
+}
 
 $.getJSON('/mt.geojson', function(geojson) {
   var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -181,12 +189,18 @@ $.getJSON('/mt.geojson', function(geojson) {
   var unidades = <%= raw(@unidades.to_json) %>
 
   function onEachFeature(feature, layer) {
+    layer.setStyle({
+      color: mtColors[feature.properties['MACRO_T']],
+      opacity: 1,
+      fillOpacity: 0.5
+    }) 
     layer.on('click', function() {
       var currentFeature = feature.properties['MACRO_T']
 
       if (selectedFeature !== currentFeature) {
         selectedFeature = currentFeature
         var selectedMT = unidades[selectedFeature]
+        $('#card-header').css('background-color', mtColors[feature.properties['MACRO_T']])
         $('#mt-name').text(selectedFeature)
         $('#uv-or-message').text('Unidades vecinales')
         $('#mt-sectors').text(selectedMT['sectors'].join(' / '))

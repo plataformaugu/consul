@@ -45,34 +45,39 @@
     </div>
 
     <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
-      <h3 class="custom-h">Votos por unidad vecinal</h3>
-        <canvas id="votes-by-sector"></canvas>
-    </div>
-
-    <div class="small-12 medium-6 column mt-3" data-equalizer-watch>
-      <h3 class="custom-h">Votos por género</h3>
-        <canvas id="votes-by-gender"></canvas>
-    </div>
-
-    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
-      <h3 class="custom-h">Votos por rango etario</h3>
-        <canvas id="votes-by-age-group"></canvas>
-    </div>
-
-    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
       <h3 class="custom-h">Resultados de la consulta</h3>
 
-      <div class="responsive-row">
+      <div class="results-questions-container">
         <%- @poll.questions.each do |question| %>
-          <div>
+          <div class="results-questions-card">
             <p class="text-gray text-center" id="<%= question.title.parameterize %>"><%= question.title %></p>
             <div style="width: 100%; display: flex; justify-content: center;">
-              <div style="width: 250px;">
+              <div style="width: 80%;">
                 <canvas id="pie-chart-<%= question.id %>"></canvas>
               </div>
             </div>
           </div>
         <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
+      <div class="results-questions-container">
+        <div class="results-questions-card">
+          <h3 class="custom-h">Votos por unidad vecinal</h3>
+          <canvas id="votes-by-sector"></canvas>
+        </div>
+        <div class="results-questions-card">
+          <h3 class="custom-h">Votos por rango etario</h3>
+          <canvas id="votes-by-age-group"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch style="display: flex; justify-content: center; align-items: center">
+      <div class="width: 50%;">
+        <h3 class="custom-h">Votos por género</h3>
+        <canvas id="votes-by-gender"></canvas>
       </div>
     </div>
   </div>
@@ -167,10 +172,9 @@
       drawPieChart(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
     <% end %>
 
-    drawBarChart('votes-by-sector', <%= raw(@poll.voters.filter{|p| p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values) %>)
-    drawDonutChart('votes-by-gender', <%= raw(@poll.voters.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.map{|p| p.user.gender}.tally.values) %>)
+    drawBarChart('votes-by-sector', <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values) %>)
+    drawDonutChart('votes-by-gender', <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.values) %>)
 
-    
     drawBarChart('votes-by-age-group', <%= raw(@age_groups_votes.tally.keys) %>, <%= raw(@age_groups_votes.tally.values) %>)
   <% end %>
 <% end %>

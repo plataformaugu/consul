@@ -69,10 +69,19 @@
           <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
         </div>
         <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}." %>
-        <p class="help-text" id="tag-list-help-text">
-          Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong><br>
+        <p id="tag-list-help-text" style="font-size: 1em;">
           <% if @proposals_theme and @proposals_theme.sectors.any? %>
-            Sectores disponibles según Tema seleccionado: <strong><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong><br>
+            Sectores disponibles según Tema seleccionado: <strong style="color: #3ba5df;"><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong><br>
+          <% end %>
+          Sectores seleccionados:
+          <strong style="color: #33cc9d;">
+            <% if @proposals_theme and @proposals_theme.sectors.any? %>
+              <span id="selected-sectors">Ninguno</span>
+            <% else %>
+              <span id="selected-sectors">Todos</span>
+            <% end %>
+          </strong><br>
+          <% if @proposals_theme and @proposals_theme.sectors.any? %>
             <div id="leaflet-error" class="error-message">
               <strong>Aviso:</strong> Debes seleccionar, como mínimo, 1 sector.
             </div>
@@ -191,7 +200,11 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
       selectedFeatures.forEach(function(sf) {
         $('#proposal_sector_ids_' + sf.toLowerCase()).prop('checked', true)
       })
-      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+      <% if @proposals_theme and @proposals_theme.sectors.any? %>
+        $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+      <% else %>
+        $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
+      <% end %>
 
       <% if @proposals_theme and @proposals_theme.sectors.any? %>
       if (!selectedFeatures.length) {

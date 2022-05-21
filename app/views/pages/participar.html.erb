@@ -69,7 +69,7 @@
         <div class="lc-cards-container">
         <% @cards.each do |card| %>
             <% if card[:is_active] %>
-                <%= link_to card[:path] do %>
+                <%= link_to card[:path], class: "lc-card-container" do %>
                     <div class="lc-card">
                         <div class="lc-card-header" style="background-color: <%= card[:color] %>">
                             <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>

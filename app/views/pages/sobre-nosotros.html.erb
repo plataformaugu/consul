@@ -4,78 +4,42 @@
             :name => 'Vivir<br> Seguro',
             :bg => 'bg-red',
             :themes => [
-                {
-                    :name => 'Seguridad',
-                },
+                MainTheme.where('name LIKE ?', 'Seguridad').first,
             ],
         },
         {
             :name => 'Las Condes<br> Sostenible',
             :bg => 'bg-green',
             :themes => [
-                {
-                    :name => 'Vida al aire libre',
-                },
-                {
-                    :name => 'Desarrollo Sostenible',
-                },
-                {
-                    :name => 'Ciclovías',
-                },
-                {
-                    :name => 'Nuevo Plan Regulador',
-                },
+                MainTheme.where('name LIKE ?', 'Vida al Aire Libre').first,
+                MainTheme.where('name LIKE ?', 'Desarrollo Sostenible').first,
+                MainTheme.where('name LIKE ?', 'Ciclovías').first,
+                MainTheme.where('name LIKE ?', 'Nuevo Plan Regulador').first,
             ],
         },
         {
             :name => 'Justicia e<br> integración',
             :bg => 'bg-blue',
             :themes => [
-                {
-                    :name => 'Adulto Mayor',
-                },
-                {
-                    :name => 'Apoyo Social',
-                },
-                {
-                    :name => 'Salud',
-                },
-                {
-                    :name => 'Educación',
-                },
-                {
-                    :name => 'Mejor Vivienda',
-                },
-                {
-                    :name => 'Mujeres',
-                },
-                {
-                    :name => 'Cultura y Recreación',
-                },
-                {
-                    :name => 'Jóvenes',
-                },
-                {
-                    :name => 'Mascotas',
-                },
-                {
-                    :name => 'Salud Mental',
-                },
+                MainTheme.where('name LIKE ?', 'Adulto Mayor').first,
+                MainTheme.where('name LIKE ?', 'Apoyo Social').first,
+                MainTheme.where('name LIKE ?', 'Salud').first,
+                MainTheme.where('name LIKE ?', 'Educación').first,
+                MainTheme.where('name LIKE ?', 'Mejor Vivienda').first,
+                MainTheme.where('name LIKE ?', 'Mujeres').first,
+                MainTheme.where('name LIKE ?', 'Cultura y Recreación').first,
+                MainTheme.where('name LIKE ?', 'Jóvenes').first,
+                MainTheme.where('name LIKE ?', 'Mascotas').first,
+                MainTheme.where('name LIKE ?', 'Salud Mental').first,
             ],
         },
         {
             :name => 'Las Condes<br> Vanguardista',
             :bg => 'bg-yellow',
             :themes => [
-                {
-                    :name => 'Eventos',
-                },
-                {
-                    :name => 'Emprendedores',
-                },
-                {
-                    :name => 'Smart City',
-                },
+                MainTheme.where('name LIKE ?', 'Eventos').first,
+                MainTheme.where('name LIKE ?', 'Emprendedores').first,
+                MainTheme.where('name LIKE ?', 'Smart City').first,
             ],
         }
     ]
@@ -133,9 +97,9 @@
                     <div class="main-theme-themes" id="<%= index %>">
                         <div class="main-theme-divider <%= c[:bg] %>"></div>
                         <% c[:themes].each do |t| %>
-                            <div class="sub-button <%= c[:bg] %>-transparent">
-                                <%= t[:name] %>
-                            </div>
+                            <%= link_to t, class: "sub-button #{c[:bg]}-transparent" do %>
+                                <%= image_tag t.icon, style: 'width: 38px;' %> <span style="margin-left: 5px;"><%= t.name %></span>
+                            <% end %>
                         <% end %>
                     </div>
                 </div>

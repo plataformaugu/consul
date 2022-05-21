@@ -127,10 +127,11 @@ class Mailer < ApplicationMailer
     mail(to: @email_to.email, subject: @email.subject) if @email.can_be_sent?
   end
 
-  def contact_form(content, author, author_email, to)
+  def contact_form(content, author, author_email, author_phone, to)
     @content = content
     @author = author
     @author_email = author_email
+    @author_phone = author_phone
     @email_to = to
 
     mail(to: @email_to, subject: 'Formulario de Contacto')

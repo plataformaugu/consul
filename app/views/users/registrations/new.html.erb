@@ -160,12 +160,15 @@
             label: 'Dirección',
             required: true,
             class: 'custom-input',
-            placeholder: 'Calle 123',
+            placeholder: 'Ingresa por ej. APOQUINDO 3400 (Sin “Avenida” o “Av.”)',
             maxlength: 58
         %>
         <div id="alternative-address">
+          <p class="help-text">
+            No se ha encontrado tu dirección, por favor escribe abajo tu calle y número.
+          </p>
           <label>Calle</label>
-          <%= text_field_tag 'alt-street', nil, class: 'custom-input' %>
+          <%= text_field_tag 'alt-street', nil, class: 'custom-input', placeholder: 'Ingresa por ej. APOQUINDO (Sin “Avenida” o “Av.”)' %>
           <label>Número</label>
           <%= text_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
         </div>
@@ -262,6 +265,10 @@
       <div class="small-12 text-center">
         <%= f.submit t("devise_views.users.registrations.new.submit"), class: "solid-button rounded-xl" %>
       </div>
+
+      <div class="small-12 text-center mt-2">
+        Si tienes problema al registrarte, por favor <a href="/help#contacto" target="_blank">contáctanos aquí</a>
+      </div>
     </div>
   </div>
 <% end %>
@@ -280,6 +287,7 @@
     $('a[href="/condiciones"]').attr('target', '_blank')
 
     function showAltAddress() {
+      $('#user_address').val('No se ha encontrado tu dirección')
       $('#alternative-address').show()
       $('#alt-street').attr('required', true)
       $('#alt-number').attr('required', true)

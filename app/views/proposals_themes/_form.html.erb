@@ -16,7 +16,7 @@
   </div>
 
   <div class="field">
-    <%= form.date_field :end_date, required: true, class: 'custom-input', label: 'Fecha de término' %>
+    <%= form.date_field :end_date, required: true, class: 'custom-input', label: 'Fecha de término', min: Time.now + 1.days %>
   </div>
 
   <div class="field">
@@ -25,8 +25,8 @@
         <%= form.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
       </div>
       <%= label_tag 'leaflet', "Unidades vecinales" %>
-      <p class="help-text" id="tag-list-help-text">
-        Sectores seleccionados: <strong><span id="selected-sectors">Ninguno</span></strong>
+      <p id="tag-list-help-text">
+        Sectores seleccionados: <strong style="color: #33cc9d;"><span id="selected-sectors">Todos</span></strong>
       </p>
       <div id="leaflet"></div>
     </div>
@@ -86,7 +86,7 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
       selectedFeatures.forEach(function(sf) {
         $('#proposals_theme_sector_ids_' + sf.toLowerCase()).prop('checked', true)
       })
-      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
+      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
     })
   }
 
