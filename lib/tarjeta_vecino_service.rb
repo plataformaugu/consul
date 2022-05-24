@@ -5,6 +5,7 @@ module TarjetaVecino
         final_result = {
             :has_tarjeta_vecino => false,
             :is_tarjeta_vecino_active => false,
+            :neighbor_type => NeighborType.find_by(name: 'Registrado sin Tarjeta Vecino'),
             :data => {},
         }
 
@@ -34,6 +35,12 @@ module TarjetaVecino
                 final_result[:has_tarjeta_vecino] = true
                 final_result[:is_tarjeta_vecino_active] = true
                 final_result[:data] = result
+
+                if result[:numero_tarjeta].to_s.start_with?('2', '9')
+                    final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Residente Las Condes')
+                elsif result[:numero_tarjeta].to_s[0].to_i >= 3
+                    final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Flotante Las Condes')
+                end
             elsif result[:mensaje].kind_of?(String)
                 if result[:mensaje].include? 'NO VIGENTE'
                     final_result[:has_tarjeta_vecino] = true

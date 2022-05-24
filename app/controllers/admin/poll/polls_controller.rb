@@ -21,6 +21,11 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
   def create
     @poll = Poll.new(poll_params.merge(author: current_user))
 
+    params['poll']['neighbor_types'].each do |id|
+      neighbor_type = NeighborType.find(id)
+      @poll.neighbor_types.append(neighbor_type)
+    end
+
     if params['poll']['sector_ids']
       params['poll']['sector_ids'].each do |s|
         begin
@@ -48,6 +53,11 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
   def update
     if @poll.update(poll_params)
+      @poll.neighbor_types = []
+      params['poll']['neighbor_types'].each do |id|
+        neighbor_type = NeighborType.find(id)
+        @poll.neighbor_types.append(neighbor_type)
+      end
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else
       render :edit

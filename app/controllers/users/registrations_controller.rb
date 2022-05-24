@@ -84,6 +84,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
+    resource.neighbor_type_id = tarjeta_vecino_data[:neighbor_type].id
 
     if tarjeta_vecino_data[:has_tarjeta_vecino]
       resource.has_tarjeta_vecino = true

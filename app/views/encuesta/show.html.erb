@@ -24,16 +24,21 @@
               <h1>Responde</h1>
             </div>
             <div class="info-card-body" style="padding: 0;">
-              <% if !current_user.nil? and @encuestum.limit_date > Time.now %>
-                <%= @encuestum.code.html_safe %>
-              <% elsif @encuestum.limit_date < Time.now %>
-                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                  <h4>Encuesta finalizada</h4>
-                </div>
+              <% if @can_vote %>
+                <% if @encuestum.limit_date < Time.now %>
+                  <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+                    <h4>Encuesta finalizada</h4>
+                  </div>
+                <% else %>
+                  <%= @encuestum.code.html_safe %>
+                <% end %>
               <% else %>
                 <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                  <h4>Debes ingresar con tu cuenta para participar en esta encuesta.</h4>
-                  <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+                  <h4><%= @reason %></h4>
+
+                  <% if not current_user %>
+                    <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+                  <% end %>
                 </div>
               <% end %>
             </div>

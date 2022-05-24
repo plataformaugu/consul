@@ -37,7 +37,9 @@ class Poll < ApplicationRecord
   belongs_to :main_theme
 
   has_many :poll_sectors
+  has_many :poll_neighbor_types
   has_many :sectors, through: :poll_sectors
+  has_many :neighbor_types, through: :poll_neighbor_types
 
   validates_translation :name, presence: true
   validate :date_range
@@ -93,10 +95,7 @@ class Poll < ApplicationRecord
   end
 
   def answerable_by?(user)
-    user.present? &&
-      user.level_two_or_three_verified? &&
-      current? &&
-      (!geozone_restricted || geozone_ids.include?(user.geozone_id))
+    user.present? && current? && self.neighbor_types.include?(user.neighbor_type)
   end
 
   def self.answerable_by(user)

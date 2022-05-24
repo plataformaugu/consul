@@ -9,11 +9,13 @@
   <div class="small-12 column">
     <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title.downcase %></h2>
     <p class="text-gray"><%= @proposals_theme.description %></p>
-    <% if Time.now < @proposals_theme.end_date %>
+    <% if Time.now.to_date <= @proposals_theme.end_date %>
     <div class="text-center mt-3">
-      <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
-        <%= t("proposals.index.start_proposal") %>
-      </a>
+      <% if current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type) or current_user.administrator? %>
+        <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
+          <%= t("proposals.index.start_proposal") %>
+        </a>
+      <% end %>
     </div>
     <% end %>
     <div class="proposals-subtitle mt-3">

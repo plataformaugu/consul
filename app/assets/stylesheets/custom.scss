@@ -1537,7 +1537,6 @@ body.admin {
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
             display: flex;
             justify-content: center;
 
@@ -1552,6 +1551,7 @@ body.admin {
 
             @media (min-width: 1200px) {
                 display: none;
+                height: 100%;
             }
         }
 
@@ -3149,6 +3149,11 @@ main {
         color: white;
         text-decoration: none;
     }
+
+    &:disabled {
+        background-color: #737277;
+    }
+
     &:hover {
         background: lighten(#33cc9d, 10%) !important;
         color: white;
@@ -4025,4 +4030,22 @@ main {
             flex-direction: column;
         }
     }
+}
+
+.inline-check-boxes {
+    label {
+        width: 100%;
+    }
+}
+
+.gg-check-o {
+    color: green;
+}
+
+.gg-danger {
+    color: orange;
+}
+
+.gg-close-o {
+    color: red;
 }

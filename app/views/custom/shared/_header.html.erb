@@ -27,7 +27,7 @@
         <div class="plus-button"></div>
       </div>
       <% end %>
-      <%= link_to '#themes' do %>
+      <%= link_to '#themes', id: 'move-to-themes' do %>
       <div class="banner-sky-button banner-sky-button-2">
         <p>Participa</p>
         <div class="plus-button"></div>
@@ -51,9 +51,16 @@
         <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
         <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
         <div class="is-active orbit-slide">
-          <%= link_to 'javascript:void(0)', data: {open: 'video-popup'} do %>
-            <%= image_tag "/images/slider-3.png" %>
-          <% end %>
+          <div class="desktop-only">
+            <%= link_to 'javascript:void(0)', data: {open: 'video-popup'} do %>
+              <%= image_tag "/images/slider-3.png" %>
+            <% end %>
+          </div>
+          <div class="mobile-only">
+            <%= link_to 'https://player.vimeo.com/video/708859849?h=66ff349f18', target: '_blank' do %>
+              <%= image_tag "/images/slider-3.png" %>
+            <% end %>
+          </div>
         </div>
         <div class="orbit-slide">
           <%= image_tag "/images/slider-1.svg" %>
@@ -81,6 +88,8 @@
     </div>
   </div>
 
+  <div id="themes"></div>
+
   <div class="banner-grass-desktop">
     <div class="grass"></div>
     <div class="last-grass">
@@ -93,7 +102,7 @@
     <%= image_tag "/images/arbusto.svg", class: 'arbusto-1' %>
     <%= image_tag "/images/arbusto.svg", class: 'arbusto-2' %>
 
-    <div class="themes" id="themes">
+    <div class="themes">
       <div class="themes-row">
         <%= link_to MainTheme.where('name LIKE ?', 'Salud').first, style: 'text-decoration: none;', target: '_blank' do %>
         <div class="main-theme">
@@ -255,94 +264,124 @@
         </div>
         <ul class="orbit-container">
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Apoyo Social').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Apoyo Social</h2>
               <%= image_tag "/images/t-apoyosocial.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Smart City').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Smart City</h2>
               <%= image_tag "/images/t-smartcity.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Mascotas').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Mascotas</h2>
               <%= image_tag "/images/t-mascotas.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Emprendedores').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Emprendedores</h2>
               <%= image_tag "/images/t-emprendimiento.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Seguridad').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Seguridad</h2>
               <%= image_tag "/images/t-seguridad.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Mujeres').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Mujeres</h2>
               <%= image_tag "/images/t-mujeres.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Eventos').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Eventos</h2>
               <%= image_tag "/images/t-grandeseventos.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Adulto Mayor').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Adulto Mayor</h2>
               <%= image_tag "/images/t-adultomayor.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Ciclovías').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Ciclovías</h2>
               <%= image_tag "/images/t-ciclovia.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Jóvenes').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Jóvenes</h2>
               <%= image_tag "/images/t-jovenes.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Desarrollo Sostenible').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Desarrollo Sostenible</h2>
               <%= image_tag "/images/t-sustentable.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Cultura y Recreación').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Cultura y Recreación</h2>
               <%= image_tag "/images/t-cultura.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Educación').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Educación</h2>
               <%= image_tag "/images/t-educacion.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Vida al Aire Libre').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Vida al aire libre</h2>
               <%= image_tag "/images/t-parquesycerros.svg" %>
             </figure>
+            <% end %>
           </li>
           <li class="orbit-slide">
+            <%= link_to MainTheme.where('name LIKE ?', 'Salud Mental').first, style: 'text-decoration: none; color: white;', target: '_blank' do %>
             <figure class="orbit-figure">
               <h2>Salud Mental</h2>
               <%= image_tag "/images/t-saludmental.svg" %>
             </figure>
+            <% end %>
           </li>
         </ul>
       </div>
@@ -368,3 +407,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#move-to-themes').click(function() {
+    document.getElementById("themes").scrollIntoView();
+  })
+</script>

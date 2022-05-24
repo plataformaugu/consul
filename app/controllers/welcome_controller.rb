@@ -24,19 +24,25 @@ class WelcomeController < ApplicationController
   end
 
   def tarjeta_vecino
+    # types
+    # 1: No tiene
+    # 2: No vigente
+    # 3: Si tiene
+
+    @type = nil
+
     if current_user
       if current_user.has_tarjeta_vecino == false or (current_user.has_tarjeta_vecino and current_user.is_tarjeta_vecino_active == false)
-        @renewal = false
+        @type = 1
 
         if current_user.has_tarjeta_vecino == true and current_user.is_tarjeta_vecino_active == false
-          @renewal = true
+          @type = 2
         end
-
-        render :tarjeta_vecino
       else
-        flash[:notice] = '¡Bienvenid@, ya eres parte de nuestra comunidad!'
-        redirect_to root_path
+        @type = 3
       end
+
+      render :tarjeta_vecino
     else
       redirect_to root_path
     end

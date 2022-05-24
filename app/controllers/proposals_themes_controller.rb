@@ -30,6 +30,11 @@ class ProposalsThemesController < ApplicationController
   def create
     @proposals_theme = ProposalsTheme.new(proposals_theme_params)
 
+    params['proposals_theme']['neighbor_types'].each do |id|
+      neighbor_type = NeighborType.find(id)
+      @proposals_theme.neighbor_types.append(neighbor_type)
+    end
+
     if params['proposals_theme']['sector_ids']
       params['proposals_theme']['sector_ids'].each do |s|
         begin
@@ -50,6 +55,22 @@ class ProposalsThemesController < ApplicationController
   # PATCH/PUT /proposals_themes/1
   def update
     if @proposals_theme.update(proposals_theme_params)
+      @proposals_theme.neighbor_types = []
+      params['proposals_theme']['neighbor_types'].each do |id|
+        neighbor_type = NeighborType.find(id)
+        @proposals_theme.neighbor_types.append(neighbor_type)
+      end
+  
+      if params['proposals_theme']['sector_ids']
+        params['proposals_theme']['sector_ids'].each do |s|
+          begin
+            sector = Sector.find_by(name: s)
+            @proposals_theme.sectors.append(sector)
+          rescue
+          end
+        end
+      end
+  
       redirect_to @proposals_theme, notice: 'El tema fue actualizado.'
     else
       render :edit
@@ -59,6 +80,8 @@ class ProposalsThemesController < ApplicationController
   # DELETE /proposals_themes/1
   def destroy
     ProposalsThemeSector.where(proposals_theme_id: @proposals_theme.id).destroy_all
+    ProposalsThemeNeighborType.where(proposals_theme_id: @proposals_theme.id).destroy_all
+    @proposals_theme.proposals.destroy_all
     @proposals_theme.destroy
     redirect_to proposals_themes_url, notice: 'El tema fue eliminado.'
   end

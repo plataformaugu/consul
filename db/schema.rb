@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_040825) do
+ActiveRecord::Schema.define(version: 2022_05_21_140201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -599,6 +599,13 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
     t.index ["main_theme_id"], name: "index_encuesta_on_main_theme_id"
   end
 
+  create_table "encuestum_neighbor_types", force: :cascade do |t|
+    t.bigint "encuestum_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["encuestum_id"], name: "index_encuestum_neighbor_types_on_encuestum_id"
+    t.index ["neighbor_type_id"], name: "index_encuestum_neighbor_types_on_neighbor_type_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -1022,6 +1029,10 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
     t.index ["user_id"], name: "index_moderators_on_user_id"
   end
 
+  create_table "neighbor_types", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "newsletters", id: :serial, force: :cascade do |t|
     t.string "subject"
     t.string "segment_recipient", null: false
@@ -1093,6 +1104,13 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
   create_table "poll_booths", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "location"
+  end
+
+  create_table "poll_neighbor_types", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["neighbor_type_id"], name: "index_poll_neighbor_types_on_neighbor_type_id"
+    t.index ["poll_id"], name: "index_poll_neighbor_types_on_poll_id"
   end
 
   create_table "poll_officer_assignments", id: :serial, force: :cascade do |t|
@@ -1307,6 +1325,13 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "proposal_neighbor_types", force: :cascade do |t|
+    t.bigint "proposal_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["neighbor_type_id"], name: "index_proposal_neighbor_types_on_neighbor_type_id"
+    t.index ["proposal_id"], name: "index_proposal_neighbor_types_on_proposal_id"
+  end
+
   create_table "proposal_notifications", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -1380,6 +1405,13 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
     t.index ["sector_id"], name: "index_proposals_on_sector_id"
     t.index ["selected"], name: "index_proposals_on_selected"
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
+  end
+
+  create_table "proposals_theme_neighbor_types", force: :cascade do |t|
+    t.bigint "proposals_theme_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["neighbor_type_id"], name: "index_proposals_theme_neighbor_types_on_neighbor_type_id"
+    t.index ["proposals_theme_id"], name: "index_proposals_theme_neighbor_types_on_proposals_theme_id"
   end
 
   create_table "proposals_theme_sectors", force: :cascade do |t|
@@ -1732,12 +1764,14 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
     t.string "address"
     t.string "house_type"
     t.boolean "is_tarjeta_vecino_active", default: false
+    t.bigint "neighbor_type_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["gender"], name: "index_users_on_gender"
     t.index ["geozone_id"], name: "index_users_on_geozone_id"
     t.index ["hidden_at"], name: "index_users_on_hidden_at"
+    t.index ["neighbor_type_id"], name: "index_users_on_neighbor_type_id"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["sector_id"], name: "index_users_on_sector_id"
@@ -1865,6 +1899,8 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
   add_foreign_key "dashboard_executed_actions", "dashboard_actions", column: "action_id"
   add_foreign_key "dashboard_executed_actions", "proposals"
   add_foreign_key "documents", "users"
+  add_foreign_key "encuestum_neighbor_types", "encuesta"
+  add_foreign_key "encuestum_neighbor_types", "neighbor_types"
   add_foreign_key "failed_census_calls", "poll_officers"
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
@@ -1883,6 +1919,8 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
   add_foreign_key "organizations", "users"
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"
   add_foreign_key "poll_booth_assignments", "polls"
+  add_foreign_key "poll_neighbor_types", "neighbor_types"
+  add_foreign_key "poll_neighbor_types", "polls"
   add_foreign_key "poll_officer_assignments", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_partial_results", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_partial_results", "poll_officer_assignments", column: "officer_assignment_id"
@@ -1899,9 +1937,13 @@ ActiveRecord::Schema.define(version: 2022_05_18_040825) do
   add_foreign_key "poll_sectors", "sectors"
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
+  add_foreign_key "proposal_neighbor_types", "neighbor_types"
+  add_foreign_key "proposal_neighbor_types", "proposals"
   add_foreign_key "proposal_sectors", "proposals"
   add_foreign_key "proposal_sectors", "sectors"
   add_foreign_key "proposals", "communities"
+  add_foreign_key "proposals_theme_neighbor_types", "neighbor_types"
+  add_foreign_key "proposals_theme_neighbor_types", "proposals_themes"
   add_foreign_key "proposals_theme_sectors", "proposals_themes"
   add_foreign_key "proposals_theme_sectors", "sectors"
   add_foreign_key "related_content_scores", "related_contents"

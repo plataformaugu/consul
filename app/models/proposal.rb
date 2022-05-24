@@ -45,7 +45,9 @@ class Proposal < ApplicationRecord
   has_one :summary_comment, as: :commentable, class_name: "MlSummaryComment", dependent: :destroy
 
   has_many :proposal_sectors
+  has_many :proposal_neighbor_types
   has_many :sectors, through: :proposal_sectors
+  has_many :neighbor_types, through: :proposal_neighbor_types
 
   validates_translation :title, presence: true, length: { in: 4..Proposal.title_max_length }
   validates_translation :description, length: { maximum: Proposal.description_max_length }
@@ -180,7 +182,11 @@ class Proposal < ApplicationRecord
   end
 
   def votable_by?(user)
-    user&.level_two_or_three_verified?
+    if self.is_initiative
+      return self.neighbor_types.include?(user.neighbor_type)
+    else
+      return self.proposals_theme.neighbor_types.include?(user.neighbor_type)
+    end
   end
 
   def retired?

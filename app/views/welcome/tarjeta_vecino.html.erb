@@ -7,32 +7,112 @@
 %>
 <div class="row pfc-page">
   <div class="small-12 column">
-    <% if not @renewal %>
-      <h2>Te invitamos a formar parte de nuestra comunidad y podrás participar de:</h2>
-    <% else %>
-      <h2>Para que puedas participar de todos nuestros procesos te invitamos a renovar tu tarjeta</h2>
+    <% if @type == 1 %>
+      <h2 class="text-center">
+        Estimado Vecino, hoy <strong>NO</strong> cuentas con <strong>Tarjeta Vecino</strong>. Sin tarjeta vecino,
+        no podrás participar de la totalidad de los procesos participativos
+      </h2>
+    <% elsif @type == 2 %>
+      <h2 class="text-center">
+        Estimado Vecino, tu Tarjeta Vecino <strong>NO</strong> se encuentra vigente.<br>
+        ¡Te invitamos a renovarla!
+      </h2>
+    <% elsif @type == 3 %>
+      <h2 class="text-center">
+        ¡Bienvenido, ya eres parte de nuestra comunidad!<br>
+        Tu Tarjeta Vecino se encuentra <strong>vigente</strong>.<br>
+        ¡Te invitamos a actualizar tus datos para mantenernos conectados!
+      </h2>
     <% end %>
 
-    <% if not @renewal %>
-      <div style="display: flex; flex-direction: row; gap: 25px; align-items: center;">
-        <ul>
-          <li>Consultas ciudadanas</li>
-          <li>Encuestas</li>
-          <li>Propuestas ciudadanas</li>
-          <li>Iniciativas municipales</li>
-          <li>Debates</li>
-          <li>Presupuestos participativos</li>
-        </ul>
-
-        <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
-          <%= image_tag '/images/tv-button.png' %>
+    <div class="row mt-2">
+      <div class="small-12 medium-10 column">
+        <table style="text-align: center;">
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="2">Procesos <strong>CON</strong> Tarjeta Vecino</th>
+              <th colspan="1">Procesos <strong>SIN</strong><br> Tarjeta Vecino</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>Residente</th>
+              <th>Población Flotante</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Consultas Ciudadanas</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-close-o"></i></td>
+            </tr>
+            <tr>
+              <td>Encuestas</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-danger"></i></td>
+            </tr>
+            <tr>
+              <td>Propuestas Ciudadanas</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-close-o"></i></td>
+            </tr>
+            <tr>
+              <td>Iniciativas Municipales</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-danger"></i></td>
+            </tr>
+            <tr>
+              <td>Debates</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-danger"></i></td>
+            </tr>
+            <tr>
+              <td>Presupuestos Participativos</td>
+              <td><i class="gg-check-o"></i></td>
+              <td><i class="gg-danger"></i></td>
+              <td><i class="gg-close-o"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flex" style="justify-content: flex-end;">
+          <div>
+            <div class="flex">
+              <i class="gg-check-o"></i>&nbsp;Si
+            </div>
+            <div class="flex">
+              <i class="gg-danger"></i>&nbsp;Depende
+            </div>
+            <div class="flex">
+              <i class="gg-close-o"></i>&nbsp;No
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="small-12 medium-2 column">
+        <% if @type == 1 %>
+          <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
+            <h5 class="text-center">Obtén tu Tarjeta Vecino</h5>
+            <%= image_tag '/images/tv-button.png' %>
+          <% end %>
+        <% elsif @type == 2 %>
+          <%= link_to 'https://app.tvlascondes.cl/login', target: '_blank' do %>
+            <h5 class="text-center">Renueva tu Tarjeta Vecino</h5>
+            <%= image_tag '/images/tv-button.png' %>
+          <% end %>
+        <% elsif @type == 3 %>
+          <%= link_to 'https://app.tvlascondes.cl/login', target: '_blank' do %>
+            <h5 class="text-center">Actualiza tus datos de Tarjeta Vecino</h5>
+            <%= image_tag '/images/tv-button.png' %>
+          <% end %>
         <% end %>
       </div>
-    <% else %>
-      <%= link_to 'https://app.tvlascondes.cl/login', target: '_blank' do %>
-        <%= image_tag '/images/tv-button.png' %>
-      <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 

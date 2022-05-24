@@ -1,10 +1,3 @@
-if Administrator.count == 0 && !Rails.env.test?
-    admin = User.create!(username: "admin", email: "admin@consul.dev", password: "12345678",
-                         password_confirmation: "12345678", confirmed_at: Time.current,
-                         terms_of_service: "1")
-    admin.create_administrator
-end
-  
 Setting.reset_defaults
 load Rails.root.join("db", "web_sections.rb")
 
@@ -13,6 +6,15 @@ load Rails.root.join("db", "pages.rb")
 
 # Sustainable Development Goals
 load Rails.root.join("db", "sdg.rb")
+
+
+(1..25).each do |n|
+    Sector.create(name: "C#{n}")
+end
+
+NeighborType.create(name: 'Vecino Residente Las Condes')
+NeighborType.create(name: 'Vecino Flotante Las Condes')
+NeighborType.create(name: 'Registrado sin Tarjeta Vecino')
 
 MainTheme.create(name: 'Adulto Mayor', icon: '/images/ejes-tematicos/adultomayor.png', image: '/images/t-adultomayor.svg', primary_color: '#4569c4', secondary_color: '#37539A')
 MainTheme.create(name: 'Vida al Aire Libre', icon: '/images/ejes-tematicos/airelibre.png', image: '/images/t-parquesycerros.svg', primary_color: '#489969', secondary_color: '#397652')

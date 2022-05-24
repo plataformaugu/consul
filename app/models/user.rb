@@ -83,6 +83,7 @@ class User < ApplicationRecord
   has_many :topics, foreign_key: :author_id, inverse_of: :author
   belongs_to :geozone
   belongs_to :sector
+  belongs_to :neighbor_type
   has_and_belongs_to_many :events
 
   validates :username, presence: false

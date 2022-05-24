@@ -65,7 +65,11 @@ class ProposalsController < ApplicationController
     end
 
     if @proposals_theme.present?
-      if Time.now > @proposals_theme.end_date
+      if Time.now.to_date > @proposals_theme.end_date
+        redirect_to proposals_themes_path
+      end
+
+      if not @proposals_theme.neighbor_types.include?(current_user.neighbor_type) and not current_user.administrator?
         redirect_to proposals_themes_path
       end
     end
@@ -83,6 +87,13 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user, terms_of_service: true))
+
+    if @proposal.is_initiative
+      params['proposal']['neighbor_types'].each do |id|
+        neighbor_type = NeighborType.find(id)
+        @proposal.neighbor_types.append(neighbor_type)
+      end
+    end
 
     if params['proposal']['sector_ids']
       params['proposal']['sector_ids'].each do |s|
@@ -122,6 +133,12 @@ class ProposalsController < ApplicationController
   end
 
   def vote
+    if not @proposal.is_initiative
+      if @proposal.proposals_theme.end_date < Time.now.to_date
+        redirect_to proposal_path(@proposal) and return
+      end
+    end
+
     if @proposal.sectors.any?
       if current_user.sector.nil?
         redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return

@@ -26,11 +26,17 @@
 
     <div class="small-12 column">
       <div class="field">
-        <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+        <% if encuestum.image.attached? %>
+          <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+          <span class="help-text">Imagen actual:</span><br>
+          <%= image_tag encuestum.image, style: 'width: 250px;' %>
+        <% else %>
+          <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+        <% end %>
       </div>
     </div>
 
-    <div class="small-12 column">
+    <div class="small-12 column mt-1">
       <div class="field">
         <%= form.text_area :code, label: 'Código HTML', rows: 7, class: 'custom-textarea', required: true %>
       </div>
@@ -50,6 +56,18 @@
     </div>
 
     <div class="small-12 column">
+      <div class="field">
+        <label>Tipos de usuarios</label>
+        <p class="help-text">Selecciona al menos una opción</p>
+        <%= form.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
+          <div>
+          <%= c.check_box(required: true, checked: encuestum.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
       <div class="actions mt-2" style="text-align: center;">
         <% if @encuestum.new_record? %>
           <%= form.submit 'Agregar', class: 'create-button' %>
@@ -60,3 +78,19 @@
     </div>
   <% end %>
 </div>
+
+<script>
+$('input:checkbox[name="encuestum[neighbor_types][]"]').on('click', function() {
+  var checkedCheckboxes = $('input:checkbox[name="encuestum[neighbor_types][]"]:checked')
+  
+  if (checkedCheckboxes.length > 0) {
+    $('input:checkbox[name="encuestum[neighbor_types][]"]').each(function(_, value) {
+      $(value).prop('required', false)
+    })
+  } else {
+    $('input:checkbox[name="encuestum[neighbor_types][]"]').each(function(_, value) {
+      $(value).prop('required', true)
+    })
+  }
+})
+</script>

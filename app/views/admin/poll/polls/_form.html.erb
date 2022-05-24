@@ -41,15 +41,17 @@
   </div>
 
   <div class="row">
-    <div id="leaflet-container">
-      <div style="display: none;">
-        <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+    <div class="small-12 column">
+      <div id="leaflet-container">
+        <div style="display: none;">
+          <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+        </div>
+        <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la consulta.' %>
+        <p id="tag-list-help-text">
+          Sectores seleccionados: <strong style="color: #33cc9d"><span id="selected-sectors">Todos</span></strong>
+        </p>
+        <div id="leaflet"></div>
       </div>
-      <%= label_tag 'leaflet', 'Elige los sectores de la comuna en los que estará enfocada la propuesta.' %>
-      <p id="tag-list-help-text">
-        Sectores seleccionados: <strong style="color: #33cc9d"><span id="selected-sectors">Todos</span></strong>
-      </p>
-      <div id="leaflet"></div>
     </div>
   </div>
 
@@ -64,6 +66,20 @@
           {prompt: 'Elige un eje temático', label: 'Eje Temático'},
           {class: 'custom-input', style: 'width: 100%;', required: true}
         %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mt-1">
+        <label>Tipos de usuarios</label>
+        <p class="help-text">Selecciona al menos una opción</p>
+        <%= f.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
+          <div>
+          <%= c.check_box(required: true, checked: @poll.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -146,4 +162,22 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   map.keyboard.disable();
 })
 
+</script>
+
+<script>
+$(document).ready(function() {
+  $('input:checkbox[name="poll[neighbor_types][]"]').on('click', function() {
+    var checkedCheckboxes = $('input:checkbox[name="poll[neighbor_types][]"]:checked')
+    
+    if (checkedCheckboxes.length > 0) {
+      $('input:checkbox[name="poll[neighbor_types][]"]').each(function(_, value) {
+        $(value).prop('required', false)
+      })
+    } else {
+      $('input:checkbox[name="poll[neighbor_types][]"]').each(function(_, value) {
+        $(value).prop('required', true)
+      })
+    }
+  })
+})
 </script>
