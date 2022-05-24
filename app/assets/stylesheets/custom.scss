@@ -2639,6 +2639,10 @@ body.admin {
             div:not(:last-child) {
                 border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             }
+
+            @media (max-width: 1200px) {
+                margin: auto;
+            }
         }
     }
 }
@@ -3663,6 +3667,7 @@ main {
 .custom-auth {
     background-color: #568ade;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     align-items: flex-start;
