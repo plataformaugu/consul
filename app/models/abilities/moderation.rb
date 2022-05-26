@@ -5,6 +5,7 @@ module Abilities
     def initialize(user)
       merge Abilities::Common.new(user)
 
+      can [:validate, :custom_hide], Comment
       can :publish, Proposal
       can :read, Organization
       can(:verify, Organization) { |o| !o.verified? }

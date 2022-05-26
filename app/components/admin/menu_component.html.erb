@@ -1,5 +1,5 @@
 <ul id="admin_menu" data-accordion-menu data-multi-open="true">
-  <% if feature?(:proposals) %>
+  <% if feature?(:proposals) and true == false %>
     <li class="<%= "is-active" if controller_name == "proposals" %>">
       <%= link_to t("admin.menu.proposals"), admin_proposals_path, class: "proposals-link" %>
     </li>
@@ -57,7 +57,6 @@
   <li>
     <a href="#" class="moderated-content-link"><%= t("admin.menu.title_moderated_content") %></a>
     <%= link_list(
-      (hidden_proposals_link if feature?(:proposals)),
       (hidden_debates_link if feature?(:debates)),
       (hidden_budget_investments_link if feature?(:budgets)),
       hidden_comments_link,
@@ -91,11 +90,9 @@
     <a href="#" class="settings-link"><%= t("admin.menu.title_settings") %></a>
     <%= link_list(
       settings_link,
-      tags_link,
       geozones_link,
       images_link,
       content_blocks_link,
-      local_census_records_link,
       class: ("is-active" if settings?)
     ) %>
   </li>

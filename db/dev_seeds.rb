@@ -33,7 +33,7 @@ end
 
 require_relative "dev_seeds/settings"
 # require_relative "dev_seeds/geozones"
-# require_relative "dev_seeds/users"
+require_relative "dev_seeds/users"
 # require_relative "dev_seeds/tags_categories"
 # require_relative "dev_seeds/debates"
 # require_relative "dev_seeds/proposals"

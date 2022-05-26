@@ -1613,7 +1613,7 @@ body.admin {
             justify-content: center;
             align-items: center;
             position: absolute;
-            bottom: 40%;
+            bottom: 30%;
             width: 50%;
             z-index: 250;
 
@@ -1646,7 +1646,7 @@ body.admin {
                 p {
                     text-align: center;
                     font-weight: 700;
-                    font-size: 1.8em;
+                    font-size: 1.3em;
                     letter-spacing: -1px;
                     margin-bottom: 0;
                 }
@@ -3257,6 +3257,23 @@ main {
     }
 }
 
+.solid-button-sm {
+    @extend .solid-button;
+
+    padding: 10px 30px;
+    font-size: 1em;
+}
+
+.solid-button-danger-sm {
+    @extend .solid-button-sm;
+
+    background-color: #c44556;
+
+    &:hover {
+        background-color: lighten(#c44556, 10%);
+    }
+}
+
 .s-b-clave-unica {
     background-color: #0F69C4;
     padding: 10px 25px;
@@ -4053,4 +4070,8 @@ main {
 
 .gg-close-o {
     color: red;
+}
+
+.margin-auto {
+    margin: auto;
 }

@@ -53,10 +53,12 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
   def update
     if @poll.update(poll_params)
-      @poll.neighbor_types = []
-      params['poll']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @poll.neighbor_types.append(neighbor_type)
+      if params['poll']['neighbor_types'].present?
+        @poll.neighbor_types = []
+        params['poll']['neighbor_types'].each do |id|
+          neighbor_type = NeighborType.find(id)
+          @poll.neighbor_types.append(neighbor_type)
+        end
       end
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else

@@ -17,18 +17,6 @@
     <% end %>
   <% end %>
 
-  <% if controller_name == "recounts" %>
-    <li class="is-active">
-      <h2>
-        <%= t("admin.polls.show.recounts_tab") %>
-      </h2>
-    </li>
-  <% else %>
-    <li>
-      <%= link_to t("admin.polls.show.recounts_tab"), admin_poll_recounts_path(@poll) %>
-    </li>
-  <% end %>
-
   <% if controller_name == "results" %>
     <li class="is-active">
       <h2>

@@ -44,23 +44,23 @@ section "Creating Users" do
                   confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
                   verified_at: Time.current, document_number: unique_document_number)
 
-  poll_officer = create_user("poll_officer@consul.dev", "Paul O. Fisher")
-  poll_officer.create_poll_officer
-  poll_officer.update!(residence_verified_at: Time.current,
-                      confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
-                      verified_at: Time.current, document_number: unique_document_number)
+  # poll_officer = create_user("poll_officer@consul.dev", "Paul O. Fisher")
+  # poll_officer.create_poll_officer
+  # poll_officer.update!(residence_verified_at: Time.current,
+  #                     confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
+  #                     verified_at: Time.current, document_number: unique_document_number)
 
-  poll_officer2 = create_user("poll_officer2@consul.dev", "Pauline M. Espinosa")
-  poll_officer2.create_poll_officer
-  poll_officer2.update!(residence_verified_at: Time.current,
-                       confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
-                       verified_at: Time.current, document_number: unique_document_number)
+  # poll_officer2 = create_user("poll_officer2@consul.dev", "Pauline M. Espinosa")
+  # poll_officer2.create_poll_officer
+  # poll_officer2.update!(residence_verified_at: Time.current,
+  #                      confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
+  #                      verified_at: Time.current, document_number: unique_document_number)
 
-  sdg_manager = create_user("sdg_manager@consul.dev", "SDG manager")
-  sdg_manager.create_sdg_manager
-  sdg_manager.update!(residence_verified_at: Time.current,
-                confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
-                verified_at: Time.current, document_number: unique_document_number)
+  # sdg_manager = create_user("sdg_manager@consul.dev", "SDG manager")
+  # sdg_manager.create_sdg_manager
+  # sdg_manager.update!(residence_verified_at: Time.current,
+  #               confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
+  #               verified_at: Time.current, document_number: unique_document_number)
 
   create_user("unverified@consul.dev", "unverified")
 
@@ -74,20 +74,20 @@ section "Creating Users" do
                   confirmed_phone: Faker::PhoneNumber.phone_number, document_type: "1",
                   verified_at: Time.current, document_number: unique_document_number)
 
-  [
-    I18n.t("seeds.organizations.neighborhood_association"),
-    I18n.t("seeds.organizations.human_rights"),
-    "Greenpeace"
-  ].each do |organization_name|
-    org_user = create_user("#{organization_name.parameterize}@consul.dev", organization_name)
-    org = org_user.create_organization(name: organization_name, responsible_name: Faker::Name.name)
-    [true, false].cycle ? org.verify : org.reject
-  end
+  # [
+  #   I18n.t("seeds.organizations.neighborhood_association"),
+  #   I18n.t("seeds.organizations.human_rights"),
+  #   "Greenpeace"
+  # ].each do |organization_name|
+  #   org_user = create_user("#{organization_name.parameterize}@consul.dev", organization_name)
+  #   org = org_user.create_organization(name: organization_name, responsible_name: Faker::Name.name)
+  #   [true, false].cycle ? org.verify : org.reject
+  # end
 
-  5.times do |i|
-    official = create_user("official#{i}@consul.dev", "Official #{i}")
-    official.update!(official_level: i, official_position: "Official position #{i}")
-  end
+  # 5.times do |i|
+  #   official = create_user("official#{i}@consul.dev", "Official #{i}")
+  #   official.update!(official_level: i, official_position: "Official position #{i}")
+  # end
 
   30.times do |i|
     user = create_user("user#{i}@consul.dev", "Regular user #{i}")

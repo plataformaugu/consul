@@ -46,6 +46,21 @@ class CommentsController < ApplicationController
     render "shared/_refresh_flag_actions", locals: { flaggable: @comment, divider: true }
   end
 
+  def validate
+    @comment.ignored_flag_at = Time.now
+    @comment.save
+
+    flash[:notice] = "El comentario fue marcado como válido."
+    redirect_to moderation_comments_path
+  end
+
+  def custom_hide
+    @comment.hide
+
+    flash[:notice] = "El comentario fue ocultado."
+    redirect_to moderation_comments_path
+  end
+
   def hide
     @comment.hide
     set_comment_flags(@comment.subtree)

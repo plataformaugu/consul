@@ -4,5 +4,7 @@ resources :comments, only: [:create, :show], shallow: true do
     put :flag
     put :unflag
     put :hide
+    post :validate
+    post :custom_hide
   end
 end

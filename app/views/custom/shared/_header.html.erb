@@ -42,7 +42,7 @@
     </div>
 
     <div class="reveal" id="video-popup" data-reveal style="width: 680px" data-reset-on-close="true">
-      <iframe title="vimeo-player" src="https://player.vimeo.com/video/708859849?h=66ff349f18" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+      <iframe width="640" height="360" src="https://www.youtube.com/embed/C0DPdy98e4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <div class="banner-slider-container">
@@ -53,12 +53,12 @@
         <div class="is-active orbit-slide">
           <div class="desktop-only">
             <%= link_to 'javascript:void(0)', data: {open: 'video-popup'} do %>
-              <%= image_tag "/images/slider-3.png" %>
+              <%= image_tag "/images/slider-3-v3.png" %>
             <% end %>
           </div>
           <div class="mobile-only">
             <%= link_to 'https://player.vimeo.com/video/708859849?h=66ff349f18', target: '_blank' do %>
-              <%= image_tag "/images/slider-3.png" %>
+              <%= image_tag "/images/slider-3-v3.png" %>
             <% end %>
           </div>
         </div>
@@ -81,7 +81,9 @@
     <div class="banner-sky-buildings">
       <div class="banner-slider-box">
         <div>
-          <p>Descubre los Ejes Temáticos<br>en los que puedes participar</p>
+          <%= link_to 'javascript:void(0)', data: {open: 'video-popup'}, style: 'text-decoration: none; color: white;' do %>
+            <p>¡Bienvenido!<br>Descubre como ser parte de nuestra comunidad<br>Haz click aquí</p>
+          <% end %>
         </div>
       </div>
       <%= image_tag "/images/e-skyline-f.svg" %>
