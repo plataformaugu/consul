@@ -4,12 +4,14 @@
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
 
-    <%= link_to '/propuestas' do %>
-    <div class="banner-airplane">
-      <%= image_tag "/images/b-avion.svg", class: 'banner-airplane-img' %>
-      <%= image_tag "/images/b-lienzo.svg", class: 'banner-airplane-flag' %>
-      <%= image_tag "/images/b-tlienzo.svg", class: 'banner-airplane-text' %>
-    </div>
+    <% if feature?(:proposals) %>
+      <%= link_to '/propuestas' do %>
+      <div class="banner-airplane">
+        <%= image_tag "/images/b-avion.svg", class: 'banner-airplane-img' %>
+        <%= image_tag "/images/b-lienzo.svg", class: 'banner-airplane-flag' %>
+        <%= image_tag "/images/b-tlienzo.svg", class: 'banner-airplane-text' %>
+      </div>
+      <% end %>
     <% end %>
 
     <div class="banner-sky-title">
@@ -68,9 +70,11 @@
       </div>
 
       <div class="b-s-c-text">
+        <%= link_to 'https://player.vimeo.com/video/708859849?h=66ff349f18', target: '_blank', style: 'text-decoration: none; color: white;' do %>
         <p>
-          ¡Conoce todas las<br> formas de participar!
+          ¡Bienvenido!<br>Descubre como ser parte de nuestra comunidad<br>Haz click aquí
         </p>
+        <% end %>
       </div>
     </div>
 

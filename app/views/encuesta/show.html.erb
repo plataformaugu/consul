@@ -14,12 +14,19 @@
 
   <div class="small-12 medium-12 column">
     <div class="proposal-content-container mt-1">
-      <div class="p-c-duo">
+      <div class="p-c-duo mb-3">
         <div class="p-c-description">
           <%= wysiwyg(@encuestum.description) %>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center;">
-          <div class="info-card">
+          <% if @encuestum.image.present? %>
+            <div>
+            <%= image_tag @encuestum.image %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="info-card">
             <div class="info-card-header" style="background-color: #fe6b01;">
               <h1>Responde</h1>
             </div>
@@ -43,13 +50,6 @@
               <% end %>
             </div>
           </div>
-          <% if @encuestum.image.present? %>
-            <div style="margin-top: 50px;">
-            <%= image_tag @encuestum.image %>
-            </div>
-          <% end %>
-        </div>
-      </div>
     </div>
   </div>
 </div>
