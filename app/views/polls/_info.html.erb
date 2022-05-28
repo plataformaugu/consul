@@ -43,10 +43,42 @@
           !
         </div>
         <div class="c-i-m-right" style="background-color: #f25b86;">
-          Esta consulta está habilitada sólo para <br>vecinos de la(s) unidad(es) vecinal(es):<br>
+          Este proceso está habilitado solo para <br>residentes de la(s) unidad(es) vecinal(es):<br>
           <strong><%= poll.sectors.map{ |s| s.name }.join(', ') %>.</strong>
         </div>
       </div>
+      <% else %>
+        <% if Set.new(['Vecino Residente Las Condes']) == Set.new(poll.neighbor_types.pluck(:name)) %>
+          <div class="custom-icon-message mt-3" style="background-color: #f25b86;">
+            <div class="c-i-m-left" style="background-color: #f25b86;">
+              !
+            </div>
+            <div class="c-i-m-right" style="background-color: #f25b86;">
+              Este proceso está habilitado solo para<br>
+              <strong>vecinos residentes.</strong>
+            </div>
+          </div>
+        <% elsif Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes']) == Set.new(poll.neighbor_types.pluck(:name)) %>
+          <div class="custom-icon-message mt-3" style="background-color: #f25b86;">
+            <div class="c-i-m-left" style="background-color: #f25b86;">
+              !
+            </div>
+            <div class="c-i-m-right" style="background-color: #f25b86;">
+              Este proceso está habilitado solo para<br>
+              <strong>vecinos residentes y flotantes.</strong>
+            </div>
+          </div>
+        <% elsif Set.new(['Vecino Flotante Las Condes']) == Set.new(poll.neighbor_types.pluck(:name)) %>
+          <div class="custom-icon-message mt-3" style="background-color: #f25b86;">
+            <div class="c-i-m-left" style="background-color: #f25b86;">
+              !
+            </div>
+            <div class="c-i-m-right" style="background-color: #f25b86;">
+              Este proceso está habilitado solo para<br>
+              <strong>vecinos flotantes.</strong>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

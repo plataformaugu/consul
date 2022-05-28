@@ -17,7 +17,7 @@ class EncuestaController < ApplicationController
       if current_user.administrator?
         @can_vote = true
       elsif !@encuestum.neighbor_types.include?(current_user.neighbor_type)
-        @reason = "No estás habilitado para participar. Esta encuesta es solo para #{@encuestum.neighbor_types.pluck(:name).join(', ')}."
+        @reason = "Este proceso está habilitado solo para: #{@encuestum.neighbor_types.pluck(:name).join(', ')}."
       else
         @can_vote = true
       end
@@ -67,7 +67,7 @@ class EncuestaController < ApplicationController
 
   # DELETE /encuesta/1
   def destroy
-    EncuestumNeighborType.where(encuestum_id: 6).destroy_all
+    EncuestumNeighborType.where(encuestum_id: @encuestum.id).destroy_all
     @encuestum.destroy
     redirect_to encuesta_url, notice: 'La encuesta fue eliminada.'
   end

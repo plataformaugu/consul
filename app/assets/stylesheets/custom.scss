@@ -1888,8 +1888,10 @@ body.admin {
 
 .plus-button-sm {
     display:inline-block;
-    width: 1.5em;
-    height: 1.5em;
+    min-width: 1em;
+    min-height: 1em;
+    width: 1em;
+    height: 1em;
     background:
       linear-gradient(#fff 2 0),
       linear-gradient(#fff 0 0),

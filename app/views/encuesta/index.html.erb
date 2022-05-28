@@ -46,7 +46,7 @@
             </div>
             <div class="encuesta-card-footer">
               <div>
-                <span>Días para cerrar la votación</span>
+                <span>Días para cerrar la encuesta</span>
                 <strong>
                   <% if e.limit_date > Time.now %>
                     <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>

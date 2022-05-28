@@ -55,6 +55,7 @@ class CommentsController < ApplicationController
   end
 
   def custom_hide
+    Mailer.hide_comment(@comment).deliver_later
     @comment.hide
 
     flash[:notice] = "El comentario fue ocultado."

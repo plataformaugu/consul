@@ -1,0 +1,15 @@
+<td style="padding-bottom: 20px; padding-left: 10px;">
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <%= @author.first_name %> <%= @author.last_name %>,<br><br>
+    Su siguiente comentario:
+  </p>
+
+  <div style="background-color: rgba(0, 0, 0, 0.1); padding: 10px; font-size: 1.1em; font-style: italic; margin: 10px;">
+    <%= @comment.body %>
+  </div>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    Ha sido eliminado de la plataforma <strong>Participa Las Condes</strong> debido a que no se encuentra alineado con la política 
+    de convivencia documentada en nuestra <a href="https://www.participalascondes.cl/condiciones" target="_blank">Política de Privacidad y Condiciones de Uso</a>.
+  </p>
+</td>

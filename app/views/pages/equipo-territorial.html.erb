@@ -6,17 +6,17 @@
         {
           :name => 'Nicole Lagos',
           :email => 'nlagosk@lascondes.cl',
-          :photo => nil
+          :photo => 'Nicole Lagos.png'
         },
         {
           :name => 'Melanie Bonilla',
           :email => 'mbonilla@lascondes.cl',
-          :photo => nil
+          :photo => 'Melanie Bonilla.png'
         },
         {
-          :name => 'Hernan Rodrigo',
+          :name => 'Hernán Rodrigo',
           :email => 'hrodrigo@lascondes.cl',
-          :photo => nil
+          :photo => 'Hernán Rodrigo.png'
         }
       ]
     },
@@ -24,19 +24,19 @@
       :sectors => ['C-1', 'C-2', 'C-10', 'C-18'],
       :persons => [
         {
-          :name => 'Cristopher Pardo',
+          :name => 'Christopher Pardo',
           :email => 'cpardo@lascondes.cl',
-          :photo => nil
+          :photo => 'Christopher Pardo.png'
         },
         {
-          :name => 'Jose Ignacio Reyes',
+          :name => 'José Ignacio Reyes',
           :email => 'jose.reyes@lascondes.cl',
-          :photo => nil
+          :photo => 'José Reyes.png'
         },
         {
           :name => 'Vicente Rojas',
           :email => 'vicente.rojas@lascondes.cl',
-          :photo => nil
+          :photo => 'Vicente Rojas.png'
         }
       ]
     },
@@ -44,19 +44,19 @@
       :sectors => ['C-3', 'C-4', 'C-5', 'C-6', 'C-7', 'C-8'],
       :persons => [
         {
-          :name => 'Cristopher Pardo',
+          :name => 'Christopher Pardo',
           :email => 'cpardo@lascondes.cl',
-          :photo => nil
+          :photo => 'Christopher Pardo.png'
         },
         {
           :name => 'Francisca Pereira',
           :email => 'fpereira@lascondes.cl',
-          :photo => nil
+          :photo => 'Francisca Pereira.png'
         },
         {
           :name => 'Victor Arratia',
           :email => 'varratia@lascondes.cl',
-          :photo => nil
+          :photo => 'Victor Arratia.png'
         }
       ]
     },
@@ -66,12 +66,12 @@
         {
           :name => 'Matias Camilo',
           :email => 'mcamilo@lascondes.cl',
-          :photo => nil
+          :photo => 'Matias Camilo.png'
         },
         {
           :name => 'Samuel Rojas',
           :email => 'srojas@lascondes.cl',
-          :photo => nil
+          :photo => 'Samuel Rojas.png'
         }
       ]
     },
@@ -81,17 +81,17 @@
         {
           :name => 'Mauricio Araneda',
           :email => 'maraneda@lascondes.cl',
-          :photo => nil
+          :photo => 'Mauricio Araneda.png'
         },
         {
           :name => 'Hugo Farias',
           :email => 'hugo.farias@lascondes.cl',
-          :photo => nil
+          :photo => 'Hugo Farias.png'
         },
         {
-          :name => 'Ignacio Sorano',
+          :name => 'Ignacio Soriano',
           :email => 'isoriano@lascondes.cl',
-          :photo => nil
+          :photo => 'Ignacio Soriano.png'
         }
       ]
     },
@@ -101,17 +101,17 @@
         {
           :name => 'Rodrigo Gonzalez',
           :email => 'ragonzalez@lascondes.cl',
-          :photo => nil
+          :photo => 'Rodrigo Gonzalez.png'
         },
         {
           :name => 'Catalina Altamirano',
           :email => 'caltamirano@lascondes.cl',
-          :photo => nil
+          :photo => 'no-image.png'
         },
         {
           :name => 'Danny Lagos',
           :email => 'dlagos@lascondes.cl',
-          :photo => nil
+          :photo => 'Danny Lagos.png'
         }
       ]
     }
@@ -212,7 +212,7 @@ $.getJSON('/mt.geojson', function(geojson) {
               <p style="font-size: 1em; font-weight: normal; color: #222222;">
                 ${person['name']}<br>
                 <a href="mailto:${person['email']}" style="color: #4081d8;">${person['email']}</a><br>
-                <%= image_tag 'http://placehold.jp/200x250.png', style: 'max-height: none; max-width: none;' %>
+                <img src="/images/equipo-territorial/${person['photo']}" style="max-height: none; max-width: none; max-width: 200px;" %>
               </p>
             </div>`)
           $('#mt-orbit-bullets').append(`<button data-slide="${index}" class="${index === 0 ? 'is-active' : ''}">

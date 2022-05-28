@@ -1,0 +1,41 @@
+<div class="home-proposals-card">
+  <div class="home-proposals-cards-header">
+    <div class="h-p-c-h-theme-container">
+      <h3>Propuestas ciudadanas</h3>
+    </div>
+  </div>
+  <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
+    <div style="border: 3px solid #34c99b; padding: 25px 10px;">
+    <%= image_tag '/images/p-icon-3.svg', style: 'width: 50%;' %>
+    </div>
+  </div>
+  <div class="home-proposals-cards-content" style="height: 50%;">
+    <div style="height: 100%; display: flex; align-items: center;">
+      <h3 class="text-center">Revisa las convocatorias disponibles</h3>
+    </div>
+    <div class="home-proposals-cards-content-footer">
+      <%= link_to 'Participar', '/propuestas', class: 'button expanded large', target: '_blank' %>
+    </div>
+  </div>
+</div>
+
+<div class="home-proposals-card">
+  <div class="home-proposals-cards-header">
+    <div class="h-p-c-h-theme-container">
+      <h3>Encuestas</h3>
+    </div>
+  </div>
+  <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
+    <div style="border: 3px solid #f66e0a; padding: 25px 10px;">
+    <%= image_tag '/images/p-icon-2.svg', style: 'width: 50%;' %>
+    </div>
+  </div>
+  <div class="home-proposals-cards-content" style="height: 50%;">
+    <div style="height: 100%; display: flex; align-items: center;">
+      <h3 class="text-center">Revisa las encuestas disponibles</h3>
+    </div>
+    <div class="home-proposals-cards-content-footer">
+      <%= link_to 'Participar', '/encuestas', class: 'button expanded large', target: '_blank' %>
+    </div>
+  </div>
+</div>

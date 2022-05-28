@@ -185,7 +185,19 @@ class Proposal < ApplicationRecord
     if self.is_initiative
       return self.neighbor_types.include?(user.neighbor_type)
     else
-      return self.proposals_theme.neighbor_types.include?(user.neighbor_type)
+      sector_condition = false
+
+      if self.proposals_theme.sectors.any?
+        if self.proposals_theme.sectors.include?(user.sector)
+          sector_condition = true
+        else
+          sector_condition = false
+        end
+      else
+        sector_condition = true
+      end
+
+      return sector_condition && self.proposals_theme.neighbor_types.include?(user.neighbor_type)
     end
   end
 
