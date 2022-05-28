@@ -137,14 +137,18 @@ class ProposalsController < ApplicationController
       if @proposal.proposals_theme.end_date < Time.now.to_date
         redirect_to proposal_path(@proposal) and return
       end
-    end
 
-    if @proposal.sectors.any?
-      if current_user.sector.nil?
-        redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return
-      else
-        unless @proposal.sectors.pluck(:id).include?(current_user.sector.id)
+      if !@proposal.proposals_theme.sectors.include?(current_user.sector)
+        redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación' and return
+      end
+    else
+      if @proposal.sectors.any?
+        if current_user.sector.nil?
           redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return
+        else
+          unless @proposal.sectors.pluck(:id).include?(current_user.sector.id)
+            redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación.' and return
+          end
         end
       end
     end
