@@ -1,22 +1,16 @@
 <div class="padding-top-for-header"></div>
 <div class="row account mb-2">
   <div class="small-12 column">
+    <% if true == false %>
     <div class="float-right text-right">
-      <% if true == false %>
         <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
-      <% end %>
-      <% if !current_user.has_tarjeta_vecino %>
-        <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank' do %>
-          <%= image_tag '/images/tv-button.png' %><br>
-          Obtén tu Tarjeta Vecino
-        <% end %>
-      <% end %>
     </div>
+    <% end %>
 
     <h1 class="inline-block"><%= t("account.show.title") %></h1>
 
     <div class="row">
-      <div class="small-12 medium-6 column">
+      <div class="small-12 medium-8 column">
         <p>
           <label><strong>
             Nombre completo
@@ -49,6 +43,21 @@
             </strong></label>
               <%= current_user.sector.name %>
           </p>
+        <% end %>
+      </div>
+      <div class="small-12 medium-4 column">
+        <% if !current_user.has_tarjeta_vecino %>
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div>
+            <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank', style: 'display: flex; flex-direction: column;' do %>
+              <%= image_tag '/images/tv-button.png' %>
+              Obtén tu Tarjeta Vecino
+            <% end %>
+            </div>
+            <div class="mt-1">
+              <%= link_to 'Actualizar Tarjeta Vecino', accounts_update_tarjeta_vecino_path, method: 'post', class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>

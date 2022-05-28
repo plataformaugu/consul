@@ -104,11 +104,6 @@
           :photo => 'Rodrigo Gonzalez.png'
         },
         {
-          :name => 'Catalina Altamirano',
-          :email => 'caltamirano@lascondes.cl',
-          :photo => 'no-image.png'
-        },
-        {
           :name => 'Danny Lagos',
           :email => 'dlagos@lascondes.cl',
           :photo => 'Danny Lagos.png'
@@ -180,9 +175,7 @@ var mtColors = {
 }
 
 $.getJSON('/mt.geojson', function(geojson) {
-  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    boundary: geojson,
-  });
+  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
   map.addLayer(osm)
 
   var selectedFeature
@@ -232,10 +225,5 @@ $.getJSON('/mt.geojson', function(geojson) {
     onEachFeature: onEachFeature,
   }).addTo(map)
 
-  map.touchZoom.disable()
-  map.doubleClickZoom.disable()
-  map.scrollWheelZoom.disable()
-  map.boxZoom.disable()
-  map.keyboard.disable()
 })
 <% end %>
