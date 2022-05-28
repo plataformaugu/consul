@@ -63,7 +63,7 @@
       </div>
     <% end %>
 
-    <% if feature?(:map) %>
+    <% if @is_initiative %>
       <div id="leaflet-container">
         <div style="display: none;">
           <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
@@ -136,10 +136,6 @@
 <script>
 // MAP
 var map = new L.Map('leaflet')
-<% if @proposals_theme and @proposals_theme.sectors.any? %>
-$('#proposal_sector_ids_c1')[0].setCustomValidity('error')
-$('#leaflet-error').show()
-<% end %>
 
 $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
   const osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -216,16 +212,6 @@ $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
         $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Ninguno')
       <% else %>
         $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
-      <% end %>
-
-      <% if @proposals_theme and @proposals_theme.sectors.any? %>
-      if (!selectedFeatures.length) {
-        $('#proposal_sector_ids_c1')[0].setCustomValidity('error')
-        $('#leaflet-error').show()
-      } else {
-        $('#proposal_sector_ids_c1')[0].setCustomValidity('')
-        $('#leaflet-error').hide()
-      }
       <% end %>
     })
   }
