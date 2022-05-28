@@ -138,8 +138,10 @@ class ProposalsController < ApplicationController
         redirect_to proposal_path(@proposal) and return
       end
 
-      if !@proposal.proposals_theme.sectors.include?(current_user.sector)
-        redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación' and return
+      if @proposal.proposals_theme.sectors.any?
+        if !@proposal.proposals_theme.sectors.include?(current_user.sector)
+          redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación' and return
+        end
       end
     else
       if @proposal.sectors.any?
