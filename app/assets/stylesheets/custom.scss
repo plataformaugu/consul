@@ -43,6 +43,14 @@ a {
 }
 
 .mobile-view {
+    li {
+        a {
+            @media (max-width: 1200px) {
+                text-transform: capitalize;
+                text-decoration: none;
+            }
+        }
+    }
     .mobile-menu {
         a {
             color: #fff;
@@ -1097,10 +1105,14 @@ html, body {
 }
 
 #responsive-menu {
-    border-radius: 15px;
 
-    @media (max-width: 648px) {
-        background-color: #f2f2f2 !important;
+    @media (max-width: 1200px) {
+        border-radius: 15px;
+        width: 60vw;
+        padding: 10px;
+        backdrop-filter: blur(15px);
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     }
 
     .is-active {
@@ -4093,7 +4105,7 @@ main {
         margin-top: 15px;
         font-weight: 600;
         color: white;
-        font-size: 0.7em;
+        font-size: 0.9em;
         text-align: center;
         line-height: 1;
     }
@@ -4115,4 +4127,11 @@ main {
             }
         }
     }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
 }

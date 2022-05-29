@@ -24,25 +24,25 @@
               <% if setting["twitter_handle"] %>
                 <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
                             title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
-                                <%= image_tag "icon_twitter.svg", width: '25px', style: 'margin: 10px;' %>
+                                <%= image_tag "icon_twitter.png", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
               <% end %>
               <% if setting["facebook_handle"] %>
                 <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
                             title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
-                            <%= image_tag "icon_facebook.svg", width: '25px', style: 'margin: 10px;' %>
+                            <%= image_tag "icon_facebook.png", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
               <% end %>
               <% if setting["youtube_handle"] %>
                 <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
                             title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
-                            <%= image_tag "icon_youtube.svg", width: '25px', style: 'margin: 10px;' %>
+                            <%= image_tag "icon_youtube.png", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
               <% end %>
               <% if setting["instagram_handle"] %>
                 <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
                             title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank"), style: 'text-decoration: none;' do %>
-                            <%= image_tag "icon_instagram.svg", width: '25px', style: 'margin: 10px;' %>
+                            <%= image_tag "icon_instagram.png", width: '25px', style: 'margin: 10px;' %>
                 <% end %>
               <% end %>
             </td>
