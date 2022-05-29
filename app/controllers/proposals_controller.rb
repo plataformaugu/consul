@@ -194,6 +194,7 @@ class ProposalsController < ApplicationController
   end
 
   def publish
+    Mailer.notify_published_proposal(@proposal).deliver_later
     @proposal.publish
     redirect_to moderation_proposals_path, notice: t("proposals.notice.published")
   end

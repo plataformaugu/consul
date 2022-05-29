@@ -127,7 +127,7 @@
           <span style="height: 3rem; user-select: none; display: flex; align-items: center; color: black;">
             +56
           </span>
-          <%= f.text_field :phone_number, 
+          <%= f.number_field :phone_number, 
               label: 'Teléfono de contacto',
               maxlength: 9,
               minlength: 9,
@@ -170,7 +170,7 @@
           <label>Calle</label>
           <%= text_field_tag 'alt-street', nil, class: 'custom-input', placeholder: 'Ingresa por ej. APOQUINDO (Sin “Avenida” o “Av.”)' %>
           <label>Número</label>
-          <%= text_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
+          <%= number_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
         </div>
       </div>
     </div>

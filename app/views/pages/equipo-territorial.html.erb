@@ -127,7 +127,7 @@
       La misión del equipo territorial es ser un canal efectivo de comunicación entre la municipalidad y los vecinos con el fin de lograr una comuna más conectada con su comunidad y sus requerimientos.
     </p>
     <p>
-      <strong>Conoce al territorial de tu sector en el siguiente mapa:</strong>
+      <strong>Conoce al territorial de tu sector haciendo clic en el siguiente mapa:</strong>
     </p>
   </div>
 </div>
@@ -173,12 +173,14 @@ var mtColors = {
   'MT-05': '#3ba5df',
   'MT-06': '#8148b3'
 }
+$('#mt-persons').hide()
 
 $.getJSON('/mt.geojson', function(geojson) {
   var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
   map.addLayer(osm)
 
   var selectedFeature
+  var selectedLayer
   var unidades = <%= raw(@unidades.to_json) %>
 
   function onEachFeature(feature, layer) {
@@ -191,6 +193,16 @@ $.getJSON('/mt.geojson', function(geojson) {
       var currentFeature = feature.properties['MACRO_T']
 
       if (selectedFeature !== currentFeature) {
+        $('#mt-persons').hide()
+        if (selectedLayer) {
+          selectedLayer.setStyle({
+            color: mtColors[selectedLayer.feature.properties['MACRO_T']],
+            opacity: 1,
+            fillOpacity: 0.4
+          }) 
+        }
+
+        selectedLayer = layer
         selectedFeature = currentFeature
         var selectedMT = unidades[selectedFeature]
         $('#card-header').css('background-color', mtColors[feature.properties['MACRO_T']])
@@ -199,6 +211,11 @@ $.getJSON('/mt.geojson', function(geojson) {
         $('#mt-sectors').text(selectedMT['sectors'].join(' / '))
         $('#mt-persons').html('')
         $('#mt-orbit-bullets').html('')
+        layer.setStyle({
+          color: mtColors[feature.properties['MACRO_T']],
+          opacity: 1,
+          fillOpacity: 0.8
+        }) 
 
         selectedMT['persons'].forEach(function(person, index) {
           $('#mt-persons').append(`<li class="orbit-slide ${index === 0 ? 'is-active' : ''}">
@@ -214,6 +231,7 @@ $.getJSON('/mt.geojson', function(geojson) {
         })
         Foundation.reInit($('.orbit'))
         $('#orbit-parent').show()
+        $('#mt-persons').show()
       }
     })
 

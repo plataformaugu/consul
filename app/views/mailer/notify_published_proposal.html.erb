@@ -1,0 +1,17 @@
+<td style="padding-bottom: 20px; padding-left: 10px;">
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    <%= @author.first_name %> <%= @author.last_name %>,<br><br>
+    ¡Felicitaciones! tu siguiente propuesta ha sido aprobada para ser publicada:
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px; font-weight: bold;">
+    <a href="https://www.participalascondes.cl/proposals/<%= @proposal.id %>" target="_blank" style="color: black;">
+        <%= @proposal.title %>
+    </a>
+  </p>
+
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    Te invitamos a seguir participando en nuestra plataforma. Comparte tu propuesta en redes sociales, 
+    comenta y apoya las de otros usuarios, para seguir co-creando una mejor comuna entre todas y todos.
+  </p>
+</td>

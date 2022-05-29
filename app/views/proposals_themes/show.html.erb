@@ -12,9 +12,17 @@
     <% if Time.now.to_date <= @proposals_theme.end_date %>
     <div class="text-center mt-3">
       <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
+        <% if @proposals_theme.sectors.any? and !@proposals_theme.sectors.include?(current_user.sector) %>
+          Este proceso está habilitado solo para<br>
+          residentes de la(s) unidad(es) vecinal(es):<br>
+          <strong><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong>.
+        <% else %>
         <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
           <%= t("proposals.index.start_proposal") %>
         </a>
+        <% end %>
+      <% elsif current_user %>
+        Este proceso está habilitado solo para:<br><strong><%= @proposals_theme.neighbor_types.pluck(:name).join(', ') %></strong>.
       <% end %>
     </div>
     <% end %>

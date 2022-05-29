@@ -145,6 +145,14 @@ class Mailer < ApplicationMailer
     mail(to: @email_to, subject: 'Tu comentario ha sido eliminado')
   end
 
+  def notify_published_proposal(proposal)
+    @proposal = proposal
+    @author = @proposal.author
+    @email_to = @author.email
+
+    mail(to: @email_to, subject: '¡Tu propuesta ha sido publicada!')
+  end
+
   def machine_learning_error(user)
     @email_to = user.email
 
