@@ -129,8 +129,9 @@
           </span>
           <%= f.number_field :phone_number, 
               label: 'Teléfono de contacto',
-              maxlength: 9,
-              minlength: 9,
+              max: 999999999,
+              min: 100000000,
+              onpaste: 'return false;',
               required: true,
               class: 'custom-input',
               label: false,
@@ -281,6 +282,19 @@
     var streetsRequest = $.get("/las-condes/streets");
     streetsRequest.done(function(response) {
       streets = response
+    })
+
+    $('#user_phone_number').on('keyup', function(e) {
+      if (this.value.length !== 9) {
+        this.setCustomValidity('Deben ser 9 dígitos.')
+
+        if (this.value.length > 9) {
+          this.value = this.value.substring(0, 9)
+          this.setCustomValidity('')
+        }
+      } else {
+        this.setCustomValidity('')
+      }
     })
 
     $('#alternative-address').hide()
