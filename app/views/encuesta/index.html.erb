@@ -42,11 +42,10 @@
           </div>
           <div class="custom-card-content" style="height: 50%;">
             <div>
-              <h3><%= e.name %></h3>
+              <h3 style="text-align: center;"><%= e.name %></h3>
             </div>
             <div class="encuesta-card-footer">
-              <div>
-                <span>Días para cerrar la encuesta</span>
+              <div class="text-center">
                 <strong>
                   <% if e.limit_date > Time.now %>
                     <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
@@ -54,6 +53,7 @@
                     0
                   <% end %>
                 </strong>
+                <span>días para cerrar la encuesta</span>
               </div>
               <%= link_to e.limit_date < Time.now ? 'Finalizada' : 'Participar', e.limit_date < Time.now ? '#' : e, class: 'button expanded large', disabled: e.limit_date < Time.now %>
               <% if current_user and current_user.administrator? %>
