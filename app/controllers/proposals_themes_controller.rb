@@ -5,7 +5,7 @@ class ProposalsThemesController < ApplicationController
 
   # GET /proposals_themes
   def index
-    @proposals_themes = Kaminari.paginate_array(ProposalsTheme.all).page(params[:page])
+    @proposals_themes = Kaminari.paginate_array(ProposalsTheme.where("start_date <= ?", Time.now)).page(params[:page])
   end
 
   # GET /proposals_themes/1
