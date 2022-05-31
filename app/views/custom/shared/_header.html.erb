@@ -5,7 +5,7 @@
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
 
     <% if feature?(:proposals) %>
-      <%= link_to '/encuestas' do %>
+      <%= link_to '/propuestas' do %>
       <div class="banner-airplane">
         <%= image_tag "/images/b-avion.svg", class: 'banner-airplane-img' %>
         <%= image_tag "/images/b-lienzo.svg", class: 'banner-airplane-flag' %>
@@ -65,7 +65,13 @@
           </div>
         </div>
         <div class="orbit-slide">
-          <%= image_tag "/images/slider-1.svg" %>
+          <% if current_user %>
+            <%= link_to account_path(anchor: 'user-form'), target: '_blank' do %>
+              <%= image_tag "/images/slider-1.png" %>
+            <% end %>
+          <% else %>
+            <%= image_tag "/images/slider-1.png" %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -77,7 +83,7 @@
       <div class="b-s-c-text">
         <%= link_to 'https://www.youtube.com/embed/_xs4PIkqXic', target: '_blank', style: 'text-decoration: none; color: white;' do %>
         <p>
-          ¡Bienvenido!<br>Descubre como ser parte de nuestra comunidad<br>Haz click aquí
+          ¡Bienvenido!<br>Descubre cómo ser parte de nuestra comunidad<br>Haz clic aquí
         </p>
         <% end %>
       </div>
@@ -86,7 +92,7 @@
       <div class="banner-slider-box">
         <div>
           <%= link_to 'javascript:void(0)', data: {open: 'video-popup'}, style: 'text-decoration: none; color: white;' do %>
-            <p>¡Bienvenido!<br>Descubre como ser parte de nuestra comunidad<br>Haz click aquí</p>
+            <p>¡Bienvenido!<br>Descubre cómo ser parte de nuestra comunidad<br>Haz clic aquí</p>
           <% end %>
         </div>
       </div>

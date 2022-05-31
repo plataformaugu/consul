@@ -8,7 +8,7 @@
 <div class="row">
   <div class="small-12 column">
     <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title.downcase %></h2>
-    <p class="text-gray"><%= @proposals_theme.description %></p>
+    <p class="text-gray"><%= wysiwyg(@proposals_theme.description) %></p>
     <% if Time.now.to_date <= @proposals_theme.end_date %>
     <div class="text-center mt-3">
       <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
@@ -23,6 +23,13 @@
         <% end %>
       <% elsif current_user %>
         Este proceso está habilitado solo para:<br><strong><%= @proposals_theme.neighbor_types.pluck(:name).join(', ') %></strong>.
+      <% end %>
+      <% if @proposals_theme.pdf_link.present? %>
+        <div class="mt-2">
+        <%= link_to @proposals_theme.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
+          <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
+        <% end %>
+        </div>
       <% end %>
     </div>
     <% end %>

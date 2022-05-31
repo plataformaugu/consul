@@ -4,7 +4,11 @@
   </div>
 
   <div class="field">
-    <%= form.text_area :description, required: true, class: 'custom-textarea', label: 'Descripción', rows: 4 %>
+    <%= form.text_field :pdf_link, class: 'custom-input', label: 'Link PDF' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :description, required: true, class: 'html-area', label: 'Descripción', rows: 4 %>
   </div>
 
   <div class="field">

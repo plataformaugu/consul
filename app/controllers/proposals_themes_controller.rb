@@ -94,6 +94,6 @@ class ProposalsThemesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def proposals_theme_params
-      params.require(:proposals_theme).permit(:title, :description, :image, :start_date, :end_date, :is_public)
+      params.require(:proposals_theme).permit(:title, :description, :image, :start_date, :end_date, :is_public, :pdf_link)
     end
 end
