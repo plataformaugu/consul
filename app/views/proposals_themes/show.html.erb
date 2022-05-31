@@ -24,6 +24,17 @@
       <% elsif current_user %>
         Este proceso está habilitado solo para:<br><strong><%= @proposals_theme.neighbor_types.pluck(:name).join(', ') %></strong>.
       <% end %>
+
+      <% if not current_user %>
+        <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+          <h4>
+            Debes ingresar con tu cuenta para participar en esta convocatoria de propuestas ciudadanas
+          </h4>
+
+          <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+        </div>
+      <% end %>
+
       <% if @proposals_theme.pdf_link.present? %>
         <div class="mt-2">
         <%= link_to @proposals_theme.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
