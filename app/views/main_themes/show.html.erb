@@ -76,8 +76,7 @@
                   <h3><%= e.name %></h3>
                 </div>
                 <div class="encuesta-card-footer">
-                  <div>
-                    <span>Días para cerrar la votación</span>
+                  <div class="text-center">
                     <strong>
                       <% if Time.now > e.limit_date %>
                         <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
@@ -85,6 +84,7 @@
                         0
                       <% end %>
                     </strong>
+                    <span>días para cerrar la encuesta</span>
                   </div>
                   <%= link_to 'Participar', encuestum_path(e.id), class: 'button expanded large', target: '_blank' %>
                 </div>
