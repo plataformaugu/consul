@@ -78,7 +78,7 @@
                 <div class="encuesta-card-footer">
                   <div class="text-center">
                     <strong>
-                      <% if Time.now > e.limit_date %>
+                      <% if e.limit_date > Time.now %>
                         <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
                       <% else %>
                         0
