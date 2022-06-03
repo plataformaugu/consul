@@ -191,7 +191,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def validate_clave_unica_response
-      @secret = '23bdf471bf3fab3a563bce73a3d1568d'
+      @secret = 'aa96dc505cb770099c61a15c34fbb85b'
       @code = params['codigo']
       result = clave_unica_request
       found_user = User.with_deleted.where(document_number: result['rut'].gsub(/[^0-9a-z ]/i, '')).first
