@@ -52,7 +52,7 @@ module Consul
 
     # Add lib to the autoload path
     config.autoload_paths << Rails.root.join("lib")
-    config.time_zone = "Santiago"
+    config.time_zone = "America/Santiago"
     config.active_job.queue_adapter = :delayed_job
 
     # CONSUL specific custom overrides

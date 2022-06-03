@@ -102,7 +102,7 @@
           <% unless @main_theme.proposals.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).published.any? %>
             No hay ninguna propuesta.
           <% end %>
-          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).order(created_at: :desc)[..2].each do |proposal| %>
+          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).published.order(created_at: :desc)[..2].each do |proposal| %>
             <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
               <div class="custom-card-header">
                 <% if proposal.main_theme.present? %>
