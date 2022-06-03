@@ -1368,8 +1368,10 @@ body.admin {
         animation: move_cloud_1 45s linear 0s infinite;
         width: 200px;
 
-        @media (max-width: 640px) {
-            top: 1%;
+        @media (max-width: 1200px) {
+            top: -65px;
+            left: -90px;
+            animation: none;
         }
     }
 
@@ -1379,8 +1381,8 @@ body.admin {
         animation: move_cloud_2 90s linear 0s infinite;
         width: 500px;
 
-        @media (max-width: 640px) {
-            top: 5%;
+        @media (max-width: 1200px) {
+            display: none;
         }
     }
 
@@ -1390,8 +1392,11 @@ body.admin {
         animation: move_cloud_3 75s linear 0s infinite;
         width: 200px;
 
-        @media (max-width: 640px) {
-            top: 5%;
+        @media (max-width: 1200px) {
+            width: 150px;
+            top: -45px;
+            right: -20px;
+            animation: none;
         }
     }
 
@@ -1447,10 +1452,6 @@ body.admin {
         padding-top: 15px;
         z-index: 10;
 
-        @media (max-width: 1200px) {
-            background-color: #568adeb4;
-        }
-
         img {
             width: 120px;
         }
@@ -1482,7 +1483,6 @@ body.admin {
 
         @media (max-width: 1200px) {
             margin-top: 0;
-            background-color: #568adeb4;
             padding: 5px 15px;
         }
     }
