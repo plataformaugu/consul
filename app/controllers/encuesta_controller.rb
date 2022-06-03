@@ -14,6 +14,8 @@ class EncuestaController < ApplicationController
     @reason = 'Debes ingresar con tu cuenta para participar en esta encuesta.'
 
     if current_user
+      @code = @encuestum.code.gsub(/(?<=rut\=)(\w*)(?=\")/, current_user.document_number.insert(-2, '-'))
+
       if current_user.administrator?
         @can_vote = true
       elsif !@encuestum.neighbor_types.include?(current_user.neighbor_type)
