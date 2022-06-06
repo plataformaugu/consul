@@ -2,7 +2,7 @@ class ClaveUnicaController < ApplicationController
     skip_authorization_check
 
     def get
-        @secret = 'aa96dc505cb770099c61a15c34fbb85b'
+        @secret = Rails.application.secrets.clave_unica_secret
         @code = params['codigo']
         result = clave_unica_request
 

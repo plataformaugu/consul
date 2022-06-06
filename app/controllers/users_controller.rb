@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def login
     if request.post?
-      @key = '6ed15de9f1becbb5d3422e39cd80c749'
+      @key = Rails.application.secrets.clave_unica_key
       @state = SecureRandom.hex
       @clave_unica_url = "https://claveunica.lascondes.cl/clave-unica/#{@key}/#{@state}"
 

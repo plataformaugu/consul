@@ -17,7 +17,7 @@ class ProposalsController < ApplicationController
 
   feature_flag :proposals
 
-  invisible_captcha only: [:create, :update], honeypot: :subtitle
+  invisible_captcha only: [:create], honeypot: :subtitle
 
   has_orders ->(c) { Proposal.proposals_orders(c.current_user) }, only: :index
   has_orders %w[most_voted newest oldest], only: :show
@@ -118,6 +118,30 @@ class ProposalsController < ApplicationController
         @proposals_theme = ProposalsTheme.find(@proposal.proposals_theme_id)
         render :new
       end
+    end
+  end
+
+  def update
+    if @proposal.update(proposal_params)
+      @proposal.neighbor_types = []
+
+      params['proposal']['neighbor_types'].each do |id|
+        neighbor_type = NeighborType.find(id)
+        @proposal.neighbor_types.append(neighbor_type)
+      end
+
+      if params['proposal']['sector_ids'].present?
+        @proposal.sector_ids = []
+
+        params['proposal']['sector_ids'].each do |sector_id|
+          sector = Sector.find_by(name: sector_id)
+          @proposal.sectors.append(sector)
+        end
+      end
+
+      redirect_to @proposal, notice: 'La iniciativa fue actualizada.'
+    else
+      render :edit
     end
   end
 

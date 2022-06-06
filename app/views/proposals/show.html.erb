@@ -41,7 +41,12 @@
         <%= render "proposals/info", proposal: @proposal %>
 
         <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
-
+        
+        <% if current_user and current_user.administrator? %>
+        <div class="mt-1">
+          <%= link_to 'Editar', edit_proposal_path(@proposal.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+        </div>
+        <% end %>
         <div class="js-moderator-proposal-actions margin">
           <% if @proposal.author == current_user %>
             <%= link_to 'Panel de control', progress_proposal_dashboard_path(@proposal) %> |

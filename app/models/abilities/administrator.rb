@@ -7,7 +7,7 @@ module Abilities
       merge Abilities::SDG::Manager.new(user)
 
       can [:validate, :custom_hide], Comment
-      can :publish, Proposal
+      can [:publish, :update, :edit], Proposal
       can [:new, :edit, :update, :create, :destroy], ProposalsTheme
       can [:index, :read, :create, :edit, :update, :destroy], Encuestum
       can [:index, :read, :create, :edit, :update], MainTheme
