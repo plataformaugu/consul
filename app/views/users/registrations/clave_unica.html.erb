@@ -6,6 +6,9 @@
             <%= image_tag '/images/clave-unica-icon.svg', style: 'width: 30px' %> Clave Única
         </a>
     </div>
+    <p class="mt-1 text-center" style="font-size: 0.8em; font-style: italic;">
+        La solicitud de clave única se realiza para poder validar la identidad de los vecinos que <br>quieran participar de los procesos de la plataforma de participación ciudadana.
+    </p>
     <% end %>
     <div class="text-center mt-2">
         <%= link_to t("devise_views.shared.links.new_confirmation"), new_confirmation_path(resource_name) %><br>

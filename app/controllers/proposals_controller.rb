@@ -40,7 +40,7 @@ class ProposalsController < ApplicationController
 
   def show
     if @proposal.published_at.nil?
-      if current_user and current_user.administrator?
+      if current_user and (current_user.administrator? or current_user.moderator?)
         nil
       else
         redirect_to root_path
