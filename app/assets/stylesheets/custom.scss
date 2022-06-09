@@ -1553,6 +1553,26 @@ body.admin {
             height: 600px;
         }
 
+        @media screen and (min-width: 2400px) and (max-width: 3000px) {
+            height: 900px;
+        }
+
+        @media screen and (min-width: 3000px) and (max-width: 3500px) {
+            height: 1000px;
+        }
+
+        @media screen and (min-width: 3501px) and (max-width: 4000px) {
+            height: 1100px;
+        }
+
+        @media screen and (min-width: 4001px) and (max-width: 4500px) {
+            height: 1200px;
+        }
+
+        @media screen and (min-width: 4500px) and (max-width: 5000px) {
+            height: 1250px;
+        }
+
         .b-s-c-text {
             position: absolute;
             top: 0;

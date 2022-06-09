@@ -44,7 +44,7 @@
           section_image: @proposal.main_theme.image,
           title: @proposal.title,
           pre_title: @proposal.main_theme.name,
-          pre_min_title: @proposal.proposals_theme.title,
+          pre_min_title: current_user && current_user.administrator? ? @proposal.proposals_theme.title : '',
           show_buildings: true
         %>
       <% else %>

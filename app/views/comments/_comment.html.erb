@@ -10,7 +10,7 @@
         <% end %>
       <% else %>
         <% if comment.as_administrator? %>
-          <%= image_tag("avatar_admin.png", size: 32, class: "admin-avatar float-left") %>
+          <%= image_tag("/images/b-icono.svg", size: 32, class: "admin-avatar float-left") %>
         <% elsif comment.as_moderator? %>
           <%= image_tag("avatar_moderator.png", size: 32, class: "moderator-avatar float-left") %>
         <% else %>
@@ -27,11 +27,13 @@
 
           <% if comment.as_administrator? %>
             <span class="user-name">
-              <%= t("comments.comment.admin") %>
-              <% if valuation %>
-                <%= Administrator.find(comment.administrator_id).description_or_name %>
-              <% else %>
-                #<%= comment.administrator_id %>
+              <%= t("comments.comment.admin") %> <%= image_tag '/images/verified-icon.png' %>
+              <% if true == false %>
+                <% if valuation %>
+                  <%= Administrator.find(comment.administrator_id).description_or_name %>
+                <% else %>
+                  #<%= comment.administrator_id %>
+                <% end %>
               <% end %>
             </span>
           <% elsif comment.as_moderator? %>
