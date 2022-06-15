@@ -2,7 +2,7 @@
 
   <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; font-size: 20px;">
     <%= sanitize(t("mailers.direct_message_for_sender.title",
-        receiver: @direct_message.receiver.name)) %>
+        receiver: "#{@direct_message.receiver.first_name} #{@direct_message.receiver.last_name}")) %>
   </p>
 
   <h2 style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif; font-size: 18px;">

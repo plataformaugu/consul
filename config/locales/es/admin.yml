@@ -801,6 +801,31 @@ es:
         title: "Moderadores: Búsqueda de usuarios"
     segment_recipient:
       all_users: Todos los usuarios
+      c1: C-1
+      c2: C-2
+      c3: C-3
+      c4: C-4
+      c5: C-5
+      c6: C-6
+      c7: C-7
+      c8: C-8
+      c9: C-9
+      c10: C-10
+      c11: C-11
+      c12: C-12
+      c13: C-13
+      c14: C-14
+      c15: C-15
+      c16: C-16
+      c17: C-17
+      c18: C-18
+      c19: C-19
+      c20: C-20
+      c21: C-21
+      c22: C-22
+      c23: C-23
+      c24: C-24
+      c25: C-25
       administrators: Administradores
       all_proposal_authors: Usuarios autores de propuestas (incluyendo archivadas y retiradas)
       proposal_authors: Usuarios autores de propuestas
@@ -1526,6 +1551,7 @@ es:
         filters:
           active: Activos
           erased: Borrados
+          without_sector: Sin Unidad Vecinal
           without_coordenates: Sin coordenadas
       search:
         placeholder: Buscar usuario por email, nombre o DNI

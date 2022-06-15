@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       post :left_event
     end
   end
+  get 'admin/users/edit' => 'admin/users#edit_user'
+  patch 'admin/users/edit' => 'admin/users#edit_user_patch'
 
   mount Ckeditor::Engine => "/ckeditor"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
@@ -66,4 +68,5 @@ Rails.application.routes.draw do
   end
 
   post 'accounts/login' => 'users#login'
+
 end

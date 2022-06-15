@@ -64,6 +64,8 @@ module Abilities
       can [:create, :read, :destroy], ::SDG::Manager
       can [:search, :index], ::User
 
+      can [:edit_user, :edit_user_patch], ::User
+
       can :manage, Dashboard::Action
 
       can [:index, :read, :create, :update, :destroy], Budget

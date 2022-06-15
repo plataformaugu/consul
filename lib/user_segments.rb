@@ -1,18 +1,139 @@
 class UserSegments
   def self.segments
-    %w[all_users
-       administrators
-       all_proposal_authors
-       proposal_authors
-       investment_authors
-       feasible_and_undecided_investment_authors
-       selected_investment_authors
-       winner_investment_authors
-       not_supported_on_current_budget] + geozones.keys
+    %w[
+        all_users
+        administrators
+        c1
+        c2
+        c3
+        c4
+        c5
+        c6
+        c7
+        c8
+        c9
+        c10
+        c11
+        c12
+        c13
+        c14
+        c15
+        c16
+        c17
+        c18
+        c19
+        c20
+        c21
+        c22
+        c23
+        c24
+        c25
+      ]
   end
 
   def self.segment_name(segment)
     geozones[segment.to_s]&.name || I18n.t("admin.segment_recipient.#{segment}") if valid_segment?(segment)
+  end
+
+  # Sectors
+  def self.c1
+    User.where(sector_id: Sector.find_by(name: 'C1').id)
+  end
+
+  def self.c2
+    User.where(sector_id: Sector.find_by(name: 'C2').id)
+  end
+
+  def self.c3
+    User.where(sector_id: Sector.find_by(name: 'C3').id)
+  end
+
+  def self.c4
+    User.where(sector_id: Sector.find_by(name: 'C4').id)
+  end
+
+  def self.c5
+    User.where(sector_id: Sector.find_by(name: 'C5').id)
+  end
+
+  def self.c6
+    User.where(sector_id: Sector.find_by(name: 'C6').id)
+  end
+
+  def self.c7
+    User.where(sector_id: Sector.find_by(name: 'C7').id)
+  end
+  
+  def self.c8
+    User.where(sector_id: Sector.find_by(name: 'C8').id)
+  end
+  
+  def self.c9
+    User.where(sector_id: Sector.find_by(name: 'C9').id)
+  end
+
+  def self.c10
+    User.where(sector_id: Sector.find_by(name: 'C10').id)
+  end
+
+  def self.c11
+    User.where(sector_id: Sector.find_by(name: 'C11').id)
+  end
+
+  def self.c12
+    User.where(sector_id: Sector.find_by(name: 'C12').id)
+  end
+
+  def self.c13
+    User.where(sector_id: Sector.find_by(name: 'C13').id)
+  end
+
+  def self.c14
+    User.where(sector_id: Sector.find_by(name: 'C14').id)
+  end
+
+  def self.c15
+    User.where(sector_id: Sector.find_by(name: 'C15').id)
+  end
+
+  def self.c16
+    User.where(sector_id: Sector.find_by(name: 'C16').id)
+  end
+
+  def self.c17
+    User.where(sector_id: Sector.find_by(name: 'C17').id)
+  end
+  
+  def self.c18
+    User.where(sector_id: Sector.find_by(name: 'C18').id)
+  end
+  
+  def self.c19
+    User.where(sector_id: Sector.find_by(name: 'C19').id)
+  end
+
+  def self.c20
+    User.where(sector_id: Sector.find_by(name: 'C20').id)
+  end
+
+  def self.c21
+    User.where(sector_id: Sector.find_by(name: 'C21').id)
+  end
+
+  def self.c22
+    User.where(sector_id: Sector.find_by(name: 'C22').id)
+  end
+
+  def self.c23
+    User.where(sector_id: Sector.find_by(name: 'C23').id)
+  end
+
+  def self.c24
+    User.where(sector_id: Sector.find_by(name: 'C24').id)
+  end
+
+  def self.c25
+    User.where(sector_id: Sector.find_by(name: 'C25').id)
   end
 
   def self.all_users

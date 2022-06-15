@@ -1,0 +1,67 @@
+<%= link_to 'Volver', admin_users_path(filter: 'without_sector') %>
+
+<h3>Actualizar datos</h3>
+
+<div class="row" style="margin-left: 0 !important;">
+  <div class="small-12 medium-4 column" style="padding: 0 !important;">
+  <%= form_with(model: @user, url: '/admin/users/edit', local: true) do |form| %>
+    <%= form.hidden_field :user_id, value: @user.id %>
+
+    <div class="field mb-1">
+      <p><strong>ID:</strong> <%= @user.id %></p>
+    </div>
+
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" value="<%= @user.first_name %> <%= @user.last_name %>" class="custom-input" disabled>
+    </div>
+    
+    <div class="field">
+      <%=
+        form.text_field :email,
+        label: 'Email',
+        class: 'custom-input',
+        disabled: true
+      %>
+    </div>
+
+    <div class="field">
+      <%=
+        form.text_field :document_number,
+        label: 'RUT',
+        class: 'custom-input',
+        disabled: true
+      %>
+    </div>
+
+    <div class="field">
+      <%=
+        form.text_field :address,
+        label: 'Dirección',
+        class: 'custom-input',
+        disabled: true
+      %>
+    </div>
+
+    <div class="field">
+      <%=
+        form.collection_select :sector_id,
+        @sectors,
+        :id,
+        :name,
+        {
+          label: 'Unidad Vecinal',
+          prompt: 'Elige una opción'
+        },
+        {
+          class: 'custom-input',
+          required: true,
+        }
+      %>
+    </div>
+    <div class="actions mt-1">
+      <%= form.submit 'Actualizar', class: 'solid-button-sm rounded-xl' %>
+    </div>
+  <% end %>
+  </div>
+</div>

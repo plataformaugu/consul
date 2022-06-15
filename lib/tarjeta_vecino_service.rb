@@ -29,7 +29,6 @@ module TarjetaVecino
                     </soap:Envelope>' % rut,
             )
             result = response.body[:consulta_estado_tarjeta_response][:consulta_estado_tarjeta_result]
-            puts rut
 
             if result[:mensaje].nil?
                 final_result[:status] = true

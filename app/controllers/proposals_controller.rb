@@ -125,9 +125,11 @@ class ProposalsController < ApplicationController
     if @proposal.update(proposal_params)
       @proposal.neighbor_types = []
 
-      params['proposal']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @proposal.neighbor_types.append(neighbor_type)
+      if params['proposal']['neighbor_types'].present?
+        params['proposal']['neighbor_types'].each do |id|
+          neighbor_type = NeighborType.find(id)
+          @proposal.neighbor_types.append(neighbor_type)
+        end
       end
 
       if params['proposal']['sector_ids'].present?

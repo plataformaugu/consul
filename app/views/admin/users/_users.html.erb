@@ -7,6 +7,13 @@
           <% if @current_filter == "erased" %>
             <th scope="col"><%= t("admin.users.columns.id") %></th>
             <th scope="col"><%= t("admin.users.columns.erase_reason") %></th>
+          <% elsif @current_filter == 'without_sector' %>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">RUT</th>
+            <th scope="col">Dirección</th>
+            <th scope="col"></th>
           <% else %>
             <th scope="col"><%= t("admin.users.columns.name") %></th>
             <th scope="col"><%= t("admin.users.columns.email") %></th>
@@ -22,6 +29,13 @@
             <% if @current_filter == "erased" %>
               <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
               <td><%= user.erase_reason %></td>
+            <% elsif @current_filter == 'without_sector' %>
+              <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
+              <td><%= "#{user.first_name} #{user.last_name}" %></td>
+              <td><%= user.email %></td>
+              <td><%= user.document_number %></td>
+              <td><%= user.address %></td>
+              <td><%= link_to "Actualizar", "/admin/users/edit?user_id=#{user.id}", class: 'button', style: 'text-decoration: none; color: white;' %></td>
             <% else %>
               <td><%= link_to user.first_name && user.last_name ? "#{user.first_name} #{user.last_name}" : user.name, user_path(user), target: "_blank" %></td>
               <td><%= user.email %></td>

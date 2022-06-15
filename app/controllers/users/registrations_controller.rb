@@ -58,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           date_of_birth: !born_data.fetch('fechaNacimiento', nil).nil? ? Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d') : nil,
           civil_status: home_data.fetch('estadoCivil', nil),
           nationality: born_data.fetch('nacionalidadNacimiento', '').titleize,
-          profession: !profession_data.fetch('tituloProfesional', nil).nil? ? profession_data['tituloProfesional'].titleize : nil
+          profession: (profession_data.is_a?(Hash) && !profession_data.fetch('tituloProfesional', nil).nil?) ? profession_data['tituloProfesional'].titleize : nil
         })
 
         @countries = get_countries
@@ -81,6 +81,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if !params['alt-street'].empty?
       resource.address = "#{params['alt-street']} #{params['alt-number']}"
+      sector_data = get_sector_data("#{params['alt-street']} #{params['alt-number']}")
+
+      if !sector_data.nil?
+        resource.sector = Sector.where(name: "C#{sector_data['sector']}").first
+        resource.lat = sector_data['lat']
+        resource.long = sector_data['long']
+      end
     end
 
     tarjeta_vecino_data = get_tarjeta_vecino_data(resource.document_number)
@@ -126,6 +133,41 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         render json: []
       end
+    end
+  end
+
+  def get_sector_data(address)
+    uri = URI("https://bus-datos.lascondes.cl/api/maestros/direcciones/direccion-like")
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    request["Authorization"] = "Bearer A8Vq8HmOepf38i38i7D95RkF3kxhmeSOVlItK4rFim12tK4rFim12diVun3aHe9k9Ll0"
+    request.body = JSON.dump({
+      "q": address,
+    })
+    response = https.request(request)
+
+    begin
+      if response.kind_of? Net::HTTPSuccess
+        result = JSON.parse(response.body)['result']
+
+        if result.empty?
+          return nil
+        else
+          sector_data = result[0]
+          return {
+            "sector" => sector_data['cod_unidadvecinal'],
+            "lat" => sector_data['str_latitud'],
+            "long" => sector_data['str_longitud']
+          }
+        end
+      else
+        return nil
+      end
+    rescue
+      return nil
+    rescue Exception
+      return nil
     end
   end
 
@@ -264,7 +306,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :children_amount,
         :pets_amount,
         :lat,
-        :long
+        :long,
+        :web_browser
       )
     end
 
