@@ -116,7 +116,7 @@ class User < ApplicationRecord
   scope :email_digest,   -> { where(email_digest: true) }
   scope :active,         -> { where(erased_at: nil) }
   scope :erased,         -> { where.not(erased_at: nil) }
-  scope :without_sector, -> { where(sector_id: nil) }
+  scope :without_sector, -> { where(sector_id: nil, comuna: 'Las Condes') }
   scope :public_for_api, -> { all }
   scope :by_authors,     ->(author_ids) { where(id: author_ids) }
   scope :by_comments,    ->(commentables) do
