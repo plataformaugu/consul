@@ -59,6 +59,7 @@ class CommentsController < ApplicationController
     @comment.hide
 
     flash[:notice] = "El comentario fue ocultado."
+    Activity.log(current_user, :hide, @comment)
     redirect_to moderation_comments_path
   end
 
