@@ -11,7 +11,6 @@ class WelcomeController < ApplicationController
   layout "devise", only: :welcome
 
   def index
-    sign_in(:user, User.first)
     @header = Widget::Card.header.first
     @feeds = Widget::Feed.active
     @cards = Widget::Card.body
