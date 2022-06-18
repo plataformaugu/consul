@@ -35,17 +35,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
           redirect_to root_path
         end
       else
-        born_data = registro_civil_request(response[:data]['rut'], 'certificado-nacimiento')
+        # born_data = registro_civil_request(response[:data]['rut'], 'certificado-nacimiento')
         profession_data = registro_civil_request(response[:data]['rut'], 'informacion-profesion')
         home_data = registro_civil_request(response[:data]['rut'], 'informacion-domicilio')
 
-        if born_data.nil? or profession_data.nil? or home_data.nil? or born_data.fetch('message', '') == 'Server Error' or profession_data.fetch('message', '') == 'Server Error' or home_data.fetch('message', '') == 'Server Error'
+        # if born_data.nil? or profession_data.nil? or home_data.nil? or born_data.fetch('message', '') == 'Server Error' or profession_data.fetch('message', '') == 'Server Error' or home_data.fetch('message', '') == 'Server Error'
+        if profession_data.nil? or home_data.nil? or profession_data.fetch('message', '') == 'Server Error' or home_data.fetch('message', '') == 'Server Error'
           flash[:alert] = "Ocurrió un error inesperado. Inténtalo más tarde."
           redirect_to new_user_registration_path
           return
         end
 
-        born_data = born_data.fetch('CertificadoNacimiento', {})
+        # born_data = born_data.fetch('CertificadoNacimiento', {})
         profession_data = profession_data.fetch('datosPersona', {}).fetch('datosProfesion', {})
         home_data = home_data.fetch('datoPersona', {})
 
@@ -55,9 +56,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
           first_name: response[:data]['nombre'],
           last_name: response[:data]['apellido_paterno'],
           maiden_name: response[:data]['apellido_materno'],
-          date_of_birth: !born_data.fetch('fechaNacimiento', nil).nil? ? Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d') : nil,
+          # date_of_birth: !born_data.fetch('fechaNacimiento', nil).nil? ? Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d') : nil,
           civil_status: home_data.fetch('estadoCivil', nil),
-          nationality: born_data.fetch('nacionalidadNacimiento', '').titleize,
+          # nationality: born_data.fetch('nacionalidadNacimiento', '').titleize,
           profession: (profession_data.is_a?(Hash) && !profession_data.fetch('tituloProfesional', nil).nil?) ? profession_data['tituloProfesional'].titleize : nil
         })
 
