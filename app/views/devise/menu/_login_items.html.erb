@@ -54,10 +54,6 @@
         <%= link_to t("layouts.header.valuation"), valuation_root_path %>
     <% end %>
 
-    <% if current_user.administrator? || current_user.manager? %>
-        <%= link_to t("layouts.header.management"), management_sign_in_path %>
-    <% end %>
-
     <% if current_user.poll_officer? && Poll.current.any? %>
         <%= link_to t("layouts.header.officing"), officing_root_path %>
     <% end %>
