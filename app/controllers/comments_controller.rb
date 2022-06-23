@@ -65,6 +65,7 @@ class CommentsController < ApplicationController
 
   def hide
     @comment.hide
+    @comment.confirm_hide
     set_comment_flags(@comment.subtree)
   end
 
