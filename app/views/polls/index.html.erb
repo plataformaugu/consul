@@ -27,7 +27,9 @@
       <div class="custom-cards-container">
         <div class="custom-cards">
           <% @polls.each do |poll| %>
-            <%= render "poll", poll: poll %>
+            <% if poll.current? or poll.expired? %>
+              <%= render "poll", poll: poll %>
+            <% end %>
           <% end %>
           <%= paginate @polls %>
         </div>
