@@ -1,56 +1,58 @@
 <% poll_group.each do |poll| %>
-  <div id="<%= dom_id(poll) %>" class="custom-card" data-type="poll">
-    <div class="custom-card-header">
-      <h3>Categoría</h3>
-    </div>
-    <% if poll.image.present? %>
-      <div class="custom-card-image">
-        <%= image_tag poll.image_url(:medium) %>
+  <% if poll.expired? or poll.current? %>
+    <div id="<%= dom_id(poll) %>" class="custom-card" data-type="poll">
+      <div class="custom-card-header">
+        <h3>Categoría</h3>
+      </div>
+      <% if poll.image.present? %>
+        <div class="custom-card-image">
+          <%= image_tag poll.image_url(:medium) %>
 
-        <% if poll.expired? %>
-          <div class="custom-card-image-container-text">
-            <div class="custom-card-image-text">
-              <h4>Consulta Finalizada</h4>
+          <% if poll.expired? %>
+            <div class="custom-card-image-container-text">
+              <div class="custom-card-image-text">
+                <h4>Consulta Finalizada</h4>
+              </div>
             </div>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="custom-card-image">
-        <%= image_tag 'https://picsum.photos/500' %>
-      
-        <% if poll.expired? %>
-          <div class="custom-card-image-container-text">
-            <div class="custom-card-image-text">
-              <h4>Consulta Finalizada</h4>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-    <div class="custom-card-content" style="<%= poll.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
-      <div>
-        <h3><%= poll.title %></h3>
-      </div>
-      <div class="custom-card-content-footer">
-        <div class="c-c-c-supports-container">
-          <div>
-            <span>Días para cerrar la votación</span>
-            <% if poll.current? %>
-            <strong><%= (poll.ends_at.to_date - Time.now.to_date).to_i >= 0 ? (poll.ends_at.to_date - Time.now.to_date).to_i : 0 %></strong>
-            <% else %>
-            <strong>0</strong>
-            <% end %>
-          </div>
-          
-          <div>
-            <span>Han votado</span>
-            <strong><%= poll.voters.count %></strong>
-          </div>
+          <% end %>
         </div>
-          <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
+      <% else %>
+        <div class="custom-card-image">
+          <%= image_tag 'https://picsum.photos/500' %>
+        
+          <% if poll.expired? %>
+            <div class="custom-card-image-container-text">
+              <div class="custom-card-image-text">
+                <h4>Consulta Finalizada</h4>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="custom-card-content" style="<%= poll.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+        <div>
+          <h3><%= poll.title %></h3>
+        </div>
+        <div class="custom-card-content-footer">
+          <div class="c-c-c-supports-container">
+            <div>
+              <span>Días para cerrar la votación</span>
+              <% if poll.current? %>
+              <strong><%= (poll.ends_at.to_date - Time.now.to_date).to_i >= 0 ? (poll.ends_at.to_date - Time.now.to_date).to_i : 0 %></strong>
+              <% else %>
+              <strong>0</strong>
+              <% end %>
+            </div>
+            
+            <div>
+              <span>Han votado</span>
+              <strong><%= poll.voters.count %></strong>
+            </div>
+          </div>
+            <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
