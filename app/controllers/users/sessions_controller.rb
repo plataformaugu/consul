@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   def destroy
-    @stored_location = stored_location_for(:user)
+    @stored_location = '/'
     super
   end
 
