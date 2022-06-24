@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   get "/consul.json", to: "installation#details"
   get 'iniciativas' => 'proposals#initiatives'
   get 'resultados' => 'polls#results_index'
-  get 'las-condes/streets' => 'users#streets'
   post 'accounts/update-tarjeta-vecino' => 'users#update_tarjeta_vecino'
 
   resources :stats, only: [:index]

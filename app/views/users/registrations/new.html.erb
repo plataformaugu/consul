@@ -305,9 +305,9 @@
   $('#user_web_browser').val(sBrowser);
 
   var streets = [];
-  var streetsRequest = $.get("/las-condes/streets");
-  streetsRequest.done(function (response) {
-    streets = response;
+
+  $.getJSON('/streets.json', function(streetsResponse) {
+    streets = streetsResponse;
   });
 
   $("#user_phone_number").on("keyup", function (e) {

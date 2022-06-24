@@ -2,7 +2,7 @@ require "#{Rails.root}/lib/tarjeta_vecino_service"
 
 class Users::RegistrationsController < Devise::RegistrationsController
   include TarjetaVecino
-  prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup, :streets]
+  prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup]
   before_action :configure_permitted_parameters
 
   def new
