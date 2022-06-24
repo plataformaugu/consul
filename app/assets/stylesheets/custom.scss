@@ -4155,3 +4155,14 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-appearance: none;
     appearance: none; 
 }
+
+.reveal-popup {
+    width: 700px;
+    max-width: 100vw;
+
+    @media (max-width: 1200px) {
+        top: 20vh !important;
+        min-height: auto;
+        height: fit-content;
+    }
+}
