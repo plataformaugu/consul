@@ -10,13 +10,20 @@
 <% end %>
 
 <%= render "shared/section_header",
-    color: "#f25b86",
-    section_image: "/images/h-consultas.svg",
+    color: @poll.main_theme.primary_color.present? ? @poll.main_theme.primary_color : "#f25b86",
+    section_image: @poll.main_theme.image.present? ? @poll.main_theme.image : "/images/h-consultas.svg",
     title: @poll.title,
     pre_title: @poll.main_theme.present? ? @poll.main_theme.name : nil,
     show_buildings: true
 %>
 <div class="polls-show">
+  <div class="text-center">
+  <% if @poll.pdf_link.present? %>
+    <%= link_to @poll.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
+      <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
+    <% end %>
+  <% end %>
+  </div>
   <div id="<%= dom_id(@poll) %>" class="row">
     <div class="small-12 medium-12 column">
         <%= render "info", poll: @poll %>
@@ -34,8 +41,6 @@
 
 
 <div class="general-footer-container">
-    <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
-      <%= image_tag "/images/fw-arbustorojo.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
-      <%= image_tag "/images/fw-arbolrojo.svg", style: 'position: absolute; bottom: 60px; left: 5%; height: 12vw;' %>
+    <%= render 'shared/waves_footer', color1: @poll.main_theme.secondary_color, color2: @poll.main_theme.primary_color do %>
     <% end %>
 </div>

@@ -85,6 +85,14 @@
   </div>
 
   <div class="row">
+    <div class="small-12 column">
+      <div class="mt-2">
+        <%= f.text_field :pdf_link, class: 'custom-input', label: 'Link PDF' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="clear">
       <div class="small-12 medium-4 large-2 column">
         <%= f.submit t("admin.polls.#{admin_submit_action(@poll)}.submit_button"),
