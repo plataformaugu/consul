@@ -17,12 +17,16 @@
     show_buildings: true
 %>
 <div class="polls-show">
-  <div class="text-center">
-  <% if @poll.pdf_link.present? %>
-    <%= link_to @poll.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
-      <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
-    <% end %>
-  <% end %>
+  <div class="row">
+    <div class="small-12 column">
+      <div style="text-align: right;" class="mb-1">
+      <% if @poll.pdf_link.present? %>
+        <%= link_to @poll.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
+          <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
   </div>
   <div id="<%= dom_id(@poll) %>" class="row">
     <div class="small-12 medium-12 column">
