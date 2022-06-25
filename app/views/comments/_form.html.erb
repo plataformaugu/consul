@@ -22,7 +22,7 @@
             id: "comment-as-moderator-#{css_id}" %>
         </div>
       <% end %>
-      <% if can? :comment_as_administrator, commentable %>
+      <% if current_user and current_user.administrator? %>
         <div class="float-right">
           <%= f.check_box :as_administrator,
             label: t("comments.form.comment_as_admin"),

@@ -22,5 +22,10 @@ class Polls::QuestionsController < ApplicationController
     answer.save_and_record_voter_participation(token)
 
     @answers_by_question_id = { @question.id => params[:answer] }
+
+    if @question.poll.full_answered_by?(current_user)
+      flash[:notice] = "¡Muchas gracias por participar! Tus respuestas han sido registradas correctamente."
+      redirect_to poll_path(@question.poll)
+    end
   end
 end

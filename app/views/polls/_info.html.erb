@@ -24,10 +24,19 @@
             </div>
         </div>
 
-        <% unless current_user %>
-        <div class="info-card-footer">
-          <p>Necesitas <span style="color: #5eb7d9;"><%= link_to "iniciar sesión", new_user_session_path %></span> o <span style="color: #5eb7d9;"><%= link_to "registrarte", new_user_registration_path %></span> para participar</p>
-        </div>
+        <% if current_user %>
+          <% if poll.full_answered_by?(current_user) %>
+            <div class="info-card-footer">
+              <p>
+                ¡Muchas gracias por participar!<br>
+                Tus respuestas han sido registradas correctamente.
+              </p>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="info-card-footer">
+            <p>Necesitas <span style="color: #5eb7d9;"><%= link_to "iniciar sesión", new_user_session_path %></span> o <span style="color: #5eb7d9;"><%= link_to "registrarte", new_user_registration_path %></span> para participar</p>
+          </div>
         <% end %>
       </div>
       <% if poll.sectors.any? %>

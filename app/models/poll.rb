@@ -133,6 +133,10 @@ class Poll < ApplicationRecord
     Poll::Voter.where(poll: self, user: user).empty?
   end
 
+  def full_answered_by?(user)
+    questions.map{ |q| q.answers.pluck(:author_id).include?(user.id) }.all?
+  end
+
   def voted_by?(user)
     Poll::Voter.where(poll: self, user: user).exists?
   end
