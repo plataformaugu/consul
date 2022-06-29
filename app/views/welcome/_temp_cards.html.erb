@@ -1,41 +1,70 @@
-<div class="home-proposals-card">
-  <div class="home-proposals-cards-header">
-    <div class="h-p-c-h-theme-container">
-      <h3>Propuestas ciudadanas</h3>
+<div class="orbit" style="position: relative; z-index: 8000;" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
+  <ul class="orbit-container">
+  <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous Slide</span>&#9664;</button>
+  <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
+  <div class="is-active orbit-slide custom-orbit-slide">
+    <div class="home-proposals-card">
+      <div class="home-proposals-cards-header">
+        <div class="h-p-c-h-theme-container">
+          <h3>Consultas ciudadanas</h3>
+        </div>
+      </div>
+      <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
+        <div class="image-container" style="border: 3px solid #f25b86; padding: 25px 10px;">
+          <%= image_tag '/images/p-icon-1.svg', style: 'width: 50%; height: 100%;' %>
+        </div>
+      </div>
+      <div class="home-proposals-cards-content" style="height: 50%;">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <h3 class="text-center">Revisa las consultas disponibles</h3>
+        </div>
+        <div class="home-proposals-cards-content-footer">
+          <%= link_to 'Participar', '/polls', class: 'button expanded large', target: '_blank' %>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
-    <div style="border: 3px solid #34c99b; padding: 25px 10px;">
-    <%= image_tag '/images/p-icon-3.svg', style: 'width: 50%;' %>
-    </div>
-  </div>
-  <div class="home-proposals-cards-content" style="height: 50%;">
-    <div style="height: 100%; display: flex; align-items: center;">
-      <h3 class="text-center">Revisa las convocatorias disponibles</h3>
-    </div>
-    <div class="home-proposals-cards-content-footer">
-      <%= link_to 'Participar', '/propuestas', class: 'button expanded large', target: '_blank' %>
-    </div>
-  </div>
-</div>
 
-<div class="home-proposals-card">
-  <div class="home-proposals-cards-header">
-    <div class="h-p-c-h-theme-container">
-      <h3>Encuestas</h3>
+    <div class="home-proposals-card">
+      <div class="home-proposals-cards-header">
+        <div class="h-p-c-h-theme-container">
+          <h3>Propuestas ciudadanas</h3>
+        </div>
+      </div>
+      <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
+        <div style="border: 3px solid #34c99b; padding: 25px 10px;">
+        <%= image_tag '/images/p-icon-3.svg', style: 'width: 50%;' %>
+        </div>
+      </div>
+      <div class="home-proposals-cards-content" style="height: 50%;">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <h3 class="text-center">Revisa las convocatorias disponibles</h3>
+        </div>
+        <div class="home-proposals-cards-content-footer">
+          <%= link_to 'Participar', '/propuestas', class: 'button expanded large', target: '_blank' %>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
-    <div style="border: 3px solid #f66e0a; padding: 25px 10px;">
-    <%= image_tag '/images/p-icon-2.svg', style: 'width: 50%;' %>
-    </div>
-  </div>
-  <div class="home-proposals-cards-content" style="height: 50%;">
-    <div style="height: 100%; display: flex; align-items: center;">
-      <h3 class="text-center">Revisa las encuestas disponibles</h3>
-    </div>
-    <div class="home-proposals-cards-content-footer">
-      <%= link_to 'Participar', '/encuestas', class: 'button expanded large', target: '_blank' %>
+  <div class="is-active orbit-slide custom-orbit-slide">
+    <div class="home-proposals-card">
+      <div class="home-proposals-cards-header">
+        <div class="h-p-c-h-theme-container">
+          <h3>Encuestas</h3>
+        </div>
+      </div>
+      <div class="home-proposals-cards-image" style="padding: 15px; text-align: center; width: 100%;">
+        <div style="border: 3px solid #f66e0a; padding: 25px 10px;">
+        <%= image_tag '/images/p-icon-2.svg', style: 'width: 50%;' %>
+        </div>
+      </div>
+      <div class="home-proposals-cards-content" style="height: 50%;">
+        <div style="height: 100%; display: flex; align-items: center;">
+          <h3 class="text-center">Revisa las encuestas disponibles</h3>
+        </div>
+        <div class="home-proposals-cards-content-footer">
+          <%= link_to 'Participar', '/encuestas', class: 'button expanded large', target: '_blank' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

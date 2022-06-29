@@ -142,7 +142,7 @@ class Mailer < ApplicationMailer
     @author = @comment.author
     @email_to = @author.email
 
-    mail(to: @email_to, subject: 'Tu comentario ha sido eliminado')
+    mail(to: @email_to, subject: 'Tu comentario ha sido ocultado')
   end
 
   def notify_published_proposal(proposal)

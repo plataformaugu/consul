@@ -7,18 +7,25 @@
 %>
 <div class="row pfc-page">
   <div class="small-12 column">
+
+    <div class="text-center">
+      <%= link_to '/polls/1', target: '_blank' do %>
+        <%= image_tag '/images/popup.png', class: 'image-lgsm-smlg' %>
+      <% end %>
+    </div>
+
     <% if @type == 1 %>
-      <h2 class="text-center">
+      <h2 class="text-center mt-2">
         Estimado Vecino, hoy <strong>NO</strong> cuentas con <strong>Tarjeta Vecino</strong>. Sin tarjeta vecino,
         no podrás participar de la totalidad de los procesos participativos
       </h2>
     <% elsif @type == 2 %>
-      <h2 class="text-center">
+      <h2 class="text-center mt-2">
         Estimado Vecino, tu Tarjeta Vecino <strong>NO</strong> se encuentra vigente.<br>
         ¡Te invitamos a renovarla!
       </h2>
     <% elsif @type == 3 %>
-      <h2 class="text-center">
+      <h2 class="text-center mt-2">
         ¡Bienvenido, ya eres parte de nuestra comunidad!<br>
         Tu Tarjeta Vecino se encuentra <strong>vigente</strong>.<br>
         ¡Te invitamos a actualizar tus datos para mantenernos conectados!

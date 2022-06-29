@@ -12,197 +12,7 @@
       show_buildings: true
   %>
   <div class="row main-themes-container">
-    <div class="small-12 column">
-      <h1>Últimas encuestas</h1><%= link_to 'Ver Todas', encuesta_path %>
-      <div class="custom-cards-container">
-        <div class="custom-cards mt-1">
-          <% unless @main_theme.encuestum.any? %>
-            No hay ninguna consulta.
-          <% end %>
-          <% @main_theme.encuestum.order(created_at: :desc)[..2].each do |e| %>
-            <div id="<%= dom_id(e) %>" class="custom-card">
-              <div class="custom-card-header">
-                <% if e.main_theme.present? %>
-                  <%= link_to e.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
-                  <div class="c-c-h-theme-container">
-                    <div><%= image_tag e.main_theme.icon %></div>
-                    <h3><%= e.main_theme.name %></h3>
-                  </div>
-                  <% end %>
-                <% else %>
-                  <h3>
-                    Categoría
-                  </h3>
-                <% end %>
-              </div>
-              <% if e.image.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag e.image %>
-
-                  <% if Time.now > e.limit_date %>
-                    <div class="custom-card-image-container-text">
-                      <div class="custom-card-image-text">
-                        <h4>Encuesta Finalizada</h4>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% elsif e.main_theme.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag e.main_theme.icon %>
-
-                  <% if Time.now > e.limit_date %>
-                    <div class="custom-card-image-container-text">
-                      <div class="custom-card-image-text">
-                        <h4>Encuesta Finalizada</h4>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <div class="custom-card-image">
-                  <%= image_tag 'https://picsum.photos/500' %>
-                  <% if Time.now > e.limit_date %>
-                    <div class="custom-card-image-container-text">
-                      <div class="custom-card-image-text">
-                        <h4>Encuesta Finalizada</h4>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-              <div class="custom-card-content" style="<%= e.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
-                <div>
-                  <h3 style="text-align: center !important;"><%= e.name %></h3>
-                </div>
-                <div class="encuesta-card-footer">
-                  <div class="text-center">
-                    <strong>
-                      <% if e.limit_date > Time.now %>
-                        <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
-                      <% else %>
-                        0
-                      <% end %>
-                    </strong>
-                    <span>días para cerrar la encuesta</span>
-                  </div>
-                  <%= link_to 'Participar', encuestum_path(e.id), class: 'button expanded large', target: '_blank' %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="small-12 column mt-4">
-      <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', '/propuestas' %>
-      <div class="custom-cards-container">
-        <div class="custom-cards mt-1">
-          <% unless @main_theme.proposals.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).published.any? %>
-            No hay ninguna propuesta.
-          <% end %>
-          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).published.order(created_at: :desc)[..2].each do |proposal| %>
-            <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
-              <div class="custom-card-header">
-                <% if proposal.main_theme.present? %>
-                  <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
-                  <div class="c-c-h-theme-container">
-                    <div><%= image_tag proposal.main_theme.icon %></div>
-                    <h3><%= proposal.main_theme.name %></h3>
-                  </div>
-                  <% end %>
-                <% else %>
-                  <h3>
-                    Categoría
-                  </h3>
-                <% end %>
-              </div>
-              <% if proposal.image.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag proposal.image_url(:medium) %>
-                </div>
-              <% elsif proposal.main_theme.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag proposal.main_theme.icon %>
-                </div>
-              <% else %>
-                <div class="custom-card-image">
-                  <%= image_tag 'https://picsum.photos/500' %>
-                </div>
-              <% end %>
-              <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
-                <div>
-                  <h3 style="text-align: center !important;"><%= proposal.title %></h3>
-                </div>
-                <div class="custom-card-content-footer">
-                  <div class="text-center">
-                    <strong><%= proposal.total_votes %></strong> <span>Apoyos</span>
-                  </div>
-                  <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="small-12 column mt-4">
-      <h1>Últimas iniciativas</h1><%= link_to 'Ver Todas', iniciativas_path %>
-      <div class="custom-cards-container">
-        <div class="custom-cards mt-1">
-          <% unless @main_theme.proposals.where(is_initiative: true).any? %>
-            No hay ninguna propuesta.
-          <% end %>
-          <% @main_theme.proposals.where(is_initiative: true).order(created_at: :desc)[..2].each do |proposal| %>
-            <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
-              <div class="custom-card-header">
-                <% if proposal.main_theme.present? %>
-                  <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
-                  <div class="c-c-h-theme-container">
-                    <div><%= image_tag proposal.main_theme.icon %></div>
-                    <h3><%= proposal.main_theme.name %></h3>
-                  </div>
-                  <% end %>
-                <% else %>
-                  <h3>
-                    Categoría
-                  </h3>
-                <% end %>
-              </div>
-              <% if proposal.image.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag proposal.image_url(:medium) %>
-                </div>
-              <% elsif proposal.main_theme.present? %>
-                <div class="custom-card-image">
-                  <%= image_tag proposal.main_theme.icon %>
-                </div>
-              <% else %>
-                <div class="custom-card-image">
-                  <%= image_tag 'https://picsum.photos/500' %>
-                </div>
-              <% end %>
-              <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
-                <div>
-                  <h3 style="text-align: center !important;"><%= proposal.title %></h3>
-                </div>
-                <div class="custom-card-content-footer">
-                  <div class="text-center">
-                    <strong><%= proposal.total_votes %></strong> <span>Apoyos</span>
-                  </div>
-                  <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-
+    
     <div class="small-12 column mt-4">
       <h1>Últimas consultas</h1><%= link_to 'Ver Todas', polls_path %>
       <div class="custom-cards-container">
@@ -295,6 +105,194 @@
       </div>
     </div>
 
+    <div class="small-12 column mt-4">
+      <h1>Últimas propuestas</h1><%= link_to 'Ver Todas', '/propuestas' %>
+      <div class="custom-cards-container">
+        <div class="custom-cards mt-1">
+          <% unless @main_theme.proposals.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).published.any? %>
+            No hay ninguna propuesta.
+          <% end %>
+          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).published.order(created_at: :desc)[..2].each do |proposal| %>
+            <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
+              <div class="custom-card-header">
+                <% if proposal.main_theme.present? %>
+                  <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                  <div class="c-c-h-theme-container">
+                    <div><%= image_tag proposal.main_theme.icon %></div>
+                    <h3><%= proposal.main_theme.name %></h3>
+                  </div>
+                  <% end %>
+                <% else %>
+                  <h3>
+                    Categoría
+                  </h3>
+                <% end %>
+              </div>
+              <% if proposal.image.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.image_url(:medium) %>
+                </div>
+              <% elsif proposal.main_theme.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.main_theme.icon %>
+                </div>
+              <% else %>
+                <div class="custom-card-image">
+                  <%= image_tag 'https://picsum.photos/500' %>
+                </div>
+              <% end %>
+              <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                <div>
+                  <h3 style="text-align: center !important;"><%= proposal.title %></h3>
+                </div>
+                <div class="custom-card-content-footer">
+                  <div class="text-center">
+                    <strong><%= proposal.total_votes %></strong> <span>Apoyos</span>
+                  </div>
+                  <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <h1>Últimas encuestas</h1><%= link_to 'Ver Todas', encuesta_path %>
+      <div class="custom-cards-container">
+        <div class="custom-cards mt-1">
+          <% unless @main_theme.encuestum.any? %>
+            No hay ninguna consulta.
+          <% end %>
+          <% @main_theme.encuestum.order(created_at: :desc)[..2].each do |e| %>
+            <div id="<%= dom_id(e) %>" class="custom-card">
+              <div class="custom-card-header">
+                <% if e.main_theme.present? %>
+                  <%= link_to e.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                  <div class="c-c-h-theme-container">
+                    <div><%= image_tag e.main_theme.icon %></div>
+                    <h3><%= e.main_theme.name %></h3>
+                  </div>
+                  <% end %>
+                <% else %>
+                  <h3>
+                    Categoría
+                  </h3>
+                <% end %>
+              </div>
+              <% if e.image.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag e.image %>
+
+                  <% if Time.now > e.limit_date %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Encuesta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% elsif e.main_theme.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag e.main_theme.icon %>
+
+                  <% if Time.now > e.limit_date %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Encuesta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="custom-card-image">
+                  <%= image_tag 'https://picsum.photos/500' %>
+                  <% if Time.now > e.limit_date %>
+                    <div class="custom-card-image-container-text">
+                      <div class="custom-card-image-text">
+                        <h4>Encuesta Finalizada</h4>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="custom-card-content" style="<%= e.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                <div>
+                  <h3 style="text-align: center !important;"><%= e.name %></h3>
+                </div>
+                <div class="encuesta-card-footer">
+                  <div class="text-center">
+                    <strong>
+                      <% if e.limit_date > Time.now %>
+                        <%= (e.limit_date.to_date - Time.now.to_date).to_i >= 0 ? (e.limit_date.to_date - Time.now.to_date).to_i : 0 %></strong>
+                      <% else %>
+                        0
+                      <% end %>
+                    </strong>
+                    <span>días para cerrar la encuesta</span>
+                  </div>
+                  <%= link_to 'Participar', encuestum_path(e.id), class: 'button expanded large', target: '_blank' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-12 column mt-4">
+      <h1>Últimas iniciativas</h1><%= link_to 'Ver Todas', iniciativas_path %>
+      <div class="custom-cards-container">
+        <div class="custom-cards mt-1">
+          <% unless @main_theme.proposals.where(is_initiative: true).any? %>
+            No hay ninguna propuesta.
+          <% end %>
+          <% @main_theme.proposals.where(is_initiative: true).order(created_at: :desc)[..2].each do |proposal| %>
+            <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
+              <div class="custom-card-header">
+                <% if proposal.main_theme.present? %>
+                  <%= link_to proposal.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+                  <div class="c-c-h-theme-container">
+                    <div><%= image_tag proposal.main_theme.icon %></div>
+                    <h3><%= proposal.main_theme.name %></h3>
+                  </div>
+                  <% end %>
+                <% else %>
+                  <h3>
+                    Categoría
+                  </h3>
+                <% end %>
+              </div>
+              <% if proposal.image.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.image_url(:medium) %>
+                </div>
+              <% elsif proposal.main_theme.present? %>
+                <div class="custom-card-image">
+                  <%= image_tag proposal.main_theme.icon %>
+                </div>
+              <% else %>
+                <div class="custom-card-image">
+                  <%= image_tag 'https://picsum.photos/500' %>
+                </div>
+              <% end %>
+              <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+                <div>
+                  <h3 style="text-align: center !important;"><%= proposal.title %></h3>
+                </div>
+                <div class="custom-card-content-footer">
+                  <div class="text-center">
+                    <strong><%= proposal.total_votes %></strong> <span>Apoyos</span>
+                  </div>
+                  <%= link_to 'Ver más', proposal_path(proposal.id), class: 'button expanded large', target: '_blank' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 
   </div>
 </main>
