@@ -2832,6 +2832,12 @@ body.admin {
     }
 }
 
+.mobile-only-2 {
+    @media (min-width: 1201px) {
+        display: none;
+    }
+}
+
 .p-footer {
     position: relative;
     background-color: #2e4ac7;
@@ -4091,6 +4097,9 @@ main {
     }
 
     .results-questions-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         width: 50%;
         flex-wrap: wrap;
 

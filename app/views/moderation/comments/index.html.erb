@@ -13,7 +13,7 @@
       <tr id="comment_<%= comment.id %>">
         <td>
           <%= comment.commentable_type.constantize.model_name.human %> -
-          <%= link_to comment.commentable.title, commentable_path(comment), target: "_blank" %>
+          <%= link_to comment.commentable.title, comment, target: "_blank" %>
           <br>
           <span class="date"><%= l comment.updated_at.to_date %></span>
           <span class="bullet">&nbsp;&bull;&nbsp;</span>
@@ -47,3 +47,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @comments.where(ignored_flag_at: nil) %>

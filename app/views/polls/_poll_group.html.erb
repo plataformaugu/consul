@@ -49,7 +49,13 @@
               <strong><%= poll.voters.count %></strong>
             </div>
           </div>
-            <%= link_to poll.current? ? 'Votar' : 'Revisar resultados', poll_path(poll.id), class: 'button expanded large', target: '_blank' %>
+          <% if poll.current? or (!poll.current? and !poll.has_results?) %>
+            <%= link_to 'Votar', poll_path(poll.id), class: 'button expanded large' %>
+          <% else %>
+            <a href="<%= results_poll_path(poll.id) %>" title="Revisar resultados" data-turbolinks="false" class="button expanded large">
+              Revisar resultados
+            </a>
+          <% end %>
           </div>
         </div>
       </div>

@@ -86,6 +86,17 @@
 <% if current_page?(results_poll_path) %>
   <%= javascript_tag do %>
     function drawPieChart(id, labels, votes) {
+      if (votes.length) {
+        var totalVotes = votes.reduce((a, b) => a + b)
+      } else {
+        var totalVotes = 0
+      }
+
+      if (totalVotes < <%= @poll.voters.count %>) {
+        labels.unshift('En blanco')
+        votes.unshift(<%= @poll.voters.count %> - totalVotes)
+      }
+
       var graphicData = {
         labels: labels,
         datasets: [{
@@ -102,7 +113,19 @@
 
       var graphicConfig = {
         type: 'pie',
-        data: graphicData
+        data: graphicData,
+        options: {
+          
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(item, data) {
+                  return `${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                },
+              },
+            },
+          },
+        }
       }
 
       var chart = new Chart(
@@ -112,6 +135,17 @@
     }
 
     function drawBarChart(id, labels, votes) {
+      if (votes.length) {
+        var totalVotes = votes.reduce((a, b) => a + b)
+      } else {
+        var totalVotes = 0
+      }
+
+      if (totalVotes < <%= @poll.voters.count %>) {
+        labels.unshift('En blanco')
+        votes.unshift(<%= @poll.voters.count %> - totalVotes)
+      }
+
       var graphicData = {
         labels: labels,
         datasets: [{
@@ -133,7 +167,16 @@
             y: {
               beginAtZero: true
             }
-          }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(item, data) {
+                  return `${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                },
+              },
+            },
+          },
         },
       }
       var chart = new Chart(
@@ -143,6 +186,17 @@
     }
 
     function drawDonutChart(id, labels, votes) {
+      if (votes.length) {
+        var totalVotes = votes.reduce((a, b) => a + b)
+      } else {
+        var totalVotes = 0
+      }
+
+      if (totalVotes < <%= @poll.voters.count %>) {
+        labels.unshift('En blanco')
+        votes.unshift(<%= @poll.voters.count %> - totalVotes)
+      }
+
       var graphicData = {
         labels: labels,
         datasets: [{
@@ -159,7 +213,18 @@
 
       var graphicConfig = {
         type: 'doughnut',
-        data: graphicData
+        data: graphicData,
+        options: {
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(item, data) {
+                  return `${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                },
+              },
+            },
+          },
+        }
       }
 
       var chart = new Chart(
@@ -181,7 +246,5 @@
 
 <div class="general-footer-container">
     <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
-      <%= image_tag "/images/fw-arbustorojo.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
-      <%= image_tag "/images/fw-arbolrojo.svg", style: 'position: absolute; bottom: 60px; left: 5%; height: 12vw;' %>
     <% end %>
 </div>
