@@ -120,7 +120,7 @@
             tooltip: {
               callbacks: {
                 label: function(item, data) {
-                  return `Respuesta: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                  return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
                 },
               },
             },
@@ -172,7 +172,7 @@
             tooltip: {
               callbacks: {
                 label: function(item, data) {
-                  return `Respuesta: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                  return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
                 },
               },
             },
@@ -219,7 +219,7 @@
             tooltip: {
               callbacks: {
                 label: function(item, data) {
-                  return `Respuesta: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                  return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
                 },
               },
             },
