@@ -64,15 +64,28 @@
         </div>
       <% end %>
 
-      <% if not @proposal.proposals_theme.everyone_can_vote? and not @proposal.proposals_theme.can_user_vote?(current_user) %>
-        <div class="custom-icon-message mt-3" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
-          <div class="c-i-m-left" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
-            !
+      <% if @proposal.is_initiative? %>
+        <% if not @proposal.everyone_can_vote? and not @proposal.can_user_vote?(current_user) %>
+          <div class="custom-icon-message mt-3" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+            <div class="c-i-m-left" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+              !
+            </div>
+            <div class="c-i-m-right" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+              <%= sanitize @proposal.get_restriction_message %>
+            </div>
           </div>
-          <div class="c-i-m-right" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
-            <%= sanitize @proposal.proposals_theme.get_restriction_message %>
+        <% end %>
+      <% else %>
+        <% if not @proposal.proposals_theme.everyone_can_vote? and not @proposal.proposals_theme.can_user_vote?(current_user) %>
+          <div class="custom-icon-message mt-3" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+            <div class="c-i-m-left" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+              !
+            </div>
+            <div class="c-i-m-right" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df;' : '' %>">
+              <%= sanitize @proposal.proposals_theme.get_restriction_message %>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
