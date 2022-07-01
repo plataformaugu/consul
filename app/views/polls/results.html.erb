@@ -61,25 +61,30 @@
       </div>
     </div>
 
-    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
-      <div class="results-questions-container">
+    <div class="small-12 medium-12 column mt-3">
+      <div class="results-questions-container" style="display: flex; justify-content: center; align-items: center">
         <div class="results-questions-card">
           <h3 class="custom-h">Votos por unidad vecinal</h3>
           <canvas id="votes-by-sector"></canvas>
         </div>
+
+        <% if true == false %>
         <div class="results-questions-card">
           <h3 class="custom-h">Votos por rango etario</h3>
           <canvas id="votes-by-age-group"></canvas>
         </div>
+        <% end %>
       </div>
     </div>
 
+    <% if true == false %>
     <div class="small-12 medium-12 column mt-3" data-equalizer-watch style="display: flex; justify-content: center; align-items: center">
       <div class="width: 50%;">
         <h3 class="custom-h">Votos por género</h3>
         <canvas id="votes-by-gender"></canvas>
       </div>
     </div>
+    <% end %>
   </div>
 </div>
 
@@ -92,21 +97,34 @@
         var totalVotes = 0
       }
 
+      var backgroundColor = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+      ]
+
       if (totalVotes < <%= @poll.voters.count %>) {
         labels.unshift('En blanco')
+        backgroundColor.unshift('#B8B8B8')
         votes.unshift(<%= @poll.voters.count %> - totalVotes)
       }
+
 
       var graphicData = {
         labels: labels,
         datasets: [{
           label: 'Pie Chart',
           data: votes,
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
+          backgroundColor: backgroundColor,
           hoverOffset: 4
         }]
       }
@@ -141,8 +159,24 @@
         var totalVotes = 0
       }
 
+      var backgroundColor = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+      ]
+
       if (totalVotes < <%= @poll.voters.count %>) {
         labels.unshift('En blanco')
+        backgroundColor.unshift('#B8B8B8')
         votes.unshift(<%= @poll.voters.count %> - totalVotes)
       }
 
@@ -151,11 +185,7 @@
         datasets: [{
           label: 'Votos',
           data: votes,
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
+          backgroundColor: backgroundColor,
           hoverOffset: 4
         }]
       }
@@ -192,8 +222,24 @@
         var totalVotes = 0
       }
 
+      var backgroundColor = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+      ]
+
       if (totalVotes < <%= @poll.voters.count %>) {
         labels.unshift('En blanco')
+        backgroundColor.unshift('#B8B8B8')
         votes.unshift(<%= @poll.voters.count %> - totalVotes)
       }
 
@@ -202,11 +248,7 @@
         datasets: [{
           label: 'Donut Chart',
           data: votes,
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
+          backgroundColor: backgroundColor,
           hoverOffset: 4
         }]
       }
