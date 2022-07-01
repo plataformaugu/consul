@@ -7,7 +7,13 @@ class ProposalsTheme < ApplicationRecord
   has_many :proposals
 
   def everyone_can_vote?
-    return (Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes', 'Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name)))
+    if Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes', 'Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name))
+      return true
+    elsif Set.new(['Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name))
+      return true
+    else
+      return false
+    end
   end
 
   def get_restriction_message
