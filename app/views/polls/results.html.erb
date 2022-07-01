@@ -61,6 +61,7 @@
       </div>
     </div>
 
+    <% if true == false %>
     <div class="small-12 medium-12 column mt-3">
       <div class="results-questions-container" style="display: flex; justify-content: center; align-items: center">
         <div class="results-questions-card">
@@ -68,14 +69,13 @@
           <canvas id="votes-by-sector"></canvas>
         </div>
 
-        <% if true == false %>
         <div class="results-questions-card">
           <h3 class="custom-h">Votos por rango etario</h3>
           <canvas id="votes-by-age-group"></canvas>
         </div>
-        <% end %>
       </div>
     </div>
+    <% end %>
 
     <% if true == false %>
     <div class="small-12 medium-12 column mt-3" data-equalizer-watch style="display: flex; justify-content: center; align-items: center">
