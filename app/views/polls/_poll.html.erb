@@ -54,23 +54,30 @@
       <h3 style="text-align: center !important;"><%= poll.title %></h3>
     </div>
     <div class="custom-card-content-footer">
-      <div class="c-c-c-supports-container">
-        <div>
-          <span>Días para cerrar la votación</span>
-          <strong>
-            <% if poll.current? %>
-              <%= (poll.ends_at.to_date - Time.now.to_date).to_i >= 0 ? (poll.ends_at.to_date - Time.now.to_date).to_i : 0 %></strong>
-            <% else %>
-              0
-            <% end %>
-          </strong>
+      <% if poll.current? and (poll.ends_at.to_date - Time.now.to_date).to_i > 0 %>
+        <div class="c-c-c-supports-container">
+          <div>
+            <span>Días para cerrar la votación</span>
+            <strong>
+              <% if poll.current? %>
+                <%= (poll.ends_at.to_date - Time.now.to_date).to_i >= 0 ? (poll.ends_at.to_date - Time.now.to_date).to_i : 0 %></strong>
+              <% else %>
+                0
+              <% end %>
+            </strong>
+          </div>
+          <div>
+            <span>Han votado</span>
+            <strong><%= poll.voters.count %></strong>
+          </div>
         </div>
-        <div>
+      <% else %>
+        <div style="display: flex; flex-direction: column; justify-content: center; width: 100%; align-items: center; margin-bottom: 15px;">
           <span>Han votado</span>
-          <strong><%= poll.voters.count %></strong>
+          <strong style="font-size: 1.4em; color: black;"><%= poll.voters.count %></strong>
         </div>
-      </div>
-        
+      <% end %>
+
       <% if poll.current? or (!poll.current? and !poll.has_results?) %>
         <%= link_to 'Votar', poll_path(poll.id), class: 'button expanded large' %>
       <% else %>
