@@ -13,7 +13,7 @@
 
 <%= render "shared/header", header: @header %>
 
-<% if Poll.exists?(1) %>
+<% if true == false %>
   <% if !current_user or (current_user and !Poll.find(1).voters.pluck(:user_id).include?(current_user.id)) %>
     <div class="reveal reveal-popup" id="popupModal" data-reveal>
       <a href="/polls/1" data-turbolinks="false">
@@ -233,8 +233,4 @@ $(window).scroll(function () {
       });
     }
 });
-
-$(document).ready(function() {
-  $('#popupModal').foundation('open');
-})
 </script>

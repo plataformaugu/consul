@@ -8,11 +8,13 @@
 <div class="row pfc-page">
   <div class="small-12 column">
 
+    <% if true == false %>
     <div class="text-center">
       <%= link_to '/polls/1', target: '_blank' do %>
         <%= image_tag '/images/popup.png', class: 'image-lgsm-smlg' %>
       <% end %>
     </div>
+    <% end %>
 
     <% if @type == 1 %>
       <h2 class="text-center mt-2">
