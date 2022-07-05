@@ -285,10 +285,10 @@
       drawPieChart(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
     <% end %>
 
-    drawBarChart('votes-by-sector', <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values) %>)
-    drawDonutChart('votes-by-gender', <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.values) %>)
+    // drawBarChart('votes-by-sector', <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values) %>)
+    // drawDonutChart('votes-by-gender', <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.keys) %>, <%= raw(@poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.values) %>)
 
-    drawBarChart('votes-by-age-group', <%= raw(@age_groups_votes.tally.keys) %>, <%= raw(@age_groups_votes.tally.values) %>)
+    // drawBarChart('votes-by-age-group', <%= raw(@age_groups_votes.tally.keys) %>, <%= raw(@age_groups_votes.tally.values) %>)
   <% end %>
 <% end %>
 
