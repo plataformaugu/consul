@@ -2,6 +2,12 @@
   <%= render "proposals/supports", proposal: proposal %>
 
   <div class="in-favor">
+    <div style="display: none;">
+      <%= user_signed_in? %><br>
+      <%= proposal.votable_by?(current_user)? %><br>
+      <%= proposal.is_initiative or proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date %><br>
+      <%= proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date %>
+    </div>
     <% if voted_for?(@proposal_votes, proposal) %>
       <div class="supported callout success">
         <%= t("proposals.proposal.already_supported") %>
