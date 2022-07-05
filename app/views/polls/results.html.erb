@@ -48,7 +48,7 @@
       <h3 class="custom-h">Resultados de la consulta</h3>
 
       <div class="results-questions-container">
-        <%- @poll.questions.each do |question| %>
+        <%- @poll.questions.order(:created_at).each do |question| %>
           <div class="results-questions-card">
             <p class="text-gray text-center" id="<%= question.title.parameterize %>"><%= question.title %></p>
             <div style="width: 100%; display: flex; justify-content: center;">
