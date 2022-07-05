@@ -4,7 +4,9 @@
   <div class="in-favor">
     <div style="display: none;">
       <%= user_signed_in? %><br>
-      <%= proposal.votable_by?(current_user)? %><br>
+      <% if current_user %>
+        <%= proposal.votable_by?(current_user) %><br>
+      <% end %>
       <%= proposal.is_initiative or proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date %><br>
       <%= proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date %>
     </div>
