@@ -317,17 +317,23 @@ class Proposal < ApplicationRecord
       return false
     end
 
-    if self.sectors.any?
-      if not self.sectors.include?(user.sector) or not user.neighbor_type or user.neighbor_type.name != 'Vecino Residente Las Condes'
-        return false
-      else
-        return true
-      end
-    else
+    if self.is_initiative
       return self.neighbor_types.include?(user.neighbor_type)
-    end
+    else
+      sector_condition = false
 
-    return false
+      if self.proposals_theme.sectors.any?
+        if self.proposals_theme.sectors.include?(user.sector)
+          sector_condition = true
+        else
+          sector_condition = false
+        end
+      else
+        sector_condition = true
+      end
+
+      return sector_condition && self.proposals_theme.neighbor_types.include?(user.neighbor_type)
+    end
   end
 
   protected
