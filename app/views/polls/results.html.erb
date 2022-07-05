@@ -91,6 +91,8 @@
 <% if current_page?(results_poll_path) %>
   <%= javascript_tag do %>
     function drawPieChart(id, labels, votes) {
+      var dontKnowOptionIndex = labels.findIndex((label) => label === 'No sabe')
+
       if (votes.length) {
         var totalVotes = votes.reduce((a, b) => a + b)
       } else {
@@ -111,13 +113,17 @@
         'rgb(54, 162, 235)',
         'rgb(255, 205, 86)',
       ]
+      labels[dontKnowOptionIndex] = 'No sabe / No responde'
 
       if (totalVotes < <%= @poll.voters.count %>) {
-        labels.unshift('En blanco')
-        backgroundColor.unshift('#B8B8B8')
-        votes.unshift(<%= @poll.voters.count %> - totalVotes)
-      }
+        // labels.unshift('En blanco')
+        // backgroundColor.unshift('#B8B8B8')
+        // votes.unshift(<%= @poll.voters.count %> - totalVotes)
 
+        if (dontKnowOptionIndex !== -1) {
+          votes[dontKnowOptionIndex] = votes[dontKnowOptionIndex] + <%= @poll.voters.count %> - totalVotes
+        }
+      }
 
       var graphicData = {
         labels: labels,
