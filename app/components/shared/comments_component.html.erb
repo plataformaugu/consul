@@ -3,14 +3,16 @@
     <%= content %>
 
     <% cache cache_key do %>
-      <% if current_user %>
-        <%= render "comments/form", { commentable: record, parent_id: nil } %>
-      <% else %>
-        <%= render "shared/login_to_comment" %>
+      <% if !@disable_for_users or (current_user and current_user.administrator?)  %>
+        <% if current_user %>
+          <%= render "comments/form", { commentable: record, parent_id: nil } %>
+        <% else %>
+          <%= render "shared/login_to_comment" %>
+        <% end %>
       <% end %>
 
       <%= render Shared::OrderLinksComponent.new("comments", anchor: "comments") %>
-      <%= render "comments/comment_list", comments: comment_tree.root_comments %>
+      <%= render "comments/comment_list", comments: comment_tree.root_comments, disable_for_users: @disable_for_users %>
       <%= paginate comment_tree.root_comments, params: { anchor: "comments" } %>
     <% end %>
   </div>
