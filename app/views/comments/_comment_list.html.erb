@@ -1,5 +1,5 @@
 <% valuation = local_assigns.fetch(:valuation, false) %>
-<% disable_for_users = local_assigns.key?(:disable_for_users) ? local_assigns.fetch(:disable_for_users, false) : (comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false) %>
+<% disable_for_users = local_assigns.fetch(:disable_for_users, false) %>
 
 <%= tag.ul class: "no-bullet comment-list" do %>
   <% comments.each do |comment| %>
