@@ -1,4 +1,10 @@
 <% valuation = local_assigns.fetch(:valuation, false) %>
+<% disable_for_users = local_assigns.key?(:disable_for_users) ? local_assigns.fetch(:disable_for_users, false) : (comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false) %>
+
+<% if current_user and current_user.administrator? %>
+<% disable_for_users = false %>
+<% end %>
+
 <% cache [locale_and_user_status(comment), comment, commentable_cache_key(comment.commentable), comment.author] do %>
   <div id="<%= dom_id(comment) %>" class="comment small-12">
     <div class="comment-body">
@@ -83,7 +89,7 @@
         <div id="<%= dom_id(comment) %>_reply" class="reply">
           <% unless valuation %>
             <div id="<%= dom_id(comment) %>_votes" class="comment-votes float-right">
-              <%= render "comments/votes", comment: comment %>
+              <%= render "comments/votes", comment: comment, disable_for_users: disable_for_users %>
             </div>
           <% end %>
 
@@ -91,25 +97,27 @@
             <%= render "comments/responses_count", count: comment.children.size %>
           </span>
 
-          <% if user_signed_in? && !comments_closed_for_commentable?(comment.commentable) && !require_verified_resident_for_commentable?(comment.commentable, current_user) %>
-            <span class="divider">&nbsp;|&nbsp;</span>
-            <%= link_to(comment_link_text(comment), "",
-                        class: "js-add-comment-link", data: { id: dom_id(comment) }) %>
+          <% if !disable_for_users %>
+            <% if user_signed_in? && !comments_closed_for_commentable?(comment.commentable) && !require_verified_resident_for_commentable?(comment.commentable, current_user) %>
+              <span class="divider">&nbsp;|&nbsp;</span>
+              <%= link_to(comment_link_text(comment), "",
+                          class: "js-add-comment-link", data: { id: dom_id(comment) }) %>
 
-            <% unless valuation %>
-              <%= render "comments/actions", { comment: comment } %>
-            <% end %>
+              <% unless valuation %>
+                <%= render "comments/actions", { comment: comment } %>
+              <% end %>
 
-            <% if !valuation || can?(:comment_valuation, comment.commentable) %>
-              <%= render "comments/form", { commentable: comment.commentable,
-                                           parent_id: comment.id,
-                                           valuation: valuation } %>
+              <% if !valuation || can?(:comment_valuation, comment.commentable) %>
+                <%= render "comments/form", { commentable: comment.commentable,
+                                            parent_id: comment.id,
+                                            valuation: valuation } %>
+              <% end %>
             <% end %>
           <% end %>
         </div>
       <% end %>
     </div>
 
-    <%= render "comments/comment_list", comments: child_comments_of(comment), valuation: valuation %>
+    <%= render "comments/comment_list", comments: child_comments_of(comment), valuation: valuation, disable_for_users: disable_for_users %>
   </div>
 <% end %>

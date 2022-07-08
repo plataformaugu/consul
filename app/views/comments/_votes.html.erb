@@ -1,41 +1,59 @@
+<% disable_for_users = local_assigns.fetch(:disable_for_users, false) %>
+
 <div class="votes">
   <% if user_signed_in? %>
     <%= t("comments.comment.votes", count: comment.total_votes) %>
     &nbsp;|&nbsp;
 
-    <span class="in_favor">
-      <% if can?(:vote, comment) %>
-        <%= link_to vote_comment_path(comment, value: "yes"),
-            method: "post", remote: true, title: t("votes.agree") do %>
+    <% if !disable_for_users %>
+      <span class="in_favor">
+        <% if can?(:vote, comment) %>
+          <%= link_to vote_comment_path(comment, value: "yes"),
+              method: "post", remote: true, title: t("votes.agree") do %>
+              <span class="icon-like">
+                <span class="show-for-sr"><%= t("votes.agree") %></span>
+              </span>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path do %>
             <span class="icon-like">
               <span class="show-for-sr"><%= t("votes.agree") %></span>
             </span>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= link_to new_user_session_path do %>
-          <span class="icon-like">
-            <span class="show-for-sr"><%= t("votes.agree") %></span>
+        <%= comment.total_likes %>
+      </span>
+
+      <span class="against">
+        <% if can?(:vote, comment) %>
+          <%= link_to vote_comment_path(comment, value: "no"),
+              method: "post", remote: true, title: t("votes.disagree") do %>
+              <span class="icon-unlike">
+                <span class="show-for-sr"><%= t("votes.disagree") %></span>
+              </span>
+          <% end %>
+        <% else %>
+          <span class="icon-unlike">
+            <span class="show-for-sr"><%= t("votes.disagree") %></span>
           </span>
         <% end %>
-      <% end %>
-      <%= comment.total_likes %>
-    </span>
+        <%= comment.total_dislikes %>
+      </span>
+    <% else %>
+      <span class="in_favor">
+        <span class="icon-like">
+          <span class="show-for-sr"><%= t("votes.agree") %></span>
+        </span>
+        <%= comment.total_likes %>
+      </span>
 
-    <span class="against">
-      <% if can?(:vote, comment) %>
-        <%= link_to vote_comment_path(comment, value: "no"),
-            method: "post", remote: true, title: t("votes.disagree") do %>
-            <span class="icon-unlike">
-              <span class="show-for-sr"><%= t("votes.disagree") %></span>
-            </span>
-        <% end %>
-      <% else %>
+      <span class="against">
         <span class="icon-unlike">
           <span class="show-for-sr"><%= t("votes.disagree") %></span>
         </span>
-      <% end %>
-      <%= comment.total_dislikes %>
-    </span>
+        <%= comment.total_dislikes %>
+      </span>
+    <% end %>
 
   <% elsif !user_signed_in? %>
 

@@ -81,8 +81,9 @@
       <% if poll.current? or (!poll.current? and !poll.has_results?) %>
         <%= link_to 'Votar', poll_path(poll.id), class: 'button expanded large' %>
       <% else %>
-        <a href="<%= results_poll_path(poll.id) %>" title="Revisar resultados" data-turbolinks="false" class="button expanded large">
-          Revisar resultados
+        <%= link_to 'Ver consulta', poll_path(poll.id), class: 'button expanded large', style: 'margin-bottom: 5px;' %>
+        <a href="<%= results_poll_path(poll.id) %>" title="Ver resultados" data-turbolinks="false" class="button expanded large">
+          Ver resultados
         </a>
       <% end %>
     </div>
