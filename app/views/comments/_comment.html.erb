@@ -1,24 +1,9 @@
 <% valuation = local_assigns.fetch(:valuation, false) %>
-<% disable_for_users = local_assigns.key?(:disable_for_users) ? local_assigns.fetch(:disable_for_users, false) : (comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false) %>
+<% disable_for_users = local_assigns.fetch(:disable_for_users, false) %>
 
 <% if current_user and current_user.administrator? %>
 <% disable_for_users = false %>
 <% end %>
-
-<%= 'disable_for_users' %>
-<%= disable_for_users %>
-<%= '-----' %>
-<%= 'local_assigns.key?(:disable_for_users)' %>
-<%= local_assigns.key?(:disable_for_users) %>
-<%= '-----' %>
-<%= 'local_assigns.fetch(:disable_for_users, false)' %>
-<%= local_assigns.fetch(:disable_for_users, false) %>
-<%= '-----' %>
-<%= 'comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false' %>
-<%= comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false %>
-<%= '-----' %>
-<%= 'local_assigns.key?(:disable_for_users) ? local_assigns.fetch(:disable_for_users, false) : (comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false)' %>
-<%= local_assigns.key?(:disable_for_users) ? local_assigns.fetch(:disable_for_users, false) : (comment.commentable.instance_of?(Poll) ? !comment.commentable.current? : false) %>
 
 <% cache [locale_and_user_status(comment), comment, commentable_cache_key(comment.commentable), comment.author] do %>
   <div id="<%= dom_id(comment) %>" class="comment small-12">
