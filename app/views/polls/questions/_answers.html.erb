@@ -35,7 +35,11 @@
     <% end %>
   <% else %>
     <% question.question_answers.order(id: :desc).each do |answer| %>
-      <span class="button secondary hollow disabled"><%= answer.title %></span>
+      <% if current_user and Poll::Answer.by_question(question.id).where(answer: answer.title).pluck(:author_id).include?(current_user.id) %>
+        <span class="button answered disabled"><%= answer.title %></span>
+      <% else %>
+        <span class="button secondary hollow disabled"><%= answer.title %></span>
+      <% end %>
     <% end %>
   <% end %>
 </div>
