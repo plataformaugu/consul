@@ -1,5 +1,14 @@
 <% valuation = local_assigns.fetch(:valuation, false) %>
-<% disable_for_users = local_assigns.fetch(:disable_for_users, false) %>
+
+<% if local_assigns.key?(:disable_for_users) %>
+  <% disable_for_users = local_assigns.fetch(:disable_for_users, false) %>
+<% else %>
+  <% if comment.commentable.instance_of?(Poll) %>
+    <% disable_for_users = !comment.commentable.current? %>
+  <% else %>
+    <% disable_for_users = false %>
+  <% end %>
+<% end %>
 
 <% cache [locale_and_user_status(comment), comment, commentable_cache_key(comment.commentable), comment.author] do %>
   <div id="<%= dom_id(comment) %>" class="comment small-12">
