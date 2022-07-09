@@ -1,1 +1,1 @@
-<%= render Shared::CommentsComponent.new(@poll, @comment_tree, !@poll.current?) %>
+<%= render Shared::CommentsComponent.new(@poll, @comment_tree, current_user && current_user.administrator? ? false : !@poll.current?) %>
