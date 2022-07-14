@@ -1,29 +1,6 @@
 <% provide :title do %><%= @poll.name %><% end %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<%
-  @age_groups = {
-    '16 a 19' => [16, 19],
-    '20 a 24' => [20, 24],
-    '25 a 29' => [25, 29],
-    '30 a 34' => [30, 34],
-    '35 a 39' => [35, 39],
-    '40 a 44' => [40, 44],
-    '45 a 49' => [45, 49],
-    '50 a 54' => [50, 54],
-    '55 a 59' => [55, 59],
-    '60 a 64' => [60, 64],
-    '65 a 69' => [65, 69],
-    '70 a 74' => [70, 74],
-    '75 a 79' => [75, 79],
-    '80 a 84' => [80, 84],
-    '85 a 89' => [85, 89],
-    '90 a 150' => [90, 150]
-  }
-%>
-
-<% @age_groups_votes =  @age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h %>
-
 <%= render "shared/section_header",
     color: "#c93358",
     section_image: "/images/h-resultados.svg",
@@ -61,7 +38,7 @@
       </div>
     </div>
 
-    <% if true == false %>
+    <% if @poll.show_demographics %>
     <div class="small-12 medium-12 column mt-3">
       <div class="results-questions-container" style="display: flex; justify-content: center; align-items: center">
         <div class="results-questions-card">
@@ -75,9 +52,7 @@
         </div>
       </div>
     </div>
-    <% end %>
 
-    <% if true == false %>
     <div class="small-12 medium-12 column mt-3" data-equalizer-watch style="display: flex; justify-content: center; align-items: center">
       <div class="width: 50%;">
         <h3 class="custom-h">Votos por género</h3>
@@ -158,8 +133,137 @@
       )
     }
 
+    function drawBarChart(id, labels, votes) {
+      if (votes.length) {
+        var totalVotes = votes.reduce((a, b) => a + b)
+      } else {
+        var totalVotes = 0
+      }
+
+      var backgroundColor = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+      ]
+
+      if (totalVotes < <%= @poll.voters.count %>) {
+        labels.unshift('En blanco')
+        backgroundColor.unshift('#B8B8B8')
+        votes.unshift(<%= @poll.voters.count %> - totalVotes)
+      }
+
+      var graphicData = {
+        labels: labels,
+        datasets: [{
+          label: 'Votos',
+          data: votes,
+          backgroundColor: backgroundColor,
+          hoverOffset: 4
+        }]
+      }
+      var graphicConfig = {
+        type: 'bar',
+        data: graphicData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(item, data) {
+                  return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                },
+              },
+            },
+          },
+        },
+      }
+      var chart = new Chart(
+        document.getElementById(id),
+        graphicConfig
+      )
+    }
+
+    function drawDonutChart(id, labels, votes) {
+      if (votes.length) {
+        var totalVotes = votes.reduce((a, b) => a + b)
+      } else {
+        var totalVotes = 0
+      }
+
+      var backgroundColor = [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+      ]
+
+      if (totalVotes < <%= @poll.voters.count %>) {
+        labels.unshift('En blanco')
+        backgroundColor.unshift('#B8B8B8')
+        votes.unshift(<%= @poll.voters.count %> - totalVotes)
+      }
+
+      var graphicData = {
+        labels: labels,
+        datasets: [{
+          label: 'Donut Chart',
+          data: votes,
+          backgroundColor: backgroundColor,
+          hoverOffset: 4
+        }]
+      }
+
+      var graphicConfig = {
+        type: 'doughnut',
+        data: graphicData,
+        options: {
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: function(item, data) {
+                  return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
+                },
+              },
+            },
+          },
+        }
+      }
+
+      var chart = new Chart(
+        document.getElementById(id),
+        graphicConfig
+      )
+    }
+
     <% @poll.questions.each do |question| %>
       drawPieChart(<%= question.id %>, <%= raw(question.question_answers.map {|answer| answer.title }) %>, <%= raw(question.question_answers.map {|answer| answer.total_votes }) %>);
+    <% end %>
+
+    <% if @poll.show_demographics %>
+      drawBarChart('votes-by-sector', <%= raw(@poll.poll_result.votes_by_sector['keys']) %>, <%= raw(@poll.poll_result.votes_by_sector['values']) %>)
+      drawDonutChart('votes-by-gender', <%= raw(@poll.poll_result.votes_by_gender['keys']) %>, <%= raw(@poll.poll_result.votes_by_gender['values']) %>)
+      drawBarChart('votes-by-age-group', <%= raw(@poll.poll_result.votes_by_age_group['keys']) %>, <%= raw(@poll.poll_result.votes_by_age_group['values']) %>)
     <% end %>
   <% end %>
 <% end %>

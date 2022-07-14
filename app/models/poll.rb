@@ -41,6 +41,8 @@ class Poll < ApplicationRecord
   has_many :sectors, through: :poll_sectors
   has_many :neighbor_types, through: :poll_neighbor_types
 
+  has_one :poll_result
+
   validates_translation :name, presence: true
   validate :date_range
   validate :only_one_active, unless: :public?

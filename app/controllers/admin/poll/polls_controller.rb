@@ -52,7 +52,58 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
   end
 
   def update
-    # puts poll_params.has_key?('results_enabled')
+    if poll_params.has_key?('show_demographics')
+      if poll_params['show_demographics'] == '1'
+        age_groups = {
+          '16 a 19' => [16, 19],
+          '20 a 24' => [20, 24],
+          '25 a 29' => [25, 29],
+          '30 a 34' => [30, 34],
+          '35 a 39' => [35, 39],
+          '40 a 44' => [40, 44],
+          '45 a 49' => [45, 49],
+          '50 a 54' => [50, 54],
+          '55 a 59' => [55, 59],
+          '60 a 64' => [60, 64],
+          '65 a 69' => [65, 69],
+          '70 a 74' => [70, 74],
+          '75 a 79' => [75, 79],
+          '80 a 84' => [80, 84],
+          '85 a 89' => [85, 89],
+          '90 a 150' => [90, 150]
+        }
+        age_groups_votes =  age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h
+
+        votes_by_sector = {
+          'keys': @poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys,
+          'values': @poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values
+        }
+        votes_by_gender = {
+          'keys': @poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.keys,
+          'values': @poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.values
+        }
+        votes_by_age_group = {
+          'keys': age_groups_votes.tally.keys,
+          'values': age_groups_votes.tally.values
+        }
+
+        if !@poll.poll_result.present?
+          PollResult.create(
+            votes_by_sector: votes_by_sector,
+            votes_by_gender: votes_by_gender,
+            votes_by_age_group: votes_by_age_group,
+            poll_id: @poll.id
+          )
+        else
+          @poll.poll_result.update(
+            votes_by_sector: votes_by_sector,
+            votes_by_gender: votes_by_gender,
+            votes_by_age_group: votes_by_age_group
+          )
+        end
+      end
+    end
+
     if @poll.update(poll_params)
       if params['poll']['neighbor_types'].present?
         @poll.neighbor_types = []
@@ -100,7 +151,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     end
 
     def poll_params
-      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list, :main_theme_id, :pdf_link,
+      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list, :main_theme_id, :pdf_link, :show_demographics,
                     image_attributes: image_attributes]
 
       params.require(:poll).permit(*attributes, *report_attributes, translation_params(Poll))

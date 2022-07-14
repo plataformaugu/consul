@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_24_005711) do
+ActiveRecord::Schema.define(version: 2022_07_14_023500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1222,6 +1222,16 @@ ActiveRecord::Schema.define(version: 2022_06_24_005711) do
     t.index ["officer_assignment_id"], name: "index_poll_recounts_on_officer_assignment_id"
   end
 
+  create_table "poll_results", force: :cascade do |t|
+    t.json "votes_by_sector"
+    t.json "votes_by_gender"
+    t.json "votes_by_age_group"
+    t.bigint "poll_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["poll_id"], name: "index_poll_results_on_poll_id"
+  end
+
   create_table "poll_sectors", force: :cascade do |t|
     t.bigint "poll_id", null: false
     t.bigint "sector_id", null: false
@@ -1299,6 +1309,7 @@ ActiveRecord::Schema.define(version: 2022_06_24_005711) do
     t.bigint "sector_id"
     t.bigint "main_theme_id"
     t.string "pdf_link"
+    t.boolean "show_demographics"
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["main_theme_id"], name: "index_polls_on_main_theme_id"
@@ -1936,6 +1947,7 @@ ActiveRecord::Schema.define(version: 2022_06_24_005711) do
   add_foreign_key "poll_questions", "users", column: "author_id"
   add_foreign_key "poll_recounts", "poll_booth_assignments", column: "booth_assignment_id"
   add_foreign_key "poll_recounts", "poll_officer_assignments", column: "officer_assignment_id"
+  add_foreign_key "poll_results", "polls"
   add_foreign_key "poll_sectors", "polls"
   add_foreign_key "poll_sectors", "sectors"
   add_foreign_key "poll_voters", "polls"

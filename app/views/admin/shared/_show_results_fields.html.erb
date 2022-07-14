@@ -1,9 +1,14 @@
 <fieldset aria-describedby="results_and_stats_reminder">
   <legend>Mostrar resultados</legend>
 
+  <%= form.check_box :results_enabled %>
   <p class="help-text" id="results_and_stats_reminder">
     Si marcas esta casilla los resultados serán públicos y podrán verlos todos los usuarios.
   </p>
-
-  <%= form.check_box :results_enabled %>
+  <br><br>
+  <%= form.check_box :show_demographics, label: 'Mostrar datos demográficos' %>
+  <p class="help-text" id="results_and_stats_reminder">
+    ¡Cuidado! Activar este campo calculará todos los datos demográficos para mostrar los gráficos. (El proceso puede tardar varios segundos)<br>
+    Para volver a recalcular los datos, desactívalo y actívalo nuevamente.
+  </p>
 </fieldset>
