@@ -52,6 +52,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
   end
 
   def update
+    # puts poll_params.has_key?('results_enabled')
     if @poll.update(poll_params)
       if params['poll']['neighbor_types'].present?
         @poll.neighbor_types = []
