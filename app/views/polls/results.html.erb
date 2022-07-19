@@ -134,6 +134,13 @@
     }
 
     function drawBarChart(id, labels, votes) {
+      if (labels) {
+        if (labels[0]) {
+          if (Array.isArray(labels[0])) {
+            labels = labels.map((label) => label[0])
+          }
+        }
+      }
       if (votes.length) {
         var totalVotes = votes.reduce((a, b) => a + b)
       } else {
@@ -156,7 +163,7 @@
       ]
 
       if (totalVotes < <%= @poll.voters.count %>) {
-        labels.unshift('En blanco')
+        labels.unshift('Sin información')
         backgroundColor.unshift('#B8B8B8')
         votes.unshift(<%= @poll.voters.count %> - totalVotes)
       }
@@ -186,6 +193,9 @@
                   return `${item.label}: ${item.formattedValue} (${((parseInt(item.formattedValue) * 100) / <%= @poll.voters.count %>).toFixed(0)}%)`
                 },
               },
+            },
+            legend: {
+              display: false,
             },
           },
         },
@@ -219,7 +229,7 @@
       ]
 
       if (totalVotes < <%= @poll.voters.count %>) {
-        labels.unshift('En blanco')
+        labels.unshift('Sin información')
         backgroundColor.unshift('#B8B8B8')
         votes.unshift(<%= @poll.voters.count %> - totalVotes)
       }

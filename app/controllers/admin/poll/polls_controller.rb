@@ -55,22 +55,19 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     if poll_params.has_key?('show_demographics')
       if poll_params['show_demographics'] == '1'
         age_groups = {
-          '16 a 19' => [16, 19],
-          '20 a 24' => [20, 24],
-          '25 a 29' => [25, 29],
-          '30 a 34' => [30, 34],
-          '35 a 39' => [35, 39],
-          '40 a 44' => [40, 44],
-          '45 a 49' => [45, 49],
-          '50 a 54' => [50, 54],
-          '55 a 59' => [55, 59],
-          '60 a 64' => [60, 64],
-          '65 a 69' => [65, 69],
-          '70 a 74' => [70, 74],
-          '75 a 79' => [75, 79],
-          '80 a 84' => [80, 84],
-          '85 a 89' => [85, 89],
-          '90 a 150' => [90, 150]
+          '16 a 24' => [16, 24],
+          '25 a 34' => [25, 34],
+          '35 a 44' => [35, 44],
+          '45 a 54' => [45, 54],
+          '55 a 64' => [55, 64],
+          '65 a 74' => [65, 74],
+          '75 a 84' => [75, 84],
+          '85 a 94' => [85, 94],
+          '95 a 104' => [95, 104],
+          '105 a 114' => [105, 114],
+          '115 a 124' => [115, 124],
+          '125 a 134' => [125, 134],
+          '135 a 144' => [135, 144],
         }
         age_groups_votes =  age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h
 
