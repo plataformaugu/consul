@@ -1,6 +1,18 @@
-<div class="row">
+<div class="row" style="padding: 15px;">
   <%= form_with(model: encuestum, local: true) do |form| %>
-    <div class="small-12 column">
+    <div class="small-12 medium-6 column">
+      <div class="field">
+        <%=
+          form.date_field :start_date,
+          required: true,
+          label: 'Fecha de inicio',
+          min: Time.now,
+          class: 'custom-input'
+        %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-6 column">
       <div class="field">
         <%=
           form.datetime_local_field :limit_date,
@@ -42,6 +54,19 @@
       </div>
     </div>
 
+    
+    <div class="small-12 column mt-1">
+      <div class="field">
+        <%= form.text_area :results_code, label: 'Código HTML Resultados', rows: 7, class: 'custom-textarea' %>
+      </div>
+    </div>
+
+    <div class="small-12 column">
+      <div class="field">
+        <%= form.text_field :pdf_link, class: 'custom-input', label: 'Link PDF' %>
+      </div>
+    </div>
+
     <div class="small-12 column">
       <div class="field">
         <%=
@@ -66,6 +91,8 @@
         <% end %>
       </div>
     </div>
+
+    
 
     <div class="small-12 column">
       <div class="actions mt-2" style="text-align: center;">

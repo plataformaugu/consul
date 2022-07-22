@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_14_023500) do
+ActiveRecord::Schema.define(version: 2022_07_21_233331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -596,6 +596,9 @@ ActiveRecord::Schema.define(version: 2022_07_14_023500) do
     t.datetime "updated_at", null: false
     t.datetime "limit_date"
     t.bigint "main_theme_id"
+    t.string "pdf_link"
+    t.text "results_code"
+    t.date "start_date"
     t.index ["main_theme_id"], name: "index_encuesta_on_main_theme_id"
   end
 

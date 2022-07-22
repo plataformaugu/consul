@@ -5,11 +5,23 @@ class EncuestaController < ApplicationController
 
   # GET /encuesta
   def index
-    @encuesta = Kaminari.paginate_array(Encuestum.all).page(params[:page])
+    if current_user and (current_user.administrator? or current_user.moderator?)
+      @encuesta = Kaminari.paginate_array(Encuestum.all).page(params[:page])
+    else
+      @encuesta = Kaminari.paginate_array(Encuestum.all.filter{|e| e.is_visible?}).page(params[:page])
+    end
   end
 
   # GET /encuesta/1
   def show
+    if !@encuestum.is_active?
+      if current_user and current_user.administrator?
+        
+      else
+        redirect_to encuesta_path
+      end
+    end
+
     @can_vote = false
     @reason = 'Debes ingresar con tu cuenta para participar en esta encuesta.'
 
@@ -82,6 +94,6 @@ class EncuestaController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def encuestum_params
-      params.require(:encuestum).permit(:name, :description, :image, :code, :main_theme_id, :limit_date)
+      params.require(:encuestum).permit(:name, :description, :image, :code, :main_theme_id, :limit_date, :start_date, :pdf_link, :results_code)
     end
 end

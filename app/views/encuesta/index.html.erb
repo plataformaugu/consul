@@ -55,7 +55,19 @@
                 </strong>
                 <span>días para cerrar la encuesta</span>
               </div>
-              <%= link_to e.limit_date < Time.now ? 'Finalizada' : 'Participar', e.limit_date < Time.now ? '#' : e, class: 'button expanded large', disabled: e.limit_date < Time.now %>
+              <% if e.is_active? %>
+                <%= link_to 'Participar', e, class: 'button expanded large' %>
+              <% else %>
+                <% if e.is_visible? %>
+                  <% if e.results_code.present? %>
+                    <%= link_to 'Ver resultados', e, class: 'button expanded large' %>
+                  <% else %>
+                    <%= link_to 'Finalizada', '#', class: 'button expanded large', disabled: true %>
+                  <% end %>
+                <% else %>
+                  <%= link_to 'Ver encuesta', e, class: 'button expanded large' %>
+                <% end %>
+              <% end %>
               <% if current_user and current_user.administrator? %>
                 <%= link_to 'Editar', edit_encuestum_path(e), class: 'button expanded large' %>
                 <%= link_to 'Eliminar', e, method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta encuesta?' }, class: 'button expanded large' %>

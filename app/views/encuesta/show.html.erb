@@ -10,6 +10,14 @@
 <div class="row">
   <div class="small-12 medium-12 column">
     <small>Fecha límite: <strong><%= l @encuestum.limit_date.to_date %></strong></small>
+
+    <div style="text-align: right;" class="mb-1">
+      <% if @encuestum.pdf_link.present? %>
+        <%= link_to @encuestum.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
+          <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
+        <% end %>
+      <% end %>
+      </div>
   </div>
 
   <div class="small-12 medium-12 column">
@@ -26,30 +34,44 @@
           <% end %>
         </div>
       </div>
+  
+      <% if @encuestum.is_active? or (current_user and current_user.administrator?) %>
       <div class="info-card">
-            <div class="info-card-header" style="background-color: #fe6b01;">
-              <h1 style="font-size: 2em;">¡Participa acá!</h1>
-            </div>
-            <div class="info-card-body" style="padding: 0;">
-              <% if @can_vote %>
-                <% if @encuestum.limit_date < Time.now %>
-                  <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                    <h4>Encuesta finalizada</h4>
-                  </div>
-                <% else %>
-                  <%= @code.html_safe %>
-                <% end %>
-              <% else %>
-                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                  <h4><%= @reason %></h4>
+        <div class="info-card-header" style="background-color: #fe6b01;">
+          <h1 style="font-size: 2em;">¡Participa acá!</h1>
+        </div>
+        <div class="info-card-body" style="padding: 0;">
+          <% if @can_vote %>
+            <% if @encuestum.limit_date < Time.now %>
+              <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+                <h4>Encuesta finalizada</h4>
+              </div>
+            <% else %>
+              <%= @code.html_safe %>
+            <% end %>
+          <% else %>
+            <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+              <h4><%= @reason %></h4>
 
-                  <% if not current_user %>
-                    <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
-                  <% end %>
-                </div>
+              <% if not current_user %>
+                <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
               <% end %>
             </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+      <% if @encuestum.results_code.present? %>
+        <div class="info-card mt-2">
+          <div class="info-card-header" style="background-color: #fe6b01;">
+            <h1 style="font-size: 2em;">Resultados</h1>
           </div>
+          <div class="info-card-body" style="padding: 0;">
+            <%= @encuestum.results_code.html_safe %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
