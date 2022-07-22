@@ -14,9 +14,9 @@ class EncuestaController < ApplicationController
 
   # GET /encuesta/1
   def show
-    if !@encuestum.is_active?
+    if !@encuestum.is_active? and !@encuestum.results_code.present?
       if current_user and current_user.administrator?
-        
+
       else
         redirect_to encuesta_path
       end

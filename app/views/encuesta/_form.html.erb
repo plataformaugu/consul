@@ -6,7 +6,6 @@
           form.date_field :start_date,
           required: true,
           label: 'Fecha de inicio',
-          min: Time.now,
           class: 'custom-input'
         %>
       </div>
@@ -15,10 +14,9 @@
     <div class="small-12 medium-6 column">
       <div class="field">
         <%=
-          form.datetime_local_field :limit_date,
+          form.date_field :limit_date,
           required: true,
           label: 'Fecha límite',
-          min: (Time.now + 15.minutes).strftime('%Y-%m-%dT%H:%M:00'),
           class: 'custom-input'
         %>
       </div>
