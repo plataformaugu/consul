@@ -34,8 +34,14 @@ class ProposalsController < ApplicationController
   end
 
   def initiatives
-    @proposals = Kaminari.paginate_array(
-      @proposals.where(is_initiative: true)).page(params[:page])
+    @orders = [
+      ['Más votadas', 'most_voted'],
+      ['Menos votadas', 'least_voted'],
+      ['Más recientes', 'newest'],
+      ['Más antiguas', 'oldest']
+    ]
+    @selected_order = params[:order]
+    @proposals = sort_by(params)
   end
 
   def show
@@ -317,5 +323,34 @@ class ProposalsController < ApplicationController
 
     def set_color
       @color = '#f37969'
+    end
+    
+    def sort_by(params)
+      proposals = @proposals.where(is_initiative: true)
+      orders = [
+        'most_voted',
+        'least_voted',
+        'newest',
+        'oldest',
+      ]
+
+      if params.include?('order') and orders.include?(params[:order])
+        case params[:order]
+        when 'most_voted'
+          proposals = proposals.order(cached_votes_up: :desc)
+        when 'least_voted'
+          proposals = proposals.order(cached_votes_up: :asc)
+        when 'newest'
+          proposals = proposals.order(created_at: :desc)
+        when 'oldest'
+          proposals = proposals.order(created_at: :asc)
+        else
+          proposals = proposals.order(cached_votes_up: :desc)
+        end
+      else
+        proposals = proposals.order(cached_votes_up: :desc)
+      end
+
+      return Kaminari.paginate_array(proposals).page(params[:page])
     end
 end

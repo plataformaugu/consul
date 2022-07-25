@@ -10,7 +10,14 @@ class ProposalsThemesController < ApplicationController
 
   # GET /proposals_themes/1
   def show
-    @proposals = Kaminari.paginate_array(ProposalsTheme.find(params['id']).proposals.published).page(params[:page])
+    @orders = [
+      ['Más votadas', 'most_voted'],
+      ['Menos votadas', 'least_voted'],
+      ['Más recientes', 'newest'],
+      ['Más antiguas', 'oldest']
+    ]
+    @selected_order = params[:order]
+    @proposals = sort_by(params)
   end
 
   # GET /proposals_themes/new
@@ -95,5 +102,34 @@ class ProposalsThemesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def proposals_theme_params
       params.require(:proposals_theme).permit(:title, :description, :image, :start_date, :end_date, :is_public, :pdf_link)
+    end
+
+    def sort_by(params)
+      proposals = ProposalsTheme.find(params['id']).proposals.published
+      orders = [
+        'most_voted',
+        'least_voted',
+        'newest',
+        'oldest',
+      ]
+
+      if params.include?('order') and orders.include?(params[:order])
+        case params[:order]
+        when 'most_voted'
+          proposals = proposals.order(cached_votes_up: :desc)
+        when 'least_voted'
+          proposals = proposals.order(cached_votes_up: :asc)
+        when 'newest'
+          proposals = proposals.order(created_at: :desc)
+        when 'oldest'
+          proposals = proposals.order(created_at: :asc)
+        else
+          proposals = proposals.order(cached_votes_up: :desc)
+        end
+      else
+        proposals = proposals.order(cached_votes_up: :desc)
+      end
+
+      return Kaminari.paginate_array(proposals).page(params[:page])
     end
 end

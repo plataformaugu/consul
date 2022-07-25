@@ -23,6 +23,23 @@
   <% end %>
 
   <div class="row">
+    <div class="column small-12">
+      <div style="display: flex; flex-direction: row; justify-content: end;">
+        <div style="display: flex; flex-direction: column;">
+        <strong>Ordenar por</strong>
+        <%= form_tag '/iniciativas', method: :get do %> 
+          <% if params.include?('page') %>
+            <%= hidden_field_tag :page, params[:page] %>
+          <% end %>
+          <%= select_tag 'order',
+            options_for_select(@orders, @selected_order),
+            onchange: 'this.form.submit()'
+          %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
     <div id="proposals" class="proposals-list small-12 medium-9 column">
 
       <div class="custom-cards-container">
