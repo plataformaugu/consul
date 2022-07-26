@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="small-12 column">
-    <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title.downcase %></h2>
+    <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title %></h2>
     <p class="text-gray"><%= wysiwyg(@proposals_theme.description) %></p>
     <% if Time.now.to_date <= @proposals_theme.end_date %>
     <div class="text-center mt-3">
@@ -52,7 +52,7 @@
     <% end %>
     <% end %>
     <div class="proposals-subtitle mt-3">
-      <h2>Revisa las propuestas ciudadanas para <%= @proposals_theme.title.downcase %></h2>
+      <h2>Revisa las propuestas ciudadanas para <%= @proposals_theme.title %></h2>
     </div>
 
     <div class="column small-12">
