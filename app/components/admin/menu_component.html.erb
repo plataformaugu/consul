@@ -101,4 +101,8 @@
       <%= link_to t("admin.menu.machine_learning"), admin_machine_learning_path, class: "ml-link" %>
     </li>
   <% end %>
+
+  <li class="<%= "is-active" if controller_name == "popups" %>">
+    <%= link_to 'Popup', admin_popups_path, class: 'popup-link' %>
+  </li>
 </ul>

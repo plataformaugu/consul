@@ -13,17 +13,15 @@
 
 <%= render "shared/header", header: @header %>
 
-<% if true == false %>
-  <% if !current_user or (current_user and !Poll.find(1).voters.pluck(:user_id).include?(current_user.id)) %>
-    <div class="reveal reveal-popup" id="popupModal" data-reveal>
-      <a href="/polls/1" data-turbolinks="false">
-        <%= image_tag('/images/popup.png') %>
-      </a>
-      <button class="close-button" data-close aria-label="Close modal" type="button" style="color: black; -webkit-text-stroke: 1px white;">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  <% end %>
+<% if Popup.any? and Popup.first.is_active %>
+  <div class="reveal reveal-popup" id="popupModal" data-reveal>
+    <a href=<%= Popup.first.url %> data-turbolinks="false">
+      <%= image_tag(Popup.first.image) %>
+    </a>
+    <button class="close-button" data-close aria-label="Close modal" type="button" style="color: black; -webkit-text-stroke: 1px white;">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 <% end %>
 
 <main>
@@ -233,4 +231,10 @@ $(window).scroll(function () {
       });
     }
 });
+
+<% if Popup.any? and Popup.first.is_active %>
+$(document).ready(function() {
+  $('#popupModal').foundation('open');
+})
+<% end %>
 </script>

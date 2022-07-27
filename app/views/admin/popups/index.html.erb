@@ -1,0 +1,31 @@
+<h2>Popup</h2>
+
+<%= form_with(model: @form_popup, local: true) do |f| %>
+	<div class="small-12 column">
+		<% if @has_popup %>
+			<%= f.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+			<span class="help-text">Imagen actual:</span><br>
+			<%= image_tag @form_popup.image, style: 'width: 250px;' %>
+		<% else %>
+			<%= f.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+		<% end %>
+	</div>
+
+	<div class="small-12 column mt-1">
+		<%= f.text_field :url, label: 'URL', class: 'custom-input', required: true %>
+	</div>
+
+	
+	<div class="small-12 column mt-1">
+		<%= f.check_box :is_active, label: '¿Está activo?' %>
+	</div>
+
+	
+	<div class="small-12 column mt-1">
+		<% if Popup.any? %>
+			<%= f.submit 'Editar', class: 'solid-button-sm' %>
+		<% else %>
+			<%= f.submit 'Crear', class: 'solid-button-sm' %>
+		<% end %>
+	</div>
+<% end %>

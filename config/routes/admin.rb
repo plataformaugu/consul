@@ -278,6 +278,8 @@ namespace :admin do
     post :execute, on: :collection
     delete :cancel, on: :collection
   end
+
+  resources :popups
 end
 
 resolve "Milestone" do |milestone|

@@ -110,6 +110,10 @@
     &.ml-link {
       @include icon(brain, solid);
     }
+
+    &.popup-link {
+      @include icon(bell, solid);
+    }
   }
 
   li {
