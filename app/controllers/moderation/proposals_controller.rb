@@ -10,4 +10,9 @@ class Moderation::ProposalsController < Moderation::BaseController
     @proposals = Proposal.where(published_at: nil)
   end
 
+  private
+    def resource_model
+      Proposal
+    end
+
 end
