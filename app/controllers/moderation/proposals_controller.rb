@@ -10,6 +10,18 @@ class Moderation::ProposalsController < Moderation::BaseController
     @proposals = Proposal.where(published_at: nil)
   end
 
+  def reject
+    if params['selected_ids'].any?
+      params['selected_ids'].each do |id|
+        proposal = Proposal.find(id)
+        proposal.hide
+        Mailer.reject_proposal(proposal).deliver_later
+      end
+
+      redirect_to moderation_proposals_path, notice: 'Las propuestas fueron rechazadas.'
+    end
+  end
+
   private
     def resource_model
       Proposal

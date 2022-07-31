@@ -1,30 +1,79 @@
 <h2>Propuestas pendientes de revisión</h2>
 
-<table class="clear">
-  <thead>
-    <tr>
-      <th><%= t("moderation.proposals.index.headers.proposal") %></th>
-      <th><%= t("moderation.proposals.index.headers.moderate") %></th>
-    </tr>
-  </thead>
+<%= form_for 'proposals', method: :delete do |form| %>
+  <div>
+    <%=
+      form.submit 'Rechazar seleccionadas',
+      class: 'solid-button-danger-sm mb-1',
+      data: {confirm: '¿Estás seguro/a que deseas rechazar las propuestas seleccionadas?'},
+      id: 'confirm-reject',
+      disabled: true
+    %>
+  </div>
 
-  <tbody>
-    <% @proposals.each do |proposal| %>
-      <% if !proposal.author.nil? %>
-      <tr id="proposal_<%= proposal.id %>">
-        <td>
-          <%= link_to proposal.title, proposal, target: "_blank" %>
-          <br>
-          <span class="date"><%= l proposal.updated_at.to_date %></span>
-          <span class="bullet">&nbsp;&bull;&nbsp;</span>
-          <%= proposal.author.first_name %> <%= proposal.author.last_name %> (<%= proposal.author.document_number %>)
-          <br>
-        </td>
-        <td >
-          <%= link_to 'Publicar', publish_proposal_path(proposal.id), method: :patch, class: 'solid-button', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar esta propuesta?'} %>
-        </td>
+  <table class="clear">
+    <thead>
+      <tr>
+        <th>
+          <% if @proposals.any? %>
+            <input type="checkbox" id="select-all" title="Seleccionar todas">
+          <% end %>
+        </th>
+        <th><%= t("moderation.proposals.index.headers.proposal") %></th>
+        <th><%= t("moderation.proposals.index.headers.moderate") %></th>
       </tr>
+    </thead>
+
+    <tbody>
+      <% @proposals.each do |proposal| %>
+        <% if !proposal.author.nil? %>
+        <tr id="proposal_<%= proposal.id %>" onclick=>
+          <td><%= check_box_tag 'selected_ids[]', proposal.id, false %></td>
+          <td>
+            <%= link_to proposal.title, proposal, target: "_blank" %>
+            <br>
+            <span class="date"><%= l proposal.updated_at.to_date %></span>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <%= proposal.author.first_name %> <%= proposal.author.last_name %> (<%= proposal.author.document_number %>)
+            <br>
+          </td>
+          <td >
+            <%= link_to 'Publicar', publish_proposal_path(proposal.id), method: :patch, class: 'solid-button-sm', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar esta propuesta?'} %>
+          </td>
+        </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+
+  $('#select-all').on('change', function() {
+    if ($('#select-all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+</script>

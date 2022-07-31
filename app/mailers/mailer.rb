@@ -145,6 +145,14 @@ class Mailer < ApplicationMailer
     mail(to: @email_to, subject: 'Tu comentario ha sido ocultado')
   end
 
+  def reject_proposal(proposal)
+    @proposal = proposal
+    @author = @proposal.author
+    @email_to = @author.email
+
+    mail(to: @email_to, subject: 'Tu propuesta ha sido rechazada')
+  end
+
   def notify_published_proposal(proposal)
     @proposal = proposal
     @author = @proposal.author

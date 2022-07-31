@@ -31,6 +31,7 @@ module Abilities
       cannot :moderate, Debate, author_id: user.id
 
       can :hide, Proposal, hidden_at: nil
+      can :reject, Proposal
 
       can :ignore_flag, Proposal, ignored_flag_at: nil, hidden_at: nil
       cannot :ignore_flag, Proposal, author_id: user.id

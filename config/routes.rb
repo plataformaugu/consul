@@ -69,4 +69,5 @@ Rails.application.routes.draw do
 
   post 'accounts/login' => 'users#login'
 
+  delete 'moderation/proposals' => 'moderation/proposals#reject'
 end
