@@ -1,15 +1,16 @@
 <td style="padding-bottom: 20px; padding-left: 10px;">
   <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    Estimado(a) <%= @author.first_name %> <%= @author.last_name %>,<br><br>
-    Su siguiente propuesta:
+    ¡Hola <%= @author.first_name %> <%= @author.last_name %>!:,<br><br>
+    Tu propuesta "<%= @proposal.title %>" no ha sido aceptada.
   </p>
 
-  <div style="background-color: rgba(0, 0, 0, 0.1); padding: 10px; font-size: 1.1em; font-style: italic; margin: 10px;">
-    <%= @proposal.title %>
-  </div>
+  <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
+    Agradecemos tus ganas de contribuir al desarrollo de la comuna. Sin embargo, en esta oportunidad, 
+    tu propuesta no podrá ser publicada en la <strong>Plataforma de Participa Las Condes</strong> debido a que no se encuentra 
+    alineada con la política de convivencia, la cual se encuentra documentada en nuestra <a href="https://www.participalascondes.cl/condiciones" target="_blank">Política de Privacidad y Condiciones de Uso</a>.
+  </p>
 
   <p style="font-family: 'Open Sans','Helvetica Neue',arial,sans-serif;font-size: 14px;font-weight: normal;line-height: 24px;">
-    No podrá ser publicada en la plataforma Participa Las Condes debido a que no se encuentra alineada con la política de convivencia 
-    documentada en nuestra <a href="https://www.participalascondes.cl/condiciones" target="_blank">Política de Privacidad y Condiciones de Uso</a>.
+    Cualquier inquietud nos puedes contactar a <a href="mailto:participacion@lascondes.cl">participacion@lascondes.cl</a>.
   </p>
 </td>

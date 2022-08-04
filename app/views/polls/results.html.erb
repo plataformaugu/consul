@@ -41,22 +41,23 @@
     <% if @poll.show_demographics %>
     <div class="small-12 medium-12 column mt-3">
       <div class="results-questions-container" style="display: flex; justify-content: center; align-items: center">
-        <div class="results-questions-card">
+        <div class="results-questions-card" style="width: 100%">
           <h3 class="custom-h">Votos por unidad vecinal</h3>
           <canvas id="votes-by-sector"></canvas>
-        </div>
-
-        <div class="results-questions-card">
-          <h3 class="custom-h">Votos por rango etario</h3>
-          <canvas id="votes-by-age-group"></canvas>
         </div>
       </div>
     </div>
 
-    <div class="small-12 medium-12 column mt-3" data-equalizer-watch style="display: flex; justify-content: center; align-items: center">
-      <div class="width: 50%;">
-        <h3 class="custom-h">Votos por género</h3>
-        <canvas id="votes-by-gender"></canvas>
+    <div class="small-12 medium-12 column mt-3" data-equalizer-watch>
+      <div class="results-questions-container" style="display: flex; justify-content: center; align-items: center">
+        <div class="results-questions-card">
+          <h3 class="custom-h">Votos por género</h3>
+          <canvas id="votes-by-gender"></canvas>
+        </div>
+        <div class="results-questions-card">
+          <h3 class="custom-h">Votos por rango etario</h3>
+          <canvas id="votes-by-age-group"></canvas>
+        </div>
       </div>
     </div>
     <% end %>

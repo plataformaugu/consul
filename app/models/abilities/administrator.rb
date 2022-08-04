@@ -8,7 +8,7 @@ module Abilities
 
       can [:index, :new, :create, :edit, :update, :destroy], Popup
       can [:validate, :custom_hide], Comment
-      can [:publish, :update, :edit, :reject], Proposal
+      can [:publish, :update, :edit, :reject, :toggle_in_development], Proposal
       can [:new, :edit, :update, :create, :destroy], ProposalsTheme
       can [:index, :read, :create, :edit, :update, :destroy], Encuestum
       can [:index, :read, :create, :edit, :update], MainTheme

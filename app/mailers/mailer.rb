@@ -150,7 +150,7 @@ class Mailer < ApplicationMailer
     @author = @proposal.author
     @email_to = @author.email
 
-    mail(to: @email_to, subject: 'Tu propuesta ha sido rechazada')
+    mail(to: @email_to, subject: 'Tu Propuesta Ciudadana no ha sido aceptada')
   end
 
   def notify_published_proposal(proposal)

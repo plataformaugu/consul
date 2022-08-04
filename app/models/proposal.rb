@@ -247,6 +247,14 @@ class Proposal < ApplicationRecord
     created_at <= Setting["months_to_archive_proposals"].to_i.months.ago
   end
 
+  def is_active?
+    if self.is_initiative and !self.limit_date.nil?
+      return Date.current.beginning_of_day <= self.limit_date.beginning_of_day
+    else
+      return true
+    end
+  end
+
   def notifications
     proposal_notifications
   end

@@ -231,6 +231,20 @@ class ProposalsController < ApplicationController
     redirect_to moderation_proposals_path, notice: t("proposals.notice.published")
   end
 
+  def toggle_in_development
+    new_value = !@proposal.in_development
+    @proposal.in_development = new_value
+    @proposal.save!
+
+    if new_value
+      message = 'La propuesta ha sido marcada como "En desarrollo"'
+    else
+      message = 'La propuesta ya no está "En desarrollo"'
+    end
+
+    redirect_to @proposal, notice: message
+  end
+
   private
 
     def proposal_params
@@ -239,6 +253,7 @@ class ProposalsController < ApplicationController
                     :is_initiative,
                     :proposals_theme_id,
                     :main_theme_id,
+                    :limit_date,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,
                     map_location_attributes: map_location_attributes]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_27_022339) do
+ActiveRecord::Schema.define(version: 2022_08_03_233008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1415,6 +1415,8 @@ ActiveRecord::Schema.define(version: 2022_07_27_022339) do
     t.bigint "main_theme_id"
     t.boolean "is_initiative", default: false
     t.bigint "proposals_theme_id"
+    t.boolean "in_development", default: false
+    t.date "limit_date"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"

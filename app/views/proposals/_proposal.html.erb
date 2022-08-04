@@ -16,14 +16,56 @@
   <% if proposal.image.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.image_url(:medium) %>
+      <% if !proposal.is_initiative and proposal.in_development %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Propuesta en desarrollo</h4>
+          </div>
+        </div>
+      <% end %>
+      <% if proposal.is_initiative and !proposal.is_active? %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Iniciativa finalizada</h4>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% elsif proposal.main_theme.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.main_theme.icon %>
+      <% if !proposal.is_initiative and proposal.in_development %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Propuesta en desarrollo</h4>
+          </div>
+        </div>
+      <% end %>
+      <% if proposal.is_initiative and !proposal.is_active? %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Iniciativa finalizada</h4>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% else %>
     <div class="custom-card-image">
       <%= image_tag 'https://picsum.photos/500' %>
+      <% if !proposal.is_initiative and proposal.in_development %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Propuesta en desarrollo</h4>
+          </div>
+        </div>
+      <% end %>
+      <% if proposal.is_initiative and !proposal.is_active? %>
+        <div class="custom-card-image-container-text">
+          <div class="custom-card-image-text">
+            <h4>Iniciativa finalizada</h4>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <div class="custom-card-content" style="<%= proposal.image.present? ? 'height: 50%;' : 'height: 100%;' %>">

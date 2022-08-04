@@ -42,6 +42,7 @@ resources :proposals do
     get :created
     patch :retire
     patch :publish
+    patch :toggle_in_development
   end
 
   collection do

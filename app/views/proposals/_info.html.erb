@@ -38,6 +38,17 @@
       <%= render "shared/tags", taggable: @proposal %>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
+      <% if !proposal.is_initiative and (current_user and (current_user.administrator? or current_user.moderator?)) %>
+        <div class="mb-2">
+          <%=
+            link_to @proposal.in_development? ? 'Quitar "En desarrollo"' : 'Marcar "En desarrollo"',
+            toggle_in_development_proposal_path,
+            method: :patch,
+            class: 'solid-button-sm',
+            style: 'text-decoration: none; color: white;'
+          %>
+        </div>
+      <% end %>
       <div class="info-card">
         <div class="info-card-header" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df' : '' %>">
           <h1>Apoya</h1>

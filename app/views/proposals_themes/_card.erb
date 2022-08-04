@@ -18,7 +18,7 @@
       <%= link_to 'Ver más', theme, class: 'button expanded large', style: "#{current_user and current_user.administrator? ? 'margin-bottom: 5px;' : ''}" %>
       <% if current_user and current_user.administrator? %>
         <%= link_to 'Editar', edit_proposals_theme_path(theme), class: 'button expanded large', style: 'margin-bottom: 5px;' %>
-        <%= link_to 'Eliminar', theme, method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este Tema?' }, class: 'button expanded large' %>
+        <%= link_to 'Eliminar', theme, method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este Tema?' }, class: 'button expanded large', style: 'margin-bottom: 5px;' %>
       <% end %>
     </div>
   </div>

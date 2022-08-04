@@ -46,6 +46,17 @@
   <%= f.invisible_captcha :subtitle %>
 
   <fieldset>
+  
+    <% if @is_initiative %>
+      <div>
+        <%=
+          f.date_field :limit_date,
+          required: @is_initiative,
+          label: 'Fecha límite',
+          class: 'custom-input'
+        %>
+      </div>
+    <% end %>
 
     <div>
       <%= f.text_field :video_url, hint: t("proposals.form.proposal_video_url_note"), class: 'custom-input' %>

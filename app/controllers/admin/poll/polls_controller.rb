@@ -69,19 +69,24 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
           '125 a 134' => [125, 134],
           '135 a 144' => [135, 144],
         }
-        age_groups_votes =  age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h
+        age_groups_votes_tally =  age_groups.map{ |k, v| [k, User.where(id: @poll.voters.pluck(:user_id)).where('extract(year from date_of_birth) BETWEEN ? AND ?', Time.now.year - v[1], Time.now.year - v[0]).count] }.filter{|k, v| v != 0}.to_h.tally
 
+        votes_by_sector_tally = @poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.sort_by{|p| p}.tally
         votes_by_sector = {
-          'keys': @poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.keys,
-          'values': @poll.voters.filter{|p| p.user and p.user.sector.present?}.map{|p| p.user.sector.name}.tally.values
+          'keys': votes_by_sector_tally.keys,
+          'values': votes_by_sector_tally.values
         }
+
+        allowed_genders = ['Masculino', 'Femenino', 'masculino', 'femenino']
+        votes_by_gender_tally = @poll.voters.filter{|p| p.user}.map{|p| allowed_genders.include?(p.user.gender) ? p.user.gender.titleize : 'Otro'}.tally
         votes_by_gender = {
-          'keys': @poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.keys,
-          'values': @poll.voters.filter{|p| p.user}.map{|p| p.user.gender}.tally.values
+          'keys': votes_by_gender_tally.keys,
+          'values': votes_by_gender_tally.values
         }
+
         votes_by_age_group = {
-          'keys': age_groups_votes.tally.keys,
-          'values': age_groups_votes.tally.values
+          'keys': age_groups_votes_tally.keys,
+          'values': age_groups_votes_tally.values
         }
 
         if !@poll.poll_result.present?
