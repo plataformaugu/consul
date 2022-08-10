@@ -6,9 +6,9 @@ class EncuestaController < ApplicationController
   # GET /encuesta
   def index
     if current_user and (current_user.administrator? or current_user.moderator?)
-      @encuesta = Kaminari.paginate_array(Encuestum.all).page(params[:page])
+      @encuesta = Kaminari.paginate_array(Encuestum.all.order(limit_date: :desc)).page(params[:page])
     else
-      @encuesta = Kaminari.paginate_array(Encuestum.all.filter{|e| e.is_visible?}).page(params[:page])
+      @encuesta = Kaminari.paginate_array(Encuestum.all.order(limit_date: :desc).filter{|e| e.is_visible?}).page(params[:page])
     end
   end
 
