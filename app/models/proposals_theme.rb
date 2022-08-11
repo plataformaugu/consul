@@ -37,6 +37,10 @@ class ProposalsTheme < ApplicationRecord
     return ''
   end
 
+  def is_expired?
+    Date.current.beginning_of_day > self.end_date.beginning_of_day
+  end
+
   def can_user_vote?(user)
     if not user
       return false

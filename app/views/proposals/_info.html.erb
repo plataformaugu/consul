@@ -51,7 +51,15 @@
       <% end %>
       <div class="info-card">
         <div class="info-card-header" style="<%= @proposal.is_initiative ? 'background-color: #3ba5df' : '' %>">
-          <h1>Apoya</h1>
+          <% if @proposal.is_initiative %>
+            <h1>Apoya</h1>
+          <% else %>
+            <% if @proposal.proposals_theme.is_expired? %>
+              <h1 style="font-size: 2em;" class="mt-1">Convocatoria Finalizada</h1>
+            <% else %>
+              <h1>Apoya</h1>
+            <% end %>
+          <% end %>
         </div>
         <div class="info-card-body">
           <p><%= @proposal.title %></p>
