@@ -5,7 +5,12 @@
                   title: notification.notifiable_title,
                   body: notification.notifiable_body } %>
     <% link_text = render "/notifications/notification_body", locals %>
-    <%= link_to_if notification.link.present?, link_text, notification.link %>
+
+    <% if notification.notifiable.class.name == 'CustomNotification' %>
+      <%= link_text %>
+    <% else %>
+      <%= link_to_if notification.link.present?, link_text, notification.link %>
+    <% end%>
   <% else %>
     <p>
       <strong>
@@ -17,12 +22,15 @@
   <% if notification.unread? %>
     <%= link_to t("notifications.notification.mark_as_read"),
               mark_as_read_notification_path(notification),
+              id: "mark-notification-#{notification.id}",
               method: :put, remote: true,
               class: "mark-notification small" %>
   <% else %>
-    <%= link_to t("notifications.notification.mark_as_unread"),
-              mark_as_unread_notification_path(notification),
-              method: :put, remote: true,
-              class: "mark-notification small" %>
+    <% if true == false %>
+      <%= link_to t("notifications.notification.mark_as_unread"),
+                mark_as_unread_notification_path(notification),
+                method: :put, remote: true,
+                class: "mark-notification small" %>
+    <% end %>
   <% end %>
 </li>

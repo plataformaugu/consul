@@ -55,6 +55,8 @@ class Notification < ApplicationRecord
       "replies_to"
     when "AdminNotification"
       nil
+    when "CustomNotification"
+      nil
     else
       "comments_on"
     end

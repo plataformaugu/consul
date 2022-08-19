@@ -1,151 +1,42 @@
 <div class="padding-top-for-header"></div>
 <div class="row account mb-2">
   <div class="small-12 column">
-    <% if true == false %>
-    <div class="float-right text-right">
-        <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
-    </div>
-    <% end %>
-
-    <h1 class="inline-block"><%= t("account.show.title") %></h1>
+    <h1 class="inline-block">Mi cuenta</h1>
+    <ul class="tabs" data-deep-link="true" data-tabs id="account-tabs">
+      <li class="tabs-title is-active"><a href="#mis-datos" aria-selected="true">Mis datos</a></li>
+      <li class="tabs-title"><a data-tabs-target="mi-actividad" href="#mi-actividad">Mi actividad</a></li>
+      <li class="tabs-title"><a data-tabs-target="mis-preferencias" href="#mis-preferencias">Mis preferencias</a></li>
+      <li class="tabs-title"><a data-tabs-target="tarjeta-vecino" href="#tarjeta-vecino">Tarjeta Vecino</a></li>
+      <li class="tabs-title"><a data-tabs-target="mensajes" href="#mensajes">
+        Mensajes
+        <% if current_user.notifications.unread.count > 0 %>
+          <span class="badge alert" style="min-width: 1.6em; font-size: 0.8em;">
+            <%= current_user.notifications.unread.count %>
+          </span>
+        <% end %>
+      </a></li>
+    </ul>
 
     <div class="row">
-      <div class="small-12 medium-8 column">
-        <p>
-          <label><strong>
-            Nombre completo
-          </strong></label>
-          <%= current_user.first_name %> <%= current_user.last_name %> <%= current_user.maiden_name %>
-        </p>
-        <% unless current_user.comuna.nil? %>
-        <p>
-          <label><strong>
-            Comuna
-          </strong></label>
-          <%= current_user.comuna.downcase.titleize %>
-        </p>
-        <% end %>
-        <% unless current_user.address.nil? %>
-        <p>
-          <label><strong>
-            Dirección
-          </strong></label>
-          <%= current_user.address %>
-          <% if current_user.house_reference.present? and current_user.house_reference != '' and current_user.house_type.present? and current_user.house_type != '' %>
-            - <%= current_user.house_type %> <%= current_user.house_reference %>
-          <% end %>
-        </p>
-        <% end %>
-        <% if current_user.sector.present? %>
-          <p>
-            <label><strong>
-              Sector de la comuna
-            </strong></label>
-              <%= current_user.sector.name %>
-          </p>
-        <% end %>
-      </div>
-      <div class="small-12 medium-4 column">
-        <% if !current_user.has_tarjeta_vecino %>
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <div>
-            <%= link_to 'https://app.tvlascondes.cl/signup', target: '_blank', style: 'display: flex; flex-direction: column;' do %>
-              <%= image_tag '/images/tv-button.png' %>
-              Obtén tu Tarjeta Vecino
-            <% end %>
-            </div>
-            <div class="mt-1">
-              <%= link_to 'Actualizar Tarjeta Vecino', accounts_update_tarjeta_vecino_path, method: 'post', class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row mt-4">
-      <div class="small-12 medium-12 column" style="overflow-x: auto;">
-        <h3 class="text-center mb-2">Recuerda que las modalidades de participación dependen de tu Tarjeta Vecino:</h3>
-        <table style="text-align: center;">
-          <thead>
-            <tr>
-              <th></th>
-              <th colspan="2" class="text-center">Procesos <strong>CON</strong> Tarjeta Vecino</th>
-              <th colspan="1" class="text-center" style="border-left: 1px solid #f0f0f0;">Procesos <strong>SIN</strong><br> Tarjeta Vecino</th>
-            </tr>
-            <tr>
-              <th></th>
-              <th class="text-center">Residente</th>
-              <th class="text-center">Población Flotante</th>
-              <th style="border-left: 1px solid #f0f0f0;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Consultas Ciudadanas</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-close-o margin-auto" ></i></td>
-            </tr>
-            <tr>
-              <td>Encuestas</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-danger margin-auto"></i></td>
-            </tr>
-            <tr>
-              <td>Propuestas Ciudadanas</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-close-o margin-auto"></i></td>
-            </tr>
-            <tr>
-              <td>Iniciativas Municipales</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-danger margin-auto"></i></td>
-            </tr>
-            <tr>
-              <td>Debates</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-danger margin-auto"></i></td>
-            </tr>
-            <tr>
-              <td>Presupuestos Participativos</td>
-              <td><i class="gg-check-o margin-auto"></i></td>
-              <td><i class="gg-danger margin-auto"></i></td>
-              <td style="border-left: 1px solid #f0f0f0;"><i class="gg-close-o margin-auto"></i></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="flex" style="justify-content: flex-end;">
-          <div>
-            <div class="flex">
-              <i class="gg-check-o"></i>&nbsp;Si
-            </div>
-            <div class="flex">
-              <i class="gg-danger"></i>&nbsp;Sujeto a bases del proceso
-            </div>
-            <div class="flex">
-              <i class="gg-close-o"></i>&nbsp;No
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mt-4 mb-3" id="user-form">
       <div class="small-12 column">
-        <div class="info-card">
-          <div class="info-card-header" style="background-color: #fe6b01;">
-            <h1 style="font-size: 2em;">¡Queremos conocerte mejor!</h1>
+        <div class="tabs-content" data-tabs-content="account-tabs">
+          <div class="tabs-panel is-active" id="mis-datos">
+            <%= render 'info' %>
           </div>
-          <div class="info-card-body" style="padding: 0;">
-            <div data-tf-widget="vpGHZTNx" data-tf-iframe-props="title=Encuesta Caracterización" data-tf-medium="snippet" data-tf-hidden="rut=<%= current_user.document_number.insert(-2, '-') %>" style="width:100%;height:600px;"></div><script src="//embed.typeform.com/next/embed.js"></script>
+          <div class="tabs-panel" id="mi-actividad">
+            <%= render 'activity' %>
+          </div>
+          <div class="tabs-panel" id="mis-preferencias">
+            <%= render 'preferences' %>
+          </div>
+          <div class="tabs-panel" id="tarjeta-vecino">
+            <%= render 'tarjeta_vecino' %>
+          </div>
+          <div class="tabs-panel" id="mensajes">
+            <%= render 'messages' %>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

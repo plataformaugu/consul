@@ -1,0 +1,380 @@
+<%= form_for(current_user) do |f| %>
+  <div class="row">
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :document_number, 
+            maxlength: 10,
+            label: 'RUT',
+            readonly: true,
+            required: true,
+            class: 'custom-input'
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <label for="user_full_name">Nombre completo</label>
+        <%= text_field_tag 'full_name',
+            nil, 
+            readonly: true,
+            class: 'custom-input',
+            value: "#{current_user.first_name} #{current_user.last_name} #{current_user.maiden_name}"
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <label for="user_full_name">Unidad Vecinal</label>
+        <%= text_field_tag 'uv',
+            nil,
+            readonly: true,
+            class: 'custom-input',
+            value: current_user.sector.nil? ? 'Ninguna' : current_user.sector.name
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.email_field :email,
+          required: true,
+          class: 'custom-input',
+          placeholder: 'ejemplo@correo.com'
+        %>
+        <span class="error-input-message" id="email-exists-message">
+          El email ya está registrado
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.select :gender,
+            [
+              'Masculino',
+              'Femenino',
+              'Otro'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Género',
+              selected: ['Masculino', 'Femenino'].include?(current_user.gender) ? current_user.gender : 'Otro'
+            },
+            {
+              class: 'custom-input',
+              required: true
+            }
+        %>
+
+        <%= f.text_field :gender,
+          id: 'custom_gender',
+          style: 'display: none;',
+          class: 'custom-input',
+          placeholder: 'Ingresa tu género',
+          onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+          maxlength: 20,
+          label: false
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.label :phone_number, 'Teléfono de contacto' %>
+        <div class="input-group">
+          <span style="height: 3rem; user-select: none; display: flex; align-items: center; color: black;">
+            +56
+          </span>
+          <%= f.number_field :phone_number, 
+              label: 'Teléfono de contacto',
+              max: 999999999,
+              min: 100000000,
+              onpaste: 'return false;',
+              required: true,
+              class: 'custom-input',
+              label: false,
+              placeholder: '912345678'
+          %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.select :comuna,
+          ['Las Condes'] + @comunas.sort,
+          {
+            include_blank: 'Elija una opción',
+            label: 'Comuna'
+          },
+          {
+            class: 'custom-input',
+            required: true
+          }
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :address, 
+            maxlength: 24,
+            label: 'Dirección',
+            required: true,
+            class: 'custom-input',
+            placeholder: 'Ingresa por ej. APOQUINDO 3400 (Sin “Avenida” o “Av.”)',
+            maxlength: 58
+        %>
+        <div id="alternative-address">
+          <label>Calle</label>
+          <%= text_field_tag 'alt-street', nil, class: 'custom-input', placeholder: 'Ingresa por ej. APOQUINDO (Sin “Avenida” o “Av.”)' %>
+          <label>Número</label>
+          <%= number_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.select :house_type,
+            [
+              'Casa',
+              'Departamento',
+              'Oficina'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Casa/Depto/Oficina',
+              selected: current_user.house_type
+            },
+            {
+              class: 'custom-input'
+            }
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.text_field :house_reference, 
+            maxlength: 128,
+            label: 'Aclaratoria',
+            class: 'custom-input',
+            placeholder: 'Nro. Depto. | Nro. Casa | Otra aclaración del lugar'
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 column">
+        <%= f.select :education,
+            [
+              'Enseñanza Básica',
+              'Enseñanza Media',
+              'Técnico Profesional',
+              'Técnico Superior',
+              'Profesional',
+              'Postgrado'
+            ],
+            {
+              include_blank: 'Elija una opción',
+              label: 'Nivel Educacional',
+              selected: current_user.education
+            },
+            {
+              class: 'custom-input',
+              required: true
+            }
+        %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 column">
+        <%= f.number_field :children_amount, 
+            min: 0,
+            max: 20,
+            label: 'Nº de Hijos',
+            value: current_user.children_amount,
+            required: true,
+            class: 'custom-input'
+        %>
+      </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.number_field :pets_amount, 
+            min: 0,
+            max: 100,
+            label: 'Nº de Mascotas',
+            value: current_user.pets_amount,
+            required: true,
+            class: 'custom-input'
+        %>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="small-12 text-center">
+        <%= f.submit 'Actualizar datos', class: "solid-button-sm" %>
+      </div>
+    </div>
+
+    <div class="row mt-1">
+      <div class="small-12 text-center">
+        <span class="help-text"><strong>¡Ojo!</strong> Si actualizaste tu email te enviaremos un correo para confirmarlo.<br>El email será actualizado después de realizar este paso.</span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  var sBrowser, sUsrAg = navigator.userAgent;
+  var notFoundAddressMessage = "No se ha encontrado tu dirección";
+  var customStreet = '';
+  var customNumber = '';
+
+  if (!['Masculino', 'Femenino'].includes('<%= current_user.gender %>')) {
+    $('#custom_gender').show()
+  }
+
+  if(sUsrAg.indexOf("Chrome") > -1) {
+      sBrowser = "Google Chrome";
+  } else if (sUsrAg.indexOf("Safari") > -1) {
+      sBrowser = "Apple Safari";
+  } else if (sUsrAg.indexOf("Opera") > -1) {
+      sBrowser = "Opera";
+  } else if (sUsrAg.indexOf("Firefox") > -1) {
+      sBrowser = "Mozilla Firefox";
+  } else if (sUsrAg.indexOf("MSIE") > -1) {
+      sBrowser = "Microsoft Internet Explorer";
+  }
+
+  $('#user_web_browser').val(sBrowser);
+
+  var streets = [];
+
+  $.getJSON('/streets.json', function(streetsResponse) {
+    streets = streetsResponse;
+  });
+
+  $("#user_phone_number").on("keyup", function (e) {
+    if (this.value.length !== 9) {
+      this.setCustomValidity("Deben ser 9 dígitos.");
+
+      if (this.value.length > 9) {
+        this.value = this.value.substring(0, 9);
+        this.setCustomValidity("");
+      }
+    } else {
+      this.setCustomValidity("");
+    }
+  });
+
+  $("#alternative-address").hide();
+  $('a[href="/condiciones"]').attr("target", "_blank");
+
+  function showAltAddress() {
+    $("#user_address").val('');
+    $("#user_address").attr('required', false);
+    $('label[for=user_address]').hide()
+    $("#user_address").hide();
+    $("#alternative-address").show();
+    $("#alt-street").attr("required", true);
+    $("#alt-number").attr("required", true);
+    $("#alt-street").autocomplete({
+      source: function (request, response) {
+        var results = $.ui.autocomplete.filter(streets, request.term);
+        response(results.slice(0, 10));
+      },
+      change: function (event, ui) {
+        if (!ui.item) {
+          customStreet = '';
+          $("#alt-street").val("");
+        } else {
+          customStreet = ui.item.value
+
+          if (customNumber !== '') {
+            $("#user_address").val(customStreet + ' ' + customNumber);
+          } else {
+            $("#user_address").val(customStreet);
+          }
+        }
+      },
+    });
+  }
+
+  $('#alt-number').on('keyup', function () {
+    customNumber = $("#alt-number").val();
+    
+    $("#user_address").val(customStreet + ' ' +  customNumber);
+  });
+
+  function hideAltAddress() {
+    $("#user_address").val('');
+    $("#user_address").attr('required', true);
+    $("#user_address").show();
+    $('label[for=user_address]').show()
+    $("#alternative-address").hide();
+    $("#alt-street").attr("required", false);
+    $("#alt-street").val("");
+    $("#alt-number").attr("required", false);
+    $("#alt-number").val("");
+
+    try {
+      $("#alt-street").autocomplete("destroy");
+    } catch (error) {}
+  }
+
+  $("#user_gender").on("change", function () {
+    if (this.value == "Otro") {
+      $("#custom_gender").val("");
+      $("#custom_gender").css("display", "block");
+      $("#custom_gender").attr("required", true);
+    } else {
+      $("#custom_gender").val(this.value);
+      $("#custom_gender").css("display", "none");
+      $("#custom_gender").attr("required", false);
+    }
+  });
+
+  $("#email_verification").on("keyup", function () {
+    if (this.value !== $("#user_email").val()) {
+      this.setCustomValidity("Los email no coinciden.");
+      $("#email_verification").addClass("error-input");
+      $("#email-verification-message").show();
+    } else {
+      this.setCustomValidity("");
+      $("#email_verification").removeClass("error-input");
+      $("#email-verification-message").hide();
+    }
+  });
+
+  $("#user_email").on("change", function () {
+    var request = $.get(
+      "/user/registrations/check_email?email=" + this.value
+    );
+    request.done(function (response) {
+      if (!response.available) {
+        $("#user_email")[0].setCustomValidity(
+          "El email ya está registrado."
+        );
+        $("#user_email").addClass("error-input");
+        $("#email-exists-message").show();
+      } else {
+        $("#user_email")[0].setCustomValidity("");
+        $("#user_email").removeClass("error-input");
+        $("#email-exists-message").hide();
+      }
+    });
+  });
+
+  $("#user_address").on("keydown", function () {
+    if ($('#user_comuna').val() === 'Las Condes') {
+      showAltAddress()
+    }
+
+    if ($("#user_address").val() === notFoundAddressMessage) {
+      $("#user_address").val('')
+    }
+  });
+
+  $("#user_comuna").on("change", function () {
+    if (this.value === "Las Condes") {
+      showAltAddress();
+    } else {
+      hideAltAddress();
+    }
+  });
+<% end %>

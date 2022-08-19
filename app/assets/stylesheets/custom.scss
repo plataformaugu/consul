@@ -4198,3 +4198,12 @@ input[type=number]::-webkit-outer-spin-button {
         width: 100%;
     }
 }
+
+.desktop-row-mobile-column {
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
+}

@@ -6,57 +6,45 @@ module TarjetaVecino
             :has_tarjeta_vecino => false,
             :is_tarjeta_vecino_active => false,
             :neighbor_type => NeighborType.find_by(name: 'Registrado sin Tarjeta Vecino'),
+            :tarjeta_vecino_code => nil,
+            :tarjeta_vecino_start_date => nil,
             :data => {},
         }
 
+        url = URI("https://idfbfafxhk.execute-api.us-west-2.amazonaws.com/webservicelc/validar/v2?apikey=pxlcb34f454c279ef21eb4311503f9ce9e01lof0f&secret=sk4c8582584a3a2k32bd&rut=#{rut}")
+        https = Net::HTTP.new(url.host, url.port)
+        https.use_ssl = true
+        request = Net::HTTP::Get.new(url)
+        response = https.request(request)
+
         begin
-            client = Savon.client(
-                wsdl: 'https://www.lascondesonline.cl/web_service/Ws_Decom/service.asmx?wsdl',
-                pretty_print_xml: true,
-                open_timeout: 15,
-                read_timeout: 15,
-            )
-            response = client.call(
-                :consulta_estado_tarjeta,
-                xml: '<?xml version="1.0" encoding="utf-8"?>
-                    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-                    <soap:Body>
-                <ConsultaEstadoTarjeta xmlns="http://LasCondesonline.cl/">
-                    <RutVecino>%s</RutVecino>
-                    <RutUsuario>76856956-8</RutUsuario>
-                </ConsultaEstadoTarjeta>
-                    </soap:Body>
-                    </soap:Envelope>' % rut,
-            )
-            result = response.body[:consulta_estado_tarjeta_response][:consulta_estado_tarjeta_result]
+            if response.kind_of? Net::HTTPSuccess
+                result = JSON.parse(response.body)['vecino']
 
-            if result[:mensaje].nil?
-                final_result[:status] = true
-                final_result[:has_tarjeta_vecino] = true
-                final_result[:is_tarjeta_vecino_active] = true
-                final_result[:data] = result
-
-                if result[:numero_tarjeta].to_s.start_with?('2', '9')
-                    final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Residente Las Condes')
-                elsif result[:numero_tarjeta].to_s[0].to_i >= 3
-                    final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Flotante Las Condes')
-                end
-            elsif result[:mensaje].kind_of?(String)
-                if result[:mensaje].include? 'NO VIGENTE'
+                if result.fetch('estado', nil) == 'NO_VIGENTE'
                     final_result[:has_tarjeta_vecino] = true
                     final_result[:is_tarjeta_vecino_active] = false
+                elsif result.fetch('estado', nil) == 'VIGENTE'
+                    final_result[:status] = true
+                    final_result[:has_tarjeta_vecino] = true
+                    final_result[:is_tarjeta_vecino_active] = true
+                    final_result[:tarjeta_vecino_code] = result['cod_tarjeta']
+                    final_result[:tarjeta_vecino_start_date] = result['fecha_incorporacion'].to_date
+                    final_result[:data] = result
+
+                    if result.fetch('tipo_vecino', nil) == 'Residente'
+                        final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Residente Las Condes')
+                    else
+                        final_result[:neighbor_type] = NeighborType.find_by(name: 'Vecino Flotante Las Condes')
+                    end
                 end
             end
-
-            return final_result
-        rescue Savon::Error => e
-            return final_result
-        rescue Net::OpenTimeout => e
-            return final_result
         rescue
             return final_result
-        rescue Exception => e
+        rescue Exception
             return final_result
         end
+
+        return final_result
     end 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_233008) do
+ActiveRecord::Schema.define(version: 2022_08_17_234538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -461,6 +461,14 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
   create_table "communities", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "model"
+    t.integer "model_id"
+    t.string "action"
   end
 
   create_table "dashboard_actions", id: :serial, force: :cascade do |t|
@@ -1792,6 +1800,8 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
     t.boolean "is_tarjeta_vecino_active", default: false
     t.bigint "neighbor_type_id"
     t.string "web_browser"
+    t.string "tarjeta_vecino_code"
+    t.date "tarjeta_vecino_start_date"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true

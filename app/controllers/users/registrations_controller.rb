@@ -92,6 +92,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if tarjeta_vecino_data[:is_tarjeta_vecino_active]
         resource.is_tarjeta_vecino_active = true
+        resource.tarjeta_vecino_code = tarjeta_vecino_data[:tarjeta_vecino_code]
+        resource.tarjeta_vecino_start_date = tarjeta_vecino_data[:tarjeta_vecino_start_date]
       end
     end
 

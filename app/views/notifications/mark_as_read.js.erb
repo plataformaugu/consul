@@ -1,1 +1,2 @@
-$("#notification_<%= @notification.id %>").hide()
+$("#notification_<%= @notification.id %>").removeClass('unread')
+$("#mark-notification-<%= @notification.id %>").hide()

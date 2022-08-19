@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="small-12 medium-9 column" style="line-height: 1.8;">
+    <strong>Código de tarjeta:</strong> <%= current_user.tarjeta_vecino_code.present? ? current_user.tarjeta_vecino_code : 'N/A' %> <br>
+    <strong>Tipo de vecino:</strong> <%= current_user.neighbor_type.present? ? current_user.neighbor_type.name : 'N/A' %><br>
+    <strong>Estado:</strong> <%= current_user.is_tarjeta_vecino_active ? 'Vigente' : 'No vigente' %><br>
+    <strong>Fecha de emisión:</strong> <%= current_user.tarjeta_vecino_start_date.present? ? current_user.tarjeta_vecino_start_date.strftime('%d-%m-%Y') : 'N/A' %> <br>
+    <div class="mt-1 mb-3">
+      <%= link_to 'Actualizar estado', accounts_update_tarjeta_vecino_path, method: 'post', class: 'solid-button-sm', style: 'width: 100%;' %>
+    </div>
+
+    <%= render 'tarjeta_vecino_table' %>
+  </div>
+  <div class="small-12 medium-3 column text-center">
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+      <h4 class="text-center">Acceso rápido</h4>
+      <%= link_to 'Actualización de datos', 'www.google.cl', target: '_blank', class: 'solid-button-sm', style: 'width: 100%;' %>
+      <%= link_to 'Renovación de tarjeta', 'www.google.cl', target: '_blank', class: 'solid-button-sm', style: 'width: 100%;' %>
+      <%= link_to 'Beneficios de la tarjeta', 'www.google.cl', target: '_blank', class: 'solid-button-sm', style: 'width: 100%;' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="row margin-bottom">
+  <div class="small-12 column">
+    <% if locals[:notifications].empty? %>
+      <div data-alert class="callout primary margin-top clear">
+        <%= t("notifications.index.empty_notifications") %>
+      </div>
+    <% else %>
+      <ul class="no-bullet clear notifications-list">
+        <% locals[:notifications].each do |notification| %>
+          <%= render "/notifications/notification", notification: notification %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

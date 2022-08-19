@@ -57,6 +57,8 @@ class CommentsController < ApplicationController
   def custom_hide
     Mailer.hide_comment(@comment).deliver_later
     @comment.hide
+    custom_notification = CustomNotification.create(model: 'Comment', model_id: @comment.id, action: 'hide_comment')
+    Notification.create(user_id: @comment.author.id, notifiable_type: 'CustomNotification', notifiable_id: custom_notification.id)
 
     flash[:notice] = "El comentario fue ocultado."
     Activity.log(current_user, :hide, @comment)

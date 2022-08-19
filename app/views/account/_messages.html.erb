@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="small-12 medium-3 column">
+    <ul class="tabs" data-tabs id="messages-tabs" style="border: none;">
+      <li class="tabs-title is-active" style="width: 100%;"><a href="#general" aria-selected="true">
+        General
+        <% if @general_notifications.unread.any? %>
+          <span class="badge alert" style="min-width: 1.6em; font-size: 0.8em;">
+            <%= @general_notifications.unread.count %>
+          </span>
+        <% end %>
+      </a></li>
+      <li class="tabs-title" style="width: 100%;"><a data-tabs-target="notificaciones" href="#notificaciones">
+        Notificaciones
+        <% if @custom_notifications.unread.any? %>
+          <span class="badge alert" style="min-width: 1.6em; font-size: 0.8em;">
+            <%= @custom_notifications.unread.count %>
+          </span>
+        <% end %>
+      </a></li>
+    </ul>
+  </div>
+  <div class="small-12 medium-9 column">
+    <div class="tabs-content" data-tabs-content="messages-tabs">
+      <div class="tabs-panel is-active" id="general">
+        <%= render 'messages_notifications', locals: {notifications: @general_notifications.order(id: :desc)} %>
+      </div>
+      <div class="tabs-panel" id="notificaciones">
+        <%= render 'messages_notifications', locals: {notifications: @custom_notifications.order(id: :desc)} %>
+      </div>
+    </div>
+  </div>
+</div>
