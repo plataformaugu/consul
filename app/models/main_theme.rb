@@ -3,4 +3,5 @@ class MainTheme < ApplicationRecord
     has_many :proposals
     has_many :encuestum
     has_many :events
+    has_many :news
 end

@@ -1,0 +1,41 @@
+<h2>Noticias</h2>
+
+<div>
+  <%= link_to 'Crear noticia', new_admin_news_path, class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+</div>
+
+<% if @news.any? %>
+  <div class="mt-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Fecha</th>
+          <th>¿Destacada?</th>
+          <th>Eje temático</th>
+          <th>Likes</th>
+          <th>Dislikes</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @news.order(created_at: :desc).each do |n| %>
+          <tr id="<%= n.id %>">
+            <td><%= n.id %></td>
+            <td><%= n.title %></td>
+            <td><%= n.created_at.strftime('%d/%m/%Y') %></td>
+            <td><%= n.is_hightlighted? ? 'Sí' : 'No' %></td>
+            <td><%= image_tag n.main_theme.icon, style: 'width: 32px;', title: n.main_theme.name %></td>
+            <td><%= n.likes %></td>
+            <td><%= n.dislikes %></td>
+            <td>
+              <%= link_to 'Editar', edit_admin_news_path(n) %> | 
+              <%= link_to 'Eliminar', admin_news_path(n), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta noticia?' }, style: 'color: red;' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

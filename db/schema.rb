@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_234538) do
+ActiveRecord::Schema.define(version: 2022_08_28_014015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1044,6 +1044,35 @@ ActiveRecord::Schema.define(version: 2022_08_17_234538) do
     t.string "name"
   end
 
+  create_table "news", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "image"
+    t.date "highlight_until"
+    t.bigint "main_theme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["main_theme_id"], name: "index_news_on_main_theme_id"
+  end
+
+  create_table "news_dislike", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "news_id"
+    t.index ["news_id"], name: "index_news_dislike_on_news_id"
+    t.index ["user_id"], name: "index_news_dislike_on_user_id"
+  end
+
+  create_table "news_like", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "news_id"
+    t.index ["news_id"], name: "index_news_like_on_news_id"
+    t.index ["user_id"], name: "index_news_like_on_user_id"
+  end
+
   create_table "newsletters", id: :serial, force: :cascade do |t|
     t.string "subject"
     t.string "segment_recipient", null: false
@@ -1952,6 +1981,9 @@ ActiveRecord::Schema.define(version: 2022_08_17_234538) do
   add_foreign_key "machine_learning_jobs", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "moderators", "users"
+  add_foreign_key "news", "main_themes"
+  add_foreign_key "news_dislike", "users"
+  add_foreign_key "news_like", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"

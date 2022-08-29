@@ -1,0 +1,84 @@
+<%= form_with(model: news, local: true, url: action_name == 'edit' ? admin_news_path : admin_news_index_path) do |form| %>
+  <div class="field">
+    <%=
+      form.text_field :title,
+      maxlength: 50,
+      label: 'Título',
+      required: true,
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.text_area :body,
+      label: 'Cuerpo',
+      rows: 5,
+      required: true,
+      class: "html-area",
+      maxlength: 1000
+    %>
+  </div>
+
+  <div class="field">
+    <% if news.image.attached? %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+      <span class="help-text">Imagen actual:</span><br>
+      <%= image_tag news.image, style: 'width: 250px;' %>
+    <% else %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen', required: true %>
+    <% end %>
+  </div>
+
+  <div class="field mt-1">
+    <%=
+      form.collection_select :main_theme_id,
+      MainTheme.all,
+      :id,
+      :name,
+      {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+      {class: 'custom-input', style: 'width: 100%;', required: true}
+    %>
+  </div>
+
+  <div class="field mt-1">
+    <%= form.check_box :is_hightlighted, label: '¿Destacada?' %>
+    <div id="highlight-form" style="display: none;">
+      Duración:
+      <%=
+        form.number_field :highlight_until_days,
+        label: false,
+        style: 'width: 120px; display: inline-block',
+        min: 1,
+        max: 365
+      %>
+      días
+    </div>
+  </div>
+
+  <div class="actions mt-2">
+    <% if action_name == 'edit' %>
+      <%= form.submit 'Editar', class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+    <% else %>
+      <%= form.submit 'Crear', class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    <% if news.is_hightlighted? %>
+      $('#news_is_hightlighted').prop('checked', true)
+      $('#highlight-form').show()
+      $('#news_highlight_until_days').val(<%= news.highlight_until - Date.current %>)
+    <% end %>
+
+    $('#news_is_hightlighted').on('change', function() {
+      if ($(this).is(':checked')) {
+        $('#highlight-form').show()
+      } else {
+        $('#highlight-form').hide()
+      }
+    })
+  })
+</script>

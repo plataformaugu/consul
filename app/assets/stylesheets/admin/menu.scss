@@ -114,6 +114,10 @@
     &.popup-link {
       @include icon(bell, solid);
     }
+
+    &.news-link {
+      @include icon(newspaper, solid);
+    }
   }
 
   li {
