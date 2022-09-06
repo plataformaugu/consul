@@ -143,8 +143,6 @@ class UsersController < ApplicationController
         :house_type,
         :house_reference,
         :education,
-        :children_amount,
-        :pets_amount
       )
     end
 

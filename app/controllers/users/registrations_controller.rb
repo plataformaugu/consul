@@ -299,8 +299,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :nationality,
         :profession,
         :education,
-        :children_amount,
-        :pets_amount,
         :lat,
         :long,
         :web_browser

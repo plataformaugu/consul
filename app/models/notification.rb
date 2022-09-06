@@ -57,6 +57,8 @@ class Notification < ApplicationRecord
       nil
     when "CustomNotification"
       nil
+    when "DirectMessage"
+      nil
     else
       "comments_on"
     end
@@ -64,6 +66,8 @@ class Notification < ApplicationRecord
 
   def link
     if notifiable.is_a?(AdminNotification) && notifiable.link.blank?
+      nil
+    elsif notifiable.class.name == 'DirectMessage'
       nil
     else
       self
