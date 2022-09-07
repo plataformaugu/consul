@@ -16,6 +16,8 @@ class Moderation::ProposalsController < Moderation::BaseController
         proposal = Proposal.find(id)
         proposal.hide
         Mailer.reject_proposal(proposal).deliver_later
+        custom_notification = CustomNotification.create(model: 'Proposal', model_id: proposal.id, action: 'reject_proposal')
+        Notification.create(user_id: proposal.author.id, notifiable_type: 'CustomNotification', notifiable_id: custom_notification.id)
       end
 
       redirect_to moderation_proposals_path, notice: 'Las propuestas fueron rechazadas.'

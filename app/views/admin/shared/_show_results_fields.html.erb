@@ -6,8 +6,10 @@
     Si marcas esta casilla los resultados serán públicos y podrán verlos todos los usuarios.
   </p>
   <br>
-  <%= form.check_box :show_demographics, label: 'Mostrar datos demográficos' %>
-  <p class="help-text" id="results_and_stats_reminder">
-    El proceso puede tardar varios segundos.
-  </p>
+  <% if controller.controller_name == 'results' %>
+    <%= form.check_box :show_demographics, label: 'Mostrar datos demográficos' %>
+    <p class="help-text" id="results_and_stats_reminder">
+      El proceso puede tardar varios segundos.
+    </p>
+  <% end %>
 </fieldset>

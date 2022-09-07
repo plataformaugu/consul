@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   resources :proposals_themes, :path => 'propuestas'
   resources :encuesta, :path => 'encuestas'
   resources :main_themes, :path => 'ejes-tematicos'
+  resources :news do
+    collection do
+      post :like
+      post :dislike
+    end
+  end
   resources :events do
     collection do
       post :join_to_event

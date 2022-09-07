@@ -1,14 +1,11 @@
+<% if @notifications.nil? %>
+  <% @notifications = notifications %>
+<% end %>
+
 <div class="row margin-bottom">
   <div class="small-12 column">
-
-    <h1 class="inline-block margin-bottom">
-      <%= t("notifications.index.title") %>
-    </h1>
-
-    <%= link_to t("notifications.index.mark_all_as_read"),
-            mark_all_as_read_notifications_path, method: :put,
-            class: "button float-right-medium" %>
-
+  
+    <% if true == false %>
     <ul class="menu simple clear">
       <li class="is-active">
         <h2><%= link_to t("notifications.index.unread"), notifications_path %></h2>
@@ -17,6 +14,7 @@
         <%= link_to t("notifications.index.read"), read_notifications_path %>
       </li>
     </ul>
+    <% end %>
 
     <% if @notifications.empty? %>
       <div data-alert class="callout primary margin-top clear">

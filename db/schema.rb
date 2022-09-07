@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_233008) do
+ActiveRecord::Schema.define(version: 2022_08_28_014015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -461,6 +461,14 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
   create_table "communities", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "model"
+    t.integer "model_id"
+    t.string "action"
   end
 
   create_table "dashboard_actions", id: :serial, force: :cascade do |t|
@@ -1034,6 +1042,35 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
 
   create_table "neighbor_types", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "image"
+    t.date "highlight_until"
+    t.bigint "main_theme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["main_theme_id"], name: "index_news_on_main_theme_id"
+  end
+
+  create_table "news_dislike", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "news_id"
+    t.index ["news_id"], name: "index_news_dislike_on_news_id"
+    t.index ["user_id"], name: "index_news_dislike_on_user_id"
+  end
+
+  create_table "news_like", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "news_id"
+    t.index ["news_id"], name: "index_news_like_on_news_id"
+    t.index ["user_id"], name: "index_news_like_on_user_id"
   end
 
   create_table "newsletters", id: :serial, force: :cascade do |t|
@@ -1792,6 +1829,8 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
     t.boolean "is_tarjeta_vecino_active", default: false
     t.bigint "neighbor_type_id"
     t.string "web_browser"
+    t.string "tarjeta_vecino_code"
+    t.date "tarjeta_vecino_start_date"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1942,6 +1981,9 @@ ActiveRecord::Schema.define(version: 2022_08_03_233008) do
   add_foreign_key "machine_learning_jobs", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "moderators", "users"
+  add_foreign_key "news", "main_themes"
+  add_foreign_key "news_dislike", "users"
+  add_foreign_key "news_like", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "poll_answers", "poll_questions", column: "question_id"

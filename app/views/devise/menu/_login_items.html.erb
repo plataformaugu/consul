@@ -3,6 +3,11 @@
   <li class="menu-desktop perfil-dropdown">
     <a class="btn-perfil btn-negrita" rel="nofollow" title="Ir a la página de Mi cuenta">
       <i class="fa fa-user"></i>
+      <% if current_user.notifications.unread.count > 0 %>
+        <span class="badge alert">
+          <%= current_user.notifications.unread.count %>
+        </span>
+      <% end %>
     </a>
     <div class="perfil-dropdown-content">
       <% if current_user.administrator? %>
@@ -26,13 +31,14 @@
           <%= link_to t("sdg_management.header.title"), sdg_management_root_path %>
       <% end %>
       <hr>
-      <%= layout_menu_link_to t("layouts.header.my_account_link"),
-                              account_path,
-                              controller_name == "account",
-                              rel: "nofollow",
-                              title: t("shared.go_to_page") +
-                                     t("layouts.header.my_account_link") %>
-      <% if not current_page?(management_users_path) %>
+
+      <%= link_to account_path do %>
+        Mi cuenta
+        <% if current_user.notifications.unread.count > 0 %>
+          <span class="badge alert" style="min-width: 1.6em; font-size: 0.8em;">
+            <%= current_user.notifications.unread.count %>
+          </span>
+        <% end %>
       <% end %>
       <%= link_to t("devise_views.menu.login_items.logout"),
                 destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
@@ -64,12 +70,14 @@
       </li>
     <% end %>
     <hr>
-    <%= layout_menu_link_to t("layouts.header.my_account_link"),
-                            account_path,
-                            controller_name == "account",
-                            rel: "nofollow",
-                            title: t("shared.go_to_page") +
-                                    t("layouts.header.my_account_link") %>
+    <%= link_to account_path do %>
+      Mi cuenta
+      <% if current_user.notifications.unread.count > 0 %>
+        <span class="badge alert" style="min-width: 1.6em; font-size: 0.8em;">
+          <%= current_user.notifications.unread.count %>
+        </span>
+      <% end %>
+    <% end %>
     <%= link_to t("devise_views.menu.login_items.logout"),
               destroy_user_session_path, rel: "nofollow", class: "btn-negrita", method: :delete %>
   </div>

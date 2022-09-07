@@ -280,6 +280,7 @@ namespace :admin do
   end
 
   resources :popups
+  resources :news
 end
 
 resolve "Milestone" do |milestone|

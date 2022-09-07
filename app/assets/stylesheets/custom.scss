@@ -4198,3 +4198,99 @@ input[type=number]::-webkit-outer-spin-button {
         width: 100%;
     }
 }
+
+.desktop-row-mobile-column {
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
+}
+
+// News
+.news {
+    h2 {
+        color: rgb(114, 113, 118);
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+            display: flex;
+            flex-direction: row;
+            border-radius: 15px;
+            padding: 15px;
+            gap: 15px;
+
+            img {
+                min-width: 200px;
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                border-radius: 15px;
+
+                @media (max-width: 1200px) {
+                    min-width: 100px;
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+
+            .card-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 100%;
+
+                .card-info {
+                    display: flex;
+                    flex-direction: column;
+
+                    .card-creation-info {
+                        color: rgb(114, 113, 118);
+                        user-select: none;
+                        margin-top: -0.6em;
+                        font-size: 0.7em;
+
+                        img {
+                            min-width: 16px;
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                        .separator {
+                            margin-left: 5px;
+                            margin-right: 5px;
+                        }
+                    }
+
+                }
+
+                .card-actions {
+                    display: flex;
+                    justify-content: end;
+                    gap: 1em;
+
+                    a {
+                        text-decoration: none;
+                    }
+
+                    .icon-like, .icon-unlike {
+                        color: rgb(114, 113, 118);
+                    }
+
+                    .icon-like.active {
+                        color: #60a360;
+                    }
+
+                    .icon-unlike.active {
+                        color: #d1152c;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,6 +7,13 @@ module Notifiable
       proposal.title
     when "Comment"
       commentable.title
+    when "CustomNotification"
+      case action
+      when 'hide_comment'
+        return "Tu comentario fue ocultado: \"#{model.constantize.with_hidden.find(model_id).body.truncate(24)}\""
+      when 'reject_proposal'
+        return "Tu propuesta no ha sido aceptada: \"#{model.constantize.with_hidden.find(model_id).title.truncate(24)}\""
+      end
     else
       title
     end
@@ -22,6 +29,8 @@ module Notifiable
       check_availability(proposal)
     when "Comment"
       check_availability(commentable)
+    when "CustomNotification"
+      return true
     else
       check_availability(self)
     end

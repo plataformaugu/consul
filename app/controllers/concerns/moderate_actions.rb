@@ -12,6 +12,12 @@ module ModerateActions
   end
 
   def hide
+    if resource.class.name == 'Comment'
+      Mailer.hide_comment(@comment).deliver_later
+      custom_notification = CustomNotification.create(model: 'Comment', model_id: resource.id, action: 'hide_comment')
+      Notification.create(user_id: resource.author.id, notifiable_type: 'CustomNotification', notifiable_id: custom_notification.id)
+    end
+
     hide_resource resource
   end
 

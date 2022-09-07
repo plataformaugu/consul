@@ -6,6 +6,7 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
+      can [:index, :new, :create, :edit, :update, :destroy], News
       can [:index, :new, :create, :edit, :update, :destroy], Popup
       can [:validate, :custom_hide], Comment
       can [:publish, :update, :edit, :reject, :toggle_in_development], Proposal
