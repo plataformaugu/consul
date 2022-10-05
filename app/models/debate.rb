@@ -25,16 +25,21 @@ class Debate < ApplicationRecord
 
   belongs_to :author, -> { with_hidden }, class_name: "User", inverse_of: :debates
   belongs_to :geozone
+  belongs_to :main_theme
+
   has_many :comments, as: :commentable, inverse_of: :commentable
+  has_many :debate_sectors
+  has_many :debate_neighbor_types
+  has_many :sectors, through: :debate_sectors
+  has_many :neighbor_types, through: :debate_neighbor_types
 
   validates_translation :title, presence: true, length: { in: 4..Debate.title_max_length }
   validates_translation :description, presence: true
   validate :description_length
   validates :author, presence: true
 
-  validates :terms_of_service, acceptance: { allow_nil: false }, on: :create
-
   before_save :calculate_hot_score, :calculate_confidence_score
+  has_one_attached :image, :dependent => :destroy
 
   scope :for_render,               -> { includes(:tags) }
   scope :sort_by_hot_score,        -> { reorder(hot_score: :desc) }
@@ -54,6 +59,14 @@ class Debate < ApplicationRecord
 
   def self.recommendations(user)
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
+  end
+
+  def self.unpublished
+    Debate.where(published_at: nil)
+  end
+
+  def self.published
+    Debate.where.not(published_at: nil)
   end
 
   def searchable_translations_definitions
@@ -171,5 +184,57 @@ class Debate < ApplicationRecord
       errors.add(:description, :too_long, count: Debate.description_max_length)
       translation.errors.add(:description, :too_long, count: Debate.description_max_length)
     end
+  end
+
+  def everyone_can_vote?
+    if Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes', 'Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name))
+      return true
+    elsif Set.new(['Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name))
+      return true
+    else
+      return false
+    end
+  end
+
+  def can_user_vote?(user)
+    if not user
+      return false
+    end
+
+    if self.sectors.any?
+      if not self.sectors.include?(user.sector) or not user.neighbor_type or user.neighbor_type.name != 'Vecino Residente Las Condes'
+        return false
+      else
+        return true
+      end
+    else
+      return self.neighbor_types.include?(user.neighbor_type)
+    end
+  end
+
+  def get_restriction_message
+    user_types = 'todos'
+
+    if self.sectors.any? or Set.new(['Vecino Residente Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      user_types = 'vecinos residentes'
+    elsif Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      user_types = 'vecinos residentes y flotantes'
+    elsif Set.new(['Vecino Flotante Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      user_types = 'vecinos flotantes'
+    end
+
+    if self.sectors.any?
+      if Set.new(self.sectors.map{ |s| s.name }) == Set.new(Sector.all.map{ |s| s.name })
+        return "Este proceso está habilitado solo para<br><strong>vecinos residentes</strong>"
+      else
+        inner_message = self.sectors.map{ |s| s.name }.join(', ')
+      end
+
+      return "Este proceso está habilitado solo para <br>residentes de la(s) unidad(es) vecinal(es):<br><strong>#{inner_message}.</strong>"
+    else
+      return "Este proceso está habilitado solo para<br><strong>#{user_types}</strong>"
+    end
+
+    return ''
   end
 end

@@ -1,23 +1,33 @@
 <%= translatable_form_for(debate, html: { class: "debate-form" }) do |f| %>
   <%= render "shared/errors", resource: debate %>
 
-  <fieldset class="required-fields">
-    <legend><%= t("shared.required") %></legend>
+  <fieldset>
+    <% if current_page?(new_debate_path) %>
+    <h2 class="mb-2">Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu debate.</h2>
+    <% end %>
 
     <%= render "shared/globalize_locales", resource: debate %>
 
     <%= f.translatable_fields do |translations_form| %>
       <div>
-        <%= translations_form.text_field :title,
-              maxlength: Debate.title_max_length,
-              data: suggest_data(debate) %>
+        <%=
+          f.text_field :title,
+          maxlength: Debate.title_max_length,
+          data: suggest_data(debate),
+          class: 'custom-input',
+          required: true
+        %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 
       <div>
-        <%= translations_form.text_area :description,
-              maxlength: Debate.description_max_length,
-              class: "html-area" %>
+        <%=
+          f.text_area :description,
+          maxlength: Debate.description_max_length,
+          label: 'Descripción',
+          class: "html-area",
+          required: true
+        %>
       </div>
     <% end %>
   </fieldset>
@@ -25,31 +35,166 @@
   <%= f.invisible_captcha :subtitle %>
 
   <fieldset>
-    <legend><%= t("shared.optional") %></legend>
-
     <div>
-      <%= f.text_field :tag_list, value: debate.tag_list.to_s,
-                        hint: t("debates.form.tags_instructions"),
-                        placeholder: t("debates.form.tags_placeholder"),
-                        data: { js_url: suggest_tags_path },
-                        class: "tag-autocomplete" %>
+      <%=
+        f.text_field :question,
+        hint: 'Escribe una pregunta para comenzar el debate.',
+        label: 'Pregunta',
+        class: "custom-input",
+        required: true
+      %>
     </div>
 
-    <%= render SDG::RelatedListSelectorComponent.new(f) %>
-  </fieldset>
+    <div class="mt-2">
+      <% if debate.image.attached? %>
+        <%= f.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+        <span class="help-text">Imagen actual:</span><br>
+        <%= image_tag debate.image, style: 'width: 250px;' %>
+      <% else %>
+        <%= f.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
+      <% end %>
+    </div>
 
-  <div class="actions">
-    <% if debate.new_record? %>
-      <div>
-        <%= f.check_box :terms_of_service,
-          title: t("form.accept_terms_title"),
-          label: t("form.accept_terms",
-                   policy: link_to(t("form.policy"), "/privacy", target: "blank"),
-                   conditions: link_to(t("form.conditions"), "/conditions", target: "blank")
-                  ) %>
+    <div class="mt-1 mb-1">
+      <%=
+        f.collection_select :main_theme_id,
+        MainTheme.all,
+        :id,
+        :name,
+        {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+        {class: 'custom-input', style: 'width: 100%;', required: true}
+      %>
+    </div>
+
+    <% if current_user.administrator? %>
+      <div class="field" style="display: none;" id="map-field">
+        <div id="leaflet-container">
+          <div style="display: none;">
+            <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+          </div>
+          <%= label_tag 'leaflet', "Unidades Vecinales" %>
+          <p id="tag-list-help-text" style="font-size: 1em;">
+            Sectores seleccionados:
+            <strong style="color: #33cc9d;">
+              <span id="selected-sectors">Todos</span>
+            </strong><br>
+          </p>
+          <div id="leaflet"></div>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <label>Tipos de usuarios</label>
+        <p class="help-text">Selecciona al menos una opción</p>
+        <%= f.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
+          <div>
+            <%= c.check_box(required: true, checked: debate.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
+          </div>
+        <% end %>
       </div>
     <% end %>
+  </fieldset>
 
-    <%= f.submit(class: "button", value: t("debates.#{action_name}.form.submit_button")) %>
+  <div class="actions" style="border: none;">
+    <%= f.submit(class: "create-button", value: t("debates.#{action_name}.form.submit_button")) %>
   </div>
 <% end %>
+
+<script>
+var map
+
+function showMap() {
+  map = new L.Map('leaflet')
+  $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+    var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      boundary: lasCondesSectors,
+    });
+    map.addLayer(osm)
+
+    // Variables for map
+    var selectedFeatures = []
+    var defaultStyle = {
+        color: 'gray',
+        fillOpacity: 0,
+        weight: 2,
+    }
+
+    // Actions
+    function colorlayer(feature, layer) {
+      layer.setStyle(defaultStyle)
+
+      layer.on('click', function(e) {
+        var name = feature.properties.name.replaceAll('-', '')
+
+        if (selectedFeatures.includes(name)) {
+          layer.setStyle(defaultStyle)
+          selectedFeatures = selectedFeatures.filter(sf => sf !== name)
+        } else {
+          selectedFeatures.push(name)
+          layer.setStyle({
+            color: "#00008c",
+            opacity: 0.6,
+            fillOpacity: 0.5
+          })
+        }
+
+        Array.from(Array(25).keys()).forEach(function(n) {
+          $('#debate_sector_ids_c' + (n + 1)).prop('checked', false)
+        })
+
+        selectedFeatures.forEach(function(sf) {
+          $('#debate_sector_ids_' + sf.toLowerCase()).prop('checked', true)
+        })
+        $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
+      })
+    }
+
+    // Bounds
+    var gjLayer = L.geoJSON(lasCondesSectors);
+    map.fitBounds(gjLayer.getBounds());
+
+    // Load features
+    L.geoJSON(lasCondesSectors, {
+        onEachFeature: colorlayer
+    }).addTo(map)
+
+    // Map config
+    map.dragging.disable()
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
+    map.boxZoom.disable();
+    map.keyboard.disable();
+  })
+}
+
+$('input:checkbox[name="debate[neighbor_types][]"]').on('click', function() {
+  var checkedCheckboxes = $('input:checkbox[name="debate[neighbor_types][]"]:checked')
+  var selectedValues = []
+
+  checkedCheckboxes.each(function(index) {
+    selectedValues.push(this.value)
+  })
+
+  if (selectedValues.length === 1 && selectedValues[0] === '1') {
+    showMap();
+    $('#map-field').show()
+  } else {
+    $('#map-field').hide()
+    if (map) {
+      map.remove();
+      map = undefined;
+    }
+  }
+
+  if (checkedCheckboxes.length > 0) {
+    $('input:checkbox[name="debate[neighbor_types][]"]').each(function(_, value) {
+      $(value).prop('required', false)
+    })
+  } else {
+    $('input:checkbox[name="debate[neighbor_types][]"]').each(function(_, value) {
+      $(value).prop('required', true)
+    })
+  }
+})
+</script>

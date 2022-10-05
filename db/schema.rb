@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_28_014015) do
+ActiveRecord::Schema.define(version: 2022_10_02_231036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -508,6 +508,20 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["proposal_id"], name: "index_dashboard_executed_actions_on_proposal_id"
   end
 
+  create_table "debate_neighbor_types", force: :cascade do |t|
+    t.bigint "debate_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["debate_id"], name: "index_debate_neighbor_types_on_debate_id"
+    t.index ["neighbor_type_id"], name: "index_debate_neighbor_types_on_neighbor_type_id"
+  end
+
+  create_table "debate_sectors", force: :cascade do |t|
+    t.bigint "debate_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["debate_id"], name: "index_debate_sectors_on_debate_id"
+    t.index ["sector_id"], name: "index_debate_sectors_on_sector_id"
+  end
+
   create_table "debate_translations", id: :serial, force: :cascade do |t|
     t.integer "debate_id", null: false
     t.string "locale", null: false
@@ -541,6 +555,11 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.integer "geozone_id"
     t.tsvector "tsv"
     t.datetime "featured_at"
+    t.boolean "is_finished", default: false
+    t.string "image"
+    t.bigint "main_theme_id"
+    t.datetime "published_at"
+    t.string "question"
     t.index ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_debates_on_author_id"
     t.index ["cached_votes_down"], name: "index_debates_on_cached_votes_down"
@@ -551,6 +570,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["geozone_id"], name: "index_debates_on_geozone_id"
     t.index ["hidden_at"], name: "index_debates_on_hidden_at"
     t.index ["hot_score"], name: "index_debates_on_hot_score"
+    t.index ["main_theme_id"], name: "index_debates_on_main_theme_id"
     t.index ["tsv"], name: "index_debates_on_tsv", using: :gin
   end
 
@@ -1964,6 +1984,10 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
   add_foreign_key "dashboard_administrator_tasks", "users"
   add_foreign_key "dashboard_executed_actions", "dashboard_actions", column: "action_id"
   add_foreign_key "dashboard_executed_actions", "proposals"
+  add_foreign_key "debate_neighbor_types", "debates"
+  add_foreign_key "debate_neighbor_types", "neighbor_types"
+  add_foreign_key "debate_sectors", "debates"
+  add_foreign_key "debate_sectors", "sectors"
   add_foreign_key "documents", "users"
   add_foreign_key "encuestum_neighbor_types", "encuesta"
   add_foreign_key "encuestum_neighbor_types", "neighbor_types"

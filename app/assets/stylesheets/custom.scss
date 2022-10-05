@@ -3961,6 +3961,17 @@ main {
     }
 }
 
+.create-debate {
+    @extend .create-button;
+    background-color: #9ecc46;
+
+    &:hover {
+        background: lighten(#9ecc46, 10%) !important;
+        color: white;
+        text-decoration: none;
+    }
+}
+
 .create-iniciativa {
     @extend .create-button;
     background-color: #3ba5df;

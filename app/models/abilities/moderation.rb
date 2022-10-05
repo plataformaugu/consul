@@ -12,6 +12,7 @@ module Abilities
       can(:reject, Organization) { |o| !o.rejected? }
 
       can :read, Comment
+      can [:publish, :reject, :toggle_is_finished, :destroy], Debate
 
       can :hide, Comment, hidden_at: nil
 

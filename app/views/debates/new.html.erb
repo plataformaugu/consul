@@ -1,1 +1,8 @@
+<%= render "shared/section_header",
+    color: "#9ecc46",
+    title: 'Debates',
+    description: 'Permite a las/os usuarias/os abrir hilos de discusión y generar espacios de debate sobre las temáticas que consideren más relevantes.',
+    section_image: "/images/h-debates.svg",
+    image_style: 'bottom: 10%;'
+%>
 <%= render Debates::NewComponent.new(@debate) %>

@@ -1,56 +1,42 @@
-<% cache [locale_and_user_status, debate, @debate_votes[debate.id]] do %>
-  <div id="<%= dom_id(debate) %>" class="debate clear" data-type="debate">
-    <div class="panel">
-      <div class="row">
-
-        <div class="small-12 medium-9 column">
-          <div class="debate-content">
-            <h3><%= link_to debate.title, debate %></h3>
-            <p class="debate-info">
-              <span class="icon-comments"></span>&nbsp;
-              <%= link_to t("debates.debate.comments", count: debate.comments_count), debate_path(debate, anchor: "comments") %>
-              <span class="bullet">&nbsp;&bull;&nbsp;</span>
-              <%= l debate.created_at.to_date %>
-
-              <% if debate.author.hidden? || debate.author.erased? %>
-                <span class="bullet">&nbsp;&bull;&nbsp;</span>
-                <span class="author">
-                  <%= t("debates.show.author_deleted") %>
-                </span>
-              <% else %>
-                <span class="bullet">&nbsp;&bull;&nbsp;</span>
-                <span class="author">
-                  <%= debate.author.name %>
-                </span>
-                <% if debate.author.display_official_position_badge? %>
-                  <span class="bullet">&nbsp;&bull;&nbsp;</span>
-                  <span class="label round level-<%= debate.author.official_level %>">
-                    <%= debate.author.official_position %>
-                  </span>
-                <% end %>
-              <% end %>
-
-              <% if debate.author.verified_organization? %>
-                <span class="bullet">&nbsp;&bull;&nbsp;</span>
-                <span class="label round is-association">
-                  <%= t("shared.collective") %>
-                </span>
-              <% end %>
-
-            </p>
-            <div class="debate-description">
-              <%= wysiwyg(debate.description) %>
-              <div class="truncate"></div>
-            </div>
-            <%= render "shared/tags", taggable: debate, limit: 5 %>
-          </div>
-        </div>
-
-        <div id="<%= dom_id(debate) %>_votes" class="small-12 medium-3 column">
-            <%= render "debates/votes", debate: debate %>
-        </div>
-
+<div id="<%= dom_id(debate) %>" class="custom-card" data-type="debate">
+  <div class="custom-card-header">
+    <%= link_to debate.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+      <div class="c-c-h-theme-container">
+        <div><%= image_tag debate.main_theme.icon %></div>
+        <h3><%= debate.main_theme.name %></h3>
       </div>
+    <% end %>
+  </div>
+
+  <div class="custom-card-image">
+    <% if debate.image.attached? %>
+      <%= image_tag debate.image %>
+    <% else %>
+      <%= image_tag debate.main_theme.icon %>
+    <% end %>
+
+    <% if debate.is_finished %>
+      <div class="custom-card-image-container-text">
+        <div class="custom-card-image-text">
+          <h4>Debate finalizado</h4>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="custom-card-content" style="<%= debate.image.present? ? 'height: 50%;' : 'height: 100%;' %>">
+    <div>
+      <h3 style="text-align: center !important;"><%= debate.title %></h3>
+    </div>
+    <div class="custom-card-content-footer">
+      <div class="text-center mb-1">
+        <%= Rails::Html::FullSanitizer.new.sanitize(debate.description).truncate_words(10) %>
+      </div>
+      <%= link_to 'Ver más', debate_path(debate.id), class: 'button expanded large', style: "#{current_user and current_user.administrator? ? 'margin-bottom: 5px;' : ''}" %>
+      <% if current_user and current_user.administrator? %>
+        <%= link_to 'Editar', edit_debate_path(debate), class: 'button expanded large', style: 'margin-bottom: 5px;' %>
+        <%= link_to 'Eliminar', debate_path(debate.id), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este Tema?' }, class: 'button expanded large', style: 'margin-bottom: 5px;' %>
+      <% end %>
     </div>
   </div>
-<% end %>
+</div>

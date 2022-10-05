@@ -16,6 +16,10 @@ module Abilities
         debate.editable_by?(user)
       end
 
+      can :share, Debate do |debate|
+        user.administrator? || (debate.published_at == nil && debate.author.id == user.id)
+      end
+
       can [:read, :join_to_event, :left_event], Event
 
       can :initiatives, Proposal

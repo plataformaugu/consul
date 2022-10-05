@@ -153,6 +153,14 @@ class Mailer < ApplicationMailer
     mail(to: @email_to, subject: 'Tu Propuesta Ciudadana no ha sido aceptada')
   end
 
+  def reject_debate(debate)
+    @debate = debate
+    @author = @debate.author
+    @email_to = @author.email
+
+    mail(to: @email_to, subject: 'Tu Debate no ha sido aceptado')
+  end
+
   def notify_published_proposal(proposal)
     @proposal = proposal
     @author = @proposal.author
