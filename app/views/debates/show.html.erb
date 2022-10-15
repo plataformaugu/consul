@@ -41,9 +41,7 @@
               </div>
               <% end %>
               <div class="info-card">
-                <div class="info-card-header" style="background-color: #9ecc46;">
-                  <h1>Apoya</h1>
-                </div>
+                <div class="mt-1"></div>
                 <% if !@debate.is_finished %>
                   <% if @debate.can_user_vote?(current_user) %>
                     <div id="<%= dom_id(@debate) %>_votes">

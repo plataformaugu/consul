@@ -18,14 +18,14 @@
     <div class="small-12 column">
       <% if current_user %>
       <div class="section-header-container">
-        <%= link_to 'Crea un debate', new_debate_path, class: 'create-debate' %>
+        <%= link_to 'Empieza un debate', new_debate_path, class: 'create-debate' %>
       </div>
       <% end %>
 
         <div class="custom-cards-container">
           <div class="custom-cards">
-            <% if @debates.published.any? %>
-              <%= render partial: "debate", collection: @debates.published.order(created_at: :desc) %>
+            <% if @debates.any? %>
+              <%= render partial: "debate", collection: @debates %>
             <% else %>
               <p>No hay debates publicados.</p>
             <% end %>

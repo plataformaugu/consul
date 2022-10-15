@@ -38,6 +38,7 @@
             <br>
           </td>
           <td >
+            <%= link_to 'Editar', edit_debate_path(debate.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
             <%= link_to 'Publicar', publish_moderation_debate_path(debate.id), method: :patch, class: 'solid-button-sm', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar este debate?'} %>
           </td>
         </tr>

@@ -28,6 +28,9 @@ module Abilities
       can :ignore_flag, Debate, ignored_flag_at: nil, hidden_at: nil
       cannot :ignore_flag, Debate, author_id: user.id
 
+      can :edit, Debate
+      can :update, Debate
+
       can :moderate, Debate
       cannot :moderate, Debate, author_id: user.id
 

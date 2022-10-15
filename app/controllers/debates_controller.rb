@@ -23,6 +23,10 @@ class DebatesController < ApplicationController
     @featured_debates = @debates.featured
   end
 
+  def index
+    @debates = Kaminari.paginate_array(Debate.all.published.order('featured_at DESC NULLS LAST, created_at DESC')).page(params[:page])
+  end
+
   def show
     super
     if @debate.published_at == nil

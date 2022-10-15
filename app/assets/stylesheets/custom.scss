@@ -4305,3 +4305,15 @@ input[type=number]::-webkit-outer-spin-button {
         }
     }
 }
+
+
+.debates {
+    .sidebar-container {
+        display: flex;
+        flex-direction: column;
+
+        @media (max-width: 1200px) {
+            flex-direction: row;
+        }
+    }
+}
