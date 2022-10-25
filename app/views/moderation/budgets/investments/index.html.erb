@@ -1,36 +1,80 @@
-<%= render Moderation::Shared::IndexComponent.new(@budget_investments) do %>
+<h2>Proyectos de gasto pendientes de revisión</h2>
+
+<%= form_for 'budget_investments', method: :delete do |form| %>
+  <div>
+    <%=
+      form.submit 'Rechazar seleccionados',
+      class: 'solid-button-danger-sm mb-1',
+      data: {confirm: '¿Estás seguro/a que deseas rechazar los proyectos seleccionados?'},
+      id: 'confirm-reject',
+      disabled: true
+    %>
+  </div>
+
   <table class="clear">
     <thead>
       <tr>
-        <th><%= t("moderation.budget_investments.index.headers.budget_investment") %></th>
-        <th><%= t("moderation.budget_investments.index.headers.moderate") %></th>
+        <th>
+          <% if Budget::Investment.unconfirmed.any? %>
+            <input type="checkbox" id="select-all" title="Seleccionar todas">
+          <% end %>
+        </th>
+        <th>Proyecto</th>
+        <th>Moderar</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @budget_investments.each do |investment| %>
-        <tr id="investment_<%= investment.id %>">
+      <% Budget::Investment.unconfirmed.each do |investment| %>
+        <% if !investment.author.nil? %>
+        <tr id="investment_<%= investment.id %>" onclick=>
+          <td><%= check_box_tag 'selected_ids[]', investment.id, false %></td>
           <td>
-            <%= link_to investment.title, admin_budget_budget_investment_path(
-                                            budget_id: investment.budget_id,
-                                            id: investment.id
-                                          ), target: "_blank" %>
+            <%= link_to investment.title, investment, target: "_blank" %>
             <br>
             <span class="date"><%= l investment.updated_at.to_date %></span>
             <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= investment.flags_count %><span class="icon-flag flag-disable"></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= investment.author.username %>
+            <%= investment.author.first_name %> <%= investment.author.last_name %> (<%= investment.author.document_number %>)
             <br>
-            <div class="moderation-description">
-              <%= wysiwyg(investment.description) %>
-            </div>
           </td>
-          <td class="text-center">
-            <%= check_box_tag "budget_investment_ids[]", investment.id, nil, id: "#{dom_id(investment)}_check" %>
+          <td >
+            <%= link_to 'Editar', edit_admin_budget_budget_investment_path(investment.budget.id, investment.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+            <%= link_to 'Publicar', publish_moderation_budget_investment_path(investment.id), method: :patch, class: 'solid-button-sm', style: 'text-decoration: none; color: white;', data: {confirm: '¿Estás seguro que deseas publicar este proyecto?'} %>
           </td>
         </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
 <% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#confirm-reject').attr('value', `Rechazar seleccionados (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('#confirm-reject').attr('value', `Rechazar seleccionados`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+
+  $('#select-all').on('change', function() {
+    if ($('#select-all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+      $('#confirm-reject').attr('value', `Rechazar seleccionados (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+      $('#confirm-reject').attr('value', `Rechazar seleccionados`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+</script>

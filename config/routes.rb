@@ -77,4 +77,5 @@ Rails.application.routes.draw do
 
   delete 'moderation/proposals' => 'moderation/proposals#reject'
   delete 'moderation/debates' => 'moderation/debates#reject'
+  delete 'moderation/budget_investments' => 'moderation/budget_investments#reject'
 end

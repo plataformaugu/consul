@@ -5,7 +5,7 @@ class Budget < ApplicationRecord
   include Reportable
   include Imageable
 
-  translates :name, :main_link_text, :main_link_url, touch: true
+  translates :name, :main_link_text, :main_link_url, :pdf_link, :custom_description, touch: true
   include Globalizable
 
   class Translation
@@ -175,10 +175,9 @@ class Budget < ApplicationRecord
   end
 
   def formatted_amount(amount)
-    ActionController::Base.helpers.number_to_currency(amount,
+    "$#{ActionController::Base.helpers.number_to_currency(amount,
                                                       precision: 0,
-                                                      locale: I18n.locale,
-                                                      unit: currency_symbol)
+                                                      unit: '')}"
   end
 
   def formatted_heading_price(heading)
@@ -228,6 +227,23 @@ class Budget < ApplicationRecord
 
   def approval_voting?
     voting_style == "approval"
+  end
+
+  def self.max_votes_per_user
+    4
+  end
+
+  def user_votes(current_user)
+    Vote.where(
+      votable_type: 'Budget::Investment',
+      voter_type: 'User',
+      voter_id: current_user.id,
+      votable_id: investments.map{ |i| i.id }
+    ).count
+  end
+
+  def remaining_votes(current_user)
+    Budget.max_votes_per_user - user_votes(current_user)
   end
 
   private

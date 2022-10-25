@@ -1,7 +1,28 @@
 class Admin::BudgetsWizard::HeadingsController < Admin::BudgetsWizard::BaseController
   include Admin::BudgetHeadingsActions
 
-  before_action :load_headings, only: [:index, :create]
+  before_action :load_headings, only: [:index, :create, :update]
+
+  def create
+    @budget_heading = @group.headings.first_or_initialize(heading_params)
+
+    if params['budget_heading']['sector_ids']
+      params['budget_heading']['sector_ids'].each do |s|
+          sector = Sector.find_by(name: s)
+          @budget_heading.sectors.append(sector)
+      end
+    else
+      Sector.all.each do |s|
+        @budget_heading.sectors.append(s)
+      end
+    end
+
+    if @budget_heading.save
+      redirect_to admin_budgets_wizard_budget_budget_phases_path(@budget, url_params)
+    else
+      render :new
+    end
+  end
 
   def index
     if single_heading?
@@ -23,6 +44,15 @@ class Admin::BudgetsWizard::HeadingsController < Admin::BudgetsWizard::BaseContr
 
     def load_headings
       @headings = @group.headings.order(:id)
+    end
+
+    def heading_params
+      params.require(:budget_heading).permit(*allowed_params)
+    end
+
+    def allowed_params
+      valid_attributes = [:price, :sector_ids]
+      valid_attributes + [translation_params(Budget::Heading)]
     end
 
     def new_action

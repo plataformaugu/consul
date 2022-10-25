@@ -17,6 +17,11 @@ class BudgetsController < ApplicationController
     @finished_budgets = @budgets.finished.order(created_at: :desc)
   end
 
+  def unselected
+    @budget = Budget.find_by(id: params['budget_id'])
+    @type = params['type']
+  end
+
   private
 
     def load_budget

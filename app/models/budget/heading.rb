@@ -25,6 +25,8 @@ class Budget
 
     has_many :investments
     has_many :content_blocks
+    has_many :budget_heading_sectors, foreign_key: 'budget_heading_id'
+    has_many :sectors, through: :budget_heading_sectors
 
     validates_translation :name, presence: true
     validates :group_id, presence: true

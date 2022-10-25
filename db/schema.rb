@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_02_231036) do
+ActiveRecord::Schema.define(version: 2022_10_23_141605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -220,6 +220,13 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.index ["budget_id"], name: "index_budget_groups_on_budget_id"
   end
 
+  create_table "budget_heading_sectors", force: :cascade do |t|
+    t.bigint "budget_heading_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["budget_heading_id"], name: "index_budget_heading_sectors_on_budget_heading_id"
+    t.index ["sector_id"], name: "index_budget_heading_sectors_on_sector_id"
+  end
+
   create_table "budget_heading_translations", id: :serial, force: :cascade do |t|
     t.integer "budget_heading_id", null: false
     t.string "locale", null: false
@@ -242,6 +249,13 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["group_id"], name: "index_budget_headings_on_group_id"
+  end
+
+  create_table "budget_investment_sectors", force: :cascade do |t|
+    t.bigint "budget_investment_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["budget_investment_id"], name: "index_budget_investment_sectors_on_budget_investment_id"
+    t.index ["sector_id"], name: "index_budget_investment_sectors_on_sector_id"
   end
 
   create_table "budget_investment_translations", id: :serial, force: :cascade do |t|
@@ -296,6 +310,9 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.datetime "ignored_flag_at"
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
+    t.datetime "confirmed_at"
+    t.string "pdf_link"
+    t.bigint "main_theme_id"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -303,6 +320,7 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.index ["group_id"], name: "index_budget_investments_on_group_id"
     t.index ["heading_id"], name: "index_budget_investments_on_heading_id"
     t.index ["incompatible"], name: "index_budget_investments_on_incompatible"
+    t.index ["main_theme_id"], name: "index_budget_investments_on_main_theme_id"
     t.index ["selected"], name: "index_budget_investments_on_selected"
     t.index ["tsv"], name: "index_budget_investments_on_tsv", using: :gin
   end
@@ -350,6 +368,8 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.string "name"
     t.string "main_link_text"
     t.string "main_link_url"
+    t.text "custom_description"
+    t.string "pdf_link"
     t.index ["budget_id"], name: "index_budget_translations_on_budget_id"
     t.index ["locale"], name: "index_budget_translations_on_locale"
   end
@@ -394,6 +414,8 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
     t.text "description_informing"
     t.string "voting_style", default: "knapsack"
     t.boolean "published"
+    t.text "custom_description"
+    t.string "pdf_link"
   end
 
   create_table "campaigns", id: :serial, force: :cascade do |t|
@@ -1978,6 +2000,10 @@ ActiveRecord::Schema.define(version: 2022_10_02_231036) do
   add_foreign_key "administrators", "users"
   add_foreign_key "budget_administrators", "administrators"
   add_foreign_key "budget_administrators", "budgets"
+  add_foreign_key "budget_heading_sectors", "budget_headings"
+  add_foreign_key "budget_heading_sectors", "sectors"
+  add_foreign_key "budget_investment_sectors", "budget_investments"
+  add_foreign_key "budget_investment_sectors", "sectors"
   add_foreign_key "budget_investments", "communities"
   add_foreign_key "budget_valuators", "budgets"
   add_foreign_key "budget_valuators", "valuators"

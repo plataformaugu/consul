@@ -1240,19 +1240,24 @@ html, body {
 
 .phase-title.tabs-title  {
     a {
-        background: lighten(#ff7267, 15%) !important;
+        background: #8148b3 !important;
+        color: white;
+
+        &:hover {
+            color: white;
+        }
     }
 }
 
 .phase-title.tabs-title.current-phase-tab  {
     a {
-        background: #ff7267 !important;
+        background: darken(#8148b3, 10%) !important;
     }
 }
 
 .phase-title.tabs-title.is-active  {
     a {
-        background: lighten(#ff7267, 15%) !important;
+        background: #cfa7f0 !important;
     }
 }
 
@@ -3994,6 +3999,26 @@ main {
     
 }
 
+.presupuestos-solid-button-sm {
+    @extend .solid-button-sm;
+
+    background-color: #8148b3;
+
+    &:hover {
+        background-color: lighten(#8148b3, 10%);
+    }
+}
+
+.presupuestos-solid-button {
+    @extend .solid-button;
+
+    background-color: #8148b3;
+
+    &:hover {
+        background-color: lighten(#8148b3, 10%);
+    }
+}
+
 .encuesta-card-footer {
     @extend .custom-card-content-footer;
 
@@ -4315,5 +4340,39 @@ input[type=number]::-webkit-outer-spin-button {
         @media (max-width: 1200px) {
             flex-direction: row;
         }
+    }
+}
+
+.budget-phases::after {
+    border-top: none;
+}
+
+.budgets-sub-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
+}
+
+.budget-phase-content {
+    width: 100% !important;
+}
+
+
+.custom-support-budgets {
+    .supports {
+        flex-direction: column !important;
+
+        .supported {
+            flex-direction: column !important;
+        }
+    }
+
+    .in-favor {
+        flex-direction: column !important;
     }
 }

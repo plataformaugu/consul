@@ -28,9 +28,15 @@
             method: "post",
             remote: !display_support_alert?,
             data:   ({ confirm: confirm_vote_message } if display_support_alert?),
-            disabled: !current_user,
+            disabled: !current_user || investment.budget.user_votes(current_user) >= Budget.max_votes_per_user,
             "aria-label": support_aria_label %>
       <% end %>
+    <% end %>
+
+    <% if current_user and investment.budget.selecting? %>
+      <small>
+        Votos restantes: <%= investment.budget.remaining_votes(current_user) %>
+      </small>
     <% end %>
   </div>
 
@@ -49,17 +55,6 @@
           </small>
         </p>
       </div>
-    </div>
-  <% end %>
-
-  <% if user_voted_for? && setting["twitter_handle"] %>
-    <div class="share-supported">
-      <%= render "shared/social_share",
-        title: investment.title,
-        image_url: image_absolute_url(investment.image, :thumb),
-        url: budget_investment_url(investment.budget, investment),
-        description: investment.title,
-        mobile: investment.title %>
     </div>
   <% end %>
 </div>

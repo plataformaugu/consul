@@ -2,7 +2,6 @@
   @include grid-column-gutter;
   @include full-width-background;
   @include full-width-border(top, 2px solid $border);
-  background: $light;
   padding-bottom: $line-height * 2;
 
   h2 {

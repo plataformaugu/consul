@@ -2,13 +2,9 @@
 
   <%= render "shared/errors", resource: investment %>
 
-  <fieldset class="required-fields">
-    <legend><%= t("shared.required") %></legend>
-
-    <% unless budget.single_heading? %>
-      <div>
-        <%= f.select :heading_id, budget_heading_select_options(budget), { include_blank: true } %>
-      </div>
+  <fieldset>
+    <% if current_page?(new_budget_investment_path) %>
+      <h2 class="mb-2">Hola <span style="color: #61b5d7;"><%= current_user.first_name? ? current_user.first_name : current_user.username %></span>, sube aquí tu proyecto.</h2>
     <% end %>
 
     <div>
@@ -19,9 +15,21 @@
       <div>
         <%= translations_form.text_field :title,
               maxlength: Budget::Investment.title_max_length,
-              data: suggest_data(investment) %>
+              data: suggest_data(investment),
+              class: 'custom-input' %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
+
+      <div>
+        <%=
+          f.collection_select :main_theme_id,
+          MainTheme.all,
+          :id,
+          :name,
+          {prompt: 'Elige un eje temático', label: 'Eje Temático'},
+          {class: 'custom-input', style: 'width: 100%;', required: true}
+        %>
+      </div>
 
       <div>
         <%= translations_form.text_area :description,
@@ -34,8 +42,6 @@
   <%= f.invisible_captcha :subtitle %>
 
   <fieldset>
-    <legend><%= t("shared.optional") %></legend>
-
     <% if feature?(:allow_images) %>
       <div class="images">
         <%= render "images/nested_image", f: f %>
@@ -48,62 +54,143 @@
       </div>
     <% end %>
 
-    <% if feature?(:map) %>
-      <div>
-        <%= render "map_locations/form_fields",
-                   form:     f,
-                   map_location: investment.map_location || MapLocation.new,
-                   label:    t("budgets.investments.form.map_location"),
-                   help:     t("budgets.investments.form.map_location_instructions"),
-                   remove_marker_label: t("budgets.investments.form.map_remove_marker"),
-                   parent_class: "budget_investment",
-                   i18n_namespace: "budgets.investments" %>
+    <div class="field" id="map-field">
+      <div id="leaflet-container">
+        <div style="display: none;">
+          <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
+        </div>
+        <%= label_tag 'leaflet', "Unidades Vecinales" %>
+        <p id="tag-list-help-text" style="font-size: 1em;">
+          Sectores disponibles:
+          <strong style="color: #33cc9d;">
+            <span id="available-sectors">Todos</span>
+          </strong><br>
+        </p>
+        <p id="tag-list-help-text" style="font-size: 1em; margin-top: -1em;">
+          Sectores seleccionados:
+          <strong style="color: #33cc9d;">
+            <span id="selected-sectors">Todos</span>
+          </strong><br>
+        </p>
+        <div id="leaflet"></div>
       </div>
-    <% end %>
+    </div>
 
-    <div>
+    <div class="mt-2">
       <%= f.text_field :location %>
     </div>
-
-    <div>
-      <%= f.text_field :organization_name %>
-    </div>
-
-    <div>
-      <%= f.label :tag_list, t("budgets.investments.form.tags_label") %>
-      <p class="help-text" id="tags-list-help-text"><%= t("budgets.investments.form.tags_instructions") %></p>
-
-      <div id="category_tags" class="tags">
-        <%= f.label :category_tag_list, t("budgets.investments.form.tag_category_label") %>
-        <% categories.each do |tag| %>
-          <a class="js-add-tag-link"><%= tag.name %></a>
-        <% end %>
-      </div>
-
-      <br>
-      <%= f.text_field :tag_list, value: investment.tag_list.to_s,
-                        label: false,
-                        placeholder: t("budgets.investments.form.tags_placeholder"),
-                        aria: { describedby: "tags-list-help-text" },
-                        class: "js-tag-list tag-autocomplete",
-                        data: { js_url: suggest_tags_path } %>
-    </div>
-
-    <%= render SDG::RelatedListSelectorComponent.new(f) %>
   </fieldset>
 
-  <div class="actions">
-    <% unless current_user.manager? || investment.persisted? %>
-      <div>
+  <div class="actions" style="border: none;">
+      <div style="display: none;">
         <%= f.check_box :terms_of_service,
-          title: t("form.accept_terms_title"),
-          label: t("form.accept_terms",
-                   policy: link_to(t("form.policy"), "/privacy", target: "blank"),
-                   conditions: link_to(t("form.conditions"), "/conditions", target: "blank")
-                  ) %>
+            title: t("form.accept_terms_title"),
+            label: t("form.accept_terms",
+                    policy: link_to(t("form.policy"), "/privacy", target: "blank"),
+                    conditions: link_to(t("form.conditions"), "/conditions", target: "blank")
+                    ),
+            checked: true %>
       </div>
-    <% end %>
-
-    <%= f.submit %>
+    <%= f.submit class: 'solid-button-sm' %>
   </div>
 <% end %>
+
+<script src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js"></script>
+<script>
+var map = new L.Map('leaflet')
+$.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    boundary: lasCondesSectors,
+  });
+  map.addLayer(osm)
+
+  // Variables for map
+  var allSectors = <%= raw(Sector.all.map{ |s| s.name }) %>
+  var availableFeatures = <%= raw(budget.headings.first.sectors.map{ |s| s.name }) %>
+  var selectedFeatures = <%= raw(investment.sectors.map{ |s| s.name }) %>
+
+  if (availableFeatures) {
+    if (allSectors.sort().join(',') !== availableFeatures.sort().join(',')) {
+      $('#available-sectors').text(availableFeatures.join(', '))
+    } else {
+       $('#available-sectors').text('Todos')
+    }
+  }
+
+  if (selectedFeatures.length) {
+    $('#selected-sectors').text(selectedFeatures.join(', '))
+  }
+
+  var defaultStyle = {
+      color: 'gray',
+      fillOpacity: 0,
+      weight: 2,
+  }
+
+  // Actions
+  function colorlayer(feature, layer) {
+    layer.setStyle(defaultStyle)
+    
+    if (!availableFeatures.includes(feature.properties.name.replaceAll('-', ''))) {
+      layer.setStyle({
+        color: "gray",
+        opacity: 0.6,
+        fillOpacity: 0.5
+      })
+    }
+
+    if (selectedFeatures.includes(feature.properties.name.replaceAll('-', ''))) {
+      layer.setStyle({
+        color: "#00008c",
+        opacity: 0.6,
+        fillOpacity: 0.5
+      })
+    }
+
+    layer.on('click', function(e) {
+      if (!availableFeatures.includes(feature.properties.name.replaceAll('-', ''))) {
+        return
+      }
+      var name = feature.properties.name.replaceAll('-', '')
+
+      if (selectedFeatures.includes(name)) {
+        layer.setStyle(defaultStyle)
+        selectedFeatures = selectedFeatures.filter(sf => sf !== name)
+      } else {
+        selectedFeatures.push(name)
+        layer.setStyle({
+          color: "#00008c",
+          opacity: 0.6,
+          fillOpacity: 0.5
+        })
+      }
+
+      Array.from(Array(25).keys()).forEach(function(n) {
+        $('#budget_investment_sector_ids_c' + (n + 1)).prop('checked', false)
+      })
+
+      selectedFeatures.forEach(function(sf) {
+        $('#budget_investment_sector_ids_' + sf.toLowerCase()).prop('checked', true)
+      })
+      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
+    })
+  }
+
+  // Bounds
+  var gjLayer = L.geoJSON(lasCondesSectors);
+  map.fitBounds(gjLayer.getBounds());
+
+  // Load features
+  L.geoJSON(lasCondesSectors, {
+      onEachFeature: colorlayer
+  }).addTo(map)
+
+  // Map config
+  map.dragging.disable()
+  map.touchZoom.disable();
+  map.doubleClickZoom.disable();
+  map.scrollWheelZoom.disable();
+  map.boxZoom.disable();
+  map.keyboard.disable();
+})
+</script>

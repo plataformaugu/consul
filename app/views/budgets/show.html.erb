@@ -1,9 +1,25 @@
-<%= render Shared::BannerComponent.new("budgets") %>
-<% provide :title do %><%= @budget.name %><% end %>
+<%= render "shared/section_header",
+  color: "#9346b8",
+  section_image: "/images/h-presupuestos1.svg",
+  title: 'Presupuestos Participativos',
+  description: 'Lorem ipsum',
+  show_buildings: true
+%>
 
-<% content_for :canonical do %>
-  <%= render "shared/canonical", href: budget_url(@budget, filter: @current_filter) %>
-<% end %>
+<main class="budgets-index">
+  <div class="row">
+    <%= render Shared::BannerComponent.new("budgets") %>
+    <% provide :title do %><%= @budget.name %><% end %>
 
-<%= render Budgets::BudgetComponent.new(@budget) %>
-<%= render Budgets::FooterComponent.new %>
+    <% content_for :canonical do %>
+      <%= render "shared/canonical", href: budget_url(@budget, filter: @current_filter) %>
+    <% end %>
+
+    <%= render Budgets::BudgetComponent.new(@budget, can?(:show, @ballot)) %>
+  </div>
+
+  <div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#cfa7f0', color2: '#8148b3' do %>
+    <% end %>
+  </div>
+</main>

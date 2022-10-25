@@ -40,6 +40,7 @@ namespace :moderation do
 
   resources :budget_investments, only: :index, controller: "budgets/investments" do
     put :hide, on: :member
+    patch :publish, on: :member
     put :moderate, on: :collection
   end
 end
