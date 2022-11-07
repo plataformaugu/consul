@@ -1,5 +1,6 @@
 class Budgets::InvestmentsListComponent < ApplicationComponent
   attr_reader :budget
+  delegate :current_user, to: :helpers
 
   def initialize(budget)
     @budget = budget
