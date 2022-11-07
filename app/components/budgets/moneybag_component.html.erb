@@ -5,9 +5,22 @@
 
     <div class="row">
       <div class="small-12 column">
-          <%= link_to t("budgets.investments.header.check_ballot"),
-                      budget_ballot_path(@budget),
-                      class: "presupuestos-solid-button-sm", style: 'text-decoration: none; color: white;' %>
+          <%=
+            link_to "Revisar mis botos",
+            budget_ballot_path(@budget),
+            class: "presupuestos-solid-button-sm",
+            style: 'text-decoration: none; color: white;'
+          %>
+          <% if @ballot.confirmed_at == nil %>
+            <%=
+              link_to "Confirmar mis botos",
+              confirm_budget_ballot_path(@budget),
+              method: :put,
+              class: "presupuestos-solid-button-sm",
+              style: 'text-decoration: none; color: white;',
+              data: { confirm: '¿Estás seguro que deseas confirmar tus votos? Después de confirmar no podrás seguir votando.' }
+            %>
+          <% end %>
       </div>
     </div>
 

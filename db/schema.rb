@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_23_141605) do
+ActiveRecord::Schema.define(version: 2022_11_07_015332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_10_23_141605) do
     t.integer "ballot_lines_count", default: 0
     t.boolean "physical", default: false
     t.integer "poll_ballot_id"
+    t.datetime "confirmed_at"
   end
 
   create_table "budget_content_blocks", id: :serial, force: :cascade do |t|

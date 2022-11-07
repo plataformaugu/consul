@@ -13,6 +13,10 @@ resources :budgets, only: [:show, :index] do
   end
 
   resource :ballot, only: :show, controller: "budgets/ballots" do
+    member do
+      put :confirm
+    end
+
     resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
   end
 
