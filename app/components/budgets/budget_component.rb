@@ -2,7 +2,7 @@ class Budgets::BudgetComponent < ApplicationComponent
   delegate :wysiwyg, :auto_link_already_sanitized_html, :render_map, :current_user, to: :helpers
   attr_reader :budget
 
-  def initialize(budget, can_show_ballot)
+  def initialize(budget)
     @budget = budget
   end
 
