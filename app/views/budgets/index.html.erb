@@ -14,17 +14,47 @@
 
 <main class="budgets-index">
   <div class="row">
-    <% if @budget.present? %>
-      <%= render Budgets::BudgetComponent.new(@budget, can?(:show, @ballot)) %>
+    <% if Budget.published.any? %>
+      
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% Budget.published.order(created_at: :desc).each do |budget| %>
+            <div id="budget_<%= budget.id %>" class="custom-card">
+              <div class="custom-card-header">
+                <div class="c-c-h-theme-container">
+                  <div><%= image_tag '/images/p-icon-6.svg', style: 'width: 24px;' %></div>
+                  <h3><%= budget.name %></h3>
+                </div>
+              </div>
+              <div class="custom-card-image">
+                <% if budget.image %>
+                  <%= image_tag budget.image_url(:medium) %>
+                <% else %>
+                  <%= image_tag '/images/h-presupuestos1.svg' %>
+                <% end %>
 
-      <% if @finished_budgets.present? %>
-        <%= render "finished", budgets: @finished_budgets %>
-      <% end %>
+                <% if budget.finished? %>
+                  <div class="custom-card-image-container-text">
+                    <div class="custom-card-image-text">
+                      <h4>Presupuesto Finalizado</h4>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="custom-card-content" style="height: 50%;">
+                <p>
+                  <%= budget.custom_description.truncate_words(16) %>
+                </p>
+                <div class="encuesta-card-footer">
+                  <%= link_to 'Revisar presupuesto', budget, class: 'button expanded large' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      
     <% else %>
-      <header>
-        <h1><%= t("budgets.index.title") %></h1>
-      </header>
-
       <div class="row">
         <div class="small-12 column">
           <div class="callout primary">

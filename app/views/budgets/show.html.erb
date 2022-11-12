@@ -8,6 +8,9 @@
 
 <main class="budgets-index">
   <div class="row">
+    <p>
+      <%= @budget.custom_description %>
+    </p>
     <%= render Shared::BannerComponent.new("budgets") %>
     <% provide :title do %><%= @budget.name %><% end %>
 

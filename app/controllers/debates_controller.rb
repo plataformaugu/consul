@@ -99,11 +99,12 @@ class DebatesController < ApplicationController
             sector = Sector.find_by(name: sector_id)
             @debate.sectors.append(sector)
           end
+        else
+          @debate.sectors.delete_all()
         end
 
         redirect_to @debate, notice: 'El debate fue actualizado.'
       else
-        raise
         render :edit
       end
     else

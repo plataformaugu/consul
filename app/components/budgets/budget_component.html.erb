@@ -3,7 +3,6 @@
 <div id="budget_info" class="budget-info">
   <div class="row margin-top">
     <div class="small-12 column">
-      <%= render Budgets::SupportsInfoComponent.new(budget) %>
       <% if budget.pdf_link.present? %>
         <%= link_to budget.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
           <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>

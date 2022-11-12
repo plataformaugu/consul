@@ -4,7 +4,6 @@ class BudgetsController < ApplicationController
   feature_flag :budgets
 
   before_action :load_budget, only: :show
-  before_action :load_current_budget, only: :index
   load_and_authorize_resource
 
   respond_to :html, :js
