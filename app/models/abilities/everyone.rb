@@ -37,6 +37,7 @@ module Abilities
 
       can [:read, :help], ::SDG::Goal
       can :read, ::SDG::Phase
+      can [:unselected], Budget
     end
   end
 end

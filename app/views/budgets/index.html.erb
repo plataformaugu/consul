@@ -23,7 +23,7 @@
               <div class="custom-card-header">
                 <div class="c-c-h-theme-container">
                   <div><%= image_tag '/images/p-icon-6.svg', style: 'width: 24px;' %></div>
-                  <h3><%= budget.name %></h3>
+                  <h3 style="max-width: 80%;"><%= budget.name %></h3>
                 </div>
               </div>
               <div class="custom-card-image">
@@ -47,7 +47,7 @@
                   <%= budget.custom_description.truncate_words(16) %>
                 </p>
                 <% end %>
-                <div class="encuesta-card-footer">
+                <div class="encuesta-card-footer" style="margin-top: auto !important;">
                   <%= link_to 'Revisar presupuesto', budget, class: 'button expanded large' %>
                 </div>
               </div>
