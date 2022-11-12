@@ -44,7 +44,7 @@
             </div>
 
             <div class="custom-card-content-footer">
-              <% if investment.budget.balloting? %>
+              <% if current_user and investment.budget.balloting? %>
                 <div id="<%= dom_id(investment) %>_ballot">
                   <%= render "/budgets/investments/ballot",
                     investment: investment,
