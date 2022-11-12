@@ -42,9 +42,11 @@
                 <% end %>
               </div>
               <div class="custom-card-content" style="height: 50%;">
+                <% if !budget.custom_description.nil? %>
                 <p>
                   <%= budget.custom_description.truncate_words(16) %>
                 </p>
+                <% end %>
                 <div class="encuesta-card-footer">
                   <%= link_to 'Revisar presupuesto', budget, class: 'button expanded large' %>
                 </div>
