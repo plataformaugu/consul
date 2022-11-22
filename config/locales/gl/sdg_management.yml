@@ -8,7 +8,7 @@ gl:
       budget_investments: "Orzamentos participativos"
       debates: "Debates"
       legislation_processes: "Procesos lexislativos"
-      polls: "Votacións"
+      polls: "Consultas"
       proposals: "Propostas cidadás"
     relations:
       index:

@@ -1,10 +1,10 @@
 gl:
   officing:
     header:
-      title: Votacións
+      title: Consultas
     dashboard:
       index:
-        title: Presidir mesas de votacións
+        title: Presidir mesas de consultas
         info: Aquí podes validar documentos da cidadanía e gardar os resultados das urnas
         no_shifts: Hoxe non tes quenda de presidente de mesa.
     menu:
@@ -12,9 +12,9 @@ gl:
       total_recounts: Reconto total e escrutinio
     polls:
       final:
-        title: Listaxe de votacións rematadas
-        no_polls: Non tes permiso para o reconto final en ningunha votación recente
-        select_poll: Escolle votación
+        title: Listaxe de consultas rematadas
+        no_polls: Non tes permiso para o reconto final en ningunha consulta recente
+        select_poll: Escolle consulta
         add_results: Engadir resultados
     poll_budgets:
       index:
@@ -66,14 +66,14 @@ gl:
         form_errors: evitaron verificar este documento
     voters:
       new:
-        title: Votacións
-        table_poll: Votación
-        table_status: Estado das votacións
+        title: Consultas
+        table_poll: Consulta
+        table_status: Estado das consultas
         table_actions: Accións
         not_to_vote: A persoa decidiu non votar neste intre
       show:
         can_vote: Pode votar
-        error_already_voted: Xa participou nesta votación
+        error_already_voted: Xa participou nesta consulta
         submit: Confirmar o voto
         success: "Voto introducido!"
       can_vote:

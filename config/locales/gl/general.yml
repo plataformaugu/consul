@@ -216,7 +216,7 @@ gl:
       my_activity_link: A miña actividade
       open_gov: Goberno aberto
       proposals: Propostas cidadás
-      poll_questions: Votacións
+      poll_questions: Consultas
       budgets: Orzamentos participativos
       notification_item:
         new_notifications:
@@ -359,7 +359,7 @@ gl:
         help: Axuda sobre as propostas
       section_footer:
         title: Axuda sobre as propostas
-        description: As propostas da cidadanía son unha oportunidade para que os veciños e colectivos poidan decidir sobre como queren que sexa a súa cidade, despois de conseguir suficientes apoios e sometelas a un proceso de votación.
+        description: As propostas da cidadanía son unha oportunidade para que os veciños e colectivos poidan decidir sobre como queren que sexa a súa cidade, despois de conseguir suficientes apoios e sometelas a un proceso de consulta.
     new:
       form:
         submit_button: Crear proposta
@@ -428,7 +428,7 @@ gl:
       progress: Progreso
       resources: Recursos
       community: Comunidade
-      polls: Votacións
+      polls: Consultas
       mailing: Correo electrónico
       poster: Cartel
       recommended_actions: Accións recomendadas
@@ -478,15 +478,15 @@ gl:
       comments: Comentarios
     polls:
       index:
-        title: Votacións
-        create: Crear votación
+        title: Consultas
+        create: Crear consulta
         links: Ligazóns
         additiontal_information: Información adicional
       new:
-        title: Nova votación
-        submit: Crear votación
+        title: Nova consulta
+        submit: Crear consulta
       edit:
-        submit: Actualizar votación
+        submit: Actualizar consulta
       poll:
         alert_notice: Esta acción eliminará a enquisa e todas as preguntas relacionadas.
         success_notice: Enquisa eliminada correctamente
@@ -536,33 +536,33 @@ gl:
       filters:
         current: "Abertas"
         expired: "Rematadas"
-      title: "Votacións"
-      participate_button: "Participar nesta votación"
-      participate_button_expired: "Votación rematada"
+      title: "Consultas"
+      participate_button: "Participar nesta consulta"
+      participate_button_expired: "Consulta rematada"
       no_geozone_restricted: "Toda a cidade"
       geozone_restricted: "Zonas"
       geozone_info: "Poden participar as persoas empadroadas en: "
-      already_answer: "Xa participaches nesta votación"
+      already_answer: "Xa participaches nesta consulta"
       not_logged_in: "Precisas iniciar sesión ou rexistrarte para participares"
       unverified: "Precisas verificar a túa conta para participares"
-      cant_answer: "Esta votación non está dispoñible na túa zona"
+      cant_answer: "Esta consulta non está dispoñible na túa zona"
       section_header:
-        icon_alt: Icona das votacións
-        title: Votacións
-        help: Axuda sobre as votacións
+        icon_alt: Icona das consultas
+        title: Consultas
+        help: Axuda sobre as consultas
       section_footer:
-        title: Axuda sobre as votacións
-        description: As votacións da cidadanía son un proceso participativo polo cal os veciños con dereito a voto poden tomar decisións dun modo directo
-      no_polls: "Non hai votacións abertas."
+        title: Axuda sobre as consultas
+        description: As consultas da cidadanía son un proceso participativo polo cal os veciños con dereito a voto poden tomar decisións dun modo directo
+      no_polls: "Non hai consultas abertas."
     show:
-      already_voted_in_booth: "Xa participaches nesta votación en urnas presenciais polo que non podes volver participar."
-      already_voted_in_web: "Xa participaches nesta votación. Se volves votar, modificarás o teu voto anterior."
-      back: Volver ás votacións
+      already_voted_in_booth: "Xa participaches nesta consulta en urnas presenciais polo que non podes volver participar."
+      already_voted_in_web: "Xa participaches nesta consulta. Se volves votar, modificarás o teu voto anterior."
+      back: Volver ás consultas
       cant_answer_not_logged_in: "Precisas %{signin} ou %{signup} para participares."
       comments_tab: Comentarios
       cant_answer_verify: "Debes %{verify_link} para poder responder."
       verify_link: "verifica a túa conta"
-      cant_answer_expired: "A votación rematou."
+      cant_answer_expired: "A consulta rematou."
       cant_answer_wrong_geozone: "Esta pregunta non está dispoñible na túa zona."
       more_info_title: "Máis información"
       documents: Documentos
@@ -572,7 +572,7 @@ gl:
       videos: "Vídeo externo"
       info_menu: "Información"
       stats_menu: "Estatísticas de participación"
-      results_menu: "Resultados da votación"
+      results_menu: "Resultados da consulta"
       stats:
         total_votes: "Número total de votos emitidos"
         votes: "VOTOS"
@@ -767,7 +767,7 @@ gl:
     budget_investments:
       not_verified: Os proxectos de investimento só poden ser votados por usuarios con contas verificadas, polo que %{verify_account}.
       unfeasible: Non se poden votar proxectos de investimento inviables
-      not_voting_allowed: A fase de votación está pechada
+      not_voting_allowed: A fase de consulta está pechada
       different_heading_assigned:
         one: "Só podes apoiar proxectos de investimento en %{count} zona. Xa tes un apoio nun investimento de %{supported_headings}."
         other: "Só podes apoiar proxectos de investimento en %{count} zonas. Xa tes apoios en %{supported_headings}."

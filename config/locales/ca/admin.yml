@@ -898,14 +898,14 @@ ca:
     poll_officer_assignments:
       index:
         officers_title: "Listado de presidents de taula asignados"
-        no_officers: "No hi ha presidents de taula asignados a esta votación."
+        no_officers: "No hi ha presidents de taula asignados a esta consulta."
         table_name: "Nome"
         table_email: "El teu correu electrònic"
       by_officer:
         date: "data"
         booth: "urna"
         assignments: "Torns com president de taula en aquesta votació"
-        no_assignments: "No tiene torns como president de taula en esta votación."
+        no_assignments: "No tiene torns como president de taula en esta consulta."
     poll_shifts:
       new:
         add_shift: "Afegir torn"
@@ -972,33 +972,33 @@ ca:
           help_text: "Aquest text apareixerà a l’encapçalament de la pàgina de les enquestes. Es pot utilitzar per afegir un context a les enquestes obertes."
     polls:
       index:
-        title: "Listado de votaciones"
+        title: "Listado de consultas"
         no_polls: "No hi ha enquestes."
-        create: "Crear votación"
+        create: "Crear consulta"
         name: "Nome"
         dates: "Fechas"
         start_date: "Fecha de apertura"
         closing_date: "Fecha de cierre"
         geozone_restricted: "Restringit als districtes"
       new:
-        title: "Nueva votación"
-        submit_button: "Crear votación"
+        title: "Nueva consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Preguntes ciutadanes
         booths_tab: bústies
         officers_tab: Presidents de taula
         recounts_tab: Recomptes
         results_tab: resultats
-        no_questions: "No hi ha preguntes asignadas a esta votación."
+        no_questions: "No hi ha preguntes asignadas a esta consulta."
         questions_title: "Listat de preguntes assignades"
         table_title: "Títol"
         edit_answers: Edita les respostes
         see_proposal: "(Veure proposta)"
       flash:
-        question_added: "Pregunta añadida a esta votación"
+        question_added: "Pregunta añadida a esta consulta"
         error_on_question_added: "No se pudo asignar la pregunta"
       destroy:
         alert: "Aquesta acció eliminarà l'enquesta i totes les seves preguntes associades."

@@ -42,8 +42,8 @@ gl:
         executing_project: Executando o proxecto
         executed: Executado
     polls:
-      current_poll: "Votación aberta"
-      current_poll_geozone_restricted: "Votación aberta restrinxida por zona xeográfica"
-      recounting_poll: "Votación en escrutinio"
-      expired_poll_without_stats: "Votación pechada sen Estatísticas e Resultados"
-      expired_poll_with_stats: "Votación pechada con Estatísticas e Resultados"
+      current_poll: "Consulta aberta"
+      current_poll_geozone_restricted: "Consulta aberta restrinxida por zona xeográfica"
+      recounting_poll: "Consulta en escrutinio"
+      expired_poll_without_stats: "Consulta pechada sen Estatísticas e Resultados"
+      expired_poll_with_stats: "Consulta pechada con Estatísticas e Resultados"

@@ -71,8 +71,8 @@ es:
         one: "presidente de mesa"
         other: "presidentes de mesa"
       poll/ballot_sheet:
-        one: Papeleta de votación
-        other: Papeletas de votación
+        one: Papeleta de consulta
+        other: Papeletas de consulta
       proposal:
         one: "Propuesta ciudadana"
         other: "Propuestas ciudadanas"
@@ -131,8 +131,8 @@ es:
         one: "Tema"
         other: "Temas"
       poll:
-        one: "Votación"
-        other: "Votaciones"
+        one: "Consulta"
+        other: "Consultas"
       proposal_notification:
         one: "Notificación de propuesta"
         other: "Notificaciones de propuestas"
@@ -149,8 +149,8 @@ es:
         one: Registro del censo local
         other: Registros del censo local
       votation_type:
-        one: Tipo de votación
-        other: Tipos de votación
+        one: Tipo de consulta
+        other: Tipos de consulta
     attributes:
       budget:
         name: "Nombre"
@@ -158,12 +158,12 @@ es:
         description_reviewing: "Descripción durante la fase de revisión interna"
         description_selecting: "Descripción durante la fase de apoyos"
         description_valuating: "Descripción durante la fase de evaluación"
-        description_balloting: "Descripción durante la fase de votación"
+        description_balloting: "Descripción durante la fase de consulta"
         description_reviewing_ballots: "Descripción durante la fase de revisión de votos"
         description_finished: "Descripción cuando el presupuesto ha finalizado / Resultados"
         phase: "Fase activa"
         currency_symbol: "Divisa"
-        voting_style: "Estilo de la votación final"
+        voting_style: "Estilo de la consulta final"
         voting_style_knapsack: Bolsa de dinero
         voting_style_approval: Por aprobación
         hide_money: "Ocultar la cantidad de dinero para este presupuesto"
@@ -316,7 +316,7 @@ es:
         summary: "Resumen"
         description: "Descripción"
       poll/question:
-        poll_id: "Votación"
+        poll_id: "Consulta"
         title: "Pregunta"
         summary: "Resumen"
         description: "Descripción"
@@ -325,7 +325,7 @@ es:
         title: "Pregunta"
       poll/ballot_sheet:
         data: Datos de CSV
-        poll_id: Votación
+        poll_id: Consulta
         officer_assignment_id: Turno
       poll/shift:
         task: "Tarea"
@@ -524,7 +524,7 @@ es:
         postal_code: Código postal
       votation_type:
         max_votes: Número máximo de votos
-        vote_type: Tipo de votación
+        vote_type: Tipo de consulta
       votation_type/vote_type:
         unique: Respuesta única
         multiple: Respuesta múltiple

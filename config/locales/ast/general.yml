@@ -164,7 +164,7 @@ ast:
       my_activity_link: Mi actividad
       open_gov: Gobierno abiertu
       proposals: Propuestes
-      poll_questions: Votaciones
+      poll_questions: Consultas
       budgets: Presupuestos participativos
       notification_item:
         new_notifications:
@@ -326,7 +326,7 @@ ast:
         submit_button: Guardar Cambeos
   dashboard:
     menu:
-      polls: Votaciones
+      polls: Consultas
     progress:
       supports: Sofitos
     index:
@@ -340,13 +340,13 @@ ast:
       comments: Comentarios
     polls:
       index:
-        title: Votaciones
-        create: Crear votación
+        title: Consultas
+        create: Crear consulta
       new:
-        title: Nueva votación
-        submit: Crear votación
+        title: Nueva consulta
+        submit: Crear consulta
       edit:
-        submit: Actualizar votación
+        submit: Actualizar consulta
     poster:
       options:
         preview: Previsualizar
@@ -365,24 +365,24 @@ ast:
       filters:
         current: "Abiertu"
         expired: "Terminadas"
-      title: "Votaciones"
-      participate_button: "Participar en esta votación"
-      participate_button_expired: "Votación terminada"
+      title: "Consultas"
+      participate_button: "Participar en esta consulta"
+      participate_button_expired: "Consulta terminada"
       no_geozone_restricted: "Toda la ciudad"
       geozone_restricted: "Distritos"
       geozone_info: "Pueden participar las personas empadronadas en: "
-      already_answer: "Ya has participado en esta votación"
+      already_answer: "Ya has participado en esta consulta"
       not_logged_in: "Necesitas iniciar sesión o registrarte para participar"
-      cant_answer: "Esta votación no está disponible en tu zona"
+      cant_answer: "Esta consulta no está disponible en tu zona"
       section_header:
-        title: Votaciones
+        title: Consultas
     show:
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar en el debate."
       comments_tab: Comentarios
       cant_answer_verify: "Por favor %{verify_link} para poder responder."
       verify_link: "verifica la to cuenta"
-      cant_answer_expired: "Esta votación ha terminado."
-      cant_answer_wrong_geozone: "Esta votación no está disponible en tu zona."
+      cant_answer_expired: "Esta consulta ha terminado."
+      cant_answer_wrong_geozone: "Esta consulta no está disponible en tu zona."
       more_info_title: "Más información"
       documents: Documentos
       info_menu: "Información"
@@ -538,7 +538,7 @@ ast:
     verified_only: Las propuestas de inversión sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
     budget_investments:
       unfeasible: No se pueden votar propuestas inviables.
-      not_voting_allowed: El periodo de votación está cerrado.
+      not_voting_allowed: El periodo de consulta está cerrado.
   welcome:
     feed:
       most_active:

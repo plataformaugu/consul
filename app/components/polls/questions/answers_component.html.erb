@@ -7,6 +7,7 @@
                       remote: true,
                       title: t("poll_questions.show.voted", answer: question_answer.title),
                       class: "button answered",
+                      disabled: true,
                       "aria-pressed": true do %>
           <%= question_answer.title %>
         <% end %>
@@ -16,7 +17,8 @@
                       title: t("poll_questions.show.vote_answer", answer: question_answer.title),
                       class: "button secondary hollow",
                       "aria-pressed": false,
-                      disabled: disable_answer?(question_answer) do %>
+                      data: { confirm: 'Recuerda que no podrás modificar esta respuesta después de hacer clic en "Aceptar".' },
+                      disabled: already_answered_question? do %>
           <%= question_answer.title %>
         <% end %>
       <% end %>
@@ -31,7 +33,7 @@
     <% end %>
   <% else %>
     <% question_answers.each do |question_answer| %>
-      <span class="button secondary hollow disabled"><%= question_answer.title %></span>
+      <span class="button secondary hollow disabled <%= already_answered?(question_answer) ? 'answered' : ''%>"><%= question_answer.title %></span>
     <% end %>
   <% end %>
 </div>

@@ -10,6 +10,10 @@ class Polls::Questions::AnswersComponent < ApplicationComponent
     user_answer(question_answer).present?
   end
 
+  def already_answered_question?
+    question.answers.pluck(:author_id).include?(current_user.id)
+  end
+
   def question_answers
     question.question_answers
   end

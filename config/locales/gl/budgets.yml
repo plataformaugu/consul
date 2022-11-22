@@ -16,7 +16,7 @@ gl:
         not_verified: As propostas de investimento só poden ser apoiadas por usuarios con contas verificadas; %{verify_account}.
         not_selected: Non se poden votar propostas inviables
         not_enough_money: "Xa asignaches o orzamento dispoñible.<br><small>Lembra que podes %{change_ballot} cando quixeres</small>"
-        no_ballots_allowed: O período de votacións está pechado
+        no_ballots_allowed: O período de consultas está pechado
         different_heading_assigned: "Xa votaches nunha sección distinta do orzamento: %{heading_link}"
         change_ballot: cambiar os teus votos
         casted_offline: Xa tes participado en modo «fóra de liña»
@@ -32,7 +32,7 @@ gl:
       valuating: Avaliación de proxectos
       publishing_prices: Publicación de prezos
       balloting: Votando proxectos
-      reviewing_ballots: Revisando votación
+      reviewing_ballots: Revisando consulta
       finished: Resultados
     index:
       title: Orzamentos participativos
@@ -62,7 +62,7 @@ gl:
       index:
         title: Orzamentos participativos
         unfeasible: Propostas de investimento non viables
-        unfeasible_text: "Os investimentos deben cumprir unha serie de criterios (como a legalidade, a concrención, seren competencia do concello, non superaren o máximo do orzamento), para seren declaradas viables e chegaren até a votación final. Todos os investimentos que non cumpriren estes criterios son marcados como inviables e publicadas na seguinte relación, xunto co seu informe de inviabilidade."
+        unfeasible_text: "Os investimentos deben cumprir unha serie de criterios (como a legalidade, a concrención, seren competencia do concello, non superaren o máximo do orzamento), para seren declaradas viables e chegaren até a consulta final. Todos os investimentos que non cumpriren estes criterios son marcados como inviables e publicadas na seguinte relación, xunto co seu informe de inviabilidade."
         by_heading: "Propostas de investimento con ámbito: %{heading}"
         search_form:
           button: Procurar
@@ -107,10 +107,10 @@ gl:
         comments_tab: Comentarios
         milestones_tab: Fitos
         author: Autoría
-        project_unfeasible: "O proxecto de investimento <strong>foi marcado como inviable</strong> e non chegará á fase de votación."
-        project_selected: "Este proxecto de investimento <strong>foi seleccionado</strong> para a fase de votación."
+        project_unfeasible: "O proxecto de investimento <strong>foi marcado como inviable</strong> e non chegará á fase de consulta."
+        project_selected: "Este proxecto de investimento <strong>foi seleccionado</strong> para a fase de consulta."
         project_winner: "Proxecto de investimento gañador"
-        project_not_selected: "O proxecto de inversión <strong>non foi seleccionado</strong> para a fase de votación."
+        project_not_selected: "O proxecto de inversión <strong>non foi seleccionado</strong> para a fase de consulta."
         see_price_explanation: Ver xustificación do prezo
       wrong_price_format: Só pode incluír caracteres numéricos
       investment:
@@ -155,7 +155,7 @@ gl:
       investment_title: Título do proxecto
       investment_proyects: Ver a relación completa dos proxectos de investimento
       unfeasible_investment_proyects: Ver a relación de proxectos de investimento inviables
-      not_selected_investment_proyects: Ver a relación de proxectos de investimento non seleccionados para a votación final
+      not_selected_investment_proyects: Ver a relación de proxectos de investimento non seleccionados para a consulta final
     executions:
       link: "Seguimento"
       page_title: "%{budget} - Fitos"

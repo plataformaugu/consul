@@ -24,9 +24,10 @@
         </div>
       <% else %>
 
-        <% if current_user && @poll.voted_in_web?(current_user) && !@poll.expired? %>
+        <% if current_user && @poll.full_answered_by_user?(current_user) %>
           <div class="callout warning">
-            <%= t("polls.show.already_voted_in_web") %>
+            ¡Muchas gracias por participar!<br>
+            Tus respuestas han sido registradas correctamente.
           </div>
         <% end %>
       <% end %>

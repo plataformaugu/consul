@@ -115,8 +115,8 @@ gl:
         one: "Tema"
         other: "Temas"
       poll:
-        one: "Votación"
-        other: "Votacións"
+        one: "Consulta"
+        other: "Consultas"
       proposal_notification:
         one: "Notificación de proposta"
         other: "Notificacións das propostas"
@@ -139,7 +139,7 @@ gl:
         description_reviewing: "Descrición durante a fase de Revisión"
         description_selecting: "Descrición durante a fase de Selección"
         description_valuating: "Descrición durante a fase de Avaliación"
-        description_balloting: "Descrición durante a fase de Votación"
+        description_balloting: "Descrición durante a fase de Consulta"
         description_reviewing_ballots: "Descrición durante a fase de Revisión de votos"
         description_finished: "Descrición cando o orzamento está rematado"
         phase: "Fase"
@@ -284,7 +284,7 @@ gl:
         summary: "Resumo"
         description: "Descrición"
       poll/question:
-        poll_id: "Votación"
+        poll_id: "Consulta"
         title: "Pregunta"
         summary: "Resumo"
         description: "Descrición"
@@ -293,7 +293,7 @@ gl:
         title: "Pregunta"
       poll/ballot_sheet:
         data: Datos CSV
-        poll_id: Votación
+        poll_id: Consulta
       poll/shift:
         task: "Tarefa"
       proposal_notification:

@@ -85,8 +85,8 @@ ast:
         one: "Imaxe"
         other: "Imaxes"
       poll:
-        one: "Votación"
-        other: "Votaciones"
+        one: "Consulta"
+        other: "Consultas"
     attributes:
       budget:
         name: "Nome"
@@ -94,7 +94,7 @@ ast:
         description_reviewing: "Descripción mientres la fase de revisión interna"
         description_selecting: "Descripción mientres la fase de sofitos"
         description_valuating: "Descripción mientres la fase d'evaluación"
-        description_balloting: "Descripción mientres la fase de votación"
+        description_balloting: "Descripción mientres la fase de consulta"
         description_reviewing_ballots: "Descripción mientres la fase de revisión de votos"
         description_finished: "Descripción cuando'l presupuestu remató / Resultancies"
         phase: "Fase"
@@ -214,7 +214,7 @@ ast:
         summary: "Resume"
         description: "Descripción detallada"
       poll/question:
-        poll_id: "Votación"
+        poll_id: "Consulta"
         title: "Entruga"
         summary: "Resume"
         description: "Descripción detallada"
@@ -222,7 +222,7 @@ ast:
       poll/question/translation:
         title: "Entruga"
       poll/ballot_sheet:
-        poll_id: Votación
+        poll_id: Consulta
       proposal_notification:
         body: "Mensaje"
         title: "Títulu"

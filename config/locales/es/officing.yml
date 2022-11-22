@@ -1,10 +1,10 @@
 es:
   officing:
     header:
-      title: Votaciones
+      title: Consultas
     dashboard:
       index:
-        title: Presidir mesa de votaciones
+        title: Presidir mesa de consultas
         info: Aquí puedes validar documentos de ciudadanos y guardar los resultados de las urnas
         no_shifts: No tienes turnos de presidente de mesa asignados hoy.
     menu:
@@ -12,21 +12,21 @@ es:
       total_recounts: Recuento total y escrutinio
     polls:
       final:
-        title: Listado de votaciones finalizadas
-        no_polls: No tienes permiso para recuento final en ninguna votación reciente
-        select_poll: Selecciona votación
+        title: Listado de consultas finalizadas
+        no_polls: No tienes permiso para recuento final en ninguna consulta reciente
+        select_poll: Selecciona consulta
         add_results: Añadir resultados
     poll_budgets:
-      see_ballot_sheets: Ver lista de papeletas de votación
+      see_ballot_sheets: Ver lista de papeletas de consulta
       index:
-        title: "%{poll_budget} - Listado de papeletas de votación"
-        ballot_sheet: "Papeleta de votación %{id}"
+        title: "%{poll_budget} - Listado de papeletas de consulta"
+        ballot_sheet: "Papeleta de consulta %{id}"
         ballot_sheet_name: Nombre
         ballot_sheet_author: Autor
         ballot_sheet_creation_date: Fecha de creación
-        empty_results: Aún no se han subido papeletas de votación
+        empty_results: Aún no se han subido papeletas de consulta
       new:
-        title: "%{poll_budget} - Nueva papeleta de votación"
+        title: "%{poll_budget} - Nueva papeleta de consulta"
         booth: Urna
         select_booth: Elegir urna
         csv_data: Datos de CSV
@@ -74,15 +74,15 @@ es:
         form_errors: evitaron verificar este documento
     voters:
       new:
-        title: Votaciones
-        table_poll: Votación
-        table_status: Estado de las votaciones
+        title: Consultas
+        table_poll: Consulta
+        table_status: Estado de las consultas
         table_actions: Acciones
         not_to_vote: La persona ha decidido no votar por el momento
       show:
         can_vote: Puede votar
-        cannot_vote: La persona no puede votar porque no está empadronada en el/los distrito/s en los que la votación tiene lugar.
-        error_already_voted: Ya ha participado en esta votación.
+        cannot_vote: La persona no puede votar porque no está empadronada en el/los distrito/s en los que la consulta tiene lugar.
+        error_already_voted: Ya ha participado en esta consulta.
         submit: Confirmar voto
         success: "¡Voto introducido!"
       can_vote:

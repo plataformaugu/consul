@@ -72,10 +72,10 @@ es:
       actions:
         ballots: "Crear urnas"
         confirm:
-          ballots: "¿Seguro? Esta acción solo es necesaria si vas a utilizar urnas físicas durante la votación final. Los ciudadanos podrán votar mediante la web con o sin urnas físicas."
+          ballots: "¿Seguro? Esta acción solo es necesaria si vas a utilizar urnas físicas durante la consulta final. Los ciudadanos podrán votar mediante la web con o sin urnas físicas."
           destroy: "¿Seguro? Esta acción borrará el presupuesto y todos sus grupos y partidas. Esta acción no se puede deshacer."
         descriptions:
-          ballots: "Esta acción te permitirá gestionar las urnas de votación. Usa esta opción solamente si vas a utilizar urnas físicas para recoger votos durante la votación final."
+          ballots: "Esta acción te permitirá gestionar las urnas de consulta. Usa esta opción solamente si vas a utilizar urnas físicas para recoger votos durante la consulta final."
           calculate_winners: 'Tras calcular los resultados, solamente los administradores tendrán acceso a los mismos. Se harán públicos cuando el presupuesto llegue a la fase "%{phase}" <strong>si se habilita la opción "Mostrar resultados"</strong> al editar el presupuesto.'
           destroy: "Esta acción borrará el presupuesto y todos sus grupos y partidas. Esta acción no se puede deshacer."
         edit: "Editar presupuesto"
@@ -144,7 +144,7 @@ es:
       destroy:
         success_notice: Presupuesto eliminado correctamente
         unable_notice: No se puede eliminar un presupuesto con proyectos asociados
-        unable_notice_polls: No se puede eliminar un presupuesto con una votación asociada
+        unable_notice_polls: No se puede eliminar un presupuesto con una consulta asociada
       new:
         title_multiple: Nuevo presupuesto de múltiples partidas
         title_single: Nuevo presupuesto de partida única
@@ -184,7 +184,7 @@ es:
       form:
         create: "Crear nuevo grupo"
         edit: "Editar grupo"
-        max_votable_headings_info: "Solo se aplica en la fase de apoyos. Durante la votación final un usuario solo puede votar en una partida por grupo."
+        max_votable_headings_info: "Solo se aplica en la fase de apoyos. Durante la consulta final un usuario solo puede votar en una partida por grupo."
         submit: "Guardar grupo"
       index:
         new_button: "Añadir un grupo nuevo"
@@ -198,7 +198,7 @@ es:
         success_notice: "Partida presupuestaria eliminada correctamente"
         unable_notice: "No se puede eliminar una partida presupuestaria con proyectos asociados"
       form:
-        max_ballot_lines_info: 'Máximo número de proyectos que un usuario puede votar en esta partida durante la fase "Votación final". Solamente se aplica a presupuestos con votación por aprobación.'
+        max_ballot_lines_info: 'Máximo número de proyectos que un usuario puede votar en esta partida durante la fase "Consulta final". Solamente se aplica a presupuestos con consulta por aprobación.'
         population_info: "El campo población de las partidas presupuestarias se usa con fines estadísticos únicamente, con el objetivo de mostrar el porcentaje de votos habidos en cada partida que represente un área con población. Es un campo opcional, así que puedes dejarlo en blanco si no aplica."
         coordinates_info: "Si se añaden los campos latitud y longitud, en la página de proyectos de esta partida aparecerá un mapa, que estará centrado en esas coordenadas."
         content_blocks_info: "Si se permite el bloque de contenidos, se tendrá la oportunidad de crear bloques de contenido relativos a esta partida desde la sección Configuración > Personalizar bloques. Este contenido aparecerá en la página de proyectos de esta partida."
@@ -739,7 +739,7 @@ es:
       emails_download: Descarga de emails
       valuators: Evaluadores
       poll_officers: Presidentes de mesa
-      polls: Votaciones
+      polls: Consultas
       poll_booths: Ubicación de urnas
       poll_booth_assignments: Asignación de urnas
       poll_shifts: Asignar turnos
@@ -760,7 +760,7 @@ es:
           debates: "Debates"
           community: "Comunidad"
           proposals: "Propuestas"
-          polls: "Votaciones"
+          polls: "Consultas"
           layouts: "Plantillas"
           machine_learning: "IA / Machine Learning"
           mailers: "Correos"
@@ -774,7 +774,7 @@ es:
       title_profiles: Perfiles
       title_settings: Configuración
       title_site_customization: Contenido del sitio
-      title_booths: Urnas de votación
+      title_booths: Urnas de consulta
       legislation: Legislación colaborativa
       users: Usuarios
       dashboard: Panel de progreso de propuestas
@@ -910,7 +910,7 @@ es:
         description: "Enviado al autor de un proyecto de presupuestos participativos que ha sido marcado como inviable."
       budget_investment_unselected:
         title: "Proyecto de gasto no seleccionado"
-        description: "Enviado al autor de un proyecto de presupuestos participativos que no ha sido seleccionado para la fase de votación."
+        description: "Enviado al autor de un proyecto de presupuestos participativos que no ha sido seleccionado para la fase de consulta."
       comment:
         title: "Comentario"
         description: "Enviado al autor cuando recibe un comentario."
@@ -1004,14 +1004,14 @@ es:
     poll_officer_assignments:
       index:
         officers_title: "Listado de presidentes de mesa asignados"
-        no_officers: "No hay presidentes de mesa asignados a esta votación."
+        no_officers: "No hay presidentes de mesa asignados a esta consulta."
         table_name: "Nombre"
         table_email: "Email"
       by_officer:
         date: "Fecha"
         booth: "Urna"
-        assignments: "Turnos como presidente de mesa en esta votación"
-        no_assignments: "No tiene turnos como presidente de mesa en esta votación."
+        assignments: "Turnos como presidente de mesa en esta consulta"
+        no_assignments: "No tiene turnos como presidente de mesa en esta consulta."
     poll_shifts:
       new:
         add_shift: "Añadir turno"
@@ -1027,7 +1027,7 @@ es:
         search_officer_placeholder: Buscar presidentes de mesa
         search_officer_text: Busca al presidente de mesa para asignar un turno
         select_date: "Seleccionar día"
-        no_voting_days: "Los días de votación han terminado"
+        no_voting_days: "Los días de consulta han terminado"
         select_task: "Seleccionar tarea"
         table_shift: "Turno"
         table_email: "Email"
@@ -1042,7 +1042,7 @@ es:
     booth_assignments:
       manage_assignments: Gestionar asignaciones
       manage:
-        assignments_list: "Asignaciones para la votación '%{poll}'"
+        assignments_list: "Asignaciones para la consulta '%{poll}'"
         status:
           assign_status: Asignación
           assigned: Asignada
@@ -1067,70 +1067,70 @@ es:
         total_system: Votos totales acumulados(automático)
       index:
         booths_title: "Listado de urnas asignadas"
-        no_booths: "No hay urnas asignadas a esta votación."
+        no_booths: "No hay urnas asignadas a esta consulta."
         table_name: "Nombre"
         table_location: "Ubicación"
     active_polls:
       edit:
-        title: "Descripción general de votaciones"
+        title: "Descripción general de consultas"
       form:
         description:
-          help_text: "Este texto aparecerá en la cabecera de la página de votaciones. Puedes usarlo para añadir un contexto a las votaciones abiertas"
+          help_text: "Este texto aparecerá en la cabecera de la página de consultas. Puedes usarlo para añadir un contexto a las consultas abiertas"
     polls:
       index:
-        title: "Listado de votaciones"
-        no_polls: "No hay votaciones."
-        create: "Crear votación"
+        title: "Listado de consultas"
+        no_polls: "No hay consultas."
+        create: "Crear consulta"
         name: "Nombre"
         dates: "Fechas"
         start_date: "Fecha de apertura"
         closing_date: "Fecha de cierre"
         geozone_restricted: "Restringida a los distritos"
       new:
-        title: "Nueva votación"
-        submit_button: "Crear votación"
+        title: "Nueva consulta"
+        submit_button: "Crear consulta"
       edit:
-        title: "Editar votación"
-        submit_button: "Actualizar votación"
+        title: "Editar consulta"
+        submit_button: "Actualizar consulta"
       show:
         questions_tab: Preguntas
         booths_tab: Urnas
         officers_tab: Presidentes de mesa
         recounts_tab: Recuentos
         results_tab: Resultados
-        no_questions: "No hay preguntas asignadas a esta votación."
+        no_questions: "No hay preguntas asignadas a esta consulta."
         questions_title: "Listado de preguntas asignadas"
         table_title: "Título"
         edit_answers: Editar respuestas
         see_proposal: "(Ver propuesta)"
       destroy:
-        alert: "Esta acción eliminará la votación y todas sus preguntas asociadas."
-        success_notice: "Votación eliminada correctamente"
-        unable_notice: "No se pueden eliminar votaciones con votos"
+        alert: "Esta acción eliminará la consulta y todas sus preguntas asociadas."
+        success_notice: "Consulta eliminada correctamente"
+        unable_notice: "No se pueden eliminar consultas con votos"
       votation_type:
-        title: "Tipo de votación"
+        title: "Tipo de consulta"
         unique_description: "Solo se puede responder a la pregunta con una única respuesta."
         multiple_description: "Permite elegir más de una respuesta. Se puede elegir el número máximo de respuestas."
     questions:
       index:
-        title: "Preguntas de votaciones"
+        title: "Preguntas de consultas"
         create: "Crear pregunta ciudadana"
         no_questions: "No hay ninguna pregunta ciudadana."
-        filter_poll: Filtrar por votación
-        select_poll: Seleccionar votación
+        filter_poll: Filtrar por consulta
+        select_poll: Seleccionar consulta
         questions_tab: "Preguntas"
         successful_proposals_tab: "Propuestas que han superado el umbral"
-        create_question: "Crear pregunta para votación"
+        create_question: "Crear pregunta para consulta"
         table_proposal: "Propuesta"
         table_question: "Pregunta"
-        table_poll: "Votación"
-        poll_not_assigned: "Votación no asignada"
+        table_poll: "Consulta"
+        poll_not_assigned: "Consulta no asignada"
       edit:
         title: "Editar pregunta ciudadana"
       form:
-        poll_help: "Solo se pueden seleccionar votaciones que no hayan empezado"
+        poll_help: "Solo se pueden seleccionar consultas que no hayan empezado"
       new:
-        title: "Crear pregunta ciudadana para la votación %{poll}"
+        title: "Crear pregunta ciudadana para la consulta %{poll}"
         title_proposal: "Crear pregunta ciudadana"
       destroy:
         notice: "Pregunta eliminada correctamente"
@@ -1157,7 +1157,7 @@ es:
           documents_list: Lista de documentos
           document_title: Título
           document_actions: Acciones
-      no_edit: "Una vez comenzada la votación no será posible crear, editar o eliminar preguntas, respuestas o cualquier contenido asociado a la votación."
+      no_edit: "Una vez comenzada la consulta no será posible crear, editar o eliminar preguntas, respuestas o cualquier contenido asociado a la consulta."
     answers:
       new:
         title: Nueva respuesta
@@ -1206,7 +1206,7 @@ es:
     booths:
       index:
         title: "Listado de urnas activas"
-        no_booths: "No hay urnas activas para ninguna votación próxima."
+        no_booths: "No hay urnas activas para ninguna consulta próxima."
         add_booth: "Añadir urna"
         name: "Nombre"
         location: "Ubicación"
@@ -1281,7 +1281,7 @@ es:
         selected: Seleccionada
         no_proposals: No hay propuestas.
       show:
-        create_question: Añadir esta propuesta a una votación para ser votada
+        create_question: Añadir esta propuesta a una consulta para ser votada
       form:
         update: Actualizar propuesta ciudadana
       update:
@@ -1359,7 +1359,7 @@ es:
           organizations: "Nombre, email o teléfono"
           poll_officers: "Buscar presidentes de mesa"
           poll_questions: "Buscar preguntas"
-          polls: "Buscar votaciones por nombre o descripción"
+          polls: "Buscar consultas por nombre o descripción"
           proposals: "Buscar propuestas por título, código, descripción o pregunta"
           proposal_notifications: "Buscar notificaciones por título o descripción"
           users: "Buscar usuario por nombre o email"
@@ -1464,7 +1464,7 @@ es:
         direct_messages: Mensajes directos
         proposal_notifications: Notificaciones de propuestas
         incomplete_verifications: Verificaciones incompletas
-        polls: Votaciones
+        polls: Consultas
         sdg: ODS
       graph:
         debate_created: Debates
@@ -1472,12 +1472,12 @@ es:
         level_2_user: Usuarios nivel 2
         proposal_created: Propuestas Ciudadanas
       budgets:
-        no_data_before_balloting_phase: "No hay datos que mostrar hasta que la fase de votación no esté abierta."
+        no_data_before_balloting_phase: "No hay datos que mostrar hasta que la fase de consulta no esté abierta."
         title: "Presupuestos participativos - Estadisticas de participación"
         supporting_phase: Fase de apoyos
-        balloting_phase: Votación final
+        balloting_phase: Consulta final
       budget_balloting:
-        title: "Estadísticas votación final"
+        title: "Estadísticas consulta final"
         vote_count: Votos
         participant_count: Participantes
         votes_per_heading: Votos por partida
@@ -1498,13 +1498,13 @@ es:
         proposals_with_notifications: Propuestas con notificaciones
         not_available: "Esta propuesta ya no está disponible"
       polls:
-        title: Estadísticas de votaciones
-        all: Votaciones
+        title: Estadísticas de consultas
+        all: Consultas
         web_participants: Participantes en Web
         total_participants: Participantes totales
-        poll_questions: "Preguntas de votación: %{poll}"
+        poll_questions: "Preguntas de consulta: %{poll}"
         table:
-          poll_name: Votación
+          poll_name: Consulta
           question_name: Pregunta
           origin_web: Participantes en Web
           origin_total: Participantes Totales
@@ -1514,7 +1514,7 @@ es:
           winners: "Proyectos de inversión ganadores"
           sent: "Proyectos de inversión enviados"
         debates: "Debates"
-        polls: "Votaciones"
+        polls: "Consultas"
         proposals: "Propuestas"
         title: "Objetivos de Desarrollo Sostenible - Estadísticas"
     tags:

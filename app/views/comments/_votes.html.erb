@@ -1,1 +1,3 @@
-<%= render Comments::VotesComponent.new(comment) %>
+<% is_disabled = local_assigns.fetch(:is_disabled, false) %>
+
+<%= render Comments::VotesComponent.new(comment, is_disabled) %>
