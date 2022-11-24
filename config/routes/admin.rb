@@ -279,6 +279,8 @@ namespace :admin do
   end
 
   resources :tenants, except: [:show, :destroy]
+
+  resources :events
 end
 
 resolve "Milestone" do |milestone|

@@ -16,6 +16,7 @@ es:
       unmark_featured: Quitar destacado
       edit: Editar
       configure: Configurar
+      show: Ver
     officing_booth:
       title: "Estás ahora mismo en la mesa ubicada en %{booth}. Si esto no es correcto no sigas adelante y llama al teléfono de incidencias. Gracias."
     banners:

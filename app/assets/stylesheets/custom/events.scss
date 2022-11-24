@@ -1,0 +1,148 @@
+// Place all the styles related to the Events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.simple-calendar {
+  .table.table-striped {
+    border: none !important;
+    border-top: 2px solid #cdcdcd !important;
+  }
+
+  .calendar-heading {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+
+    .calendar-title {
+      font-weight: bold;
+      text-transform: capitalize;
+      font-size: 3em;
+      color: #737277;
+    }
+  }
+
+  .table {
+    border-spacing: 10px;
+    border-collapse: separate;
+    display: block;
+    max-width: -moz-fit-content;
+    margin: 0 auto;
+    overflow-x: auto;
+
+    thead {
+      tr {
+        th {
+          text-transform: capitalize;
+          font-weight: 600;
+          font-size: 1.2em;
+          color: #646464;
+          border: none;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        .prev-month,
+        .next-month {
+          visibility: hidden;
+          border: none !important;
+        }
+
+        .day {
+          border: 1px solid #d3d3d3;
+          height: 100px;
+
+          .day-dropdown {
+            width: 100%;
+            position: relative;
+            display: inline-block;
+
+            &:hover {
+              .day-dropdown-content {
+                display: block;
+              }
+            }
+
+            .day-dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: #fff;
+              min-width: 160px;
+              box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+              z-index: 1;
+              border-radius: 8px;
+              padding: 0.3em;
+            }
+
+            .show-more-button {
+              width: 100%;
+              text-align: center;
+              font-size: 0.8em;
+              color: #959393;
+              font-weight: 600;
+              cursor: pointer;
+            }
+          }
+        }
+
+        td {
+          border: none;
+          vertical-align: top;
+          padding: 0.4rem 0.5rem;
+        }
+      }
+    }
+
+    td.day {
+      height: 20px;
+    }
+  }
+
+  .today {
+    background-color: transparent;
+    border: 2px solid rgb(182, 182, 182);
+  }
+
+  .day {
+    font-size: 0.8em;
+  }
+
+  .prev-month,
+  .next-month {
+    background-color: rgb(240, 240, 240);
+    color: rgb(175, 175, 175);
+  }
+
+  .custom-event {
+    padding: 5px 10px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: rgba($brand, .1);
+
+    span {
+      width: 88%;
+      font-weight: 500;
+    }
+
+    &:hover {
+      border-radius: 8px;
+      background-color: rgba($brand, .2);
+      text-decoration: none !important;
+    }
+  }
+
+  .past.has-events {
+    .custom-event {
+      background-color: rgb(240, 240, 240);
+    }
+  }
+}

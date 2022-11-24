@@ -1,0 +1,98 @@
+<% provide :title do %><%= @event.title %><% end %>
+<% content_for :meta_description do %><%= truncate(@event.description) %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%=
+    render "shared/social_media_meta_tags",
+    social_url: event_url(@event),
+    social_title: @event.title,
+    social_description: truncate(@event.description)
+  %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: event_url(@event) %>
+<% end %>
+
+<main>
+  <div id="<%= dom_id(@event) %>" class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to events_path %>
+
+      <div class="margin-top">
+        <h1><%= @event.title %></h1>
+        <p>
+          Desde: <strong><%= @event.start_time.strftime('%d/%m/%Y %H:%M') %></strong>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          Hasta: <strong><%= @event.end_time.strftime('%d/%m/%Y %H:%M') %></strong>
+        </p>
+        <p><%= wysiwyg(@event.description) %></p>
+        <% if @event.image.attached? %>
+          <%= image_tag @event.image %>
+        <% end %>
+      </div>
+    </div>
+    <div class="small-12 medium-3 column">
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title">Participación</p>
+      <div class="show-actions-menu">
+        <div class="supports text-center">
+          <span class="total-supports" style="margin-bottom: 5px;">
+            <%= @event.users.count %> participante<%= @event.users.count > 1 || @event.users.count == 0 ? 's' : '' %>
+          </span>
+          <% if @event.is_expired? %>
+            <div class="callout warning">
+              <strong>El evento ha finalizado.</strong>
+            </div>
+          <% else %>
+            <% if can?(:join, @event) && !@event.is_user_joined?(current_user) %>
+              <%=
+                button_to 'Participar',
+                join_event_path(@event.id),
+                method: :post,
+                class: 'button success expanded'
+              %>
+            <% elsif can?(:left, @event) && @event.is_user_joined?(current_user) %>
+              <%=
+                button_to 'Dejar de participar',
+                left_event_path(@event.id),
+                method: :post,
+                class: 'button warning expanded'
+              %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <% if current_user and current_user.administrator? %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title">Administrar</p>
+        <div class="show-actions-menu">
+          <%=
+            link_to 'Editar evento',
+            edit_admin_event_path(@event),
+            style: 'color: white;',
+            class: 'button small expanded'
+          %>
+          <%=
+            link_to 'Eliminar evento',
+            admin_event_path(@event),
+            style: 'color: white;',
+            class: 'button small alert expanded',
+            method: :delete,
+            data: { confirm: '¿Estás segur@ que deseas eliminar este evento?' }
+          %>
+        </div>
+      <% end %>
+      
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title">Compartir</p>
+      <div class="show-actions-menu">
+        <%= render "shared/social_share",
+          title: @event.title,
+          url: event_url(@event),
+          description: @event.description,
+          mobile: @event.title %>
+      </div>
+
+    </div>
+  </div>
+</main>

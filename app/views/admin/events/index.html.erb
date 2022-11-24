@@ -1,0 +1,45 @@
+<h2 class="inline-block">Eventos</h2>
+
+<%=
+  link_to 'Ver calendario',
+  events_path,
+  class: "button hollow float-right",
+  target: '_blank'
+%>
+<%=
+  link_to 'Crear evento',
+  new_admin_event_path,
+  class: "button float-right"
+%>
+
+<% if @events.any? %>
+  <table>
+    <thead>
+      <th class="small-5">Título</th>
+      <th class="text-center">Fecha de inicio</th>
+      <th class="text-center">Fecha de termino</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @events.each do |event| %>
+        <tr id="<%= dom_id(event) %>">
+          <td><strong><%= event.title %></strong></td>
+          <td class="text-center"><%= l event.start_time, format: :short_datetime %></td>
+          <td class="text-center"><%= l event.end_time, format: :short_datetime %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              event,
+              destroy_confirmation: 'Esta acción eliminará permanentemente este evento.'
+            ) do |actions| %>
+              <%= actions.action(:show, path: event, target: '_blank') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay eventos.
+  </div>
+<% end %>
