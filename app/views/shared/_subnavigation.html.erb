@@ -50,12 +50,20 @@
                                 accesskey: "6" %>
       </li>
     <% end %>
+
+    <li>
+      <%= layout_menu_link_to 'Eventos',
+                              events_path,
+                              current_page?(events_path),
+                              accesskey: "8" %>
+    </li>
+
     <% if feature?(:help_page) %>
       <li>
         <%= layout_menu_link_to t("layouts.header.help"),
                                 help_path,
                                 current_page?(help_path),
-                                accesskey: "7" %>
+                                accesskey: "9" %>
       </li>
     <% end %>
 
