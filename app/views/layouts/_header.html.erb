@@ -10,11 +10,10 @@
     </div>
   </div>
 
-  <div class="top-bar">
+  <div class="custom-menu">
     <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
       <button type="button" class="menu-button" data-toggle>
         <span class="menu-icon"></span>
-        <%= t("application.menu") %>
       </button>
     </span>
 
@@ -24,29 +23,37 @@
       <% end %>
     </h1>
 
-    <div id="responsive-menu">
-      <div class="top-bar-right">
-        <ul class="menu" data-responsive-menu="medium-dropdown">
-          <%= render "shared/admin_login_items" %>
+    <div class="custom-menu-desktop hide-for-small-only">
+      <nav>
+        <ul>
+          <%= render "shared/subnavigation" %>
           <%= render "layouts/notification_item" %>
+
+          <% if current_user %>
+            <div class="custom-menu-account">
+              <a class="login-button" rel="nofollow" title="Mostrar menú de usuario">
+                Mi cuenta
+              </a>
+              <div class="custom-menu-account-content">
+                <%= render "shared/admin_login_items_alt" %>
+                <%= render "devise/menu/login_items" %>
+              </div>
+            </div>
+          <% else %>
+            <%= render "devise/menu/login_items" %>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+
+    <div id="responsive-menu" class="custom-menu-mobile show-for-small-only">
+      <nav>
+        <ul>
+          <%= render "shared/subnavigation" %>
+          <%= render "shared/admin_login_items_alt" %>
           <%= render "devise/menu/login_items" %>
         </ul>
-
-        <div class="show-for-small-only">
-          <div class="subnavigation subnavigation-with-top-links">
-            <%= render "shared/subnavigation" %>
-            <%= render "shared/top_links" %>
-          </div>
-        </div>
-      </div>
+      </nav>
     </div>
-  </div>
-
-  <div id="navigation_bar" class="subnavigation">
-    <div class="hide-for-small-only">
-      <%= render "shared/subnavigation" %>
-    </div>
-
-    <%= yield :header_addon %>
   </div>
 </header>

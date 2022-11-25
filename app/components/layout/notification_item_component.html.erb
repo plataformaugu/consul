@@ -1,7 +1,7 @@
 <% if user %>
   <li id="notifications">
     <%= link_to notifications_path, rel: "nofollow", title: text,
-                class: "notifications #{notifications_class}" do %>
+                class: "notifications no-notifications" do %>
       <span class="show-for-sr">
         <%= t("layouts.header.notification_item.notifications") %>
       </span>
