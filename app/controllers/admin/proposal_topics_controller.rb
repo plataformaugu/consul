@@ -16,6 +16,11 @@ class Admin::ProposalTopicsController < Admin::BaseController
 
   def create
     @proposal_topic = ProposalTopic.new(proposal_topic_params)
+    @proposal_topic.image.attach(
+      io: resize_image(proposal_topic_params[:image].tempfile.path),
+      filename: proposal_topic_params[:image].original_filename,
+      content_type: proposal_topic_params[:image].content_type
+    )
 
     if @proposal_topic.save
       redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creado'}
@@ -26,6 +31,16 @@ class Admin::ProposalTopicsController < Admin::BaseController
 
   def update
     if @proposal_topic.update(proposal_topic_params)
+      if proposal_topic_params[:image].present?
+        @proposal_topic.image.purge
+        @proposal_topic.image.attach(
+          io: resize_image(proposal_topic_params[:image].tempfile.path),
+          filename: proposal_topic_params[:image].original_filename,
+          content_type: proposal_topic_params[:image].content_type
+        )
+        @proposal_topic.save
+      end
+
       redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'actualizado'}
     else
       render :edit
@@ -33,6 +48,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
   end
 
   def destroy
+    @proposal_topic.image.purge
     @proposal_topic.destroy
     redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'eliminado'}
   end
@@ -44,5 +60,10 @@ class Admin::ProposalTopicsController < Admin::BaseController
 
     def proposal_topic_params
       params.require(:proposal_topic).permit(:title, :description, :image, :start_date, :end_date)
+    end
+
+    def resize_image(temp_path)
+      image = ImageProcessing::MiniMagick.source(temp_path).resize_to_limit!(800, nil)
+      return image
     end
 end

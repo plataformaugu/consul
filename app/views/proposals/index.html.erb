@@ -33,6 +33,11 @@
           <%= image_tag "help/help_icon_proposals.png", alt: t("proposals.index.section_header.icon_alt"), class: "align-top" %>
           <h1 class="inline-block">Propuestas</h1>
           <h4><%= @proposal_topic.title %></h4>
+          <small>
+            Fecha de inicio: <strong><%= @proposal_topic.start_date %></strong>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            Fecha de termino: <strong><%= @proposal_topic.end_date %></strong>
+          </small>
         </div>
       </div>
     </div>

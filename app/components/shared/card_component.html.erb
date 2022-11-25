@@ -18,6 +18,6 @@
     <% end %>
   </section>
   <footer class="margin-top margin-bottom">
-    <%= @description %>
+    <%= @description.truncate_words(20) %>
   </footer>
 </div>
