@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_24_004103) do
+ActiveRecord::Schema.define(version: 2022_11_24_122004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1289,6 +1289,16 @@ ActiveRecord::Schema.define(version: 2022_11_24_004103) do
     t.index ["tsv"], name: "index_proposal_notifications_on_tsv", using: :gin
   end
 
+  create_table "proposal_topics", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "proposal_translations", id: :serial, force: :cascade do |t|
     t.integer "proposal_id", null: false
     t.string "locale", null: false
@@ -1325,6 +1335,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_004103) do
     t.integer "community_id"
     t.datetime "published_at"
     t.boolean "selected", default: false
+    t.bigint "proposal_topic_id"
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
@@ -1333,6 +1344,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_004103) do
     t.index ["geozone_id"], name: "index_proposals_on_geozone_id"
     t.index ["hidden_at"], name: "index_proposals_on_hidden_at"
     t.index ["hot_score"], name: "index_proposals_on_hot_score"
+    t.index ["proposal_topic_id"], name: "index_proposals_on_proposal_topic_id"
     t.index ["selected"], name: "index_proposals_on_selected"
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
   end

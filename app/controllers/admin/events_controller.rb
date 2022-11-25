@@ -26,7 +26,7 @@ class Admin::EventsController < Admin::BaseController
 
   def update
     if @event.update(event_params)
-      redirect_to @event, notice: NOTICE_TEXT % {action: 'actualizado'}
+      redirect_to admin_events_path, notice: NOTICE_TEXT % {action: 'actualizado'}
     else
       render :edit
     end

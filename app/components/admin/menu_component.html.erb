@@ -1,4 +1,8 @@
 <ul id="admin_menu" data-accordion-menu data-multi-open="true">
+  <li class="<%= "is-active" if controller_name == "proposal_topics" %>">
+    <%= link_to 'Convocatorias', admin_proposal_topics_path, class: "proposal-topics-link" %>
+  </li>
+
   <% if feature?(:proposals) %>
     <li class="<%= "is-active" if controller_name == "proposals" %>">
       <%= link_to t("admin.menu.proposals"), admin_proposals_path, class: "proposals-link" %>

@@ -35,6 +35,19 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def new
+    @proposal_topic = ProposalTopic.find_by_id(params[:proposal_topic_id])
+
+    if !@proposal_topic.present?
+      redirect_to root_path
+      return
+    end
+
+    if not @proposal_topic.is_active?
+      redirect_to root_path
+    end
+  end
+
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
     if @proposal.save
@@ -45,6 +58,18 @@ class ProposalsController < ApplicationController
   end
 
   def created; end
+
+  def index
+    @proposal_topic = ProposalTopic.find_by_id(params[:id])
+
+    if @proposal_topic.present? && @proposal_topic.is_published?
+      super
+      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id)).page(params[:page])
+      @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
+    else
+      redirect_to root_path
+    end
+  end
 
   def index_customization
     discard_draft
@@ -97,7 +122,7 @@ class ProposalsController < ApplicationController
 
     def allowed_params
       attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
-                    :geozone_id, :related_sdg_list,
+                    :geozone_id, :related_sdg_list, :proposal_topic_id,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,
                     map_location_attributes: map_location_attributes]

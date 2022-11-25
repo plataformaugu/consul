@@ -35,6 +35,7 @@ class Proposal < ApplicationRecord
 
   belongs_to :author, -> { with_hidden }, class_name: "User", inverse_of: :proposals
   belongs_to :geozone
+  belongs_to :proposal_topic
   has_many :comments, as: :commentable, inverse_of: :commentable, dependent: :destroy
   has_many :proposal_notifications, dependent: :destroy
   has_many :dashboard_executed_actions, dependent: :destroy, class_name: "Dashboard::ExecutedAction"
@@ -98,6 +99,10 @@ class Proposal < ApplicationRecord
 
   def draft?
     published_at.nil?
+  end
+
+  def self.with_active_topic
+    where('? BETWEEN proposal_topics.start_date AND proposal_topics.end_date', Time.now)
   end
 
   def self.recommendations(user)
@@ -171,7 +176,7 @@ class Proposal < ApplicationRecord
   end
 
   def editable_by?(user)
-    author_id == user.id && editable?
+    author_id == user.id && editable? && !proposal_topic.is_expired?
   end
 
   def votable_by?(user)

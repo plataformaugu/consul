@@ -1,6 +1,7 @@
 <% provide :title do %>Calendario de eventos<% end %>
 
 <main>
+  <%= render "shared/section_header", i18n_namespace: "events.index.section_header", image: "legislation_processes" %>
   <div class="row">
     <div id="events">
       <% if current_user %>

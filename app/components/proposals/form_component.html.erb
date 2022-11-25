@@ -29,6 +29,7 @@
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
+  <%= f.hidden_field :proposal_topic_id, value: @proposal_topic.id %>
 
   <fieldset>
     <legend><%= t("shared.optional") %></legend>

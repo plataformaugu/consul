@@ -1,0 +1,2 @@
+module ProposalTopicsHelper
+end

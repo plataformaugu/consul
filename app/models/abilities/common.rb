@@ -39,7 +39,9 @@ module Abilities
         poll.related&.author&.id == user.id
       end
 
-      can [:retire_form, :retire], Proposal, author_id: user.id
+      can [:retire_form, :retire], Proposal do |proposal|
+        proposal.author_id == user.id && !proposal.proposal_topic.is_expired?
+      end
 
       can :read, Legislation::Proposal
       can [:retire_form, :retire], Legislation::Proposal, author_id: user.id

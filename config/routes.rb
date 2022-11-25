@@ -43,6 +43,11 @@ Rails.application.routes.draw do
       post :left
     end
   end
+  resources :proposal_topics, only: [:index, :show] do
+    member do
+      get :show, to: 'proposals#index'
+    end
+  end
 
   # More info pages
   get "help",             to: "pages#show", id: "help/index",             as: "help"

@@ -12,9 +12,9 @@
     <% end %>
     <% if feature?(:proposals) %>
       <li>
-        <%= layout_menu_link_to t("layouts.header.proposals"),
-                                proposals_path,
-                                controller.class == ProposalsController,
+        <%= layout_menu_link_to 'Convocatorias',
+                                proposal_topics_path,
+                                controller.class == ProposalTopicsController || controller.class == ProposalsController,
                                 accesskey: "2" %>
       </li>
     <% end %>

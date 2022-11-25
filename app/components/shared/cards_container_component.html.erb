@@ -1,0 +1,10 @@
+<div class="cards-container-component">
+  <% @records.each do |record| %>
+    <%= render Shared::CardComponent.new(
+      record,
+      record.send(@title_field),
+      record.send(@image_field),
+      record.send(@description_field)
+    ) %>
+  <% end %>
+</div>

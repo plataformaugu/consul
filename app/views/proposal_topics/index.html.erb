@@ -1,0 +1,30 @@
+<% provide :title do %>Convocatorias<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: proposal_topics_url %>
+<% end %>
+
+<main>
+  <%= render "shared/section_header", i18n_namespace: "proposal_topics.index.section_header", image: "proposals" %>
+  <div class="row">
+    <div id="proposal-topics" class="small-12 column">
+      <% if @proposal_topics.any? %>
+        <div class="cards-container-component">
+          <% @proposal_topics.each do |topic| %>
+            <%= render Shared::CardComponent.new(
+              topic,
+              topic.title,
+              topic.image,
+              topic.description,
+              topic.is_expired? ? 'Convocatoria finalizada' : nil
+            ) %>
+          <% end %>
+        </div>
+        <%= paginate @proposal_topics %>
+      <% else %>
+        <div class="callout primary">
+          No hay eventos.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

@@ -17,5 +17,5 @@
     </ul>
   </aside>
 
-  <%= render Proposals::FormComponent.new(proposal, url: proposals_path) %>
+  <%= render Proposals::FormComponent.new(proposal, @proposal_topic, proposals_path) %>
 </main>

@@ -1,0 +1,43 @@
+<h2 class="inline-block">Convocatorias</h2>
+
+<%=
+  link_to 'Crear convocatoria',
+  new_admin_proposal_topic_path,
+  class: "button float-right"
+%>
+
+<% if @proposal_topics.any? %>
+  <table>
+    <thead>
+      <th class="small-4">Título</th>
+      <th class="text-center">Estado</th>
+      <th class="text-center">Propuestas</th>
+      <th class="text-center">Fecha de inicio</th>
+      <th class="text-center">Fecha de termino</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @proposal_topics.each do |topic| %>
+        <tr id="<%= dom_id(topic) %>">
+          <td><strong><%= topic.title %></strong></td>
+          <td class="text-center"><%= topic.status %></td>
+          <td class="text-center"><%= topic.proposals.count %></td>
+          <td class="text-center"><%= l topic.start_date %></td>
+          <td class="text-center"><%= l topic.end_date %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              topic,
+              destroy_confirmation: 'Esta acción eliminará permanentemente esta convocatoria.'
+            ) do |actions| %>
+              <%= actions.action(:show, path: topic, target: '_blank') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay convocatorias.
+  </div>
+<% end %>

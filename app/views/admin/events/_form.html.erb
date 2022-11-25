@@ -21,9 +21,9 @@
 
     <div class="actions">
       <% if action_name == 'edit' %>
-        <%= form.submit(value: 'Editar evento', class: 'button') %>
+        <%= form.submit 'Editar evento', class: 'button' %>
       <% else %>
-        <%= form.submit(value: 'Crear evento', class: 'button') %>
+        <%= form.submit 'Crear evento', class: 'button' %>
       <% end %>
     </div>
   <% end %>
