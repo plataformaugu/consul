@@ -17,7 +17,6 @@ class SocialOrganizationsController < ApplicationController
     @social_organization = SocialOrganization.new(social_organization_params)
     @social_organization.name = @social_organization.name.gsub(';', '')
     @social_organization.description = @social_organization.description.gsub(';', '')
-    @social_organization.url = @social_organization.url.gsub(';', '')
 
     if @social_organization.save
       redirect_to new_social_organization_path, notice: 'La Organización Social fue enviada.'

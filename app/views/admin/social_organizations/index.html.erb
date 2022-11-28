@@ -4,6 +4,7 @@
   link_to 'Descargar como CSV',
   @social_organizations.any? ? generate_csv_admin_social_organizations_path : nil,
   class: "button hollow float-right",
+  remote: true,
   disabled: !@social_organizations.any?
 %>
 
@@ -23,7 +24,13 @@
           <td class="text-center"><strong><%= social_organization.name %></strong></td>
           <td class="text-center" title="<%= social_organization.description %>"><%= social_organization.description.truncate_words(6) %></td>
           <td class="text-center"><%= social_organization.email %></td>
-          <td class="text-center"><%= social_organization.url %></td>
+          <td class="text-center">
+            <% if social_organization.url.present? %>
+              <%= link_to social_organization.url, target: '_blank' do %>
+                <i class="link-icon"></i>
+              <% end %>
+            <% end %>
+          </td>
           <td class="text-center"><%= link_to social_organization.user.name, social_organization.user, target: '_blank' %></td>
           <td>
             <%= render Admin::TableActionsComponent.new(
