@@ -1,0 +1,2 @@
+module SocialOrganizationsHelper
+end

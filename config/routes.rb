@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       get :show, to: 'proposals#index'
     end
   end
+  resources :social_organizations, only: [:new, :create]
 
   # More info pages
   get "help",             to: "pages#show", id: "help/index",             as: "help"

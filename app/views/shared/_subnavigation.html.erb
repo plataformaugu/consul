@@ -56,12 +56,19 @@
                           accesskey: "8" %>
 </li>
 
+<li>
+  <%= layout_menu_link_to 'Organizaciones Sociales',
+                          new_social_organization_path,
+                          current_page?(new_social_organization_path),
+                          accesskey: "9" %>
+</li>
+
 <% if feature?(:help_page) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.help"),
                             help_path,
                             current_page?(help_path),
-                            accesskey: "9" %>
+                            accesskey: "10" %>
   </li>
 <% end %>
 

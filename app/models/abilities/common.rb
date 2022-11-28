@@ -5,6 +5,7 @@ module Abilities
     def initialize(user)
       merge Abilities::Everyone.new(user)
 
+      can [:create], SocialOrganization
       can [:read, :update], User, id: user.id
 
       can [:join, :left], Event do |event|

@@ -283,6 +283,10 @@ namespace :admin do
   resources :events
 
   resources :proposal_topics
+
+  resources :social_organizations do
+    get :generate_csv, on: :collection
+  end
 end
 
 resolve "Milestone" do |milestone|

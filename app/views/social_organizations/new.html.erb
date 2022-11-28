@@ -1,0 +1,23 @@
+<% provide :title do %>Organizaciones Sociales<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: new_social_organization_path %>
+<% end %>
+
+<main>
+  <div class="help-header">
+    <div class="row">
+      <div class="small-12 column" data-magellan>
+        <%= image_tag "help/help_icon_proposals.png", class: "align-top" %>
+        <h1 class="inline-block">Envía una Organización Social</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="column small-12">
+      <%= render 'form', social_organization: @social_organization %>
+    </div>
+  </div>
+
+</main>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_24_122004) do
+ActiveRecord::Schema.define(version: 2022_11_28_103941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1540,6 +1540,17 @@ ActiveRecord::Schema.define(version: 2022_11_24_122004) do
     t.string "locale"
   end
 
+  create_table "social_organizations", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "email"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_social_organizations_on_user_id"
+  end
+
   create_table "stats_versions", id: :serial, force: :cascade do |t|
     t.string "process_type"
     t.integer "process_id"
@@ -1844,6 +1855,7 @@ ActiveRecord::Schema.define(version: 2022_11_24_122004) do
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"
+  add_foreign_key "social_organizations", "users"
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end
