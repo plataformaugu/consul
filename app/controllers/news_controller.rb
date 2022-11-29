@@ -1,10 +1,13 @@
 class NewsController < ApplicationController
     load_and_authorize_resource
-    before_action :set_news, only: [:like, :dislike]
+    before_action :set_news, only: [:show, :like, :dislike]
 
     def index
         @news = News.not_hightlighted
         @hightlighted = News.hightlighted
+    end
+
+    def show
     end
 
     def like

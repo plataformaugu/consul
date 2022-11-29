@@ -1,0 +1,20 @@
+<section class="news">
+  <% if @news.neighborhood_council.any? %>
+  <div class="row">
+    <div class="small-12 column">
+      <h2>Otras noticias</h2>
+      <div class="cards">
+        <% @news.neighborhood_council.order(created_at: :desc).each do |n| %>
+          <%= render 'card', news: n %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+    <div class="row">
+      <div class="small-12 column">
+       <p class="text-center">No hay noticias creadas.</p>
+      </div>
+    </div>
+  <% end %>
+</section>

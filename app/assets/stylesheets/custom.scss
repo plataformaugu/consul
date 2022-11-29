@@ -3330,6 +3330,15 @@ main {
     font-size: 1em;
 }
 
+.solid-button-xsm {
+    @extend .solid-button;
+
+    padding: 5px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    color: white !important;
+}
+
 .solid-button-danger-sm {
     @extend .solid-button-sm;
 
@@ -4374,5 +4383,27 @@ input[type=number]::-webkit-outer-spin-button {
 
     .in-favor {
         flex-direction: column !important;
+    }
+}
+
+.like-dislike-actions {
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+
+    a {
+        text-decoration: none;
+    }
+
+    .icon-like, .icon-unlike {
+        color: rgb(114, 113, 118);
+    }
+
+    .icon-like.active {
+        color: #60a360;
+    }
+
+    .icon-unlike.active {
+        color: #d1152c;
     }
 }

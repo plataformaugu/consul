@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_07_015332) do
+ActiveRecord::Schema.define(version: 2022_11_29_204015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1095,6 +1095,9 @@ ActiveRecord::Schema.define(version: 2022_11_07_015332) do
     t.bigint "main_theme_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "news_type"
+    t.text "summary"
+    t.string "miniature"
     t.index ["main_theme_id"], name: "index_news_on_main_theme_id"
   end
 

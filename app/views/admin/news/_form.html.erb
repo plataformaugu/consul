@@ -11,6 +11,15 @@
 
   <div class="field">
     <%=
+      form.text_field :summary,
+      maxlength: 128,
+      label: 'Bajada de título',
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
       form.text_area :body,
       label: 'Cuerpo',
       rows: 5,
@@ -21,6 +30,16 @@
   </div>
 
   <div class="field">
+    <% if news.miniature.attached? %>
+      <%= form.file_field :miniature, accept: 'image/png,image/jpeg', label: 'Miniatura' %>
+      <span class="help-text">Miniatura actual:</span><br>
+      <%= image_tag news.miniature, style: 'width: 250px;' %>
+    <% else %>
+      <%= form.file_field :miniature, accept: 'image/png,image/jpeg', label: 'Miniatura', required: true %>
+    <% end %>
+  </div>
+
+  <div class="field mt-1">
     <% if news.image.attached? %>
       <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Imagen' %>
       <span class="help-text">Imagen actual:</span><br>
@@ -32,16 +51,41 @@
 
   <div class="field mt-1">
     <%=
+      form.select :news_type,
+      News::TYPES_TRANSLATE.map{ |k, v| [v, k] },
+      {
+        include_blank: 'Elija una opción',
+        label: 'Tipo de noticia'
+      },
+      {
+        required: true
+      }
+    %>
+  </div>
+
+  <div id="neighborhood-council-container" class="field mt-1">
+    <%=
+      form.select 'test',
+      ['Junta de vecinos 1', 'Junta de vecinos 2', 'Junta de vecinos 3'],
+      {
+        include_blank: 'Elija una opción',
+        label: 'Junta de vecinos'
+      }
+    %>
+  </div>
+
+  <div id="main-theme-container" class="field">
+    <%=
       form.collection_select :main_theme_id,
       MainTheme.all,
       :id,
       :name,
-      {prompt: 'Elige un eje temático', label: 'Eje Temático'},
-      {class: 'custom-input', style: 'width: 100%;', required: true}
+      { prompt: 'Elige un eje temático', label: 'Eje Temático'},
+      { class: 'custom-input', style: 'width: 100%;' }
     %>
   </div>
 
-  <div class="field mt-1">
+  <div id="highlight-container" class="field mt-1">
     <%= form.check_box :is_hightlighted, label: '¿Destacada?' %>
     <div id="highlight-form" style="display: none;">
       Duración:
@@ -66,7 +110,28 @@
 <% end %>
 
 <script>
+  function toggleNewsType(newsType) {
+    $('#main-theme-container').hide()
+    $('#highlight-container').hide()
+    $('#neighborhood-council-container').hide()
+
+    if (newsType === '<%= News::CITIZEN_PARTICIPATION %>') {
+      $('#main-theme-container').show()
+      $('#highlight-container').show()
+    } else if (newsType === '<%= News::NEIGHBORHOOD_COUNCIL %>') {
+      $('#neighborhood-council-container').show()
+    }
+  }
+
   $(document).ready(function() {
+    $('#main-theme-container').hide()
+    $('#highlight-container').hide()
+    $('#neighborhood-council-container').hide()
+
+    <% if news.news_type.present? %>
+      toggleNewsType('<%= news.news_type %>')
+    <% end %>
+
     <% if news.is_hightlighted? %>
       $('#news_is_hightlighted').prop('checked', true)
       $('#highlight-form').show()
@@ -79,6 +144,11 @@
       } else {
         $('#highlight-form').hide()
       }
+    })
+
+    $('#news_news_type').on('change', function() {
+      var selectedNewsType = $(this).find(':selected').val()
+      toggleNewsType(selectedNewsType)
     })
   })
 </script>
