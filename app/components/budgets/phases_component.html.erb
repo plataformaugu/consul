@@ -19,7 +19,6 @@
       <div id="<%= phase_dom_id(phase) %>" class="tabs-panel <%= "is-active" if phase.current? %>">
         <div class="budget-phase">
           <div class="budget-phase-content">
-            <h3><%= phase.name %></h3>
             <p class="small"><%= start_date(phase) %> - <%= end_date(phase) %></p>
             
             <div style="display: flex; align-items: center; gap: 25px;">

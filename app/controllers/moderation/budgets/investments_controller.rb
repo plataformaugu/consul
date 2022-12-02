@@ -23,7 +23,7 @@ class Moderation::Budgets::InvestmentsController < Moderation::BaseController
     if params['selected_ids'].any?
       params['selected_ids'].each do |id|
         investment = Budget::Investment.find_by(id: id)
-        investment.hide
+        investment.custom_hide(current_user)
         # TODO: Enviar email y notificación al rechazar proyecto
         # Mailer.reject_debate(debate).deliver_later
         # custom_notification = CustomNotification.create(model: 'Debate', model_id: debate.id, action: 'reject_debate')

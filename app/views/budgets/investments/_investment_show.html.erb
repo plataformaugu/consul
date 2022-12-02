@@ -54,11 +54,11 @@
                   <div class="callout success">
                     <strong><%= t("budgets.investments.show.project_winner") %></strong>
                   </div>
-                <% elsif investment.selected? %>
+                <% elsif investment.selected? and !@budget.finished? %>
                   <div class="callout success">
                     <%= sanitize(t("budgets.investments.show.project_selected")) %>
                   </div>
-                <% elsif @budget.balloting_or_later? %>
+                <% elsif @budget.balloting_or_later? and !@budget.finished? %>
                   <div class="callout warning">
                     <%= sanitize(t("budgets.investments.show.project_not_selected")) %>
                   </div>
@@ -113,6 +113,43 @@
           url: budget_investment_url(investment.budget, investment),
           description: investment.title,
           mobile: investment.title %>
+      </div>
+
+      <div class="curved-container mt-2 row">
+        <div class="column small-12 medium-4">
+          <strong>Unidades vecinales</strong><br>
+          <% if not investment.sectors.any? or investment.sectors.count == Sector.count %>
+            Todas
+          <% else %>
+            <ul>
+              <% investment.sectors.each do |sector| %>
+                <li><%= sector.name %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+        <div class="column small-12 medium-4">
+          <strong>Documentos</strong><br>
+          <% if investment.documents.any? %>
+            <ul>
+              <% investment.documents.each do |document| %>
+                <%= link_to document.attachment.url, target: "_blank", rel: "nofollow" do %>
+                  <li><%= document.title %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% else %>
+            No hay documentos.
+          <% end %>
+        </div>
+        <div class="column small-12 medium-4">
+          <strong>Información adicional de ubicación</strong><br>
+          <% if investment.location.present? %>
+            <%= investment.location %>
+          <% else %>
+            Sin información.
+          <% end %>
+        </div>
       </div>
       
       <span class="js-flag-actions">

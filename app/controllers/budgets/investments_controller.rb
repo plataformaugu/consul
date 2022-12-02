@@ -40,13 +40,7 @@ module Budgets
     respond_to :html, :js
 
     def index
-      @investments = investments.confirmed.page(params[:page]).per(PER_PAGE).for_render
-
-      @investment_ids = @investments.ids
-      @investments_map_coordinates = MapLocation.where(investment: investments).map(&:json_data)
-
-      @tag_cloud = tag_cloud
-      @remote_translations = detect_remote_translations(@investments)
+      redirect_to @budget
     end
 
     def new

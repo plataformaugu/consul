@@ -5,7 +5,7 @@ class Admin::BudgetsWizard::GroupsController < Admin::BudgetsWizard::BaseControl
 
   def index
     @group = @budget.groups.first_or_initialize("name_#{I18n.locale}" => @budget.name)
-    @group.name = "Grupo #{@budget.name}"
+    @group.name = "#{@budget.name}"
     @group.save
     redirect_to admin_budgets_wizard_budget_group_headings_path(@budget, @group, url_params)
   end

@@ -393,9 +393,9 @@ class Budget
       all_users.compact.uniq
     end
 
-    def hide
+    def custom_hide(user)
       self.hide
-      Activity.log(current_user, :hide, @user)
+      Activity.log(user, :hide, self)
     end
 
     private

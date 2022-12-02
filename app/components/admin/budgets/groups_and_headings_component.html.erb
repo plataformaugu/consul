@@ -1,4 +1,4 @@
-<div class="row">
+<div>
   <% budget.groups.each do |group| %>
   <section id="<%= dom_id(group) %>" aria-labelledby="<%= dom_id(group, :header) %>">
     <h4 id="<%= dom_id(group, :header) %>"><%= group.name %></h4>
@@ -6,11 +6,7 @@
     <div class="groups-actions">
       <%= action(:edit, group, "aria-label": true) %>
       <%= action(:destroy, group, method: :delete, confirm: true, "aria-label": true) %>
-      <%= action(:new,
-                 group,
-                 text: t("admin.budgets.show.add_heading"),
-                 path: new_admin_budget_group_heading_path(budget, group),
-                 "aria-label": true) %>
+      <div></div>
     </div>
 
     <% if group.multiple_headings? %>

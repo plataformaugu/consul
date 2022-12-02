@@ -42,5 +42,6 @@ namespace :moderation do
     put :hide, on: :member
     patch :publish, on: :member
     put :moderate, on: :collection
+    delete :reject, on: :collection
   end
 end

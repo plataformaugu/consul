@@ -6,14 +6,14 @@
     <div class="row">
       <div class="small-12 column">
           <%=
-            link_to "Revisar mis botos",
+            link_to "Revisar mis votos",
             budget_ballot_path(@budget),
             class: "presupuestos-solid-button-sm",
             style: 'text-decoration: none; color: white;'
           %>
           <% if @ballot.confirmed_at == nil %>
             <%=
-              link_to "Confirmar mis botos",
+              link_to "Confirmar mis votos",
               confirm_budget_ballot_path(@budget),
               method: :put,
               class: "presupuestos-solid-button-sm",
