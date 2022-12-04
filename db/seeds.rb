@@ -34,3 +34,5 @@ MainTheme.create(name: 'Desarrollo Sostenible', icon: '/images/ejes-tematicos/su
 MainTheme.create(name: 'Mejor Vivienda', icon: '/images/ejes-tematicos/vivienda.png', image: '/images/t-mejorvivienda.svg', primary_color: '#4569c4', secondary_color: '#37539A')
 MainTheme.create(name: 'Nuevo Plan Regulador', icon: '/images/ejes-tematicos/planificacionurbana.png', image: '/images/t-npr.svg', primary_color: '#489969', secondary_color: '#397652')
 MainTheme.create(name: 'Salud', icon: '/images/ejes-tematicos/salud.png', image: '/images/t-salud.svg', primary_color: '#4569c4', secondary_color: '#37539A')
+MainTheme.create(name: 'Plan Verano', icon: '/images/ejes-tematicos/plan-verano.png', image: nil, primary_color: '#fc9d54', secondary_color: '#fc6c04')  # TEMP
+

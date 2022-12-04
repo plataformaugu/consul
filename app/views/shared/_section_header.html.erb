@@ -1,4 +1,4 @@
-<div class="custom-help-header <%= defined?(small_height) ? 'c-h-h-small' : '' %>" style="background-color: <%= defined?(color) ? color : 'red' %>">
+<div class="custom-help-header <%= defined?(small_height) and small_height == true ? 'c-h-h-small' : '' %>" style="background-color: <%= defined?(color) ? color : 'red' %>">
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-1' %>
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
   <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
