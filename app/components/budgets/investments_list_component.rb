@@ -10,8 +10,10 @@ class Budgets::InvestmentsListComponent < ApplicationComponent
     case budget.phase
     when "accepting", "reviewing"
       results = budget.investments.confirmed
-    when "selecting", "valuating", "publishing_prices"
+    when "selecting", "valuating"
       results = budget.investments.confirmed.feasible
+    when "publishing_prices"
+      results = budget.investments.confirmed.selected.feasible
     when "balloting", "reviewing_ballots"
       results = budget.investments.confirmed.selected
     when "finished"

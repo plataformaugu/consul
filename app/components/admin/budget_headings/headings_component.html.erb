@@ -20,7 +20,7 @@
             <td><%= heading.max_ballot_lines %></td>
           <% end %>
           <td>
-            <%= render Admin::TableActionsComponent.new(heading) %>
+            <%= render Admin::TableActionsComponent.new(heading, actions: [:edit]) %>
           </td>
         </tr>
       <% end %>
