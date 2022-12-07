@@ -2,12 +2,12 @@
 
 <% if current_editable?(proposal) %>
   <%= link_to t("dashboard.index.edit_proposal_link"),
-              edit_proposal_path(proposal),
+              edit_proposal_path(proposal, proposal_topic_id: proposal.proposal_topic.id),
               target: "_blank",
               class: "button hollow" %>
 <% end %>
 
-<% unless proposal.retired? %>
+<% unless proposal.retired? or proposal.proposal_topic.is_expired? %>
   <%= link_to t("dashboard.index.retire"),
               retire_form_proposal_path(proposal),
               class: "button hollow alert",

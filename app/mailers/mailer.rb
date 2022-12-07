@@ -143,6 +143,16 @@ class Mailer < ApplicationMailer
     mail(to: @email_to, subject: t("mailers.machine_learning_success.subject"))
   end
 
+  def reject_record(user, title, readable_model, pronoun_vowel = 'o')
+    @title = title
+    @readable_model = readable_model
+    @pronoun_vowel = pronoun_vowel
+    @email_to = user.email
+    @user = user
+
+    mail(to: @email_to, subject: "Tu #{@readable_model} no ha sido aceptad#{@pronoun_vowel}")
+  end
+
   def already_confirmed(user)
     @email_to = user.email
     @user = user

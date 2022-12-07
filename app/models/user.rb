@@ -418,6 +418,14 @@ class User < ApplicationRecord
     update!(subscriptions_token: SecureRandom.base58(32)) if subscriptions_token.blank?
   end
 
+  def full_name
+    "#{first_name} #{last_name} #{maiden_name}"
+  end
+
+  def is_staff
+    administrator? || moderator?
+  end
+
   private
 
     def clean_document_number
