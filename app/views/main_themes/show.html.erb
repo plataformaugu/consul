@@ -21,7 +21,7 @@
           <% unless @main_theme.polls.any? %>
             No hay ninguna consulta.
           <% end %>
-          <% @main_theme.polls.order(created_at: :desc)[..2].each do |poll| %> 
+          <% @main_theme.polls.order(created_at: :desc)[..5].each do |poll| %> 
             <% if poll.expired? or poll.current? %>
               <div id="<%= dom_id(poll) %>" class="custom-card" data-type="poll">
                 <div class="custom-card-header">
@@ -119,7 +119,7 @@
           <% unless @main_theme.proposals.where(is_initiative: false).or(Proposal.where(is_initiative: nil)).published.any? %>
             No hay ninguna propuesta.
           <% end %>
-          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).published.order(created_at: :desc)[..2].each do |proposal| %>
+          <% @main_theme.proposals.where(is_initiative: false).or(@main_theme.proposals.where(is_initiative: nil)).published.order(created_at: :desc)[..5].each do |proposal| %>
             <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
               <div class="custom-card-header">
                 <% if proposal.main_theme.present? %>
@@ -172,7 +172,7 @@
           <% unless @main_theme.encuestum.any? %>
             No hay ninguna consulta.
           <% end %>
-          <% @main_theme.encuestum.order(created_at: :desc)[..2].each do |e| %>
+          <% @main_theme.encuestum.order(created_at: :desc)[..5].each do |e| %>
             <div id="<%= dom_id(e) %>" class="custom-card">
               <div class="custom-card-header">
                 <% if e.main_theme.present? %>
@@ -255,7 +255,7 @@
           <% unless @main_theme.proposals.where(is_initiative: true).any? %>
             No hay ninguna propuesta.
           <% end %>
-          <% @main_theme.proposals.where(is_initiative: true).order(created_at: :desc)[..2].each do |proposal| %>
+          <% @main_theme.proposals.where(is_initiative: true).order(created_at: :desc)[..5].each do |proposal| %>
             <div id="<%= dom_id(proposal) %>" class="custom-card" data-type="proposal">
               <div class="custom-card-header">
                 <% if proposal.main_theme.present? %>
