@@ -28,8 +28,15 @@
             method: "post",
             remote: !display_support_alert?,
             data:   ({ confirm: confirm_vote_message } if display_support_alert?),
+            disabled: !current_user || investment.budget.user_votes(current_user) >= Budget.max_votes_per_user,
             "aria-label": support_aria_label %>
       <% end %>
+    <% end %>
+
+    <% if current_user and investment.budget.selecting? %>
+      <small>
+        Votos restantes: <%= investment.budget.remaining_votes(current_user) %>
+      </small>
     <% end %>
   </div>
 

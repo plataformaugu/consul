@@ -1,38 +1,46 @@
-<% if @heading.present? %>
+<% @ballot = @budget.balloting? ? Budget::Ballot.where(user: current_user, budget: @budget).first_or_create! : Budget::Ballot.where(user: current_user, budget: @budget).first_or_initialize %>
+
+<% if @budget.headings.first.present? %>
   <section class="no-margin-top margin-bottom">
     <div class="expanded jumbo-budget budget-heading padding">
 
       <div class="row">
         <div class="small-12 column">
-          <%= back_link_to budget_path(@budget) %>
 
           <% if can? :show, @ballot %>
-            <%= link_to t("budgets.investments.header.check_ballot"),
+            <%= link_to 'Revisar mis votos',
                         budget_ballot_path(@budget),
-                        class: "check-ballot button" %>
+                        class: "button" %>
+            <% if @ballot.confirmed_at.nil? %>
+              <%= link_to 'Confirmar mis votos',
+                          confirm_budget_ballot_path(@budget),
+                          method: :put,
+                          class: "button",
+                          data: { confirm: '¿Estás seguro que deseas confirmar tus votos? Después de confirmar no podrás seguir votando.' } %>
+            <% end %>
           <% end %>
         </div>
       </div>
 
-      <div class="row progress-votes">
+      <div class="row progress-votes margin-top">
         <div class="small-12 column">
           <% if can? :show, @ballot %>
             <div id="check-ballot" style="display: none;">
               <%= link_to t("budgets.investments.header.check_ballot"),
                           budget_ballot_path(@budget) %>
             </div>
-            <% if @ballot.valid_heading?(@heading) %>
+            <% if @ballot.valid_heading?(@budget.headings.first) %>
               <div class="progress-bar-nav" data-fixed-bar>
                 <h2>
-                  <%= t("budgets.investments.index.by_heading", heading: @heading.name) %>
+                  <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
                 </h2>
                 <div id="progress_bar">
-                  <%= render "budgets/ballot/progress_bar", ballot: @ballot, heading: @heading %>
+                  <%= render "budgets/ballot/progress_bar", ballot: @ballot, heading: @budget.headings.first %>
                 </div>
               </div>
             <% else %>
               <h2>
-                <%= t("budgets.investments.index.by_heading", heading: @heading.name) %>
+                <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
               </h2>
               <div class="small-12 medium-9">
                 <div class="callout warning margin-top">
@@ -49,11 +57,11 @@
             <% end %>
           <% else %>
             <h2 class="margin-top">
-              <%= t("budgets.investments.index.by_heading", heading: @heading.name) %>
+              <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
             </h2>
             <h3>
               <span class="tagline"><%= t("budgets.investments.header.price") %></span>
-              <%= @budget.formatted_heading_price(@heading) %>
+              <%= @budget.formatted_heading_price(@budget.headings.first) %>
             </h3>
           <% end %>
         </div>

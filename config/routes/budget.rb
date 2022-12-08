@@ -1,9 +1,15 @@
 resources :budgets, only: [:show, :index] do
+  member do
+    get :unselected
+  end
+
   resources :groups, controller: "budgets/groups", only: [:show, :index]
   resources :investments, controller: "budgets/investments" do
     member do
       put :flag
       put :unflag
+      patch :publish
+      get :pending
     end
 
     collection { get :suggest }
@@ -12,6 +18,10 @@ resources :budgets, only: [:show, :index] do
   end
 
   resource :ballot, only: :show, controller: "budgets/ballots" do
+    member do
+      put :confirm
+    end
+
     resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
   end
 

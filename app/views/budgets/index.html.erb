@@ -1,31 +1,30 @@
-<%= render Shared::BannerComponent.new("budgets") %>
-
 <% provide :title do %><%= t("budgets.index.title") %><% end %>
-
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: budgets_url %>
 <% end %>
 
 <main class="budgets-index">
-  <% if @budget.present? %>
-    <%= render Budgets::BudgetComponent.new(@budget) %>
-
-    <% if @finished_budgets.present? %>
-      <%= render "finished", budgets: @finished_budgets %>
-    <% end %>
-  <% else %>
-    <header>
-      <h1><%= t("budgets.index.title") %></h1>
-    </header>
-
-    <div class="row">
-      <div class="small-12 column">
-        <div class="callout primary">
-          <%= t("budgets.index.empty_budgets") %>
+  <%= render "shared/section_header", i18n_namespace: "budgets.index.section_header", image: "budgets" %>
+  <div class="row">
+    <div id="budgets" class="small-12 column">
+      <% if @budgets.any? %>
+        <div class="cards-container-component">
+          <% @budgets.each do |topic| %>
+            <%= render Shared::CardComponent.new(
+              topic,
+              topic.name,
+              topic.image.variant(:medium),
+              topic.custom_description,
+              topic.finished? ? 'Presupuesto finalizado' : nil
+            ) %>
+          <% end %>
         </div>
-      </div>
+        <%= paginate @budgets %>
+      <% else %>
+        <div class="callout primary">
+          No hay convocatorias.
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <%= render Budgets::FooterComponent.new %>
+  </div>
 </main>

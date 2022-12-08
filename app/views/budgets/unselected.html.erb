@@ -1,0 +1,15 @@
+<main>
+  <div class="help-header">
+    <div class="row">
+      <div class="small-12 column" data-magellan>
+        <%= image_tag "help/help_icon_budgets.png", class: "align-top" %>
+        <h1 class="inline-block">Proyectos no seleccionados</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= back_link_to @budget %>
+
+    <%= render Budgets::UnselectedListComponent.new(@budget) %>
+</main>

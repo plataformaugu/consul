@@ -13,6 +13,9 @@
         <%= message %>
       <% else %>
         <%= sanitize(t("form.not_saved", resource: t("form.#{resource.class.to_s.underscore}"))) %>
+        <% if resource.errors.messages.include?(:image) %>
+          <br>Debe subir una imagen.
+        <% end %>
       <% end %>
     </strong>
   </div>

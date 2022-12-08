@@ -1,0 +1,11 @@
+@mixin icon($name, $style) {
+  @include has-fa-icon($name, $style);
+
+  &::before {
+    @extend %admin-menu-icon;
+  }
+}
+
+.pdf-icon {
+  @include icon(file-pdf, solid);
+}

@@ -11,6 +11,13 @@ module Budgets
       render template: "budgets/ballot/show"
     end
 
+    def confirm
+      @ballot.confirmed_at = Time.now
+      @ballot.save
+
+      redirect_to @ballot.budget, notice: 'Tus votos han sido confirmados.'
+    end
+
     private
 
       def load_budget

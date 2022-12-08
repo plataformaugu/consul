@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_140647) do
+ActiveRecord::Schema.define(version: 2022_12_08_213922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_140647) do
     t.integer "ballot_lines_count", default: 0
     t.boolean "physical", default: false
     t.integer "poll_ballot_id"
+    t.datetime "confirmed_at"
   end
 
   create_table "budget_content_blocks", id: :serial, force: :cascade do |t|
@@ -296,6 +297,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_140647) do
     t.datetime "ignored_flag_at"
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
+    t.datetime "published_at"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -350,6 +352,8 @@ ActiveRecord::Schema.define(version: 2022_12_08_140647) do
     t.string "name"
     t.string "main_link_text"
     t.string "main_link_url"
+    t.text "custom_description"
+    t.string "pdf_link"
     t.index ["budget_id"], name: "index_budget_translations_on_budget_id"
     t.index ["locale"], name: "index_budget_translations_on_locale"
   end
@@ -395,6 +399,8 @@ ActiveRecord::Schema.define(version: 2022_12_08_140647) do
     t.string "voting_style", default: "knapsack"
     t.boolean "published"
     t.boolean "hide_money", default: false
+    t.text "custom_description"
+    t.string "pdf_link"
   end
 
   create_table "campaigns", id: :serial, force: :cascade do |t|

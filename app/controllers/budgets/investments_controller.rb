@@ -41,13 +41,7 @@ module Budgets
     respond_to :html, :js
 
     def index
-      @investments = investments.page(params[:page]).per(PER_PAGE).for_render
-
-      @investment_ids = @investments.ids
-      @investments_map_coordinates = MapLocation.where(investment: investments).map(&:json_data)
-
-      @tag_cloud = tag_cloud
-      @remote_translations = detect_remote_translations(@investments)
+      redirect_to @budget
     end
 
     def new
@@ -61,14 +55,18 @@ module Budgets
       @remote_translations = detect_remote_translations([@investment], @comment_tree.comments)
     end
 
+    def publish
+      @investment.publish
+      Mailer.budget_investment_created(@investment).deliver_later
+      redirect_to moderation_budget_investments_path, notice: '¡El proyecto ha sido publicado!'
+    end
+
     def create
       @investment.author = current_user
       @investment.heading = @budget.headings.first if @budget.single_heading?
 
       if @investment.save
-        Mailer.budget_investment_created(@investment).deliver_later
-        redirect_to budget_investment_path(@budget, @investment),
-                    notice: t("flash.actions.create.budget_investment")
+        redirect_to pending_budget_investment_path(@investment.budget, @investment)
       else
         render :new
       end

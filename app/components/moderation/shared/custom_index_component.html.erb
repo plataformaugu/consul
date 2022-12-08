@@ -37,7 +37,7 @@
           <td>
             <%=
               link_to 'Publicar',
-              @publish_path.call(record.id),
+              @publish_path.call(*@methods_key_arguments.map{ |a| record.send(a) }),
               method: :patch,
               class: 'button',
               data: {confirm: '¿Estás seguro/a que deseas publicar esto?'}
@@ -45,7 +45,7 @@
             <% if !@edit_path.nil? %>
               <%=
                 link_to 'Editar',
-                @edit_path.call(record.id),
+                @edit_path.call(*@methods_key_arguments.map{ |a| record.send(a) }),
                 class: 'button'
               %>
             <% end %>

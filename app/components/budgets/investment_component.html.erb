@@ -25,8 +25,15 @@
 
       <%= render Budgets::Investments::InfoComponent.new(investment) %>
 
-      <%= link_to namespaced_budget_investment_path(investment), class: "read-more" do %>
-        <small><%= t("budgets.investments_list.investment.read_more") %></small>
+      <% if investment.budget.balloting? %>
+        <div id="<%= dom_id(investment) %>_ballot">
+          <%= render Budgets::Investments::BallotComponent.new(
+            investment: investment,
+            investment_ids: [investment.id],
+            ballot: investment.budget.ballots.first_or_create!,
+            show_price: false
+          ) %>
+        </div>
       <% end %>
     <% end %>
   </div>

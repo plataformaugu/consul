@@ -422,7 +422,7 @@ class User < ApplicationRecord
     "#{first_name} #{last_name} #{maiden_name}"
   end
 
-  def is_staff
+  def is_staff?
     administrator? || moderator?
   end
 

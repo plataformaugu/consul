@@ -5,7 +5,7 @@ class Budget < ApplicationRecord
   include Reportable
   include Imageable
 
-  translates :name, :main_link_text, :main_link_url, touch: true
+  translates :name, :main_link_text, :main_link_url, :pdf_link, :custom_description, touch: true
   include Globalizable
 
   class Translation
@@ -22,6 +22,7 @@ class Budget < ApplicationRecord
 
   CURRENCY_SYMBOLS = %w[€ $ £ ¥].freeze
   VOTING_STYLES = %w[knapsack approval].freeze
+  MAX_VOTES_PER_USER = 4
 
   validates_translation :name, presence: true
   validates_translation :main_link_url, presence: true, unless: -> { main_link_text.blank? }
@@ -29,6 +30,7 @@ class Budget < ApplicationRecord
   validates :currency_symbol, presence: true
   validates :slug, presence: true, format: /\A[a-z0-9\-_]+\z/
   validates :voting_style, inclusion: { in: ->(*) { VOTING_STYLES }}
+  validates :image, presence: true
 
   has_many :investments, dependent: :destroy
   has_many :ballots, dependent: :destroy
@@ -174,11 +176,30 @@ class Budget < ApplicationRecord
     heading_ids.include?(heading.id) ? heading.price : -1
   end
 
+  def user_votes(current_user)
+    Vote.where(
+      votable_type: 'Budget::Investment',
+      voter_type: 'User',
+      voter_id: current_user.id,
+      votable_id: investments.map{ |i| i.id }
+    ).count
+  end
+
+  def self.max_votes_per_user
+    MAX_VOTES_PER_USER
+  end
+
+  def remaining_votes(current_user)
+    MAX_VOTES_PER_USER - user_votes(current_user)
+  end
+
   def formatted_amount(amount)
-    ActionController::Base.helpers.number_to_currency(amount,
-                                                      precision: 0,
-                                                      locale: I18n.locale,
-                                                      unit: currency_symbol)
+    fixed_amount = ActionController::Base.helpers.number_to_currency(
+      amount,
+      precision: 0,
+      unit: ''
+    )
+    "$#{fixed_amount}"
   end
 
   def formatted_heading_price(heading)

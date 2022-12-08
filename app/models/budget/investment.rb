@@ -82,6 +82,7 @@ class Budget
     scope :valuation_finished,          -> { where(valuation_finished: true) }
     scope :valuation_finished_feasible, -> { where(valuation_finished: true, feasibility: "feasible") }
     scope :feasible,                    -> { where(feasibility: "feasible") }
+    scope :not_feasible,                -> { where.not(feasibility: "feasible") }
     scope :unfeasible,                  -> { where(feasibility: "unfeasible") }
     scope :not_unfeasible,              -> { where.not(feasibility: "unfeasible") }
     scope :undecided,                   -> { where(feasibility: "undecided") }
@@ -94,6 +95,8 @@ class Budget
     scope :last_week,                   -> { where("created_at >= ?", 7.days.ago) }
     scope :sort_by_flags,               -> { order(flags_count: :desc, updated_at: :desc) }
     scope :sort_by_created_at,          -> { reorder(created_at: :desc) }
+    scope :published,                   -> { where.not(published_at: nil) }
+    scope :draft,                       -> { where(published_at: nil) }
 
     scope :by_budget,         ->(budget)      { where(budget: budget) }
     scope :by_group,          ->(group_id)    { where(group_id: group_id) }
@@ -117,6 +120,18 @@ class Budget
     before_save :calculate_confidence_score
     before_create :set_original_heading_id
     after_save :recalculate_heading_winners
+
+    def publish
+      update!(published_at: Time.current)
+    end
+
+    def published?
+      !published_at.nil?
+    end
+
+    def draft?
+      published_at.nil?
+    end
 
     def comments_count
       comments.count

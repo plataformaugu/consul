@@ -1,13 +1,15 @@
 <div class="supports ballot">
-  <% if voted? %>
+  <% if current_user and Budget.last.ballots.find_by(user_id: current_user.id).lines.map{ |l| l.investment_id }.include?(investment.id) %>
     <div class="remove supported">
-      <span class="icon-check-circle"
-            title="<%= t("budgets.investments.investment.already_added") %>">
-      </span>
-      <p class="investment-project-amount">
-        <%= investment.formatted_price %>
-      </p>
-      <% if investment.should_show_ballots? %>
+      <% if @show_price %>
+        <span class="icon-check-circle"
+              title="<%= t("budgets.investments.investment.already_added") %>">
+        </span>
+        <p class="investment-project-amount">
+          <%= investment.formatted_price %>
+        </p>
+      <% end %>
+      <% if investment.should_show_ballots? and ballot.confirmed_at.nil? %>
         <%= button_to budget_ballot_line_path(id: investment.id,
                                               budget_id: investment.budget_id,
                                               investments_ids: investment_ids),
@@ -21,10 +23,13 @@
     </div>
   <% else %>
     <div class="add in-favor">
-      <p class="investment-project-amount">
-        <%= investment.formatted_price %>
-      </p>
-      <% if investment.should_show_ballots? %>
+      <% if @show_price %>
+        <p class="investment-project-amount">
+          <%= investment.formatted_price %>
+        </p>
+      <% end %>
+      
+      <% if investment.should_show_ballots? and ballot.confirmed_at.nil? %>
         <%= button_to budget_ballot_lines_path(investment_id: investment.id,
                                                budget_id: investment.budget_id,
                                                investments_ids: investment_ids),

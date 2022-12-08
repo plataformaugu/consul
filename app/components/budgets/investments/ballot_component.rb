@@ -2,10 +2,11 @@ class Budgets::Investments::BallotComponent < ApplicationComponent
   attr_reader :investment, :investment_ids, :ballot
   delegate :current_user, :heading_link, :link_to_verify_account, to: :helpers
 
-  def initialize(investment:, investment_ids:, ballot:)
+  def initialize(investment:, investment_ids:, ballot:, show_price:)
     @investment = investment
     @investment_ids = investment_ids
     @ballot = ballot
+    @show_price = show_price
   end
 
   private

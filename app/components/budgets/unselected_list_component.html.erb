@@ -1,12 +1,12 @@
 <% if investments.any? %>
   <section id="investments_list" class="investments-list">
-    <header>
-      <h2><%= t("budgets.investments_list.title") %></h2>
-    </header>
-
     <% investments.each do |investment| %>
       <%= render Budgets::InvestmentComponent.new(investment) %>
     <% end %>
   </section>
   <%= paginate investments %>
+<% else %>
+  <div class="callout primary clear">
+    No hay proyectos no seleccionados.
+  </div>
 <% end %>

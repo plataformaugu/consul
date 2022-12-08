@@ -20,22 +20,42 @@
   </div>
 </div>
 
+<% if budget.custom_description.present? or budget.pdf_link.present? %>
+<div class="row margin-top">
+  <div class="small-12 medium-10 column">
+    <% if budget.custom_description.present? %>
+      <%= budget.custom_description %>
+    <% end %>
+  </div>
+  <div class="small-12 medium-2 column">
+    <% if budget.pdf_link.present? %>
+      <%= render Shared::IconTextButtonComponent.new(budget.pdf_link, 'pdf-icon', 'Ver bases', true) %>
+    <% end %>
+  </div>
+</div>
+<% end %>
+
 <%= render Budgets::SubheaderComponent.new(budget) %>
 <%= render Budgets::PhasesComponent.new(budget) %>
 
 <div id="budget_info" class="budget-info">
   <div class="row margin-top">
     <div class="small-12 column">
-      <% if budget.single_heading? %>
-        <%= render Budgets::SingleHeadingComponent.new(budget) %>
-      <% else %>
+      <% if !budget.single_heading? %>
         <%= render Budgets::GroupsAndHeadingsComponent.new(budget) %>
       <% end %>
-
-      <%= render Budgets::SupportsInfoComponent.new(budget) %>
-      <%= render Budgets::MapComponent.new(budget) %>
     </div>
   </div>
 </div>
 
+<%= render "/budgets/investments/header" %>
+
 <%= render Budgets::InvestmentsListComponent.new(budget) %>
+
+<% if budget.publishing_prices? or budget.selecting? %>
+  <div class="row margin-top">
+    <div class="small-12 column">
+      <%= link_to 'Ver no seleccionados', unselected_budget_path(budget), class: 'button'  %>
+    </div>
+  </div>
+<% end %>

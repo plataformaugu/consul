@@ -13,11 +13,13 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
   end
 
   def create
+    raise
     @budget.published = false
 
     if @budget.save
       redirect_to groups_index, notice: t("admin.budgets.create.notice")
     else
+      raise
       render :new
     end
   end
@@ -37,7 +39,7 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
     end
 
     def allowed_params
-      valid_attributes = [:currency_symbol, :voting_style, :hide_money, administrator_ids: [],
+      valid_attributes = [:currency_symbol, :voting_style, :hide_money, :custom_description, :pdf_link, administrator_ids: [],
                           valuator_ids: [], image_attributes: image_attributes]
 
       [*valid_attributes, translation_params(Budget)]

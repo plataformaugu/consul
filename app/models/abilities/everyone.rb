@@ -13,6 +13,9 @@ module Abilities
       can :read, Proposal do |proposal|
         !proposal.published_at.nil?
       end
+      can :read, Budget::Investment do |investment|
+        !investment.published_at.nil?
+      end
       can :read, Comment
       can :read, Poll
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids
@@ -22,7 +25,7 @@ module Abilities
       can [:read, :welcome], Budget
       can [:read], Budget
       can [:read], Budget::Group
-      can [:read, :print, :json_data], Budget::Investment
+      can [:print, :json_data], Budget::Investment
       can :read_results, Budget, id: Budget.finished.results_enabled.ids
       can :read_stats, Budget, id: Budget.valuating_or_later.stats_enabled.ids
       can :read_executions, Budget, phase: "finished"
@@ -38,6 +41,7 @@ module Abilities
 
       can [:read, :help], ::SDG::Goal
       can :read, ::SDG::Phase
+      can [:unselected], Budget
     end
   end
 end

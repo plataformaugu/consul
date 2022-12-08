@@ -33,7 +33,7 @@ es:
       reasons_for_not_balloting:
         not_verified: Los proyectos de gasto sólo pueden ser apoyados por usuarios verificados, %{verify_account}.
         not_selected: No se pueden votar proyectos inviables.
-        not_enough_money: "Ya has asignado el presupuesto disponible.<br><small>Recuerda que puedes %{change_ballot} en cualquier momento</small>"
+        not_enough_money: "Ya has asignado el presupuesto disponible."
         no_ballots_allowed: El periodo de consulta está cerrado.
         different_heading_assigned: "Ya has votado proyectos de otra partida: %{heading_link}"
         not_enough_available_votes: "No tienes más votos disponibles"
@@ -110,7 +110,7 @@ es:
           check_ballot_link: "revisar y confirmar mis votos"
           zero: Todavía no has votado ningún proyecto de gasto en este ámbito del presupuesto.
           verified_only: "Para crear un nuevo proyecto de gasto %{verify}."
-          create: "Crear proyecto de gasto"
+          create: "Sube tu proyecto"
           not_logged_in: "Para crear un nuevo proyecto de gasto debes %{sign_in} o %{sign_up}."
         filter: "Filtrando proyectos"
         filters:

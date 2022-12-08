@@ -12,7 +12,7 @@ es-PE:
       reasons_for_not_balloting:
         not_verified: Las propuestas de inversión sólo pueden ser apoyadas por usuarios verificados, %{verify_account}.
         not_selected: No se pueden votar propuestas inviables.
-        not_enough_money: "Ya has asignado el presupuesto disponible.<br><small>Recuerda que puedes %{change_ballot} en cualquier momento</small>"
+        not_enough_money: "Ya has asignado el presupuesto disponible."
         no_ballots_allowed: El periodo de consulta está cerrado.
         change_ballot: cambiar tus votos
     groups:

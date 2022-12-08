@@ -3,5 +3,6 @@ class Budgets::BudgetComponent < ApplicationComponent
 
   def initialize(budget)
     @budget = budget
+    @heading = budget.headings.first
   end
 end

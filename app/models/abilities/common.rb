@@ -15,10 +15,13 @@ module Abilities
       end
 
       can :read, Proposal do |proposal|
-        !proposal.published_at.nil? || proposal.author.id == user.id || user.is_staff
+        !proposal.published_at.nil? || proposal.author.id == user.id || user.is_staff?
       end
       can :read, Debate do |debate|
-        !debate.published_at.nil? || debate.author.id == user.id || user.is_staff
+        !debate.published_at.nil? || debate.author.id == user.id || user.is_staff?
+      end
+      can :read, Budget::Investment do |investment|
+        !investment.published_at.nil? || investment.author.id == investment.id || user.is_staff?
       end
 
       can :pending, Proposal do |proposal|
@@ -27,7 +30,9 @@ module Abilities
       can :pending, Debate do |debate|
         debate.author.id == user.id && debate.published_at.nil?
       end
-
+      can :pending, Budget::Investment do |investment|
+        investment.author.id == user.id && investment.published_at.nil?
+      end
 
       can :update, Proposal do |proposal|
         proposal.editable_by?(user)
