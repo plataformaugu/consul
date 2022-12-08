@@ -1,0 +1,88 @@
+<%= form_for @model_name, url: { action: :reject }, method: :delete do |form| %>
+  <div>
+    <%=
+      form.submit 'Rechazar seleccionados',
+      class: 'button',
+      data: {confirm: '¿Estás seguro/a que deseas rechazar estos registros?'},
+      id: 'confirm-reject',
+      disabled: true
+    %>
+  </div>
+
+  <table class="clear">
+    <thead>
+      <tr>
+        <th>
+          <% if @records.any? %>
+            <input type="checkbox" id="select-all" title="Seleccionar todas">
+          <% end %>
+        </th>
+        <th>Nombre</th>
+        <th>Moderar</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @records.each do |record| %>
+        <tr id="record_<%= record.id %>" onclick=>
+          <td><%= check_box_tag 'selected_ids[]', record.id, false %></td>
+          <td>
+            <%= link_to record.title, record, target: "_blank" %>
+            <br>
+            <span class="date"><%= l record.updated_at.to_date %></span>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <%= author(record).first_name %> <%= author(record).last_name %> (<%= author(record).document_number %>)
+            <br>
+          </td>
+          <td>
+            <%=
+              link_to 'Publicar',
+              @publish_path.call(record.id),
+              method: :patch,
+              class: 'button',
+              data: {confirm: '¿Estás seguro/a que deseas publicar esto?'}
+            %>
+            <% if !@edit_path.nil? %>
+              <%=
+                link_to 'Editar',
+                @edit_path.call(record.id),
+                class: 'button'
+              %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+
+  $('#select-all').on('change', function() {
+    if ($('#select-all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+</script>

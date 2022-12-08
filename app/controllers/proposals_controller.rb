@@ -51,7 +51,7 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
     if @proposal.save
-      redirect_to created_proposal_path(@proposal), notice: I18n.t("flash.actions.create.proposal")
+      redirect_to pending_proposal_path(@proposal)
     else
       render :new
     end
@@ -64,7 +64,7 @@ class ProposalsController < ApplicationController
 
     if @proposal_topic.present? && @proposal_topic.is_published?
       super
-      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id)).page(params[:page])
+      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id).published).page(params[:page])
       @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
     else
       redirect_to root_path
@@ -111,7 +111,7 @@ class ProposalsController < ApplicationController
 
   def publish
     @proposal.publish
-    redirect_to share_proposal_path(@proposal), notice: t("proposals.notice.published")
+    redirect_to moderation_proposals_path, notice: '¡La propuesta ha sido publicada!'
   end
 
   private

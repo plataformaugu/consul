@@ -16,7 +16,12 @@ module Abilities
         debate.editable_by?(user)
       end
 
-      can :read, Proposal
+      can :read, Proposal do |proposal|
+        !proposal.published_at.nil? || proposal.author.id == user.id || user.is_staff
+      end
+      can :pending, Proposal do |proposal|
+        proposal.author.id == user.id && proposal.published_at.nil?
+      end
       can :update, Proposal do |proposal|
         proposal.editable_by?(user)
       end

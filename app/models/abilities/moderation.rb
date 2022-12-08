@@ -11,6 +11,9 @@ module Abilities
 
       can :read, Comment
 
+      can :reject, Proposal
+      can [:edit, :update], Proposal
+
       can :hide, Comment, hidden_at: nil
 
       can :ignore_flag, Comment, ignored_flag_at: nil, hidden_at: nil

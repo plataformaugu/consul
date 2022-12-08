@@ -6,7 +6,10 @@ module Abilities
       can [:index, :read], Event
       can [:index, :read], ProposalTopic
       can [:read, :map], Debate
-      can [:read, :map, :summary, :share], Proposal
+      can [:map, :summary, :share], Proposal
+      can :read, Proposal do |proposal|
+        !proposal.published_at.nil?
+      end
       can :read, Comment
       can :read, Poll
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids

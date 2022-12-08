@@ -41,6 +41,7 @@ resources :proposals do
     get :created
     patch :retire
     patch :publish
+    get :pending
   end
 
   collection do
