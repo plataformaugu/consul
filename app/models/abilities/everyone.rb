@@ -5,7 +5,10 @@ module Abilities
     def initialize(user)
       can [:index, :read], Event
       can [:index, :read], ProposalTopic
-      can [:read, :map], Debate
+      can [:map], Debate
+      can :read, Debate do |debate|
+        !debate.published_at.nil?
+      end
       can [:map, :summary, :share], Proposal
       can :read, Proposal do |proposal|
         !proposal.published_at.nil?

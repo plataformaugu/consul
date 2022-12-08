@@ -2,14 +2,14 @@ class Moderation::BaseCustomController < Moderation::BaseController
   include ModerateActions
 
   def index
-    @proposals = get_records
+    @records = get_records
   end
 
   def reject
     if params['selected_ids'].any?
       params['selected_ids'].each do |id|
         record = resource_model.find(id)
-        Mailer.reject_record(record.author, record.title, readable_model, 'a').deliver_later
+        Mailer.reject_record(record.author, record.title, readable_model, pronoun_vowel).deliver_later
         record.send(reject_method)
       end
 
@@ -19,6 +19,10 @@ class Moderation::BaseCustomController < Moderation::BaseController
   end
 
   private
+
+    def pronoun_vowel
+      'a'
+    end
 
     def reject_method
       'destroy'

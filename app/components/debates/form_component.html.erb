@@ -20,6 +20,8 @@
               class: "html-area" %>
       </div>
     <% end %>
+
+    <%= render Shared::ImageFieldComponent.new(debate, f, true) %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>

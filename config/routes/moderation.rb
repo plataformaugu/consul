@@ -11,6 +11,7 @@ namespace :moderation do
   resources :debates, only: :index do
     put :hide, on: :member
     put :moderate, on: :collection
+    delete :reject, on: :collection
   end
 
   resources :proposals, only: :index do

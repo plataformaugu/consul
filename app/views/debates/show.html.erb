@@ -54,6 +54,15 @@
           <% end %>
         <% end %>
 
+        <% if current_user and current_user.administrator? %>
+          <div class="sidebar-divider"></div>
+          <h2>Administrar</h2>
+          <%= link_to toggle_finished_debate_path(@debate), method: :patch, class: "button hollow expanded" do %>
+            <span class="icon-edit"></span>
+            <%= @debate.finished? ? 'Quitar' : 'Marcar' %> "Finalizado"
+          <% end %>
+        <% end %>
+
         <div class="sidebar-divider"></div>
         <h2><%= t("votes.supports") %></h2>
         <div id="<%= dom_id(@debate) %>_votes">

@@ -35,11 +35,11 @@ class Users::PublicActivityComponent < ApplicationComponent
     end
 
     def proposals
-      Proposal.where(author_id: user.id)
+      Proposal.published.where(author_id: user.id)
     end
 
     def debates
-      Debate.where(author_id: user.id)
+      Debate.published.where(author_id: user.id)
     end
 
     def comments

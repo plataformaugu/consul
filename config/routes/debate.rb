@@ -5,6 +5,9 @@ resources :debates do
     put :unflag
     put :mark_featured
     put :unmark_featured
+    patch :publish
+    patch :toggle_finished
+    get :pending
   end
 
   collection do

@@ -10,7 +10,6 @@ module Abilities
       can [:join, :left], Event do |event|
         !event.is_expired?
       end
-      can :read, Debate
       can :update, Debate do |debate|
         debate.editable_by?(user)
       end
@@ -18,9 +17,18 @@ module Abilities
       can :read, Proposal do |proposal|
         !proposal.published_at.nil? || proposal.author.id == user.id || user.is_staff
       end
+      can :read, Debate do |debate|
+        !debate.published_at.nil? || debate.author.id == user.id || user.is_staff
+      end
+
       can :pending, Proposal do |proposal|
         proposal.author.id == user.id && proposal.published_at.nil?
       end
+      can :pending, Debate do |debate|
+        debate.author.id == user.id && debate.published_at.nil?
+      end
+
+
       can :update, Proposal do |proposal|
         proposal.editable_by?(user)
       end
@@ -91,7 +99,9 @@ module Abilities
       can [:create, :destroy], DirectUpload
 
       unless user.organization?
-        can :vote, Debate
+        can :vote, Debate do |debate|
+          !debate.finished?
+        end
         can :vote, Comment
       end
 

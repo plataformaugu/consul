@@ -26,6 +26,7 @@ class Debate < ApplicationRecord
   belongs_to :author, -> { with_hidden }, class_name: "User", inverse_of: :debates
   belongs_to :geozone
   has_many :comments, as: :commentable, inverse_of: :commentable
+  has_one_attached :image, :dependent => :destroy
 
   validates_translation :title, presence: true, length: { in: 4..Debate.title_max_length }
   validates_translation :description, presence: true
@@ -47,6 +48,10 @@ class Debate < ApplicationRecord
   scope :last_week,                -> { where("created_at >= ?", 7.days.ago) }
   scope :featured,                 -> { where.not(featured_at: nil) }
   scope :public_for_api,           -> { all }
+  scope :published,                -> { where.not(published_at: nil) }
+  scope :draft,                    -> { where(published_at: nil) }
+  scope :not_finished,             -> { where(is_finished: nil) }
+  scope :finished,                 -> { where.not(is_finished: nil) }
 
   visitable class_name: "Visit"
 
@@ -54,6 +59,22 @@ class Debate < ApplicationRecord
 
   def self.recommendations(user)
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
+  end
+
+  def publish
+    update!(published_at: Time.current)
+  end
+
+  def published?
+    !published_at.nil?
+  end
+
+  def draft?
+    published_at.nil?
+  end
+
+  def finished?
+    is_finished
   end
 
   def searchable_translations_definitions

@@ -2,8 +2,9 @@ class Shared::InFavorAgainstComponent < ApplicationComponent
   attr_reader :votable
   delegate :current_user, :votes_percentage, to: :helpers
 
-  def initialize(votable)
+  def initialize(votable, is_disabled = false)
     @votable = votable
+    @is_disabled = is_disabled
   end
 
   private

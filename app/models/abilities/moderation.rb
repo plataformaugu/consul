@@ -12,7 +12,9 @@ module Abilities
       can :read, Comment
 
       can :reject, Proposal
-      can [:edit, :update], Proposal
+      can [:edit, :update, :publish], Proposal
+
+      can [:edit, :update, :publish], Debate
 
       can :hide, Comment, hidden_at: nil
 

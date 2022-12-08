@@ -20,7 +20,13 @@ class DebatesController < ApplicationController
   respond_to :html, :js
 
   def index_customization
+    @debates = Debate.published
     @featured_debates = @debates.featured
+  end
+
+  def index
+    super
+    @debates = @debates.published
   end
 
   def show
@@ -30,6 +36,16 @@ class DebatesController < ApplicationController
 
   def vote
     @debate.register_vote(current_user, params[:value])
+  end
+
+  def create
+    @debate = Debate.new(debate_params.merge(author: current_user))
+
+    if @debate.save
+      redirect_to pending_debate_path(@debate)
+    else
+      render :new
+    end
   end
 
   def unmark_featured
@@ -50,6 +66,18 @@ class DebatesController < ApplicationController
     end
   end
 
+  def toggle_finished
+    @debate.is_finished = !@debate.is_finished
+    @debate.save
+
+    redirect_to @debate, notice: 'El debate ha sido actualizado.'
+  end
+
+  def publish
+    @debate.publish
+    redirect_to moderation_debates_path, notice: '¡El debate ha sido publicado!'
+  end
+
   private
 
     def debate_params
@@ -57,7 +85,7 @@ class DebatesController < ApplicationController
     end
 
     def allowed_params
-      [:tag_list, :terms_of_service, :related_sdg_list, translation_params(Debate)]
+      [:tag_list, :terms_of_service, :related_sdg_list, :image, translation_params(Debate)]
     end
 
     def resource_model
