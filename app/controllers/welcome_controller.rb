@@ -9,11 +9,9 @@ class WelcomeController < ApplicationController
 
   def index
     @header = Widget::Card.header.first
-    @feeds = Widget::Feed.active
-    @cards = Widget::Card.body
-    @remote_translations = detect_remote_translations(@feeds,
-                                                      @recommended_debates,
-                                                      @recommended_proposals)
+    @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(3)
+    @polls = Poll.current.order(created_at: :desc).limit(3)
+    @events = Event.order(created_at: :desc).limit(3)
   end
 
   def welcome

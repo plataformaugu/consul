@@ -10,3 +10,19 @@
 //
 // The variables you can override are defined in the
 // `_settings.scss` and `_consul_settings.scss` files.
+
+$brand: #6da115;
+$primary: #095da2;
+$primary-dark: darken($primary, 15%);
+
+$foundation-palette: (
+  primary: #6da115,
+  secondary: #767676,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #cc4b37,
+) !default;
+
+.button {
+  color: #fdfdfd !important;
+}

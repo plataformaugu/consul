@@ -1,0 +1,16 @@
+a { 
+  outline: none !important;
+}
+
+.button {
+  border-radius: 25px;
+}
+
+.hollow {
+  border-color: $brand;
+  color: $brand !important;
+}
+
+.wrapper > header::after {
+  border-bottom: 3px solid $brand !important;
+}

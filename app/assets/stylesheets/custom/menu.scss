@@ -2,7 +2,7 @@ $header-height: 150px;
 $header-height-mobile: 80px;
 
 .custom-menu {
-  background-color: $brand;
+  background: $primary-dark;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,9 +39,9 @@ $header-height-mobile: 80px;
 
         .login-button {
           user-select: none;
-          background-color: $white;
+          background-color: $brand;
           border: none;
-          color: $brand;
+          color: $white;
           border-radius: 25px;
           padding: 0.4rem 1rem;
           text-decoration: none;

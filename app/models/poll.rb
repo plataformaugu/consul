@@ -42,6 +42,7 @@ class Poll < ApplicationRecord
   # validate :end_date_is_not_past_date, on: :update
   # validate :end_date_change, on: :update
   validate :only_one_active, unless: :public?
+  validates :image, presence: true
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
