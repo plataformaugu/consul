@@ -27,6 +27,7 @@ module Budgets
 
         @line.destroy!
         load_investments
+        redirect_to "#{url_for(@budget)}#moneybag"
       end
 
       private
