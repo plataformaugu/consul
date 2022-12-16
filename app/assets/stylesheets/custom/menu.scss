@@ -1,16 +1,34 @@
 $header-height: 150px;
 $header-height-mobile: 80px;
 
+.wrapper {
+  header {
+    &::after {
+      border-bottom: none !important;
+    }
+  }
+}
+
 .custom-menu {
-  background-color: $brand;
+  background-color: transparent;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: $header-height;
 
+  &::before {
+    left: 0 !important;
+    right: 0 !important;
+  }
+
   @media (max-width: 639px) {
     height: $header-height-mobile;
+  }
+
+  @media (min-width: 640px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   a {
@@ -21,7 +39,7 @@ $header-height-mobile: 80px;
 
   .menu-button {
     border: none;
-    color: $white;
+    color: $brand-secondary;
   }
 
   .custom-menu-desktop {
@@ -102,12 +120,11 @@ $header-height-mobile: 80px;
     border-radius: 15px;
     width: 60vw;
     padding: 15px;
-    backdrop-filter: blur(15px);
-    background-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    background-color: $brand-secondary !important;
+    z-index: 1000;
 
     a {
-      color: $black;
+      color: $white;
     }
     
     nav {

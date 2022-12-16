@@ -1,0 +1,27 @@
+<section class="home-section-1">
+  <!-- Título y slider -->
+  <div class="row">
+    <div class="column small-12 medium-6">
+      <h1 class="title">
+        Participa GORE<br>
+        Antofagasta
+      </h1>
+      <h4 class="subtitle">
+        Gobernar es escuchar,<br>
+        Gobernar es participar.
+      </h4>
+    </div>
+
+    <div class="column small-12 medium-6 relative">
+      <%= render Custom::SliderComponent.new(@slider_elements) %>
+      <%= image_tag('/images/home/person-1.svg', class: 'slider-persons person-1')%>
+      <%= image_tag('/images/home/person-2.svg', class: 'slider-persons person-2')%>
+    </div>
+  </div>
+  <!-- Procesos destacados -->
+  <div class="row">
+    <div class="column small-12">
+      <%= render Custom::StackingCardsComponent.new(@cards_elements) %>
+    </div>
+  </div>
+</section>

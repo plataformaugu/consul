@@ -1,0 +1,227 @@
+.home-page {
+  background-color: #FFA42B;
+}
+
+.home {
+  position: relative;
+  width: 100%;
+
+  & > section {
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+  }
+
+  .section-title {
+    width: 100%;
+    background-color: #F67032;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    color: $white;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    color: #4207F6;
+    font-weight: 400;
+  }
+
+  .home-section-1 {
+    background-color: #FFA42B;
+    background-image: url('/images/home/bg-1.png');
+    position: relative;
+    width: 100%;
+
+    & > div:first-child {
+      margin-bottom: 8rem;
+
+      @media (max-width: 639px) {
+        margin-bottom: 4rem;
+      }
+    }
+
+    .title {
+      font-size: 3.5em;
+      color: $brand;
+      border-bottom: none;
+    }
+
+    .subtitle {
+      font-size: 2em;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .slider-persons {
+      position: absolute;
+      bottom: 0;
+      width: 7rem;
+    }
+
+    .person-1 {
+      left: -4rem;
+
+      @media (max-width: 639px) {
+        display: none;
+      }
+    }
+
+    .person-2 {
+      right: -4rem;
+      width: 9rem;
+
+      @media (max-width: 639px) {
+        display: none;
+      }
+    }
+  }
+
+  .home-section-2 {
+    background-color: #FFC862;
+    background-image: url('/images/home/bg-2.png');
+
+    .map-container {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+
+      .provinces-map {
+        width: 40vw;
+  
+        @media (max-width: 639px) {
+          width: 100%;
+        }
+
+        #map-antofagasta, #map-tocopilla, #map-el-loa {
+          transition: all 0.2s linear;
+          cursor: pointer;
+
+          &:hover {
+            stroke: #4200F6;
+            stroke-width: 5px;
+          }
+        }
+      }
+    }
+
+  }
+
+  .home-section-3 {
+    background-color: #FFA42B;
+    background-image: url('/images/home/bg-3.png');
+
+    .circles-container {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      min-height: 25vw;
+
+      @media (max-width: 639px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .circle-column {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        @media (max-width: 639px) {
+          width: 90vw;
+        }
+
+        .circle {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 18vw;
+          height: 18vw;
+          border-radius: 50%;
+          background-color: #e9a23180;
+          box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
+          position: relative;
+
+          @media (max-width: 639px) {
+            width: 90vw;
+            height: 90vw;
+          }
+
+          .inner-circle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 50%;
+            width: 16vw;
+            height: 16vw;
+            box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.3);
+            background-color: #FAC75E;
+            
+            @media (max-width: 639px) {
+              width: 80vw;
+              height: 80vw;
+            }
+
+            h2 {
+              font-size: 1.8em;
+
+              @media (max-width: 639px) {
+                font-size: 2.5em;
+              }
+            }
+
+            img {
+              width: 8vw;
+
+              @media (max-width: 639px) {
+                width: 35vw;
+              }
+            }
+          }
+
+          .hidden-inner-circle {
+            display: none;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            width: 16vw;
+            height: 16vw;
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba($brand-secondary, 0.85);
+            outline: 0.5rem solid #4207F6;
+            outline-offset: -0.5rem;
+            padding: 0.5rem;
+
+            @media (max-width: 639px) {
+              width: 80vw;
+              height: 80vw;
+            }
+
+            p {
+              padding: 1rem;
+              color: $white;
+              font-size: 1.2em;
+              font-weight: 400;
+            }
+
+            &:hover {
+              display: flex;
+            }
+          }
+
+          .inner-circle:hover ~ .hidden-inner-circle {
+            display: flex;
+          }
+        }
+      }
+
+      .circle-column:nth-child(even) {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

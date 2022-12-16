@@ -50,13 +50,6 @@ body {
   font-size: $base-font-size;
   min-height: 100%;
 
-  &.public {
-    @include breakpoint($global-width) {
-      margin-left: $body-margin;
-      margin-right: $body-margin;
-    }
-  }
-
   > .wrapper {
     flex-grow: 1;
   }
@@ -500,59 +493,6 @@ button,
 // 02. Header
 // ----------
 
-body > header,
-.wrapper > header {
-  @include grid-column-gutter;
-  margin-bottom: $line-height;
-
-  @include breakpoint(small down) {
-    position: relative;
-    z-index: 10;
-  }
-
-  .selected {
-    border-bottom: 1px solid #fff;
-  }
-
-  .remote-translations-button {
-
-    &.callout {
-      margin: 0;
-      padding: rem-calc(6);
-
-      [type="submit"] {
-        @include brand-color;
-        background: none;
-        border: 0;
-        cursor: pointer;
-        font-weight: bold;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-
-  .external-links {
-    padding: rem-calc(6) 0;
-    text-align: center;
-  }
-}
-
-.public > .wrapper > header,
-.proposal-dashboard > header {
-  @include full-width-border(bottom, 1px solid $border);
-
-  > * {
-    @include full-width-background($adjust-padding: true);
-  }
-
-  .top-bar {
-    @include background-with-text-contrast($main-header, [main-header, brand]);
-  }
-}
-
 .proposal-dashboard > header {
 
   @include breakpoint($global-width) {
@@ -917,10 +857,6 @@ footer {
   margin-top: $line-height * 2;
   padding-bottom: $line-height;
   padding-top: $line-height;
-
-  .public & {
-    @include full-width-background;
-  }
 }
 
 .subfooter {
@@ -2454,11 +2390,6 @@ table {
     height: $line-height * 2;
     background: $highlight;
     margin-top: rem-calc(-48);
-
-    @include breakpoint($global-width) {
-      margin-left: calc(#{$full-width-margin});
-      margin-right: calc(#{$full-width-margin});
-    }
   }
 
   .cards-container {

@@ -1,17 +1,21 @@
 .flex-row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .flex-column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-jc-center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .flex-jc-space-between {
-    justify-content: space-between;
+  justify-content: space-between;
+}
+
+.flex-align-center {
+  align-items: center;
 }

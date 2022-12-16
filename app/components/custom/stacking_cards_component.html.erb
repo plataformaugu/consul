@@ -1,0 +1,5 @@
+<div class="stacking-cards-component">
+  <% @elements.each do |element| %>
+    <%= render Custom::BigCardComponent.new(element[:title], element[:description], element[:image], element[:supertitle]) %>
+  <% end %>
+</div>

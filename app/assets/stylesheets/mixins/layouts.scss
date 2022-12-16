@@ -54,17 +54,6 @@
       right: -$global-padding;
     }
   }
-
-  @include breakpoint($global-width) {
-
-    @if $adjust-padding and $adjust-margin {
-      left: calc(#{$full-width-margin} - #{$global-padding});
-      right: calc(#{$full-width-margin} - #{$global-padding});
-    } @else if $adjust-margin {
-      left: calc(#{$full-width-margin});
-      right: calc(#{$full-width-margin});
-    }
-  }
 }
 
 @mixin full-width-background($adjust-margin: true, $adjust-padding: false) {

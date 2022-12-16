@@ -8,12 +8,42 @@ class WelcomeController < ApplicationController
   layout "devise", only: :welcome
 
   def index
-    @header = Widget::Card.header.first
-    @feeds = Widget::Feed.active
-    @cards = Widget::Card.body
-    @remote_translations = detect_remote_translations(@feeds,
-                                                      @recommended_debates,
-                                                      @recommended_proposals)
+    @slider_elements = [
+      {
+        image_url: 'https://via.placeholder.com/800x600',
+        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+      },
+      {
+        image_url: 'https://via.placeholder.com/800x600',
+        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+      },
+    ]
+    @cards_elements = [
+      {
+        title: 'Título de prueba 1',
+        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        image: 'https://via.placeholder.com/800',
+        supertitle: 'Debates',
+      },
+      {
+        title: 'Título de prueba 2',
+        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        image: 'https://via.placeholder.com/600x900',
+        supertitle: 'Propuestas Ciudadanas',
+      },
+      {
+        title: 'Título de prueba 3',
+        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        image: 'https://via.placeholder.com/500',
+        supertitle: 'Consultas',
+      },
+      {
+        title: 'Título de prueba 4',
+        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        image: 'https://via.placeholder.com/1200',
+        supertitle: 'Presupuestos participativos',
+      },
+    ]
   end
 
   def welcome

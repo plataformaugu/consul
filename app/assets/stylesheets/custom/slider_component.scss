@@ -1,0 +1,43 @@
+.slider-component {
+  position: relative;
+  max-width: 100%;
+
+  @media (max-width: 639px) {
+    margin-top: 2rem;
+  }
+
+  .orbit-bullets {
+    button {
+      background-color: $brand-secondary;
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+    }
+
+    button.is-active {
+      background-color: $brand;
+    }
+  }
+
+  img {
+    border-radius: 15px;
+    height: 45vh;
+    min-height: 45vh;
+    max-height: 45vh;
+    object-fit: cover;
+
+    @media (max-width: 639px) {
+      height: 35vh;
+      min-height: 35vh;
+      max-height: 35vh;
+    }
+  }
+
+  figcaption {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: rgba($brand-secondary, 0.8);
+    color: $white;
+    padding: 1rem 2rem;
+  }
+}

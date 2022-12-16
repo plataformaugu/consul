@@ -1,3 +1,36 @@
 a { 
   outline: none !important;
 }
+
+body {
+  background-color: #fac75e;
+}
+
+.reveal {
+  background-color: rgba($brand-secondary, 0.9);
+  border: 0px !important;
+  border-radius: 20px;
+  color: $white;
+  padding: 0;
+  user-select: none;
+
+  header {
+    background-color: #4207F6;
+    padding: 0.3rem 1rem 0.2rem 1rem;
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-size: 2em;
+    }
+  }
+
+  main {
+    padding: 2rem;
+  }
+
+  .close-button {
+    color: $white;
+  }
+}

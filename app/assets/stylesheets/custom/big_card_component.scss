@@ -1,0 +1,67 @@
+.big-card-component {
+  padding: 3rem;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  img {
+    min-height: 20rem;
+    max-height: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+
+    @media (max-width: 639px) {
+      min-width: 100%;
+      max-width: 100%;
+      width: 100%;
+      min-height: 14rem;
+      max-height: 14rem;
+      height: 14rem;
+    }
+  }
+
+  .supertitle {
+    background-color: #f8a21f;
+    color: $black;
+    width: fit-content;
+    padding: 0.8rem 2rem;
+    border-radius: 15px;
+    font-weight: 600;
+
+    @media (max-width: 639px) {
+      padding: 0.3rem 1rem;
+      font-size: 1em !important;
+    }
+  }
+
+  div:first-child {
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 3em;
+
+      @media (max-width: 639px) {
+        font-size: 2em;
+      }
+    }
+
+    p {
+      font-size: 1.5em;
+
+      @media (max-width: 639px) {
+        font-size: 1em;
+      }
+    }
+  }
+}

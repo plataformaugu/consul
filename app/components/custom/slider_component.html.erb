@@ -1,0 +1,26 @@
+<div class="orbit slider-component" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false">
+  <div class="orbit-wrapper">
+    <ul class="orbit-container">
+      <% @elements.each_with_index do |element, idx| %>
+        <li class="<%= idx == 0 ? 'is-active' : '' %> orbit-slide">
+          <figure class="orbit-figure">
+            <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
+            <figcaption class="orbit-caption"><%= element[:caption] %></figcaption>
+          </figure>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <nav class="orbit-bullets">
+    <% @elements.each_with_index do |element, idx| %>
+      <% if idx == 0 %>
+        <button class="is-active" data-slide="<%= idx %>">
+          <span class="show-for-sr"></span>
+          <span class="show-for-sr" data-slide-active-label></span>
+        </button>
+      <% else %>
+        <button data-slide="<%= idx %>"><span class="show-for-sr"></span></button>
+      <% end %>
+    <% end %>
+  </nav>
+</div>

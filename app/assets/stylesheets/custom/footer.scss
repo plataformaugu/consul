@@ -1,0 +1,56 @@
+.footer {
+  background-image: url('/images/global/bg-footer.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 0;
+
+  @media (max-width: 639px) {
+    background-repeat: repeat;
+  }
+
+  footer {
+    & > div {
+      border: 2px solid #4207F6;
+      border-radius: 15px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      color: $white;
+
+      @media (max-width: 639px) {
+        width: 90vw;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      h4 {
+        text-align: center;
+        color: #260C7F;
+      }
+
+      &::before, &::after {
+        content: none;
+      }
+
+      .logo {
+        width: 15%;
+
+        @media (max-width: 639px) {
+          width: 50%;
+        }
+      }
+
+      .social {
+        width: auto !important;
+        padding: 0 !important;
+        color: #260C7F;
+      }
+    }
+  }
+}
