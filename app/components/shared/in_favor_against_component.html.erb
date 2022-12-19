@@ -1,26 +1,26 @@
 <div class="in-favor-against">
-  <div class="in-favor">
-    <%= button_to polymorphic_path(votable, action: :vote, value: "yes"),
-        class: "like #{voted_classes[:in_favor]}",
+  <div>
+    <h4 class="option-text">Estoy de acuerdo</h4>
+    <%= link_to polymorphic_path(votable, action: :vote, value: "yes"),
         title: t("votes.agree"),
         "aria-label": agree_aria_label,
         method: "post",
         remote: true,
         disabled: @is_disabled do %>
-      <span class="show-for-sr"><%= t("votes.agree") %></span>
+      <%= image_tag "/images/global/like-#{current_user&.voted_as_when_voted_for(votable) == true ? 'active' : 'available'}.svg" %>
     <% end %>
     <span class="percentage"><%= votes_percentage("likes", votable) %></span>
   </div>
 
-  <div class="against">
-    <%= button_to polymorphic_path(votable, action: :vote, value: "no"),
-        class: "unlike #{voted_classes[:against]}",
+  <div>
+    <h4 class="option-text">No estoy de acuerdo</h4>
+    <%= link_to polymorphic_path(votable, action: :vote, value: "no"),
         title: t("votes.disagree"),
         "aria-label": disagree_aria_label,
         method: "post",
         remote: true,
         disabled: @is_disabled do %>
-      <span class="show-for-sr"><%= t("votes.disagree") %></span>
+      <%= image_tag "/images/global/dislike-#{current_user&.voted_as_when_voted_for(votable) == false ? 'active' : 'available'}.svg" %>
     <% end %>
     <span class="percentage"><%= votes_percentage("dislikes", votable) %></span>
   </div>

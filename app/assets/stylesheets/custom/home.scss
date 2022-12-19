@@ -44,12 +44,22 @@
       font-size: 3.5em;
       color: $brand;
       border-bottom: none;
+
+      @media (max-width: 639px) {
+        text-align: center;
+        line-height: 1em;
+      }
     }
 
     .subtitle {
       font-size: 2em;
       font-style: italic;
       font-weight: 600;
+
+      @media (max-width: 639px) {
+        text-align: center;
+        font-size: 1.5em;
+      }
     }
 
     .slider-persons {
@@ -126,18 +136,19 @@
       .circle-column {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        height: 25vw;
 
         @media (max-width: 639px) {
           width: 90vw;
+          height: auto;
         }
 
         .circle {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 18vw;
-          height: 18vw;
+          width: 16vw;
+          height: 16vw;
           border-radius: 50%;
           background-color: #e9a23180;
           box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
@@ -155,8 +166,8 @@
             align-items: center;
             text-align: center;
             border-radius: 50%;
-            width: 16vw;
-            height: 16vw;
+            width: 15vw;
+            height: 15vw;
             box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.3);
             background-color: #FAC75E;
             
@@ -167,6 +178,7 @@
 
             h2 {
               font-size: 1.8em;
+              color: $black;
 
               @media (max-width: 639px) {
                 font-size: 2.5em;
@@ -187,14 +199,14 @@
             justify-content: center;
             text-align: center;
             align-items: center;
-            width: 16vw;
-            height: 16vw;
+            width: 15vw;
+            height: 15vw;
             position: absolute;
             border-radius: 50%;
             background-color: rgba($brand-secondary, 0.85);
             outline: 0.5rem solid #4207F6;
             outline-offset: -0.5rem;
-            padding: 0.5rem;
+            padding: 1rem;
 
             @media (max-width: 639px) {
               width: 80vw;
@@ -204,7 +216,7 @@
             p {
               padding: 1rem;
               color: $white;
-              font-size: 1.2em;
+              font-size: 0.8em;
               font-weight: 400;
             }
 

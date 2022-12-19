@@ -8,6 +8,17 @@
   <%= render "shared/canonical", href: proposals_url %>
 <% end %>
 
+<%= render Custom::SinglePageComponent.new(
+  'Convocatorias',
+  'Revisa los diferentes temas en los que puedes subir tus propuestas',
+  '/images/process/proposals-circle.svg',
+  'convocatorias',
+  'a',
+  '/images/process/proposals.svg',
+  @proposal_topics,
+  @proposal_topic,
+) %>
+
 <main>
   <% if [
           @search_terms,

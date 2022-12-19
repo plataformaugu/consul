@@ -12,7 +12,7 @@
   <%= render "shared/canonical", href: event_url(@event) %>
 <% end %>
 
-<main>
+<main class="calendar-event-container">
   <div id="<%= dom_id(@event) %>" class="row">
     <div class="small-12 medium-9 column">
       <%= back_link_to events_path %>

@@ -40,6 +40,10 @@ $header-height-mobile: 80px;
   .menu-button {
     border: none;
     color: $brand-secondary;
+
+    .menu-icon::after {
+      height: 3px;
+    }
   }
 
   .custom-menu-desktop {

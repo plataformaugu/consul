@@ -9,14 +9,21 @@ class BudgetsController < ApplicationController
   respond_to :html, :js
 
   def show
-    raise ActionController::RoutingError, "Not Found" unless budget_published?(@budget)
+    redirect_to "#{url_for(budgets_path)}?budget=#{@budget.id}"
   end
 
   def unselected
   end
 
   def index
-    @budgets = Kaminari.paginate_array(Budget.all).page(params[:page]).per(9)
+    param_budget = params['budget']
+
+    @budgets = Budget.published.order(created_at: :desc)
+    @budget = Budget.published.find_by(id: param_budget)
+
+    if @budget.nil? && @budgets.any?
+      @budget = @budgets.first
+    end
   end
 
   private

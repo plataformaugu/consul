@@ -3,6 +3,18 @@
   <%= render "shared/canonical", href: debate_url(@debate) %>
 <% end %>
 
+<%= render Custom::SinglePageComponent.new(
+  'Debates',
+  'Permite a las/os usuarias/os abrir hilos de discusión y generar espacios de debate sobre las temáticas que consideren más relevantes',
+  '/images/process/debates-circle.svg',
+  'debates',
+  'o',
+  '/images/process/debates.svg',
+  @debates,
+  @debate,
+  new_debate_path
+) %>
+
 <% cache [locale_and_user_status(@debate),
           @debate,
           @debate.author,
@@ -10,16 +22,7 @@
           current_user&.voted_as_when_voted_for(@debate)] do %>
   <div class="debate-show">
     <div id="<%= dom_id(@debate) %>" class="row">
-      <div class="small-12 medium-9 column">
-        <%= back_link_to %>
-
-        <h1><%= @debate.title %></h1>
-        <% if @debate.conflictive? %>
-          <div data-alert class="callout alert margin-top">
-            <strong><%= t("debates.show.flag") %></strong>
-          </div>
-        <% end %>
-
+      <div class="small-12 medium-6 column">
         <div class="debate-info">
           <%= render "/shared/author_info", resource: @debate %>
 
@@ -34,47 +37,74 @@
         </div>
 
         <%= auto_link_already_sanitized_html wysiwyg(@debate.description) %>
-
-        <%= render "shared/tags", taggable: @debate %>
-
-        <%= render "relationable/related_content", relationable: @debate %>
-
-        <div class="js-moderator-debate-actions margin">
-          <%= render "actions", debate: @debate %>
-        </div>
       </div>
 
-      <aside class="small-12 medium-3 column">
+      <div class="small-12 medium-6 column">
+        <h1 class="flag-title">¿Qué opinas?</h1>
+        <div id="<%= dom_id(@debate) %>_votes" class="margin-top">
+          <div class="in-favor-against">
+            <div>
+              <h4 class="option-text">Estoy de acuerdo</h4>
+              <% if can?(:vote, Debate) and !@debate.finished? %>
+                <%= link_to polymorphic_path(@debate, action: :vote, value: "yes"),
+                    title: t("votes.agree"),
+                    method: "post",
+                    remote: true,
+                    disabled: @is_disabled do %>
+                  <%= image_tag "/images/global/like-#{current_user&.voted_as_when_voted_for(@debate) == true ? 'active' : 'available'}.svg" %>
+                <% end %>
+              <% else %>
+                <%= image_tag "/images/global/like-#{current_user&.voted_as_when_voted_for(@debate) == true ? 'active' : 'available'}.svg" %>
+              <% end %>
+              <span class="percentage"><%= votes_percentage("likes", @debate) %></span>
+            </div>
+
+            <div>
+              <h4 class="option-text">No estoy de acuerdo</h4>
+              <% if can?(:vote, Debate) and !@debate.finished? %>
+                <%= link_to polymorphic_path(@debate, action: :vote, value: "no"),
+                    title: t("votes.disagree"),
+                    method: "post",
+                    remote: true,
+                    disabled: @is_disabled do %>
+                  <%= image_tag "/images/global/dislike-#{current_user&.voted_as_when_voted_for(@debate) == false ? 'active' : 'available'}.svg" %>
+                <% end %>
+              <% else %>
+                <%= image_tag "/images/global/dislike-#{current_user&.voted_as_when_voted_for(@debate) == false ? 'active' : 'available'}.svg" %>
+              <% end %>
+              <span class="percentage"><%= votes_percentage("dislikes", @debate) %></span>
+            </div>
+          </div>
+        </div>
+        <div class="text-center margin-top">
+          <span class="total-votes">
+            <%= t("debates.debate.votes", count: @debate.total_votes) %>
+          </span>
+          <% if current_user.nil? %>
+            <p><strong>Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar</strong></p>
+          <% elsif @debate.finished? %>
+            <h4>Debate finalizado</h4>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-12 column">
         <% if current_user && @debate.editable_by?(current_user) %>
-          <div class="sidebar-divider"></div>
-          <h2><%= t("debates.show.author") %></h2>
-          <%= link_to edit_debate_path(@debate), class: "button hollow expanded" do %>
+          <%= link_to edit_debate_path(@debate), class: "button" do %>
             <span class="icon-edit"></span>
             <%= t("debates.show.edit_debate_link") %>
           <% end %>
         <% end %>
 
         <% if current_user and current_user.administrator? %>
-          <div class="sidebar-divider"></div>
-          <h2>Administrar</h2>
-          <%= link_to toggle_finished_debate_path(@debate), method: :patch, class: "button hollow expanded" do %>
+          <%= link_to toggle_finished_debate_path(@debate), method: :patch, class: "button" do %>
             <span class="icon-edit"></span>
             <%= @debate.finished? ? 'Quitar' : 'Marcar' %> "Finalizado"
           <% end %>
         <% end %>
-
-        <div class="sidebar-divider"></div>
-        <h2><%= t("votes.supports") %></h2>
-        <div id="<%= dom_id(@debate) %>_votes">
-          <%= render "debates/votes", debate: @debate %>
-        </div>
-        <%= render "shared/social_share",
-          share_title: t("debates.show.share"),
-          title: @debate.title,
-          url: debate_url(@debate),
-          description: @debate.title,
-          mobile: @debate.title %>
-      </aside>
+      </div>
     </div>
   </div>
 <% end %>

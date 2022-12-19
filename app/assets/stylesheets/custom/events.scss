@@ -5,7 +5,6 @@
 .simple-calendar {
   .table.table-striped {
     border: none !important;
-    border-top: 2px solid #cdcdcd !important;
   }
 
   .calendar-heading {
@@ -17,7 +16,7 @@
       font-weight: bold;
       text-transform: capitalize;
       font-size: 3em;
-      color: #737277;
+      color: $black;
     }
   }
 
@@ -30,12 +29,15 @@
     overflow-x: auto;
 
     thead {
+      background-color: transparent;
       tr {
+        background-color: transparent;
         th {
+          background-color: transparent;
           text-transform: capitalize;
           font-weight: 600;
           font-size: 1.2em;
-          color: #646464;
+          color: $black;
           border: none;
         }
       }
@@ -90,6 +92,7 @@
           border: none;
           vertical-align: top;
           padding: 0.4rem 0.5rem;
+          border-radius: 15px;
         }
       }
     }
@@ -145,4 +148,26 @@
       background-color: rgb(240, 240, 240);
     }
   }
+}
+
+.calendar-container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  .tabs {
+    background-color: transparent;
+
+    .tabs-title > a[aria-selected='true'] {
+      background: transparent;
+    }
+  }
+
+  .tabs-content {
+    background-color: transparent;
+  }
+}
+
+.calendar-event-container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }

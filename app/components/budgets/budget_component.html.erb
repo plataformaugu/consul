@@ -1,33 +1,6 @@
-<% if budget.image.present? %>
-  <div class="budget-header with-background-image"
-       style="background-image: url(<%= polymorphic_path(budget.image.variant(:large)) %>);">
-<% else %>
-  <div class="budget-header">
-<% end %>
-  <div class="row">
-    <div class="small-12 column text-center">
-      <span class="budget-title"><%= t("budgets.index.title") %></span>
-      <h1><%= budget.name %></h1>
-
-      <% if budget.main_link_text.present? && budget.main_link_url.present? %>
-        <%= link_to budget.main_link_text, budget.main_link_url, class: "main-link" %>
-      <% end %>
-
-      <p>
-        <%= link_to t("budgets.index.section_header.help"), "#section_help" %>
-      </p>
-    </div>
-  </div>
-</div>
-
-<% if budget.custom_description.present? or budget.pdf_link.present? %>
+<% if budget.pdf_link.present? %>
 <div class="row margin-top">
-  <div class="small-12 medium-10 column">
-    <% if budget.custom_description.present? %>
-      <%= budget.custom_description %>
-    <% end %>
-  </div>
-  <div class="small-12 medium-2 column">
+  <div class="small-12 medium-12 column">
     <% if budget.pdf_link.present? %>
       <%= render Shared::IconTextButtonComponent.new(budget.pdf_link, 'pdf-icon', 'Ver bases', true) %>
     <% end %>
@@ -35,22 +8,26 @@
 </div>
 <% end %>
 
-<%= render Budgets::SubheaderComponent.new(budget) %>
-<%= render Budgets::PhasesComponent.new(budget) %>
+<div class="row">
+  <div class="small-12 column">
+    <%= render Budgets::SubheaderComponent.new(budget) %>
+  </div>
+</div>
 
-<div id="budget_info" class="budget-info">
-  <div class="row margin-top">
-    <div class="small-12 column">
-      <% if !budget.single_heading? %>
-        <%= render Budgets::GroupsAndHeadingsComponent.new(budget) %>
-      <% end %>
-    </div>
+<div class="row">
+  <div class="small-12 column">
+    <%= render Budgets::PhasesComponent.new(budget) %>
   </div>
 </div>
 
 <%= render "/budgets/investments/header" %>
 
-<%= render Budgets::InvestmentsListComponent.new(budget) %>
+
+<div class="row">
+  <div class="small-12 column">
+    <%= render Budgets::InvestmentsListComponent.new(budget) %>
+  </div>
+</div>
 
 <% if budget.publishing_prices? or budget.selecting? %>
   <div class="row margin-top">

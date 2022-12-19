@@ -1,10 +1,17 @@
-<div class="big-card-component">
-  <div>
+<div
+  id="card-<%= @id %>"
+  class="big-card-component"
+  onclick="window.location.replace('<%= @path %>')"
+>
+  <div style="<%= @supertitle.present? ? '' : 'justify-content: flex-start;' %>">
     <% if @supertitle %>
       <p class="supertitle"><%= @supertitle %></p>
     <% end %>
     <h1><%= @title %></h1>
-    <p><%= @description %></p>
+    <% if @summary%>
+      <p class="summary"><%= @summary %></p>
+    <% end %>
+    <p><%= WYSIWYGSanitizer.new.sanitize(@description) %></p>
   </div>
   <%= image_tag(@image) %>
 </div>

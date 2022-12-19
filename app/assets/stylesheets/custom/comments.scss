@@ -1,0 +1,27 @@
+.comments {
+  margin-top: 3rem;
+  background-color: #FFA42B;
+  padding: 1rem;
+  margin-bottom: 3rem;
+  border-radius: 25px;
+  box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
+
+  textarea {
+    background-color: #FAC75E;
+    border: 0;
+  }
+
+  .comment-body {
+    .comment-info {
+      color: $white;
+
+      a {
+        color: $white;
+      }
+    }
+
+    .comment-user {
+      background-color: inherit;
+    }
+  }
+}

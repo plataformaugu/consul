@@ -1,1 +1,6 @@
-<%= render Shared::CommentsComponent.new(@poll, @comment_tree, @poll.expired?) %>
+<%= render Shared::CommentsComponent.new(@poll, @comment_tree, @poll.expired?) do %>
+  <h3>
+    <%= t("debates.show.comments_title") %>
+    <span class="js-comments-count">(<%= @poll.comments_count %>)</span>
+  </h3>
+<% end %>

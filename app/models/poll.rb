@@ -71,6 +71,10 @@ class Poll < ApplicationRecord
     name
   end
 
+  def image_url
+    self.image.present? ? self.image.variant(:large) : nil
+  end
+
   def started?(timestamp = Time.current)
     starts_at.present? && starts_at < timestamp
   end

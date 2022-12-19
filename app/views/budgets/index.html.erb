@@ -3,28 +3,48 @@
   <%= render "shared/canonical", href: budgets_url %>
 <% end %>
 
-<main class="budgets-index">
-  <%= render "shared/section_header", i18n_namespace: "budgets.index.section_header", image: "budgets" %>
-  <div class="row">
-    <div id="budgets" class="small-12 column">
-      <% if @budgets.any? %>
-        <div class="cards-container-component">
-          <% @budgets.each do |topic| %>
-            <%= render Shared::CardComponent.new(
-              topic,
-              topic.name,
-              topic.image.variant(:medium),
-              topic.custom_description,
-              topic.finished? ? 'Presupuesto finalizado' : nil
-            ) %>
-          <% end %>
+<div class="budgets-container">
+  <% if !@budgets.any? %>
+    <%= render Custom::SinglePageEmptyComponent.new(
+      'Presupuestos Participativos',
+      'En esta sección podrás realizar propuestas con el objetivo de mejorar la Región y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes',
+      '/images/process/budgets-circle.svg',
+      'presupuestos',
+      'o',
+    ) %>
+  <% else %>
+    <%= render Custom::PageHeaderComponent.new(
+      'Presupuestos Participativos',
+      'En esta sección podrás realizar propuestas con el objetivo de mejorar la Región y/o nuestra comunidad. Para publicar tus ideas debes completar un formulario sencillo que permite adjuntar documentos relevantes',
+      '/images/process/budgets-circle.svg',
+    ) %>
+
+    <div class="record-selector" id="record-selector">
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= render Custom::BigCircleFullComponent.new(
+            @budget.name,
+            @budget.image.present? ? @budget.image.variant(:large) : '/images/process/budgets.svg',
+            @budget.custom_description,
+          ) %>
         </div>
-        <%= paginate @budgets %>
-      <% else %>
-        <div class="callout primary">
-          No hay convocatorias.
+        <div class="small-12 medium-6 column">
+          <div class="record-list-container">
+            <h2>Revisa otros presupuestos aquí!</h2>
+            <div class="record-list">
+              <ul>
+                <% @budgets.each do |budget| %>
+                  <%= link_to "#{url_for(budgets_path)}?budget=#{@budget.id}#record-selector" do %>
+                    <li class="<%= @budget.id == budget.id ? 'is-active' : '' %>"><%= budget.name %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         </div>
-      <% end %>
+      </div>
     </div>
-  </div>
-</main>
+
+    <%= render Budgets::BudgetComponent.new(@budget) %>
+  <% end %>
+</div>

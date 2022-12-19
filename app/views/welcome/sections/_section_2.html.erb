@@ -16,17 +16,7 @@
     <div class="small-12 column map-container">
 
       <!-- Modal info provincias -->
-      <div class="reveal" id="provinces-info" data-reveal>
-        <header>
-          <h1 id="reveal-title"></h1>
-        </header>
-        <main>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed ligula vitae lectus gravida ultrices ac at eros. In euismod erat tortor, eleifend sollicitudin neque laoreet volutpat. Curabitur nec turpis sed felis eleifend hendrerit consequat at dolor. Nunc ut efficitur lacus. Vestibulum luctus purus turpis, id bibendum ipsum convallis nec. Nunc nulla risus, gravida sed dictum eget, efficitur sed metus. Phasellus hendrerit leo elit, dictum ornare orci vestibulum in. Nunc mollis dolor at lectus blandit molestie.</p>
-        </main>
-        <button class="close-button" data-close aria-label="Cerrar" type="button">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <%= render 'welcome/sections/provinces_modal' %>
 
       <%= render 'welcome/utils/map' %>
     </div>
@@ -34,18 +24,13 @@
 </section>
 
 <%= javascript_tag do %>
-  function openProvinceInfo(provinceName) {
-    $('#reveal-title').text(provinceName)
-    $('#provinces-info').foundation('open')
-  }
-
   $('#map-tocopilla').click(function() {
-    openProvinceInfo('Tocopilla')
+    $('#modal-tocopilla').foundation('open')
   })
   $('#map-el-loa').click(function() {
-    openProvinceInfo('El Loa')
+    $('#modal-el-loa').foundation('open')
   })
   $('#map-antofagasta').click(function() {
-    openProvinceInfo('Antofagasta')
+    $('#modal-antofagasta').foundation('open')
   })
 <% end %>

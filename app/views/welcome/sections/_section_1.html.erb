@@ -19,9 +19,11 @@
     </div>
   </div>
   <!-- Procesos destacados -->
+  <% if !@cards_elements.nil? %>
   <div class="row">
     <div class="column small-12">
       <%= render Custom::StackingCardsComponent.new(@cards_elements) %>
     </div>
   </div>
+  <% end %>
 </section>

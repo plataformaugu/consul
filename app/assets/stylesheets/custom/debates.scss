@@ -1,0 +1,30 @@
+.in-favor-against {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  img {
+    width: 12rem;
+  }
+
+  .option-text {
+    color: $brand;
+    font-style: italic;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .percentage {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.debate-show {
+  background-image: url('/images/global/bg-general.png');
+  
+  .votes {
+    padding: 0;
+  }
+}

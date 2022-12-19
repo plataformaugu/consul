@@ -26,13 +26,7 @@ class ProposalsController < ApplicationController
   respond_to :html, :js
 
   def show
-    super
-    @notifications = @proposal.notifications
-    @notifications = @proposal.notifications.not_moderated
-
-    if request.path != proposal_path(@proposal)
-      redirect_to proposal_path(@proposal), status: :moved_permanently
-    end
+    redirect_to "#{url_for(proposal_topics_path)}?proposal=#{@proposal.id}#card-#{@proposal.id}"
   end
 
   def new
@@ -60,6 +54,7 @@ class ProposalsController < ApplicationController
   def created; end
 
   def index
+    @proposal_topics = ProposalTopic.published.order(created_at: :desc)
     @proposal_topic = ProposalTopic.find_by_id(params[:id])
 
     if @proposal_topic.present? && @proposal_topic.is_published?
@@ -83,6 +78,8 @@ class ProposalsController < ApplicationController
   def vote
     @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
     @proposal.register_vote(current_user, "yes")
+
+    redirect_to "#{url_for(proposal_topics_path)}?proposal=#{@proposal.id}#support-container"
   end
 
   def retire

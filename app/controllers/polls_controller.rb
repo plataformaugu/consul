@@ -12,12 +12,15 @@ class PollsController < ApplicationController
   has_orders %w[most_voted newest oldest], only: :show
 
   def index
-    @polls = Kaminari.paginate_array(
-      @polls.created_by_admin.not_budget.send(@current_filter).includes(:geozones).sort_for_list(current_user)
-    ).page(params[:page])
+    @polls = Poll.created_by_admin.not_budget.send(@current_filter).includes(:geozones).sort_for_list(current_user)
+
+    if @polls.any?
+      redirect_to @polls.first
+    end
   end
 
   def show
+    @polls = Poll.created_by_admin.not_budget.send(@current_filter).includes(:geozones).sort_for_list(current_user)
     @questions = @poll.questions.for_render.sort_for_list
     @comment_tree = CommentTree.new(@poll, params[:page], @current_order)
   end

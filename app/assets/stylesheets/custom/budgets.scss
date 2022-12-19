@@ -1,0 +1,209 @@
+.budgets-container {
+  background-image: url('/images/global/bg-general.png');
+  margin-top: 3rem;
+
+  .page-header-component {
+    padding-bottom: 4rem;
+  }
+
+  .budget-subheader {
+    .info {
+      background-color: #F8A21F;
+      border-radius: 15px;
+      padding: 1rem 2rem;
+
+      h2 {
+        margin: 0;
+        color: $white;
+      }
+    }
+  }
+
+  .budget-phases {
+    margin-top: 3rem;
+    background-color: transparent;
+
+    &::after {
+      border-top: 0;
+    }
+
+    .phases-list.tabs {
+      display: grid;
+      grid-template-columns: repeat(8, 12.5%);
+      grid-template-rows: 1fr;
+      grid-column-gap: -1em;
+      grid-row-gap: 0px;
+      justify-content: center;
+
+      @media (max-width: 639px) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-row-gap: 0.5rem;
+      }
+
+      .tabs-title {
+        background-color: #53927D;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
+        margin-right: 0;
+        cursor: pointer;
+
+        & > a[aria-selected="true"]::after {
+          border-bottom: 0 !important;
+        }
+
+        a {
+          color: $white;
+          text-decoration: none;
+          width: 60%;
+          font-size: 0.9em;
+          background-color: transparent;
+
+          @media (max-width: 639px) {
+            width: 80%;
+          }
+
+          .phase-name {
+            &::before {
+              font-size: 1em;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .tabs-title.is-active {
+        background-color: #C9F0C9 !important;
+        border: 3px solid #4207F6;
+
+        a {
+          color: $black;
+        }
+      }
+
+      .tabs-title.current-phase-tab {
+        background-color: darken(#53927D, 15%);
+      }
+
+      @for $i from 2 through 8 {
+        .tabs-title:nth-child(#{$i}) {
+          @media (min-width: 640px) {
+            transform: translateX(calc(-2rem - #{$i}rem + 2rem));
+            z-index: #{$i};
+          }
+        }
+      }
+    }
+  }
+
+  .budget-phase {
+    border: 3px solid #53927D;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    margin-top: 3rem;
+    box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
+
+    .budget-phase-content {
+      h1 {
+        text-align: center;
+        margin: 0;
+      }
+  
+      .money-info {
+        text-align: left;
+        font-weight: 500;
+      }
+      
+      .budget-dates {
+        text-align: center;
+      }
+    }
+  }
+
+  .jumbo-budget.budget-heading {
+    min-height: auto;
+  }
+
+  .jumbo-budget {
+    &::after {
+      border-bottom: none;
+    }
+  }
+
+  .investments-list {
+    padding-bottom: 2rem;
+
+    .investments-list-item {
+      background-color: #AD93C5;
+      color: $white;
+      border: 0;
+
+      .supports-and-price {
+        background-color: rgba($black, 0.3);
+
+        .price-title {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .progress-bar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1rem;
+
+    #progress_bar {
+      width: 100%;
+
+      .progress {
+        background-color: #AC92C5;
+      }
+    }
+
+    img {
+      width: 10%;
+    }
+  }
+  
+  .progress-bar-nav.is-fixed {
+    background-color: #fac75e;
+  }
+}
+
+.investment-container {
+  background-image: url('/images/global/bg-general.png');
+
+  #investments_tabs {
+    background-color: transparent;
+
+    .tabs-title > a[aria-selected='true'] {
+      background-color: transparent;
+    }
+  }
+
+  .tabs-content {
+    background-color: transparent;
+  }
+
+  .documents {
+    .document-link {
+      background-color: #F8A21F;
+      border: 0;
+    }
+  }
+}
+
+.budget-ballot-show {
+  padding-bottom: 3rem;
+
+  .ballot-content {
+    border: 0;
+    background-color: #F8A21F;
+  }
+}

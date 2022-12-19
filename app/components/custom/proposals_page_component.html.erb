@@ -1,0 +1,48 @@
+<% if !@records.any? %>
+  <%= render Custom::SinglePageEmptyComponent.new(
+    @title,
+    @subtitle,
+    @image,
+    @readable_model_name,
+    @vowel,
+  ) %>
+<% else %>
+  <div class="proposals-page-component" id="<%= dom_id(@current_record) %>">
+    <div class="page-header">
+      <div class="row">
+        <div class="small-12 column">
+          <h2 class="text-center"><%= @title %></h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="stacking-cards">
+      <div class="small-12 column">
+        <%= render Custom::StackingCardsComponent.new(@records) %>
+      </div>
+    </div>
+
+    <div class="record-selector" id="record-selector">
+      <div class="row">
+        <div class="small-12 medium-6 column support-container" id="support-container">
+          <h2 class="flag-title">¿Apoyas?</h2>
+          <%= render Proposals::VotesComponent.new(@current_record) %>
+        </div>
+        <div class="small-12 medium-6 column">
+          <div class="record-list-container">
+            <h2>Revisa otr<%= @vowel %>s <%= @readable_model_name %> aquí!</h2>
+            <div class="record-list">
+              <ul>
+                <% @records.reverse.each do |record| %>
+                  <%= link_to record[:path] do %>
+                    <li class="<%= @current_record.id == record[:id] ? 'is-active' : '' %>"><%= record[:title] %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

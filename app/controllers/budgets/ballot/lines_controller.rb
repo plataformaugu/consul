@@ -27,8 +27,7 @@ module Budgets
 
         @line.destroy!
         load_investments
-
-        redirect_to "#{url_for(@budget)}#budget_info"
+        redirect_to "#{url_for(budgets_path)}?budget=#{@budget.id}#check-ballot"
       end
 
       private

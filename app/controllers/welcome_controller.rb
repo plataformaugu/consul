@@ -10,40 +10,70 @@ class WelcomeController < ApplicationController
   def index
     @slider_elements = [
       {
-        image_url: 'https://via.placeholder.com/800x600',
+        image_url: '/images/home/slider/1.jpg',
         caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
       },
       {
-        image_url: 'https://via.placeholder.com/800x600',
+        image_url: '/images/home/slider/2.jpg',
+        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+      },
+      {
+        image_url: '/images/home/slider/3.jpg',
+        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+      },
+      {
+        image_url: '/images/home/slider/4.jpg',
+        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+      },
+      {
+        image_url: '/images/home/slider/5.jpg',
         caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
       },
     ]
-    @cards_elements = [
-      {
-        title: 'Título de prueba 1',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
-        image: 'https://via.placeholder.com/800',
-        supertitle: 'Debates',
-      },
-      {
-        title: 'Título de prueba 2',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
-        image: 'https://via.placeholder.com/600x900',
-        supertitle: 'Propuestas Ciudadanas',
-      },
-      {
-        title: 'Título de prueba 3',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
-        image: 'https://via.placeholder.com/500',
-        supertitle: 'Consultas',
-      },
-      {
-        title: 'Título de prueba 4',
-        description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
-        image: 'https://via.placeholder.com/1200',
-        supertitle: 'Presupuestos participativos',
-      },
-    ]
+
+    # Destacados
+    @debate = Debate.published.order(created_at: :desc).first
+    @proposal = Proposal.published.order(created_at: :desc).first
+    @poll = Poll.created_by_admin.order(created_at: :desc).first
+    @budget = Budget.published.order(created_at: :desc).first
+
+    if @debate.nil? && @proposal.nil? && @poll.nil? && @budget.nil?
+      @cards_elements = nil
+    else
+      @cards_elements = [
+        {
+          title: @debate.title,
+          summary: nil,
+          description: ActionView::Base.full_sanitizer.sanitize(@debate.description).truncate_words(24),
+          image: @debate.image,
+          supertitle: 'Debate',
+        },
+        {
+          title: @proposal.title,
+          summary: nil,
+          description: ActionView::Base.full_sanitizer.sanitize(@proposal.description).truncate_words(24),
+          image: @proposal.image.present? ? @proposal.image.variant(:medium) : nil,
+          supertitle: 'Propuesta Ciudadana',
+        },
+        {
+          title: @poll.title,
+          summary: nil,
+          description: ActionView::Base.full_sanitizer.sanitize(@poll.description).truncate_words(24),
+          image: @poll.image.present? ? @poll.image.variant(:medium) : nil,
+          supertitle: 'Consulta',
+        },
+        {
+          title: @budget.name,
+          summary: nil,
+          description: ActionView::Base.full_sanitizer.sanitize(@budget.custom_description).truncate_words(24),
+          image: @budget.image.present? ? @budget.image.variant(:medium) : nil,
+          supertitle: 'Presupuesto Participativo',
+        },
+      ]
+    end
+
+    # Mapa
+    @provinces_mapping = Province.all.map { |p| [p.name, {'communes': p.communes.map { |c| { 'id': c.id, 'name': c.name, 'image': c.image } }, 'description': p.description}]}.to_h
   end
 
   def welcome

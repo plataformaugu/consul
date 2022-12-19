@@ -1,15 +1,3 @@
 <div class="votes">
-  <% if debate.finished? %>
-    <div class="callout warning">
-      <p class="text-center small"><strong>Debate finalizado</strong></p>
-    </div>
-  <% end %>
-
   <%= render Shared::InFavorAgainstComponent.new(debate, debate.finished?) %>
-
-  <%= render Shared::ParticipationNotAllowedComponent.new(debate, cannot_vote_text: cannot_vote_text) %>
-
-  <span class="total-votes">
-    <%= t("debates.debate.votes", count: debate.total_votes) %>
-  </span>
 </div>

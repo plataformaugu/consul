@@ -31,17 +31,12 @@
             </div>
             <% if @ballot.valid_heading?(@budget.headings.first) %>
               <div class="progress-bar-nav" data-fixed-bar>
-                <h2>
-                  <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
-                </h2>
                 <div id="progress_bar">
                   <%= render "budgets/ballot/progress_bar", ballot: @ballot, heading: @budget.headings.first %>
                 </div>
+                <%= image_tag '/images/budgets/moneybag.svg' %>
               </div>
             <% else %>
-              <h2>
-                <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
-              </h2>
               <div class="small-12 medium-9">
                 <div class="callout warning margin-top">
                   <%= sanitize(t("budgets.investments.header.different_heading_assigned",
@@ -55,14 +50,6 @@
                 </div>
               </div>
             <% end %>
-          <% else %>
-            <h2 class="margin-top">
-              <%= t("budgets.investments.index.by_heading", heading: @budget.headings.first.name) %>
-            </h2>
-            <h3>
-              <span class="tagline"><%= t("budgets.investments.header.price") %></span>
-              <%= @budget.formatted_heading_price(@budget.headings.first) %>
-            </h3>
           <% end %>
         </div>
       </div>

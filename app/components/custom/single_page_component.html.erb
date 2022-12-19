@@ -1,0 +1,57 @@
+<% if !@records.any? %>
+  <%= render Custom::SinglePageEmptyComponent.new(
+    @title,
+    @subtitle,
+    @image,
+    @readable_model_name,
+    @vowel,
+    @new_record_path
+  ) %>
+<% else %>
+  <div class="single-page-component">
+    <div class="page-header">
+      <div class="row">
+        <% if @subtitle.present? and @image.present? %>
+          <div class="small-12 medium-8 column">
+            <h1><%= @title %></h1>
+            <h4><%= @subtitle %></h4>
+          </div>
+          <div class="small-12 medium-4 column">
+            <%= image_tag @image %>
+          </div>
+        <% else %>
+          <div class="small-12 column">
+            <h2 class="text-center"><%= @title %></h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="record-selector" id="record-selector">
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= render Custom::BigCircleSimpleComponent.new(
+            @current_record.send(@title_field),
+            @current_record.image.present? ? @current_record.send(@image_field) : @default_image,
+            @new_record_path,
+            @readable_model_name[0.. -2],
+          ) %>
+        </div>
+        <div class="small-12 medium-6 column">
+          <div class="record-list-container">
+            <h2>Revisa otr<%= @vowel %>s <%= @readable_model_name %> aquí!</h2>
+            <div class="record-list">
+              <ul>
+                <% @records.each do |record| %>
+                  <%= link_to "#{url_for(record)}#record-selector" do %>
+                    <li class="<%= @current_record.id == record.id ? 'is-active' : '' %>"><%= record.send(@title_field) %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

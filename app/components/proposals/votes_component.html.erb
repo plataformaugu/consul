@@ -1,5 +1,4 @@
-<div class="supports text-center">
-  <%= render "proposals/supports", proposal: proposal %>
+<div class="supports text-center margin-top">
 
   <div class="in-favor">
     <% if proposal.proposal_topic.is_expired? %>
@@ -12,23 +11,22 @@
           <%= t("proposals.proposal.already_supported") %>
         </div>
       <% else %>
-        <%= button_to vote_url,
-            class: "button button-support small expanded",
+        <%= link_to current_user.present? ? vote_url : nil,
             title: t("proposals.proposal.support_title"),
             method: "post",
             remote: true,
             "aria-label": support_aria_label do %>
-          <%= t("proposals.proposal.support") %>
+          <%= image_tag '/images/proposals/support.svg', class: 'support-image' %>
         <% end %>
       <% end %>
     <% end %>
   </div>
+  <%= render "proposals/supports", proposal: proposal %>
+
+  <% if current_user.nil? %>
+    <p><strong>Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar</strong></p>
+  <% end %>
 
   <%= render Shared::ParticipationNotAllowedComponent.new(proposal, cannot_vote_text: cannot_vote_text) %>
 
-  <% if voted? && setting["twitter_handle"] %>
-    <div class="share-supported">
-      <%= render "proposals/social_share", proposal: proposal, share_title: false %>
-    </div>
-  <% end %>
 </div>

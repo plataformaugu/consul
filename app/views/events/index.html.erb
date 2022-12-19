@@ -1,8 +1,8 @@
 <% provide :title do %>Calendario de eventos<% end %>
 
-<main>
-  <%= render "shared/section_header", i18n_namespace: "events.index.section_header", image: "legislation_processes" %>
+<main class="calendar-container">
   <div class="row">
+    <h1>Calendario de eventos</h1>
     <div id="events">
       <% if current_user %>
         <ul class="tabs" data-tabs data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="events-tabs">

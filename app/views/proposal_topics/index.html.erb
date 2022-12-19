@@ -2,29 +2,68 @@
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: proposal_topics_url %>
 <% end %>
+<% content_for :body_class, "proposals-page" %>
 
-<main>
-  <%= render "shared/section_header", i18n_namespace: "proposal_topics.index.section_header", image: "proposals" %>
-  <div class="row">
-    <div id="proposal-topics" class="small-12 column">
-      <% if @proposal_topics.any? %>
-        <div class="cards-container-component">
-          <% @proposal_topics.each do |topic| %>
-            <%= render Shared::CardComponent.new(
-              topic,
-              topic.title,
-              topic.image,
-              topic.description,
-              topic.is_expired? ? 'Convocatoria finalizada' : nil
-            ) %>
-          <% end %>
+<div class="proposals-container">
+  <%= render Custom::ProposalTopicsPageComponent.new(
+    'Convocatorias',
+    'Revisa los diferentes temas en los que puedes subir tus propuestas',
+    '/images/process/proposals-circle.svg',
+    'convocatorias',
+    'a',
+    '/images/process/proposals.svg',
+    @proposal_topics,
+    @proposal_topic,
+    new_proposal_path(proposal_topic_id: @proposal_topic.id),
+  ) %>
+
+  <% if @proposal_topic.present? %>
+    <%= render Custom::ProposalsPageComponent.new(
+      'Propuestas',
+      nil,
+      nil,
+      'propuestas',
+      'a',
+      '/images/process/proposals.svg',
+      @proposals,
+      @proposal,
+      nil,
+      'title',
+      'image_url'
+    ) %>
+
+    <% if @proposal.present? %>
+      <div class="comments-container">
+        <div class="row">
+          <div class="small-12 column">
+            <% if feature?(:allow_attached_documents) %>
+              <%= render "documents/documents",
+                          documents: @proposal.documents,
+                          max_documents_allowed: Proposal.max_documents_allowed %>
+            <% end %>
+          </div>
         </div>
-        <%= paginate @proposal_topics %>
-      <% else %>
-        <div class="callout primary">
-          No hay convocatorias.
+
+        <div class="row">
+          <div class="small-12 column">
+            <% if can?(:dashboard, @proposal) %>
+              <%=
+                link_to progress_proposal_dashboard_path(@proposal),
+                class: "button",
+                id: "proposal-dashboard-#{@proposal.id}" do %>
+                <span class="icon-edit"></span>
+                <%= t("proposals.show.dashboard_proposal_link") %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      <% end %>
-    </div>
-  </div>
-</main>
+        <%= render Shared::CommentsComponent.new(@proposal, @comment_tree, !@proposal.proposal_topic.is_active?) do %>
+          <h3>
+            <%= t("debates.show.comments_title") %>
+            <span class="js-comments-count">(<%= @proposal.comments_count %>)</span>
+          </h3>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

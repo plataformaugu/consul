@@ -21,7 +21,10 @@ class DebatesController < ApplicationController
 
   def index_customization
     @debates = Debate.published
-    @featured_debates = @debates.featured
+
+    if @debates.any?
+      redirect_to @debates.first
+    end
   end
 
   def index
@@ -31,6 +34,7 @@ class DebatesController < ApplicationController
 
   def show
     super
+    @debates = Debate.published
     redirect_to debate_path(@debate), status: :moved_permanently if request.path != debate_path(@debate)
   end
 

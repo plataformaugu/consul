@@ -78,11 +78,11 @@ class User < ApplicationRecord
   has_many :related_contents, foreign_key: :author_id, inverse_of: :author, dependent: nil
   has_many :topics, foreign_key: :author_id, inverse_of: :author
   belongs_to :geozone
-  
+  belongs_to :commune
+
   has_and_belongs_to_many :events
 
-  validates :username, presence: true, if: :username_required?
-  validates :username, uniqueness: { scope: :registering_with_oauth }, if: :username_required?
+  validates :email, confirmation: true
   validates :document_number, uniqueness: { scope: :document_type }, allow_nil: true
 
   validate :validate_username_length
@@ -330,6 +330,10 @@ class User < ApplicationRecord
     return false if skip_password_validation
 
     super
+  end
+
+  def username
+    return "#{self.first_name} #{self.last_name}"
   end
 
   def username_required?

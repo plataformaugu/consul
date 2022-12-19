@@ -7,17 +7,13 @@
     <h2>
       <%= sanitize(t("budgets.ballots.show.voted", count: ballot.investments.count)) %>
     </h2>
-    <p class="confirmed">
-      <%= t("budgets.ballots.show.voted_info") %>
-    <p>
-    <p><%= t("budgets.ballots.show.voted_info_2") %></p>
   </div>
 </header>
 
 <div class="row ballot">
   <% ballot_groups.each do |group| %>
     <% heading = ballot.heading_for_group(group) %>
-    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+    <div id="<%= dom_id(group) %>" class="small-12 medium-12 column end">
       <div class="margin-top ballot-content">
         <div class="subtitle">
           <h3>
@@ -51,7 +47,7 @@
           <h3>
             <%= group.name %>
           </h3>
-          <%= link_to t("budgets.ballots.show.no_balloted_group_yet"), group_path(group) %>
+          <%= link_to t("budgets.ballots.show.no_balloted_group_yet"), "#{url_for(budgets_path)}?budget=#{group.budget.id}" %>
         </div>
       </div>
     </div>

@@ -1,25 +1,24 @@
 <section class="budget-phases">
   <ul class="phases-list tabs" data-tabs id="budget_phases_tabs" data-deep-link="true">
     <% phases.each do |phase| %>
-      <li class="phase-title tabs-title <%= "is-active current-phase-tab" if phase.current? %>">
+      <li class="tabs-title <%= "is-active current-phase-tab" if phase.current? %>">
         <a href="#<%= phase_dom_id(phase) %>">
-          <% if phase.current? %>
-            <span class="current-phase-timeline"><%= t("budgets.index.current_phase") %></span>
-          <% end %>
-
           <span class="phase-name"><%= phase.name %></span>
         </a>
       </li>
     <% end %>
   </ul>
-
+  <%= @current_phase %>
   <div class="tabs-content" data-tabs-content="budget_phases_tabs">
     <% phases.each do |phase| %>
       <div id="<%= phase_dom_id(phase) %>" class="tabs-panel <%= "is-active" if phase.current? %>">
         <div class="budget-phase">
           <div class="budget-phase-content">
-            <p><%= start_date(phase) %> - <%= end_date(phase) %></p>
-            <%= render Budgets::SingleHeadingComponent.new(budget) %>
+            <h1><%= phase.name %></h1>
+            <p class="budget-dates"><%= start_date(phase) %> - <%= end_date(phase) %></p>
+            <% if @budget.show_money? %>
+            <h1 class="money-info">Inversión de <%= @budget.formatted_heading_price(@budget.headings.first) %></h1>
+            <% end %>
             <%= auto_link_already_sanitized_html(wysiwyg(phase.description)) %>
 
             <% if phase.main_link_text.present? && phase.main_link_url.present? %>

@@ -1,0 +1,101 @@
+<!-- Tocopilla -->
+<div class="reveal" id="modal-tocopilla" data-reveal>
+  <header>
+    <h1>Tocopilla</h1>
+  </header>
+  <main>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: 1fr;">
+      <div class="tabs-content vertical" data-tabs-content="tabs-tocopilla" style="background: transparent; border: 0; color: white;">
+        <% @provinces_mapping['Tocopilla'][:communes].each_with_index do |c, idx| %>
+          <div class="tabs-panel <%= idx == 0 ? 'is-active' : '' %>" id="<%= c[:name].parameterize %>">
+            <%= image_tag c[:image] %>
+          </div>
+        <% end %>
+      </div>
+      <div style="padding-left: 1em;">
+        <h4 class="text-center" style="color: #FAC75E;">Comunas</h4>
+        <ul class="vertical tabs" data-tabs id="tabs-tocopilla" style="background: transparent; border: 0;">
+          <% @provinces_mapping['Tocopilla'][:communes].each_with_index do |c, idx| %>
+            <li class="tabs-title <%= idx == 0 ? 'is-active' : '' %>" style="color: white;">
+              <a href="#<%= c[:name].parameterize %>" aria-selected="<%= idx == 0 ? 'true' : 'false' %>" style="background: transparent; color: white;">
+                <%= c[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <p class="margin-top"><%= @provinces_mapping['Tocopilla'][:description] %></p>
+  </main>
+  <button class="close-button" data-close aria-label="Cerrar" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!-- El Loa -->
+<div class="reveal" id="modal-el-loa" data-reveal>
+  <header>
+    <h1>El Loa</h1>
+  </header>
+  <main>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: 1fr;">
+      <div class="tabs-content vertical" data-tabs-content="tabs-el-loa" style="background: transparent; border: 0; color: white;">
+        <% @provinces_mapping['El Loa'][:communes].each_with_index do |c, idx| %>
+          <div class="tabs-panel <%= idx == 0 ? 'is-active' : '' %>" id="<%= c[:name].parameterize %>">
+            <%= image_tag c[:image] %>
+          </div>
+        <% end %>
+      </div>
+      <div style="padding-left: 1em;">
+        <h4 class="text-center" style="color: #FAC75E;">Comunas</h4>
+        <ul class="vertical tabs" data-tabs id="tabs-el-loa" style="background: transparent; border: 0;">
+          <% @provinces_mapping['El Loa'][:communes].each_with_index do |c, idx| %>
+            <li class="tabs-title <%= idx == 0 ? 'is-active' : '' %>" style="color: white;">
+              <a href="#<%= c[:name].parameterize %>" aria-selected="<%= idx == 0 ? 'true' : 'false' %>" style="background: transparent; color: white;">
+                <%= c[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <p class="margin-top"><%= @provinces_mapping['El Loa'][:description] %></p>
+  </main>
+  <button class="close-button" data-close aria-label="Cerrar" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<!-- Antofagasta -->
+<div class="reveal" id="modal-antofagasta" data-reveal>
+  <header>
+    <h1>Antofagasta</h1>
+  </header>
+  <main>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: 1fr;">
+      <div class="tabs-content vertical" data-tabs-content="tabs-antofagasta" style="background: transparent; border: 0; color: white;">
+        <% @provinces_mapping['Antofagasta'][:communes].each_with_index do |c, idx| %>
+          <div class="tabs-panel <%= idx == 0 ? 'is-active' : '' %>" id="<%= c[:name].parameterize %>">
+            <%= image_tag c[:image] %>
+          </div>
+        <% end %>
+      </div>
+      <div style="padding-left: 1em;">
+        <h4 class="text-center" style="color: #FAC75E;">Comunas</h4>
+        <ul class="vertical tabs" data-tabs id="tabs-antofagasta" style="background: transparent; border: 0;">
+          <% @provinces_mapping['Antofagasta'][:communes].each_with_index do |c, idx| %>
+            <li class="tabs-title <%= idx == 0 ? 'is-active' : '' %>" style="color: white;">
+              <a href="#<%= c[:name].parameterize %>" aria-selected="<%= idx == 0 ? 'true' : 'false' %>" style="background: transparent; color: white;">
+                <%= c[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <p class="margin-top"><%= @provinces_mapping['Antofagasta'][:description] %></p>
+  </main>
+  <button class="close-button" data-close aria-label="Cerrar" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

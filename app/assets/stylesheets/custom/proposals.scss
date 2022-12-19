@@ -1,0 +1,75 @@
+.proposals-page-component {
+  @extend .single-page-component;
+
+  .big-card-component {
+    @media (max-width: 639px) {
+      width: 100% !important;
+    }
+  }
+
+  .support-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .support-image {
+      width: 100%;
+    }
+  }
+
+  .record-list-container {
+    margin: 0 !important;
+  }
+  
+  .in-favor {
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.proposals-container {
+  .single-page-component {
+    background-image: url('/images/proposals/bg-1.png');
+
+    .circle-container {
+      background-color: #EB5300 !important;
+    }
+  }
+
+  .proposals-page-component {
+    background-image: url('/images/proposals/bg-2.png');
+  }
+
+  .single-page-component:nth-child(2) {
+    background-image: url('/images/proposals/bg-2.png');
+  }
+
+  .comments-container {
+    background-image: url('/images/proposals/bg-2.png');
+    padding-bottom: 3rem;
+
+    .documents {
+      .document-link {
+        background-color: #F8A21F;
+        border: 0;
+      }
+    }
+
+    .comments {
+      margin-top: 2rem;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.proposals-page {
+  background-image: url('/images/proposals/bg-1.png');
+}
+
+.proposal-dashboard {
+  .menu-and-content {
+    background-color: $white;
+  }
+}

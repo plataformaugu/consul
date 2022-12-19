@@ -88,6 +88,10 @@ class Proposal < ApplicationRecord
   scope :draft,                    -> { where(published_at: nil) }
   scope :created_by,               ->(author) { where(author: author) }
 
+  def image_url
+    self.image.present? ? self.image.variant(:large) : nil
+  end
+
   def publish
     update!(published_at: Time.current)
     send_new_actions_notification_on_published

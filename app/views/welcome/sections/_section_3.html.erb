@@ -12,48 +12,64 @@
     <div class="small-12 column">
       <div class="circles-container">
         <div class="circle-column">
-          <div class="circle">
-            <div class="inner-circle">
-              <h2>Propuestas</h2>
-              <%= image_tag '/images/process/proposals.svg' %>
+          <%= link_to proposal_topics_path do %>
+            <div class="circle">
+              <div class="inner-circle">
+                <h2>Propuestas</h2>
+                <%= image_tag '/images/process/proposals.svg' %>
+              </div>
+              <div class="hidden-inner-circle">
+                <p>
+                  Revisa los diferentes temas en los que puedes subir tus propuestas
+                </p>
+              </div>
             </div>
-            <div class="hidden-inner-circle">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit posuere neque,</p>
-            </div>
-          </div>
+          <% end %>
         </div>
         <div class="circle-column">
-          <div class="circle">
-            <div class="inner-circle">
-              <h2>Consultas</h2>
-              <%= image_tag '/images/process/polls.svg' %>
+          <%= link_to polls_path do %>
+            <div class="circle">
+              <div class="inner-circle">
+                <h2>Consultas</h2>
+                <%= image_tag '/images/process/polls.svg' %>
+              </div>
+              <div class="hidden-inner-circle">
+                <p>
+                  Las consultas ciudadanas consisten en una forma ágil y segura de votación, la cual permite poner aescrutinio público distintas ideas, temáticas y/o proyectos
+                </p>
+              </div>
             </div>
-            <div class="hidden-inner-circle">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit posuere neque,</p>
-            </div>
-          </div>
+          <% end %>
         </div>
         <div class="circle-column">
-          <div class="circle">
-            <div class="inner-circle">
-              <h2>Debates</h2>
-              <%= image_tag '/images/process/debates.svg' %>
+          <%= link_to debates_path do %>
+            <div class="circle">
+              <div class="inner-circle">
+                <h2>Debates</h2>
+                <%= image_tag '/images/process/debates.svg' %>
+              </div>
+              <div class="hidden-inner-circle">
+                <p>
+                  Permite a las/os usuarias/os abrir hilos de discusión y generar espacios de debate sobre las temáticas que consideren más relevantes
+                </p>
+              </div>
             </div>
-            <div class="hidden-inner-circle">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit posuere neque,</p>
-            </div>
-          </div>
+          <% end %>
         </div>
         <div class="circle-column">
-          <div class="circle">
-            <div class="inner-circle">
-              <h2>Presupuestos</h2>
-              <%= image_tag '/images/process/budgets.svg' %>
+          <%= link_to budgets_path do %>
+            <div class="circle">
+              <div class="inner-circle">
+                <h2>Presupuestos</h2>
+                <%= image_tag '/images/process/budgets.svg' %>
+              </div>
+              <div class="hidden-inner-circle">
+                <p>
+                  En esta sección podrás realizar propuestas con el objetivo de mejorar la Región y/o nuestra comunidad
+                </p>
+              </div>
             </div>
-            <div class="hidden-inner-circle">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit posuere neque,</p>
-            </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

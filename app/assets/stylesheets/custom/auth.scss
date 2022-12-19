@@ -1,0 +1,21 @@
+.auth-container {
+  background-image: url('/images/global/bg-general.png');
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  .auth-box {
+    border-radius: 15px;
+    box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
+    background-color: #203177;
+    color: $white;
+    padding: 2rem;
+
+    label, span {
+      color: $white;
+    }
+
+    a {
+      color: #FAC75E;
+    }
+  }
+}

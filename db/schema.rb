@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_213922) do
+ActiveRecord::Schema.define(version: 2022_12_18_210514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -465,6 +465,16 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.index ["tsv"], name: "index_comments_on_tsv", using: :gin
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["valuation"], name: "index_comments_on_valuation"
+  end
+
+  create_table "communes", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "province_id"
+    t.string "image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["province_id"], name: "index_communes_on_province_id"
   end
 
   create_table "communities", id: :serial, force: :cascade do |t|
@@ -1358,6 +1368,13 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.index ["tsv"], name: "index_proposals_on_tsv", using: :gin
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "related_content_scores", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "related_content_id"
@@ -1679,6 +1696,9 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.string "first_name"
     t.string "last_name"
     t.string "maiden_name"
+    t.bigint "commune_id"
+    t.string "social_organization"
+    t.index ["commune_id"], name: "index_users_on_commune_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1816,6 +1836,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
   add_foreign_key "budget_investments", "communities"
   add_foreign_key "budget_valuators", "budgets"
   add_foreign_key "budget_valuators", "valuators"
+  add_foreign_key "communes", "provinces"
   add_foreign_key "dashboard_administrator_tasks", "users"
   add_foreign_key "dashboard_executed_actions", "dashboard_actions", column: "action_id"
   add_foreign_key "dashboard_executed_actions", "proposals"

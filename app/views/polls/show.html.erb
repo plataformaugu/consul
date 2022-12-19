@@ -9,13 +9,27 @@
               og_image_url: "social_media_polls.jpg" %>
 <% end %>
 
+<%= render Custom::SinglePageComponent.new(
+  'Consultas',
+  'Las consultas ciudadanas consisten en una forma ágil y segura de votación, la cual permite poner aescrutinio público distintas ideas, temáticas y/o proyectos',
+  '/images/process/polls-circle.svg',
+  'consultas',
+  'a',
+  '/images/process/polls.svg',
+  @polls,
+  @poll,
+  nil,
+  'title',
+  'image_url'
+) %>
+
 <div class="polls-show">
-  <%= render "poll_header" %>
-
-  <%= render "poll_subnav" %>
-
   <div class="row margin">
-    <div class="small-12 medium-9 column">
+    <div class="small-12 medium-6 column">
+      <%= auto_link_already_sanitized_html simple_format(@poll.description) %>
+    </div>
+
+    <div class="small-12 medium-6 column">
       <%= render "callout" %>
 
       <% if @poll.voted_in_booth?(current_user) %>
@@ -36,26 +50,5 @@
     </div>
   </div>
 
-  <div class="expanded poll-more-info">
-    <div class="row margin">
-      <div class="small-12 medium-9 column">
-        <h3><%= t("polls.show.more_info_title") %></h3>
-        <%= auto_link_already_sanitized_html simple_format(@poll.description) %>
-      </div>
-    </div>
-  </div>
-
-  <div id="poll_more_info_answers" class="expanded poll-more-info-answers">
-    <div class="row padding">
-      <%= render Polls::Questions::ReadMoreComponent.with_collection(@questions) %>
-    </div>
-  </div>
-
-  <div class="tabs-content" data-tabs-content="polls_tabs">
-    <%= render "filter_subnav" %>
-
-    <div class="tabs-panel is-active" id="tab-comments">
-      <%= render "comments" %>
-    </div>
-  </div>
+  <%= render "comments" %>
 </div>

@@ -17,6 +17,9 @@
     object-fit: cover;
     object-position: center;
     border-radius: 15px;
+    min-width: 45%;
+    max-width: 45%;
+    width: 45%;
 
     @media (max-width: 639px) {
       min-width: 100%;
@@ -42,6 +45,11 @@
     }
   }
 
+  .summary {
+    font-size: 1em;
+    font-style: italic;
+  }
+
   div:first-child {
     padding-right: 2rem;
     display: flex;
@@ -62,6 +70,10 @@
       @media (max-width: 639px) {
         font-size: 1em;
       }
+    }
+
+    .summary {
+      font-size: 1em !important;
     }
   }
 }
