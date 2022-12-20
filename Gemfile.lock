@@ -798,6 +798,7 @@ DEPENDENCIES
   rubocop-rails (~> 2.15.2)
   rubocop-rspec (~> 2.4.0)
   rvm1-capistrano3 (~> 1.4.0)
+  sassc (~> 2.4.0)
   sassc-rails (~> 2.1.2)
   savon (~> 2.13.0)
   scss_lint (~> 0.59.0)
