@@ -34,7 +34,7 @@
             @current_record.title,
             @current_record.image.present? ? @current_record.send(@image_field) : @default_image,
             @current_record.description,
-            @current_record.is_active? ? new_proposal_path(proposal_topic_id: @current_record.id) : nil,
+            @current_record.is_active? && @current_record.can_participate?(current_user) ? new_proposal_path(proposal_topic_id: @current_record.id) : nil,
             'propuesta',
           ) %>
         </div>

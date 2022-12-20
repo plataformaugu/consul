@@ -1,0 +1,19 @@
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+<div class="multiple-select-container">
+  <%=
+    @form.select :commune_ids,
+    @communes.map { |c| [c.name, c.id] },
+    { label: 'Selecciona las comunas que participarán' },
+    { required: @is_required, multiple: true, class: 'multiple-select' }
+  %>
+</div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.multiple-select').select2({
+      width: '100%',
+    });
+  });
+<% end %>

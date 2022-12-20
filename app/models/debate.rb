@@ -27,6 +27,7 @@ class Debate < ApplicationRecord
   belongs_to :geozone
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_one_attached :image, :dependent => :destroy
+  has_and_belongs_to_many :communes
 
   validates_translation :title, presence: true, length: { in: 4..Debate.title_max_length }
   validates_translation :description, presence: true
@@ -75,6 +76,14 @@ class Debate < ApplicationRecord
 
   def finished?
     is_finished
+  end
+
+  def can_participate?(user)
+    user and (self.all_communes? or self.communes.include?(user.commune))
+  end
+
+  def all_communes?
+    self.communes.count == Commune.count or self.communes.count == 0
   end
 
   def searchable_translations_definitions

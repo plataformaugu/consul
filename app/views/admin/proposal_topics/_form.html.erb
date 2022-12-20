@@ -17,6 +17,10 @@
       <%= form.date_field :end_date, label: 'Fecha de termino', required: true %>
     </div>
 
+    <div class="field">
+      <%= render Custom::CommunesSelectComponent.new(@proposal_topic, form, false) %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@proposal_topic, form, true) %>
 
     <div class="actions">

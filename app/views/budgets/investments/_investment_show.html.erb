@@ -26,6 +26,29 @@
       <aside class="small-12 medium-3 column">
         <%= render "/budgets/investments/author_actions", investment: investment %>
 
+        <% if investment.should_show_aside? %>
+          <% if investment.should_show_votes? %>
+            <div class="sidebar-divider"></div>
+            <h2><%= t("budgets.investments.show.supports") %></h2>
+            <div class="text-center">
+              <div id="<%= dom_id(investment) %>_votes">
+                <%= render Budgets::Investments::VotesComponent.new(investment) %>
+              </div>
+            </div>
+          <% elsif investment.should_show_vote_count? %>
+            <div class="sidebar-divider"></div>
+            <h2><%= t("budgets.investments.show.supports") %></h2>
+            <div class="text-center">
+              <span class="total-supports">
+                <strong>
+                  <%= t("budgets.investments.investment.supports",
+                      count: investment.total_votes) %>
+                </strong>
+              </span>
+            </div>
+          <% end %>
+        <% end %>
+
         <% if investment.unfeasible? && investment.valuation_finished? %>
           <div class="callout warning">
             <%= sanitize(t("budgets.investments.show.project_unfeasible")) %>

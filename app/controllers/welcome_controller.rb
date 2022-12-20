@@ -37,39 +37,46 @@ class WelcomeController < ApplicationController
     @poll = Poll.created_by_admin.order(created_at: :desc).first
     @budget = Budget.published.order(created_at: :desc).first
 
-    if @debate.nil? && @proposal.nil? && @poll.nil? && @budget.nil?
-      @cards_elements = nil
-    else
-      @cards_elements = [
-        {
-          title: @debate.title,
-          summary: nil,
-          description: ActionView::Base.full_sanitizer.sanitize(@debate.description).truncate_words(24),
-          image: @debate.image,
-          supertitle: 'Debate',
-        },
-        {
-          title: @proposal.title,
-          summary: nil,
-          description: ActionView::Base.full_sanitizer.sanitize(@proposal.description).truncate_words(24),
-          image: @proposal.image.present? ? @proposal.image.variant(:medium) : nil,
-          supertitle: 'Propuesta Ciudadana',
-        },
-        {
-          title: @poll.title,
-          summary: nil,
-          description: ActionView::Base.full_sanitizer.sanitize(@poll.description).truncate_words(24),
-          image: @poll.image.present? ? @poll.image.variant(:medium) : nil,
-          supertitle: 'Consulta',
-        },
-        {
-          title: @budget.name,
-          summary: nil,
-          description: ActionView::Base.full_sanitizer.sanitize(@budget.custom_description).truncate_words(24),
-          image: @budget.image.present? ? @budget.image.variant(:medium) : nil,
-          supertitle: 'Presupuesto Participativo',
-        },
-      ]
+    @cards_elements = []
+
+    if @debate.present?
+      @cards_elements.push({
+        title: @debate.title,
+        summary: nil,
+        description: ActionView::Base.full_sanitizer.sanitize(@debate.description).truncate_words(24),
+        image: @debate.image.present? ? @debate.image : '/images/process/debates.svg',
+        supertitle: 'Debate',
+      })
+    end
+    
+    if @proposal.present?
+      @cards_elements.push({
+        title: @proposal.title,
+        summary: nil,
+        description: ActionView::Base.full_sanitizer.sanitize(@proposal.description).truncate_words(24),
+        image: @proposal.image.present? ? @proposal.image.variant(:medium) : '/images/process/proposals.svg',
+        supertitle: 'Propuesta Ciudadana',
+      })
+    end
+
+    if @poll.present?
+      @cards_elements.push({
+        title: @poll.title,
+        summary: nil,
+        description: ActionView::Base.full_sanitizer.sanitize(@poll.description).truncate_words(24),
+        image: @poll.image.present? ? @poll.image.variant(:medium) : '/images/process/polls.svg',
+        supertitle: 'Consulta',
+      })
+    end
+
+    if @budget.present?
+      @cards_elements.push({
+        title: @budget.name,
+        summary: nil,
+        description: ActionView::Base.full_sanitizer.sanitize(@budget.custom_description).truncate_words(24),
+        image: @budget.image.present? ? @budget.image.variant(:medium) : '/images/process/budgets.svg',
+        supertitle: 'Presupuesto Participativo',
+      })
     end
 
     # Mapa

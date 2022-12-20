@@ -92,6 +92,14 @@ class Proposal < ApplicationRecord
     self.image.present? ? self.image.variant(:large) : nil
   end
 
+  def can_participate?(user)
+    if self.proposal_topic.present?
+      self.proposal_topic.can_participate?(user)
+    else
+      return true
+    end
+  end
+
   def publish
     update!(published_at: Time.current)
     send_new_actions_notification_on_published

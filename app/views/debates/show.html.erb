@@ -45,7 +45,7 @@
           <div class="in-favor-against">
             <div>
               <h4 class="option-text">Estoy de acuerdo</h4>
-              <% if can?(:vote, Debate) and !@debate.finished? %>
+              <% if can?(:vote, Debate) and !@debate.finished? and @debate.can_participate?(current_user) %>
                 <%= link_to polymorphic_path(@debate, action: :vote, value: "yes"),
                     title: t("votes.agree"),
                     method: "post",
@@ -61,7 +61,7 @@
 
             <div>
               <h4 class="option-text">No estoy de acuerdo</h4>
-              <% if can?(:vote, Debate) and !@debate.finished? %>
+              <% if can?(:vote, Debate) and !@debate.finished? and @debate.can_participate?(current_user) %>
                 <%= link_to polymorphic_path(@debate, action: :vote, value: "no"),
                     title: t("votes.disagree"),
                     method: "post",
@@ -80,11 +80,21 @@
           <span class="total-votes">
             <%= t("debates.debate.votes", count: @debate.total_votes) %>
           </span>
-          <% if current_user.nil? %>
-            <p><strong>Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar</strong></p>
-          <% elsif @debate.finished? %>
-            <h4>Debate finalizado</h4>
-          <% end %>
+          <div class="margin-top">
+            <% if current_user.nil? %>
+              <div class="callout warning">
+                Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar.
+              </div>
+            <% elsif @debate.finished? %>
+              <div class="callout warning">
+                Debate finalizado.
+              </div>
+            <% elsif !can_participate(current_user, @debate).nil? %>
+              <div class="callout warning">
+                No puedes participar.
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

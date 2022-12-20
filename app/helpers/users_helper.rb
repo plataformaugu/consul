@@ -73,4 +73,14 @@ module UsersHelper
       t("account.show.public_interests_user_title_list")
     end
   end
+
+  def can_participate(user, resource)
+    if resource.communes.count == 9 or resource.communes.count == 0
+      return nil
+    elsif resource.communes.include?(user.commune)
+      return nil
+    else
+      return resource.communes.pluck(:name)
+    end
+  end
 end

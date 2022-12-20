@@ -66,7 +66,9 @@ module Abilities
 
       can :create, Comment
       can :create, Debate
-      can [:create, :created], Proposal
+      can [:create, :created], Proposal do |proposal|
+        proposal.can_participate?(user)
+      end
       can :create, Legislation::Proposal
 
       can :hide, Comment, user_id: user.id
@@ -105,13 +107,15 @@ module Abilities
 
       unless user.organization?
         can :vote, Debate do |debate|
-          !debate.finished?
+          !debate.finished? && debate.can_participate?(user)
         end
         can :vote, Comment
       end
 
       if user.level_two_or_three_verified?
-        can :vote, Proposal, &:published?
+        can :vote, Proposal do |proposal|
+          proposal.published? && proposal.can_participate?(user)
+        end
 
         can :vote, Legislation::Proposal
         can :create, Legislation::Answer

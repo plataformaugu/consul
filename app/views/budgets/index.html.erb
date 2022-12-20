@@ -34,7 +34,7 @@
             <div class="record-list">
               <ul>
                 <% @budgets.each do |budget| %>
-                  <%= link_to "#{url_for(budgets_path)}?budget=#{@budget.id}#record-selector" do %>
+                  <%= link_to "#{url_for(budgets_path)}?budget=#{budget.id}#record-selector" do %>
                     <li class="<%= @budget.id == budget.id ? 'is-active' : '' %>"><%= budget.name %></li>
                   <% end %>
                 <% end %>

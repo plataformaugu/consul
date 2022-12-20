@@ -28,6 +28,7 @@ class Poll < ApplicationRecord
   has_many :questions, inverse_of: :poll, dependent: :destroy
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_many :ballot_sheets
+  has_and_belongs_to_many :communes
 
   has_many :geozones_polls
   has_many :geozones, through: :geozones_polls
@@ -71,6 +72,14 @@ class Poll < ApplicationRecord
     name
   end
 
+  def can_participate?(user)
+    user and (self.all_communes? or self.communes.include?(user.commune))
+  end
+
+  def all_communes?
+    self.communes.count == Commune.count or self.communes.count == 0
+  end
+
   def image_url
     self.image.present? ? self.image.variant(:large) : nil
   end
@@ -96,6 +105,7 @@ class Poll < ApplicationRecord
   end
 
   def answerable_by?(user)
+    self.can_participate?(user) &&
     user.present? &&
       user.level_two_or_three_verified? &&
       current? &&

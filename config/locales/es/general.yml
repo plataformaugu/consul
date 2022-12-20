@@ -615,7 +615,7 @@ es:
       cant_answer_verify: "Por favor %{verify_link} para poder responder."
       verify_link: "verifica tu cuenta"
       cant_answer_expired: "Esta consulta ha terminado."
-      cant_answer_wrong_geozone: "Esta consulta no está disponible en tu zona."
+      cant_answer_wrong_geozone: "No puedes participar."
       more_info_title: "Más información"
       documents: Documentos
       zoom_plus: Ampliar imagen

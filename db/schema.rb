@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_18_210514) do
+ActiveRecord::Schema.define(version: 2022_12_20_031155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -403,6 +403,11 @@ ActiveRecord::Schema.define(version: 2022_12_18_210514) do
     t.string "pdf_link"
   end
 
+  create_table "budgets_communes", id: false, force: :cascade do |t|
+    t.bigint "budget_id", null: false
+    t.bigint "commune_id", null: false
+  end
+
   create_table "campaigns", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "track_id"
@@ -475,6 +480,21 @@ ActiveRecord::Schema.define(version: 2022_12_18_210514) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["province_id"], name: "index_communes_on_province_id"
+  end
+
+  create_table "communes_debates", id: false, force: :cascade do |t|
+    t.bigint "debate_id", null: false
+    t.bigint "commune_id", null: false
+  end
+
+  create_table "communes_polls", id: false, force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "commune_id", null: false
+  end
+
+  create_table "communes_proposal_topics", id: false, force: :cascade do |t|
+    t.bigint "proposal_topic_id", null: false
+    t.bigint "commune_id", null: false
   end
 
   create_table "communities", id: :serial, force: :cascade do |t|

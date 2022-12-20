@@ -6,7 +6,8 @@
   <div class="small-12 medium-4 column">
     <% if budget.accepting? %>
       <% if current_user %>
-        <% if current_user.level_two_or_three_verified? %>
+        <% if !budget.can_participate?(current_user) %>
+        <% elsif current_user.level_two_or_three_verified? %>
           <div class="text-right">
             <%= link_to t("budgets.investments.index.sidebar.create"),
                         new_budget_investment_path(budget),

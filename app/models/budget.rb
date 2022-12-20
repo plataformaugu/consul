@@ -42,6 +42,7 @@ class Budget < ApplicationRecord
   has_many :administrators, through: :budget_administrators
   has_many :budget_valuators, dependent: :destroy
   has_many :valuators, through: :budget_valuators
+  has_and_belongs_to_many :communes
 
   has_one :poll
 
@@ -66,6 +67,14 @@ class Budget < ApplicationRecord
 
   def self.current
     published.order(:created_at).last
+  end
+
+  def can_participate?(user)
+    user and (self.all_communes? or self.communes.include?(user.commune))
+  end
+
+  def all_communes?
+    self.communes.count == Commune.count or self.communes.count == 0
   end
 
   def current_phase

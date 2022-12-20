@@ -1,14 +1,19 @@
 .auth-container {
   background-image: url('/images/global/bg-general.png');
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 
   .auth-box {
+    position: relative;
     border-radius: 15px;
     box-shadow: 7px 3px 29px -9px rgba(0,0,0,0.5);
     background-color: #203177;
     color: $white;
-    padding: 2rem;
+    padding: 2rem 5rem;
+
+    @media (max-width: 639px) {
+      padding: 2rem 3rem;
+    }
 
     label, span {
       color: $white;
@@ -16,6 +21,26 @@
 
     a {
       color: #FAC75E;
+    }
+
+    .person-image {
+      position: absolute;
+
+      @media (max-width: 639px) {
+        display: none;
+      }
+    }
+
+    .person-image-left {
+      left: -4rem;
+      bottom: -5rem;
+      height: 14rem;
+    }
+
+    .person-image-right {
+      right: -4rem;
+      bottom: -5rem;
+      height: 24rem;
     }
   }
 }

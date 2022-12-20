@@ -5,6 +5,10 @@
       <div class="callout warning">
         Convocatoria finalizada.
       </div>
+    <% elsif !proposal.can_participate?(current_user) %>
+      <div class="callout warning">
+        No puedes participar.
+      </div>
     <% else %>
       <% if voted? %>
         <div class="supported callout success">

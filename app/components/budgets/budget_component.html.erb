@@ -20,7 +20,9 @@
   </div>
 </div>
 
-<%= render "/budgets/investments/header" %>
+<% if current_user and budget.can_participate?(current_user) %>
+  <%= render "/budgets/investments/header" %>
+<% end %>
 
 
 <div class="row">
