@@ -2,7 +2,6 @@
   <%= render "shared/errors", resource: debate %>
 
   <fieldset class="required-fields">
-    <legend><%= t("shared.required") %></legend>
 
     <%= render "shared/globalize_locales", resource: debate %>
 
@@ -20,28 +19,17 @@
               class: "html-area" %>
       </div>
     <% end %>
-
-    <%= render Shared::ImageFieldComponent.new(debate, f, true) %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
 
-  <fieldset>
-    <%= render Custom::CommunesSelectComponent.new(debate, f, false) %>
-  </fieldset>
+  <%= f.text_field :question, label: 'Pregunta', hint: 'Escribe una pregunta para comenzar el debate.' %>
+
+  <%= render Shared::ImageFieldComponent.new(debate, f, true) %>
+
+  <%= render Custom::CommunesSelectComponent.new(debate, f, false) %>
 
   <div class="actions">
-    <% if debate.new_record? %>
-      <div>
-        <%= f.check_box :terms_of_service,
-          title: t("form.accept_terms_title"),
-          label: t("form.accept_terms",
-                   policy: link_to(t("form.policy"), "/privacy", target: "blank"),
-                   conditions: link_to(t("form.conditions"), "/conditions", target: "blank")
-                  ) %>
-      </div>
-    <% end %>
-
     <%= f.submit(class: "button", value: t("debates.#{action_name}.form.submit_button")) %>
   </div>
 <% end %>
