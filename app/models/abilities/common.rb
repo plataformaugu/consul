@@ -7,9 +7,9 @@ module Abilities
 
       can [:read, :update], User, id: user.id
 
-      can [:join, :left], Event do |event|
-        !event.is_expired?
-      end
+      # can [:join, :left], Event do |event|
+      #   !event.is_expired?
+      # end
       can :update, Debate do |debate|
         debate.editable_by?(user)
       end

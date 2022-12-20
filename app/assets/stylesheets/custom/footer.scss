@@ -46,6 +46,19 @@
         }
       }
 
+      .footer-column {
+        max-width: 25%;
+
+        @media (max-width: 639px) {
+          max-width: 100%;
+        }
+      }
+
+      .logo-ugpc {
+        width: 70%;
+        margin-bottom: 1rem;
+      }
+
       .social {
         width: auto !important;
         padding: 0 !important;

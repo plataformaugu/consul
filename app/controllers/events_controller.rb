@@ -5,10 +5,12 @@ class EventsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @events = Event.all
+    redirect_to root_path
+    # @events = Event.all
   end
 
   def show
+    redirect_to root_path
   end
 
   def join

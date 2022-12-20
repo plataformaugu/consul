@@ -136,8 +136,4 @@
       <%= link_to t("admin.menu.machine_learning"), admin_machine_learning_path, class: "ml-link" %>
     </li>
   <% end %>
-
-  <li class="<%= "is-active" if controller_name == "events" %>">
-    <%= link_to 'Eventos', admin_events_path, class: 'events-link' %>
-  </li>
 </ul>

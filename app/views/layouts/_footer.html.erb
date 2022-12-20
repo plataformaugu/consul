@@ -1,24 +1,23 @@
 <footer>
   <div class="row">
     <%= image_tag '/images/global/logo-full.png', class: 'logo' %>
-    <div>
+    <div class="footer-column">
       <h4>Sitios de interés</h4>
       <ul>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
+        <li><a href="https://www.goreantofagasta.cl/">Gobierno Regional de Antofagasta</a></li>
+        <li><a href="https://www.subdere.gov.cl/">Subsecretaría de Desarrollo Regional y Administrativo</a></li>
+        <li><a href="https://dos.gob.cl/">División de Organizaciones Sociales</a></li>
       </ul>
     </div>
-    <div>
-      <h4>LOGO UGPC</h4>
+    <div class="footer-column">
+      <%= image_tag '/images/global/logo-ugpc-full.png', class: 'logo-ugpc' %>
       <p>
         <strong>Dirección:</strong> Prat 384, piso 2, Antofagasta.<br>
         <strong>Teléfono:</strong> (56 55) 2357500<br>
         <strong>Mail:</strong> contacto@goreantofagasta.cl
       </p>
     </div>
-    <div>
+    <div class="footer-column">
       <h4>Redes Sociales</h4>
       <%= render Layout::SocialComponent.new %>
     </div>
