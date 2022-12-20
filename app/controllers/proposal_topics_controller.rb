@@ -32,7 +32,7 @@ class ProposalTopicsController < ApplicationController
       end
     end
 
-    if !@proposals.any?
+    if !@proposals.any? && @proposal_topic.present?
       @proposals = @proposal_topic.proposals.published.order(created_at: :desc)
       @proposal = @proposals.first
     end
