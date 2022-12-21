@@ -9,3 +9,7 @@
 .pdf-icon {
   @include icon(file-pdf, solid);
 }
+
+.user-icon {
+  @include icon(user, solid);
+}

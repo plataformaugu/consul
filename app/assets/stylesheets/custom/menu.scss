@@ -69,6 +69,28 @@ $header-height-mobile: 80px;
           text-decoration: none;
           transition: all 0.2s;
 
+          span {
+            color: #F8A21F;
+
+            &::after {
+              display: block;
+              width: 0;
+              height: 0;
+              border: inset 6px;
+              content: '';
+              border-bottom-width: 0;
+              border-top-style: solid;
+              border-color: #F8A21F transparent transparent;
+              right: 10px;
+              left: auto;
+              margin-top: -3px;
+              position: absolute;
+              top: 50%;
+              -webkit-box-sizing: inherit;
+              box-sizing: inherit;
+            }
+          }
+
           &:hover {
             cursor: pointer;
           }

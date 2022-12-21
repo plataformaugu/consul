@@ -1,14 +1,7 @@
 class UserSegments
   def self.segments
     %w[all_users
-       administrators
-       all_proposal_authors
-       proposal_authors
-       investment_authors
-       feasible_and_undecided_investment_authors
-       selected_investment_authors
-       winner_investment_authors
-       not_supported_on_current_budget] + geozones.keys
+       administrators] + geozones.keys
   end
 
   def self.segment_name(segment)

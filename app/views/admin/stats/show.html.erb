@@ -8,20 +8,12 @@
                     polls_admin_stats_path, class: "button hollow" %>
         <%= link_to t("admin.stats.show.participatory_budgets"),
                     budgets_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.direct_messages"),
-                    direct_messages_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.proposal_notifications"),
-                    proposal_notifications_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.incomplete_verifications"),
-                     admin_verifications_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.sdg"),
-                     sdg_admin_stats_path, class: "button hollow" if feature?(:sdg) %>
       </div>
 
       <div class="clear"></div>
 
       <div class="row stats-numbers">
-        <div class="small-12 medium-3 column">
+        <div class="small-12 medium-4 column">
           <p class="featured">
             <%= link_to t("admin.stats.show.summary.visits"),
                         graph_admin_stats_path(id: "visits", count: @visits) %> <br>
@@ -51,7 +43,7 @@
           <% end %>
         </div>
 
-        <div class="small-12 medium-3 column">
+        <div class="small-12 medium-4 column">
           <p class="featured">
             <%= t "admin.stats.show.summary.proposal_votes" %> <br>
             <span class="number"><%= number_with_delimiter(@proposal_votes) %> <br></span>
@@ -72,39 +64,10 @@
           </p>
         </div>
 
-        <div class="small-12 medium-3 column">
-          <p class="featured">
-            <%= t "admin.stats.show.summary.verified_users" %> <br>
-            <span class="number"><%= number_with_delimiter(@verified_users) %></span>
-          </p>
-
-          <p class="featured">
-            <%= t "admin.stats.show.summary.unverified_users" %> <br>
-            <span class="number"><%= number_with_delimiter(@unverified_users) %></span>
-          </p>
-        </div>
-
-        <div class="small-12 medium-3 column">
+        <div class="small-12 medium-4 column">
           <p class="featured">
             <%= t "admin.stats.show.summary.users" %> <br>
             <span class="number"><%= number_with_delimiter(@users) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.user_level_two" %> <br>
-            <span class="number"><%= number_with_delimiter(@user_level_two) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.user_level_three" %> <br>
-            <span class="number"><%= number_with_delimiter(@user_level_three) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.verified_users_who_didnt_vote_proposals" %> <br>
-            <span class="number">
-              <%= number_with_delimiter(@user_ids_who_didnt_vote_proposals) %>
-            </span>
           </p>
         </div>
 
@@ -118,13 +81,6 @@
           </h3>
         <% end %>
       </div>
-
-      <% if feature?(:budgets) %>
-        <div class="small-12 column">
-          <h2><%= t "admin.stats.show.budgets_title" %></h2>
-          <%= budget_investments_chart_tag id: "budget_investments" %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
