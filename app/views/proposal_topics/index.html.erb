@@ -14,7 +14,7 @@
     '/images/process/proposals.svg',
     @proposal_topics,
     @proposal_topic,
-    new_proposal_path(proposal_topic_id: @proposal_topic.id),
+    @proposal_topic.present? ? new_proposal_path(proposal_topic_id: @proposal_topic.id) : nil,
   ) %>
 
   <% if @proposal_topic.present? %>

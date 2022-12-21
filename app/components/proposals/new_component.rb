@@ -1,6 +1,7 @@
 class Proposals::NewComponent < ApplicationComponent
   include Header
   attr_reader :proposal
+  delegate :current_user, to: :helpers
 
   def initialize(proposal, proposal_topic)
     @proposal = proposal
