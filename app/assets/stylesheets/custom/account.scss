@@ -1,0 +1,20 @@
+.account {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+
+  .tabs {
+    background-color: transparent;
+
+    a {
+      background-color: transparent;
+    }
+  }
+
+  .tabs-content {
+    background-color: transparent;
+
+    .tabs-panel {
+      padding: 0;
+    }
+  }
+}
