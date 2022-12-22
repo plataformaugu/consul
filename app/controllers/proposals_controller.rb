@@ -58,9 +58,7 @@ class ProposalsController < ApplicationController
     @proposal_topic = ProposalTopic.find_by_id(params[:id])
 
     if @proposal_topic.present? && @proposal_topic.is_published?
-      super
-      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id).published).page(params[:page])
-      @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
+      redirect_to "#{url_for(proposal_topics_path)}?topic=#{@proposal_topic.id}"
     else
       redirect_to root_path
     end

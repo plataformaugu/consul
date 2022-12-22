@@ -46,6 +46,7 @@ class WelcomeController < ApplicationController
         description: ActionView::Base.full_sanitizer.sanitize(@debate.description).truncate_words(24),
         image: @debate.image.present? ? @debate.image : '/images/process/debates.svg',
         supertitle: 'Debate',
+        path: debate_path(@debate.id)
       })
     end
     
@@ -56,6 +57,7 @@ class WelcomeController < ApplicationController
         description: ActionView::Base.full_sanitizer.sanitize(@proposal.description).truncate_words(24),
         image: @proposal.image.present? ? @proposal.image.variant(:medium) : '/images/process/proposals.svg',
         supertitle: 'Propuesta Ciudadana',
+        path: "#{url_for(proposal_topics_path)}?proposal=#{@proposal.id}#card-#{@proposal.id}"
       })
     end
 
@@ -66,6 +68,7 @@ class WelcomeController < ApplicationController
         description: ActionView::Base.full_sanitizer.sanitize(@poll.description).truncate_words(24),
         image: @poll.image.present? ? @poll.image.variant(:medium) : '/images/process/polls.svg',
         supertitle: 'Consulta',
+        path: poll_path(@poll.id)
       })
     end
 
@@ -76,6 +79,7 @@ class WelcomeController < ApplicationController
         description: ActionView::Base.full_sanitizer.sanitize(@budget.custom_description).truncate_words(24),
         image: @budget.image.present? ? @budget.image.variant(:medium) : '/images/process/budgets.svg',
         supertitle: 'Presupuesto Participativo',
+        path: "#{url_for(budgets_path)}?budget=#{@budget.id}"
       })
     end
 
