@@ -241,6 +241,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def clave_unica_request
+      logger.error '*' * 80
+      logger.error 'code:'
+      logger.error @code
+      logger.error 'secret:'
+      logger.error @secret
       uri = URI('https://claveunica.lascondes.cl/clave-unica/auth-info')
       https = Net::HTTP.new(uri.host, uri.port)
       https.use_ssl = true
@@ -248,11 +253,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       request.body = {code: @code, secret: @secret}.to_json
       response = https.request(request)
       result = JSON.parse(response.body)
-      logger.error '*' * 80
-      logger.error 'code:'
-      logger.error @code
-      logger.error 'secret:'
-      logger.error @secret
       logger.error 'clave_unica_request result:'
       logger.error result
       logger.error '*' * 80
