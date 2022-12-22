@@ -241,22 +241,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def clave_unica_request
-      logger.error '*' * 80
-      logger.error 'code:'
-      logger.error @code
-      logger.error 'secret:'
-      logger.error @secret
-      uri = URI('https://claveunica.lascondes.cl/clave-unica/auth-info')
-      https = Net::HTTP.new(uri.host, uri.port)
-      https.use_ssl = true
-      request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-      request.body = {code: @code, secret: @secret}.to_json
-      response = https.request(request)
-      result = JSON.parse(response.body)
-      logger.error 'clave_unica_request result:'
-      logger.error result
-      logger.error '*' * 80
-      return result
+      begin
+        uri = URI('https://claveunica.lascondes.cl/clave-unica/auth-info')
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+        request.body = {code: @code, secret: @secret}.to_json
+        response = https.request(request)
+        result = JSON.parse(response.body)
+        return result
+      rescue
+        return nil
+      end
     end
 
     def registro_civil_request(rut, type)
