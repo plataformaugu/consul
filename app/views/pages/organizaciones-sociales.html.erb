@@ -1,0 +1,48 @@
+<%
+    @cards = [
+        {
+            :title => 'Organizaciones Funcionales',
+            :color => '#f25b86',
+            :path => functional_organizations_index_main_themes_path,
+            :is_active => true
+        }
+    ]
+%>
+<%= render "shared/section_header",
+    color: "#568ade",
+    title: 'Organizaciones Sociales',
+    show_buildings: true,
+    small_height: true
+%>
+<div class="lc-section">
+    <div class="lc-container">
+        <div class="lc-cards-container">
+        <% @cards.each do |card| %>
+            <% if card[:is_active] %>
+                <%= link_to card[:path], class: "lc-card-container" do %>
+                    <div class="lc-card">
+                        <div class="lc-card-header" style="background-color: <%= card[:color] %>">
+                            <%= card[:title] %> <% unless card[:title2].nil? %><br><%= card[:title2] %><% end %>
+                        </div>
+                        <div class="lc-card-body" style="text-align: center;">
+                            <%= image_tag "#{card[:image]}" %>
+                            <h3><%= card[:text] %></h3>
+                            <div class="plus-button-participa"></div>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        </div>
+    </div>
+</div>
+<div class="p-footer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="white" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+    <div class="p-f-image">
+        <%= image_tag "/images/p-slider-2.svg" %>
+    </div>
+    <div class="p-f-tree">
+        <%= image_tag "/images/p-arbol.svg", class: 'p-f-t-1' %>
+        <%= image_tag "/images/p-arbusto.svg", class: 'p-f-t-2' %>
+    </div>
+</div>

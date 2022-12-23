@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_29_204015) do
+ActiveRecord::Schema.define(version: 2022_12_22_235655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -711,6 +711,26 @@ ActiveRecord::Schema.define(version: 2022_11_29_204015) do
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["user_id", "followable_type", "followable_id"], name: "access_follows"
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "functional_organizations", force: :cascade do |t|
+    t.string "name"
+    t.date "conformation_date"
+    t.string "president_name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "address"
+    t.string "mission"
+    t.string "view"
+    t.string "whatsapp"
+    t.string "twitter"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "url"
+    t.bigint "main_theme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["main_theme_id"], name: "index_functional_organizations_on_main_theme_id"
   end
 
   create_table "geozones", id: :serial, force: :cascade do |t|
@@ -2025,6 +2045,7 @@ ActiveRecord::Schema.define(version: 2022_11_29_204015) do
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
   add_foreign_key "follows", "users"
+  add_foreign_key "functional_organizations", "main_themes"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"

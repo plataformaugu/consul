@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
+  resources :functional_organizations, :path => 'organizaciones-funcionales'
   resources :popups, :controller => 'admin/popups'
   resources :proposals_themes, :path => 'propuestas'
   resources :encuesta, :path => 'encuestas'
-  resources :main_themes, :path => 'ejes-tematicos'
+  resources :main_themes, :path => 'ejes-tematicos' do
+    collection do
+      get :functional_organizations_index, :path => 'organizaciones-funcionales'
+    end
+
+    member do
+      get :functional_organizations, :path => 'organizaciones-funcionales'
+    end
+  end
+
   resources :news do
     collection do
       post :like

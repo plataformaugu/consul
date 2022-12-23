@@ -8,6 +8,7 @@ module Abilities
 
       can [:index, :new, :create, :edit, :update, :destroy], News
       can [:index, :new, :create, :edit, :update, :destroy], Popup
+      can [:index, :new, :create, :edit, :update, :destroy], FunctionalOrganization
       can [:validate, :custom_hide], Comment
       can [:publish, :update, :edit, :reject, :toggle_in_development], Proposal
       can [:new, :edit, :update, :create, :destroy], ProposalsTheme

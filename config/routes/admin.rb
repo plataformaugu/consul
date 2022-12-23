@@ -281,6 +281,7 @@ namespace :admin do
 
   resources :popups
   resources :news
+  resources :functional_organizations
 end
 
 resolve "Milestone" do |milestone|

@@ -1,0 +1,43 @@
+<h2>Organizaciones Funcionales</h2>
+
+<div>
+  <%= link_to 'Crear organización funcional', new_admin_functional_organization_path, class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+</div>
+
+<% if @functional_organizations.any? %>
+  <div class="mt-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Conformación</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Eje temático</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @functional_organizations.order(created_at: :desc).each do |fo| %>
+          <tr id="<%= fo.id %>">
+            <td><%= fo.id %></td>
+            <td><%= fo.name %></td>
+            <td><%= fo.conformation_date.present? ? fo.conformation_date.strftime('%d/%m/%Y') : '' %></td>
+            <td><%= fo.phone_number %></td>
+            <td><%= fo.email %></td>
+            <td>
+              <% if fo.main_theme %>
+                <%= image_tag fo.main_theme.icon, style: 'width: 32px;', title: fo.main_theme.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to 'Editar', edit_admin_functional_organization_path(fo) %> | 
+              <%= link_to 'Eliminar', admin_functional_organization_path(fo), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta organización funcional?' }, style: 'color: red;' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

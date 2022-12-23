@@ -118,6 +118,10 @@
     &.news-link {
       @include icon(newspaper, solid);
     }
+
+    &.functional-organizations-link {
+      @include icon(people-arrows, solid);
+    }
   }
 
   li {

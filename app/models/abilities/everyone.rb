@@ -13,7 +13,8 @@ module Abilities
       can :read, Comment
       can [:read, :results_index], Poll
       can :read, Event
-      can :read, MainTheme
+      can [:functional_organizations_index, :functional_organizations, :read], MainTheme
+      can [:read], FunctionalOrganization
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids
       can :stats, Poll, id: Poll.expired.stats_enabled.not_budget.ids
       can :read, Poll::Question

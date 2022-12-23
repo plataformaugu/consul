@@ -1,0 +1,26 @@
+<%= render "shared/section_header",
+    color: @main_theme.primary_color,
+    section_image: @main_theme.image,
+    title: @main_theme.name,
+    pre_title: 'Organizaciones Funcionales',
+    show_buildings: true
+%>
+
+<div class="main-theme-functional-organizations-page">
+  <div class="row">
+    <div class="small-12 column">
+      <%= link_to 'Volver', functional_organizations_index_main_themes_path %>
+      <div class="main-theme-functional-organizations-container mt-2">
+        <% @functional_organizations.each do |fo| %>
+          <%= render 'functional_organization_card', fo: fo %>
+        <% end %>
+      </div>
+      <%= paginate @functional_organizations %>
+    </div>
+  </div>
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: @main_theme.secondary_color, color2: @main_theme.primary_color do %>
+    <% end %>
+</div>
