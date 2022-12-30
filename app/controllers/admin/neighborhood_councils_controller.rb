@@ -16,6 +16,7 @@ class Admin::NeighborhoodCouncilsController < ApplicationController
 
   def show
     @directives = @neighborhood_council.directives
+    @events = @neighborhood_council.neighborhood_council_events
   end
 
   def new

@@ -1,40 +1,17 @@
 <%= link_to 'Volver', admin_neighborhood_councils_path %>
 
-<h2>Directiva de <%= @neighborhood_council.name %></h2>
+<h2><%= @neighborhood_council.name %></h2>
 
-<div>
-  <%= link_to 'Crear directiva', new_admin_directive_path(neighborhood_council_id: @neighborhood_council.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
-</div>
+<ul class="tabs" data-tabs id="example-tabs">
+  <li class="tabs-title is-active"><a href="#directive" aria-selected="true">Directiva</a></li>
+  <li class="tabs-title"><a data-tabs-target="events" href="#events">Eventos</a></li>
+</ul>
 
-<% if @directives.any? %>
-  <div class="mt-2">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Cargo</th>
-          <th>Profesión</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @directives.order(created_at: :desc).each do |d| %>
-          <tr id="<%= d.id %>">
-            <td><%= d.id %></td>
-            <td><%= d.full_name %></td>
-            <td><%= d.position %></td>
-            <td><%= d.email %></td>
-            <td><%= d.phone_number %></td>
-            <td>
-              <%= link_to 'Editar', edit_admin_directive_path(d) %> | 
-              <%= link_to 'Eliminar', admin_directive_path(d), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este dirigente?' }, style: 'color: red;' %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<div class="tabs-content" data-tabs-content="example-tabs">
+  <div class="tabs-panel is-active" id="directive">
+    <%= render 'directive' %>
   </div>
-<% end %>
+  <div class="tabs-panel" id="events">
+    <%= render 'events' %>
+  </div>
+</div>

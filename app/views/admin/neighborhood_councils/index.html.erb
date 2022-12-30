@@ -28,7 +28,7 @@
             <td><%= nc.email %></td>
             <td><%= nc.sector.name %></td>
             <td>
-              <%= link_to 'Dirigentes', admin_neighborhood_council_path(nc) %> | 
+              <%= link_to 'Configurar', admin_neighborhood_council_path(nc) %> | 
               <%= link_to 'Editar', edit_admin_neighborhood_council_path(nc) %> | 
               <%= link_to 'Eliminar', admin_neighborhood_council_path(nc), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta junta de vecinos?' }, style: 'color: red;' %>
             </td>

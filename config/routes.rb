@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :sectors, only: [:show], :path => 'unidades-vecinales' do
     resources :neighborhood_councils, only: [:show], controller: "sectors/neighborhood_councils", :path => 'junta-vecinos' do
-      resources :directives, only: [:index], controller: 'sectors/neighborhood_councils/directives', :path => 'directivas'
+      resources :directives, only: [:index], controller: 'sectors/neighborhood_councils/directives', :path => 'directiva'
 
       member do
         get :news, :path => 'noticias'

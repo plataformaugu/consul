@@ -51,7 +51,7 @@
         layer.on('click', function(e) {
           var name = feature.properties.name.replaceAll('-', '')
           var foundSector = sectors.find((s) => s.name === name)
-          window.open(`/unidades-vecinales/${foundSector.id}`, '_blank')
+          window.open(`/unidades-vecinales/${foundSector.id}`, '_self')
         })
 
         layer.on('mouseover', function(e) {

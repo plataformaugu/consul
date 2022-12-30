@@ -8,7 +8,7 @@ module Abilities
       can [:index, :read], ProposalsTheme
       can [:read], Sector
       can [:read], Directive
-      can [:news], NeighborhoodCouncil
+      can [:read, :news], NeighborhoodCouncil
       can :index, Encuestum
       can [:read, :map], Debate
       can [:read, :map, :summary, :share, :initiatives], Proposal
