@@ -6,6 +6,9 @@ module Abilities
       can [:index, :show], News
       can [:show], Popup
       can [:index, :read], ProposalsTheme
+      can [:read], Sector
+      can [:read], Directive
+      can [:news], NeighborhoodCouncil
       can :index, Encuestum
       can [:read, :map], Debate
       can [:read, :map, :summary, :share, :initiatives], Proposal

@@ -8,8 +8,7 @@
         <span class="separator">·</span>
         <%= news.created_at_text %>
       </span>
-      <p class="margin-top"><strong><%= news.summary %></strong></p>
-      <%= wysiwyg(news.body) %>
+      <p class="margin-top"><%= wysiwyg(news.summary) %></p>
     </div>
     <div class="card-actions">
       <%= link_to 'Ver más', news, class: 'solid-button-xsm' %>

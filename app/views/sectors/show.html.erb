@@ -1,0 +1,35 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: "Unidad Vecinal #{@sector.name.insert(1, '-')}",
+  title: 'Juntas de Vecino',
+  show_buildings: true,
+  small_height: true
+%>
+
+<main class="sectors-page">
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to '/organizaciones-territoriales' %>
+      </div>
+
+      <% if @neighborhood_councils.any? %>
+        <div class="sectors-cards-container">
+          <% @neighborhood_councils.each do |nc| %>
+            <%= link_to sector_neighborhood_council_path(@sector, nc), style: 'text-decoration: none;' do %>
+              <%= render Custom::SimpleCardComponent.new('JJVV', nc.name)%>
+            <% end %>
+          <% end %>
+        </div>
+        <%= paginate @neighborhood_councils %>
+      <% else %>
+        <p class="text-center">No hay juntas de vecino.</p>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

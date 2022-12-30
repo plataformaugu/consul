@@ -1,0 +1,32 @@
+<%= form_with(model: directive, local: true, url: action_name == 'edit' ? admin_directive_path : admin_directive_index_path) do |form| %>
+
+  <div class="field">
+    <%= form.text_field :full_name, label: 'Nombre', required: true, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.select :position, ['Presidente', 'Vicepresidente', 'Secretario', 'Tesorero'],
+      { label: 'Cargo' },
+      { class: 'custom-input' }
+    %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :profession, label: 'Profesión', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.email_field :email, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.phone_field :phone_number, label: 'Teléfono', class: 'custom-input' %>
+  </div>
+
+  <%= form.hidden_field :neighborhood_council_id, value: @neighborhood_council.id %>
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class: 'solid-button-sm' %>
+  </div>
+<% end %>

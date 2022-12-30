@@ -2,7 +2,6 @@
   <div class="field">
     <%=
       form.text_field :title,
-      maxlength: 50,
       label: 'Título',
       required: true,
       class: 'custom-input'
@@ -11,10 +10,12 @@
 
   <div class="field">
     <%=
-      form.text_field :summary,
-      maxlength: 128,
+      form.text_area :summary,
       label: 'Bajada de título',
-      class: 'custom-input'
+      rows: 5,
+      required: true,
+      class: "html-area",
+      maxlength: 1000
     %>
   </div>
 
@@ -58,19 +59,20 @@
         label: 'Tipo de noticia'
       },
       {
-        required: true
+        required: true,
+        class: 'custom-input'
       }
     %>
   </div>
 
   <div id="neighborhood-council-container" class="field mt-1">
     <%=
-      form.select 'test',
-      ['Junta de vecinos 1', 'Junta de vecinos 2', 'Junta de vecinos 3'],
-      {
-        include_blank: 'Elija una opción',
-        label: 'Junta de vecinos'
-      }
+      form.collection_select :neighborhood_council_id,
+      NeighborhoodCouncil.all,
+      :id,
+      :name,
+      {prompt: 'Elige una opción', label: 'Junta de vecinos'},
+      {class: 'custom-input', style: 'width: 100%;'}
     %>
   </div>
 
@@ -111,6 +113,8 @@
 
 <script>
   function toggleNewsType(newsType) {
+    $('#news_main_theme_id').attr("required", false)
+    $('#news_neighborhood_council_id').attr("required", false)
     $('#main-theme-container').hide()
     $('#highlight-container').hide()
     $('#neighborhood-council-container').hide()
@@ -118,8 +122,10 @@
     if (newsType === '<%= News::CITIZEN_PARTICIPATION %>') {
       $('#main-theme-container').show()
       $('#highlight-container').show()
+      $('#news_main_theme_id').attr("required", true)
     } else if (newsType === '<%= News::NEIGHBORHOOD_COUNCIL %>') {
       $('#neighborhood-council-container').show()
+      $('#news_neighborhood_council_id').attr("required", true)
     }
   }
 

@@ -18,9 +18,6 @@
           <%= @news.created_at_text %>
         </small>
         <p></p>
-        <% if @news.summary.present? %>
-          <p><strong><%= @news.summary %></strong></p>
-        <% end %>
         <%= wysiwyg(@news.body) %>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center;">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_22_235655) do
+ActiveRecord::Schema.define(version: 2022_12_28_030609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -621,6 +621,18 @@ ActiveRecord::Schema.define(version: 2022_12_22_235655) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "directives", force: :cascade do |t|
+    t.string "full_name"
+    t.string "position"
+    t.string "profession"
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "neighborhood_council_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["neighborhood_council_id"], name: "index_directives_on_neighborhood_council_id"
+  end
+
   create_table "documents", id: :serial, force: :cascade do |t|
     t.string "title"
     t.string "attachment_file_name"
@@ -1107,6 +1119,31 @@ ActiveRecord::Schema.define(version: 2022_12_22_235655) do
     t.string "name"
   end
 
+  create_table "neighborhood_council_events", force: :cascade do |t|
+    t.string "name"
+    t.string "place"
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "neighborhood_council_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_neighborhood_council_events_on_event_id"
+    t.index ["neighborhood_council_id"], name: "index_neighborhood_council_events_on_neighborhood_council_id"
+  end
+
+  create_table "neighborhood_councils", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone_number"
+    t.string "email"
+    t.date "conformation_date"
+    t.bigint "sector_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sector_id"], name: "index_neighborhood_councils_on_sector_id"
+  end
+
   create_table "news", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -1118,7 +1155,9 @@ ActiveRecord::Schema.define(version: 2022_12_22_235655) do
     t.string "news_type"
     t.text "summary"
     t.string "miniature"
+    t.bigint "neighborhood_council_id"
     t.index ["main_theme_id"], name: "index_news_on_main_theme_id"
+    t.index ["neighborhood_council_id"], name: "index_news_on_neighborhood_council_id"
   end
 
   create_table "news_dislike", force: :cascade do |t|
@@ -2038,6 +2077,7 @@ ActiveRecord::Schema.define(version: 2022_12_22_235655) do
   add_foreign_key "debate_neighbor_types", "neighbor_types"
   add_foreign_key "debate_sectors", "debates"
   add_foreign_key "debate_sectors", "sectors"
+  add_foreign_key "directives", "neighborhood_councils"
   add_foreign_key "documents", "users"
   add_foreign_key "encuestum_neighbor_types", "encuesta"
   add_foreign_key "encuestum_neighbor_types", "neighbor_types"
@@ -2056,6 +2096,9 @@ ActiveRecord::Schema.define(version: 2022_12_22_235655) do
   add_foreign_key "machine_learning_jobs", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "moderators", "users"
+  add_foreign_key "neighborhood_council_events", "events"
+  add_foreign_key "neighborhood_council_events", "neighborhood_councils"
+  add_foreign_key "neighborhood_councils", "sectors"
   add_foreign_key "news", "main_themes"
   add_foreign_key "news_dislike", "users"
   add_foreign_key "news_like", "users"

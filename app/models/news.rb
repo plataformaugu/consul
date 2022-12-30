@@ -23,7 +23,6 @@ class News < ApplicationRecord
     COSOC => 'COSOC',
   }
 
-  validates :summary, length: {minimum: 5, maximum: 128}, allow_blank: true
   validates :news_type, inclusion: { in: ALLOWED_TYPES }
 
   scope :citizen_participation, -> { where(news_type: CITIZEN_PARTICIPATION) }

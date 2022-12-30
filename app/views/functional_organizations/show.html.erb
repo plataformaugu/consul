@@ -14,19 +14,19 @@
   </div>
   
   <div class="row mt-2">
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Nombre:</strong>
         <%= @functional_organization.name %>
       </p>
     </div>
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Fecha de conformación:</strong>
         <%= @functional_organization.conformation_date.present? ? @functional_organization.conformation_date.strftime('%d/%m/%Y') : 'Sin información' %>
       </p>
     </div>
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Presidente:</strong>
         <%= @functional_organization.president_name.present? ? @functional_organization.president_name : 'Sin información' %>
@@ -35,19 +35,19 @@
   </div>
 
   <div class="row">
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Teléfono:</strong>
         <%= @functional_organization.phone_number.present? ? @functional_organization.phone_number : 'Sin información' %>
       </p>
     </div>
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Email:</strong>
         <%= @functional_organization.email.present? ? @functional_organization.email : 'Sin información' %>
       </p>
     </div>
-    <div class="small-4 column">
+    <div class="small-12 medium-4 column">
       <p>
         <strong>Dirección:</strong>
         <%= @functional_organization.address.present? ? @functional_organization.address : 'Sin información' %>

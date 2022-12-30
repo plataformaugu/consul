@@ -1,0 +1,34 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: "Unidad Vecinal #{@neighborhood_council.sector.name.insert(1, '-')}",
+  title: @neighborhood_council.name,
+  show_buildings: true,
+  small_height: true
+%>
+
+<main class="sectors-page">
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to sector_path(@neighborhood_council.sector) %>
+      </div>
+
+      <div class="sectors-cards-container">
+        <%= link_to sector_neighborhood_council_directives_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Directiva', 'Lorem ipsum')%>
+        <% end %>
+
+        <%= link_to news_sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Noticias', 'Lorem ipsum')%>
+        <% end %>
+
+        <%= render Custom::SimpleCardComponent.new('Calendario', 'Lorem ipsum')%>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

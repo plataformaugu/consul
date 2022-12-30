@@ -1,8 +1,20 @@
 Rails.application.routes.draw do
+  resources :neighborhood_council_events
   resources :functional_organizations, :path => 'organizaciones-funcionales'
   resources :popups, :controller => 'admin/popups'
   resources :proposals_themes, :path => 'propuestas'
   resources :encuesta, :path => 'encuestas'
+
+  resources :sectors, only: [:show], :path => 'unidades-vecinales' do
+    resources :neighborhood_councils, only: [:show], controller: "sectors/neighborhood_councils", :path => 'junta-vecinos' do
+      resources :directives, only: [:index], controller: 'sectors/neighborhood_councils/directives', :path => 'directivas'
+
+      member do
+        get :news, :path => 'noticias'
+      end
+    end
+  end
+
   resources :main_themes, :path => 'ejes-tematicos' do
     collection do
       get :functional_organizations_index, :path => 'organizaciones-funcionales'

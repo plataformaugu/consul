@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @neighborhood_council_event.name %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @neighborhood_council_event.place %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @neighborhood_council_event.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @neighborhood_council_event.phone_number %>
+</p>
+
+<p>
+  <strong>Neighborhood council:</strong>
+  <%= @neighborhood_council_event.neighborhood_council %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @neighborhood_council_event.event %>
+</p>
+
+<%= link_to 'Edit', edit_neighborhood_council_event_path(@neighborhood_council_event) %> |
+<%= link_to 'Back', neighborhood_council_events_path %>

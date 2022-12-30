@@ -71,7 +71,7 @@ class Admin::NewsController < ApplicationController
       end
   
       def news_params
-        params.require(:news).permit(:title, :body, :image, :main_theme, :highlight_until, :main_theme_id, :news_type, :summary, :miniature)
+        params.require(:news).permit(:title, :body, :image, :main_theme, :highlight_until, :main_theme_id, :news_type, :summary, :miniature, :neighborhood_council_id)
       end
   end
   
