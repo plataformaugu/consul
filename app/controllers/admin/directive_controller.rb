@@ -53,6 +53,9 @@ class Admin::DirectiveController < ApplicationController
         :email,
         :phone_number,
         :neighborhood_council_id,
+        :image,
+        :start_date,
+        :end_date
       )
     end
 end

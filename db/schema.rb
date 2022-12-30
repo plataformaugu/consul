@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_28_030609) do
+ActiveRecord::Schema.define(version: 2022_12_30_220421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -630,6 +630,9 @@ ActiveRecord::Schema.define(version: 2022_12_28_030609) do
     t.bigint "neighborhood_council_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
+    t.date "start_date"
+    t.date "end_date"
     t.index ["neighborhood_council_id"], name: "index_directives_on_neighborhood_council_id"
   end
 

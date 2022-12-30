@@ -44,4 +44,8 @@
 
 .user-icon {
   @include icon(user, solid);
+
+  &::before {
+    margin: 0;
+  }
 }

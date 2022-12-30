@@ -24,6 +24,24 @@
     <%= form.phone_field :phone_number, label: 'Teléfono', class: 'custom-input' %>
   </div>
 
+  <div class="field">
+    <%= form.date_field :start_date, label: 'Fecha de inicio de funciones', class: 'custom-input' %>
+  </div>
+
+    <div class="field">
+    <%= form.date_field :end_date, label: 'Fecha de término de funciones', class: 'custom-input' %>
+  </div>
+
+  <div class="field mb-2">
+    <% if directive.image.attached? %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Foto' %>
+      <span class="help-text">Foto actual:</span><br>
+      <%= image_tag directive.image, style: 'width: 250px;' %>
+    <% else %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Foto' %>
+    <% end %>
+  </div>
+
   <%= form.hidden_field :neighborhood_council_id, value: @neighborhood_council.id %>
 
   <div class="actions">
