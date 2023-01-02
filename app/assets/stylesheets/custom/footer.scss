@@ -2,7 +2,7 @@
   background-image: url('/images/global/bg-footer.png');
   background-position: bottom;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   margin-top: 0;
 
   @media (max-width: 639px) {
@@ -39,7 +39,7 @@
       }
 
       .logo {
-        width: 15%;
+        width: 20%;
 
         @media (max-width: 639px) {
           width: 50%;

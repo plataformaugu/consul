@@ -1,0 +1,28 @@
+<div class="row margin-top margin-bottom">
+  <div class="small-12 column">
+    <%= render Custom::CustomPageHeaderComponent.new('¿Qué son los presupuestos participativos?', '/images/pages/piloto-presupuestos-participativos/header.jpg') %>  
+  </div>
+</div>
+
+<div class="row margin-top margin-bottom">
+  <div class="small-12 column">
+    <p>
+      Los Presupuesto Participativos (PP), son un mecanismo de participación social que permite a la población conocer fondos e iniciativas del presupuesto regional y decidir en conjunto con las autoridades regionales sobre una parte del mismo. Es una forma de hacer gestión con y para la comunidad, permitiendo que los vecinos diagnostiquen, prioricen, deliberen, ejecuten y controlen una parte de los recursos regionales. De esta forma, los ciudadanos influyen directamente en la decisión de cómo y en qué gastar esos recursos públicos. <sup>1</sup>
+    </p>
+
+    <p>
+      Durante el año 2023 la Unidad de Gobernanza y Participación Ciudadana diseñará una iniciativa piloto de Presupuesto Participativo para la región.
+    </p>
+
+    <hr>
+    <small>
+      <sup>1</sup> Adaptado del documento: PRESUPUESTOS PARTICIPATIVOS LOCALES. Un aporte a la Democracia Deliberativa en Chile, SUBDERE (2017).
+    </small>
+    
+    <div class="pages-gallery-container">
+      <%= render Custom::BigCircleSliderComponent.new([
+        '/images/pages/piloto-presupuestos-participativos/1.jpg',
+      ]) %>
+    </div>
+  </div>
+</div>

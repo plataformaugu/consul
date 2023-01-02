@@ -11,11 +11,17 @@
 // 1. Foundation settings overrides
 // ---------------------------------
 
+
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@100;200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;500;600;700;900&display=swap');
+$header-font-weight: "Signika", "Helvetica", "Arial", sans-serif !important !default;
+$body-font-family: "Open Sans", "Helvetica", "Arial", sans-serif !important !default;
+
+
 $black: #222 !default;
 $white: #fdfdfd !default;
 
 $body-background: $white;
-$body-font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif !important !default;
 
 $closebutton-color: $black !default;
 

@@ -41,7 +41,7 @@
     }
 
     .title {
-      font-size: 3.5em;
+      font-size: 4em;
       color: $brand;
       border-bottom: none;
 
@@ -89,6 +89,7 @@
   .home-section-2 {
     background-color: #FFC862;
     background-image: url('/images/home/bg-2.png');
+    background-size: cover;
 
     .map-container {
       margin-top: 2rem;
@@ -119,6 +120,7 @@
   .home-section-3 {
     background-color: #FFA42B;
     background-image: url('/images/home/bg-3.png');
+    background-size: contain;
 
     .circles-container {
       margin-top: 3rem;

@@ -1,0 +1,40 @@
+<div class="row margin-top margin-bottom">
+  <div class="small-12 column">
+    <%= render Custom::CustomPageHeaderComponent.new('¿Qué es GORE en tu sala?', '/images/pages/gore/header.jpg') %>  
+  </div>
+</div>
+
+<div class="row margin-top margin-bottom">
+  <div class="small-12 column">
+    <p>
+      Es una iniciativa que busca informar y educar sobre la gestión pública del Gobierno Regional de Antofagasta, liderado por el gobernador Ricardo Díaz Cortés, democráticamente electo en 2021.
+    </p>
+
+    <p>
+      “Gore en Tu Sala” es una instancia que favorece el diálogo, intercambio y pedagogía en jóvenes y adolescentes, sobre el rol que cumple el Gobierno Regional, el Plan de gobierno 2021-2024 y las diversas acciones que realiza el GORE en pos del desarrollo de la región y el bienestar de la ciudadanía. (Más información en la pestaña de GORE en tu sala).
+    </p>
+
+    <br>
+    <h3>¿Qué objetivo tiene GORE en tu Sala?</h3>
+    <p>
+      Generar espacios de información, rendición de cuentas y retroalimentación entre la primera autoridad regional y grupos de jóvenes de educación media de establecimientos reconocidos por el Estado (municipalizados, subvencionados y particulares).
+    </p>
+
+    <br>
+    <h3>¿En que está el GORE en tu Sala?</h3>
+    <p>
+      A través de una visita a establecimientos educacionales, el Gobernador Regional dicta una charla con uno o más cursos de enseñanza media (terceros y cuartos medios). Los temas serán de interés y de mutuo acuerdo con la institución de educación a la que se brindará la exposición. Duran 90 minutos (un bloque de clases) o según lo acordado con la institución educacional, con un mínimo de 60 minutos.
+    </p>
+    <p>
+      A diciembre de 2022 se han realizado dos iniciativas del GORE en tu Sala: la primera en el establecimiento IBCEDUC -Instituto Bicentenario Científico Educacional José Maza Sancho, y la segunda en el Colegio San Luis, ambos de la comuna de Antofagasta. Durante 2023 comenzaremos a realizar visitas a establecimientos de las otras 8 comunas de la región.
+    </p>
+
+    <div class="pages-gallery-container">
+      <%= render Custom::BigCircleSliderComponent.new([
+        '/images/pages/gore/1.jpg',
+        '/images/pages/gore/2.jpg',
+        '/images/pages/gore/3.jpg'
+      ]) %>
+    </div>
+  </div>
+</div>

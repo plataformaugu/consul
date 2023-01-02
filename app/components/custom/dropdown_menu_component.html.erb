@@ -1,0 +1,14 @@
+<div class="dropdown-menu-component">
+  <button class="dropdown-menu-button">
+    <%= @title %>
+  </button>
+  <div class="dropdown-menu-content">
+    <ul>
+      <% @items.each do |item| %>
+        <li>
+          <a href="<%= item[:url] %>"><%= item[:name] %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

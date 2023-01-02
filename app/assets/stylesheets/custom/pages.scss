@@ -1,0 +1,14 @@
+.pages-gallery-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  & > div {
+    width: 65%;
+
+    @media (max-width: 639px) {
+      width: 100%;
+    }
+  }
+}
