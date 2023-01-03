@@ -220,15 +220,24 @@
               color: $white;
               font-size: 0.8em;
               font-weight: 400;
+
+              @media (max-width: 1919px) {
+                font-size: 0.6em;
+                line-height: 1.6;
+              }
             }
 
-            &:hover {
-              display: flex;
+            @media (min-width: 640px) {
+              &:hover {
+                display: flex;
+              }
             }
           }
 
-          .inner-circle:hover ~ .hidden-inner-circle {
-            display: flex;
+          @media (min-width: 640px) {
+            .inner-circle:hover ~ .hidden-inner-circle {
+              display: flex;
+            }
           }
         }
       }

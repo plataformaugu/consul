@@ -12,3 +12,16 @@
     }
   }
 }
+
+.custom-single-page {
+  background-image: url('/images/global/bg-general.png');
+
+  .wrapper {
+    .row {
+      p, li {
+        text-align: justify;
+        text-justify: inter-word;
+      }
+    }
+  }
+}
