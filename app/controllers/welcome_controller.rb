@@ -11,23 +11,23 @@ class WelcomeController < ApplicationController
     @slider_elements = [
       {
         image_url: '/images/home/slider/1.jpg',
-        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        caption: 'Cuenta Pública Participativa 2022 del Gore en Calama, ejercicio inédito impulsado por el Gobernador Ricardo Díaz y con alta participación de organizaciones sociales, además de autoridades.',
       },
       {
         image_url: '/images/home/slider/2.jpg',
-        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        caption: 'Mesa del Agua realizada en Ayquina junto a dirigentes de diversas comunidades del Alto Loa, con el objetivo de abordar los desafíos que representa la escasez hídrica en la región.',
       },
       {
         image_url: '/images/home/slider/3.jpg',
-        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        caption: 'Firma de compromiso del Plan “Unidos Por Bonilla”, con la presencia del Gobernador Regional, Ricardo Díaz, el subsecretario de Desarrollo Regional, Miguel Crispi, autoridades y organizaciones sociales.',
       },
       {
         image_url: '/images/home/slider/4.jpg',
-        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        caption: 'Para el Gobierno Regional la inclusión es una prioridad, lo que ha motivado el apoyo a diversas iniciativas, entre ellas las impulsadas y ejecutadas por el Instituto Teletón.',
       },
       {
         image_url: '/images/home/slider/5.jpg',
-        caption: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutLorem ipsum dolor sit amet, consectetuer adipis',
+        caption: 'Entrega de los Fondos del 7% de Interés Regional junto al Consejo Regional, recursos que permiten financiar diversas iniciativas presentadas por organizaciones sociales de la región. ',
       },
     ]
 
