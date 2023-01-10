@@ -8,6 +8,12 @@ class Polls::QuestionsController < ApplicationController
     answer = @question.find_or_initialize_user_answer(current_user, params[:answer])
     answer.save_and_record_voter_participation
 
+    if @question.poll.full_answered_by_user?(current_user)
+      flash[:notice] = "¡Muchas gracias por participar! Tus respuestas han sido registradas correctamente."
+      redirect_to poll_path(@question.poll)
+      return
+    end
+
     respond_to do |format|
       format.html do
         redirect_to request.referer
