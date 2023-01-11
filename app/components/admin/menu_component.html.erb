@@ -3,12 +3,6 @@
     <%= link_to 'Convocatorias', admin_proposal_topics_path, class: "proposal-topics-link" %>
   </li>
 
-  <% if feature?(:proposals) %>
-    <li class="<%= "is-active" if controller_name == "proposals" %>">
-      <%= link_to t("admin.menu.proposals"), admin_proposals_path, class: "proposals-link" %>
-    </li>
-  <% end %>
-
   <% if feature?(:debates) %>
     <li class="<%= "is-active" if controller_name == "debates" %>">
       <%= link_to t("admin.menu.debates"), admin_debates_path, class: "debates-link" %>

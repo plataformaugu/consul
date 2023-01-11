@@ -45,17 +45,17 @@
         </div>
 
         <div class="row">
-          <div class="small-12 column">
-            <% if can?(:dashboard, @proposal) %>
-              <%=
-                link_to progress_proposal_dashboard_path(@proposal),
-                class: "button",
-                id: "proposal-dashboard-#{@proposal.id}" do %>
-                <span class="icon-edit"></span>
-                <%= t("proposals.show.dashboard_proposal_link") %>
-              <% end %>
-            <% end %>
-          </div>
+          <% if @proposal.video_url.present? %>
+            <div class="small-12 medium-7 small-centered">
+              <div class="flex-video">
+                <div id="js-embedded-video" data-video-code="<%= embedded_video_code(@proposal) %>"></div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
         </div>
         <%= render Shared::CommentsComponent.new(@proposal, @comment_tree, !@proposal.proposal_topic.is_active?) do %>
           <h3>

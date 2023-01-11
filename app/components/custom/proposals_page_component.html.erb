@@ -18,7 +18,7 @@
 
     <div class="row" id="stacking-cards">
       <div class="small-12 column">
-        <%= render Custom::StackingCardsComponent.new(@records[1..3]) %>
+        <%= render Custom::StackingCardsComponent.new(@records[@records.length > 3 ? -3 : @records.length, 3]) %>
       </div>
     </div>
 
