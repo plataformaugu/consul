@@ -164,3 +164,13 @@ $header-height-mobile: 80px;
     }
   }
 }
+
+.top-bar-title {
+  img {
+    height: 4rem;
+
+    @media (max-width: 639px) {
+      height: 3rem !important;
+    }
+  }
+}

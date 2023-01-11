@@ -38,7 +38,7 @@ class ProposalTopicsController < ApplicationController
     end
 
     if @proposals.any?
-      @proposals = @proposals.where.not(id: @proposal.id).limit(2).reverse.map { |p| {
+      @proposals = @proposals.where.not(id: @proposal.id).reverse.map { |p| {
         id: p.id,
         title: p.title,
         summary: nil,

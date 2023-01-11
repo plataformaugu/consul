@@ -18,6 +18,7 @@
     <%= raw setting["html.per_page_code_body"] %>
 
     <div class="wrapper <%= yield(:wrapper_class) %>">
+      <div class="logo-circle-bg"></div>
       <%= render "layouts/header", with_subnavigation: true %>
 
       <% if request.headers["User-Agent"] =~ /MSIE/ && cookies["ie_alert_closed"] != "true" %>
