@@ -15,14 +15,14 @@
 
       <div class="sectors-cards-container">
         <%= link_to sector_neighborhood_council_directives_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
-          <%= render Custom::SimpleCardComponent.new('Directiva', 'Lorem ipsum')%>
+          <%= render Custom::SimpleCardComponent.new('Directiva', nil, '/images/organizaciones-sociales/directiva.png')%>
         <% end %>
 
         <%= link_to news_sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
-          <%= render Custom::SimpleCardComponent.new('Noticias', 'Lorem ipsum')%>
+          <%= render Custom::SimpleCardComponent.new('Noticias', nil, '/images/organizaciones-sociales/noticias.png')%>
         <% end %>
 
-        <%= render Custom::SimpleCardComponent.new('Calendario', 'Lorem ipsum')%>
+        <%= render Custom::SimpleCardComponent.new('Calendario', nil, '/images/organizaciones-sociales/calendario.png')%>
       </div>
     </div>
   </div>
