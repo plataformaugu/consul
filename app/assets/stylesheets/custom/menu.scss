@@ -166,6 +166,8 @@ $header-height-mobile: 80px;
 }
 
 .top-bar-title {
+  z-index: 20;
+
   img {
     height: 4rem;
 
