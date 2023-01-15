@@ -54,4 +54,8 @@ class ProposalsTheme < ApplicationRecord
 
     return false
   end
+
+  def finished?
+    Date.current > self.end_date
+  end
 end
