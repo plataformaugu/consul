@@ -25,3 +25,16 @@
     }
   }
 }
+
+.buildings-clear {
+  position: relative;
+  width: 80%;
+  height: 22vw;
+
+  img {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

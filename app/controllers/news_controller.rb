@@ -8,6 +8,11 @@ class NewsController < ApplicationController
     end
 
     def show
+        @back_path = news_index_path
+
+        if params['prev'].present? and params['prev'] == 'cosoc'
+            @back_path = '/cosoc/noticias'
+        end
     end
 
     def like

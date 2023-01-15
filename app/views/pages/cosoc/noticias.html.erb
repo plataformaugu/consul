@@ -21,7 +21,7 @@
       <div class="small-12 column">
         <div class="cards">
           <% @news.order(created_at: :desc).each do |n| %>
-            <%= render 'news/card', news: n %>
+            <%= render 'news/card', news: n, prev: 'cosoc' %>
           <% end %>
         </div>
       </div>

@@ -5,19 +5,25 @@
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
     <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
 
-    <div class="banner-slider-container">
+    <div class="desktop-only" style="height: 200px;">
       
-    </div>
-
-    <div class="banner-sky-buildings-back desktop-only">
-      <%= image_tag "/images/e-skyline.svg" %>
     </div>
   
     <div class="banner-sky-buildings">
-      <div class="banner-slider-box">
-        
+      <div class="buildings-clear">
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-salud.png",
+          style: @main_themes['Salud']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-mejorvivienda.png",
+          style: @main_themes['Mejor Vivienda']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-npr.png",
+          style: @main_themes['Nuevo Plan Regulador']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
       </div>
-      <%= image_tag "/images/e-skyline-f.svg" %>
     </div>
   </div>
 
