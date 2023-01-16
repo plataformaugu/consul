@@ -1,11 +1,3 @@
-<% if current_user and current_user.administrator? %>
-  <%=
-    link_to 'Crear evento',
-    new_event_path,
-    style: 'color: white;',
-    class: 'button success'
-  %>
-<% end %>
 <div class="row">
   <%= month_calendar(events: @events) do |date, events| %>
     <% if Time.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>

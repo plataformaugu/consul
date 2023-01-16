@@ -11,12 +11,6 @@
     <div style="text-align: center;">
       <h2 style="color: #727176; letter-spacing: -1px;">¡Descubre qué se viene durante este mes!</h2>
     </div>
-    <% if current_user %>
-    <ul class="tabs" data-tabs data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="events-tabs">
-      <li class="tabs-title is-active"><a href="#all-events" aria-selected="true">Todos los eventos</a></li>
-        <li class="tabs-title"><a data-tabs-target="my-events" href="#my-events">Mis eventos</a></li>
-    </ul>
-    <% end %>
     <div class="tabs-content" data-tabs-content="events-tabs">
       <div class="tabs-panel is-active" id="all-events">
         <%= render 'all_events' %>

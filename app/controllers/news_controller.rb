@@ -9,9 +9,15 @@ class NewsController < ApplicationController
 
     def show
         @back_path = news_index_path
-
-        if params['prev'].present? and params['prev'] == 'cosoc'
+        
+        if @news.news_type == News::COSOC
             @back_path = '/cosoc/noticias'
+        elsif @news.news_type == News::NEIGHBORHOOD_COUNCIL
+            @neighborhood_council = NeighborhoodCouncil.find(@news.neighborhood_council_id)
+            @back_path = news_sector_neighborhood_council_path(
+                @neighborhood_council.sector,
+                @neighborhood_council
+            )
         end
     end
 
