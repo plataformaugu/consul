@@ -195,6 +195,25 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def down_vote
+    if @proposal.proposals_theme.end_date < Time.now.to_date
+      redirect_to proposal_path(@proposal) and return
+    end
+
+    if @proposal.proposals_theme.sectors.any?
+      if !@proposal.proposals_theme.sectors.include?(current_user.sector)
+        redirect_to proposal_path(@proposal), alert: 'No perteneces al sector de participación' and return
+      end
+    end
+
+    @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
+    @proposal.register_vote(current_user, "no")
+    set_proposal_votes(@proposal)
+    respond_to do |format|
+      format.html { redirect_to proposal_path(@proposal.id) }
+    end
+  end
+
   def retire
     if @proposal.update(retired_params.merge(retired_at: Time.current))
       redirect_to proposal_path(@proposal), notice: t("proposals.notice.retired")

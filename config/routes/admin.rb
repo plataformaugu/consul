@@ -284,6 +284,7 @@ namespace :admin do
   resources :functional_organizations
   resources :neighborhood_councils
   resources :directive
+  resources :neighborhood_council_events
 end
 
 resolve "Milestone" do |milestone|

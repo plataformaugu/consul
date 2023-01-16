@@ -22,7 +22,9 @@
           <%= render Custom::SimpleCardComponent.new('Noticias', nil, '/images/organizaciones-sociales/noticias.png')%>
         <% end %>
 
-        <%= render Custom::SimpleCardComponent.new('Calendario', nil, '/images/organizaciones-sociales/calendario.png')%>
+        <%= link_to sector_neighborhood_council_events_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Calendario', nil, '/images/organizaciones-sociales/calendario.png')%>
+        <% end %>
       </div>
     </div>
   </div>

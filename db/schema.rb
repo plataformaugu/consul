@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_30_220421) do
+ActiveRecord::Schema.define(version: 2023_01_16_012636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1123,16 +1123,22 @@ ActiveRecord::Schema.define(version: 2022_12_30_220421) do
   end
 
   create_table "neighborhood_council_events", force: :cascade do |t|
-    t.string "name"
     t.string "place"
     t.string "email"
     t.string "phone_number"
     t.bigint "neighborhood_council_id"
-    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_neighborhood_council_events_on_event_id"
+    t.string "title"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["neighborhood_council_id"], name: "index_neighborhood_council_events_on_neighborhood_council_id"
+  end
+
+  create_table "neighborhood_council_events_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "neighborhood_council_event_id", null: false
   end
 
   create_table "neighborhood_councils", force: :cascade do |t|
@@ -2099,7 +2105,6 @@ ActiveRecord::Schema.define(version: 2022_12_30_220421) do
   add_foreign_key "machine_learning_jobs", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "moderators", "users"
-  add_foreign_key "neighborhood_council_events", "events"
   add_foreign_key "neighborhood_council_events", "neighborhood_councils"
   add_foreign_key "neighborhood_councils", "sectors"
   add_foreign_key "news", "main_themes"

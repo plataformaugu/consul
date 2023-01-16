@@ -85,6 +85,7 @@ class User < ApplicationRecord
   belongs_to :sector
   belongs_to :neighbor_type
   has_and_belongs_to_many :events
+  has_and_belongs_to_many :neighborhood_council_events
 
   validates :username, presence: false
   validates :username, uniqueness: { scope: :registering_with_oauth }, if: :username_required?

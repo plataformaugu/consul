@@ -64,7 +64,11 @@
           <div class="custom-supports">
           <%=
             render "votes",
-            { proposal: proposal, vote_url: vote_proposal_path(proposal, value: "yes") }
+            {
+              proposal: proposal,
+              vote_url: vote_proposal_path(proposal, value: "yes"),
+              down_vote_url: down_vote_proposal_path(proposal, value: "no")
+            }
           %>
           </div>
         </div>

@@ -1,0 +1,35 @@
+<% if current_user %>
+  <% if current_user.neighborhood_council_events.count <= 0 %>
+    No estás participando en ningún evento.
+  <% end %>
+  <% for event in current_user.neighborhood_council_events.where('start_time > ?', Time.now).order(start_time: :asc) %>
+    <div class="custom-box">
+      <div class="row">
+        <div class="small-12 medium-9 column">
+          <div class="proposal-content">
+            <%= link_to event_url(event) do %>
+              <h3><%= event.title %></a></h3>
+            <% end %>
+            <div class="proposal-description">
+              <p>
+                Fecha: <strong><%= event.start_time.to_date %></strong>
+                <span class="bullet">&nbsp;&bull;&nbsp;</span>
+                Hora: <strong><%= event.start_time.strftime('%H:%M') %></strong> a <strong><%= event.end_time.strftime('%H:%M') %></strong>
+              </p>
+              <div class="truncate"></div>
+            </div>
+          </div>
+        </div>
+        <div class="small-12 medium-3 column" style="display: flex; justify-content: flex-end;">
+          <%=
+            button_to 'Dejar de participar',
+            left_event_sector_neighborhood_council_event_path(event.neighborhood_council.sector, event.neighborhood_council, event),
+            method: :post,
+            style: 'color: white;',
+            class: 'button warning small expanded'
+          %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

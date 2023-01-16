@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   resources :sectors, only: [:show], :path => 'unidades-vecinales' do
     resources :neighborhood_councils, only: [:show], controller: "sectors/neighborhood_councils", :path => 'junta-vecinos' do
       resources :directives, only: [:index], controller: 'sectors/neighborhood_councils/directives', :path => 'directiva'
+      resources :events, only: [:index], controller: 'sectors/neighborhood_councils/events', :path => 'eventos' do
+        member do
+          get :show
+          post :join_to_event
+          post :left_event
+        end
+      end
 
       member do
         get :news, :path => 'noticias'

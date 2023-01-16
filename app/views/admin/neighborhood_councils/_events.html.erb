@@ -1,0 +1,35 @@
+<div>
+  <%= link_to 'Crear evento', new_admin_neighborhood_council_event_path(neighborhood_council_id: @neighborhood_council.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+</div>
+
+<% if @events.any? %>
+  <div class="mt-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Lugar</th>
+          <th>Desde</th>
+          <th>Hasta</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.order(created_at: :desc).each do |e| %>
+          <tr id="<%= e.id %>">
+            <td><%= e.id %></td>
+            <td><%= e.title %></td>
+            <td><%= e.place %></td>
+            <td><%= e.start_time %></td>
+            <td><%= e.end_time %></td>
+            <td>
+              <%= link_to 'Editar', edit_admin_neighborhood_council_event_path(e) %> | 
+              <%= link_to 'Eliminar', admin_neighborhood_council_event_path(e), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este evento?' }, style: 'color: red;' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -1,7 +1,7 @@
 <div class="supports text-center">
   <%= render "proposals/supports", proposal: proposal %>
 
-  <div class="in-favor">
+  <div class="in-favor mt-1">
     <% if voted_for?(@proposal_votes, proposal) %>
       <div class="supported callout success">
         <%= t("proposals.proposal.already_supported") %>
@@ -16,10 +16,20 @@
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to vote_url,
-            class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button",
-            title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do %>
-          <%= t("proposals.proposal.support") %>
+        <%=
+          link_to vote_url,
+          class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
+          title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
+        %>
+          Apoyo
+        <% end %>
+        &nbsp;
+        <%=
+          link_to down_vote_url,
+          class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
+          title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
+        %>
+          No apoyo
         <% end %>
       <% end %>
     <% end %>
