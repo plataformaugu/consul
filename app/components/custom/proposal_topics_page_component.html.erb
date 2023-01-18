@@ -30,7 +30,7 @@
     <div class="record-selector" id="record-selector">
       <div class="row">
         <div class="small-12 medium-6 column">
-          <%= render Custom::BigCircleFullComponent.new(
+          <%= render Custom::BigRoundCardComponent.new(
             @current_record.title,
             @current_record.image.present? ? @current_record.send(@image_field) : @default_image,
             @current_record.description,

@@ -1,0 +1,22 @@
+<div class="big-round-card-component">
+  <header>
+    <h1 title="<%= @title %>"><%= @title %></h1>
+  </header>
+
+  <div class="image-container">
+    <%= image_tag @image %>
+  </div>
+
+  <p class="description-container">
+    <%= @description %>
+  </p>
+
+  <% if @new_record_path.present? %>
+    <footer>
+      <h4>Sube tu <%= @readable_model_name %></h4>
+      <%= link_to @new_record_path do %>
+        <div class="plus-button"></div>
+      <% end %>
+    </footer>
+  <% end %>
+</div>
