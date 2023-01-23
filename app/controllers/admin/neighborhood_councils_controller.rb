@@ -60,7 +60,12 @@ class Admin::NeighborhoodCouncilsController < ApplicationController
         :phone_number,
         :email,
         :conformation_date,
-        :sector_id
+        :sector_id,
+        :whatsapp,
+        :facebook,
+        :twitter,
+        :instagram,
+        :url
       )
     end
 end

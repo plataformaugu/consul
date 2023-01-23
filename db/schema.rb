@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_16_012636) do
+ActiveRecord::Schema.define(version: 2023_01_23_120841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1150,6 +1150,11 @@ ActiveRecord::Schema.define(version: 2023_01_16_012636) do
     t.bigint "sector_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "whatsapp"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "url"
     t.index ["sector_id"], name: "index_neighborhood_councils_on_sector_id"
   end
 

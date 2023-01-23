@@ -28,6 +28,29 @@
       </div>
     </div>
   </div>
+
+  <hr class="mb-2 mt-3">
+
+  <div class="row mb-1">
+    <div class="small-12 column">
+      <div class="flex-row flex-justify-space-between">
+        <% if @neighborhood_council.whatsapp.present? %>
+          <%= link_to "https://wa.me/#{@neighborhood_council.whatsapp}" do %><i class="whatsapp-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.twitter.present? %>
+          <%= link_to @neighborhood_council.twitter do %><i class="twitter-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.facebook.present? %>
+          <%= link_to @neighborhood_council.facebook do %><i class="facebook-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.instagram.present? %>
+          <%= link_to @neighborhood_council.instagram do %><i class="instagram-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.url.present? %>
+          <%= link_to @neighborhood_council.url do %><i class="url-icon"></i><% end %>
+        <% end %>
+    </div>
+  </div>
 </main>
 
 <div class="general-footer-container">
