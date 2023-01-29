@@ -2,13 +2,21 @@
   <div class="small-12 column">
     <h1>Mi cuenta</h1>
     <ul class="tabs" data-tabs id="account-tabs">
-      <li class="tabs-title is-active"><a href="#data" aria-selected="true">Mis datos</a></li>
+      <li class="tabs-title is-active"><a href="#data-tab" aria-selected="true">Mis datos</a></li>
+      <li class="tabs-title"><a data-tabs-target="activity-tab" href="#activity-tab">Mi actividad</a></li>
+      <li class="tabs-title"><a data-tabs-target="notifications-tab" href="#notifications-tab">Notificaciones</a></li>
     </ul>
 
     <div class="tabs-content" data-tabs-content="account-tabs">
-      <div class="tabs-panel is-active" id="data">
+      <div class="tabs-panel is-active" id="data-tab">
         <%= render 'data' %>
       </div>
+      <div class="tabs-panel" id="activity-tab">
+        <%= render 'activity' %>
+      </div>
+      <div class="tabs-panel" id="notifications-tab">
+        <%= render 'notifications' %>
+      </div></div>
     </div>
   </div>
 </div>
