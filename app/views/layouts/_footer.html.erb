@@ -1,6 +1,8 @@
 <footer>
   <div class="row">
-    <%= image_tag '/images/global/logo-full.png', class: 'logo' %>
+    <%= link_to 'https://www.goreantofagasta.cl/', class: 'logo' do %>
+      <%= image_tag '/images/global/logo-full.png' %>
+    <% end %>
     <div class="footer-column">
       <h4>Sitios de interés</h4>
       <ul>
@@ -23,7 +25,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-12 column" style="color: white;">
+    <div class="small-12 column post-footer" style="color: white;">
       Gobierno Regional de Antofagasta, <%= Time.current.year %> |
       <a href="/condiciones">Términos y Condiciones</a>
     </div>

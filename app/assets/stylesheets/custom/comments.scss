@@ -24,4 +24,18 @@
       background-color: inherit;
     }
   }
+
+  .submenu {
+    border-bottom: 1px solid #FAC75E !important;
+  }
+
+  .comment-body {
+    .reply {
+      border: 1px solid #FAC75E !important;
+
+      .divider {
+        color: #FAC75E;
+      }
+    }
+  }
 }

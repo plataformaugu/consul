@@ -2,8 +2,7 @@
   background-image: url('/images/global/bg-general.png');
 
   .poll-question {
-    border: 2px solid #F8A21F;
-    border-radius: 25px;
+    border: none !important;
 
     h3 {
       background-color: #F67032;
@@ -22,5 +21,10 @@
         color: $black;
       }
     }
+  }
+
+  .poll-questions-container {
+    border: 2px solid #F8A21F;
+    border-radius: 25px;
   }
 }

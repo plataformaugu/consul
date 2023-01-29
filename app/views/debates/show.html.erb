@@ -58,7 +58,7 @@
               <% else %>
                 <%= image_tag "/images/global/like-#{current_user&.voted_as_when_voted_for(@debate) == true ? 'active' : 'available'}.svg" %>
               <% end %>
-              <span class="percentage"><%= votes_percentage("likes", @debate) %></span>
+              <span class="percentage strong-italic"><%= votes_percentage("likes", @debate) %></span>
             </div>
 
             <div>
@@ -74,26 +74,24 @@
               <% else %>
                 <%= image_tag "/images/global/dislike-#{current_user&.voted_as_when_voted_for(@debate) == false ? 'active' : 'available'}.svg" %>
               <% end %>
-              <span class="percentage"><%= votes_percentage("dislikes", @debate) %></span>
+              <span class="percentage strong-italic"><%= votes_percentage("dislikes", @debate) %></span>
             </div>
           </div>
         </div>
         <div class="text-center margin-top">
-          <span class="total-votes">
+          <span class="total-votes strong-italic">
             <%= t("debates.debate.votes", count: @debate.total_votes) %>
           </span>
           <div class="margin-top">
             <% if current_user.nil? %>
-              <div class="callout warning">
-                Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar.
-              </div>
+              <p><strong>Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar.</strong></p>
             <% elsif @debate.finished? %>
               <div class="callout warning">
                 Debate finalizado.
               </div>
             <% elsif !can_participate(current_user, @debate).nil? %>
               <div class="callout warning">
-                No puedes participar.
+                No puedes participar. <%= @debate.can_participate_reason(current_user) %>
               </div>
             <% end %>
           </div>

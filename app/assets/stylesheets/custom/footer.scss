@@ -51,6 +51,7 @@
         max-width: 25%;
 
         p, li > a {
+          text-decoration: none;
           font-size: 0.9em;
         }
 
@@ -73,6 +74,14 @@
         padding: 0 !important;
         color: #260C7F;
       }
+    }
+  }
+
+  .post-footer {
+    font-size: 0.7em;
+
+    a {
+      text-decoration: none;
     }
   }
 }

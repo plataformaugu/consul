@@ -34,7 +34,7 @@ class WelcomeController < ApplicationController
     # Destacados
     @debate = Debate.published.order(created_at: :desc).first
     @proposal = Proposal.published.order(created_at: :desc).first
-    @poll = Poll.created_by_admin.order(created_at: :desc).first
+    @poll = Poll.current.created_by_admin.order(created_at: :desc).first
     @budget = Budget.published.order(created_at: :desc).first
 
     @cards_elements = []

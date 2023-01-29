@@ -1,4 +1,5 @@
 class Custom::SinglePageComponent < ApplicationComponent
+  delegate :current_user, to: :helpers
 
   def initialize(title, subtitle, image, readable_model_name, vowel, default_image, records, current_record = nil, new_record_path = nil, title_field = 'title', image_field = 'image')
     @title = title

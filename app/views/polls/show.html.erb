@@ -46,7 +46,15 @@
         <% end %>
       <% end %>
 
-      <%= render Polls::Questions::QuestionComponent.with_collection(@questions) %>
+      <div class="poll-questions-container">
+        <% @questions.each_with_index  do |question, index| %>
+          <%= render Polls::Questions::QuestionComponent.new(question) %>
+
+          <% if index != @questions.count - 1 %>
+            <hr style="border-bottom: 1px solid #F8A21F; width: 90%;">
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 

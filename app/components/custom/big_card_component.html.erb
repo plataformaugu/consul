@@ -12,6 +12,9 @@
       <p class="summary"><%= @summary %></p>
     <% end %>
     <p><%= WYSIWYGSanitizer.new.sanitize(@description) %></p>
+    <% if @show_see_more %>
+      <h4>Ver más</h4>
+    <% end %>
   </div>
-  <%= image_tag(@image) %>
+  <%= image_tag(@image, class: @image.is_a?(String) && @image.end_with?('.svg') ? 'default-image' : '') %>
 </div>

@@ -30,11 +30,10 @@
     <div class="record-selector" id="record-selector">
       <div class="row">
         <div class="small-12 medium-6 column">
-          <%= render Custom::BigRoundCardComponent.new(
+          <%= render Custom::BigCircleSimpleComponent.new(
             @current_record.send(@title_field),
             @current_record.image.present? ? @current_record.send(@image_field) : @default_image,
-            '',
-            @current_record.can_participate?(current_user) ? @new_record_path : nil,
+            @new_record_path,
             @readable_model_name[0.. -2],
           ) %>
         </div>

@@ -29,6 +29,11 @@
       max-height: 14rem;
       height: 14rem;
     }
+
+    &.default-image {
+      background-color: #FAC75E;
+      object-fit: contain;
+    }
   }
 
   .supertitle {

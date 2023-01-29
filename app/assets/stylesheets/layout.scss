@@ -1334,7 +1334,8 @@ form {
 }
 
 .is-author {
-  background: #00a5f1;
+  background: #4207f6;
+  color: $white;
 }
 
 .is-association {
@@ -1866,6 +1867,7 @@ table {
 
   .in-favor button {
     @include has-fa-icon(thumbs-up, solid);
+    color: #FAC75E;
 
     &:hover {
       color: $like;
@@ -1874,6 +1876,7 @@ table {
 
   .against button {
     @include has-fa-icon(thumbs-down, solid);
+    color: #FAC75E;
 
     &:hover {
       color: $unlike;

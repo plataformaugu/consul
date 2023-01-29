@@ -18,9 +18,31 @@
 
     <div class="row" id="stacking-cards">
       <div class="small-12 column">
-        <%= render Custom::StackingCardsComponent.new(@records[@records.length > 3 ? -3 : @records.length, 3]) %>
+        <div class="stacking-cards-component">
+        <% @records[@records.length > 3 ? -3 : @records.length, 3].each do |element| %>
+          <%= render Custom::BigCardComponent.new(
+            element[:id],
+            element[:title],
+            element[:summary],
+            '',
+            element[:image],
+            element[:supertitle],
+            element[:path],
+            false,
+            false,
+          ) %>
+        <% end %>
+        </div>
       </div>
     </div>
+
+    <% if @current_record %>
+    <div class="row">
+      <div class="small-12 column">
+        <%= WYSIWYGSanitizer.new.sanitize(@current_record.description) %>
+      </div>
+    </div>
+    <% end %>
 
     <div class="record-selector" id="record-selector">
       <div class="row">

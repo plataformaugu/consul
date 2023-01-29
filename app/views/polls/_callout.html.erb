@@ -1,10 +1,6 @@
 <% unless can?(:answer, @poll) %>
   <% if current_user.nil? %>
-    <div class="callout primary">
-      <%= sanitize(t("polls.show.cant_answer_not_logged_in",
-            signin: link_to_signin(class: "probe-message"),
-            signup: link_to_signup(class: "probe-message"))) %>
-    </div>
+    <p class="text-center"><strong>Debes <%= link_to 'iniciar sesión o registrarte', new_user_session_path %> para participar</strong></p>
   <% elsif current_user.unverified? %>
     <div class="callout warning">
       <%= sanitize(t("polls.show.cant_answer_verify",
@@ -16,7 +12,7 @@
     </div>
   <% else %>
     <div class="callout warning">
-      <%= t("polls.show.cant_answer_wrong_geozone") %>
+      No puedes participar. <%= @poll.can_participate_reason(current_user) %>
     </div>
   <% end %>
 <% end %>

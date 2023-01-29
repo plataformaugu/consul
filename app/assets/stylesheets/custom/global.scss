@@ -49,7 +49,6 @@
   align-items: center;
   flex-direction: column;
   text-align: center;
-  margin-top: 2.5vw;
 
   .record-list {
     max-height: 20vw;
@@ -60,6 +59,19 @@
       max-height: 50vw;
     }
 
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #FAC75E;
+      border-radius: 20px;
+    }
+
     ul {
       margin-left: 2rem;
       list-style: none;
@@ -67,11 +79,12 @@
       a {
         color: $black;
         text-decoration: none;
+        font-weight: bold;
       }
 
       li {
         text-align: left;
-        font-size: 1.5em;
+        font-size: 1em;
 
         &::before {
           content: "\2022";
@@ -105,4 +118,16 @@
 
 .communes-restriction {
   list-style: none;
+}
+
+.callout {
+  border-radius: 20px !important;
+  background-color: #FFA42B !important;
+  border-color: transparent !important;
+  color: $black !important;
+}
+
+.strong-italic {
+  font-weight: bold !important;
+  font-style: italic !important;
 }
