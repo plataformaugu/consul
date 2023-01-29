@@ -23,7 +23,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
     )
 
     if @proposal_topic.save
-      redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creado'}
+      redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creada'}
     else
       render :new
     end
@@ -41,7 +41,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
         @proposal_topic.save
       end
 
-      redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'actualizado'}
+      redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'actualizada'}
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
   def destroy
     @proposal_topic.image.purge
     @proposal_topic.destroy
-    redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'eliminado'}
+    redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'eliminada'}
   end
 
   private
