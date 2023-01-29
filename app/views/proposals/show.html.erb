@@ -53,6 +53,7 @@
 
       <% unless preview %>
         <aside class="small-12 medium-3 column">
+          <% if true == false %>
           <% if can?(:dashboard, @proposal) %>
             <div class="sidebar-divider"></div>
             <h2><%= t("proposals.show.author") %></h2>
@@ -64,6 +65,7 @@
                 <%= t("proposals.show.dashboard_proposal_link") %>
               <% end %>
             </div>
+          <% end %>
           <% end %>
 
           <%= render "proposals/support_status", proposal: @proposal %>
