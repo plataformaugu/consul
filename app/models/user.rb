@@ -101,8 +101,8 @@ class User < ApplicationRecord
   scope :organizations,  -> { joins(:organization) }
   scope :sdg_managers,   -> { joins(:sdg_manager) }
   scope :officials,      -> { where("official_level > 0") }
-  scope :male,           -> { where(gender: "male") }
-  scope :female,         -> { where(gender: "female") }
+  scope :male,           -> { where(gender: ["male", "Masculino", "masculino", "Hombre", "hombre"]) }
+  scope :female,         -> { where(gender: ["female", "Femenino", "femenino", "Mujer", "mujer"]) }
   scope :newsletter,     -> { where(newsletter: true) }
   scope :for_render,     -> { includes(:organization) }
   scope :by_document,    ->(document_type, document_number) do

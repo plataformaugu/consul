@@ -55,6 +55,7 @@ class Poll < ApplicationRecord
   scope :public_for_api, -> { all }
   scope :not_budget, -> { where(budget_id: nil) }
   scope :created_by_admin, -> { where(related_type: nil) }
+  scope :with_results, -> { where(id: Report.where(process_type: 'Poll', results: true).pluck(:process_id)) }
 
   def self.sort_for_list(user = nil)
     all.sort do |poll, another_poll|

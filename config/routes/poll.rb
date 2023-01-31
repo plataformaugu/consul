@@ -4,6 +4,10 @@ resources :polls, only: [:show, :index] do
     get :results
   end
 
+  collection do
+    resources :results, controller: "polls/results", only: :index
+  end
+
   resources :questions, controller: "polls/questions", shallow: true do
     post :answer, on: :member
     resources :answers, controller: "polls/answers", only: :destroy, shallow: false
