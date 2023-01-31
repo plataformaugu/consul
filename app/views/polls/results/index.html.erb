@@ -20,7 +20,7 @@
               <%= render Shared::CardComponent.new(
                 results_poll_path(id: poll.id),
                 poll.title,
-                poll.image.present? ? poll.image : '/images/process/polls-circle.svg',
+                poll.image.present? ? poll.image.variant(:medium) : '/images/process/polls-circle.svg',
                 poll.description,
                 nil
               ) %>
