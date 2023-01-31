@@ -15,6 +15,7 @@
       <%= render "shared/stats/participation", stats: @stats %>
       <%= render "advanced_stats", stats: @stats if @stats.advanced? %>
 
+      <% if true == false %>
       <div id="total_no_demographic_data">
         <% if @stats.total_no_demographic_data > 0 %>
           <p class="help-text">
@@ -22,6 +23,7 @@
           </p>
         <% end %>
       </div>
+      <% end %>
     </div>
   </div>
 

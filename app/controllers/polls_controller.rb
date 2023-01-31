@@ -27,6 +27,8 @@ class PollsController < ApplicationController
   end
 
   def results
+    @stats = Poll::Stats.new(@poll)
+    @total_votes = @poll.voters.count
   end
 
   private

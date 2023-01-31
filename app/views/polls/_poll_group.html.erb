@@ -63,6 +63,10 @@
               <%= t("polls.index.participate_button") %>
             <% end %>
           <% end %>
+
+          <% if can?(:results, poll) %>
+            <%= link_to 'Resultados', results_poll_path(id: poll.slug || poll.id), class: "button hollow expanded" %>
+          <% end %>
         </div>
       </div>
     </div>
