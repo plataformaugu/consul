@@ -99,7 +99,7 @@ module Statisticable
       count = participants.between_ages(start, finish).count
 
       [
-        "#{start} - #{finish}",
+        start < 90 ? "#{start} - #{finish}" : "#{start}+",
         {
           range: range_description(start, finish),
           count: count,
