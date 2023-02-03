@@ -1,11 +1,7 @@
 resources :polls, only: [:show, :index] do
-  member do
-    get :stats
-    get :results
-  end
 
   collection do
-    resources :results, controller: "polls/results", only: :index
+    resources :results, controller: "polls/results", only: [:show, :index]
   end
 
   resources :questions, controller: "polls/questions", shallow: true do

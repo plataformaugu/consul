@@ -77,7 +77,7 @@ class Poll < ApplicationRecord
     user and (self.all_communes? or self.communes.include?(user.commune))
   end
 
-  def can_participate_reason(user)
+  def cant_participate_reason(user)
     if !(self.all_communes? or self.communes.include?(user.commune))
       return "Este proceso está solo habilitado para las comunas: #{self.communes.pluck(:name).join(", ")}"
     end

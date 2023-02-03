@@ -13,6 +13,12 @@ class ProposalTopic < ApplicationRecord
     user and (self.all_communes? or self.communes.include?(user.commune))
   end
 
+  def cant_participate_reason(user)
+    if !(self.all_communes? or self.communes.include?(user.commune))
+      return "Este proceso está solo habilitado para las comunas: #{self.communes.pluck(:name).join(", ")}"
+    end
+  end
+
   def all_communes?
     self.communes.count == Commune.count or self.communes.count == 0
   end

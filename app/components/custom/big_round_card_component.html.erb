@@ -11,11 +11,17 @@
     <%= @description %>
   </p>
 
-  <% if @new_record_path.present? %>
+  <% if @new_record_path.present? or @extra_message.present? %>
     <footer>
-      <h4>Sube tu <%= @readable_model_name %></h4>
-      <%= link_to @new_record_path do %>
-        <div class="plus-button"></div>
+      <% if @new_record_path.present? %>
+        <h4>Sube tu <%= @readable_model_name %></h4>
+        <%= link_to @new_record_path do %>
+          <div class="plus-button"></div>
+        <% end %>
+      <% end %>
+
+      <% if @extra_message.present? %>
+        <h4><%= @extra_message %></h4>
       <% end %>
     </footer>
   <% end %>
