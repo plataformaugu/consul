@@ -36,7 +36,7 @@
             '',
             @current_record.is_active? && @current_record.can_participate?(current_user) ? new_proposal_path(proposal_topic_id: @current_record.id) : nil,
             'propuesta',
-            @current_record.cant_participate_reason(current_user)
+            !@current_record.can_participate?(current_user) ? @current_record.cant_participate_reason(current_user) : nil
           ) %>
         </div>
         <div class="small-12 medium-6 column">

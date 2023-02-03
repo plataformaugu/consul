@@ -20,20 +20,20 @@ class ProposalTopicsController < ApplicationController
 
       if @proposal.present?
         @proposal_topic = @proposal.proposal_topic
-        @proposals = @proposal_topic.proposals.published.order(created_at: :desc)
+        @proposals = @proposal_topic.proposals.published.order(created_at: :asc)
       end
     end
 
     if param_proposal_topic.present?
       if ProposalTopic.published.find_by(id: params['topic'])
         @proposal_topic = ProposalTopic.published.find_by(id: params['topic'])
-        @proposals = @proposal_topic.proposals.published.order(created_at: :desc)
+        @proposals = @proposal_topic.proposals.published.order(created_at: :asc)
         @proposal = @proposals.first
       end
     end
 
     if !@proposals.any? && @proposal_topic.present?
-      @proposals = @proposal_topic.proposals.published.order(created_at: :desc)
+      @proposals = @proposal_topic.proposals.published.order(created_at: :asc)
       @proposal = @proposals.first
     end
 

@@ -19,7 +19,7 @@
     <div class="row" id="stacking-cards">
       <div class="small-12 column">
         <div class="stacking-cards-component">
-        <% @records[@records.length > 3 ? -3 : @records.length, 3].each do |element| %>
+        <% @records[@records.length > 3 ? -3 : 0, 3].each do |element| %>
           <%= render Custom::BigCardComponent.new(
             element[:id],
             element[:title],

@@ -16,7 +16,7 @@
       <div class="small-12 medium-6 column">
         <%= render Custom::BigRoundCardComponent.new(
           @poll.title,
-          @poll.image.present? ? @poll.image.variant(:medium) : '/images/process/polls.svg',
+          @poll.image.present? ? @poll.image_url : '/images/process/polls.svg',
           '',
         ) %>
       </div>

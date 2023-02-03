@@ -26,12 +26,14 @@ $colors: ((1, #203177), (2, #ad93c5), (3, #4207f6), (4, #203177));
         width: calc(100% - calc(#{$index} * 100px));
   
         div {
+          max-width: 50%;
+
           h1 {
             font-size: calc(3em - calc(10 * #{$index}px)) !important;
           }
   
           p {
-            font-size: calc(1.5em - calc(1 * #{$index}px)) !important;
+            font-size: calc(1.2em - calc(1 * #{$index}px)) !important;
           }
   
           .supertitle {
