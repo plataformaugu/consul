@@ -44,6 +44,12 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
+
+    if @proposal.proposal_topic_id.nil?
+      flash[:error] = "Ocurrió un error inesperado. Inténtalo nuevamente."
+      render :new
+    end
+
     if @proposal.save
       redirect_to pending_proposal_path(@proposal)
     else
