@@ -41,7 +41,7 @@ class ProposalTopicsController < ApplicationController
       @proposals = @proposals.where.not(id: @proposal.id).reverse.map { |p| {
         id: p.id,
         title: p.title,
-        summary: nil,
+        summary: p.summary,
         description: p.summary,
         image: p.image.present? ? p.image.variant(:large) : '/images/process/proposals.svg',
         supertitle: nil,
