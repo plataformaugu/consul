@@ -90,7 +90,7 @@
           <%= link_to @functional_organization.instagram do %><i class="instagram-icon"></i><% end %>
         <% end %>
         <% if @functional_organization.url.present? %>
-          <%= link_to @functional_organization.url do %><i class="url-icon"></i><% end %>
+          <%= link_to @functional_organization.url do %><%= image_tag "/images/iconos/url-icon.png", style: "width: 3em;" %><% end %>
         <% end %>
     </div>
   </div>

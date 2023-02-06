@@ -15,11 +15,11 @@
 
       <div class="sectors-cards-container">
         <%= link_to sector_neighborhood_council_directives_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
-          <%= render Custom::SimpleCardComponent.new('Directiva', nil, '/images/organizaciones-sociales/directiva.png')%>
+          <%= render Custom::SimpleCardComponent.new('Directiva', nil, '/images/organizaciones-sociales/directiva-verde.png')%>
         <% end %>
 
         <%= link_to news_sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
-          <%= render Custom::SimpleCardComponent.new('Noticias', nil, '/images/organizaciones-sociales/noticias.png')%>
+          <%= render Custom::SimpleCardComponent.new('Noticias', nil, '/images/organizaciones-sociales/noticias-verde.png')%>
         <% end %>
 
         <%= link_to sector_neighborhood_council_events_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
@@ -47,7 +47,7 @@
           <%= link_to @neighborhood_council.instagram do %><i class="instagram-icon"></i><% end %>
         <% end %>
         <% if @neighborhood_council.url.present? %>
-          <%= link_to @neighborhood_council.url do %><i class="url-icon"></i><% end %>
+          <%= link_to @neighborhood_council.url do %><%= image_tag "/images/iconos/url-icon.png", style: "width: 3em;" %><% end %>
         <% end %>
     </div>
   </div>
