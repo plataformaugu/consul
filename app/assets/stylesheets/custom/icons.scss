@@ -1,0 +1,51 @@
+@mixin icon($name, $style) {
+  @include has-fa-icon($name, $style);
+
+  &::before {
+    @extend %admin-menu-icon;
+    font-size: 3rem;
+  }
+}
+
+.whatsapp-icon {
+  @include icon(whatsapp, brands);
+  color: #43d854;
+
+  cursor: pointer;
+}
+
+.facebook-icon {
+  @include icon(facebook, brands);
+  color: #3b5998;
+
+  cursor: pointer;
+}
+
+.twitter-icon {
+  @include icon(twitter, brands);
+  color: #45b0e3;
+
+  cursor: pointer;
+}
+
+.instagram-icon {
+  @include icon(instagram, brands);
+  color: #ECB649;
+
+  cursor: pointer;
+}
+
+.url-icon {
+  @include icon(link, solid);
+  color: $brand;
+
+  cursor: pointer;
+}
+
+.user-icon {
+  @include icon(user, solid);
+
+  &::before {
+    margin: 0;
+  }
+}

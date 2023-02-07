@@ -1,0 +1,113 @@
+<%= render "shared/section_header",
+  color: "#82be78",
+  title: @news.title,
+  show_buildings: true,
+  small_height: true
+%>
+
+<div class="row">
+  <%= back_link_to @back_path %>
+  <div class="proposal-content-container mt-1">
+    <div class="p-c-duo mb-3">
+      <div class="p-c-description">
+        <small class="text-gray">
+          <%= image_tag "/images/b-icono.svg", style: 'width: 1em;' %>
+          Equipo Participación Ciudadana
+          <%= image_tag '/images/verified-icon.png', style: 'width: 1em;' %>
+          <span class="separator">·</span>
+          <%= @news.created_at_text %>
+        </small>
+        <p></p>
+        <%= wysiwyg(@news.body) %>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <%= image_tag @news.image %>
+      </div>
+    </div>
+    <div class="like-dislike-actions">
+      <% if current_user %>
+        <%=
+          link_to like_news_index_path(id: @news.id),
+          method: "post",
+          remote: true,
+          title: t("votes.agree"),
+          onclick: "toggleLike(#{@news.id})" do %>
+            <span id="icon-like-<%= @news.id %>" class="icon-like <%= @news.user_like(current_user) ? 'active' : '' %>" data-active="<%= @news.user_like(current_user) %>">
+              <span class="show-for-sr"><%= t("votes.agree") %></span>
+              <small id="count-like-<%= @news.id %>"><%= @news.likes %></small>
+            </span>
+        <% end %>
+        <%=
+          link_to dislike_news_index_path(id: @news.id),
+          method: "post",
+          remote: true,
+          title: t("votes.disagree"),
+          onclick: "toggleUnlike(#{@news.id})" do %>
+            <span id="icon-unlike-<%= @news.id %>" class="icon-unlike <%= @news.user_dislike(current_user) ? 'active' : '' %>" data-active="<%= @news.user_dislike(current_user) %>">
+              <span class="show-for-sr"><%= t("votes.disagree") %></span>
+              <small id="count-unlike-<%= @news.id %>"><%= @news.dislikes %></small>
+            </span>
+        <% end %>
+      <% else %>
+        <span class="icon-like">
+          <span class="show-for-sr"><%= t("votes.agree") %></span>
+          <small><%= @news.likes %></small>
+        </span>
+        <span class="icon-unlike">
+          <span class="show-for-sr"><%= t("votes.disagree") %></span>
+          <small><%= @news.dislikes %></small>
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#60a360', color2: '#82be78' do %>
+  <% end %>
+</div>
+
+<script>
+  function toggleLike(id) {
+    var isActiveLike = $(`#icon-like-${id}`).data('active')
+    var isActiveUnlike = $(`#icon-unlike-${id}`).data('active')
+
+    if (isActiveUnlike) {
+      $(`#icon-unlike-${id}`).data('active', false)
+      $(`#icon-unlike-${id}`).removeClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) - 1)
+    }
+
+    if (isActiveLike) {
+      $(`#icon-like-${id}`).data('active', false)
+      $(`#icon-like-${id}`).removeClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) - 1)
+    } else {
+      $(`#icon-like-${id}`).data('active', true)
+      $(`#icon-like-${id}`).addClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) + 1)
+    }
+  }
+  
+  function toggleUnlike(id) {
+    var isActiveLike = $(`#icon-like-${id}`).data('active')
+    var isActiveUnlike = $(`#icon-unlike-${id}`).data('active')
+
+    if (isActiveLike) {
+      $(`#icon-like-${id}`).data('active', false)
+      $(`#icon-like-${id}`).removeClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) - 1)
+    }
+
+    if (isActiveUnlike) {
+      $(`#icon-unlike-${id}`).data('active', false)
+      $(`#icon-unlike-${id}`).removeClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) - 1)
+    } else {
+      $(`#icon-unlike-${id}`).data('active', true)
+      $(`#icon-unlike-${id}`).addClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) + 1)
+    }
+  }
+</script>

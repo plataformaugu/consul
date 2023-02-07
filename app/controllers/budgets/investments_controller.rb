@@ -40,13 +40,7 @@ module Budgets
     respond_to :html, :js
 
     def index
-      @investments = investments.page(params[:page]).per(PER_PAGE).for_render
-
-      @investment_ids = @investments.ids
-      @investments_map_coordinates = MapLocation.where(investment: investments).map(&:json_data)
-
-      @tag_cloud = tag_cloud
-      @remote_translations = detect_remote_translations(@investments)
+      redirect_to @budget
     end
 
     def new
@@ -64,6 +58,18 @@ module Budgets
       @investment.author = current_user
       @investment.heading = @budget.headings.first if @budget.single_heading?
 
+      if params['budget_investment']['sector_ids']
+        sectors = filter_allowed_sectors(params['budget_investment']['sector_ids'])
+        sectors.each do |s|
+          sector = Sector.find_by(name: s)
+          @investment.sectors.append(sector)
+        end
+      else
+        @budget.headings.first.sectors.each do |s|
+          @investment.sectors.append(s)
+        end
+      end
+
       if @investment.save
         Mailer.budget_investment_created(@investment).deliver_later
         redirect_to budget_investment_path(@budget, @investment),
@@ -74,6 +80,20 @@ module Budgets
     end
 
     def update
+      @investment.sector_ids = []
+
+      if params['budget_investment']['sector_ids']
+        sectors = filter_allowed_sectors(params['budget_investment']['sector_ids'])
+        sectors.each do |s|
+          sector = Sector.find_by(name: s)
+          @investment.sectors.append(sector)
+        end
+      else
+        @budget.headings.first.sectors.each do |s|
+          @investment.sectors.append(s)
+        end
+      end
+
       if @investment.update(investment_params)
         redirect_to budget_investment_path(@budget, @investment),
                     notice: t("flash.actions.update.budget_investment")
@@ -108,6 +128,12 @@ module Budgets
 
     private
 
+      def filter_allowed_sectors(new_sectors)
+        @heading = @budget.headings.first
+        allowed_sectors = @heading.sectors.map{ |s| s.name }
+        return new_sectors.filter{ |s| allowed_sectors.include?(s) }
+      end
+
       def resource_model
         Budget::Investment
       end
@@ -118,7 +144,7 @@ module Budgets
 
       def investment_params
         attributes = [:heading_id, :tag_list, :organization_name, :location,
-                      :terms_of_service, :related_sdg_list,
+                      :terms_of_service, :related_sdg_list, :main_theme_id,
                       image_attributes: image_attributes,
                       documents_attributes: document_attributes,
                       map_location_attributes: map_location_attributes]

@@ -1,0 +1,64 @@
+<%= form_with(model: event, local: true, url: action_name == 'edit' ? admin_neighborhood_council_event_path : admin_neighborhood_council_events_path) do |form| %>
+
+  <div class="field">
+    <%=
+      form.text_field :title,
+      maxlength: 50,
+      label: 'Nombre de Actividad',
+      required: true,
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.text_field :place,
+      maxlength: 50,
+      label: 'Lugar',
+      required: true,
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.datetime_local_field :start_time,
+      required: true,
+      label: 'Desde',
+      min: (Time.now + 5.minutes).strftime('%Y-%m-%dT%H:%M:00'),
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.datetime_local_field :end_time,
+      required: true,
+      label: 'Hasta',
+      min: (Time.now + 15.minutes).strftime('%Y-%m-%dT%H:%M:00'),
+      class: 'custom-input'
+    %>
+  </div>
+  
+  <div class="field">
+    <%=
+      form.email_field :email,
+      label: 'Mail de contacto',
+      class: 'custom-input'
+    %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.phone_field :phone_number,
+      label: 'Teléfono de contacto',
+      class: 'custom-input'
+    %>
+  </div>
+
+  <%= form.hidden_field :neighborhood_council_id, value: @neighborhood_council.id %>
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class: 'solid-button-sm' %>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+.main-theme-functional-organizations-page {
+  .main-theme-functional-organizations-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+  
+    @media (max-width: 1200px) {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      grid-column-gap: 1rem;
+      grid-row-gap: 1rem;
+    }
+
+    .functional-organization-card {
+      border-radius: 25px;
+      padding: 1.5rem 2rem;
+
+      h3 {
+        margin: 0;
+        color: $white;
+      }
+    }
+  }
+}
+
+.buildings-clear {
+  position: relative;
+  width: 80%;
+  height: 22vw;
+
+  img {
+    width: 100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

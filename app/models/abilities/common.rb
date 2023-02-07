@@ -16,7 +16,12 @@ module Abilities
         debate.editable_by?(user)
       end
 
+      can :share, Debate do |debate|
+        user.administrator? || (debate.published_at == nil && debate.author.id == user.id)
+      end
+
       can [:read, :join_to_event, :left_event], Event
+      can [:read, :join_to_event, :left_event], NeighborhoodCouncilEvent
 
       can :initiatives, Proposal
       can :read, Proposal
@@ -92,6 +97,7 @@ module Abilities
 
       if user.level_two_or_three_verified?
         can :vote, Proposal, &:published?
+        can :down_vote, Proposal, &:published?
         can :vote_featured, Proposal
 
         can :vote, Legislation::Proposal

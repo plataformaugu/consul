@@ -13,6 +13,8 @@ module Notifiable
         return "Tu comentario fue ocultado: \"#{model.constantize.with_hidden.find(model_id).body.truncate(24)}\""
       when 'reject_proposal'
         return "Tu propuesta no ha sido aceptada: \"#{model.constantize.with_hidden.find(model_id).title.truncate(24)}\""
+      when 'reject_debate'
+        return "Tu debate no ha sido aceptado: \"#{model.constantize.with_hidden.find(model_id).title.truncate(24)}\""
       end
     else
       title

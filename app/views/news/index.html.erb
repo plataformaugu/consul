@@ -5,41 +5,24 @@
   small_height: true
 %>
 
-<section class="news">
-  <% if @hightlighted.any? %>
-  <div class="row">
-    <div class="small-12 column">
-      <h2>Noticias destacadas</h2>
-        <div class="cards">
-          <% @hightlighted.order(created_at: :desc).each do |n| %>
-            <%= render 'card', news: n %>
-          <% end %>
-        </div>
-    </div>
-  </div>
-  <% end %>
-
-  <% if @news.any? %>
-  <div class="row">
-    <div class="small-12 column">
-      <h2>Otras noticias</h2>
-      <div class="cards">
-        <% @news.order(created_at: :desc).each do |n| %>
-          <%= render 'card', news: n %>
-        <% end %>
+<div class="row">
+  <div class="column small-12">
+    <ul class="tabs" data-tabs id="example-tabs">
+      <li class="tabs-title is-active"><a href="#participacion-ciudadana" aria-selected="true">Participación ciudadana</a></li>
+    </ul>
+    <div class="tabs-content" data-tabs-content="example-tabs">
+      <div class="tabs-panel is-active" id="participacion-ciudadana">
+        <%= render 'news/collections/citizen_participation' %>
+      </div>
+      <div class="tabs-panel" id="juntas-de-vecinos">
+        <%= render 'news/collections/neighborhood_council' %>
+      </div>
+      <div class="tabs-panel" id="cosoc">
+        <%= render 'news/collections/cosoc' %>
       </div>
     </div>
   </div>
-  <% end %>
-
-  <% if not @hightlighted.any? and not @news.any? %>
-    <div class="row">
-      <div class="small-12 column">
-       <p class="text-center">No hay noticias creadas.</p>
-      </div>
-    </div>
-  <% end %>
-</section>
+</div>
 
 <div class="general-footer-container">
   <%= render 'shared/waves_footer', color1: '#60a360', color2: '#82be78' do %>

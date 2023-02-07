@@ -1,5 +1,6 @@
 class Budgets::InvestmentsListComponent < ApplicationComponent
   attr_reader :budget
+  delegate :current_user, to: :helpers
 
   def initialize(budget)
     @budget = budget
@@ -8,14 +9,20 @@ class Budgets::InvestmentsListComponent < ApplicationComponent
   def investments(limit: 9)
     case budget.phase
     when "accepting", "reviewing"
-      budget.investments.sample(limit)
-    when "selecting", "valuating", "publishing_prices"
-      budget.investments.feasible.sample(limit)
+      results = budget.investments.confirmed
+    when "selecting", "valuating"
+      results = budget.investments.confirmed.feasible
+    when "publishing_prices"
+      results = budget.investments.confirmed.selected.feasible
     when "balloting", "reviewing_ballots"
-      budget.investments.selected.sample(limit)
+      results = budget.investments.confirmed.selected
+    when "finished"
+      results = budget.investments.confirmed.feasible
     else
-      budget.investments.none
+      results = budget.investments.confirmed
     end
+
+    return Kaminari.paginate_array(results.order(winner: :desc, created_at: :desc)).page(params[:page])
   end
 
   def see_all_path

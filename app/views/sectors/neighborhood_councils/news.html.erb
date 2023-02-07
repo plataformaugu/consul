@@ -1,0 +1,84 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: @neighborhood_council.name,
+  title: 'Noticias',
+  show_buildings: true,
+  small_height: true
+%>
+
+<section class="news">
+  <% if @news.any? %>
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council) %>
+      </div>
+
+      <div class="cards">
+        <% @news.order(created_at: :desc).each do |n| %>
+          <%= render 'news/card', news: n %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+    <div class="row">
+      <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council) %>
+      </div>
+       <p class="text-center">No hay noticias creadas.</p>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>
+
+
+<script>
+  function toggleLike(id) {
+    var isActiveLike = $(`#icon-like-${id}`).data('active')
+    var isActiveUnlike = $(`#icon-unlike-${id}`).data('active')
+
+    if (isActiveUnlike) {
+      $(`#icon-unlike-${id}`).data('active', false)
+      $(`#icon-unlike-${id}`).removeClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) - 1)
+    }
+
+    if (isActiveLike) {
+      $(`#icon-like-${id}`).data('active', false)
+      $(`#icon-like-${id}`).removeClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) - 1)
+    } else {
+      $(`#icon-like-${id}`).data('active', true)
+      $(`#icon-like-${id}`).addClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) + 1)
+    }
+  }
+  
+  function toggleUnlike(id) {
+    var isActiveLike = $(`#icon-like-${id}`).data('active')
+    var isActiveUnlike = $(`#icon-unlike-${id}`).data('active')
+
+    if (isActiveLike) {
+      $(`#icon-like-${id}`).data('active', false)
+      $(`#icon-like-${id}`).removeClass('active')
+      $(`#count-like-${id}`).text(parseInt($(`#count-like-${id}`).text()) - 1)
+    }
+
+    if (isActiveUnlike) {
+      $(`#icon-unlike-${id}`).data('active', false)
+      $(`#icon-unlike-${id}`).removeClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) - 1)
+    } else {
+      $(`#icon-unlike-${id}`).data('active', true)
+      $(`#icon-unlike-${id}`).addClass('active')
+      $(`#count-unlike-${id}`).text(parseInt($(`#count-unlike-${id}`).text()) + 1)
+    }
+  }
+</script>

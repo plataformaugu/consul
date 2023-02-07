@@ -1,0 +1,14 @@
+<div class="simple-card-component">
+  <header>
+    <h2 class="text-center"><%= @title %></h2>
+  </header>
+  <div>
+    <% if @text.present? %>
+      <p><%= @text %></p>
+    <% end %>
+
+    <% if @image.present? %>
+      <%= image_tag @image %>
+    <% end %>
+  </div>
+</div>

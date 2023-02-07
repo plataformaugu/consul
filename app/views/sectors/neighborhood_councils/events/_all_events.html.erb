@@ -1,0 +1,40 @@
+<div class="row">
+  <%= month_calendar(events: @events) do |date, events| %>
+    <% if Time.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
+      <strong>
+    <% end %>
+
+    <%= date.strftime('%d') %>
+    <% if Time.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
+      <small>(Hoy)</small></strong>
+    <% end %>
+
+
+    <div class="custom-event" style="visibility: hidden; height: 1px;">
+      <div class="plus-button-xsm"></div> <span>1 2 3 4 5 6 7 8 9 10 11 12 13 14</span>
+    </div>
+    <% events.first(2).each do |event| %>
+      <%= link_to sector_neighborhood_council_event_path(@neighborhood_council.sector, @neighborhood_council, event), style: 'text-decoration: none;' do %>
+        <div class="custom-event" style="background-color: #4569c450;">
+          <div class="plus-button-xsm"></div> <span><%= event.title %></span>
+        </div>
+      <% end %>
+    <% end %>
+    <% if events.length() > 2 %>
+      <div class="day-dropdown">
+        <button class="show-more-button">
+          Otros eventos del día +
+        </button><br>
+        <div class="day-dropdown-content">
+          <% events[2..].each do |event| %>
+            <%= link_to event, style: 'text-decoration: none;' do %>
+              <div class="custom-event">
+                <div class="plus-button-xsm"></div> <span><%= event.title %></span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

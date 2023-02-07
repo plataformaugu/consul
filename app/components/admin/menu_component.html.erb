@@ -109,4 +109,12 @@
   <li class="<%= "is-active" if controller_name == "news" %>">
     <%= link_to 'Noticias', admin_news_index_path, class: 'news-link' %>
   </li>
+
+  <li class="<%= "is-active" if controller_name == "functional_organizations" %>">
+    <%= link_to 'Organizaciones Funcionales', admin_functional_organizations_path, class: 'functional-organizations-link' %>
+  </li>
+
+  <li class="<%= "is-active" if controller_name == "neighborhood_councils" %>">
+    <%= link_to 'Juntas de Vecino', admin_neighborhood_councils_path, class: 'neighborhood-councils-link' %>
+  </li>
 </ul>

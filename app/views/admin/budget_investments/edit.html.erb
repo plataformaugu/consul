@@ -29,15 +29,15 @@
       <% end %>
 
       <div class="small-12 column">
-        <%= f.text_field :tag_list,
-                         value: @investment.tag_list.sort.join(","),
-                         label: t("admin.budget_investments.edit.user_tags") %>
-      </div>
-
-      <div class="small-12 column">
         <div class="small-12 medium-6">
           <%= f.text_field :external_url %>
         </div>
+
+        
+        <div class="small-12 medium-6">
+          <%= f.text_field :pdf_link, label: 'Link PDF' %>
+        </div>
+        
 
         <div class="small-12 medium-6">
           <%= f.select :heading_id, budget_heading_select_options(@budget), include_blank: t("admin.budget_investments.edit.select_heading") %>

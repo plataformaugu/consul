@@ -1,5 +1,8 @@
 <%= header do %>
-  <button data-open="heading_mode"><%= t("admin.budgets.index.new_link") %></button>
+  <%=
+    link_to 'Crear nuevo presupuesto',
+    new_admin_budgets_wizard_budget_path(mode: 'single')
+   %>
 <% end %>
 
 <%= render Admin::Budgets::HeadingModeComponent.new %>

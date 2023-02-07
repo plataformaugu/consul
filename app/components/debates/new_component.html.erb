@@ -1,21 +1,5 @@
-<%= render "shared/section_header", i18n_namespace: "debates.index.section_header", image: "debates" %>
 <main class="debate-new">
   <div class="row">
-    <%= back_link_to debates_path, t("debates.index.section_header.title") %>
-
-    <%= header %>
-
-    <aside>
-      <h2><%= t("debates.new.recommendations_title") %></h2>
-
-      <ul class="recommendations">
-        <li><%= t("debates.new.recommendation_one") %></li>
-        <li><%= t("debates.new.recommendation_two") %></li>
-        <li><%= t("debates.new.recommendation_three") %></li>
-        <li><%= t("debates.new.recommendation_four") %></li>
-      </ul>
-    </aside>
-
     <%= render Debates::FormComponent.new(debate) %>
   </div>
 </main>

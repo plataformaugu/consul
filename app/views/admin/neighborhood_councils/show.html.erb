@@ -1,0 +1,17 @@
+<%= link_to 'Volver', admin_neighborhood_councils_path %>
+
+<h2><%= @neighborhood_council.name %></h2>
+
+<ul class="tabs" data-tabs id="example-tabs" data-deep-link="true">
+  <li class="tabs-title is-active"><a href="#directive" aria-selected="true">Directiva</a></li>
+  <li class="tabs-title"><a data-tabs-target="events" href="#events">Eventos</a></li>
+</ul>
+
+<div class="tabs-content" data-tabs-content="example-tabs">
+  <div class="tabs-panel is-active" id="directive">
+    <%= render 'directive' %>
+  </div>
+  <div class="tabs-panel" id="events">
+    <%= render 'events' %>
+  </div>
+</div>

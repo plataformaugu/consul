@@ -41,9 +41,12 @@ class Budget
     belongs_to :group
     belongs_to :budget
     belongs_to :administrator
+    belongs_to :main_theme
 
     has_many :valuator_assignments, dependent: :destroy
     has_many :valuators, through: :valuator_assignments
+    has_many :budget_investment_sectors, foreign_key: 'budget_investment_id'
+    has_many :sectors, through: :budget_investment_sectors
 
     has_many :valuator_group_assignments, dependent: :destroy
     has_many :valuator_groups, through: :valuator_group_assignments
@@ -82,6 +85,7 @@ class Budget
     scope :valuation_finished,          -> { where(valuation_finished: true) }
     scope :valuation_finished_feasible, -> { where(valuation_finished: true, feasibility: "feasible") }
     scope :feasible,                    -> { where(feasibility: "feasible") }
+    scope :not_feasible,                -> { where.not(feasibility: "feasible") }
     scope :unfeasible,                  -> { where(feasibility: "unfeasible") }
     scope :not_unfeasible,              -> { where.not(feasibility: "unfeasible") }
     scope :undecided,                   -> { where(feasibility: "undecided") }
@@ -110,6 +114,14 @@ class Budget
     def self.by_valuator_group(valuator_group_id)
       joins(:valuator_group_assignments).
         where(budget_valuator_group_assignments: { valuator_group_id: valuator_group_id })
+    end
+
+    def self.confirmed
+      where.not(confirmed_at: nil)
+    end
+
+    def self.unconfirmed
+      where(confirmed_at: nil)
     end
 
     before_validation :set_responsible_name
@@ -379,6 +391,11 @@ class Budget
       valuator_users = (valuator_groups.map(&:valuators) + valuators).flatten
       all_users = valuator_users << administrator
       all_users.compact.uniq
+    end
+
+    def custom_hide(user)
+      self.hide
+      Activity.log(user, :hide, self)
     end
 
     private

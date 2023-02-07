@@ -6,105 +6,37 @@
 <% end %>
 
 <main>
-  <% if @search_terms || @advanced_search_terms %>
-    <%= render "shared/section_header", i18n_namespace: "debates.index.section_header", image: "debates" %>
-    <div class="search-results-summary">
-      <div class="row">
-        <div class="small-12 column">
-          <% if @search_terms || @advanced_search_terms %>
-            <h2><%= t("shared.search_results") %></h2>
-            <p>
-              <%= page_entries_info @debates %>
-              <% if !@advanced_search_terms %>
-                <%= sanitize(
-                  t("debates.index.search_results", count: @debates.size, search_term: @search_terms)
-                ) %>
-              <% end %>
-            </p>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% else %>
-    <%= render "shared/section_header", i18n_namespace: "debates.index.section_header", image: "debates" %>
-  <% end %>
-
-  <% if feature?("user.recommendations") && @recommended_debates.present? %>
-    <%= render "shared/recommended_index", recommended: @recommended_debates,
-                                           disable_recommendations_path: recommendations_disable_debates_path,
-                                           namespace: "debates" %>
-  <% end %>
+  <%= render "shared/section_header",
+    color: "#9ecc46",
+    title: 'Debates',
+    description: 'Permite a las/os usuarias/os abrir hilos de discusión y generar espacios de debate sobre las temáticas que consideren más relevantes.',
+    section_image: "/images/h-debates.svg",
+    image_style: 'bottom: 10%;'
+  %>
 
   <div class="row">
-    <div id="debates" class="debates-list small-12 medium-9 column">
-
-      <%= render Shared::BannerComponent.new("debates") %>
-
-      <% unless @search_terms || !has_featured? %>
-        <%= render "featured_debates" %>
-      <% end %>
-
-      <div class="row">
-        <div class="small-12 column">
-          <%= render "view_mode" %>
-        </div>
+    <div class="small-12 column">
+      <% if current_user %>
+      <div class="section-header-container">
+        <%= link_to 'Empieza un debate', new_debate_path, class: 'create-debate' %>
       </div>
-
-      <%= render Shared::AdvancedSearchComponent.new %>
-
-      <%= render "shared/order_links", i18n_namespace: "debates.index" %>
-
-      <div class="show-for-small-only">
-        <%= link_to t("debates.index.start_debate"), new_debate_path, class: "button expanded" %>
-      </div>
-
-      <% if @debates.any? || current_user.blank? %>
-        <% if debates_default_view? %>
-          <%= render @debates %>
-        <% else %>
-          <% @debates.each do |debate| %>
-            <%= render "debates/debate_minimal", debate: debate %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <%= empty_recommended_debates_message_text(current_user) %>
       <% end %>
-      <%= paginate @debates %>
 
-      <% unless @search_terms || @advanced_search_terms %>
-        <div id="section_help" class="margin" data-magellan-target="section_help">
-          <p class="lead">
-            <strong><%= t("debates.index.section_footer.title") %></strong>
-          </p>
-          <p><%= t("debates.index.section_footer.description") %></p>
-          <p><%= t("debates.index.section_footer.help_text_1") %></p>
-          <p><%= sanitize(t("debates.index.section_footer.help_text_2",
-                    org: link_to(setting["org_name"], new_user_registration_path))) %></p>
-          </p>
+        <div class="custom-cards-container">
+          <div class="custom-cards">
+            <% if @debates.any? %>
+              <%= render partial: "debate", collection: @debates %>
+            <% else %>
+              <p>No hay debates publicados.</p>
+            <% end %>
+          </div>
         </div>
+        <%= paginate @debates %>
+
+    </div>
+  </div>
+  <div class="general-footer-container">
+      <%= render 'shared/waves_footer', color1: '#61841c', color2: '#9ecc46' do %>
       <% end %>
-    </div>
-
-    <div class="small-12 medium-3 column">
-
-      <aside class="margin-bottom">
-        <%= render "shared/search_form",
-          search_path: debates_path(page: 1),
-          i18n_namespace: "debates.index.search_form"
-        %>
-        <%= link_to t("debates.index.start_debate"), new_debate_path, class: "button expanded" %>
-        <%= render "shared/tag_cloud", taggable: "Debate" %>
-        <div class="sidebar-divider"></div>
-        <h2 class="sidebar-title">Palabras claves</h2>
-        <canvas id="cloud-tag"></canvas>
-      </aside>
-    </div>
-
   </div>
 </main>
-
-
-<%= javascript_tag do %>
-var tags = <%= raw(Rails::Html::FullSanitizer.new.sanitize(Debate.all.pluck(:description).join(' ')).split(' ').map{|w| w.downcase }.filter{|w| w.length > 4 and not ['donde','porque','porqué','cuando','están','desde','dónde','fueron','fuesen','sobre','altas','altos','bajos','bajas'].include?(w)}.tally.sort_by(&:last).reverse[0..4].reverse.map.with_index{|a, i| [a[0], i + 1]}) %>
-WordCloud(document.getElementById('cloud-tag'), { list: tags, weightFactor: 10, backgroundColor: 'transparent' } );
-<% end %>

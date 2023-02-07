@@ -1,8 +1,37 @@
 Rails.application.routes.draw do
+  resources :neighborhood_council_events
+  resources :functional_organizations, :path => 'organizaciones-funcionales'
   resources :popups, :controller => 'admin/popups'
   resources :proposals_themes, :path => 'propuestas'
   resources :encuesta, :path => 'encuestas'
-  resources :main_themes, :path => 'ejes-tematicos'
+
+  resources :sectors, only: [:show], :path => 'unidades-vecinales' do
+    resources :neighborhood_councils, only: [:show], controller: "sectors/neighborhood_councils", :path => 'junta-vecinos' do
+      resources :directives, only: [:index], controller: 'sectors/neighborhood_councils/directives', :path => 'directiva'
+      resources :events, only: [:index], controller: 'sectors/neighborhood_councils/events', :path => 'eventos' do
+        member do
+          get :show
+          post :join_to_event
+          post :left_event
+        end
+      end
+
+      member do
+        get :news, :path => 'noticias'
+      end
+    end
+  end
+
+  resources :main_themes, :path => 'ejes-tematicos' do
+    collection do
+      get :functional_organizations_index, :path => 'organizaciones-funcionales'
+    end
+
+    member do
+      get :functional_organizations, :path => 'organizaciones-funcionales'
+    end
+  end
+
   resources :news do
     collection do
       post :like
@@ -67,6 +96,7 @@ Rails.application.routes.draw do
   get "help",             to: "pages#show", id: "help/index",             as: "help"
   get "help/how-to-use",  to: "pages#show", id: "help/how_to_use/index",  as: "how_to_use"
   get "help/faq",         to: "pages#show", id: "faq",                    as: "faq"
+  get "/cosoc/noticias",   to: "pages#show", id: "cosoc/noticias",         as: "cosoc_news"
 
   # Static pages
   resources :pages, path: "/", only: [:show]
@@ -78,4 +108,6 @@ Rails.application.routes.draw do
   post 'accounts/login' => 'users#login'
 
   delete 'moderation/proposals' => 'moderation/proposals#reject'
+  delete 'moderation/debates' => 'moderation/debates#reject'
+  delete 'moderation/budget_investments' => 'moderation/budgets/investments#reject'
 end

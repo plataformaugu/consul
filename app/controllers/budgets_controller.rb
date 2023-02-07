@@ -4,7 +4,6 @@ class BudgetsController < ApplicationController
   feature_flag :budgets
 
   before_action :load_budget, only: :show
-  before_action :load_current_budget, only: :index
   load_and_authorize_resource
 
   respond_to :html, :js
@@ -15,6 +14,11 @@ class BudgetsController < ApplicationController
 
   def index
     @finished_budgets = @budgets.finished.order(created_at: :desc)
+  end
+
+  def unselected
+    @budget = Budget.find_by(id: params['budget_id'])
+    @type = params['type']
   end
 
   private

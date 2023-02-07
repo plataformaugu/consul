@@ -11,6 +11,8 @@ namespace :moderation do
   resources :debates, only: :index do
     put :hide, on: :member
     put :moderate, on: :collection
+    patch :publish, on: :member
+    patch :toggle_is_finished, on: :member
   end
 
   resources :proposals, only: :index do
@@ -38,6 +40,8 @@ namespace :moderation do
 
   resources :budget_investments, only: :index, controller: "budgets/investments" do
     put :hide, on: :member
+    patch :publish, on: :member
     put :moderate, on: :collection
+    delete :reject, on: :collection
   end
 end

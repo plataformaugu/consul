@@ -1,4 +1,5 @@
 resources :budgets, only: [:show, :index] do
+
   resources :groups, controller: "budgets/groups", only: [:show, :index]
   resources :investments, controller: "budgets/investments" do
     member do
@@ -12,6 +13,10 @@ resources :budgets, only: [:show, :index] do
   end
 
   resource :ballot, only: :show, controller: "budgets/ballots" do
+    member do
+      put :confirm
+    end
+
     resources :lines, controller: "budgets/ballot/lines", only: [:create, :destroy]
   end
 
@@ -26,3 +31,4 @@ end
 
 get "investments/:id/json_data", action: :json_data, controller: "budgets/investments"
 get "/budgets/:budget_id/investments/:id/json_data", action: :json_data, controller: "budgets/investments"
+get "/budgets/:budget_id/unselected", to: "budgets#unselected"

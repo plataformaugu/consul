@@ -1,0 +1,20 @@
+<%= render "shared/section_header",
+  color: "#9ecc46",
+  title: @debate.title,
+  section_image: "/images/h-debates.svg",
+  image_style: 'bottom: 10%;'
+%>
+
+<div id="<%= dom_id(@debate) %>" class="row mb-5">
+  <div class="small-12 medium-12 column">
+    <h1>¡Has creado un debate!</h1>
+    <p>
+      <span class="lead">Tu debate estará pendiente de revisión y será publicado cuando sea aceptado.</span>
+    </p>
+  </div>
+</div>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#61841c', color2: '#9ecc46' do %>
+  <% end %>
+</div>

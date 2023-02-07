@@ -3,9 +3,13 @@ module Abilities
     include CanCan::Ability
 
     def initialize(user)
-      can [:index], News
+      can [:index, :show], News
       can [:show], Popup
       can [:index, :read], ProposalsTheme
+      can [:read], Sector
+      can [:read], Directive
+      can [:read, :news], NeighborhoodCouncil
+      can [:read], NeighborhoodCouncilEvent
       can :index, Encuestum
       can [:read, :map], Debate
       can [:read, :map, :summary, :share, :initiatives], Proposal
@@ -13,7 +17,8 @@ module Abilities
       can :read, Comment
       can [:read, :results_index], Poll
       can :read, Event
-      can :read, MainTheme
+      can [:functional_organizations_index, :functional_organizations, :read], MainTheme
+      can [:read], FunctionalOrganization
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids
       can :stats, Poll, id: Poll.expired.stats_enabled.not_budget.ids
       can :read, Poll::Question
@@ -37,6 +42,7 @@ module Abilities
 
       can [:read, :help], ::SDG::Goal
       can :read, ::SDG::Phase
+      can [:unselected], Budget
     end
   end
 end

@@ -1,0 +1,49 @@
+<% @cards = [
+  {
+    :title => 'Directiva',
+    :image => '/images/organizaciones-sociales/directiva-gris.png',
+    :url => 'https://www.lascondes.cl/municipalidad/cosoc/um-cosoc/integrantes.html'
+  },
+  {
+    :title => 'Noticias',
+    :image => '/images/organizaciones-sociales/noticias-gris.png',
+    :url => '/cosoc/noticias'
+  },
+  {
+    :title => 'Actas',
+    :image => '/images/organizaciones-sociales/acta.png',
+    :url => 'https://www.lascondes.cl/municipalidad/cosoc/um-cosoc/sesiones.html'
+  }
+] %>
+
+<%= render "shared/section_header",
+  color: "#568ade",
+  title: 'Consejo de la',
+  title2: 'Sociedad Civil',
+  show_buildings: true,
+  small_height: true
+%>
+
+<main>
+  <div class="row">
+    <% @cards.each do |card| %>
+      <div class="small-12 medium-4 column">
+        <%= link_to card[:url], style: 'text-decoration: none;' do %>
+          <div class="simple-card-component">
+            <header style="background-color: #595959;">
+              <h2 class="text-center"><%= card[:title] %></h2>
+            </header>
+            <div>
+              <%= image_tag card[:image] %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

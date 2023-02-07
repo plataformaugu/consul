@@ -1,0 +1,50 @@
+<%= form_with(model: directive, local: true, url: action_name == 'edit' ? admin_directive_path : admin_directive_index_path) do |form| %>
+
+  <div class="field">
+    <%= form.text_field :full_name, label: 'Nombre', required: true, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.select :position, ['Presidente', 'Vicepresidente', 'Secretario', 'Tesorero'],
+      { label: 'Cargo' },
+      { class: 'custom-input' }
+    %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :profession, label: 'Profesión', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.email_field :email, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.phone_field :phone_number, label: 'Teléfono', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.date_field :start_date, label: 'Fecha de inicio de funciones', class: 'custom-input' %>
+  </div>
+
+    <div class="field">
+    <%= form.date_field :end_date, label: 'Fecha de término de funciones', class: 'custom-input' %>
+  </div>
+
+  <div class="field mb-2">
+    <% if directive.image.attached? %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Foto' %>
+      <span class="help-text">Foto actual:</span><br>
+      <%= image_tag directive.image, style: 'width: 250px;' %>
+    <% else %>
+      <%= form.file_field :image, accept: 'image/png,image/jpeg', label: 'Foto' %>
+    <% end %>
+  </div>
+
+  <%= form.hidden_field :neighborhood_council_id, value: @neighborhood_council.id %>
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class: 'solid-button-sm' %>
+  </div>
+<% end %>

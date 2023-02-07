@@ -1,6 +1,7 @@
 resources :debates do
   member do
     post :vote
+    get :share
     put :flag
     put :unflag
     put :mark_featured

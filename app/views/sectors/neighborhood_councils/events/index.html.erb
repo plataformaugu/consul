@@ -1,0 +1,30 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: @neighborhood_council.name,
+  title: 'Eventos',
+  show_buildings: true,
+  small_height: true
+%>
+
+<main>
+  <div class="row">
+    <div style="text-align: center;">
+      <h2 style="color: #727176; letter-spacing: -1px;">¡Descubre qué se viene durante este mes!</h2>
+    </div>
+    <div class="tabs-content" data-tabs-content="events-tabs">
+      <div class="tabs-panel is-active" id="all-events">
+        <%= render 'all_events' %>
+      </div>
+      <% if current_user %>
+        <div class="tabs-panel" id="my-events">
+          <%= render 'user_events' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

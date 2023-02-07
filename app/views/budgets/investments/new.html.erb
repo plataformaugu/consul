@@ -1,4 +1,10 @@
-<div class="padding-top-for-header"></div>
+<%= render "shared/section_header",
+  color: "#9346b8",
+  section_image: "/images/h-presupuestos1.svg",
+  title: 'Presenta tu proyecto',
+  description: 'En esta sección podrás subir un proyecto sobre alguna mejora de tu comuna',
+  show_buildings: true
+%>
 <div class="row">
-<%= render Budgets::Investments::NewComponent.new(@budget) %>
+    <%= render Budgets::Investments::NewComponent.new(@budget) %>
 </div>

@@ -1,17 +1,38 @@
 class News < ApplicationRecord
   has_one_attached :image, :dependent => :destroy
+  has_one_attached :miniature, :dependent => :destroy
 
   belongs_to :main_theme
 
   has_many :news_like
   has_many :news_dislike
 
-  def self.not_hightlighted
-    self.where(highlight_until: nil).or(self.where('highlight_until < ?', Date.current.beginning_of_day))
-  end
+  # TYPES
+  CITIZEN_PARTICIPATION = 'CITIZEN_PARTICIPATION'
+  NEIGHBORHOOD_COUNCIL = 'NEIGHBORHOOD_COUNCIL'
+  COSOC = 'COSOC'
 
-  def self.hightlighted
-    self.where.not(highlight_until: nil).where('highlight_until >= ?', Date.current.beginning_of_day)
+  ALLOWED_TYPES = [
+    CITIZEN_PARTICIPATION,
+    NEIGHBORHOOD_COUNCIL,
+    COSOC,
+  ]
+  TYPES_TRANSLATE = {
+    CITIZEN_PARTICIPATION => 'Participación ciudadana',
+    NEIGHBORHOOD_COUNCIL => 'Junta de vecinos',
+    COSOC => 'COSOC',
+  }
+
+  validates :news_type, inclusion: { in: ALLOWED_TYPES }
+
+  scope :citizen_participation, -> { where(news_type: CITIZEN_PARTICIPATION) }
+  scope :neighborhood_council,  -> { where(news_type: NEIGHBORHOOD_COUNCIL) }
+  scope :cosoc,                 -> { where(news_type: COSOC) }
+  scope :hightlighted,          -> { where.not(highlight_until: nil).where('highlight_until >= ?', Date.current.beginning_of_day) }
+  scope :not_hightlighted,      -> { where(highlight_until: nil).or(self.where('highlight_until < ?', Date.current.beginning_of_day)) }
+
+  def news_type_translate
+    TYPES_TRANSLATE[news_type]
   end
 
   def likes

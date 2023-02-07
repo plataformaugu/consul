@@ -1,0 +1,96 @@
+<% provide :title do %><%= @event.title %><% end %>
+<% content_for :meta_description do %><%= truncate(@event.description) %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+              social_url: event_url(@event),
+              social_title: @event.title,
+              social_description: truncate(@event.description) %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: event_url(@event) %>
+<% end %>
+
+
+<%= render "shared/section_header",
+  color: "#2f4ac6",
+  section_image: "/images/h-eventos.svg",
+  pre_title: "#{@event.neighborhood_council.name} - Sector #{@event.neighborhood_council.sector.name}",
+  title: @event.title,
+  show_buildings: true
+%>
+<div class="proposal-show">
+  <div id="<%= dom_id(@event) %>" class="row">
+    <div class="small-12 medium-9 column">
+        <%= back_link_to sector_neighborhood_council_events_path(@event.neighborhood_council.sector, @event.neighborhood_council) %>
+
+        <h1><%= @event.title %></h1>
+        <p>
+          Desde: <strong><%= @event.start_time.strftime('%d/%m/%Y %H:%M') %></strong>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          Hasta: <strong><%= @event.end_time.strftime('%d/%m/%Y %H:%M') %></strong>
+        </p>
+        <p>
+          Lugar: <strong><%= @event.place %></strong>
+        </p>
+        <% if @event.phone_number.present? %>
+          <p>
+            Teléfono de contacto: <strong><%= @event.phone_number %></strong>
+          </p>
+        <% end %>
+        <% if @event.email.present? %>
+          <p>
+            Mail de contacto: <strong><%= @event.email %></strong>
+          </p>
+        <% end %>
+
+        <p><%= wysiwyg(@event.description) %></p>
+      </div>
+    <aside class="small-12 medium-3 column">
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title">Participación</p>
+      <div class="show-actions-menu">
+        <div class="supports text-center">
+          <span class="total-supports" style="margin-bottom: 5px;">
+            <%= @event.users.count %> participante<%= @event.users.count > 1 ? 's' : '' %>
+          </span>
+          <% if Time.now > @event.start_time %>
+            Ya no puedes participar
+          <% elsif not current_user %>
+
+          <% else %>
+            <% if not current_user or not current_user.neighborhood_council_events.exists?(id: @event.id) %>
+              <%=
+                button_to 'Participar',
+                join_to_event_sector_neighborhood_council_event_path(@event.neighborhood_council.sector, @event.neighborhood_council, @event),
+                method: :post,
+                style: 'color: white;',
+                class: 'button success expanded'
+              %>
+            <% else %>
+              <%=
+                button_to 'Dejar de participar',
+                left_event_sector_neighborhood_council_event_path(@event.neighborhood_council.sector, @event.neighborhood_council, @event),
+                method: :post,
+                style: 'color: white;',
+                class: 'button warning small expanded'
+              %>
+            <% end %>
+          <% end %>
+          </button>
+        </div>
+      </div>
+
+      <%=
+        render "shared/social_share",
+        title: @event.title,
+        url: event_url(@event),
+        share_title: t("proposals.show.share")
+      %>
+
+    </aside>
+  </div>
+</div>
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#236ad8', color2: '#2f4ac6' do %>
+    <% end %>
+</div>

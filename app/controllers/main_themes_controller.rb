@@ -68,6 +68,24 @@ class MainThemesController < ApplicationController
     end
   end
 
+  def functional_organizations_index
+    # Muestra el diseño con pasto junto a los ejes temáticos que poseen al menos 1 organización social
+    @main_themes = {}
+
+    MainTheme.all.each do |mt|
+      @main_themes[mt.name] = mt.attributes.merge!({ 'count' => mt.functional_organizations.count })
+    end
+  end
+
+  def functional_organizations
+    # Muestra las organizaciones funcionales del eje tematico
+    if !@main_theme.functional_organizations.any?
+      redirect_to root_path
+    else
+      @functional_organizations = Kaminari.paginate_array(@main_theme.functional_organizations.order(created_at: :desc)).page(params[:page])
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_main_theme

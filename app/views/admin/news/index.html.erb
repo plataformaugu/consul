@@ -12,6 +12,7 @@
           <th>ID</th>
           <th>Título</th>
           <th>Fecha</th>
+          <th>Tipo</th>
           <th>¿Destacada?</th>
           <th>Eje temático</th>
           <th>Likes</th>
@@ -25,8 +26,13 @@
             <td><%= n.id %></td>
             <td><%= n.title %></td>
             <td><%= n.created_at.strftime('%d/%m/%Y') %></td>
+            <td><%= n.news_type_translate %></td>
             <td><%= n.is_hightlighted? ? 'Sí' : 'No' %></td>
-            <td><%= image_tag n.main_theme.icon, style: 'width: 32px;', title: n.main_theme.name %></td>
+            <td>
+              <% if n.main_theme %>
+                <%= image_tag n.main_theme.icon, style: 'width: 32px;', title: n.main_theme.name %>
+              <% end %>
+            </td>
             <td><%= n.likes %></td>
             <td><%= n.dislikes %></td>
             <td>

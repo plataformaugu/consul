@@ -1,0 +1,83 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  title: 'Organizaciones Territoriales',
+  show_buildings: true,
+  small_height: true
+%>
+
+<main>
+  <div class="row">
+    <div class="small-12 column">
+      <div id="leaflet"></div>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    var map = new L.Map('leaflet')
+    var sectors = <%= raw(Sector.all.to_json) %>
+
+    $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: lasCondesSectors,
+      });
+      map.addLayer(osm)
+
+      // Variables for map
+      var defaultStyle = {
+          color: 'gray',
+          fillOpacity: 0,
+          weight: 2,
+      }
+
+      // Actions
+      function colorlayer(feature, layer) {
+        layer.setStyle(defaultStyle)
+        layer.bindTooltip(
+            feature.properties.name,
+            {
+                permanent:true,
+                direction:'center',
+                className: 'countryLabel'
+            }
+        );
+
+        layer.on('click', function(e) {
+          var name = feature.properties.name.replaceAll('-', '')
+          var foundSector = sectors.find((s) => s.name === name)
+          window.open(`/unidades-vecinales/${foundSector.id}`, '_self')
+        })
+
+        layer.on('mouseover', function(e) {
+          layer.setStyle({
+            color: "#00008c",
+            opacity: 0.6,
+            fillOpacity: 0.5
+          })
+        })
+
+        layer.on('mouseout', function(e) {
+          layer.setStyle(defaultStyle)
+        })
+      }
+
+      // Bounds
+      var gjLayer = L.geoJSON(lasCondesSectors);
+      map.fitBounds(gjLayer.getBounds());
+
+      // Load features
+      L.geoJSON(lasCondesSectors, {
+          onEachFeature: colorlayer
+      }).addTo(map)
+
+      // Map config
+      map.setZoom(13);
+    })
+  })
+<% end %>

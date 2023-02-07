@@ -22,10 +22,6 @@ class Admin::Budgets::ActionsComponent < ApplicationComponent
           hint: winners_hint,
           html: winners_action
         },
-        ballots: {
-          hint: t("admin.budgets.actions.descriptions.ballots"),
-          html: ballots_action
-        },
         destroy: {
           hint: destroy_hint,
           html: destroy_action

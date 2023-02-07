@@ -1,0 +1,103 @@
+<%= render "shared/section_header",
+  color: @functional_organization.main_theme.primary_color,
+  section_image: @functional_organization.main_theme.image,
+  title: @functional_organization.name,
+  pre_title: 'Organización Funcional',
+  show_buildings: true
+%>
+
+<div class="functional-organization-page">
+  <div class="row">
+    <div class="small-12 column">
+      <%= link_to 'Volver', functional_organizations_main_theme_path(@functional_organization.main_theme.id) %>
+    </div>
+  </div>
+  
+  <div class="row mt-2">
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Nombre:</strong>
+        <%= @functional_organization.name %>
+      </p>
+    </div>
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Fecha de conformación:</strong>
+        <%= @functional_organization.conformation_date.present? ? @functional_organization.conformation_date.strftime('%d/%m/%Y') : 'Sin información' %>
+      </p>
+    </div>
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Presidente:</strong>
+        <%= @functional_organization.president_name.present? ? @functional_organization.president_name : 'Sin información' %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Teléfono:</strong>
+        <%= @functional_organization.phone_number.present? ? @functional_organization.phone_number : 'Sin información' %>
+      </p>
+    </div>
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Email:</strong>
+        <%= @functional_organization.email.present? ? @functional_organization.email : 'Sin información' %>
+      </p>
+    </div>
+    <div class="small-12 medium-4 column">
+      <p>
+        <strong>Dirección:</strong>
+        <%= @functional_organization.address.present? ? @functional_organization.address : 'Sin información' %>
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="small-6 column">
+      <p>
+        <h4>Misión</h4>
+        <%= @functional_organization.mission.present? ? @functional_organization.mission : 'Sin información' %>
+      </p>
+    </div>
+    <div class="small-6 column">
+      <p>
+        <h4>Visión</h4>
+        <%= @functional_organization.view.present? ? @functional_organization.view : 'Sin información' %>
+      </p>
+    </div>
+  </div>
+
+  <hr>
+  
+  <div class="row mb-1">
+    <div class="small-12 column">
+      <div class="flex-row flex-justify-space-between">
+        <% if @functional_organization.whatsapp.present? %>
+          <%= link_to @functional_organization.whatsapp_url do %><i class="whatsapp-icon"></i><% end %>
+        <% end %>
+        <% if @functional_organization.twitter.present? %>
+          <%= link_to @functional_organization.twitter do %><i class="twitter-icon"></i><% end %>
+        <% end %>
+        <% if @functional_organization.facebook.present? %>
+          <%= link_to @functional_organization.facebook do %><i class="facebook-icon"></i><% end %>
+        <% end %>
+        <% if @functional_organization.instagram.present? %>
+          <%= link_to @functional_organization.instagram do %><i class="instagram-icon"></i><% end %>
+        <% end %>
+        <% if @functional_organization.url.present? %>
+          <%= link_to @functional_organization.url do %><%= image_tag "/images/iconos/url-icon.png", style: "width: 3em;" %><% end %>
+        <% end %>
+    </div>
+  </div>
+
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: @functional_organization.main_theme.secondary_color, color2: @functional_organization.main_theme.primary_color do %>
+    <% end %>
+</div>

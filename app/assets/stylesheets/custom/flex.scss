@@ -1,0 +1,28 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-justify-center {
+    justify-content: center;
+}
+
+.flex-justify-space-between {
+    justify-content: space-between;
+}
+
+.flex-align-center {
+    align-items: center;
+}
+
+@for $i from 1 through 5 {
+    $size: 1rem * $i;
+    .flex-gap-#{$i} {
+        gap: $size;
+    }
+}

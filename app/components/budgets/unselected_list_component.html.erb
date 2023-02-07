@@ -1,0 +1,56 @@
+<% if investments.any? %>
+  <div class="custom-cards-container">
+    <div class="custom-cards">
+      <% investments.each do |investment| %>
+        <div id="investment_<%= investment.id %>" class="custom-card">
+
+          <div class="custom-card-header">
+            <%= link_to investment.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+              <div class="c-c-h-theme-container">
+                <div><%= image_tag investment.main_theme.icon %></div>
+                <h3><%= investment.main_theme.name %></h3>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="custom-card-image">
+            <% if investment.image.present? %>
+              <%= image_tag investment.image_url(:medium) %>
+            <% else %>
+              <%= image_tag investment.main_theme.icon %>
+            <% end %>
+
+            <% if investment.budget.valuating? %>
+              <div class="custom-card-image-container-text">
+                <div class="custom-card-image-text">
+                  <h4>En evaluación</h4>
+                </div>
+              </div>
+            <% elsif investment.winner %>
+              <div class="custom-card-image-container-text">
+                <div class="custom-card-image-text">
+                  <h4>Proyecto ganador</h4>
+                </div>
+              </div>
+            <% end%>
+          </div>
+
+          <div class="custom-card-content" style="height: 50%;">
+            <div>
+              <h3 style="text-align: center;"><%= investment.title %></h3>
+            </div>
+            <div class="mt-1">
+              <p><%= Rails::Html::FullSanitizer.new.sanitize(investment.description).truncate_words(10) %></p>
+            </div>
+
+            <div class="custom-card-content-footer">
+              <%= link_to 'Ver más', investment, class: 'button expanded large' %>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= paginate investments %>
+<% end %>

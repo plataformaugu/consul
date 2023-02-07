@@ -12,6 +12,7 @@ module Abilities
       can(:reject, Organization) { |o| !o.rejected? }
 
       can :read, Comment
+      can [:publish, :reject, :toggle_is_finished, :destroy], Debate
 
       can :hide, Comment, hidden_at: nil
 
@@ -26,6 +27,9 @@ module Abilities
 
       can :ignore_flag, Debate, ignored_flag_at: nil, hidden_at: nil
       cannot :ignore_flag, Debate, author_id: user.id
+
+      can :edit, Debate
+      can :update, Debate
 
       can :moderate, Debate
       cannot :moderate, Debate, author_id: user.id
@@ -66,6 +70,8 @@ module Abilities
 
       can :hide, Budget::Investment, hidden_at: nil
       cannot :hide, Budget::Investment, author_id: user.id
+      can :publish, Budget::Investment
+      can :reject, Budget::Investment
 
       can :ignore_flag, Budget::Investment, ignored_flag_at: nil, hidden_at: nil
       cannot :ignore_flag, Budget::Investment, author_id: user.id

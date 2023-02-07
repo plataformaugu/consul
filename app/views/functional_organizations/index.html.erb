@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Functional Organizations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Conformation date</th>
+      <th>President name</th>
+      <th>Phone number</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Mission</th>
+      <th>View</th>
+      <th>Whatsapp</th>
+      <th>Twitter</th>
+      <th>Facebook</th>
+      <th>Instagram</th>
+      <th>Url</th>
+      <th>Main theme</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @functional_organizations.each do |functional_organization| %>
+      <tr>
+        <td><%= functional_organization.name %></td>
+        <td><%= functional_organization.conformation_date %></td>
+        <td><%= functional_organization.president_name %></td>
+        <td><%= functional_organization.phone_number %></td>
+        <td><%= functional_organization.email %></td>
+        <td><%= functional_organization.address %></td>
+        <td><%= functional_organization.mission %></td>
+        <td><%= functional_organization.view %></td>
+        <td><%= functional_organization.whatsapp %></td>
+        <td><%= functional_organization.twitter %></td>
+        <td><%= functional_organization.facebook %></td>
+        <td><%= functional_organization.instagram %></td>
+        <td><%= functional_organization.url %></td>
+        <td><%= functional_organization.main_theme %></td>
+        <td><%= link_to 'Show', functional_organization %></td>
+        <td><%= link_to 'Edit', edit_functional_organization_path(functional_organization) %></td>
+        <td><%= link_to 'Destroy', functional_organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Functional Organization', new_functional_organization_path %>

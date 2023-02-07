@@ -1237,6 +1237,7 @@
 
     span {
       @include brand-text;
+      color: #8148b3;
       font-size: $base-font-size;
     }
   }
@@ -1250,7 +1251,7 @@
     white-space: nowrap;
 
     &::before {
-      color: $brand;
+      color: #8148b3;
       content: "\57";
       font-family: "icons";
       font-size: $small-font-size;
@@ -1262,6 +1263,7 @@
 
     span {
       @include brand-text;
+      color: #8148b3;
       font-size: rem-calc(24);
     }
   }

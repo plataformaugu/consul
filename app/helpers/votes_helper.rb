@@ -25,6 +25,10 @@ module VotesHelper
   end
 
   def voted_for?(votes, votable)
-    votes[votable.id]
+    if votable.class.name == "Proposal"
+      !votes[votable.id].nil?
+    else
+      votes[votable.id]
+    end
   end
 end

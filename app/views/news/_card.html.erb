@@ -1,5 +1,7 @@
+<% @has_prev = !defined?(prev).nil? %>
+
 <div class="card" id="<%= news.id %>">
-  <%= image_tag news.image %>
+  <%= image_tag news.miniature %>
   <div class="card-content">
     <div class="card-info">
       <h3><%= news.title %></h3>
@@ -8,9 +10,10 @@
         <span class="separator">·</span>
         <%= news.created_at_text %>
       </span>
-      <p><%= wysiwyg(news.body) %></p>
+      <p class="margin-top"><%= wysiwyg(news.summary) %></p>
     </div>
     <div class="card-actions">
+      <%= link_to 'Ver más', news, class: 'solid-button-xsm' %>
       <% if current_user %>
         <%=
           link_to like_news_index_path(id: news.id),

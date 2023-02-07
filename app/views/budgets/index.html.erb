@@ -1,4 +1,10 @@
-<%= render Shared::BannerComponent.new("budgets") %>
+<%= render "shared/section_header",
+  color: "#9346b8",
+  section_image: "/images/h-presupuestos1.svg",
+  title: 'Presupuestos Participativos',
+  description: 'Permiten a las/os usuarias/os decidir cómo se gastarán parte de los recursos de la organización, pudiendo proponer sus propios proyectos y apoyar los de sus pares',
+  show_buildings: true
+%>
 
 <% provide :title do %><%= t("budgets.index.title") %><% end %>
 
@@ -6,20 +12,51 @@
   <%= render "shared/canonical", href: budgets_url %>
 <% end %>
 
-<div class="padding-top-for-header"></div>
 <main class="budgets-index">
   <div class="row">
-    <% if @budget.present? %>
-      <%= render Budgets::BudgetComponent.new(@budget) %>
+    <% if Budget.published.any? %>
+      
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% Budget.published.order(created_at: :desc).each do |budget| %>
+            <div id="budget_<%= budget.id %>" class="custom-card">
+              <div class="custom-card-header">
+                <div class="c-c-h-theme-container">
+                  <div><%= image_tag '/images/p-icon-6.svg', style: 'width: 24px;' %></div>
+                  <h3 style="max-width: 80%;"><%= budget.name %></h3>
+                </div>
+              </div>
+              <div class="custom-card-image">
+                <% if budget.image %>
+                  <%= image_tag budget.image_url(:medium) %>
+                <% else %>
+                  <%= image_tag '/images/h-presupuestos1.svg' %>
+                <% end %>
 
-      <% if @finished_budgets.present? %>
-        <%= render "finished", budgets: @finished_budgets %>
-      <% end %>
+                <% if budget.finished? %>
+                  <div class="custom-card-image-container-text">
+                    <div class="custom-card-image-text">
+                      <h4>Presupuesto Finalizado</h4>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="custom-card-content" style="height: 50%;">
+                <% if !budget.custom_description.nil? %>
+                <p>
+                  <%= budget.custom_description.truncate_words(16) %>
+                </p>
+                <% end %>
+                <div class="encuesta-card-footer" style="margin-top: auto !important;">
+                  <%= link_to 'Revisar presupuesto', budget, class: 'button expanded large' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      
     <% else %>
-      <header>
-        <h1><%= t("budgets.index.title") %></h1>
-      </header>
-
       <div class="row">
         <div class="small-12 column">
           <div class="callout primary">
@@ -28,7 +65,10 @@
         </div>
       </div>
     <% end %>
+  </div>
 
-    <%= render Budgets::FooterComponent.new %>
+  <div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#cfa7f0', color2: '#8148b3' do %>
+    <% end %>
   </div>
 </main>

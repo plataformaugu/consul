@@ -1,21 +1,65 @@
 <% if investments.any? %>
-  <section id="investments_list" class="investments-list">
-    <header>
-      <h2><%= t("budgets.investments_list.title") %></h2>
-    </header>
+  <div class="custom-cards-container">
+    <div class="custom-cards">
+      <% investments.each do |investment| %>
+        <div id="investment_<%= investment.id %>" class="custom-card">
 
-    <% investments.each do |investment| %>
-      <%= render Budgets::InvestmentComponent.new(investment) %>
-    <% end %>
-  </section>
-<% end %>
+          <div class="custom-card-header">
+            <%= link_to investment.main_theme, style: 'text-decoration: none;', target: '_blank' do %>
+              <div class="c-c-h-theme-container">
+                <div><%= image_tag investment.main_theme.icon %></div>
+                <h3><%= investment.main_theme.name %></h3>
+              </div>
+            <% end %>
+          </div>
 
-<% if budget.single_heading? && !budget.informing? || investments.any? %>
-  <div class="row margin-top">
-    <div class="small-12 medium-6 large-4 small-centered column margin-top">
-      <%= link_to t("budgets.investments_list.see_all"),
-                  see_all_path,
-                  class: "button expanded" %>
+          <div class="custom-card-image">
+            <% if investment.image.present? %>
+              <%= image_tag investment.image_url(:medium) %>
+            <% else %>
+              <%= image_tag investment.main_theme.icon %>
+            <% end %>
+
+            <% if investment.budget.valuating? %>
+              <div class="custom-card-image-container-text">
+                <div class="custom-card-image-text">
+                  <h4>En evaluación</h4>
+                </div>
+              </div>
+            <% elsif investment.winner %>
+              <div class="custom-card-image-container-text">
+                <div class="custom-card-image-text">
+                  <h4>Proyecto ganador</h4>
+                </div>
+              </div>
+            <% end%>
+          </div>
+
+          <div class="custom-card-content" style="height: 50%;">
+            <div>
+              <h3 style="text-align: center;"><%= investment.title %></h3>
+            </div>
+            <div class="mt-1">
+              <p><%= Rails::Html::FullSanitizer.new.sanitize(investment.description).truncate_words(10) %></p>
+            </div>
+
+            <div class="custom-card-content-footer">
+              <% if current_user and investment.budget.balloting? %>
+                <div id="<%= dom_id(investment) %>_ballot">
+                  <%= render "/budgets/investments/ballot",
+                    investment: investment,
+                    investment_ids: [investment.id],
+                    ballot: investment.budget.ballots.where(user_id: current_user.id).first_or_create! %>
+                </div>
+              <% else %>
+                <%= link_to 'Ver más', investment.budget.finished? ? budget_investment_path(investment.budget, investment, anchor: 'tab-milestones') : investment, class: 'button expanded large' %>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
     </div>
   </div>
+  <%= paginate investments %>
 <% end %>

@@ -1,0 +1,57 @@
+<%= form_with(model: neighborhood_council, local: true, url: action_name == 'edit' ? admin_neighborhood_council_path : admin_neighborhood_councils_path) do |form| %>
+
+  <div class="field">
+    <%= form.text_field :name, label: 'Nombre', required: true, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :address, label: 'Dirección', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.phone_field :phone_number, label: 'Teléfono', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.email_field :email, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :whatsapp, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :facebook, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :twitter, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :instagram, class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%= form.url_field :url, label: 'URL página web', class: 'custom-input'  %>
+  </div>
+
+  <div class="field">
+    <%= form.date_field :conformation_date, label: 'Fecha de conformación', class: 'custom-input' %>
+  </div>
+
+  <div class="field">
+    <%=
+      form.collection_select :sector_id,
+      Sector.all,
+      :id,
+      :name,
+      {prompt: 'Elige una Unidad Vecinal', label: 'Unidad Vecinal'},
+      {class: 'custom-input', style: 'width: 100%;', required: true}
+    %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Guardar', class: 'solid-button-sm' %>
+  </div>
+<% end %>

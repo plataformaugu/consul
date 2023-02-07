@@ -16,12 +16,20 @@
   <% if proposal.image.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.image_url(:medium) %>
-      <% if !proposal.is_initiative and proposal.in_development %>
-        <div class="custom-card-image-container-text">
-          <div class="custom-card-image-text">
-            <h4>Propuesta en desarrollo</h4>
+      <% if !proposal.is_initiative %>
+        <% if proposal.proposals_theme.finished? %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Convocatoria finalizada</h4>
+            </div>
           </div>
-        </div>
+        <% elsif proposal.in_development %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Propuesta en desarrollo</h4>
+            </div>
+          </div>
+        <% end %>
       <% end %>
       <% if proposal.is_initiative and !proposal.is_active? %>
         <div class="custom-card-image-container-text">
@@ -34,12 +42,20 @@
   <% elsif proposal.main_theme.present? %>
     <div class="custom-card-image">
       <%= image_tag proposal.main_theme.icon %>
-      <% if !proposal.is_initiative and proposal.in_development %>
-        <div class="custom-card-image-container-text">
-          <div class="custom-card-image-text">
-            <h4>Propuesta en desarrollo</h4>
+      <% if !proposal.is_initiative %>
+        <% if proposal.proposals_theme.finished? %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Convocatoria finalizada</h4>
+            </div>
           </div>
-        </div>
+        <% elsif proposal.in_development %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Propuesta en desarrollo</h4>
+            </div>
+          </div>
+        <% end %>
       <% end %>
       <% if proposal.is_initiative and !proposal.is_active? %>
         <div class="custom-card-image-container-text">
@@ -52,12 +68,20 @@
   <% else %>
     <div class="custom-card-image">
       <%= image_tag 'https://picsum.photos/500' %>
-      <% if !proposal.is_initiative and proposal.in_development %>
-        <div class="custom-card-image-container-text">
-          <div class="custom-card-image-text">
-            <h4>Propuesta en desarrollo</h4>
+      <% if !proposal.is_initiative %>
+        <% if proposal.proposals_theme.finished? %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Convocatoria finalizada</h4>
+            </div>
           </div>
-        </div>
+        <% elsif proposal.in_development %>
+          <div class="custom-card-image-container-text">
+            <div class="custom-card-image-text">
+              <h4>Propuesta en desarrollo</h4>
+            </div>
+          </div>
+        <% end %>
       <% end %>
       <% if proposal.is_initiative and !proposal.is_active? %>
         <div class="custom-card-image-container-text">

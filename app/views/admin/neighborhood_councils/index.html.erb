@@ -1,0 +1,40 @@
+<h2>Juntas de Vecino</h2>
+
+<div>
+  <%= link_to 'Crear junta de vecino', new_admin_neighborhood_council_path, class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+</div>
+
+<% if @neighborhood_councils.any? %>
+  <div class="mt-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Conformación</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>UV</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @neighborhood_councils.order(created_at: :desc).each do |nc| %>
+          <tr id="<%= nc.id %>">
+            <td><%= nc.id %></td>
+            <td><%= nc.name %></td>
+            <td><%= nc.conformation_date.present? ? nc.conformation_date.strftime('%d/%m/%Y') : '' %></td>
+            <td><%= nc.phone_number %></td>
+            <td><%= nc.email %></td>
+            <td><%= nc.sector.name %></td>
+            <td>
+              <%= link_to 'Configurar', admin_neighborhood_council_path(nc) %> | 
+              <%= link_to 'Editar', edit_admin_neighborhood_council_path(nc) %> | 
+              <%= link_to 'Eliminar', admin_neighborhood_council_path(nc), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar esta junta de vecinos?' }, style: 'color: red;' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

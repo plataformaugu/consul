@@ -1,0 +1,37 @@
+<div>
+  <%= link_to 'Crear directiva', new_admin_directive_path(neighborhood_council_id: @neighborhood_council.id), class: 'solid-button-sm', style: 'text-decoration: none; color: white;' %>
+</div>
+
+<% if @directives.any? %>
+  <div class="mt-2">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Profesión</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @directives.order(created_at: :desc).each do |d| %>
+          <tr id="<%= d.id %>">
+            <td><%= d.id %></td>
+            <td><%= d.full_name %></td>
+            <td><%= d.position %></td>
+            <td><%= d.profession %></td>
+            <td><%= d.email %></td>
+            <td><%= d.phone_number %></td>
+            <td>
+              <%= link_to 'Editar', edit_admin_directive_path(d) %> | 
+              <%= link_to 'Eliminar', admin_directive_path(d), method: :delete, data: { confirm: '¿Estás seguro que deseas eliminar este dirigente?' }, style: 'color: red;' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -38,6 +38,11 @@
       <%= render "shared/tags", taggable: @proposal %>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
+      <div class="mb-2">
+        <% if @proposal.proposals_theme.finished? %>
+          <p style="font-weight: bold;">Convocatoria finalizada</p>
+        <% end %>
+      </div>
       <% if !proposal.is_initiative and (current_user and (current_user.administrator? or current_user.moderator?)) %>
         <div class="mb-2">
           <%=
@@ -67,7 +72,11 @@
           <div class="custom-supports">
           <%=
             render "votes",
-            { proposal: proposal, vote_url: vote_proposal_path(proposal, value: "yes") }
+            {
+              proposal: proposal,
+              vote_url: vote_proposal_path(proposal, value: "yes"),
+              down_vote_url: down_vote_proposal_path(proposal, value: "no")
+            }
           %>
           </div>
         </div>

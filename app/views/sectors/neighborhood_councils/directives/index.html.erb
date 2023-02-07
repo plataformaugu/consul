@@ -1,0 +1,33 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: @neighborhood_council.name,
+  title: 'Directiva',
+  show_buildings: true,
+  small_height: true
+%>
+
+<main>
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council) %>
+      </div>
+  
+      <% if @directives.any? %>
+        <div class="grid-columns-2">
+          <% @directives.each do |d| %>
+            <%= render Custom::DirectiveCardComponent.new(d)%>
+          <% end %>
+        </div>
+        <%= paginate @directives %>
+      <% else %>
+        <p class="text-center">No hay juntas de vecino.</p>
+      <% end %>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

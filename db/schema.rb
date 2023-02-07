@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_28_014015) do
+ActiveRecord::Schema.define(version: 2023_01_23_120841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.integer "ballot_lines_count", default: 0
     t.boolean "physical", default: false
     t.integer "poll_ballot_id"
+    t.datetime "confirmed_at"
   end
 
   create_table "budget_content_blocks", id: :serial, force: :cascade do |t|
@@ -220,6 +221,13 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["budget_id"], name: "index_budget_groups_on_budget_id"
   end
 
+  create_table "budget_heading_sectors", force: :cascade do |t|
+    t.bigint "budget_heading_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["budget_heading_id"], name: "index_budget_heading_sectors_on_budget_heading_id"
+    t.index ["sector_id"], name: "index_budget_heading_sectors_on_sector_id"
+  end
+
   create_table "budget_heading_translations", id: :serial, force: :cascade do |t|
     t.integer "budget_heading_id", null: false
     t.string "locale", null: false
@@ -242,6 +250,13 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["group_id"], name: "index_budget_headings_on_group_id"
+  end
+
+  create_table "budget_investment_sectors", force: :cascade do |t|
+    t.bigint "budget_investment_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["budget_investment_id"], name: "index_budget_investment_sectors_on_budget_investment_id"
+    t.index ["sector_id"], name: "index_budget_investment_sectors_on_sector_id"
   end
 
   create_table "budget_investment_translations", id: :serial, force: :cascade do |t|
@@ -296,6 +311,9 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.datetime "ignored_flag_at"
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
+    t.datetime "confirmed_at"
+    t.string "pdf_link"
+    t.bigint "main_theme_id"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -303,6 +321,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["group_id"], name: "index_budget_investments_on_group_id"
     t.index ["heading_id"], name: "index_budget_investments_on_heading_id"
     t.index ["incompatible"], name: "index_budget_investments_on_incompatible"
+    t.index ["main_theme_id"], name: "index_budget_investments_on_main_theme_id"
     t.index ["selected"], name: "index_budget_investments_on_selected"
     t.index ["tsv"], name: "index_budget_investments_on_tsv", using: :gin
   end
@@ -350,6 +369,8 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.string "name"
     t.string "main_link_text"
     t.string "main_link_url"
+    t.text "custom_description"
+    t.string "pdf_link"
     t.index ["budget_id"], name: "index_budget_translations_on_budget_id"
     t.index ["locale"], name: "index_budget_translations_on_locale"
   end
@@ -394,6 +415,8 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.text "description_informing"
     t.string "voting_style", default: "knapsack"
     t.boolean "published"
+    t.text "custom_description"
+    t.string "pdf_link"
   end
 
   create_table "campaigns", id: :serial, force: :cascade do |t|
@@ -508,6 +531,20 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["proposal_id"], name: "index_dashboard_executed_actions_on_proposal_id"
   end
 
+  create_table "debate_neighbor_types", force: :cascade do |t|
+    t.bigint "debate_id", null: false
+    t.bigint "neighbor_type_id", null: false
+    t.index ["debate_id"], name: "index_debate_neighbor_types_on_debate_id"
+    t.index ["neighbor_type_id"], name: "index_debate_neighbor_types_on_neighbor_type_id"
+  end
+
+  create_table "debate_sectors", force: :cascade do |t|
+    t.bigint "debate_id", null: false
+    t.bigint "sector_id", null: false
+    t.index ["debate_id"], name: "index_debate_sectors_on_debate_id"
+    t.index ["sector_id"], name: "index_debate_sectors_on_sector_id"
+  end
+
   create_table "debate_translations", id: :serial, force: :cascade do |t|
     t.integer "debate_id", null: false
     t.string "locale", null: false
@@ -541,6 +578,11 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.integer "geozone_id"
     t.tsvector "tsv"
     t.datetime "featured_at"
+    t.boolean "is_finished", default: false
+    t.string "image"
+    t.bigint "main_theme_id"
+    t.datetime "published_at"
+    t.string "question"
     t.index ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_debates_on_author_id"
     t.index ["cached_votes_down"], name: "index_debates_on_cached_votes_down"
@@ -551,6 +593,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["geozone_id"], name: "index_debates_on_geozone_id"
     t.index ["hidden_at"], name: "index_debates_on_hidden_at"
     t.index ["hot_score"], name: "index_debates_on_hot_score"
+    t.index ["main_theme_id"], name: "index_debates_on_main_theme_id"
     t.index ["tsv"], name: "index_debates_on_tsv", using: :gin
   end
 
@@ -576,6 +619,21 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "directives", force: :cascade do |t|
+    t.string "full_name"
+    t.string "position"
+    t.string "profession"
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "neighborhood_council_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image"
+    t.date "start_date"
+    t.date "end_date"
+    t.index ["neighborhood_council_id"], name: "index_directives_on_neighborhood_council_id"
   end
 
   create_table "documents", id: :serial, force: :cascade do |t|
@@ -668,6 +726,26 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["user_id", "followable_type", "followable_id"], name: "access_follows"
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "functional_organizations", force: :cascade do |t|
+    t.string "name"
+    t.date "conformation_date"
+    t.string "president_name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "address"
+    t.string "mission"
+    t.string "view"
+    t.string "whatsapp"
+    t.string "twitter"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "url"
+    t.bigint "main_theme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["main_theme_id"], name: "index_functional_organizations_on_main_theme_id"
   end
 
   create_table "geozones", id: :serial, force: :cascade do |t|
@@ -1044,6 +1122,42 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.string "name"
   end
 
+  create_table "neighborhood_council_events", force: :cascade do |t|
+    t.string "place"
+    t.string "email"
+    t.string "phone_number"
+    t.bigint "neighborhood_council_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["neighborhood_council_id"], name: "index_neighborhood_council_events_on_neighborhood_council_id"
+  end
+
+  create_table "neighborhood_council_events_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "neighborhood_council_event_id", null: false
+  end
+
+  create_table "neighborhood_councils", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "phone_number"
+    t.string "email"
+    t.date "conformation_date"
+    t.bigint "sector_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "whatsapp"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "instagram"
+    t.string "url"
+    t.index ["sector_id"], name: "index_neighborhood_councils_on_sector_id"
+  end
+
   create_table "news", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -1052,7 +1166,12 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
     t.bigint "main_theme_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "news_type"
+    t.text "summary"
+    t.string "miniature"
+    t.bigint "neighborhood_council_id"
     t.index ["main_theme_id"], name: "index_news_on_main_theme_id"
+    t.index ["neighborhood_council_id"], name: "index_news_on_neighborhood_council_id"
   end
 
   create_table "news_dislike", force: :cascade do |t|
@@ -1958,12 +2077,21 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
   add_foreign_key "administrators", "users"
   add_foreign_key "budget_administrators", "administrators"
   add_foreign_key "budget_administrators", "budgets"
+  add_foreign_key "budget_heading_sectors", "budget_headings"
+  add_foreign_key "budget_heading_sectors", "sectors"
+  add_foreign_key "budget_investment_sectors", "budget_investments"
+  add_foreign_key "budget_investment_sectors", "sectors"
   add_foreign_key "budget_investments", "communities"
   add_foreign_key "budget_valuators", "budgets"
   add_foreign_key "budget_valuators", "valuators"
   add_foreign_key "dashboard_administrator_tasks", "users"
   add_foreign_key "dashboard_executed_actions", "dashboard_actions", column: "action_id"
   add_foreign_key "dashboard_executed_actions", "proposals"
+  add_foreign_key "debate_neighbor_types", "debates"
+  add_foreign_key "debate_neighbor_types", "neighbor_types"
+  add_foreign_key "debate_sectors", "debates"
+  add_foreign_key "debate_sectors", "sectors"
+  add_foreign_key "directives", "neighborhood_councils"
   add_foreign_key "documents", "users"
   add_foreign_key "encuestum_neighbor_types", "encuesta"
   add_foreign_key "encuestum_neighbor_types", "neighbor_types"
@@ -1971,6 +2099,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
   add_foreign_key "follows", "users"
+  add_foreign_key "functional_organizations", "main_themes"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"
@@ -1981,6 +2110,8 @@ ActiveRecord::Schema.define(version: 2022_08_28_014015) do
   add_foreign_key "machine_learning_jobs", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "moderators", "users"
+  add_foreign_key "neighborhood_council_events", "neighborhood_councils"
+  add_foreign_key "neighborhood_councils", "sectors"
   add_foreign_key "news", "main_themes"
   add_foreign_key "news_dislike", "users"
   add_foreign_key "news_like", "users"

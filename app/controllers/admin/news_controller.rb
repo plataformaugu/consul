@@ -36,7 +36,7 @@ class Admin::NewsController < ApplicationController
       if @news.save
         redirect_to admin_news_index_path, notice: 'La noticia fue creada correctamente.'
       else
-        render admin_news_index_path
+        render :new
       end
     end
   
@@ -56,7 +56,7 @@ class Admin::NewsController < ApplicationController
       if @news.update(news_params)
         redirect_to admin_news_index_path, notice: 'La noticia fue actualizada correctamente.'
       else
-        render admin_news_index_path
+        render :edit
       end
     end
   
@@ -71,7 +71,7 @@ class Admin::NewsController < ApplicationController
       end
   
       def news_params
-        params.require(:news).permit(:title, :body, :image, :main_theme, :highlight_until, :main_theme_id)
+        params.require(:news).permit(:title, :body, :image, :main_theme, :highlight_until, :main_theme_id, :news_type, :summary, :miniature, :neighborhood_council_id)
       end
   end
   

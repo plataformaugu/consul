@@ -1,0 +1,35 @@
+<section class="news">
+  <% if @hightlighted.any? %>
+  <div class="row">
+    <div class="small-12 column">
+      <h2>Noticias destacadas</h2>
+        <div class="cards">
+          <% @hightlighted.order(created_at: :desc).each do |n| %>
+            <%= render 'card', news: n %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+  <% end %>
+
+  <% if @news.citizen_participation.any? %>
+  <div class="row">
+    <div class="small-12 column">
+      <h2>Otras noticias</h2>
+      <div class="cards">
+        <% @news.citizen_participation.order(created_at: :desc).each do |n| %>
+          <%= render 'card', news: n %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <% if not @hightlighted.any? and not @news.citizen_participation.any? %>
+    <div class="row">
+      <div class="small-12 column">
+       <p class="text-center">No hay noticias creadas.</p>
+      </div>
+    </div>
+  <% end %>
+</section>

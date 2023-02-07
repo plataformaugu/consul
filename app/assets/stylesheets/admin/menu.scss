@@ -118,6 +118,14 @@
     &.news-link {
       @include icon(newspaper, solid);
     }
+
+    &.functional-organizations-link {
+      @include icon(people-arrows, solid);
+    }
+
+    &.neighborhood-councils-link {
+      @include icon(users, solid);
+    }
   }
 
   li {

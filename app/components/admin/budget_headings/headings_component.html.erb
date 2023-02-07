@@ -1,6 +1,6 @@
 <% if headings.any? %>
   <table>
-    <caption><%= t("admin.budgets.show.headings_caption", group: group.name) %></caption>
+    <caption><%= group.budget.name %></caption>
     <thead>
       <tr>
         <th><%= Budget::Heading.human_attribute_name(:name) %></th>
@@ -20,7 +20,7 @@
             <td><%= heading.max_ballot_lines %></td>
           <% end %>
           <td>
-            <%= render Admin::TableActionsComponent.new(heading) %>
+            <%= render Admin::TableActionsComponent.new(heading, actions: [:edit]) %>
           </td>
         </tr>
       <% end %>

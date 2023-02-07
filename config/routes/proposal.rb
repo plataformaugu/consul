@@ -35,6 +35,7 @@ resources :proposals do
   member do
     post :vote
     post :vote_featured
+    post :down_vote
     put :flag
     put :unflag
     get :retire_form

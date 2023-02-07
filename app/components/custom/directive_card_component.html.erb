@@ -1,0 +1,24 @@
+<div class="directive-card-component">
+  <div class="image-container">
+    <% if @directive.image.attached? %>
+      <%= image_tag @directive.image %>
+    <% else %>
+      <div class="user-icon"></div>
+    <% end %>
+  </div>
+  <div class="info-container">
+    <h4><%= @directive.full_name %></h4>
+    <p>
+      <strong>Cargo:</strong> <%= @directive.position %><br>
+      <strong>Profesión:</strong> <%= @directive.profession %><br>
+      <strong>Email:</strong> <%= @directive.email %><br>
+      <strong>Teléfono:</strong> <%= @directive.phone_number %>
+      <% if @directive.start_date.present? %>
+        <br><strong>Inicio de funciones:</strong> <%= @directive.start_date %>
+      <% end %>
+      <% if @directive.end_date.present? %>
+        <br><strong>Término de funciones:</strong> <%= @directive.end_date %>
+      <% end %>
+    </p>
+  </div>
+</div>

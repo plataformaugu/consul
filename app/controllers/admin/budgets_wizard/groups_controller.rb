@@ -4,11 +4,10 @@ class Admin::BudgetsWizard::GroupsController < Admin::BudgetsWizard::BaseControl
   before_action :load_groups, only: [:index, :create]
 
   def index
-    if single_heading?
-      @group = @budget.groups.first_or_initialize("name_#{I18n.locale}" => @budget.name)
-    else
-      @group = @budget.groups.new
-    end
+    @group = @budget.groups.first_or_initialize("name_#{I18n.locale}" => @budget.name)
+    @group.name = "#{@budget.name}"
+    @group.save
+    redirect_to admin_budgets_wizard_budget_group_headings_path(@budget, @group, url_params)
   end
 
   private

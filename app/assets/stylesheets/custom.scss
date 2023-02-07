@@ -1240,19 +1240,24 @@ html, body {
 
 .phase-title.tabs-title  {
     a {
-        background: lighten(#ff7267, 15%) !important;
+        background: #8148b3 !important;
+        color: white;
+
+        &:hover {
+            color: white;
+        }
     }
 }
 
 .phase-title.tabs-title.current-phase-tab  {
     a {
-        background: #ff7267 !important;
+        background: darken(#8148b3, 10%) !important;
     }
 }
 
 .phase-title.tabs-title.is-active  {
     a {
-        background: lighten(#ff7267, 15%) !important;
+        background: #cfa7f0 !important;
     }
 }
 
@@ -3325,6 +3330,15 @@ main {
     font-size: 1em;
 }
 
+.solid-button-xsm {
+    @extend .solid-button;
+
+    padding: 5px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    color: white !important;
+}
+
 .solid-button-danger-sm {
     @extend .solid-button-sm;
 
@@ -3961,6 +3975,17 @@ main {
     }
 }
 
+.create-debate {
+    @extend .create-button;
+    background-color: #9ecc46;
+
+    &:hover {
+        background: lighten(#9ecc46, 10%) !important;
+        color: white;
+        text-decoration: none;
+    }
+}
+
 .create-iniciativa {
     @extend .create-button;
     background-color: #3ba5df;
@@ -3981,6 +4006,26 @@ main {
         background-color: lighten(#3ba5df, 10%);
     }
     
+}
+
+.presupuestos-solid-button-sm {
+    @extend .solid-button-sm;
+
+    background-color: #8148b3;
+
+    &:hover {
+        background-color: lighten(#8148b3, 10%);
+    }
+}
+
+.presupuestos-solid-button {
+    @extend .solid-button;
+
+    background-color: #8148b3;
+
+    &:hover {
+        background-color: lighten(#8148b3, 10%);
+    }
 }
 
 .encuesta-card-footer {
@@ -4292,5 +4337,73 @@ input[type=number]::-webkit-outer-spin-button {
                 }
             }
         }
+    }
+}
+
+
+.debates {
+    .sidebar-container {
+        display: flex;
+        flex-direction: column;
+
+        @media (max-width: 1200px) {
+            flex-direction: row;
+        }
+    }
+}
+
+.budget-phases::after {
+    border-top: none;
+}
+
+.budgets-sub-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 1200px) {
+        flex-direction: column;
+    }
+}
+
+.budget-phase-content {
+    width: 100% !important;
+}
+
+
+.custom-support-budgets {
+    .supports {
+        flex-direction: column !important;
+
+        .supported {
+            flex-direction: column !important;
+        }
+    }
+
+    .in-favor {
+        flex-direction: column !important;
+    }
+}
+
+.like-dislike-actions {
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+
+    a {
+        text-decoration: none;
+    }
+
+    .icon-like, .icon-unlike {
+        color: rgb(114, 113, 118);
+    }
+
+    .icon-like.active {
+        color: #60a360;
+    }
+
+    .icon-unlike.active {
+        color: #d1152c;
     }
 }

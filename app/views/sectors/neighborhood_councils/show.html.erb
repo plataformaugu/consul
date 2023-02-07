@@ -1,0 +1,59 @@
+<%= render "shared/section_header",
+  color: "#568ade",
+  pre_title: "Unidad Vecinal #{@neighborhood_council.sector.name.insert(1, '-')}",
+  title: @neighborhood_council.name,
+  show_buildings: true,
+  small_height: true
+%>
+
+<main class="sectors-page">
+  <div class="row">
+    <div class="small-12 column">
+      <div class="mb-2">
+        <%= back_link_to sector_path(@neighborhood_council.sector) %>
+      </div>
+
+      <div class="sectors-cards-container">
+        <%= link_to sector_neighborhood_council_directives_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Directiva', nil, '/images/organizaciones-sociales/directiva-verde.png')%>
+        <% end %>
+
+        <%= link_to news_sector_neighborhood_council_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Noticias', nil, '/images/organizaciones-sociales/noticias-verde.png')%>
+        <% end %>
+
+        <%= link_to sector_neighborhood_council_events_path(@neighborhood_council.sector, @neighborhood_council), style: 'text-decoration: none;' do %>
+          <%= render Custom::SimpleCardComponent.new('Calendario', nil, '/images/organizaciones-sociales/calendario.png')%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mb-2 mt-3">
+
+  <div class="row mb-1">
+    <div class="small-12 column">
+      <div class="flex-row flex-justify-space-between">
+        <% if @neighborhood_council.whatsapp.present? %>
+          <%= link_to "https://wa.me/#{@neighborhood_council.whatsapp}" do %><i class="whatsapp-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.twitter.present? %>
+          <%= link_to @neighborhood_council.twitter do %><i class="twitter-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.facebook.present? %>
+          <%= link_to @neighborhood_council.facebook do %><i class="facebook-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.instagram.present? %>
+          <%= link_to @neighborhood_council.instagram do %><i class="instagram-icon"></i><% end %>
+        <% end %>
+        <% if @neighborhood_council.url.present? %>
+          <%= link_to @neighborhood_council.url do %><%= image_tag "/images/iconos/url-icon.png", style: "width: 3em;" %><% end %>
+        <% end %>
+    </div>
+  </div>
+</main>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#7aa7de', color2: '#6295d6' do %>
+  <% end %>
+</div>

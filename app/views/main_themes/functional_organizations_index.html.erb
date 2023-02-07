@@ -1,0 +1,290 @@
+<div class="header-card jumbo highlight custom-jumbo-home">
+  <h1 class="text-center mt-1 mb-4" style="color: white;">Organizaciones Funcionales</h1>
+  <div class="banner-sky">
+    <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-1' %>
+    <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-2' %>
+    <%= image_tag "/images/banner-cloud.svg", class: 'banner-cloud-3' %>
+
+    <div class="desktop-only" style="height: 200px;">
+      
+    </div>
+  
+    <div class="banner-sky-buildings">
+      <div class="buildings-clear">
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-salud.png",
+          style: @main_themes['Salud']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-mejorvivienda.png",
+          style: @main_themes['Mejor Vivienda']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
+        <%=
+          image_tag "/images/organizaciones-sociales/buildings-clear-npr.png",
+          style: @main_themes['Nuevo Plan Regulador']['count'] <= 0 ? 'visibility: hidden;' : ''
+        %>
+      </div>
+    </div>
+  </div>
+
+  <div id="themes"></div>
+
+  <div class="banner-grass-desktop">
+    <div class="grass"></div>
+    <div class="last-grass">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#60a360" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+    </div>
+    <div class="last-grass-2">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250"><path fill="#82be78" fill-opacity="1" d="M0,160L60,176C120,192,240,224,360,213.3C480,203,600,149,720,122.7C840,96,960,96,1080,106.7C1200,117,1320,139,1380,149.3L1440,160L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
+    </div>
+
+    <%= image_tag "/images/arbusto.svg", class: 'arbusto-1' %>
+    <%= image_tag "/images/arbusto.svg", class: 'arbusto-2' %>
+
+    <div class="themes">
+      <div class="themes-row">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Salud']['id']),
+          style: "text-decoration: none; #{@main_themes['Salud']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+        <div class="main-theme">
+          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div><%= @main_themes['Salud']['name'] %></div>
+          <div class="circle alt-circle" style="left: -40%;"></div>
+        </div>
+        <% end %>
+
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Mejor Vivienda']['id']),
+          style: "text-decoration: none; #{@main_themes['Mejor Vivienda']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+        <div class="main-theme">
+          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div><%= @main_themes['Mejor Vivienda']['name'] %></div>
+          <div class="circle alt-circle"></div>
+        </div>
+        <% end %>
+
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Nuevo Plan Regulador']['id']),
+          style: "text-decoration: none; #{@main_themes['Nuevo Plan Regulador']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+        <div class="main-theme">
+          <div class="title" style="cursor: pointer;"><div class="plus-button-sm"></div><%= @main_themes['Nuevo Plan Regulador']['name'] %></div>
+          <div class="circle alt-circle" style="left: 10%;"></div>
+        </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-three">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Apoyo Social']['id']),
+          style: "text-decoration: none; #{@main_themes['Apoyo Social']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Apoyo Social']['name'] %></div>
+            <%= image_tag @main_themes['Apoyo Social']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Smart City']['id']),
+          style: "text-decoration: none; #{@main_themes['Smart City']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Smart City']['name'] %></div>
+            <%= image_tag @main_themes['Smart City']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Salud Mental']['id']),
+          style: "text-decoration: none; #{@main_themes['Salud Mental']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Salud Mental']['name'] %></div>
+            <%= image_tag @main_themes['Salud Mental']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-2">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Emprendedores']['id']),
+          style: "text-decoration: none; #{@main_themes['Emprendedores']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Emprendedores']['name'] %></div>
+            <%= image_tag @main_themes['Emprendedores']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Seguridad']['id']),
+          style: "text-decoration: none; #{@main_themes['Seguridad']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Seguridad']['name'] %></div>
+            <%= image_tag @main_themes['Seguridad']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-1">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Mujeres']['id']),
+          style: "text-decoration: none; #{@main_themes['Mujeres']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Mujeres']['name'] %></div>
+            <%= image_tag @main_themes['Mujeres']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Eventos']['id']),
+          style: "text-decoration: none; #{@main_themes['Eventos']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Eventos']['name'] %></div>
+            <%= image_tag @main_themes['Eventos']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-2">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Adulto Mayor']['id']),
+          style: "text-decoration: none; #{@main_themes['Adulto Mayor']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Adulto Mayor']['name'] %></div>
+            <%= image_tag @main_themes['Adulto Mayor']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Ciclovías']['id']),
+          style: "text-decoration: none; #{@main_themes['Ciclovías']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Ciclovías']['name'] %></div>
+            <%= image_tag @main_themes['Ciclovías']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-1">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Jóvenes']['id']),
+          style: "text-decoration: none; #{@main_themes['Jóvenes']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Jóvenes']['name'] %></div>
+            <%= image_tag @main_themes['Jóvenes']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Desarrollo Sostenible']['id']),
+          style: "text-decoration: none; #{@main_themes['Desarrollo Sostenible']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Desarrollo Sostenible']['name'] %></div>
+            <%= image_tag @main_themes['Desarrollo Sostenible']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-3">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Mascotas']['id']),
+          style: "text-decoration: none; #{@main_themes['Mascotas']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Mascotas']['name'] %></div>
+            <%= image_tag @main_themes['Mascotas']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Cultura y Recreación']['id']),
+          style: "text-decoration: none; #{@main_themes['Cultura y Recreación']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Cultura y Recreación']['name'] %></div>
+            <%= image_tag @main_themes['Cultura y Recreación']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="themes-column-1">
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Educación']['id']),
+          style: "text-decoration: none; #{@main_themes['Educación']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Educación']['name'] %></div>
+            <%= image_tag @main_themes['Educación']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+        <%=
+          link_to functional_organizations_main_theme_path(@main_themes['Vida al Aire Libre']['id']),
+          style: "text-decoration: none; #{@main_themes['Vida al Aire Libre']['count'] <= 0 ? 'visibility: hidden;' : ''}",
+          target: '_self' do %>
+          <div class="main-theme">
+            <div class="title"><div class="plus-button-sm"></div><%= @main_themes['Vida al Aire Libre']['name'] %></div>
+            <%= image_tag @main_themes['Vida al Aire Libre']['image'] %>
+            <div class="circle"></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner-grass-mobile">
+    <div class="orbit mt-2" role="region" aria-label="Favorite Space Pictures" data-orbit data-use-m-u-i="false" data-auto-play="false">
+      <div class="orbit-wrapper">
+        <div class="orbit-controls">
+          <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+          <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+        </div>
+        <ul class="orbit-container">
+          <% @main_themes.each do |name, mt| %>
+            <% if mt['count'] > 0 %>
+              <li class="orbit-slide">
+                <%= link_to functional_organizations_main_theme_path(mt['id']), style: 'text-decoration: none; color: white;', target: '_self' do %>
+                <figure class="orbit-figure">
+                  <h2><%= mt['name'] %></h2>
+                  <%= image_tag mt['image'] %>
+                </figure>
+                <% end %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <nav class="orbit-bullets">
+        <% @main_themes.each_with_index do |(name, mt), idx| %>
+          <% if mt['count'] > 0 %>
+            <button class="is-active" data-slide="<% idx %>">
+              <span class="show-for-sr"></span>
+              <span class="show-for-sr" data-slide-active-label></span>
+            </button>
+          <% end %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#move-to-themes').click(function() {
+    document.getElementById("themes").scrollIntoView();
+  })
+</script>
