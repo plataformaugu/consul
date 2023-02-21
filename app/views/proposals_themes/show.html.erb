@@ -10,37 +10,38 @@
     <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title %></h2>
     <p class="text-gray"><%= wysiwyg(@proposals_theme.description) %></p>
     <% if Time.now.to_date <= @proposals_theme.end_date %>
-    <div class="text-center mt-3">
-      <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
-      <div>
-        <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
-          <%= t("proposals.index.start_proposal") %>
-        </a>
+      <div class="text-center mt-3">
+        <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
+        <div>
+          <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
+            <%= t("proposals.index.start_proposal") %>
+          </a>
+        </div>
+        <% end %>
       </div>
-      <% end %>
-    </div>
 
-    <% if not @proposals_theme.everyone_can_vote? and not @proposals_theme.can_user_vote?(current_user) %>
-      <div style="display: flex; justify-content: center">
-        <div class="custom-icon-message mt-3" style="background-color: #33cc9d;">
-          <div class="c-i-m-left" style="background-color: #33cc9d;">
-            !
-          </div>
-          <div class="c-i-m-right" style="background-color: #33cc9d;">
-            <%= sanitize @proposals_theme.get_restriction_message %>
+      <% if not @proposals_theme.everyone_can_vote? and not @proposals_theme.can_user_vote?(current_user) %>
+        <div style="display: flex; justify-content: center">
+          <div class="custom-icon-message mt-3" style="background-color: #33cc9d;">
+            <div class="c-i-m-left" style="background-color: #33cc9d;">
+              !
+            </div>
+            <div class="c-i-m-right" style="background-color: #33cc9d;">
+              <%= sanitize @proposals_theme.get_restriction_message %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if not current_user %>
-      <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-        <h4>
-          Debes ingresar con tu cuenta para participar en esta convocatoria de propuestas ciudadanas
-        </h4>
+      <% if not current_user %>
+        <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+          <h4>
+            Debes ingresar con tu cuenta para participar en esta convocatoria de propuestas ciudadanas
+          </h4>
 
-        <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
-      </div>
+          <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+        </div>
+      <% end %>
     <% end %>
 
     <% if @proposals_theme.pdf_link.present? %>
@@ -50,7 +51,7 @@
       <% end %>
       </div>
     <% end %>
-    <% end %>
+
     <div class="proposals-subtitle mt-3">
       <h2>Revisa las propuestas ciudadanas para <%= @proposals_theme.title %></h2>
     </div>
