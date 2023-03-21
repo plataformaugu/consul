@@ -39,7 +39,7 @@
     </div>
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div class="mb-2">
-        <% if @proposal.proposals_theme.finished? %>
+        <% if !proposal.is_initiative && @proposal.proposals_theme.finished? %>
           <p style="font-weight: bold;">Convocatoria finalizada</p>
         <% end %>
       </div>

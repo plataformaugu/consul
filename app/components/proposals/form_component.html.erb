@@ -74,34 +74,6 @@
       </div>
     <% end %>
 
-    <% if @is_initiative %>
-      <div id="leaflet-container">
-        <div style="display: none;">
-          <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
-        </div>
-        <%= label_tag 'leaflet', "Elige los sectores de la comuna en los que estará enfocada la #{@type_name}." %>
-        <p id="tag-list-help-text" style="font-size: 1em;">
-          <% if @proposals_theme and @proposals_theme.sectors.any? %>
-            Sectores disponibles según Tema seleccionado: <strong style="color: #3ba5df;"><%= @proposals_theme.sectors.pluck(:name).join(', ') %></strong><br>
-          <% end %>
-          Sectores seleccionados:
-          <strong style="color: #33cc9d;">
-            <% if @proposals_theme and @proposals_theme.sectors.any? %>
-              <span id="selected-sectors">Ninguno</span>
-            <% else %>
-              <span id="selected-sectors">Todos</span>
-            <% end %>
-          </strong><br>
-          <% if @proposals_theme and @proposals_theme.sectors.any? %>
-            <div id="leaflet-error" class="error-message">
-              <strong>Aviso:</strong> Debes seleccionar, como mínimo, 1 sector.
-            </div>
-          <% end %>
-        </p>
-        <div id="leaflet"></div>
-      </div>
-    <% end %>
-
     <div class="mt-2">
       <%=
         f.collection_select :main_theme_id,
@@ -114,15 +86,11 @@
     </div>
 
     <% if @is_initiative %>
-    <div class="mt-2">
-      <label>Tipos de usuarios</label>
-      <p class="help-text">Selecciona al menos una opción</p>
-      <%= f.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
-        <div>
-          <%= c.check_box(required: true, checked: proposal.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
-        </div>
-      <% end %>
-    </div>
+      <div class="row">
+        <%= render Segmentation::FormComponent.new(
+          Segmentation.find_by(entity_name: proposal.class.name, entity_id: proposal.id)
+        ) %>
+      </div>
     <% end %>
   </fieldset>
 

@@ -13,22 +13,6 @@
     <%= f.text_field :price, required: true %>
   </div>
 
-  <div class="field" id="map-field">
-    <div id="leaflet-container">
-      <div style="display: none;">
-        <%= f.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
-      </div>
-      <%= label_tag 'leaflet', "Unidades Vecinales" %>
-      <p id="tag-list-help-text" style="font-size: 1em;">
-        Sectores seleccionados:
-        <strong style="color: #33cc9d;">
-          <span id="selected-sectors">Todos</span>
-        </strong><br>
-      </p>
-      <div id="leaflet"></div>
-    </div>
-  </div>
-
   <div class="clear">
     <% if respond_to?(:single_heading?) && single_heading? %>
       <%= f.submit t("admin.budgets_wizard.headings.continue"), class: "button success" %>
@@ -39,85 +23,3 @@
 <% end %>
 
 <script src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js"></script>
-<script>
-var map = new L.Map('leaflet')
-$.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
-  var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    boundary: lasCondesSectors,
-  });
-  map.addLayer(osm)
-
-  // Variables for map
-  var allSectors = <%= raw(Sector.all.map{ |s| s.name }) %>
-  var selectedFeatures = <%= raw(heading.sectors.map{ |s| s.name }) %>
-
-  if (selectedFeatures.length) {
-    if (allSectors.sort().join(',') !== selectedFeatures.sort().join(',')) {
-      $('#selected-sectors').text(selectedFeatures.join(', '))
-    } else {
-      $('#selected-sectors').text('Todos')
-    }
-  }
-
-  var defaultStyle = {
-      color: 'gray',
-      fillOpacity: 0,
-      weight: 2,
-  }
-
-  // Actions
-  function colorlayer(feature, layer) {
-    layer.setStyle(defaultStyle)
-
-    if (selectedFeatures.includes(feature.properties.name.replaceAll('-', ''))) {
-      layer.setStyle({
-        color: "#00008c",
-        opacity: 0.6,
-        fillOpacity: 0.5
-      })
-    }
-
-    layer.on('click', function(e) {
-      var name = feature.properties.name.replaceAll('-', '')
-
-      if (selectedFeatures.includes(name)) {
-        layer.setStyle(defaultStyle)
-        selectedFeatures = selectedFeatures.filter(sf => sf !== name)
-      } else {
-        selectedFeatures.push(name)
-        layer.setStyle({
-          color: "#00008c",
-          opacity: 0.6,
-          fillOpacity: 0.5
-        })
-      }
-
-      Array.from(Array(25).keys()).forEach(function(n) {
-        $('#budget_heading_sector_ids_c' + (n + 1)).prop('checked', false)
-      })
-
-      selectedFeatures.forEach(function(sf) {
-        $('#budget_heading_sector_ids_' + sf.toLowerCase()).prop('checked', true)
-      })
-      $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
-    })
-  }
-
-  // Bounds
-  var gjLayer = L.geoJSON(lasCondesSectors);
-  map.fitBounds(gjLayer.getBounds());
-
-  // Load features
-  L.geoJSON(lasCondesSectors, {
-      onEachFeature: colorlayer
-  }).addTo(map)
-
-  // Map config
-  map.dragging.disable()
-  map.touchZoom.disable();
-  map.doubleClickZoom.disable();
-  map.scrollWheelZoom.disable();
-  map.boxZoom.disable();
-  map.keyboard.disable();
-})
-</script>

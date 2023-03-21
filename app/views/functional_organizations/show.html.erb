@@ -55,22 +55,28 @@
     </div>
   </div>
 
+  <% if @functional_organization.mission.present? || @functional_organization.view.present? %>
   <hr>
 
   <div class="row">
-    <div class="small-6 column">
-      <p>
-        <h4>Misión</h4>
-        <%= @functional_organization.mission.present? ? @functional_organization.mission : 'Sin información' %>
-      </p>
-    </div>
-    <div class="small-6 column">
-      <p>
-        <h4>Visión</h4>
-        <%= @functional_organization.view.present? ? @functional_organization.view : 'Sin información' %>
-      </p>
-    </div>
+    <% if @functional_organization.mission.present? %>
+      <div class="small-6 column">
+        <p>
+          <h4>Misión</h4>
+          <%= @functional_organization.mission %>
+        </p>
+      </div>
+    <% end %>
+    <% if @functional_organization.view.present? %>
+      <div class="small-6 column">
+        <p>
+          <h4>Visión</h4>
+          <%= @functional_organization.view %>
+        </p>
+      </div>
+    <% end %>
   </div>
+  <% end %>
 
   <hr>
   

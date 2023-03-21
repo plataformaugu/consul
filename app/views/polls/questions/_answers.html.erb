@@ -1,33 +1,43 @@
 <div class="poll-question-answers">
-  <% if can?(:answer, question) && !question.poll.voted_in_booth?(current_user) %>
-    <% question.question_answers.each do |answer| %>
-      <% if Poll::Answer.by_question(question.id).where(answer: answer.title).pluck(:author_id).include?(current_user.id) %>
-        <span class="button answered"
-              title="<%= t("poll_questions.show.voted", answer: answer.title) %>">
-          <%= answer.title %>
-        </span>
-      <% else %>
-        <% if question.answers.pluck(:author_id).include?(current_user.id) %>
-          <button class="button secondary hollow js-question-answer" disabled>
-            <%= answer.title %>
-          </button>
-        <% else %>
-          <%= link_to answer.title,
-            answer_question_path(question, answer: answer.title, token: token),
-            method: :post,
-            remote: true,
-            title: t("poll_questions.show.vote_answer", answer: answer.title),
-            class: "button secondary hollow js-question-answer",
-            disabled: question.answers.pluck(:author_id).include?(current_user.id),
-            data: {
-              confirm: 'Recuerda que no podrás modificar esta respuesta después de hacer clic en "Aceptar".'
-            } %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% elsif !user_signed_in? %>
+  <% if !user_signed_in? %>
     <% question.question_answers.order(id: :desc).each do |answer| %>
       <%= link_to answer.title, new_user_session_path, class: "button secondary hollow" %>
+    <% end %>
+  <% elsif can?(:answer, question) && !question.poll.voted_in_booth?(current_user) %>
+    <% if @can_participate %>
+      <% question.question_answers.each do |answer| %>
+        <% if Poll::Answer.by_question(question.id).where(answer: answer.title).pluck(:author_id).include?(current_user.id) %>
+          <span class="button answered"
+                title="<%= t("poll_questions.show.voted", answer: answer.title) %>">
+            <%= answer.title %>
+          </span>
+        <% else %>
+          <% if question.answers.pluck(:author_id).include?(current_user.id) %>
+            <button class="button secondary hollow js-question-answer" disabled>
+              <%= answer.title %>
+            </button>
+          <% else %>
+            <%= link_to answer.title,
+              answer_question_path(question, answer: answer.title, token: token),
+              method: :post,
+              remote: true,
+              title: t("poll_questions.show.vote_answer", answer: answer.title),
+              class: "button secondary hollow js-question-answer",
+              disabled: question.answers.pluck(:author_id).include?(current_user.id),
+              data: {
+                confirm: 'Recuerda que no podrás modificar esta respuesta después de hacer clic en "Aceptar".'
+              } %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% question.question_answers.order(id: :desc).each do |answer| %>
+        <% if current_user and Poll::Answer.by_question(question.id).where(answer: answer.title).pluck(:author_id).include?(current_user.id) %>
+          <span class="button answered disabled"><%= answer.title %></span>
+        <% else %>
+          <span class="button secondary hollow disabled"><%= answer.title %></span>
+        <% end %>
+      <% end %>
     <% end %>
   <% elsif !current_user.level_two_or_three_verified? %>
     <% question.question_answers.order(id: :desc).each do |answer| %>

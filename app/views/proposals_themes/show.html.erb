@@ -11,12 +11,18 @@
     <p class="text-gray"><%= wysiwyg(@proposals_theme.description) %></p>
     <% if Time.now.to_date <= @proposals_theme.end_date %>
     <div class="text-center mt-3">
-      <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
-      <div>
-        <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
-          <%= t("proposals.index.start_proposal") %>
-        </a>
-      </div>
+      <% if current_user %>
+        <% if @can_participate %>
+          <div>
+            <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
+              <%= t("proposals.index.start_proposal") %>
+            </a>
+          </div>
+        <% else %>
+          <div>
+            <%= @reason %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 

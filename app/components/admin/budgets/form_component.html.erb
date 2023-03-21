@@ -53,6 +53,16 @@
   </fieldset>
 
   <fieldset>
+    <div class="small-12 column">
+      <div class="field">
+        <%= render Segmentation::FormComponent.new(
+          Segmentation.find_by(entity_name: budget.class.name, entity_id: budget.id)
+        ) %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend><%= t("admin.budgets.edit.info.staff_settings") %></legend>
 
     <% %w[administrators valuators].each do |staff| %>

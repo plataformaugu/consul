@@ -21,22 +21,8 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
   def create
     @poll = Poll.new(poll_params.merge(author: current_user))
 
-    params['poll']['neighbor_types'].each do |id|
-      neighbor_type = NeighborType.find(id)
-      @poll.neighbor_types.append(neighbor_type)
-    end
-
-    if params['poll']['sector_ids']
-      params['poll']['sector_ids'].each do |s|
-        begin
-          sector = Sector.find_by(name: s)
-          @poll.sectors.append(sector)
-        rescue
-        end
-      end
-    end
-
     if @poll.save
+      Segmentation.generate(entity_name: @poll.class.name, entity_id: @poll.id, params: params)
       notice = t("flash.actions.create.poll")
       if @poll.budget.present?
         redirect_to admin_poll_booth_assignments_path(@poll), notice: notice
@@ -107,13 +93,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     end
 
     if @poll.update(poll_params)
-      if params['poll']['neighbor_types'].present?
-        @poll.neighbor_types = []
-        params['poll']['neighbor_types'].each do |id|
-          neighbor_type = NeighborType.find(id)
-          @poll.neighbor_types.append(neighbor_type)
-        end
-      end
+      Segmentation.generate(entity_name: @poll.class.name, entity_id: @poll.id, params: params)
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else
       render :edit

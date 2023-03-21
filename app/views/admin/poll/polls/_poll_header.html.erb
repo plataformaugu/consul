@@ -1,6 +1,7 @@
-<%= link_to t("admin.polls.edit.title"),
-            edit_admin_poll_path(@poll),
-            class: "button float-right" %>
+<a href="<%= edit_admin_poll_path(@poll) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="button float-right">
+  <%= t("admin.polls.edit.title") %>
+</a>
+
 
 <h2 class="inline-block">
   <%= @poll.name %>

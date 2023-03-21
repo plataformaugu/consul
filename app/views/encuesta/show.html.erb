@@ -41,23 +41,28 @@
           <h1 style="font-size: 2em;">¡Participa acá!</h1>
         </div>
         <div class="info-card-body" style="padding: 0;">
-          <% if @can_vote %>
-            <% if @encuestum.limit_date < Time.now %>
+          <% if @encuestum.limit_date < Time.now %>
+            <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+              <h4>Encuesta finalizada</h4>
+            </div>
+          <% else %>
+            <% if not current_user %>
               <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                <h4>Encuesta finalizada</h4>
+                <h4>Debes ingresar con tu cuenta para participar en esta encuesta.</h4>
+                <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
               </div>
             <% else %>
-              <%= @code.html_safe %>
-            <% end %>
-          <% else %>
-            <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-              <h4><%= @reason %></h4>
-
-              <% if not current_user %>
-                <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+              <% if @can_participate %>
+                <%= @code.html_safe %>
+              <% else %>
+                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
+                  <h4><%= @reason %></h4>
+                </div>
               <% end %>
-            </div>
+            <% end %>
+
           <% end %>
+
         </div>
       </div>
       <% end %>

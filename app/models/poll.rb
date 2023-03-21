@@ -72,6 +72,10 @@ class Poll < ApplicationRecord
                                             .where(related: poll.related)
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def title
     name
   end
@@ -144,7 +148,7 @@ class Poll < ApplicationRecord
   end
 
   def answerable_by?(user)
-    user.present? && current? && self.neighbor_types.include?(user.neighbor_type)
+    user.present? && current?
   end
 
   def self.answerable_by(user)

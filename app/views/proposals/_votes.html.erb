@@ -6,31 +6,35 @@
       <div class="supported callout success">
         <%= t("proposals.proposal.already_supported") %>
       </div>
-    <% elsif user_signed_in? && proposal.votable_by?(current_user) && (proposal.is_initiative or proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date) %>
-      <% if proposal.is_initiative %>
-        <% if proposal.is_active? %>
-          <%= link_to vote_url,
-              class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button",
-              title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do %>
-            <%= t("proposals.proposal.support") %>
+    <% elsif user_signed_in? && (proposal.is_initiative or proposal.proposals_theme.present? && Time.now.to_date <= proposal.proposals_theme.end_date) %>
+      <% if @can_participate %>
+        <% if proposal.is_initiative %>
+          <% if proposal.is_active? %>
+            <%= link_to vote_url,
+                class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button",
+                title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do %>
+              <%= t("proposals.proposal.support") %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%=
+            link_to vote_url,
+            class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
+            title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
+          %>
+            Apoyo
+          <% end %>
+          &nbsp;
+          <%=
+            link_to down_vote_url,
+            class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
+            title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
+          %>
+            No apoyo
           <% end %>
         <% end %>
       <% else %>
-        <%=
-          link_to vote_url,
-          class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
-          title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
-        %>
-          Apoyo
-        <% end %>
-        &nbsp;
-        <%=
-          link_to down_vote_url,
-          class: proposal.is_initiative ? "iniciativa-solid-button" : "solid-button-sm",
-          title: t("proposals.proposal.support_title"), method: "post", remote: true, local: true do
-        %>
-          No apoyo
-        <% end %>
+        <%= @reason %>
       <% end %>
     <% end %>
   </div>

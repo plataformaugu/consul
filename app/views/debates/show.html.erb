@@ -43,12 +43,19 @@
               <div class="info-card">
                 <div class="mt-1"></div>
                 <% if !@debate.is_finished %>
-                  <% if @debate.can_user_vote?(current_user) %>
-                    <div id="<%= dom_id(@debate) %>_votes">
+                  <% if current_user %>
+                    <% if @can_participate %>
                       <%= render "debates/votes", debate: @debate %>
-                    </div>
+                    <% else %>
+                      <p class="text-center mt-2 mb-2">
+                        <%= @reason %>
+                      </p>
+                    <% end %>
                   <% else %>
-                    <p class="text-center mt-2 mb-2">No puedes participar en este proceso.</p>
+                    <p class="text-center mt-2 mb-2">
+                      Debes ingresar con tu cuenta para participar en esta encuesta.
+                      <%= link_to 'Ingresa aquí', new_user_registration_path, class: 'text-link' %>
+                    </p>
                   <% end %>
                 <% else %>
                   <p class="text-center mt-2 mb-2">El debate está finalizado.</p>

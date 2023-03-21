@@ -4,6 +4,10 @@ class Encuestum < ApplicationRecord
     has_many :encuestum_neighbor_types
     has_many :neighbor_types, through: :encuestum_neighbor_types
 
+    def segmentation
+        Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+    end
+
     def is_visible?
         if self.start_date.present?
             self.start_date <= Date.current.beginning_of_day

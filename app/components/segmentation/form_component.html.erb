@@ -1,0 +1,565 @@
+<div class="mt-1 mb-1">
+  <label>Tipos de usuarios</label>
+
+  <div>
+    <% NeighborType.all.each do |nt| %>
+      <%=
+        check_box_tag "segmentation_neighbor_types[]",
+        nt.id,
+        @segmentation.neighbor_types.pluck(:id).include?(nt.id),
+        id: "segmentation_neighbor_types_#{nt.id}"
+      %>
+      <%= label_tag nil, nt.name, style: 'font-weight: normal;' %><br>
+    <% end %>
+  </div>
+</div>
+
+<div class="mb-1">
+  <label>Género</label>
+
+  <div class="mt-1">
+    <% Segmentation::GENDER_CHOICES.each do |gender| %>
+      <%=
+        check_box_tag "segmentation_genders[]",
+        gender,
+        @segmentation.gender_segmentations.pluck(:gender).include?(gender)
+      %>
+      <%= label_tag nil, gender, style: 'font-weight: normal;' %><br>
+    <% end %>
+  </div>
+</div>
+
+<div class="mb-1">
+  <label>Edad</label>
+
+  <div class="mt-1">
+    <%=
+      select_tag 'age_choice',
+      options_for_select(Segmentation::AGE_CHOICES.map{ |key, value| [value, key] }),
+      prompt: 'Elige una opción'
+    %>
+
+    <div id="age" style="display: none;">
+      <div class="row">
+        <div class="small-4 column">
+          <% Array(0 .. 33).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+        <div class="small-4 column">
+          <% Array(34 .. 67).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+        <div class="small-4 column">
+          <% Array(68 .. 99).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div id="age_range" style="display: none;">
+      <% Segmentation::AGE_RANGES.each do |min_age, max_age| %>
+        <%=
+          check_box_tag "segmentation_age_ranges[]",
+          "[#{min_age}, #{max_age}]",
+          @segmentation.age_range_segmentations.pluck(:min_age).include?(min_age)
+        %>
+        <%= label_tag nil, "#{min_age} a #{max_age}", style: 'font-weight: normal;' %><br>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="mb-1" id="geo-filters" style="display: none;">
+  <label>Filtro geográfico</label>
+
+  <div class="mt-1">
+    <%=
+      select_tag 'geo_choice',
+      options_for_select(Segmentation::GEO_CHOICES.map{ |key, value| [value, key] }),
+      prompt: 'Elige una opción'
+    %>
+
+    <div id="geo_polygon" style="display: none;">
+      <%= hidden_field_tag 'segmentation_geo_polygon_value' %>
+      <div class="leaflet-container">
+        <div id="leaflet-polygon"></div>
+      </div>
+    </div>
+
+    <div id="geo_radius" style="display: none;">
+      <%= hidden_field_tag 'segmentation_geo_radius_lat' %>
+      <%= hidden_field_tag 'segmentation_geo_radius_long' %>
+      <%= hidden_field_tag 'segmentation_geo_radius_meters' %>
+      <%= hidden_field_tag 'segmentation_geo_radius_coordinates' %>
+      <div class="leaflet-container">
+        <div id="leaflet-radius"></div>
+      </div>
+    </div>
+
+    <div id="geo_macro_territory" style="display: none;">
+      <div style="display: none;">
+        <% @macro_territories.each do |mt| %>
+          <%=
+            check_box_tag "segmentation_macro_territories[]",
+            mt.id,
+            @segmentation.macro_territories.include?(mt),
+            id: "segmentation_macro_territories_#{mt.id}"
+          %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="column small-12">
+          <p id="tag-list-help-text">
+            Macro territorios seleccionados:
+            <strong style="color: #33cc9d;">
+              <span id="selected-macro-territories">Todos</span>
+            </strong>
+          </p>
+        </div>
+      </div>
+      <div class="leaflet-container">
+        <div id="leaflet-macro-territory"></div>
+      </div>
+    </div>
+
+    <div id="geo_sector" style="display: none;">
+      <div style="display: none;">
+        <% @sectors.each do |sector| %>
+          <%=
+            check_box_tag "segmentation_sectors[]",
+            sector.id,
+            @segmentation.sectors.include?(sector),
+            id: "segmentation_sectors_#{sector.id}"
+          %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="column small-12">
+          <p id="tag-list-help-text">
+            Unidades vecinales seleccionadas:
+            <strong style="color: #33cc9d;">
+              <span id="selected-sectors">Todos</span>
+            </strong>
+          </p>
+        </div>
+      </div>
+      <div class="leaflet-container">
+        <div id="leaflet-sector"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script src="https://unpkg.com/@geoman-io/leaflet-geoman-free@latest/dist/leaflet-geoman.min.js"></script>  
+
+<%= javascript_tag do %>
+$(document).on('turbolinks:load', function() {
+  var mapRadius;
+  var mapPolygon;
+  var mapSectors;
+  var mapMacroTerritory;
+
+  var sectorsSelectedFeatures = <%= raw(@segmentation.sectors.pluck(:id)) %>;
+  var sectorsMapping = <%= raw(@sectors.pluck(:name, :id).to_h.to_json) %>;
+  var sectorsMappingById = <%= raw(@sectors.pluck(:id, :name).to_h.to_json) %>;
+
+  var macroTerritoriesSelectedFeatures = <%= raw(@segmentation.macro_territories.pluck(:id)) %>;
+  var macroTerritoriesMapping = <%= raw(@macro_territories.pluck(:name, :id).to_h.to_json) %>;
+  var macroTerritoriesMappingById = <%= raw(@macro_territories.pluck(:id, :name).to_h.to_json) %>;
+
+  loadBasicSegmentation();
+
+  function loadBasicSegmentation() {
+    var currentAgeType;
+    var currentGeoType;
+
+    if ($('#segmentation_neighbor_types_1').is(':checked')) {
+      handleGeoFiltersVisibility();
+    }
+
+    $('#segmentation_neighbor_types_1, #segmentation_neighbor_types_2, #segmentation_neighbor_types_3').on('change', function() {
+      handleGeoFiltersVisibility();
+    })
+
+    <% if @segmentation.age_type.present? %>
+      currentAgeType = '<%= raw(@segmentation.age_type) %>'; 
+    <% end %>
+
+    <% if @segmentation.geo_type.present? %>
+      currentGeoType = '<%= raw(@segmentation.geo_type) %>'; 
+    <% end %>
+
+    var ageChoices = <%= raw(Segmentation::AGE_CHOICES.keys) %>;
+
+    var geoChoices = <%= raw(Segmentation::GEO_CHOICES.keys) %>;
+
+    $('#age_choice').on('change', function() {
+      ageChoices.forEach(function(ageChoice) {
+        $(`#${ageChoice.toLowerCase()}`).hide();
+      });
+
+      if (this.value !== '') {
+        $(`#${this.value.toLowerCase()}`).show();
+      }
+    });
+
+    $('#geo_choice').on('change', function() {
+      geoChoices.forEach(function(geoChoice) {
+        $(`#${geoChoice.toLowerCase()}`).hide();
+        
+        if (mapRadius) {
+          mapRadius.remove();
+          mapRadius = undefined;
+        }
+
+        if (mapPolygon) {
+          mapPolygon.remove();
+          mapPolygon = undefined;
+        }
+
+        if (mapSectors) {
+          mapSectors.remove();
+          mapSectors = undefined;
+        }
+
+        if (mapMacroTerritory) {
+          mapMacroTerritory.remove();
+          mapMacroTerritory = undefined;
+        }
+
+        $('#segmentation_geo_radius_lat').val('');
+        $('#segmentation_geo_radius_long').val('');
+        $('#segmentation_geo_radius_meters').val('');
+        $('#segmentation_geo_polygon_value').val('');
+        $('#segmentation_geo_radius_coordinates').val('');
+        sectorsSelectedFeatures = <%= raw(@segmentation.sectors.pluck(:id)) %>;
+        macroTerritoriesSelectedFeatures = <%= raw(@segmentation.macro_territories.pluck(:id)) %>;
+      });
+
+      if (this.value === '<%= Segmentation::GEO_RADIUS %>') {
+        loadRadiusMap();
+      } else if (this.value === '<%= Segmentation::GEO_POLYGON %>') {
+        loadPolygonMap();
+      } else if (this.value === '<%= Segmentation::GEO_SECTOR %>') {
+        loadSectorsMap();
+      } else if (this.value === '<%= Segmentation::GEO_MACRO_TERRITORY %>') {
+        loadMatroTerritoryMap();
+      } else if (this.value !== '') {
+        $(`#${this.value.toLowerCase()}`).show();
+      }
+    });
+
+    if (currentAgeType) {
+      $('#age_choice').val(currentAgeType).change();
+    }
+
+    if (currentGeoType) {
+      $('#geo_choice').val(currentGeoType).change();
+    }
+  }
+
+  function loadRadiusMap() {
+    mapRadius = new L.Map('leaflet-radius');
+    var editableLayersRadius = new L.FeatureGroup();
+    $('#geo_radius').show();
+    mapRadius.invalidateSize();
+
+    $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: lasCondesSectors,
+      });
+      var drawControl = new L.Control.Draw({
+        draw: {
+          marker: false,
+          rectangle: false,
+          polyline: false,
+          circlemarker: false,
+          polygon: false
+        },
+        edit: {
+          featureGroup: editableLayersRadius,
+          edit: false
+        }
+     });
+
+      mapRadius.addLayer(osm);
+      mapRadius.addLayer(editableLayersRadius);
+      mapRadius.addControl(drawControl);
+
+      mapRadius.on('draw:created', function (e) {
+        if (editableLayersRadius.getLayers().length === 0) {
+          var type = e.layerType;
+          var layer = e.layer;
+          editableLayersRadius.addLayer(layer);
+
+          var polygon = L.PM.Utils.circleToPolygon(layer, 60);
+          var coordinates = polygon._latlngs[0].map(x => [x.lat, x.lng])
+          $('#segmentation_geo_radius_coordinates').val(JSON.stringify(coordinates));
+
+          $('#segmentation_geo_radius_lat').val(layer._latlng.lat);
+          $('#segmentation_geo_radius_long').val(layer._latlng.lng);
+          $('#segmentation_geo_radius_meters').val(Math.round(layer._mRadius));
+        }
+      });
+
+      mapRadius.on('draw:deleted', function (e) {
+        $('#segmentation_geo_radius_lat').val('');
+        $('#segmentation_geo_radius_long').val('');
+        $('#segmentation_geo_radius_meters').val('');
+        $('#segmentation_geo_radius_coordinates').val('');
+      });
+
+      var gjLayer = L.geoJSON(lasCondesSectors);
+      mapRadius.fitBounds(gjLayer.getBounds());
+
+      <% if @segmentation.geo_type == Segmentation::GEO_RADIUS %>
+        <% @segmentation.radius_segmentations.each do |rs| %>
+          var layer = L.circle(
+            [
+              <%= raw(rs.lat) %>,
+              <%= raw(rs.long) %>,
+            ],
+            { radius: <%= raw(rs.meters) %> }
+          )
+          editableLayersRadius.addLayer(layer);
+          $('#segmentation_geo_radius_lat').val(<%= raw(rs.lat) %>);
+          $('#segmentation_geo_radius_long').val(<%= raw(rs.long) %>);
+          $('#segmentation_geo_radius_meters').val(<%= raw(rs.meters) %>);
+        <% end %>
+      <% end %>
+    });
+  }
+
+  function loadPolygonMap() {
+    mapPolygon = new L.Map('leaflet-polygon');
+    var editableLayersPolygon = new L.FeatureGroup();
+    $('#geo_polygon').show();
+    mapPolygon.invalidateSize();
+
+    $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: lasCondesSectors,
+      });
+      var drawControl = new L.Control.Draw({
+        draw: {
+          marker: false,
+          rectangle: false,
+          polyline: false,
+          circlemarker: false,
+          circle: false
+        },
+        edit: {
+          featureGroup: editableLayersPolygon,
+          edit: false
+        }
+     });
+
+      mapPolygon.addLayer(osm);
+      mapPolygon.addLayer(editableLayersPolygon);
+      mapPolygon.addControl(drawControl);
+  
+      mapPolygon.on('draw:created', function (e) {
+        if (editableLayersPolygon.getLayers().length === 0) {
+          var type = e.layerType;
+          var layer = e.layer;
+          editableLayersPolygon.addLayer(layer);
+          var coordinates = layer._latlngs[0].map(x => [x.lat, x.lng])
+          $('#segmentation_geo_polygon_value').val(JSON.stringify(coordinates));
+        }
+      });
+
+      mapPolygon.on('draw:deleted', function (e) {
+        $('#segmentation_geo_polygon_value').val('');
+      });
+
+      var gjLayer = L.geoJSON(lasCondesSectors);
+      mapPolygon.fitBounds(gjLayer.getBounds());
+
+      
+      <% if @segmentation.geo_type == Segmentation::GEO_POLYGON %>
+        <% @segmentation.polygon_segmentations.each do |ps| %>
+          var coordinates = <%= raw(ps.coordinates.map{ |x| [x[0].to_d, x[1].to_d] }) %>;
+          var layer = L.polygon(coordinates);
+          editableLayersPolygon.addLayer(layer);
+          $('#segmentation_geo_polygon_value').val(JSON.stringify(coordinates));
+        <% end %>
+      <% end %>
+    });
+  }
+
+  function loadSectorsMap() {
+    mapSectors = new L.Map('leaflet-sector');
+    $('#geo_sector').show();
+    mapSectors.invalidateSize();
+    
+    if (sectorsSelectedFeatures.length) {
+      $('#selected-sectors').text(
+        sectorsSelectedFeatures.length ? sectorsSelectedFeatures.map(x => sectorsMappingById[x]).join(', ') : 'Todos'
+      )
+    } else {
+      $('#selected-sectors').text('Todos');
+    }
+
+    $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: lasCondesSectors,
+      });
+      mapSectors.addLayer(osm);
+      
+      var defaultStyle = {
+        color: 'gray',
+        fillOpacity: 0,
+        weight: 2,
+      }
+
+      function colorlayer(feature, layer) {
+        layer.setStyle(defaultStyle)
+        var currentSectorId = sectorsMapping[feature.properties.name.replaceAll('-', '')]
+
+        if (sectorsSelectedFeatures.includes(currentSectorId)) {
+          layer.setStyle({
+            color: "#00008c",
+            opacity: 0.6,
+            fillOpacity: 0.5
+          })
+        }
+
+        layer.on('click', function(e) {
+          if (sectorsSelectedFeatures.includes(currentSectorId)) {
+            layer.setStyle(defaultStyle)
+            sectorsSelectedFeatures = sectorsSelectedFeatures.filter(sf => sf !== currentSectorId)
+          } else {
+            sectorsSelectedFeatures.push(currentSectorId)
+            layer.setStyle({
+              color: "#00008c",
+              opacity: 0.6,
+              fillOpacity: 0.5
+            })
+          }
+
+          <% @sectors.each do |sector| %>
+            $('#segmentation_sectors_<%= sector.id %>').prop('checked', false);
+          <% end %>
+
+          sectorsSelectedFeatures.forEach(function(sf) {
+            $(`#segmentation_sectors_${sf}`).prop('checked', true);
+          })
+
+          $('#selected-sectors').text(
+            sectorsSelectedFeatures.length ? sectorsSelectedFeatures.map(x => sectorsMappingById[x]).join(', ') : 'Todos'
+          )
+        })
+      }
+
+      var gjLayer = L.geoJSON(lasCondesSectors);
+      mapSectors.fitBounds(gjLayer.getBounds());
+
+      L.geoJSON(lasCondesSectors, {
+          onEachFeature: colorlayer
+      }).addTo(mapSectors)
+    });
+  }
+
+  function loadMatroTerritoryMap() {
+    mapMacroTerritory = new L.Map('leaflet-macro-territory');
+    $('#geo_macro_territory').show();
+    mapMacroTerritory.invalidateSize();
+
+    if (macroTerritoriesSelectedFeatures.length) {
+      $('#selected-macro-territories').text(
+        macroTerritoriesSelectedFeatures.length ? macroTerritoriesSelectedFeatures.map(x => `MT-${x}`).join(', ') : 'Todos'
+      )
+    } else {
+      $('#selected-macro-territories').text('Todos');
+    }
+
+    $.getJSON('/mt.geojson', function(geojson) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: geojson,
+      });
+      mapMacroTerritory.addLayer(osm);
+
+      var defaultStyle = {
+        color: 'gray',
+        fillOpacity: 0,
+        weight: 2,
+      }
+
+      function colorlayer(feature, layer) {
+        layer.setStyle(defaultStyle)
+        var currentMacroTerritoryId = macroTerritoriesMapping[feature.properties.MACRO_T]
+
+        if (macroTerritoriesSelectedFeatures.includes(currentMacroTerritoryId)) {
+          layer.setStyle({
+            color: "#00008c",
+            opacity: 0.6,
+            fillOpacity: 0.5
+          })
+        }
+
+        layer.on('click', function(e) {
+          if (macroTerritoriesSelectedFeatures.includes(currentMacroTerritoryId)) {
+            layer.setStyle(defaultStyle)
+            macroTerritoriesSelectedFeatures = macroTerritoriesSelectedFeatures.filter(sf => sf !== currentMacroTerritoryId)
+          } else {
+            macroTerritoriesSelectedFeatures.push(currentMacroTerritoryId)
+            layer.setStyle({
+              color: "#00008c",
+              opacity: 0.6,
+              fillOpacity: 0.5
+            })
+          }
+
+          <% @macro_territories.each do |mt| %>
+            $('#segmentation_macro_territories_<%= mt.id %>').prop('checked', false);
+          <% end %>
+
+          macroTerritoriesSelectedFeatures.forEach(function(sf) {
+            $(`#segmentation_macro_territories_${sf}`).prop('checked', true);
+          })
+
+          $('#selected-macro-territories').text(
+            macroTerritoriesSelectedFeatures.length ? macroTerritoriesSelectedFeatures.map(x => macroTerritoriesMappingById[x]).join(', ') : 'Todos'
+          )
+        })
+      }
+
+      var gjLayer = L.geoJSON(geojson);
+      mapMacroTerritory.fitBounds(gjLayer.getBounds());
+
+      L.geoJSON(geojson, {
+          onEachFeature: colorlayer
+      }).addTo(mapMacroTerritory);
+    });
+  }
+
+  function handleGeoFiltersVisibility() {
+    if ($('#segmentation_neighbor_types_1').is(':checked') && !$('#segmentation_neighbor_types_2').is(':checked') && !$('#segmentation_neighbor_types_3').is(':checked')) {
+      $('#geo-filters').show();
+    } else {
+      $('#geo-filters').hide();
+      $('#geo_choice').val('').change();
+    }
+  }
+})
+<% end %>

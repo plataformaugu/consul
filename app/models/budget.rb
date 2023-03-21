@@ -62,6 +62,11 @@ class Budget < ApplicationRecord
   class << self; undef :open; end
   scope :open, -> { where.not(phase: "finished") }
 
+  
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def self.current
     published.order(:created_at).last
   end

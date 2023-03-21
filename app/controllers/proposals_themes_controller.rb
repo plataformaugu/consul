@@ -18,6 +18,13 @@ class ProposalsThemesController < ApplicationController
     ]
     @selected_order = params[:order]
     @proposals = sort_by(params)
+    
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @proposals_theme.segmentation.present?
+      @can_participate, @reason = @proposals_theme.segmentation.validate(current_user)
+    end
   end
 
   # GET /proposals_themes/new
@@ -37,22 +44,8 @@ class ProposalsThemesController < ApplicationController
   def create
     @proposals_theme = ProposalsTheme.new(proposals_theme_params)
 
-    params['proposals_theme']['neighbor_types'].each do |id|
-      neighbor_type = NeighborType.find(id)
-      @proposals_theme.neighbor_types.append(neighbor_type)
-    end
-
-    if params['proposals_theme']['sector_ids']
-      params['proposals_theme']['sector_ids'].each do |s|
-        begin
-          sector = Sector.find_by(name: s)
-          @proposals_theme.sectors.append(sector)
-        rescue
-        end
-      end
-    end
-
     if @proposals_theme.save
+      Segmentation.generate(entity_name: @proposals_theme.class.name, entity_id: @proposals_theme.id, params: params)
       redirect_to @proposals_theme, notice: 'El tema fue creado.'
     else
       render :new
@@ -62,22 +55,7 @@ class ProposalsThemesController < ApplicationController
   # PATCH/PUT /proposals_themes/1
   def update
     if @proposals_theme.update(proposals_theme_params)
-      @proposals_theme.neighbor_types = []
-      params['proposals_theme']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @proposals_theme.neighbor_types.append(neighbor_type)
-      end
-  
-      if params['proposals_theme']['sector_ids']
-        params['proposals_theme']['sector_ids'].each do |s|
-          begin
-            sector = Sector.find_by(name: s)
-            @proposals_theme.sectors.append(sector)
-          rescue
-          end
-        end
-      end
-  
+      Segmentation.generate(entity_name: @proposals_theme.class.name, entity_id: @proposals_theme.id, params: params)
       redirect_to @proposals_theme, notice: 'El tema fue actualizado.'
     else
       render :edit
