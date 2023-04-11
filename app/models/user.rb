@@ -1,4 +1,5 @@
 require_relative '../services/geo_services'
+load "#{Rails.root}/lib/tarjeta_vecino_service.rb"
 
 class User < ApplicationRecord
   include TarjetaVecino
