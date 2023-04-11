@@ -1,6 +1,7 @@
 require_relative '../services/geo_services'
 
 class User < ApplicationRecord
+  include TarjetaVecino
   include Verification
   include GeoServices
 
@@ -423,6 +424,42 @@ class User < ApplicationRecord
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def update_tarjeta_vecino
+    result = get_tarjeta_vecino_data(self.document_number.insert(-2, '-'))
+    is_changed = false
+
+    if self.has_tarjeta_vecino != result[:has_tarjeta_vecino]
+      self.has_tarjeta_vecino = result[:has_tarjeta_vecino]
+      is_changed = true
+    end
+    
+    if self.is_tarjeta_vecino_active != result[:is_tarjeta_vecino_active]
+      self.is_tarjeta_vecino_active = result[:is_tarjeta_vecino_active]
+      is_changed = true
+    end
+
+    if self.neighbor_type.id != result[:neighbor_type].id
+      self.neighbor_type_id = result[:neighbor_type].id
+      is_changed = true
+    end
+
+    if self.tarjeta_vecino_code != result[:tarjeta_vecino_code]
+      self.tarjeta_vecino_code = result[:tarjeta_vecino_code]
+      is_changed = true
+    end
+
+    if self.tarjeta_vecino_start_date != result[:tarjeta_vecino_start_date]
+      self.tarjeta_vecino_start_date = result[:tarjeta_vecino_start_date]
+      is_changed = true
+    end
+
+    if is_changed
+      self.save
+    end
+
+    return is_changed
   end
 
   private

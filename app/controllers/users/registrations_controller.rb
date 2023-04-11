@@ -28,8 +28,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
           if current_user.sign_in_count <= 1
             redirect_to tarjeta_vecino_path
           else
+            if current_user.tarjeta_vecino_updated_at == nil || (Time.now.to_date - current_user.tarjeta_vecino_updated_at.to_date).to_i >= 7
+              current_user.update_tarjeta_vecino()
+              current_user.tarjeta_vecino_updated_at = Time.now
+              current_user.save!
+            end
+
             redirect_to root_path
           end
+
         else
           flash[:notice] = "Para ingresar debes confirmar tu cuenta en el correo que te enviamos."
           redirect_to root_path
