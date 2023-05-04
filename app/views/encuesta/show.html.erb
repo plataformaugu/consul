@@ -32,6 +32,16 @@
             <%= image_tag @encuestum.image %>
             </div>
           <% end %>
+          <% if not @can_participate %>
+            <div class="custom-icon-message mt-3" style="background-color: #fe6b01;">
+              <div class="c-i-m-left" style="background-color: #fe6b01;">
+                !
+              </div>
+              <div class="c-i-m-right" style="background-color: #fe6b01;">
+                <%= sanitize @reason %>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
   
@@ -54,10 +64,6 @@
             <% else %>
               <% if @can_participate %>
                 <%= @code.html_safe %>
-              <% else %>
-                <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
-                  <h4><%= @reason %></h4>
-                </div>
               <% end %>
             <% end %>
 

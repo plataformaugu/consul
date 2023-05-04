@@ -25,19 +25,14 @@ class Segmentation < ApplicationRecord
   ]
 
   AGE_RANGES = [
-    [16, 24],
-    [25, 34],
-    [35, 44],
-    [45, 54],
-    [55, 64],
-    [65, 74],
-    [75, 84],
-    [85, 94],
-    [95, 104],
-    [105, 114],
-    [115, 124],
-    [125, 134],
-    [135, 144],
+    [0, 18],
+    [18, 24],
+    [25, 29],
+    [30, 39],
+    [40, 49],
+    [50, 64],
+    [65, 79],
+    [80, 144],
   ]
 
   AGE_VALUE = 'AGE'
@@ -91,7 +86,7 @@ class Segmentation < ApplicationRecord
       if self.age_segmentations.empty? or self.age_segmentations.pluck(:age).include?(user.age)
         return true
       else
-        return "No posees la edad necesaria para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       end
   
     when AGE_RANGE
@@ -110,7 +105,7 @@ class Segmentation < ApplicationRecord
       if in_range == true
         return true
       else
-        return "No estás dentro del rango de edad para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       end
 
     else
@@ -122,7 +117,7 @@ class Segmentation < ApplicationRecord
     if self.gender_segmentations.empty? or self.gender_segmentations.pluck(:gender).include?(user.gender)
       return true
     else
-      return "No tienes el género necesario para participar."
+      return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
     end
   end
 
@@ -130,7 +125,8 @@ class Segmentation < ApplicationRecord
     if self.neighbor_types.empty? or self.neighbor_types.include?(user.neighbor_type)
       return true
     else
-      return "No posees el tipo de vecino necesario para participar."
+      readable_text = self.get_allowed_neighbors_readable_text()
+      return "Este proceso está habilitado solo para <strong>#{readable_text}</strong>."
     end
   end
 
@@ -144,19 +140,19 @@ class Segmentation < ApplicationRecord
       if self.sectors.empty? or self.sectors.include?(user.sector)
         return true
       else
-        return "No estás en la unidad vecinal necesaria para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       end
 
     when GEO_MACRO_TERRITORY
       if self.macro_territories.empty?
         return true
       elsif user.sector.nil?
-        return "No estás en el macro territorio necesario para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       else
         if (self.macro_territories.pluck(:id) & user.sector.macro_territories.pluck(:id)).any?
           return true
         else
-          return "No estás en el macro territorio necesario para participar."
+          return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
         end
       end
 
@@ -178,7 +174,7 @@ class Segmentation < ApplicationRecord
       if intersects == true
         return true
       else
-        return "No estás dentro del sector definido para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       end
 
     when GEO_POLYGON
@@ -197,7 +193,7 @@ class Segmentation < ApplicationRecord
       if intersects == true
         return true
       else
-        return "No estás dentro del sector definido para participar."
+        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
       end
 
     else
@@ -206,6 +202,12 @@ class Segmentation < ApplicationRecord
   end
 
   def validate(user)
+    neighbor_type_validation = validate_neighbor_type(user)
+
+    if neighbor_type_validation != true
+      return false, neighbor_type_validation
+    end
+
     age_validation = validate_age(user)
 
     if age_validation != true
@@ -216,12 +218,6 @@ class Segmentation < ApplicationRecord
 
     if gender_validation != true
       return false, gender_validation
-    end
-
-    neighbor_type_validation = validate_neighbor_type(user)
-
-    if neighbor_type_validation != true
-      return false, neighbor_type_validation
     end
 
     geo_validation = validate_geo(user)
@@ -391,5 +387,25 @@ class Segmentation < ApplicationRecord
     end
 
     inside
+  end
+
+  def get_allowed_neighbors_readable_text()
+    readable_text = ''
+
+    if Set.new(['Vecino Residente Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      readable_text = 'vecinos residentes'
+
+      if self.sectors.any? && Set.new(self.sectors.map{ |s| s.name }) != Set.new(Sector.all.map{ |s| s.name })
+        joined_sectors = self.sectors.map{ |s| s.name }.join(', ')
+        readable_text = "residentes de la(s) unidad(es) vecinal(es):<br> #{joined_sectors}"
+      end
+
+    elsif Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      readable_text = 'vecinos residentes y flotantes'
+    elsif Set.new(['Vecino Flotante Las Condes']) == Set.new(self.neighbor_types.pluck(:name))
+      readable_text = 'vecinos flotantes'
+    end
+
+    return readable_text
   end
 end

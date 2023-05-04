@@ -18,22 +18,18 @@
               <%= t("proposals.index.start_proposal") %>
             </a>
           </div>
-        <% else %>
-          <div>
-            <%= @reason %>
-          </div>
         <% end %>
       <% end %>
     </div>
 
-    <% if not @proposals_theme.everyone_can_vote? and not @proposals_theme.can_user_vote?(current_user) %>
+    <% if not @can_participate %>
       <div style="display: flex; justify-content: center">
         <div class="custom-icon-message mt-3" style="background-color: #33cc9d;">
           <div class="c-i-m-left" style="background-color: #33cc9d;">
             !
           </div>
           <div class="c-i-m-right" style="background-color: #33cc9d;">
-            <%= sanitize @proposals_theme.get_restriction_message %>
+            <%= sanitize @reason %>
           </div>
         </div>
       </div>

@@ -81,7 +81,13 @@
           "[#{min_age}, #{max_age}]",
           @segmentation.age_range_segmentations.pluck(:min_age).include?(min_age)
         %>
-        <%= label_tag nil, "#{min_age} a #{max_age}", style: 'font-weight: normal;' %><br>
+        <% if min_age == 0 %>
+          <%= label_tag nil, "Menores de #{max_age}", style: 'font-weight: normal;' %><br>
+        <% elsif max_age == 144 %>
+          <%= label_tag nil, "Mayores de #{min_age}", style: 'font-weight: normal;' %><br>
+        <% else %>
+          <%= label_tag nil, "#{min_age} a #{max_age}", style: 'font-weight: normal;' %><br>
+        <% end %>
       <% end %>
     </div>
   </div>

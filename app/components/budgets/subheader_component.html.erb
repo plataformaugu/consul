@@ -22,7 +22,7 @@
                   </div>
                 <% else %>
                   <div class="callout warning">
-                    <%= @reason %>
+                    <%= sanitize @reason %>
                   </div>
                 <% end %>
               <% else %>

@@ -35,7 +35,7 @@
               "aria-label": support_aria_label %>
         <% else %>
           <div class="callout warning">
-            <%= @reason %>
+            <%= sanitize @reason %>
           </div>
         <% end %>
       <% end %>
