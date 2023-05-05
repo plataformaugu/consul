@@ -126,7 +126,7 @@ class Segmentation < ApplicationRecord
       return true
     else
       readable_text = self.get_allowed_neighbors_readable_text()
-      return "Este proceso está habilitado solo para <strong>#{readable_text}</strong>."
+      return "Este proceso está habilitado sólo para <strong>#{readable_text}</strong>."
     end
   end
 
@@ -140,7 +140,8 @@ class Segmentation < ApplicationRecord
       if self.sectors.empty? or self.sectors.include?(user.sector)
         return true
       else
-        return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
+        joined_sectors = self.sectors.map{ |s| s.name }.join(', ')
+        return "Este proceso está habilitado sólo para residentes de la(s) unidad(es) vecinal(es):<br> #{joined_sectors}."
       end
 
     when GEO_MACRO_TERRITORY
@@ -220,7 +221,7 @@ class Segmentation < ApplicationRecord
     if geo_validation != true
       return false, geo_validation
     end
-    
+
     neighbor_type_validation = validate_neighbor_type(user)
 
     if neighbor_type_validation != true
