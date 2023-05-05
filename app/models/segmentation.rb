@@ -202,11 +202,6 @@ class Segmentation < ApplicationRecord
   end
 
   def validate(user)
-    neighbor_type_validation = validate_neighbor_type(user)
-
-    if neighbor_type_validation != true
-      return false, neighbor_type_validation
-    end
 
     age_validation = validate_age(user)
 
@@ -224,6 +219,12 @@ class Segmentation < ApplicationRecord
 
     if geo_validation != true
       return false, geo_validation
+    end
+    
+    neighbor_type_validation = validate_neighbor_type(user)
+
+    if neighbor_type_validation != true
+      return false, neighbor_type_validation
     end
 
     return true, nil
