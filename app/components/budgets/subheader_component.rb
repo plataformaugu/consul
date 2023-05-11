@@ -10,7 +10,7 @@ class Budgets::SubheaderComponent < ApplicationComponent
     can_participate = true
     reason = nil
 
-    if !current_user.administrator? && @budget.segmentation.present?
+    if current_user && !current_user.administrator? && @budget.segmentation.present?
       can_participate, reason = @budget.segmentation.validate(current_user)
     end
 
