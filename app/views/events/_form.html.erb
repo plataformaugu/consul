@@ -24,7 +24,6 @@
       form.datetime_local_field :start_time,
       required: true,
       label: 'Desde',
-      min: (Time.now + 5.minutes).strftime('%Y-%m-%dT%H:%M:00'),
       class: 'custom-input'
     %>
   </div>
@@ -34,7 +33,6 @@
       form.datetime_local_field :end_time,
       required: true,
       label: 'Hasta',
-      min: (Time.now + 15.minutes).strftime('%Y-%m-%dT%H:%M:00'),
       class: 'custom-input'
     %>
   </div>
