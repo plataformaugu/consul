@@ -1,3 +1,5 @@
+<% @can_participate, @reason = can_participate_and_reason %>
+
 <div class="budget-subheader">
   <div class="row">
     <div class="small-12 column">
@@ -11,12 +13,18 @@
           <% if budget.accepting? %>
             <% if current_user %>
               <% if current_user.level_two_or_three_verified? %>
-                <div class="text-right">
-                  <%= link_to 'Sube tu proyecto',
-                    new_budget_investment_path(budget),
-                    class: "presupuestos-solid-button",
-                    style: 'text-decoration: none; color: white;' %>
-                </div>
+                <% if @can_participate %>
+                  <div class="text-right">
+                    <%= link_to 'Sube tu proyecto',
+                      new_budget_investment_path(budget),
+                      class: "presupuestos-solid-button",
+                      style: 'text-decoration: none; color: white;' %>
+                  </div>
+                <% else %>
+                  <div class="callout warning">
+                    <%= sanitize @reason %>
+                  </div>
+                <% end %>
               <% else %>
                 <div class="callout warning">
                   <%= sanitize(t("budgets.investments.index.sidebar.verified_only",

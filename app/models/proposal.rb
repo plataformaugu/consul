@@ -94,6 +94,10 @@ class Proposal < ApplicationRecord
   scope :draft,                    -> { where(published_at: nil) }
   scope :created_by,               ->(author) { where(author: author) }
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def publish
     update!(published_at: Time.current)
     send_new_actions_notification_on_published
@@ -181,32 +185,12 @@ class Proposal < ApplicationRecord
     author_id == user.id && editable?
   end
 
-  def votable_by?(user)
-    if self.is_initiative
-      return self.neighbor_types.include?(user.neighbor_type)
-    else
-      sector_condition = false
-
-      if self.proposals_theme.sectors.any?
-        if self.proposals_theme.sectors.include?(user.sector)
-          sector_condition = true
-        else
-          sector_condition = false
-        end
-      else
-        sector_condition = true
-      end
-
-      return sector_condition && self.proposals_theme.neighbor_types.include?(user.neighbor_type)
-    end
-  end
-
   def retired?
     retired_at.present?
   end
 
   def register_vote(user, vote_value)
-    if votable_by?(user) && !archived?
+    if !archived?
       vote_by(voter: user, vote: vote_value)
     end
   end

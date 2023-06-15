@@ -60,6 +60,19 @@ class ProposalsController < ApplicationController
     if request.path != proposal_path(@proposal)
       redirect_to proposal_path(@proposal), status: :moved_permanently
     end
+
+    @can_participate = true
+    @reason = nil
+
+    if @proposal.is_initiative
+      if current_user && !current_user.administrator? && @proposal.segmentation.present?
+        @can_participate, @reason = @proposal.segmentation.validate(current_user)
+      end
+    else
+      if current_user && !current_user.administrator? && @proposal.proposals_theme.segmentation.present?
+        @can_participate, @reason = @proposal.proposals_theme.segmentation.validate(current_user)
+      end
+    end
   end
 
   def new
@@ -94,25 +107,9 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user, terms_of_service: true))
 
-    if @proposal.is_initiative
-      params['proposal']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @proposal.neighbor_types.append(neighbor_type)
-      end
-    end
-
-    if params['proposal']['sector_ids']
-      params['proposal']['sector_ids'].each do |s|
-        begin
-          sector = Sector.find_by(name: s)
-          @proposal.sectors.append(sector)
-        rescue
-        end
-      end
-    end
-
     if @proposal.save
       if @proposal.is_initiative
+        Segmentation.generate(entity_name: @proposal.class.name, entity_id: @proposal.id, params: params)
         @proposal.publish
       end
 
@@ -129,22 +126,8 @@ class ProposalsController < ApplicationController
 
   def update
     if @proposal.update(proposal_params)
-      @proposal.neighbor_types = []
-
-      if params['proposal']['neighbor_types'].present?
-        params['proposal']['neighbor_types'].each do |id|
-          neighbor_type = NeighborType.find(id)
-          @proposal.neighbor_types.append(neighbor_type)
-        end
-      end
-
-      if params['proposal']['sector_ids'].present?
-        @proposal.sector_ids = []
-
-        params['proposal']['sector_ids'].each do |sector_id|
-          sector = Sector.find_by(name: sector_id)
-          @proposal.sectors.append(sector)
-        end
+      if @proposal.is_initiative
+        Segmentation.generate(entity_name: @proposal.class.name, entity_id: @proposal.id, params: params)
       end
 
       redirect_to @proposal, notice: 'La iniciativa fue actualizada.'

@@ -1,3 +1,5 @@
+<% @can_participate, @reason = can_participate_and_reason %>
+
 <div class="supports js-participation">
 
   <span class="total-supports <%= "no-button" unless voting_allowed? || user_voted_for? %>">
@@ -22,14 +24,20 @@
           <% end %>
         </div>
       <% else %>
-        <%= button_to t("budgets.investments.votes.support"), support_path,
-            class: "button button-support expanded",
-            title: t("budgets.investments.investment.support_title"),
-            method: "post",
-            remote: !display_support_alert?,
-            data:   ({ confirm: confirm_vote_message } if display_support_alert?),
-            disabled: !current_user || investment.budget.user_votes(current_user) >= Budget.max_votes_per_user,
-            "aria-label": support_aria_label %>
+        <% if @can_participate %>
+          <%= button_to t("budgets.investments.votes.support"), support_path,
+              class: "button button-support expanded",
+              title: t("budgets.investments.investment.support_title"),
+              method: "post",
+              remote: !display_support_alert?,
+              data:   ({ confirm: confirm_vote_message } if display_support_alert?),
+              disabled: !current_user || investment.budget.user_votes(current_user) >= Budget.max_votes_per_user,
+              "aria-label": support_aria_label %>
+        <% else %>
+          <div class="callout warning">
+            <%= sanitize @reason %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
 

@@ -80,17 +80,11 @@
 
     <div class="small-12 column">
       <div class="field">
-        <label>Tipos de usuarios</label>
-        <p class="help-text">Selecciona al menos una opción</p>
-        <%= form.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
-          <div>
-          <%= c.check_box(required: true, checked: encuestum.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
-          </div>
-        <% end %>
+        <%= render Segmentation::FormComponent.new(
+          Segmentation.find_by(entity_name: encuestum.class.name, entity_id: encuestum.id)
+        ) %>
       </div>
     </div>
-
-    
 
     <div class="small-12 column">
       <div class="actions mt-2" style="text-align: center;">
@@ -103,19 +97,3 @@
     </div>
   <% end %>
 </div>
-
-<script>
-$('input:checkbox[name="encuestum[neighbor_types][]"]').on('click', function() {
-  var checkedCheckboxes = $('input:checkbox[name="encuestum[neighbor_types][]"]:checked')
-  
-  if (checkedCheckboxes.length > 0) {
-    $('input:checkbox[name="encuestum[neighbor_types][]"]').each(function(_, value) {
-      $(value).prop('required', false)
-    })
-  } else {
-    $('input:checkbox[name="encuestum[neighbor_types][]"]').each(function(_, value) {
-      $(value).prop('required', true)
-    })
-  }
-})
-</script>

@@ -27,6 +27,17 @@ class Budgets::Investments::VotesComponent < ApplicationComponent
     end
   end
 
+  def can_participate_and_reason
+    can_participate = true
+    reason = nil
+
+    if current_user && !current_user.administrator? && investment.budget.segmentation.present?
+      can_participate, reason = investment.budget.segmentation.validate(current_user)
+    end
+
+    return [can_participate, reason]
+  end
+
   private
 
     def reason

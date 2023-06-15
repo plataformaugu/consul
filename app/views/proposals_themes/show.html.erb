@@ -10,25 +10,26 @@
     <h2 class="custom-h">Sube tus propuestas relacionadas a <%= @proposals_theme.title %></h2>
     <p class="text-gray"><%= wysiwyg(@proposals_theme.description) %></p>
     <% if Time.now.to_date <= @proposals_theme.end_date %>
-      <div class="text-center mt-3">
-        <% if (current_user and @proposals_theme.neighbor_types.include?(current_user.neighbor_type)) or (current_user and current_user.administrator?) %>
-        <div>
-          <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
-            <%= t("proposals.index.start_proposal") %>
-          </a>
-        </div>
+    <div class="text-center mt-3">
+      <% if current_user %>
+        <% if @can_participate %>
+          <div>
+            <a href="<%= new_proposal_path(proposals_theme_id: @proposals_theme.id) %>" title="<%= t("proposals.index.start_proposal") %>" data-turbolinks="false" class="create-button">
+              <%= t("proposals.index.start_proposal") %>
+            </a>
+          </div>
         <% end %>
-      </div>
+      <% end %>
+    </div>
 
-      <% if not @proposals_theme.everyone_can_vote? and not @proposals_theme.can_user_vote?(current_user) %>
-        <div style="display: flex; justify-content: center">
-          <div class="custom-icon-message mt-3" style="background-color: #33cc9d;">
-            <div class="c-i-m-left" style="background-color: #33cc9d;">
-              !
-            </div>
-            <div class="c-i-m-right" style="background-color: #33cc9d;">
-              <%= sanitize @proposals_theme.get_restriction_message %>
-            </div>
+    <% if not @can_participate %>
+      <div style="display: flex; justify-content: center">
+        <div class="custom-icon-message mt-3" style="background-color: #33cc9d;">
+          <div class="c-i-m-left" style="background-color: #33cc9d;">
+            !
+          </div>
+          <div class="c-i-m-right" style="background-color: #33cc9d;">
+            <%= sanitize @reason %>
           </div>
         </div>
       <% end %>

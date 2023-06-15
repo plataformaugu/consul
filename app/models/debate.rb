@@ -57,6 +57,10 @@ class Debate < ApplicationRecord
 
   attr_accessor :link_required
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def self.recommendations(user)
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
   end

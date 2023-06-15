@@ -6,17 +6,6 @@ class Admin::BudgetsWizard::HeadingsController < Admin::BudgetsWizard::BaseContr
   def create
     @budget_heading = @group.headings.first_or_initialize(heading_params)
 
-    if params['budget_heading']['sector_ids']
-      params['budget_heading']['sector_ids'].each do |s|
-          sector = Sector.find_by(name: s)
-          @budget_heading.sectors.append(sector)
-      end
-    else
-      Sector.all.each do |s|
-        @budget_heading.sectors.append(s)
-      end
-    end
-
     if @budget_heading.save
       redirect_to admin_budgets_wizard_budget_budget_phases_path(@budget, url_params)
     else
@@ -51,7 +40,7 @@ class Admin::BudgetsWizard::HeadingsController < Admin::BudgetsWizard::BaseContr
     end
 
     def allowed_params
-      valid_attributes = [:price, :sector_ids]
+      valid_attributes = [:price]
       valid_attributes + [translation_params(Budget::Heading)]
     end
 

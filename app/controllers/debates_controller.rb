@@ -38,6 +38,13 @@ class DebatesController < ApplicationController
     else
       redirect_to debate_path(@debate), status: :moved_permanently if request.path != debate_path(@debate)
     end
+
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @debate.segmentation.present?
+      @can_participate, @reason = @debate.segmentation.validate(current_user)
+    end
   end
 
   def create
@@ -46,29 +53,11 @@ class DebatesController < ApplicationController
 
     if current_user.administrator? or current_user.moderator?
       @debate.published_at = Time.now
-
-      if params['debate']['sector_ids']
-        params['debate']['sector_ids'].each do |s|
-          begin
-            sector = Sector.find_by(name: s)
-            @debate.sectors.append(sector)
-          rescue
-          end
-        end
-      end
-
-      params['debate']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @debate.neighbor_types.append(neighbor_type)
-      end
-    else
-      Sector.all.each do |s|
-        @debate.sectors.append(s)
-      end
     end
 
     if @debate.save
       if current_user.administrator?
+        Segmentation.generate(entity_name: @debate.class.name, entity_id: @debate.id, params: params)
         redirect_to @debate
       else
         redirect_to share_debate_path(@debate.id)
@@ -83,24 +72,8 @@ class DebatesController < ApplicationController
       @debate = Debate.find(params[:id])
 
       if @debate.update(debate_params)
-        if params['debate']['neighbor_types'].present?
-          @debate.neighbor_types = []
-
-          params['debate']['neighbor_types'].each do |id|
-            neighbor_type = NeighborType.find(id)
-            @debate.neighbor_types.append(neighbor_type)
-          end
-        end
-
-        if params['debate']['sector_ids'].present?
-          @debate.sector_ids = []
-  
-          params['debate']['sector_ids'].each do |sector_id|
-            sector = Sector.find_by(name: sector_id)
-            @debate.sectors.append(sector)
-          end
-        else
-          @debate.sectors.delete_all()
+        if current_user.administrator?
+          Segmentation.generate(entity_name: @debate.class.name, entity_id: @debate.id, params: params)
         end
 
         redirect_to @debate, notice: 'El debate fue actualizado.'

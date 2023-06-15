@@ -6,6 +6,10 @@ class ProposalsTheme < ApplicationRecord
   has_many :neighbor_types, through: :proposals_theme_neighbor_types
   has_many :proposals
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def everyone_can_vote?
     if Set.new(['Vecino Residente Las Condes', 'Vecino Flotante Las Condes', 'Registrado sin Tarjeta Vecino']) == Set.new(self.neighbor_types.pluck(:name))
       return true

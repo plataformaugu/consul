@@ -22,19 +22,15 @@ class EncuestaController < ApplicationController
       end
     end
 
-    @can_vote = false
-    @reason = 'Debes ingresar con tu cuenta para participar en esta encuesta.'
+    @can_participate = true
+    @reason = nil
 
     if current_user
-      @code = @encuestum.code.gsub(/(?<=rut\=)(\w*)(?=\")/, current_user.document_number.insert(-2, '-'))
-
-      if current_user.administrator?
-        @can_vote = true
-      elsif !@encuestum.neighbor_types.include?(current_user.neighbor_type)
-        @reason = "Este proceso está habilitado solo para: #{@encuestum.neighbor_types.pluck(:name).join(', ')}."
-      else
-        @can_vote = true
+      if !current_user.administrator? && @encuestum.segmentation.present?
+        @can_participate, @reason = @encuestum.segmentation.validate(current_user)
       end
+
+      @code = @encuestum.code.gsub(/(?<=rut\=)(\w*)(?=\")/, current_user.document_number.insert(-2, '-'))
     end
   end
 
@@ -51,12 +47,8 @@ class EncuestaController < ApplicationController
   def create
     @encuestum = Encuestum.new(encuestum_params)
 
-    params['encuestum']['neighbor_types'].each do |id|
-      neighbor_type = NeighborType.find(id)
-      @encuestum.neighbor_types.append(neighbor_type)
-    end
-
     if @encuestum.save
+      Segmentation.generate(entity_name: @encuestum.class.name, entity_id: @encuestum.id, params: params)
       redirect_to @encuestum, notice: 'La encuesta fue creada.'
     else
       render :new
@@ -66,13 +58,7 @@ class EncuestaController < ApplicationController
   # PATCH/PUT /encuesta/1
   def update
     if @encuestum.update(encuestum_params)
-      @encuestum.neighbor_types = []
-
-      params['encuestum']['neighbor_types'].each do |id|
-        neighbor_type = NeighborType.find(id)
-        @encuestum.neighbor_types.append(neighbor_type)
-      end
-
+      Segmentation.generate(entity_name: @encuestum.class.name, entity_id: @encuestum.id, params: params)
       redirect_to @encuestum, notice: 'La encuesta fue actualizada.'
     else
       render :edit

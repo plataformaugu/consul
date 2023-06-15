@@ -16,6 +16,7 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
     @budget.published = false
 
     if @budget.save
+      Segmentation.generate(entity_name: @budget.class.name, entity_id: @budget.id, params: params)
       redirect_to groups_index, notice: t("admin.budgets.create.notice")
     else
       render :new
@@ -24,6 +25,7 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
 
   def update
     if @budget.update(budget_params)
+      Segmentation.generate(entity_name: @budget.class.name, entity_id: @budget.id, params: params)
       redirect_to groups_index, notice: t("admin.budgets.update.notice")
     else
       render :edit

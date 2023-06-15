@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_23_120841) do
+ActiveRecord::Schema.define(version: 2023_04_11_225650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -88,6 +88,23 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.integer "user_id"
     t.string "description"
     t.index ["user_id"], name: "index_administrators_on_user_id"
+  end
+
+  create_table "age_range_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["segmentation_id"], name: "index_age_range_segmentations_on_segmentation_id"
+  end
+
+  create_table "age_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["segmentation_id"], name: "index_age_segmentations_on_segmentation_id"
   end
 
   create_table "ahoy_events", id: :uuid, default: nil, force: :cascade do |t|
@@ -748,6 +765,14 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.index ["main_theme_id"], name: "index_functional_organizations_on_main_theme_id"
   end
 
+  create_table "gender_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.string "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["segmentation_id"], name: "index_gender_segmentations_on_segmentation_id"
+  end
+
   create_table "geozones", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "html_map_coordinates"
@@ -1048,6 +1073,22 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.index ["user_id"], name: "index_machine_learning_jobs_on_user_id"
   end
 
+  create_table "macro_territories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "macro_territories_sectors", id: false, force: :cascade do |t|
+    t.bigint "sector_id", null: false
+    t.bigint "macro_territory_id", null: false
+  end
+
+  create_table "macro_territories_segmentations", id: false, force: :cascade do |t|
+    t.bigint "segmentation_id", null: false
+    t.bigint "macro_territory_id", null: false
+  end
+
   create_table "main_themes", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -1120,6 +1161,11 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
 
   create_table "neighbor_types", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "neighbor_types_segmentations", id: false, force: :cascade do |t|
+    t.bigint "segmentation_id", null: false
+    t.bigint "neighbor_type_id", null: false
   end
 
   create_table "neighborhood_council_events", force: :cascade do |t|
@@ -1477,6 +1523,14 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.index ["starts_at", "ends_at"], name: "index_polls_on_starts_at_and_ends_at"
   end
 
+  create_table "polygon_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.text "coordinates", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["segmentation_id"], name: "index_polygon_segmentations_on_segmentation_id"
+  end
+
   create_table "popups", force: :cascade do |t|
     t.string "image"
     t.string "url"
@@ -1616,6 +1670,17 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.index ["sector_id"], name: "index_proposals_themes_on_sector_id"
   end
 
+  create_table "radius_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.decimal "lat", precision: 15, scale: 13
+    t.decimal "long", precision: 15, scale: 13
+    t.integer "meters"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "coordinates", default: [], array: true
+    t.index ["segmentation_id"], name: "index_radius_segmentations_on_segmentation_id"
+  end
+
   create_table "related_content_scores", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "related_content_id"
@@ -1739,6 +1804,21 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
 
   create_table "sectors", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "sectors_segmentations", id: false, force: :cascade do |t|
+    t.bigint "segmentation_id", null: false
+    t.bigint "sector_id", null: false
+  end
+
+  create_table "segmentations", force: :cascade do |t|
+    t.string "entity_name"
+    t.integer "entity_id"
+    t.string "age_type"
+    t.string "geo_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entity_name", "entity_id"], name: "index_segmentations_on_entity_name_and_entity_id", unique: true
   end
 
   create_table "settings", id: :serial, force: :cascade do |t|
@@ -1950,6 +2030,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
     t.string "web_browser"
     t.string "tarjeta_vecino_code"
     t.date "tarjeta_vecino_start_date"
+    t.date "tarjeta_vecino_updated_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -2075,6 +2156,8 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "administrators", "users"
+  add_foreign_key "age_range_segmentations", "segmentations"
+  add_foreign_key "age_segmentations", "segmentations"
   add_foreign_key "budget_administrators", "administrators"
   add_foreign_key "budget_administrators", "budgets"
   add_foreign_key "budget_heading_sectors", "budget_headings"
@@ -2100,6 +2183,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
   add_foreign_key "flags", "users"
   add_foreign_key "follows", "users"
   add_foreign_key "functional_organizations", "main_themes"
+  add_foreign_key "gender_segmentations", "segmentations"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"
@@ -2138,6 +2222,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
   add_foreign_key "poll_sectors", "sectors"
   add_foreign_key "poll_voters", "polls"
   add_foreign_key "polls", "budgets"
+  add_foreign_key "polygon_segmentations", "segmentations"
   add_foreign_key "proposal_neighbor_types", "neighbor_types"
   add_foreign_key "proposal_neighbor_types", "proposals"
   add_foreign_key "proposal_sectors", "proposals"
@@ -2147,6 +2232,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_120841) do
   add_foreign_key "proposals_theme_neighbor_types", "proposals_themes"
   add_foreign_key "proposals_theme_sectors", "proposals_themes"
   add_foreign_key "proposals_theme_sectors", "sectors"
+  add_foreign_key "radius_segmentations", "segmentations"
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"

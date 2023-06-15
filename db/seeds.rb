@@ -8,9 +8,44 @@ load Rails.root.join("db", "pages.rb")
 load Rails.root.join("db", "sdg.rb")
 
 
+(1..6).each do |n|
+    MacroTerritory.create(name: "MT-0#{n}")
+end
+
 (1..25).each do |n|
     Sector.create(name: "C#{n}")
 end
+
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C1')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C2')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C10')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C18')
+
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C20')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C24')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C25')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C21')
+
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C3')
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C4')
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C5')
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C6')
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C7')
+MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C8')
+
+MacroTerritory.find_by(name: 'MT-04').sectors << Sector.find_by(name: 'C13')
+MacroTerritory.find_by(name: 'MT-04').sectors << Sector.find_by(name: 'C14')
+MacroTerritory.find_by(name: 'MT-04').sectors << Sector.find_by(name: 'C15')
+MacroTerritory.find_by(name: 'MT-04').sectors << Sector.find_by(name: 'C16')
+
+MacroTerritory.find_by(name: 'MT-05').sectors << Sector.find_by(name: 'C11')
+MacroTerritory.find_by(name: 'MT-05').sectors << Sector.find_by(name: 'C12')
+MacroTerritory.find_by(name: 'MT-05').sectors << Sector.find_by(name: 'C17')
+MacroTerritory.find_by(name: 'MT-05').sectors << Sector.find_by(name: 'C19')
+
+MacroTerritory.find_by(name: 'MT-06').sectors << Sector.find_by(name: 'C9')
+MacroTerritory.find_by(name: 'MT-06').sectors << Sector.find_by(name: 'C22')
+MacroTerritory.find_by(name: 'MT-06').sectors << Sector.find_by(name: 'C23')
 
 NeighborType.create(name: 'Vecino Residente Las Condes')
 NeighborType.create(name: 'Vecino Flotante Las Condes')

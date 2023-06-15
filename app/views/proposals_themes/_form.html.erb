@@ -29,129 +29,15 @@
     <%= form.date_field :end_date, required: true, class: 'custom-input', label: 'Fecha de término', min: Time.now + 1.days %>
   </div>
 
-  <div class="field" style="display: none;" id="map-field">
-    <div id="leaflet-container">
-      <div style="display: none;">
-        <%= form.collection_check_boxes :sector_ids, Sector.all, :name, :name, include_hidden: false, id: 'sector_ids' %>
-      </div>
-      <%= label_tag 'leaflet', "Unidades vecinales" %>
-      <p id="tag-list-help-text">
-        Sectores seleccionados: <strong style="color: #33cc9d;"><span id="selected-sectors">Todos</span></strong>
-      </p>
-      <div id="leaflet"></div>
+  <div class="small-12 column">
+    <div class="field">
+      <%= render Segmentation::FormComponent.new(
+        Segmentation.find_by(entity_name: proposals_theme.class.name, entity_id: proposals_theme.id)
+      ) %>
     </div>
-  </div>
-
-  <div class="field mt-1">
-    <label>Tipos de usuarios</label>
-    <p class="help-text">Selecciona al menos una opción</p>
-    <%= form.collection_check_boxes :neighbor_types, NeighborType.all, :id, :name, include_hidden: false, id: 'neighbor_types' do |c| %>
-      <div>
-      <%= c.check_box(required: true, checked: proposals_theme.neighbor_types.pluck(:id).include?(c.value)) %> <%= c.label(style: 'font-weight: normal;') %>
-      </div>
-    <% end %>
   </div>
 
   <div class="actions text-center mt-2">
     <%= form.submit button_name, class: 'solid-button' %>
   </div>
 <% end %>
-
-<script>
-var map
-
-function showMap() {
-  map = new L.Map('leaflet')
-  $.getJSON('/UV_KML.geojson', function(lasCondesSectors) {
-    var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      boundary: lasCondesSectors,
-    });
-    map.addLayer(osm)
-
-    // Variables for map
-    var selectedFeatures = []
-    var defaultStyle = {
-        color: 'gray',
-        fillOpacity: 0,
-        weight: 2,
-    }
-
-    // Actions
-    function colorlayer(feature, layer) {
-      layer.setStyle(defaultStyle)
-
-      layer.on('click', function(e) {
-        var name = feature.properties.name.replaceAll('-', '')
-
-        if (selectedFeatures.includes(name)) {
-          layer.setStyle(defaultStyle)
-          selectedFeatures = selectedFeatures.filter(sf => sf !== name)
-        } else {
-          selectedFeatures.push(name)
-          layer.setStyle({
-            color: "#00008c",
-            opacity: 0.6,
-            fillOpacity: 0.5
-          })
-        }
-
-        Array.from(Array(25).keys()).forEach(function(n) {
-          $('#proposals_theme_sector_ids_c' + (n + 1)).prop('checked', false)
-        })
-
-        selectedFeatures.forEach(function(sf) {
-          $('#proposals_theme_sector_ids_' + sf.toLowerCase()).prop('checked', true)
-        })
-        $('#selected-sectors').text(selectedFeatures.length ? selectedFeatures.join(', ') : 'Todos')
-      })
-    }
-
-    // Bounds
-    var gjLayer = L.geoJSON(lasCondesSectors);
-    map.fitBounds(gjLayer.getBounds());
-
-    // Load features
-    L.geoJSON(lasCondesSectors, {
-        onEachFeature: colorlayer
-    }).addTo(map)
-
-    // Map config
-    map.dragging.disable()
-    map.touchZoom.disable();
-    map.doubleClickZoom.disable();
-    map.scrollWheelZoom.disable();
-    map.boxZoom.disable();
-    map.keyboard.disable();
-  })
-}
-
-$('input:checkbox[name="proposals_theme[neighbor_types][]"]').on('click', function() {
-  var checkedCheckboxes = $('input:checkbox[name="proposals_theme[neighbor_types][]"]:checked')
-  var selectedValues = []
-
-  checkedCheckboxes.each(function(index) {
-    selectedValues.push(this.value)
-  })
-
-  if (selectedValues.length === 1 && selectedValues[0] === '1') {
-    showMap();
-    $('#map-field').show()
-  } else {
-    $('#map-field').hide()
-    if (map) {
-      map.remove();
-      map = undefined;
-    }
-  }
-
-  if (checkedCheckboxes.length > 0) {
-    $('input:checkbox[name="proposals_theme[neighbor_types][]"]').each(function(_, value) {
-      $(value).prop('required', false)
-    })
-  } else {
-    $('input:checkbox[name="proposals_theme[neighbor_types][]"]').each(function(_, value) {
-      $(value).prop('required', true)
-    })
-  }
-})
-</script>
