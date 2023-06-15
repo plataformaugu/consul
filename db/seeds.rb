@@ -16,15 +16,15 @@ end
     Sector.create(name: "C#{n}")
 end
 
-MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C20')
-MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C24')
-MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C25')
-MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C21')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C1')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C2')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C10')
+MacroTerritory.find_by(name: 'MT-01').sectors << Sector.find_by(name: 'C18')
 
-MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C1')
-MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C2')
-MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C10')
-MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C18')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C20')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C24')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C25')
+MacroTerritory.find_by(name: 'MT-02').sectors << Sector.find_by(name: 'C21')
 
 MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C3')
 MacroTerritory.find_by(name: 'MT-03').sectors << Sector.find_by(name: 'C4')
