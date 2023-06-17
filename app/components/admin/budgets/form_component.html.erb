@@ -34,6 +34,12 @@
       </div>
     </div>
 
+   <div class="row expanded" style="margin-top: 1rem; margin-bottom: 1rem;">
+      <div class="small-12 column">
+        <%= f.check_box :cu_verified_only, label: 'Sólo usuarios verificados por Clave Única' %>
+      </div>
+    </div>
+
     <div class="row expanded">
       <div class="small-12 medium-4 column">
         <%= f.hidden_field :voting_style, value: 'knapsack' %>

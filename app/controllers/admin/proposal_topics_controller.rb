@@ -59,7 +59,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
     end
 
     def proposal_topic_params
-      params.require(:proposal_topic).permit(:title, :description, :image, :start_date, :end_date, { commune_ids: [] })
+      params.require(:proposal_topic).permit(:title, :description, :image, :start_date, :end_date, :cu_verified_only, { commune_ids: [] })
     end
 
     def resize_image(temp_path)

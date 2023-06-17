@@ -21,6 +21,10 @@
       <%= render Custom::CommunesSelectComponent.new(@proposal_topic, form, false) %>
     </div>
 
+    <div class="field" style="margin-top: 1rem; margin-bottom: 1rem;">
+      <%= form.check_box :cu_verified_only, label: 'Sólo usuarios verificados por Clave Única' %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@proposal_topic, form, true) %>
 
     <div class="actions">

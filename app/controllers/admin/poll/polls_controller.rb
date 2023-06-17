@@ -67,7 +67,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     end
 
     def allowed_params
-      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list, { commune_ids: [] },
+      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list, :cu_verified_only, { commune_ids: [] },
                     geozone_ids: [], image_attributes: image_attributes]
 
       [*attributes, *report_attributes, translation_params(Poll)]
