@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'clave-unica/get', to: 'account#clave_unica_authentication'
+
   # More info pages
   get "help",             to: "pages#show", id: "help/index",             as: "help"
   get "help/how-to-use",  to: "pages#show", id: "help/how_to_use/index",  as: "how_to_use"

@@ -1,4 +1,19 @@
 <div class="account-form">
+  <% if not current_user.is_cu_confirmed? %>
+    <div class="row text-center" style="margin-bottom: 3rem;">
+      <p>
+        <strong>¡Verifica tu cuenta con Clave Única para acceder a más procesos participativos!</strong>
+      </p>
+      
+      <div class="flex-row flex-jc-center">
+        <a class="btn-cu btn-m btn-color-estandar" href="<%= current_user.clave_unica_authentication_url %>" title="Iniciar sesión en ClaveÚnica">
+          <span class="cl-claveunica"></span>
+          <span class="texto">Iniciar sesión</span>
+        </a>
+      </div>
+    </div>
+  <% end %>
+
   <%= form_for @account, as: :account, url: account_path do |f| %>
     <%= render "shared/errors", resource: @account %>
 

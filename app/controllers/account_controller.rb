@@ -40,6 +40,30 @@ class AccountController < ApplicationController
     end
   end
 
+  def clave_unica_authentication
+    user_token = params[:state]
+    is_valid = current_user.is_token_valid?(user_token)
+    clave_unica = ClaveUnica.new
+
+    if not is_valid
+      redirect_to account_path, alert: "Ocurrió un problema al verificar tus datos. Inténtalo más tarde o contacta con nosotros."
+      return
+    else
+      code = params[:code]
+      access_token = clave_unica.get_access_token(current_user, code)
+
+      if access_token.nil?
+        redirect_to account_path, alert: "Ocurrió un problema al verificar tus datos. Inténtalo más tarde o contacta con nosotros."
+        return
+      end
+
+      user_information = clave_unica.get_user_information(access_token)
+      current_user.cu_confirmed_at = Time.now
+      current_user.save!
+      redirect_to account_path, notice: "¡Tu cuenta ha sido verificada!"
+    end
+  end
+
   private
 
     def set_account

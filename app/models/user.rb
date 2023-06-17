@@ -430,6 +430,38 @@ class User < ApplicationRecord
     administrator? || moderator?
   end
 
+  def clave_unica_authentication_url
+    authentication_url = ClaveUnica.new.get_authentication_url(self)
+
+    return authentication_url
+  end
+
+  def generate_token
+    secret_key_base = Rails.application.secrets.secret_key_base[..31]
+    crypt = ActiveSupport::MessageEncryptor.new(secret_key_base)
+    encrypted_token = crypt.encrypt_and_sign(self.document_number)
+
+    return encrypted_token
+  end
+
+  def is_token_valid?(token)
+    secret_key_base = Rails.application.secrets.secret_key_base[..31]
+    crypt = ActiveSupport::MessageEncryptor.new(secret_key_base)
+
+    begin
+      decrypted_token = crypt.decrypt_and_verify(token)
+      is_valid = self.document_number == decrypted_token
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      is_valid = false
+    end
+
+    return is_valid
+  end
+
+  def is_cu_confirmed?
+    return self.cu_confirmed_at.present?
+  end
+
   private
 
     def clean_document_number

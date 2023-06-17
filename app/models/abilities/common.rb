@@ -5,7 +5,7 @@ module Abilities
     def initialize(user)
       merge Abilities::Everyone.new(user)
 
-      can [:read, :update], User, id: user.id
+      can [:read, :update, :clave_unica_authentication], User, id: user.id
 
       # can [:join, :left], Event do |event|
       #   !event.is_expired?

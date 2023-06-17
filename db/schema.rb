@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_20_235107) do
+ActiveRecord::Schema.define(version: 2023_06_17_010023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -401,6 +401,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_235107) do
     t.boolean "hide_money", default: false
     t.text "custom_description"
     t.string "pdf_link"
+    t.boolean "cu_verified_only", default: false, null: false
   end
 
   create_table "budgets_communes", id: false, force: :cascade do |t|
@@ -1289,6 +1290,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_235107) do
     t.string "related_type"
     t.integer "related_id"
     t.tsvector "tsv"
+    t.boolean "cu_verified_only", default: false, null: false
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
@@ -1337,6 +1339,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_235107) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "cu_verified_only", default: false, null: false
   end
 
   create_table "proposal_translations", id: :serial, force: :cascade do |t|
@@ -1719,6 +1722,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_235107) do
     t.string "maiden_name"
     t.bigint "commune_id"
     t.string "social_organization"
+    t.datetime "cu_confirmed_at"
     t.index ["commune_id"], name: "index_users_on_commune_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"

@@ -28,7 +28,7 @@
       <% if current_user %>
         <% if !investment.budget.can_participate?(current_user) %>
           <div class="callout warning">
-            No puedes participar.
+            No puedes participar. <%= investment.budget.cant_participate_reason(current_user) %>
           </div>
         <% elsif investment.budget.balloting? %>
           <div id="<%= dom_id(investment) %>_ballot">
