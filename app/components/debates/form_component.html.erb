@@ -29,6 +29,12 @@
 
   <%= render Custom::CommunesSelectComponent.new(debate, f, false) %>
 
+  <% if current_user.administrator? %>
+    <div class="field" style="margin-top: 1rem; margin-bottom: 1rem;">
+      <%= f.check_box :cu_verified_only, label: 'Sólo usuarios verificados por Clave Única' %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit(class: "button", value: t("debates.#{action_name}.form.submit_button")) %>
   </div>

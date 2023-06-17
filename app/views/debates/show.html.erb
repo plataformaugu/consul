@@ -89,7 +89,7 @@
               <div class="callout warning">
                 Debate finalizado.
               </div>
-            <% elsif !can_participate(current_user, @debate).nil? %>
+            <% elsif !@debate.can_participate?(current_user) %>
               <div class="callout warning">
                 No puedes participar. <%= @debate.cant_participate_reason(current_user) %>
               </div>

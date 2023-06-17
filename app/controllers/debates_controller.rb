@@ -89,7 +89,7 @@ class DebatesController < ApplicationController
     end
 
     def allowed_params
-      [:tag_list, :related_sdg_list, :image, :question, { commune_ids: [] }, translation_params(Debate)]
+      [:tag_list, :related_sdg_list, :image, :question, :cu_verified_only, { commune_ids: [] }, translation_params(Debate)]
     end
 
     def resource_model

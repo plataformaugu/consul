@@ -77,12 +77,24 @@ class Debate < ApplicationRecord
   end
 
   def can_participate?(user)
-    user and (self.all_communes? or self.communes.include?(user.commune))
+    can_participate = false
+
+    if user
+      can_participate = (self.all_communes? || self.communes.include?(user.commune)) && (!self.cu_verified_only || (self.cu_verified_only && user.is_cu_confirmed?))
+    end
+
+    return can_participate
   end
 
   def cant_participate_reason(user)
-    if user and !(self.all_communes? or self.communes.include?(user.commune))
-      return "Este proceso está solo habilitado para las comunas: #{self.communes.pluck(:name).join(", ")}"
+    if user
+      if self.cu_verified_only && !user.is_cu_confirmed?
+        return 'Este proceso está habilitado solo para usuarios verificados por Clave Única. Ingresa a "Mi Cuenta" para verificar tu cuenta.'
+      end
+
+      if !(self.all_communes? || self.communes.include?(user.commune))
+        return "Este proceso está solo habilitado para las comunas: #{self.communes.pluck(:name).join(", ")}"
+      end
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_17_010023) do
+ActiveRecord::Schema.define(version: 2023_06_17_022734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -577,6 +577,7 @@ ActiveRecord::Schema.define(version: 2023_06_17_010023) do
     t.string "image"
     t.boolean "is_finished", default: false
     t.string "question"
+    t.boolean "cu_verified_only", default: false, null: false
     t.index ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_debates_on_author_id"
     t.index ["cached_votes_down"], name: "index_debates_on_cached_votes_down"
