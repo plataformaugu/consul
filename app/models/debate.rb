@@ -89,7 +89,7 @@ class Debate < ApplicationRecord
   def cant_participate_reason(user)
     if user
       if self.cu_verified_only && !user.is_cu_confirmed?
-        return 'Este proceso está habilitado solo para usuarios verificados por Clave Única. Ingresa a "Mi Cuenta" para verificar tu cuenta.'
+        return 'Este proceso está habilitado solo para usuarios verificados por Clave Única. Ingresa a <a href="/account">"Mi Cuenta"</a> para verificar tu cuenta.'
       end
 
       if !(self.all_communes? || self.communes.include?(user.commune))

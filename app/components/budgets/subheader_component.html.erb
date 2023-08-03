@@ -8,7 +8,7 @@
       <% if current_user %>
         <% if !budget.can_participate?(current_user) %>
           <div class="callout warning">
-            No puedes participar. <%= budget.cant_participate_reason(current_user) %>
+            No puedes participar. <%== budget.cant_participate_reason(current_user) %>
           </div>
         <% elsif current_user.level_two_or_three_verified? %>
           <div class="text-right">

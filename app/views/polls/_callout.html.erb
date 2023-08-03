@@ -12,7 +12,7 @@
     </div>
   <% else %>
     <div class="callout warning">
-      No puedes participar. <%= @poll.cant_participate_reason(current_user) %>
+      No puedes participar. <%== @poll.cant_participate_reason(current_user) %>
     </div>
   <% end %>
 <% end %>

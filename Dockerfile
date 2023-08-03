@@ -43,7 +43,10 @@ WORKDIR $RAILS_ROOT
 # Use the Gemfiles as Docker cache markers. Always bundle before copying app src.
 # (the src likely changed and we don't want to invalidate Docker's cache too early)
 COPY Gemfile* ./
-RUN bundle install
+
+RUN gem install nokogiri --platform=ruby && \
+    bundle config set force_ruby_platform true && \
+    bundle install
 
 # Copy the Rails application into place
 COPY . .
