@@ -51,7 +51,7 @@
           <h1 style="font-size: 2em;">¡Participa acá!</h1>
         </div>
         <div class="info-card-body" style="padding: 0;">
-          <% if @encuestum.limit_date < Time.now %>
+          <% if !@encuestum.is_active? %>
             <div class="text-center" style="display: flex; flex-direction: column; padding: 65px;">
               <h4>Encuesta finalizada</h4>
             </div>
