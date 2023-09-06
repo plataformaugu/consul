@@ -1,4 +1,4 @@
-FROM ruby:2.7.4-buster
+FROM ruby:2.7.5-buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -35,7 +35,7 @@ COPY Gemfile.lock Gemfile.lock
 COPY Gemfile_custom Gemfile_custom
 
 # Finish establishing our Ruby environment
-RUN bundle install --full-index
+RUN bundle install
 
 # Install Chromium for E2E integration tests
 RUN apt-get update -qq && apt-get install -y chromium
