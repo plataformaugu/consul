@@ -97,6 +97,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
             resource,
             sector_data['id']
           )
+          resource.id_direccion = sector_data['id'].to_i
         end
       end
     end

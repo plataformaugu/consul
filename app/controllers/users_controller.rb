@@ -91,15 +91,17 @@ class UsersController < ApplicationController
               current_user,
               sector_data['id']
             )
+            current_user.id_direccion = sector_data['id'].to_i
           end
         else
           sector_data = get_sector_data(user_params['address'])
 
           if !sector_data.nil?
             send_user_data_to_neighborhood_directory(
-                current_user,
-                sector_data['id']
-              )
+              current_user,
+              sector_data['id']
+            )
+            current_user.id_direccion = sector_data['id'].to_i
           end
         end
 
