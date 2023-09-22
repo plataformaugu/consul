@@ -31,7 +31,8 @@ module LasCondesAPI
         "sexo": user.gender.upcase, 
         "estado_civil": civil_status, 
         "fc_nacimiento": user.date_of_birth.strftime('%Y-%m-%d'), 
-        "id_direccion": address_id
+        "id_direccion": address_id,
+        "nm_direccion": user.address
       }
 
       request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
