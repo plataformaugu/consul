@@ -1,7 +1,10 @@
 load "#{Rails.root}/lib/tarjeta_vecino_service.rb"
+load "#{Rails.root}/lib/las_condes_api.rb"
 
 class UsersController < ApplicationController
   include TarjetaVecino
+  include LasCondesAPI
+
   load_and_authorize_resource
   helper_method :valid_interests_access?
 
@@ -74,14 +77,32 @@ class UsersController < ApplicationController
         current_user.save
       end
 
-      if !params['alt-street'].empty? and user_params['comuna'] == 'Las Condes'
-        current_user.address = "#{params['alt-street']} #{params['alt-number']}"
-        sector_data = get_sector_data("#{params['alt-street']} #{params['alt-number']}")
-  
-        if !sector_data.nil?
-          current_user.sector = Sector.where(name: "C#{sector_data['sector']}").first
-          current_user.lat = sector_data['lat'].gsub(',', '.').to_f
-          current_user.long = sector_data['long'].gsub(',', '.').to_f
+      if user_params['comuna'] == 'Las Condes'
+        if !params['alt-street'].empty?
+          current_user.address = "#{params['alt-street']} #{params['alt-number']}"
+          sector_data = get_sector_data("#{params['alt-street']} #{params['alt-number']}")
+
+          if !sector_data.nil?
+            current_user.sector = Sector.where(name: "C#{sector_data['sector']}").first
+            current_user.lat = sector_data['lat'].gsub(',', '.').to_f
+            current_user.long = sector_data['long'].gsub(',', '.').to_f
+
+            send_user_data_to_neighborhood_directory(
+              current_user,
+              sector_data['id']
+            )
+            current_user.id_direccion = sector_data['id'].to_i
+          end
+        else
+          sector_data = get_sector_data(user_params['address'])
+
+          if !sector_data.nil?
+            send_user_data_to_neighborhood_directory(
+              current_user,
+              sector_data['id']
+            )
+            current_user.id_direccion = sector_data['id'].to_i
+          end
         end
 
         current_user.save
@@ -113,7 +134,8 @@ class UsersController < ApplicationController
           return {
             "sector" => sector_data['cod_unidadvecinal'],
             "lat" => sector_data['str_latitud'],
-            "long" => sector_data['str_longitud']
+            "long" => sector_data['str_longitud'],
+            "id" => sector_data['id']
           }
         end
       else

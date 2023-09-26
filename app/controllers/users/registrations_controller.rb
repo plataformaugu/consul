@@ -1,7 +1,10 @@
 require "#{Rails.root}/lib/tarjeta_vecino_service"
+require "#{Rails.root}/lib/las_condes_api"
 
 class Users::RegistrationsController < Devise::RegistrationsController
   include TarjetaVecino
+  include LasCondesAPI
+
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy, :finish_signup, :do_finish_signup]
   before_action :configure_permitted_parameters
 
@@ -88,6 +91,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         resource.sector = Sector.where(name: "C#{sector_data['sector']}").first
         resource.lat = sector_data['lat'].gsub(',', '.').to_f
         resource.long = sector_data['long'].gsub(',', '.').to_f
+
+        if resource.comuna == 'Las Condes'
+          send_user_data_to_neighborhood_directory(
+            resource,
+            sector_data['id']
+          )
+          resource.id_direccion = sector_data['id'].to_i
+        end
       end
     end
 
@@ -161,7 +172,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
           return {
             "sector" => sector_data['cod_unidadvecinal'],
             "lat" => sector_data['str_latitud'],
-            "long" => sector_data['str_longitud']
+            "long" => sector_data['str_longitud'],
+            "id" => sector_data['id']
           }
         end
       else
