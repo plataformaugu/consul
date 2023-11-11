@@ -1,13 +1,7 @@
 <div class="card-component">
-  <header>
-    <h4 class="text-center">
-      <%= link_to @title, @instance %>
-    </h4>
-  </header>
-  <section>
-    <div class="image-container">
-      <%= image_tag @image %>
-    </div>
+
+  <div class="image-container">
+    <%= image_tag @image %>
 
     <% if @alert.present? %>
       <div class="alert-container">
@@ -16,8 +10,22 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <section>
+
+    <header>
+      <h4 class="text-center">
+        <%= link_to @title, @instance %>
+      </h4>
+    </header>
+
+    <footer class="margin-bottom">
+      <% if @extra_info.present? %>
+        <p><%= @extra_info %></p>
+      <% end %>
+
+      <%= @description.truncate_words(20) %>
+    </footer>
   </section>
-  <footer class="margin-top margin-bottom">
-    <%= @description.truncate_words(20) %>
-  </footer>
 </div>

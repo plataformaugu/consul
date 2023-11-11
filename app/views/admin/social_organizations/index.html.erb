@@ -4,7 +4,6 @@
   link_to 'Descargar como CSV',
   @social_organizations.any? ? generate_csv_admin_social_organizations_path : nil,
   class: "button hollow float-right",
-  remote: true,
   disabled: !@social_organizations.any?
 %>
 

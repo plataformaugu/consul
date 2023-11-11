@@ -1,0 +1,39 @@
+// Bootstrap Like
+@for $i from 1 through 5 {
+  $size: 1rem * $i;
+  .mb-#{$i} {
+      margin-bottom: $size !important;
+  }
+
+  .mt-#{$i} {
+      margin-top: $size !important;
+  }
+
+  .mx-#{$i} {
+      margin-left: $size !important;
+      margin-right: $size !important;
+  }
+
+  .my-#{$i} {
+      margin-top: $size !important;
+      margin-bottom: $size !important;
+  }
+
+  .pb-#{$i} {
+      padding-bottom: $size !important;
+  }
+
+  .pt-#{$i} {
+      padding-top: $size !important;
+  }
+
+  .px-#{$i} {
+      padding-left: $size !important;
+      padding-right: $size !important;
+  }
+
+  .py-#{$i} {
+      padding-top: $size !important;
+      padding-bottom: $size !important;
+  }
+}

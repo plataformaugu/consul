@@ -40,11 +40,6 @@
         <% end %>
 
         <%= render "proposals/info", proposal: @proposal %>
-        <%= render "shared/geozone", geozonable: @proposal %>
-
-        <% unless @proposal.selected? %>
-          <%= render "relationable/related_content", relationable: @proposal %>
-        <% end %>
 
         <div class="js-moderator-proposal-actions margin">
           <%= render "proposals/actions", proposal: @proposal %>
@@ -69,15 +64,6 @@
           <%= render "proposals/support_status", proposal: @proposal %>
 
           <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
-
-          <% if current_user %>
-            <div class="sidebar-divider"></div>
-            <p class="sidebar-title"><%= t("shared.follow") %></p>
-
-            <%= render "follows/follow_button", follow: find_or_build_follow(current_user, @proposal) %>
-          <% end %>
-
-          <%= render "communities/access_button", community: @proposal.community %>
         </aside>
       <% end %>
     </div>

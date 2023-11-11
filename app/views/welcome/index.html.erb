@@ -33,7 +33,7 @@
 
   <% if @polls.any? %>
     <div class="margin-top"></div>
-    <%= render Welcome::SectionComponent.new("Consultas", 'holitas') do %>
+    <%= render Welcome::SectionComponent.new("Consultas", polls_path) do %>
       <div class="cards-container-component">
         <% @polls.each do |poll| %>
           <%= render Shared::CardComponent.new(

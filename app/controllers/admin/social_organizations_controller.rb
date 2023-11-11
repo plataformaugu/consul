@@ -40,6 +40,7 @@ class Admin::SocialOrganizationsController < Admin::BaseController
   def generate_csv
     if SocialOrganization.all.any?
       csv = SocialOrganization.to_csv
+      puts csv
       send_data(csv, type: 'text/csv', filename: "organizaciones_sociales_#{Time.now.strftime('%Y%m%d_%H%M')}.csv")
     end
   end
