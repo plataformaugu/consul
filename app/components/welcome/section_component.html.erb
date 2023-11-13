@@ -2,7 +2,9 @@
   <div class="column small-12">
     <header>
       <h3><%= @title %></h3>
-      <small><%= link_to 'Ver todas', @path %></small>
+      <% if @path.present? %>
+        <small><%= link_to 'Ver todas', @path %></small>
+      <% end %>
     </header>
 
     <%= content %>

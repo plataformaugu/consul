@@ -47,4 +47,11 @@
       </div>
     <% end %>
   <% end %>
+
+  <% if @cards.any? %>
+    <div class="margin-top"></div>
+    <%= render Welcome::SectionComponent.new("Destacados") do %>
+      <%= render "shared/cards", cards: @cards %>
+    <% end %>
+  <% end %>
 </main>

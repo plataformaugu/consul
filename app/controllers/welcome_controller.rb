@@ -12,6 +12,7 @@ class WelcomeController < ApplicationController
     @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(3)
     @polls = Poll.current.order(created_at: :desc).limit(3)
     @events = Event.order(created_at: :desc).limit(3)
+    @cards = Widget::Card.body
   end
 
   def welcome
