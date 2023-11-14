@@ -42,12 +42,22 @@
         <%= render "proposals/info", proposal: @proposal %>
 
         <div class="js-moderator-proposal-actions margin">
-          <%= render "proposals/actions", proposal: @proposal %>
         </div>
       </div>
 
       <% unless preview %>
         <aside class="small-12 medium-3 column">
+          <% if current_user and current_user.administrator? %>
+            <div class="sidebar-divider"></div>
+            <h2>Administrar</h2>
+            <div class="margin-bottom">
+              <%= link_to t("dashboard.index.edit_proposal_link"),
+                edit_proposal_path(@proposal, proposal_topic_id: @proposal.proposal_topic.id),
+                class: "button hollow"
+              %>
+            </div>
+          <% end %>
+
           <% if can?(:dashboard, @proposal) %>
             <div class="sidebar-divider"></div>
             <h2><%= t("proposals.show.author") %></h2>

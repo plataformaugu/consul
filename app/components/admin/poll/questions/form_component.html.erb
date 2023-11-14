@@ -29,7 +29,7 @@
     <% end %>
   </div>
 
-  <div class="row">
+  <div class="row" style="display: none;">
     <div class="small-12">
       <%= f.fields_for :votation_type do |votation_f| %>
         <%= render Admin::VotationTypes::FieldsComponent.new(form: votation_f) %>

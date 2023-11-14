@@ -18,8 +18,6 @@
       </div>
     <% end %>
 
-    <%= render "shared/filter_subnav", i18n_namespace: "polls.index" %>
-
     <% if @polls.any? %>
       <div class="cards-container-component">
         <% @polls.each do |poll| %>

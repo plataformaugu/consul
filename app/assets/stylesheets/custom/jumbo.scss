@@ -1,6 +1,6 @@
 .custom-jumbo {
   width: 100vw;
-  min-height: 50vh;
+  min-height: 65vh;
 
   @media (min-width: 640px) {
     left: calc(#{$full-width-margin});
@@ -26,5 +26,10 @@
     width: fit-content;
     min-width: 25vw;
     height: fit-content;
+
+    @media (max-width: 641px) {
+      margin: 0 1rem;
+      backdrop-filter: blur(15px);
+    }
   }
 }

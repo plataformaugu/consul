@@ -93,13 +93,17 @@
 
       <div id="proposals-list">
         <% if @proposals.any? || current_user.blank? %>
-          <% if proposals_default_view? %>
-            <%= render partial: "proposals/proposal", collection: @proposals %>
-          <% else %>
+          <div class="cards-container-component">
             <% @proposals.each do |proposal| %>
-              <%= render "/proposals/proposal_minimal", proposal: proposal %>
+              <%= render Shared::CardComponent.new(
+                proposal,
+                proposal.title,
+                proposal.image.variant(:medium),
+                '',
+                proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
+              ) %>
             <% end %>
-          <% end %>
+          </div>
         <% else %>
           <%= empty_recommended_proposals_message_text(current_user) %>
         <% end %>
