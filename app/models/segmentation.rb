@@ -114,7 +114,11 @@ class Segmentation < ApplicationRecord
   end
 
   def validate_gender(user)
-    if self.gender_segmentations.empty? or self.gender_segmentations.pluck(:gender).include?(user.gender)
+    if self.gender_segmentations.empty?
+      return true
+    elsif self.gender_segmentations.pluck(:gender).include?(user.gender)
+      return true
+    elsif ![GENDER_MALE, GENDER_FEMALE].include?(user.gender) and self.gender_segmentations.pluck(:gender).include?(GENDER_OTHER)
       return true
     else
       return "Este proceso está habilitado sólo para el segmento indicado en las bases del proceso."
