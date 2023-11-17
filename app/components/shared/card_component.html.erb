@@ -1,7 +1,13 @@
 <div class="card-component">
 
   <div class="image-container">
-    <%= image_tag @image %>
+    <% if @image %>
+      <%= image_tag @image %>
+    <% else %>
+      <div class="no-image">
+        Sin imagen
+      </div>
+    <% end %>
 
     <% if @alert.present? %>
       <div class="alert-container">

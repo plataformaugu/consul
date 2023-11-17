@@ -98,8 +98,8 @@
               <%= render Shared::CardComponent.new(
                 proposal,
                 proposal.title,
-                proposal.image.variant(:medium),
-                '',
+                proposal.image.present? ? proposal.image.variant(:medium) : nil,
+                proposal.summary,
                 proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
               ) %>
             <% end %>
