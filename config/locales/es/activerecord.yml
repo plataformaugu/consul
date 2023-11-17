@@ -272,7 +272,7 @@ es:
         summary: "Resumen de la propuesta"
         retired_explanation: "Explicación"
       user:
-        login: "Email o nombre de usuario"
+        login: "Email"
         email: "Email"
         username: "Nombre de usuario"
         password_confirmation: "Confirmación de contraseña"

@@ -10,12 +10,43 @@
       <%= f.hidden_field :use_redeemable_code %>
       <%= f.hidden_field :locale, value: I18n.locale %>
 
-      <%= f.text_field :username,  autofocus: true, maxlength: User.username_max_length,
-                                   hint: t("devise_views.users.registrations.new.username_note") %>
+      <%= f.text_field :first_name, autofocus: true, label: 'Nombre', required: true %>
+      <%= f.text_field :last_name, label: 'Apellido', required: true %>
+
+      <%= f.text_field :document_number, label: 'RUT', required: true, hint: 'Ingrese RUT con guión y sin puntos' %>
 
       <%= f.invisible_captcha :address %>
 
-      <%= f.email_field :email %>
+      <%= f.email_field :email, required: true %>
+      <%= f.email_field :email_confirmation, label: 'Repite el email anterior', required: true %>
+
+      <%= f.select :commune,
+        User::COMMUNES,
+        {
+          include_blank: 'Elige una comuna',
+          label: 'Comuna',
+        },
+        {
+          required: true
+        }
+      %>
+
+      <%= f.select :gender,
+        User::GENRES,
+        {
+          include_blank: 'Elige un género',
+          label: 'Género',
+        },
+        {
+          required: true
+        }
+      %>
+
+      <%=
+        f.date_field :date_of_birth,
+        label: 'Fecha de nacimiento',
+        required: true
+      %>
 
       <%= f.password_field :password, autocomplete: "off" %>
 
@@ -42,3 +73,51 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+const validarRUT = (rut) => {
+  if (typeof rut === 'string' || typeof rut === 'number') {
+    const rutSinFormato = limpiarRUT(rut);
+    const rutSinDv = rutSinFormato.slice(0, -1);
+    const rutDv = rutSinFormato.length > 0 ? rutSinFormato.split('').pop().toLowerCase() : undefined
+
+    return calcularDv(rutSinDv) === rutDv;
+  }
+  else {
+    return false;
+  }
+};
+
+const limpiarRUT = rut => {
+  let cleanRut = String(rut).replace(/[^0-9a-z]/gi, '');
+
+  if (cleanRut.length > 9) {
+    cleanRut = cleanRut.substring(0, cleanRut.length - (cleanRut.length - 9))
+  }
+
+  return String(rut).replace(/[^0-9a-z]/gi, '');
+}
+
+const calcularDv = rut => {
+  let suma = 0;
+  let rutReversa = limpiarRUT(rut).split('').reverse();
+
+  for (let i = 0, j = 2; i < rutReversa.length; i++, j < 7 ? j++ : j = 2) {
+    suma += rutReversa[i] * j;
+  }
+
+  let resultado = 11 - (suma % 11)
+  if (resultado === 11) return '0';
+  if (resultado === 10) return 'k';
+  return String(resultado);
+};
+
+$('#user_document_number').keyup(function() {
+  let rutElement = document.getElementById('user_document_number');
+  if (!validarRUT(rutElement.value)) {
+    rutElement.setCustomValidity('El RUT no es válido.')
+  } else {
+    rutElement.setCustomValidity('')
+  }
+})
+</script>

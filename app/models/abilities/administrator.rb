@@ -17,6 +17,8 @@ module Abilities
 
       can :publish, Proposal
 
+      can :toggle_in_development, Proposal
+
       can :create, Legislation::Proposal
       can :show, Legislation::Proposal
       can :proposals, ::Legislation::Process

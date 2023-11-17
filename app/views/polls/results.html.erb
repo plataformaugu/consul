@@ -6,17 +6,21 @@
   <%= render "poll_subnav" %>
 
   <div class="row margin" data-equalizer data-equalize-on="medium">
-    <div class="small-12 medium-3 column sidebar" data-equalizer-watch>
-      <p><strong><%= t("polls.show.results.title") %></strong></p>
-      <ul class="menu vertical">
-        <%- @poll.questions.each do |question| %>
-          <li><%= link_to question.title, "##{question.title.parameterize}" %></li>
-        <% end %>
-      </ul>
+    <div class="small-12 column mb-3">
+      <h3>Cantidad de votos</h3>
+      <h1><%= @total_votes %></h1>
     </div>
 
-    <div class="small-12 medium-9 column" data-equalizer-watch>
-      <%= render Polls::Results::QuestionComponent.with_collection(@poll.questions) %>
-    </div>
+    <div class="small-12 column" data-equalizer-watch>
+      <h3>Resultados de la consulta<h3>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+        <% @poll.questions.each do |question| %>
+          <div>
+            <h3 class="text-center mt-2" id="<%= question.title.parameterize %>"><%= question.title %></h3>
+            <%= pie_chart question.question_answers.map { |a| [a.title, a.total_votes] } %>
+          </div>
+        <% end %>
+      </div>
   </div>
 </div>

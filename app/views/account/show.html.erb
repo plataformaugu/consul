@@ -1,94 +1,22 @@
 <div class="row account">
   <div class="small-12 column">
-    <div class="float-right text-right">
-      <%= link_to t("account.show.change_credentials_link"), edit_user_registration_path, class: "button hollow" %>
-      <br>
-      <%= link_to t("account.show.erase_account_link"), users_registrations_delete_form_path, class: "delete" %>
-    </div>
+    <h1>Mi cuenta</h1>
+    <ul class="tabs" data-tabs id="account-tabs">
+      <li class="tabs-title is-active"><a href="#data-tab" aria-selected="true">Mis datos</a></li>
+      <li class="tabs-title"><a data-tabs-target="activity-tab" href="#activity-tab">Mi actividad</a></li>
+      <li class="tabs-title"><a data-tabs-target="notifications-tab" href="#notifications-tab">Notificaciones</a></li>
+    </ul>
 
-    <%= avatar_image(@account, seed: @account.id, size: 100, class: "margin-bottom") %>
-
-    <h1 class="inline-block"><%= t("account.show.title") %></h1>
-
-    <%= form_for @account, as: :account, url: account_path do |f| %>
-      <%= render "shared/errors", resource: @account %>
-
-      <div class="row">
-        <div class="small-12 medium-12 column">
-
-          <h2><%= t("account.show.personal") %></h2>
-
-          <div class="small-12 medium-10">
-            <% if @account.organization? %>
-              <%= f.fields_for :organization do |fo| %>
-                <%= fo.text_field :name, autofocus: true, maxlength: Organization.name_max_length %>
-                <%= fo.text_field :responsible_name, autofocus: true, maxlength: Organization.responsible_name_max_length %>
-              <% end %>
-              <%= f.phone_field :phone_number %>
-
-            <% else %>
-              <%= f.text_field :username, maxlength: User.username_max_length %>
-            <% end %>
-          </div>
-
-          <div>
-            <%= f.check_box :public_activity %>
-          </div>
-
-          <div>
-            <%= f.check_box :public_interests %>
-          </div>
-
-          <% if @account.email.present? %>
-            <h2><%= t("account.show.notifications") %></h2>
-
-            <div>
-              <%= f.check_box :email_on_comment %>
-            </div>
-
-            <div>
-              <%= f.check_box :email_on_comment_reply %>
-            </div>
-
-            <div>
-              <%= f.check_box :newsletter %>
-            </div>
-
-            <div>
-              <%= f.check_box :email_digest %>
-            </div>
-
-            <div>
-              <%= f.check_box :email_on_direct_message %>
-            </div>
-          <% end %>
-
-          <% if @account.official_level == 1 %>
-            <div>
-              <%= f.check_box :official_position_badge %>
-            </div>
-          <% end %>
-
-          <% if true == false && feature?("user.recommendations") %>
-            <h2><%= t("account.show.recommendations") %></h2>
-
-            <% if feature?("user.recommendations_on_debates") %>
-              <div>
-                <%= f.check_box :recommended_debates %>
-              </div>
-            <% end %>
-
-            <% if feature?("user.recommendations_on_proposals") %>
-              <div>
-                <%= f.check_box :recommended_proposals %>
-              </div>
-            <% end %>
-          <% end %>
-
-          <%= f.submit t("account.show.save_changes_submit"), class: "button margin-top" %>
-        </div>
+    <div class="tabs-content" data-tabs-content="account-tabs">
+      <div class="tabs-panel is-active" id="data-tab">
+        <%= render 'data' %>
       </div>
-    <% end %>
-
+      <div class="tabs-panel" id="activity-tab">
+        <%= render 'activity' %>
+      </div>
+      <div class="tabs-panel" id="notifications-tab">
+        <%= render 'notifications' %>
+      </div></div>
+    </div>
   </div>
 </div>

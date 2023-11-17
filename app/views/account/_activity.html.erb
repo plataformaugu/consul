@@ -1,0 +1,35 @@
+<div>
+  <div class="row stats-numbers">
+    <h3>Propuestas</h3>
+
+    <div class="small-12 medium-3 column">
+      <p>Propuestas enviadas<br> <span class="number"><%= @stats[:proposals][:created] %></span></p>
+    </div>
+    <div class="small-12 medium-3 column">
+      <p>Apoyos recibidos<br> <span class="number"><%= @stats[:proposals][:votes_received] %></span></p>
+    </div>
+    <div class="small-12 medium-3 column">
+      <p>Apoyos entregados<br> <span class="number"><%= @stats[:proposals][:votes_created] %></span></p>
+    </div>
+    <div class="small-12 medium-3 column">
+      <p>Comentarios realizados<br> <span class="number"><%= @stats[:proposals][:comments] %></span></p>
+    </div>
+  </div>
+
+  <hr>
+  
+  <div class="row stats-numbers">
+    <h3>Consultas</h3>
+
+    <div class="small-12 medium-3 column">
+      <p>Consultas respondidas<br> <span class="number"><%= @stats[:polls][:answered] %></span></p>
+    </div>
+    <div class="small-12 medium-3 column">
+      <p>Comentarios realizados<br> <span class="number"><%= @stats[:polls][:comments] %></span></p>
+    </div>
+    <div class="small-12 medium-3 column">
+    </div>
+    <div class="small-12 medium-3 column">
+    </div>
+  </div>
+</div>

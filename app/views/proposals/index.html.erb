@@ -100,7 +100,7 @@
                 proposal.title,
                 proposal.image.variant(:medium),
                 '',
-                proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
+                proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
               ) %>
             <% end %>
           </div>

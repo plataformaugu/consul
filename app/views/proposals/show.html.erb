@@ -55,6 +55,12 @@
                 edit_proposal_path(@proposal, proposal_topic_id: @proposal.proposal_topic.id),
                 class: "button hollow"
               %>
+              <%=
+                link_to @proposal.in_development? ? 'Quitar "En desarrollo"' : 'Marcar "En desarrollo"',
+                toggle_in_development_proposal_path,
+                method: :patch,
+                class: 'button hollow'
+              %>
             </div>
           <% end %>
 

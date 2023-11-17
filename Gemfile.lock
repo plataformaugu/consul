@@ -143,6 +143,7 @@ GEM
     caxlsx_rails (0.6.3)
       actionpack (>= 3.1)
       caxlsx (>= 3.0)
+    chartkick (5.0.4)
     chef-utils (16.4.41)
     childprocess (3.0.0)
     chronic (0.10.2)
@@ -735,6 +736,7 @@ DEPENDENCIES
   capybara-webmock (~> 0.6.0)
   caxlsx (~> 3.2.0)
   caxlsx_rails (~> 0.6.3)
+  chartkick
   ckeditor (~> 4.3.0)
   cocoon (~> 1.2.15)
   coveralls (~> 0.8.23)

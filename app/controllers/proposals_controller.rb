@@ -123,6 +123,20 @@ class ProposalsController < ApplicationController
     redirect_to moderation_proposals_path, notice: '¡La propuesta ha sido publicada!'
   end
 
+  def toggle_in_development
+    new_value = !@proposal.in_development
+    @proposal.in_development = new_value
+    @proposal.save!
+
+    if new_value
+      message = 'La propuesta ha sido marcada como "En desarrollo"'
+    else
+      message = 'La propuesta ya no está "En desarrollo"'
+    end
+
+    redirect_to @proposal, notice: message
+  end
+
   private
 
     def proposal_params
