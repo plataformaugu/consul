@@ -73,13 +73,15 @@
 
   <div class="actions">
     <% if proposal.new_record? %>
-      <div>
+      <div style="display: none;">
         <%= f.check_box :terms_of_service,
           title: t("form.accept_terms_title"),
           label: t("form.accept_terms",
                    policy: link_to(t("form.policy"), "/privacidad", target: "blank"),
                    conditions: link_to(t("form.conditions"), "/condiciones", target: "blank")
-                  ) %>
+                  ),
+          checked: true
+        %>
       </div>
     <% end %>
 

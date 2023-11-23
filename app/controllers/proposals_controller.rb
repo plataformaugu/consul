@@ -70,11 +70,20 @@ class ProposalsController < ApplicationController
 
     if @proposal_topic.present? && @proposal_topic.is_published?
       super
-      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id).published).page(params[:page])
+      @proposals = Proposal.where(proposal_topic_id: @proposal_topic.id).published
 
       if Setting["feature.featured_proposals"]
         @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
       end
+
+      @orders = [
+        ['Más votadas', 'most_voted'],
+        ['Menos votadas', 'least_voted'],
+        ['Más recientes', 'newest'],
+        ['Más antiguas', 'oldest']
+      ]
+      @selected_order = params[:order]
+      @proposals = sort_by(params)
     else
       redirect_to root_path
     end
@@ -224,5 +233,35 @@ class ProposalsController < ApplicationController
       if Setting["feature.user.recommendations_on_proposals"] && current_user.recommended_proposals
         @recommended_proposals = Proposal.recommendations(current_user).sort_by_random.limit(3)
       end
+    end
+
+
+    def sort_by(params)
+      proposals = @proposals
+      orders = [
+        'most_voted',
+        'least_voted',
+        'newest',
+        'oldest',
+      ]
+
+      if params.include?('order') and orders.include?(params[:order])
+        case params[:order]
+        when 'most_voted'
+          proposals = proposals.order(cached_votes_up: :desc)
+        when 'least_voted'
+          proposals = proposals.order(cached_votes_up: :asc)
+        when 'newest'
+          proposals = proposals.order(created_at: :desc)
+        when 'oldest'
+          proposals = proposals.order(created_at: :asc)
+        else
+          proposals = proposals.order(cached_votes_up: :desc)
+        end
+      else
+        proposals = proposals.order(cached_votes_up: :desc)
+      end
+
+      return Kaminari.paginate_array(proposals).page(params[:page])
     end
 end

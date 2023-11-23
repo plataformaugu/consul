@@ -50,84 +50,69 @@
   <% end %>
 
   <div class="row">
-    <div id="proposals" class="proposals-list small-12 medium-9 column">
-
+    <div id="proposals" class="small-12 column">
       <%= render Shared::BannerComponent.new("proposals") %>
 
-      <% if show_featured_proposals? and true == false %>
-        <div id="featured-proposals" class="row featured-proposals">
-          <div class="small-12 column">
-            <h2>
-              <%= t("proposals.index.featured_proposals") %>
-            </h2>
+      <div class="row">
+        <div class="column small-12">
+          <div class="proposals-header">
+            <div>
+              <% if @proposal_topic.is_active? %>
+                <%= link_to t("proposals.index.start_proposal"),
+                  new_proposal_path(proposal_topic_id: @proposal_topic.id),
+                  class: "button expanded"
+                %>
+              <% else %>
+                <div class="callout warning">
+                  Convocatoria finalizada.
+                </div>
+              <% end %>
+            </div>
+          
+            <div style="display: flex; flex-direction: column;">
+              <strong>Ordenar por</strong>
+              <%= form_tag proposal_topic_path(@proposal_topic.id), method: :get do %> 
+                <% if params.include?('page') %>
+                  <%= hidden_field_tag :page, params[:page] %>
+                <% end %>
+                <%= select_tag 'order',
+                  options_for_select(@orders, @selected_order),
+                  onchange: 'this.form.submit()'
+                %>
+              <% end %>
+            </div>
           </div>
-          <% @featured_proposals.each do |featured_proposal| %>
-            <%= render "featured_proposal", proposal: featured_proposal %>
-          <% end %>
         </div>
-      <% end %>
+      </div>
 
-      <% unless params[:selected].present? %>
+      <% if @tag_cloud.tags.any? %>
         <div class="row">
           <div class="small-12 column">
-            <%= render "view_mode" %>
+            <%= render "shared/tag_cloud", taggable: "Proposal" %>
           </div>
         </div>
       <% end %>
 
-      <% unless params[:retired].present? || params[:selected].present? %>
-        <%= render Shared::AdvancedSearchComponent.new %>
-      <% end %>
-
-      <% unless params[:selected].present? %>
-        <%= render "shared/order_links", i18n_namespace: "proposals.index" %>
-      <% end %>
-
-      <% if @proposals.any? %>
-        <div class="show-for-small-only">
-          <%= link_to t("proposals.index.start_proposal"),
-                      new_proposal_path,
-                      class: "button expanded" %>
+      <div class="row mt-2">
+        <div id="proposals-list" class="small-12 medium-12 column">
+          <% if @proposals.any? || current_user.blank? %>
+            <div class="cards-container-component">
+              <% @proposals.each do |proposal| %>
+                <%= render Shared::CardComponent.new(
+                  proposal,
+                  proposal.title,
+                  proposal.image.present? ? proposal.image.variant(:medium) : nil,
+                  proposal.summary,
+                  proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
+                ) %>
+              <% end %>
+            </div>
+          <% else %>
+            <%= empty_recommended_proposals_message_text(current_user) %>
+          <% end %>
+          <%= paginate @proposals %>
         </div>
-      <% end %>
-
-      <div id="proposals-list">
-        <% if @proposals.any? || current_user.blank? %>
-          <div class="cards-container-component">
-            <% @proposals.each do |proposal| %>
-              <%= render Shared::CardComponent.new(
-                proposal,
-                proposal.title,
-                proposal.image.present? ? proposal.image.variant(:medium) : nil,
-                proposal.summary,
-                proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
-              ) %>
-            <% end %>
-          </div>
-        <% else %>
-          <%= empty_recommended_proposals_message_text(current_user) %>
-        <% end %>
-        <%= paginate @proposals %>
       </div>
     </div>
-
-    <div class="small-12 medium-3 column">
-      <aside class="margin-bottom">
-        <% if @proposal_topic.is_active? %>
-          <%= link_to t("proposals.index.start_proposal"),
-                      new_proposal_path(proposal_topic_id: @proposal_topic.id),
-                      class: "button expanded" %>
-        <% else %>
-          <div class="callout warning">
-            Convocatoria finalizada.
-          </div>
-        <% end %>
-
-        <% if params[:retired].blank? %>
-          <%= render "shared/tag_cloud", taggable: "Proposal" %>
-        <% end %>
-      </aside>
-    </div>
-
   </div>
 </main>

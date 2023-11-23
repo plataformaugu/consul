@@ -17,7 +17,6 @@
   box-shadow: 0 1px 3px 0 $border;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin-bottom: rem-calc(12);
   min-height: rem-calc(192);
   position: relative;
@@ -25,9 +24,10 @@
   .image-container {
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
-    max-height: 250px;
+    height: 250px;
 
     img {
+      height: 100%;
       width: 100%;
       object-fit: cover;
       object-position: center;

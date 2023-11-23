@@ -30,6 +30,14 @@
           required: true
         }
       %>
+      <%= f.text_field :commune,
+        id: 'custom_commune',
+        style: 'display: none;',
+        placeholder: 'Ingresa tu comuna',
+        onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+        maxlength: 20,
+        label: false
+      %>
 
       <%= f.select :gender,
         User::GENRES,
@@ -40,6 +48,14 @@
         {
           required: true
         }
+      %>
+      <%= f.text_field :gender,
+        id: 'custom_gender',
+        style: 'display: none;',
+        placeholder: 'Ingresa tu género',
+        onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+        maxlength: 20,
+        label: false
       %>
 
       <%=
@@ -120,4 +136,28 @@ $('#user_document_number').keyup(function() {
     rutElement.setCustomValidity('')
   }
 })
+
+$("#user_gender").on("change", function () {
+  if (this.value == "Otro") {
+    $("#custom_gender").val("");
+    $("#custom_gender").css("display", "block");
+    $("#custom_gender").attr("required", true);
+  } else {
+    $("#custom_gender").val(this.value);
+    $("#custom_gender").css("display", "none");
+    $("#custom_gender").attr("required", false);
+  }
+});
+
+$("#user_commune").on("change", function () {
+  if (this.value == "Otra") {
+    $("#custom_commune").val("");
+    $("#custom_commune").css("display", "block");
+    $("#custom_commune").attr("required", true);
+  } else {
+    $("#custom_commune").val(this.value);
+    $("#custom_commune").css("display", "none");
+    $("#custom_commune").attr("required", false);
+  }
+});
 </script>
