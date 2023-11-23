@@ -64,19 +64,6 @@
             </div>
           <% end %>
 
-          <% if can?(:dashboard, @proposal) %>
-            <div class="sidebar-divider"></div>
-            <h2><%= t("proposals.show.author") %></h2>
-            <div class="show-actions-menu">
-              <%= link_to progress_proposal_dashboard_path(@proposal),
-                          class: "button hollow expanded",
-                          id: "proposal-dashboard-#{@proposal.id}" do %>
-                <span class="icon-edit"></span>
-                <%= t("proposals.show.dashboard_proposal_link") %>
-              <% end %>
-            </div>
-          <% end %>
-
           <%= render "proposals/support_status", proposal: @proposal %>
 
           <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
