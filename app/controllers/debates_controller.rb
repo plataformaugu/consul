@@ -3,6 +3,7 @@ class DebatesController < ApplicationController
   include CommentableActions
   include FlagActions
   include Translatable
+  include DocumentAttributes
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_view, only: :index
@@ -31,6 +32,13 @@ class DebatesController < ApplicationController
 
   def show
     super
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @debate.segmentation.present?
+      @can_participate, @reason = @debate.segmentation.validate(current_user)
+    end
+
     redirect_to debate_path(@debate), status: :moved_permanently if request.path != debate_path(@debate)
   end
 
@@ -42,9 +50,19 @@ class DebatesController < ApplicationController
     @debate = Debate.new(debate_params.merge(author: current_user))
 
     if @debate.save
+      Segmentation.generate(entity_name: @debate.class.name, entity_id: @debate.id, params: params)
       redirect_to pending_debate_path(@debate)
     else
       render :new
+    end
+  end
+
+  def update
+    if @debate.update(debate_params)
+      Segmentation.generate(entity_name: @debate.class.name, entity_id: @debate.id, params: params)
+      redirect_to debate_path(@debate), notice: "El Plan Regulador fue actualizado"
+    else
+      render :edit
     end
   end
 
@@ -70,12 +88,12 @@ class DebatesController < ApplicationController
     @debate.is_finished = !@debate.is_finished
     @debate.save
 
-    redirect_to @debate, notice: 'El debate ha sido actualizado.'
+    redirect_to @debate, notice: 'El Plan Regulador ha sido actualizado.'
   end
 
   def publish
     @debate.publish
-    redirect_to moderation_debates_path, notice: '¡El debate ha sido publicado!'
+    redirect_to moderation_debates_path, notice: '¡El Plan Regulador ha sido publicado!'
   end
 
   private
@@ -85,7 +103,8 @@ class DebatesController < ApplicationController
     end
 
     def allowed_params
-      [:tag_list, :terms_of_service, :related_sdg_list, :image, translation_params(Debate)]
+      valid_attributes = [:tag_list, :terms_of_service, :related_sdg_list, :image, documents_attributes: document_attributes]
+      [*valid_attributes, translation_params(Debate)] 
     end
 
     def resource_model

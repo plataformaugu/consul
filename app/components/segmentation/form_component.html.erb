@@ -1,0 +1,108 @@
+<div class="mt-1 mb-1">
+  <label>Género</label>
+
+  <div class="mt-1">
+    <% Segmentation::GENDER_CHOICES.each do |gender| %>
+      <%=
+        check_box_tag "segmentation_genders[]",
+        gender,
+        @segmentation.gender_segmentations.pluck(:gender).include?(gender)
+      %>
+      <%= label_tag nil, gender, style: 'font-weight: normal;' %><br>
+    <% end %>
+  </div>
+</div>
+
+<div class="mb-1">
+  <label>Edad</label>
+
+  <div class="mt-1">
+    <%=
+      select_tag 'age_choice',
+      options_for_select(Segmentation::AGE_CHOICES.map{ |key, value| [value, key] }),
+      prompt: 'Elige una opción'
+    %>
+
+    <div id="age" style="display: none;">
+      <div class="row">
+        <div class="small-4 column">
+          <% Array(0 .. 33).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+        <div class="small-4 column">
+          <% Array(34 .. 67).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+        <div class="small-4 column">
+          <% Array(68 .. 99).each do |age| %>
+            <%=
+              check_box_tag "segmentation_ages[]",
+              age,
+              @segmentation.age_segmentations.pluck(:age).include?(age)
+            %>
+            <%= label_tag nil, "#{age} años", style: 'font-weight: normal;' %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div id="age_range" style="display: none;">
+      <% Segmentation::AGE_RANGES.each do |min_age, max_age| %>
+        <%=
+          check_box_tag "segmentation_age_ranges[]",
+          "[#{min_age}, #{max_age}]",
+          @segmentation.age_range_segmentations.pluck(:min_age).include?(min_age)
+        %>
+        <% if min_age == 0 %>
+          <%= label_tag nil, "Menores de #{max_age}", style: 'font-weight: normal;' %><br>
+        <% elsif max_age == 144 %>
+          <%= label_tag nil, "Mayores de #{min_age}", style: 'font-weight: normal;' %><br>
+        <% else %>
+          <%= label_tag nil, "#{min_age} a #{max_age}", style: 'font-weight: normal;' %><br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+$(document).on('turbolinks:load', function() {
+  loadBasicSegmentation();
+
+  function loadBasicSegmentation() {
+    var currentAgeType;
+
+    <% if @segmentation.age_type.present? %>
+      currentAgeType = '<%= raw(@segmentation.age_type) %>'; 
+    <% end %>
+
+    var ageChoices = <%= raw(Segmentation::AGE_CHOICES.keys) %>;
+
+    $('#age_choice').on('change', function() {
+      ageChoices.forEach(function(ageChoice) {
+        $(`#${ageChoice.toLowerCase()}`).hide();
+      });
+
+      if (this.value !== '') {
+        $(`#${this.value.toLowerCase()}`).show();
+      }
+    });
+
+    if (currentAgeType) {
+      $('#age_choice').val(currentAgeType).change();
+    }
+  }
+})
+<% end %>

@@ -4,6 +4,10 @@
 
 <h2><%= t("admin.debates.index.title") %></h2>
 
+<div>
+  <%= link_to t("debates.index.start_debate"), new_debate_path, class: "button" %>
+</div>
+
 <% if @debates.any? %>
   <%= render Admin::SearchComponent.new(label: t("admin.shared.search.label.debates")) %>
 

@@ -31,6 +31,10 @@
               </p>
               <p><%= t("proposals.proposal.archived") %></p>
             </div>
+          <% elsif proposal.is_municipal && !@can_participate %>
+            <div class="callout warning">
+              <%= @reason %>
+            </div>
           <% else %>
             <%= render "votes", proposal: proposal %>
           <% end %>

@@ -1,14 +1,8 @@
 <ul id="admin_menu" data-accordion-menu data-multi-open="true">
-  <li class="<%= "is-active" if controller_name == "proposal_topics" %>">
-    <%= link_to 'Convocatorias', admin_proposal_topics_path, class: "proposal-topics-link" %>
-  </li>
-
-  <% if true == false %>
   <% if feature?(:proposals) %>
     <li class="<%= "is-active" if controller_name == "proposals" %>">
       <%= link_to t("admin.menu.proposals"), admin_proposals_path, class: "proposals-link" %>
     </li>
-  <% end %>
   <% end %>
 
   <% if feature?(:debates) %>
@@ -27,7 +21,7 @@
     </li>
   <% end %>
 
-  <% if feature?(:legislation) %>
+  <% if true == false && feature?(:legislation) %>
     <li class="<%= "is-active" if controller.class.module_parent == Admin::Legislation %>">
       <%= link_to t("admin.menu.legislation"), admin_legislation_processes_path, class: "legislation-link" %>
     </li>
@@ -80,7 +74,7 @@
       administrators_link,
       moderators_link,
       valuators_link,
-      (sdg_managers_link if feature?(:sdg)),
+      (sdg_managers_link if true == false && feature?(:sdg)),
       users_link,
       class: ("is-active" if profiles?)
     ) %>
@@ -99,7 +93,7 @@
     ) %>
   </li>
 
-  <% if ::MachineLearning.enabled? %>
+  <% if true == false && ::MachineLearning.enabled? %>
     <li class="<%= "is-active" if controller_name == "machine_learning" %>">
       <%= link_to t("admin.menu.machine_learning"), admin_machine_learning_path, class: "ml-link" %>
     </li>

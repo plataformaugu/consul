@@ -13,6 +13,7 @@ class Debate < ApplicationRecord
   include Relationable
   include Notifiable
   include Randomizable
+  include Documentable
   include SDG::Relatable
 
   acts_as_votable
@@ -59,6 +60,10 @@ class Debate < ApplicationRecord
 
   def self.recommendations(user)
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
+  end
+
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
   end
 
   def publish

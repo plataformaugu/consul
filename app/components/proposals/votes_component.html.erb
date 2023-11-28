@@ -2,24 +2,18 @@
   <%= render "proposals/supports", proposal: proposal %>
 
   <div class="in-favor">
-    <% if proposal.proposal_topic.is_expired? %>
-      <div class="callout warning">
-        Convocatoria finalizada.
+    <% if voted? %>
+      <div class="supported callout success">
+        <%= t("proposals.proposal.already_supported") %>
       </div>
     <% else %>
-      <% if voted? %>
-        <div class="supported callout success">
-          <%= t("proposals.proposal.already_supported") %>
-        </div>
-      <% else %>
-        <%= button_to vote_url,
-            class: "button button-support small expanded",
-            title: t("proposals.proposal.support_title"),
-            method: "post",
-            remote: true,
-            "aria-label": support_aria_label do %>
-          <%= t("proposals.proposal.support") %>
-        <% end %>
+      <%= button_to vote_url,
+          class: "button button-support small expanded",
+          title: t("proposals.proposal.support_title"),
+          method: "post",
+          remote: true,
+          "aria-label": support_aria_label do %>
+        <%= t("proposals.proposal.support") %>
       <% end %>
     <% end %>
   </div>

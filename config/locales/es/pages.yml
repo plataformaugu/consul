@@ -11,20 +11,20 @@ es:
       title: "%{org} es una plataforma de participación ciudadana"
       guide: "Esta guía explica para qué sirven y cómo funcionan cada una de las secciones de %{org}."
       menu:
-        debates: "Debates"
+        debates: "Plan Regulador Participativo"
         proposals: "Propuestas"
         budgets: "Presupuestos participativos"
         polls: "Consultas"
         other: "Otra información de interés"
         processes: "Legislación colaborativa"
       debates:
-        title: "Debates"
+        title: "Plan Regulador Participativo"
         description: "En la sección de %{link} puedes exponer y compartir tu opinión con otras personas sobre temas que te preocupan relacionados con la ciudad. También es un espacio donde generar ideas que a través de las otras secciones de %{org} lleven a actuaciones concretas por parte del Ayuntamiento."
-        link: "debates ciudadanos"
-        feature: "Puedes abrir debates, comentarlos y valorarlos con los botones de <strong>Estoy de acuerdo</strong> o <strong>No estoy de acuerdo</strong>. Para ello tienes que %{link}."
+        link: "planes reguladores"
+        feature: "Puedes abrir Planes Reguladores, comentarlos y valorarlos con los botones de <strong>Estoy de acuerdo</strong> o <strong>No estoy de acuerdo</strong>. Para ello tienes que %{link}."
         feature_link: "registrarte en %{org}"
-        image_alt: "Botones para valorar los debates"
-        figcaption: 'Botones "Estoy de acuerdo" y "No estoy de acuerdo" para valorar los debates.'
+        image_alt: "Botones para valorar los Planes Reguladores"
+        figcaption: 'Botones "Estoy de acuerdo" y "No estoy de acuerdo" para valorar los Planes Reguladores.'
       proposals:
         title: "Propuestas"
         description: "En la sección de %{link} puedes plantear propuestas para que el Ayuntamiento las lleve a cabo. Las propuestas recaban apoyos, y si alcanzan los apoyos suficientes se someten a consulta ciudadana. Las propuestas aprobadas en estas consultas ciudadanas son asumidas por el Ayuntamiento y se llevan a cabo."
@@ -96,7 +96,7 @@ es:
               page_column: Inicio
             -
               key_column: 1
-              page_column: Debates
+              page_column: Plan Regulador Participativo
             -
               key_column: 2
               page_column: Propuestas

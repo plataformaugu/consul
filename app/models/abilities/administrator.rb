@@ -6,6 +6,8 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
+      can :create, Debate
+
       can :toggle_finished, Debate
 
       can :restore, Comment

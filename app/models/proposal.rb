@@ -93,6 +93,10 @@ class Proposal < ApplicationRecord
     send_new_actions_notification_on_published
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def published?
     !published_at.nil?
   end

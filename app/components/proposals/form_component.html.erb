@@ -29,9 +29,9 @@
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
-  
+
   <% if action_name == 'new' %>
-    <%= f.hidden_field :proposal_topic_id, value: @proposal_topic.id %>
+    <%= f.hidden_field :is_municipal, value: @is_municipal %>
   <% end %>
 
   <fieldset>
@@ -53,11 +53,6 @@
       </div>
     <% end %>
 
-    <div>
-      <%= f.select :geozone_id, geozone_select_options,
-        include_blank: t("geozones.none") %>
-    </div>
-
     <% if feature?(:map) %>
       <div>
         <%= render "map_locations/form_fields",
@@ -71,25 +66,13 @@
       </div>
     <% end %>
 
-    <div>
-      <%= f.label :tag_list, t("proposals.form.tags_label") %>
-      <p class="help-text" id="tag-list-help-text"><%= t("proposals.form.tags_instructions") %></p>
-
-      <div id="category_tags" class="tags">
-        <%= f.label :category_tag_list, t("proposals.form.tag_category_label") %>
-        <% categories.each do |tag| %>
-          <a class="js-add-tag-link"><%= tag.name %></a>
-        <% end %>
+    <% if current_user.administrator? && @is_municipal %>
+      <div>
+        <%= render Segmentation::FormComponent.new(
+          Segmentation.find_by(entity_name: proposal.class.name, entity_id: proposal.id)
+        ) %>
       </div>
-
-      <br>
-      <%= f.text_field :tag_list, value: proposal.tag_list.to_s,
-                        label: false,
-                        placeholder: t("proposals.form.tags_placeholder"),
-                        class: "js-tag-list tag-autocomplete",
-                        aria: { describedby: "tag-list-help-text" },
-                        data: { js_url: suggest_tags_path } %>
-    </div>
+    <% end %>
 
     <% if current_user.unverified? %>
       <div>
@@ -97,19 +80,18 @@
           hint: t("proposals.form.proposal_responsible_name_note") %>
       </div>
     <% end %>
-
-    <%= render SDG::RelatedListSelectorComponent.new(f) %>
   </fieldset>
 
   <div class="actions">
     <% if proposal.new_record? %>
-      <div>
+      <div style="display: none;">
         <%= f.check_box :terms_of_service,
           title: t("form.accept_terms_title"),
           label: t("form.accept_terms",
                    policy: link_to(t("form.policy"), "/privacy", target: "blank"),
                    conditions: link_to(t("form.conditions"), "/conditions", target: "blank")
-                  ) %>
+                  ),
+          checked: true %>
       </div>
     <% end %>
 

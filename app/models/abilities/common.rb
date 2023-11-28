@@ -65,7 +65,6 @@ module Abilities
       can [:retire_form, :retire], Legislation::Proposal, author_id: user.id
 
       can :create, Comment
-      can :create, Debate
       can [:create, :created], Proposal
       can :create, Legislation::Proposal
 
@@ -94,7 +93,7 @@ module Abilities
       can [:create, :destroy], Follow, user_id: user.id
 
       can [:destroy], Document do |document|
-        document.documentable_type != "Poll::Question::Answer" && document.documentable&.author_id == user.id
+        (document.documentable_type == 'Budget' && user.administrator?) || (document.documentable_type != "Poll::Question::Answer" && document.documentable_type != 'Budget' && document.documentable&.author_id == user.id)
       end
 
       can [:destroy], Image do |image|

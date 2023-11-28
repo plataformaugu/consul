@@ -37,11 +37,11 @@
 
         <%= render "shared/tags", taggable: @debate %>
 
-        <%= render "relationable/related_content", relationable: @debate %>
-
-        <div class="js-moderator-debate-actions margin">
-          <%= render "actions", debate: @debate %>
-        </div>
+        <% if feature?(:allow_attached_documents) %>
+          <%= render "documents/documents",
+                      documents: @debate.documents,
+                      max_documents_allowed: Debate.max_documents_allowed %>
+        <% end %>
       </div>
 
       <aside class="small-12 medium-3 column">
@@ -66,7 +66,13 @@
         <div class="sidebar-divider"></div>
         <h2><%= t("votes.supports") %></h2>
         <div id="<%= dom_id(@debate) %>_votes">
-          <%= render "debates/votes", debate: @debate %>
+          <% if @can_participate %>
+            <%= render "debates/votes", debate: @debate %>
+          <% else %>
+            <div class="callout warning">
+              <%= @reason %>
+            </div>
+          <% end %>
         </div>
         <%= render "shared/social_share",
           share_title: t("debates.show.share"),

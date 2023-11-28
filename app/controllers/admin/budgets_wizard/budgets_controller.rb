@@ -1,6 +1,7 @@
 class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseController
   include Translatable
   include ImageAttributes
+  include DocumentAttributes
   include FeatureFlags
   feature_flag :budgets
 
@@ -13,7 +14,6 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
   end
 
   def create
-    raise
     @budget.published = false
 
     if @budget.save
@@ -39,7 +39,7 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
     end
 
     def allowed_params
-      valid_attributes = [:currency_symbol, :voting_style, :hide_money, :custom_description, :pdf_link, administrator_ids: [],
+      valid_attributes = [:currency_symbol, :voting_style, :hide_money, :custom_description, :benefits, administrator_ids: [], documents_attributes: document_attributes,
                           valuator_ids: [], image_attributes: image_attributes]
 
       [*valid_attributes, translation_params(Budget)]

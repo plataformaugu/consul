@@ -20,19 +20,42 @@
   </div>
 </div>
 
-<% if budget.custom_description.present? or budget.pdf_link.present? %>
+<% if budget.custom_description.present? %>
 <div class="row margin-top">
-  <div class="small-12 medium-10 column">
-    <% if budget.custom_description.present? %>
-      <%= budget.custom_description %>
-    <% end %>
+  <div class="small-12 medium-12 column">
+    <h3>Descripción</h3>
+    <%= budget.custom_description %>
   </div>
+</div>
+<% end %>
+
+<% if budget.benefits.present? %>
+<div class="row margin-top">
+  <div class="small-12 medium-12 column">
+    <h3>Beneficios</h3>
+    <%= budget.benefits %>
+  </div>
+</div>
+<% end %>
+
+<% if budget.pdf_link.present? %>
+<div class="row margin-top">
   <div class="small-12 medium-2 column">
     <% if budget.pdf_link.present? %>
       <%= render Shared::IconTextButtonComponent.new(budget.pdf_link, 'pdf-icon', 'Ver bases', true) %>
     <% end %>
   </div>
 </div>
+<% end %>
+
+<% if feature?(:allow_attached_documents) %>
+  <div class="row margin">
+    <div class="small-12 medium-10 column">
+      <%= render "documents/documents",
+                  documents: budget.documents,
+                  max_documents_allowed: Budget.max_documents_allowed %>
+    </div>
+  </div>
 <% end %>
 
 <%= render Budgets::SubheaderComponent.new(budget) %>

@@ -67,14 +67,14 @@ es:
   debates:
     create:
       form:
-        submit_button: Empieza un debate
+        submit_button: Empieza un Plan Regulador Participativo
     debate:
       votes:
         zero: Sin votos
         one: 1 voto
         other: "%{count} votos"
     edit:
-      editing: Editar debate
+      editing: Editar Plan Regulador
       form:
         submit_button: Guardar cambios
       show_link: Ver debate
@@ -101,32 +101,32 @@ es:
         button: Buscar
         placeholder: Buscar debates...
         title: Buscar
-      start_debate: Empieza un debate
-      title: Debates
+      start_debate: Empieza un Plan Regulador
+      title: Plan Regulador Participativo
       section_header:
-        icon_alt: Icono de Debates
-        title: Debates
-        help: Ayuda sobre los debates
+        icon_alt: Icono de Plan Regulador Participativo
+        title: Plan Regulador Participativo
+        help: Ayuda sobre Plan Regulador Participativo
       section_footer:
-        title: Ayuda sobre los debates
-        description: Inicia un debate para compartir puntos de vista con otras personas sobre los temas que te preocupan.
-        help_text_1: "El espacio de debates ciudadanos está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas."
+        title: Ayuda sobre Plan Regulador Participativo
+        description: Inicia un Plan Regulador Participativo para compartir puntos de vista con otras personas sobre los temas que te preocupan.
+        help_text_1: "El espacio de Plan Regulador Participativo está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas."
         help_text_2: 'Para abrir un debate es necesario registrarse en %{org}. Los usuarios ya registrados también pueden comentar los debates abiertos y valorarlos con los botones de "Estoy de acuerdo" o "No estoy de acuerdo" que se encuentran en cada uno de ellos.'
     new:
       form:
-        submit_button: Empieza un debate
+        submit_button: Empieza un Plan Regulador
       more_info: "¿Cómo funcionan los debates?"
       recommendation_four: Disfruta de este espacio, de las voces que lo llenan, también es tuyo.
       recommendation_one: No escribas el título del debate o frases enteras en mayúsculas. En internet eso se considera gritar. Y a nadie le gusta que le griten.
       recommendation_three: Las críticas despiadadas son muy bienvenidas. Este es un espacio de pensamiento. Pero te recomendamos conservar la elegancia y la inteligencia. El mundo es mejor con ellas presentes.
       recommendation_two: Cualquier debate o comentario que implique una acción ilegal será eliminado, también los que tengan la intención de sabotear los espacios de debate, todo lo demás está permitido.
       recommendations_title: Recomendaciones para crear un debate
-      start_new: Empezar un debate
+      start_new: Empezar un Plan Regulador
     show:
       author_deleted: Usuario eliminado
       comments_title: Comentarios
-      edit_debate_link: Editar debate
-      flag: Este debate ha sido marcado como inapropiado por varios usuarios.
+      edit_debate_link: Editar Plan Regulador
+      flag: Este Plan Regulador ha sido marcado como inapropiado por varios usuarios.
       share: Compartir
       author: Autor
     update:
@@ -213,7 +213,7 @@ es:
       administration_menu: Menú
       administration: Administración
       collaborative_legislation: Legislación colaborativa
-      debates: Debates
+      debates: Plan Regulador Participativo
       locale: "Idioma:"
       management: Gestión
       moderation: Moderar
@@ -499,7 +499,7 @@ es:
       access_community: Acceder a la comunidad
       latest_activity: "Última actividad de la comunidad: %{at}"
       participants: Participantes
-      debates: Debates
+      debates: Plan Regulador Participativo
       comments: Comentarios
       latest_comments: Últimos mensajes
     messages:
@@ -776,7 +776,7 @@ es:
   stats:
     index:
       visits: Visitas
-      debates: Debates
+      debates: Plan Regulador Participativo
       proposals: Propuestas ciudadanas
       comments: Comentarios
       proposal_votes: Votos en propuestas
@@ -810,7 +810,7 @@ es:
       deleted_budget_investment: Este proyecto de gasto ha sido eliminado
       proposals: Propuestas
       proposals_status: Estado
-      debates: Debates
+      debates: Plan Regulador Participativo
       budget_investments: Proyectos de presupuestos participativos
       comments: Comentarios
       actions: Acciones
@@ -820,7 +820,7 @@ es:
           other: "%{count} Comentarios"
         debates:
           one: 1 Debate
-          other: "%{count} Debates"
+          other: "%{count} Planes Reguladores"
         proposals:
           one: 1 Propuesta
           other: "%{count} Propuestas"
@@ -861,7 +861,7 @@ es:
   welcome:
     feed:
       most_active:
-        debates: "Debates más activos"
+        debates: "Planes Reguladores más activos"
         proposals: "Propuestas más activas"
         processes: "Procesos abiertos"
       see_all:
@@ -880,7 +880,7 @@ es:
       title: Recomendaciones que te pueden interesar
       help: "Estas recomendaciones se generan por las etiquetas de los debates y propuestas que estás siguiendo."
       debates:
-        title: Debates recomendados
+        title: Planes Reguladores recomendados
         btn_text_link: Todos los debates recomendados
       proposals:
         title: Propuestas recomendadas

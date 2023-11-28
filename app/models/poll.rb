@@ -7,6 +7,7 @@ class Poll < ApplicationRecord
   include Notifiable
   include Searchable
   include Sluggable
+  include Documentable
   include StatsVersionable
   include Reportable
   include SDG::Relatable
@@ -69,6 +70,10 @@ class Poll < ApplicationRecord
 
   def title
     name
+  end
+
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
   end
 
   def started?(timestamp = Time.current)

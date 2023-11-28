@@ -67,9 +67,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def allowed_params
       [
-        :username, :email, :password,
-        :password_confirmation, :terms_of_service, :locale,
-        :redeemable_code
+        :first_name,
+        :last_name,
+        :email,
+        :email_confirmation,
+        :password,
+        :password_confirmation,
+        :terms_of_service,
+        :locale,
+        :date_of_birth,
+        :gender,
+        :redeemable_code,
       ]
     end
 

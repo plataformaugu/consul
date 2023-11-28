@@ -20,6 +20,13 @@ class PollsController < ApplicationController
   def show
     @questions = @poll.questions.for_render.sort_for_list
     @comment_tree = CommentTree.new(@poll, params[:page], @current_order)
+
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @poll.segmentation.present?
+      @can_participate, @reason = @poll.segmentation.validate(current_user)
+    end
   end
 
   def stats

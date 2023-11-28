@@ -10,9 +10,9 @@
 <% end %>
 <% if feature?(:proposals) %>
   <li>
-    <%= layout_menu_link_to 'Convocatorias',
-                            proposal_topics_path,
-                            controller.class == ProposalTopicsController || controller.class == ProposalsController,
+    <%= layout_menu_link_to 'Propuestas',
+                            proposals_path,
+                            controller.class == ProposalsController,
                             accesskey: "2" %>
   </li>
 <% end %>
@@ -24,7 +24,8 @@
                               accesskey: "3" %>
   </li>
 <% end %>
-<% if feature?(:legislation) %>
+
+<% if true == false && feature?(:legislation) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
                             legislation_processes_path,
@@ -32,6 +33,7 @@
                             accesskey: "4" %>
   </li>
 <% end %>
+
 <% if feature?(:budgets) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.budgets"),
@@ -40,7 +42,8 @@
                               accesskey: "5" %>
   </li>
 <% end %>
-<% if feature?(:sdg) %>
+
+<% if true == false && feature?(:sdg) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.sdg"),
                             sdg_goals_path,
@@ -55,14 +58,5 @@
                           current_page?(events_path),
                           accesskey: "8" %>
 </li>
-
-<% if feature?(:help_page) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.help"),
-                            help_path,
-                            current_page?(help_path),
-                            accesskey: "9" %>
-  </li>
-<% end %>
 
 <%= raw content_block("subnavigation_right") %>

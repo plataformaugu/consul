@@ -176,7 +176,7 @@ es:
       zoom: "Zoom"
       zoom_description: "Zoom para mostrar la posición del mapa"
     process:
-      debates: "Debates"
+      debates: "Planes Reguladores"
       debates_description: "El espacio de debates ciudadanos está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas"
       proposals: "Propuestas"
       proposals_description: "Las propuestas ciudadanas son una oportunidad para que los vecinos y colectivos decidan directamente cómo quieren que sea su sociedad, después de conseguir los apoyos suficientes y de someterse a consulta ciudadana"

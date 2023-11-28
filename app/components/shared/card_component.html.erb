@@ -3,6 +3,11 @@
     <h4 class="text-center">
       <%= link_to @title, @instance %>
     </h4>
+    <% if @subtitle.present? %>
+      <h6 class="text-center">
+        <%= @subtitle %>
+      </h6>
+    <% end %>
   </header>
   <section>
     <div class="image-container">

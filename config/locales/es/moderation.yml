@@ -38,12 +38,12 @@ es:
         orders:
           created_at: Más nuevos
           flags: Más denunciados
-        title: Debates
+        title: Planes Reguladores
     header:
       title: Moderación
     menu:
       flagged_comments: Comentarios
-      flagged_debates: Debates
+      flagged_debates: Planes Reguladores
       flagged_investments: Proyectos de gasto
       proposals: Propuestas
       proposal_notifications: Notificaciones de propuestas

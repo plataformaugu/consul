@@ -81,8 +81,7 @@ class User < ApplicationRecord
   
   has_and_belongs_to_many :events
 
-  validates :username, presence: true, if: :username_required?
-  validates :username, uniqueness: { scope: :registering_with_oauth }, if: :username_required?
+  validates :email, confirmation: true
   validates :document_number, uniqueness: { scope: :document_type }, allow_nil: true
 
   validate :validate_username_length
@@ -129,6 +128,15 @@ class User < ApplicationRecord
   end
 
   before_validation :clean_document_number
+
+  GENDER_MALE = 'Masculino'
+  GENDER_FEMALE = 'Femenino'
+  GENDER_OTHER = 'Otro'
+  GENDER_CHOICES = [
+    GENDER_MALE,
+    GENDER_FEMALE,
+    GENDER_OTHER
+  ]
 
   # Get the existing user by email if the provider gives us a verified email.
   def self.first_or_initialize_for_oauth(auth)
@@ -419,11 +427,15 @@ class User < ApplicationRecord
   end
 
   def full_name
-    "#{first_name} #{last_name} #{maiden_name}"
+    "#{first_name} #{last_name}"
   end
 
   def is_staff?
     administrator? || moderator?
+  end
+
+  def username
+    "#{first_name} #{last_name}"
   end
 
   private

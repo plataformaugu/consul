@@ -3,9 +3,10 @@ class Budget < ApplicationRecord
   include Sluggable
   include StatsVersionable
   include Reportable
+  include Documentable
   include Imageable
 
-  translates :name, :main_link_text, :main_link_url, :pdf_link, :custom_description, touch: true
+  translates :name, :main_link_text, :main_link_url, :pdf_link, :benefits, :custom_description, touch: true
   include Globalizable
 
   class Translation

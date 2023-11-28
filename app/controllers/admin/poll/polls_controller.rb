@@ -1,6 +1,7 @@
 class Admin::Poll::PollsController < Admin::Poll::BaseController
   include Translatable
   include ImageAttributes
+  include DocumentAttributes
   include ReportAttributes
   load_and_authorize_resource
 
@@ -20,6 +21,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     @poll.author = current_user
 
     if @poll.save
+      Segmentation.generate(entity_name: @poll.class.name, entity_id: @poll.id, params: params)
       notice = t("flash.actions.create.poll")
       if @poll.budget.present?
         redirect_to admin_poll_booth_assignments_path(@poll), notice: notice
@@ -36,6 +38,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
   def update
     if @poll.update(poll_params)
+      Segmentation.generate(entity_name: @poll.class.name, entity_id: @poll.id, params: params)
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else
       render :edit
@@ -67,7 +70,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     end
 
     def allowed_params
-      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list,
+      attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list, documents_attributes: document_attributes,
                     geozone_ids: [], image_attributes: image_attributes]
 
       [*attributes, *report_attributes, translation_params(Poll)]

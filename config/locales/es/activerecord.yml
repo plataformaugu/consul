@@ -32,8 +32,8 @@ es:
         one: "Comentario"
         other: "Comentarios"
       debate:
-        one: "Debate"
-        other: "Debates"
+        one: "Plan Regulador Participativo"
+        other: "Planes Reguladores"
       tag:
         one: "Etiqueta"
         other: "Etiquetas"
@@ -252,10 +252,10 @@ es:
         description: "Opinión"
         tag_list: "Temas"
         terms_of_service: "Términos de servicio"
-        title: "Título del debate"
+        title: "Título"
       debate/translation:
-        title: "Título del debate"
-        description: "Texto inicial del debate"
+        title: "Título"
+        description: "Texto inicial"
       proposal:
         author: "Autor"
         title: "Título"
@@ -272,7 +272,7 @@ es:
         summary: "Resumen de la propuesta"
         retired_explanation: "Explicación"
       user:
-        login: "Email o nombre de usuario"
+        login: "Email"
         email: "Email"
         username: "Nombre de usuario"
         password_confirmation: "Confirmación de contraseña"

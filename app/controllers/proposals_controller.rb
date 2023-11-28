@@ -30,27 +30,33 @@ class ProposalsController < ApplicationController
     @notifications = @proposal.notifications
     @notifications = @proposal.notifications.not_moderated
 
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @proposal.segmentation.present?
+      @can_participate, @reason = @proposal.segmentation.validate(current_user)
+    end
+
     if request.path != proposal_path(@proposal)
       redirect_to proposal_path(@proposal), status: :moved_permanently
     end
   end
 
   def new
-    @proposal_topic = ProposalTopic.find_by_id(params[:proposal_topic_id])
+    @is_municipal = false
 
-    if !@proposal_topic.present?
-      redirect_to root_path
-      return
-    end
-
-    if not @proposal_topic.is_active?
-      redirect_to root_path
+    if params['is_municipal'].present?
+      @is_municipal = params['is_municipal']
     end
   end
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
     if @proposal.save
+      if @proposal.is_municipal
+        Segmentation.generate(entity_name: @proposal.class.name, entity_id: @proposal.id, params: params)
+      end
+
       redirect_to pending_proposal_path(@proposal)
     else
       render :new
@@ -60,14 +66,19 @@ class ProposalsController < ApplicationController
   def created; end
 
   def index
-    @proposal_topic = ProposalTopic.find_by_id(params[:id])
+    super
+    @proposals = Kaminari.paginate_array(Proposal.published).page(params[:page])
+  end
 
-    if @proposal_topic.present? && @proposal_topic.is_published?
-      super
-      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id).published).page(params[:page])
-      @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
+  def update
+    if @proposal.update(proposal_params)
+      if @proposal.is_municipal
+        Segmentation.generate(entity_name: @proposal.class.name, entity_id: @proposal.id, params: params)
+      end
+
+      redirect_to proposal_path(@proposal), "La propuesta ha sido actualizada"
     else
-      redirect_to root_path
+      render :edit
     end
   end
 
@@ -122,7 +133,7 @@ class ProposalsController < ApplicationController
 
     def allowed_params
       attributes = [:video_url, :responsible_name, :tag_list, :terms_of_service,
-                    :geozone_id, :related_sdg_list, :proposal_topic_id,
+                    :geozone_id, :related_sdg_list, :proposal_topic_id, :is_municipal,
                     image_attributes: image_attributes,
                     documents_attributes: document_attributes,
                     map_location_attributes: map_location_attributes]

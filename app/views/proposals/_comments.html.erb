@@ -1,3 +1,3 @@
-<%= render Shared::CommentsComponent.new(@proposal, @comment_tree, !@proposal.proposal_topic.is_active?) do %>
+<%= render Shared::CommentsComponent.new(@proposal, @comment_tree, false) do %>
   <%= render MachineLearning::CommentsSummaryComponent.new(@proposal) %>
 <% end %>

@@ -4,6 +4,11 @@
 
 <h2><%= t("admin.proposals.index.title") %></h2>
 
+
+<%= link_to "Crear una propuesta municipal",
+  new_proposal_path(is_municipal: true),
+  class: "button" %>
+
 <% if @proposals.any? %>
   <%= render Admin::SearchComponent.new(label: t("admin.shared.search.label.proposals")) %>
 

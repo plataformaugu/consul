@@ -20,13 +20,13 @@
           <%= translations_form.text_area :custom_description, rows: 4, label: 'Descripción' %>
         </div>
       </div>
-    <% end %>
 
-    <div class="row expanded">
-      <div class="small-12 medium-9 large-6 column">
-        <%= f.url_field :pdf_link, label: 'Enlace PDF' %>
+      <div class="row expanded">
+        <div class="small-12 medium-9 large-6 column">
+          <%= translations_form.text_area :benefits, rows: 4, label: 'Beneficios' %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="row expanded">
       <div class="small-12 medium-4 column">
@@ -48,6 +48,12 @@
       <div class="images small-12 column">
         <%= render "/images/nested_image", f: f %>
         <p class="help-text"><%= t("admin.budgets.edit.image_description") %></p>
+      </div>
+    <% end %>
+
+    <% if feature?(:allow_attached_documents) %>
+      <div class="documents small-12 column">
+        <%= render "documents/nested_documents", f: f %>
       </div>
     <% end %>
   </fieldset>

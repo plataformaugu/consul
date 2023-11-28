@@ -32,7 +32,7 @@ es:
         sections_label: Secciones en las que aparece
         sections:
           homepage: Homepage
-          debates: Debates
+          debates: Plan Regulador Participativo
           proposals: Propuestas
           budgets: Presupuestos participativos
           help_page: Página de ayuda
@@ -62,7 +62,7 @@ es:
         filters:
           all: Todos
           on_comments: Comentarios
-          on_debates: Debates
+          on_debates: Plan Regulador Participativo
           on_proposals: Propuestas
           on_users: Usuarios
           on_system_emails: Emails del sistema
@@ -506,8 +506,8 @@ es:
       index:
         id: ID
         author: Autor
-        title: Debates
-        no_debates: No hay debates.
+        title: Plan Regulador Participativo
+        no_debates: No hay Planes Reguladores.
     hidden_debates:
       index:
         filter: Filtro
@@ -515,7 +515,7 @@ es:
           all: Todos
           with_confirmed_hide: Confirmados
           without_confirmed_hide: Pendientes
-        title: Debates ocultos
+        title: Planes Reguladores ocultos
         no_hidden_debates: No hay debates ocultos.
     documents:
       new:
@@ -724,7 +724,7 @@ es:
       budgets: Presupuestos participativos
       geozones: Gestionar zonas
       hidden_comments: Comentarios ocultos
-      hidden_debates: Debates ocultos
+      hidden_debates: Planes Reguladores ocultos
       hidden_proposals: Propuestas ocultas
       hidden_budget_investments: Proyectos de gasto ocultos
       hidden_proposal_notifications: Notificationes de propuesta ocultas
@@ -758,7 +758,7 @@ es:
         information_texts: Personalizar textos
         information_texts_menu:
           basic: "Personalización básica"
-          debates: "Debates"
+          debates: "Planes Reguladores"
           community: "Comunidad"
           proposals: "Propuestas"
           polls: "Consultas"
@@ -781,7 +781,7 @@ es:
       dashboard: Panel de progreso de propuestas
       administrator_tasks: Recursos solicitados
       dashboard_actions: Recursos y acciones
-      debates: "Debates"
+      debates: "Plan Regulador Participativo"
       comments: "Comentarios"
       local_census_records: Gestionar censo local
       machine_learning: "IA / Machine learning"
@@ -1353,7 +1353,7 @@ es:
           booths: "Buscar urna por nombre"
           budget_investments: "Buscar proyectos por título, descripción o partida"
           comments: "Buscar comentarios"
-          debates: "Buscar debates por título o descripción"
+          debates: "Buscar por título o descripción"
           legislation_processes: "Buscar procesos por título o descripción"
           legislation_proposals: "Buscar propuestas por título o descripción"
           local_census_records: "Búsqueda por número de documento"
@@ -1447,7 +1447,7 @@ es:
           comment_votes: Votos en comentarios
           comments: Comentarios
           debate_votes: Votos en debates
-          debates: Debates
+          debates: Plan Regulador Participativo
           proposal_votes: Votos en propuestas
           proposals: Propuestas
           budgets: Presupuestos abiertos
@@ -1468,7 +1468,7 @@ es:
         polls: Consultas
         sdg: ODS
       graph:
-        debate_created: Debates
+        debate_created: Planes Reguladores
         visit: Visitas
         level_2_user: Usuarios nivel 2
         proposal_created: Propuestas Ciudadanas
@@ -1514,7 +1514,7 @@ es:
           amount: "Presupuesto aprobado"
           winners: "Proyectos de inversión ganadores"
           sent: "Proyectos de inversión enviados"
-        debates: "Debates"
+        debates: "Planes Reguladores"
         polls: "Consultas"
         proposals: "Propuestas"
         title: "Objetivos de Desarrollo Sostenible - Estadísticas"
@@ -1649,7 +1649,7 @@ es:
       no_cards: No hay tarjetas.
       feeds:
         proposals: Propuestas
-        debates: Debates
+        debates: Plan Regulador Participativo
         processes: Procesos
       new:
         header_title: Nuevo encabezado

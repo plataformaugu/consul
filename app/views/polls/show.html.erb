@@ -32,7 +32,13 @@
         <% end %>
       <% end %>
 
-      <%= render Polls::Questions::QuestionComponent.with_collection(@questions) %>
+      <% if @can_participate %>
+        <%= render Polls::Questions::QuestionComponent.with_collection(@questions) %>
+      <% else %>
+        <div class="callout warning">
+          <%= @reason %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -44,6 +50,16 @@
       </div>
     </div>
   </div>
+
+  <% if feature?(:allow_attached_documents) %>
+    <div class="row margin">
+      <div class="small-12 medium-9 column">
+        <%= render "documents/documents",
+                    documents: @poll.documents,
+                    max_documents_allowed: Poll.max_documents_allowed %>
+      </div>
+    </div>
+  <% end %>
 
   <div id="poll_more_info_answers" class="expanded poll-more-info-answers">
     <div class="row padding">
