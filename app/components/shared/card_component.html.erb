@@ -9,19 +9,23 @@
       </h6>
     <% end %>
   </header>
-  <section>
-    <div class="image-container">
-      <%= image_tag @image %>
-    </div>
-
-    <% if @alert.present? %>
-      <div class="alert-container">
-        <div class="alert-text-container">
-          <h4><%= @alert %></h4>
+  <% if @image.present? || @alert.present? %>
+    <section>
+      <% if @image.present? %>
+        <div class="image-container">
+          <%= image_tag @image %>
         </div>
-      </div>
-    <% end %>
-  </section>
+      <% end %>
+
+      <% if @alert.present? %>
+        <div class="alert-container">
+          <div class="alert-text-container">
+            <h4><%= @alert %></h4>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
   <footer class="margin-top margin-bottom">
     <%= @description.truncate_words(20) %>
   </footer>

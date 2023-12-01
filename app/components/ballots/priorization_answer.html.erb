@@ -1,0 +1,28 @@
+<div>
+  <%= form_with url: answer_ballot_path do |form| %>
+    <ul id="sortable" style="list-style-type: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+      <% @ballot.choices.each do |choice| %>
+        <li id="<%= choice %>" style="border: 1px solid black; padding: 0.5rem;"><%= choice %></li>
+      <% end %>
+    </ul>
+
+    <%= form.hidden_field :answer %>
+
+    <div class="margin-top"></div>
+    <%= form.submit 'Enviar respuesta', class: 'button' %>
+  <% end %>
+</div>
+
+<script>
+var sortedItems = <%= raw(@ballot.choices.to_json) %>
+$('#answer').val(sortedItems)
+
+$( function() {
+  $( "#sortable" ).sortable({
+    update: function(event, ui) {
+      sortedItems = $( "#sortable" ).sortable('toArray')
+      $('#answer').val(sortedItems)
+    }
+  });
+} );
+</script>

@@ -53,10 +53,10 @@
 <% end %>
 
 <li>
-  <%= layout_menu_link_to 'Eventos',
-                          events_path,
-                          current_page?(events_path),
-                          accesskey: "8" %>
+  <%= layout_menu_link_to 'Votación',
+                          ballots_path,
+                          current_page?(ballots_path),
+                          accesskey: "6" %>
 </li>
 
 <%= raw content_block("subnavigation_right") %>

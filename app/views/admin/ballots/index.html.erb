@@ -1,0 +1,41 @@
+<h2 class="inline-block">Votación</h2>
+
+<%=
+  link_to 'Crear votación',
+  new_admin_ballot_path,
+  class: "button float-right"
+%>
+
+<% if @ballots.any? %>
+  <table>
+    <thead>
+      <th class="small-4">Título</th>
+      <th>Opciones</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @ballots.each do |ballot| %>
+        <tr id="<%= dom_id(ballot) %>">
+          <td><strong><%= ballot.title %></strong></td>
+          <td>
+            <% ballot.choices.each do |choice| %>
+              <span class="label"><%= choice %></span>
+            <% end %>
+          </td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              ballot,
+              destroy_confirmation: 'Esta acción eliminará permanentemente esta votación.'
+            ) do |actions| %>
+              <%= actions.action(:show, path: ballot, target: '_blank') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay votaciones.
+  </div>
+<% end %>

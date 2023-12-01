@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_27_201737) do
+ActiveRecord::Schema.define(version: 2023_11_28_104453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -140,6 +140,27 @@ ActiveRecord::Schema.define(version: 2023_11_27_201737) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "ballot_answers", force: :cascade do |t|
+    t.bigint "ballot_id"
+    t.bigint "user_id"
+    t.text "answer", default: [], array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ballot_id"], name: "index_ballot_answers_on_ballot_id"
+    t.index ["user_id"], name: "index_ballot_answers_on_user_id"
+  end
+
+  create_table "ballots", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "ballot_type"
+    t.text "choices", default: [], array: true
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_ballots_on_user_id"
   end
 
   create_table "banner_sections", id: :serial, force: :cascade do |t|
@@ -1849,6 +1870,9 @@ ActiveRecord::Schema.define(version: 2023_11_27_201737) do
   add_foreign_key "administrators", "users"
   add_foreign_key "age_range_segmentations", "segmentations"
   add_foreign_key "age_segmentations", "segmentations"
+  add_foreign_key "ballot_answers", "ballots"
+  add_foreign_key "ballot_answers", "users"
+  add_foreign_key "ballots", "users"
   add_foreign_key "budget_administrators", "administrators"
   add_foreign_key "budget_administrators", "budgets"
   add_foreign_key "budget_investments", "communities"

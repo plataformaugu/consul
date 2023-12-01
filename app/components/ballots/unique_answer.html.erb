@@ -1,0 +1,16 @@
+<div>
+  <%= form_with url: answer_ballot_path do |form| %>
+    <%= form.select :answer,
+      @ballot.choices.map{ |choice| [choice, choice] },
+      {
+        include_blank: 'Elige una opción',
+        label: 'Respuesta',
+      },
+      {
+        required: true
+      }
+    %>
+
+    <%= form.submit 'Enviar respuesta', class: 'button' %>
+  <% end %>
+</div>

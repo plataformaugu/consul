@@ -1,0 +1,15 @@
+<div class="simple-card-component">
+  <header>
+    <h4 class="text-center">
+      <%= link_to @title, @instance %>
+    </h4>
+    <% if @subtitle.present? %>
+      <h6 class="text-center">
+        <%= @subtitle %>
+      </h6>
+    <% end %>
+  </header>
+  <footer class="margin-top margin-bottom">
+    <%= @description.truncate_words(20) %>
+  </footer>
+</div>

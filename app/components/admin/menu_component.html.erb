@@ -102,4 +102,8 @@
   <li class="<%= "is-active" if controller_name == "events" %>">
     <%= link_to 'Eventos', admin_events_path, class: 'events-link' %>
   </li>
+
+  <li class="<%= "is-active" if controller_name == "ballots" %>">
+    <%= link_to 'Votación', admin_ballots_path, class: 'ballots-link' %>
+  </li>
 </ul>

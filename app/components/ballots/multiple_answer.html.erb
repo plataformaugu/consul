@@ -1,0 +1,12 @@
+<div>
+  <%= form_with url: answer_ballot_path do |form| %>
+    <% @ballot.choices.each do |choice| %>
+      <%= label_tag nil, style: 'font-weight: normal' do %>
+        <%= check_box_tag 'answer[]', choice %>
+        <%= choice %>
+      <% end %>
+    <% end %>
+    
+    <%= form.submit 'Enviar respuesta', class: 'button' %>
+  <% end %>
+</div>

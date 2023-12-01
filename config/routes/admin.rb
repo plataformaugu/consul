@@ -283,6 +283,8 @@ namespace :admin do
   resources :events
 
   resources :proposal_topics
+
+  resources :ballots
 end
 
 resolve "Milestone" do |milestone|

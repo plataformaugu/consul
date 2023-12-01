@@ -117,6 +117,10 @@
     &.proposal-topics-link {
       @include icon(person-booth, solid);
     }
+
+    &.ballots-link {
+      @include icon(vote-yea, solid);
+    }
   }
 
   li {

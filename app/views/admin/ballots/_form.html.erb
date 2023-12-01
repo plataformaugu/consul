@@ -1,0 +1,79 @@
+<div class="margin-top">
+  <%= form_with(model: [:admin, @ballot], local: true) do |form| %>
+
+    <div class="field">
+      <%= form.text_field :title, label: 'Título', required: true %>
+    </div>
+
+    <div class="field">
+      <%= form.text_area :description, label: 'Descripción', rows: 4 %>
+    </div>
+
+    <div class="field">
+      <%= form.select :ballot_type,
+        Ballot::BALLOT_TYPES,
+        {
+          include_blank: 'Elige un tipo de votación',
+          label: 'Tipo de votación',
+        },
+        {
+          required: true
+        }
+      %>
+    </div>
+
+    <div class="field" id="ballot_choices_container">
+      <%= form.text_field :choices,
+        label: 'Opciones',
+        required: true,
+        hint: 'Ingresa las opciones separadas con una coma (,)',
+        value: action_name == 'edit' ? @ballot.choices.join(', ') : ''
+      %>
+    </div>
+
+    <div class="actions">
+      <% if action_name == 'edit' %>
+        <%= form.submit 'Editar votación', class: 'button' %>
+      <% else %>
+        <%= form.submit 'Crear votación', class: 'button' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+$(document).ready(function() {
+  if ($('#ballot_ballot_type').val() === '<%= Ballot::BALLOT_OPEN_ANSWER %>') {
+    $('#ballot_choices_container').hide()
+    $('#ballot_choices').prop('required', false)
+  }
+})
+
+$('#ballot_ballot_type').on('change', function() {
+  if (this.value === '<%= Ballot::BALLOT_OPEN_ANSWER %>') {
+    $('#ballot_choices_container').hide()
+    $('#ballot_choices').prop('required', false)
+  } else {
+    $('#ballot_choices_container').show()
+    $('#ballot_choices').prop('required', true)
+  }
+})
+
+$('#ballot_choices').keyup(function() {
+  if (this.value !== '<%= Ballot::BALLOT_OPEN_ANSWER %>') {
+    let element = document.getElementById('ballot_choices')
+
+    if (element.value.trim().split(',').length <= 1) {
+      element.setCustomValidity('Debes ingresar al menos una opción.')
+    }
+    else if (element.value.trim().substring(0, 1) === ',') {
+      element.setCustomValidity('No puede comenzar con una coma.')
+    }
+    else if (element.value.trim().slice(-1) === ',') {
+      element.setCustomValidity('No puede terminar con una coma.')
+    } else {
+      element.setCustomValidity('')
+    }
+  }
+})
+</script>

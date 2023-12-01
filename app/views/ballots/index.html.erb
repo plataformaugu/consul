@@ -1,0 +1,30 @@
+<% provide :title do %>Votación<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: ballots_url %>
+<% end %>
+
+
+<main>
+  <%= render "shared/section_header", i18n_namespace: "ballots.index.section_header", image: "polls" %>
+  <div class="row">
+    <div id="proposal-topics" class="small-12 column">
+      <% if @ballots.any? %>
+        <div class="cards-container-component">
+          <% @ballots.each do |ballot| %>
+            <%= render Shared::SimpleCardComponent.new(
+              ballot,
+              ballot.title,
+              ballot.description,
+              nil,
+            ) %>
+          <% end %>
+        </div>
+        <%= paginate @ballots %>
+      <% else %>
+        <div class="callout primary">
+          No hay votaciones.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

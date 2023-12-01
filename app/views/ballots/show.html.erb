@@ -1,0 +1,35 @@
+<% provide :title do %><%= @ballot.title %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%= render "shared/social_media_meta_tags",
+              social_url: ballot_url(@ballot),
+              social_title: @ballot.title,
+              social_description: @ballot.description,
+              twitter_image_url: nil,
+              og_image_url: nil %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: ballot_url(@ballot) %>
+<% end %>
+
+<div id="<%= dom_id(@ballot) %>" class="row">
+  <div class="small-12 column">
+    <%= back_link_to ballots_path %>
+
+    <h1><%= @ballot.title %></h1>
+    <h4><%= @ballot.ballot_type %></h4>
+
+    <div class="margin-top">
+      <p><%= @ballot.description %></p>
+    </div>
+
+    <div class="margin-top">
+      <% if @ballot.voted_by?(current_user) %>
+        <div class="callout warning">
+          <p>Ya respondiste esta votación.</p>
+        </div>
+      <% else %>
+        <%= render @ballot.component %>
+      <% end %>
+    </div>
+  </div>
+</div>

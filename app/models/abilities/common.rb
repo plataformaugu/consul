@@ -6,6 +6,7 @@ module Abilities
       merge Abilities::Everyone.new(user)
 
       can [:read, :update], User, id: user.id
+      can [:read, :answer], Ballot
 
       can [:join, :left], Event do |event|
         !event.is_expired?

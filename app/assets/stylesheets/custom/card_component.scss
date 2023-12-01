@@ -58,3 +58,9 @@
     }
   }
 }
+
+.simple-card-component {
+  @extend .card-component;
+
+  min-height: rem-calc(64);
+}

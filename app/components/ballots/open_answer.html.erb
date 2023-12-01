@@ -1,0 +1,7 @@
+<div>
+  <%= form_with url: answer_ballot_path do |form| %>
+    <%= form.text_area :answer, rows: 4, label: 'Respuesta' %>
+
+    <%= form.submit 'Enviar respuesta', class: 'button' %>
+  <% end %>
+</div>
