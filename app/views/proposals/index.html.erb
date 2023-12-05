@@ -11,14 +11,20 @@
 <main>
   <%= render "shared/section_header", i18n_namespace: "proposals.index.section_header", image: "proposals" %>
   <div class="row">
-    <div id="proposal-topics" class="small-12 medium-9 column">
+    <div id="proposal-topics" class="small-12 column">
+      <h4>Haz clic en un lugar en el mapa para crear una propuesta</h4>
+      <% if feature?(:map) %>
+        <div class="margin">
+          <%= render_proposals_map("proposal", current_user && current_user.administrator?) %>
+        </div>
+      <% end %>
       <% if @proposals.any? %>
         <div class="cards-container-component">
           <% @proposals.each do |proposal| %>
             <%= render Shared::CardComponent.new(
               proposal,
               proposal.title,
-              proposal.image.variant(:thumb),
+              proposal.image.present? ? proposal.image.variant(:thumb) : nil,
               proposal.summary,
               nil,
             ) %>
@@ -33,11 +39,19 @@
     </div>
 
     <div class="small-12 medium-3 column">
-      <aside class="margin-bottom">
-        <%= link_to t("proposals.index.start_proposal"),
-          new_proposal_path,
-          class: "button expanded" %>
-      </aside>
+      <% if current_user && current_user.administrator? %>
+        <aside class="margin-bottom">
+          <%= link_to t("proposals.index.start_proposal"),
+            new_proposal_path(is_municipal: true),
+            class: "button expanded" %>
+        </aside>
+      <% else %>
+        <aside class="margin-bottom">
+          <%= link_to t("proposals.index.start_proposal"),
+            new_proposal_path,
+            class: "button expanded" %>
+        </aside>
+      <% end %>
     </div>
   </div>
 </main>

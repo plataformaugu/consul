@@ -94,20 +94,12 @@ module Abilities
       can [:create, :destroy, :manage], ::Poll::BoothAssignment
       can [:create, :destroy], ::Poll::OfficerAssignment
       can :read, Poll::Question
-      can [:create], Poll::Question do |question|
-        question.poll.blank? || !question.poll.started?
-      end
-      can [:update, :destroy], Poll::Question do |question|
-        !question.poll.started?
-      end
+      can [:create], Poll::Question
+      can [:update, :destroy], Poll::Question
       can [:read, :order_answers], Poll::Question::Answer
-      can [:create, :update, :destroy], Poll::Question::Answer do |answer|
-        can?(:update, answer.question)
-      end
+      can [:create, :update, :destroy], Poll::Question::Answer
       can :read, Poll::Question::Answer::Video
-      can [:create, :update, :destroy], Poll::Question::Answer::Video do |video|
-        can?(:update, video.answer)
-      end
+      can [:create, :update, :destroy], Poll::Question::Answer::Video
       can [:destroy], Image do |image|
         image.imageable_type == "Poll::Question::Answer" && can?(:update, image.imageable)
       end

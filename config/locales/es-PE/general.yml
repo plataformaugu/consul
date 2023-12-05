@@ -73,7 +73,7 @@ es-PE:
       editing: Editar debate
       form:
         submit_button: Guardar cambios
-      show_link: Ver debate
+      show_link: Ver Plan Regulador
     form:
       tags_instructions: Marcar este debate.
       tags_placeholder: "Escribe las etiquetas que desees separadas por una coma (',')"

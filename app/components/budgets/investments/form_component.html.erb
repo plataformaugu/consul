@@ -28,6 +28,10 @@
               maxlength: Budget::Investment.description_max_length,
               class: "html-area" %>
       </div>
+
+      <div>
+        <%= f.text_area :benefits, rows: 4, label: 'Beneficios' %>
+      </div>
     <% end %>
   </fieldset>
 

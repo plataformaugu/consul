@@ -30,32 +30,20 @@
 
       <%= render Shared::BannerComponent.new("debates") %>
 
-      <% unless @search_terms || !has_featured? %>
-        <%= render "featured_debates" %>
-      <% end %>
 
-      <div class="row">
-        <div class="small-12 column">
-          <%= render "view_mode" %>
+      <ul class="tabs" data-tabs id="debates-tabs">
+        <li class="tabs-title is-active"><a href="#open-tab" aria-selected="true">Abiertos</a></li>
+        <li class="tabs-title"><a data-tabs-target="results-tab" href="#results-tab">Resultados</a></li>
+      </ul>
+
+      <div class="tabs-content" data-tabs-content="debates-tabs">
+        <div class="tabs-panel is-active" id="open-tab">
+          <%= render 'index_open' %>
+        </div>
+        <div class="tabs-panel" id="results-tab">
+          <%= render 'index_finished' %>
         </div>
       </div>
-
-      <%= render Shared::AdvancedSearchComponent.new %>
-
-      <%= render "shared/order_links", i18n_namespace: "debates.index" %>
-
-      <% if @debates.any? || current_user.blank? %>
-        <% if debates_default_view? %>
-          <%= render @debates %>
-        <% else %>
-          <% @debates.each do |debate| %>
-            <%= render "debates/debate_minimal", debate: debate %>
-          <% end %>
-        <% end %>
-      <% else %>
-        <%= empty_recommended_debates_message_text(current_user) %>
-      <% end %>
-      <%= paginate @debates %>
     </div>
 
   </div>

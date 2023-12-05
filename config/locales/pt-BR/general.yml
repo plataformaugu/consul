@@ -78,7 +78,7 @@ pt-BR:
       editing: Editar debate
       form:
         submit_button: Salvar alterações
-      show_link: Ver debate
+      show_link: Ver Plan Regulador
     form:
       tags_instructions: Marcar este debate.
       tags_placeholder: "Entre com as marcações que você deseja usar, separadas por vírgulas ('s\")"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_28_104453) do
+ActiveRecord::Schema.define(version: 2023_12_04_102836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 2023_11_28_104453) do
     t.string "title"
     t.text "description"
     t.datetime "hidden_at"
+    t.text "benefits"
     t.index ["budget_investment_id"], name: "index_budget_investment_translations_on_budget_investment_id"
     t.index ["hidden_at"], name: "index_budget_investment_translations_on_hidden_at"
     t.index ["locale"], name: "index_budget_investment_translations_on_locale"
@@ -336,6 +337,7 @@ ActiveRecord::Schema.define(version: 2023_11_28_104453) do
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
     t.datetime "published_at"
+    t.text "benefits"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"

@@ -27,7 +27,8 @@ class DebatesController < ApplicationController
 
   def index
     super
-    @debates = @debates.published
+    @debates_open = @debates.published.not_finished
+    @debates_finished = @debates.published.finished
   end
 
   def show
@@ -50,8 +51,11 @@ class DebatesController < ApplicationController
     @debate = Debate.new(debate_params.merge(author: current_user))
 
     if @debate.save
+      @debate.published_at = Time.now
+      @debate.save!
+
       Segmentation.generate(entity_name: @debate.class.name, entity_id: @debate.id, params: params)
-      redirect_to pending_debate_path(@debate)
+      redirect_to @debate
     else
       render :new
     end

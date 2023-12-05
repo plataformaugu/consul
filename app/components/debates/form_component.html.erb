@@ -56,6 +56,10 @@
       </div>
     <% end %>
 
-    <%= f.submit(class: "button", value: "Crear Plan Regulador") %>
+    <% if action_name == 'edit' %>
+      <%= f.submit(class: "button", value: "Editar Plan Regulador") %>
+    <% else %>
+      <%= f.submit(class: "button", value: "Crear Plan Regulador") %>
+    <% end %>
   </div>
 <% end %>

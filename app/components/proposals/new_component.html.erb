@@ -4,5 +4,5 @@
   <%= header do %>
   <% end %>
 
-  <%= render Proposals::FormComponent.new(proposal, @proposal_topic, proposals_path, @is_municipal) %>
+  <%= render Proposals::FormComponent.new(proposal, @proposal_topic, proposals_path, @is_municipal, @lat, @lng) %>
 </main>

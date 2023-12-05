@@ -51,8 +51,8 @@ class Debate < ApplicationRecord
   scope :public_for_api,           -> { all }
   scope :published,                -> { where.not(published_at: nil) }
   scope :draft,                    -> { where(published_at: nil) }
-  scope :not_finished,             -> { where(is_finished: nil) }
-  scope :finished,                 -> { where.not(is_finished: nil) }
+  scope :not_finished,             -> { where(is_finished: false) }
+  scope :finished,                 -> { where(is_finished: true) }
 
   visitable class_name: "Visit"
 

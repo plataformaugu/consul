@@ -19,7 +19,7 @@
         getPopupContent, latitudeInputSelector, longitudeInputSelector, map, mapAttribution, mapCenterLatLng,
         mapCenterLatitude, mapCenterLongitude, mapTilesProvider, marker, markerIcon, markerLatitude,
         markerLongitude, moveOrPlaceMarker, openMarkerPopup, removeMarker, removeMarkerSelector,
-        updateFormfields, zoom, zoomInputSelector;
+        updateFormfields, zoom, zoomInputSelector, isProposalsMap, isAdmin;
       App.Map.cleanInvestmentCoordinates(element);
       mapTilesProvider = $(element).data("map-tiles-provider");
       mapAttribution = $(element).data("map-tiles-provider-attribution");
@@ -57,6 +57,8 @@
       removeMarkerSelector = $(element).data("marker-remove-selector");
       addMarkerInvestments = $(element).data("marker-investments-coordinates");
       editable = $(element).data("marker-editable");
+      isProposalsMap = $(element).data("marker-proposals");
+      isAdmin = $(element).data("marker-is-admin");
       marker = null;
       markerIcon = L.divIcon({
         className: "map-marker",
@@ -134,6 +136,17 @@
         });
         map.on("click", moveOrPlaceMarker);
       }
+
+      if (isProposalsMap === true) {
+        map.on("click", function(e) {
+          if (isAdmin) {
+            window.location.replace('/proposals/new?is_municipal=true&lat=' + e.latlng.lat + '&lng=' + e.latlng.lng)
+          } else {
+            window.location.replace('/proposals/new?lat=' + e.latlng.lat + '&lng=' + e.latlng.lng)
+          }
+        })
+      }
+
       if (addMarkerInvestments) {
         addMarkerInvestments.forEach(function(coordinates) {
           if (App.Map.validCoordinates(coordinates)) {

@@ -62,7 +62,7 @@ ast:
       editing: Editar debate
       form:
         submit_button: Guardar Cambeos
-      show_link: Ver debate
+      show_link: Ver Plan Regulador
     form:
       tags_instructions: Etiqueta este debate.
       tags_placeholder: "Escribe les etiquetes que deseyes separaes por una coma (',')"

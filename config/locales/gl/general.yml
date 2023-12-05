@@ -78,7 +78,7 @@ gl:
       editing: Editar debate
       form:
         submit_button: Gardar so cambios
-      show_link: Ver debate
+      show_link: Ver Plan Regulador
     form:
       tags_instructions: Etiqueta este debate.
       tags_placeholder: "Escribe as etiquetas que desexes separadas por unha coma (',')"

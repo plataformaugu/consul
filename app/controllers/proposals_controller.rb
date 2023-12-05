@@ -44,9 +44,18 @@ class ProposalsController < ApplicationController
 
   def new
     @is_municipal = false
+    @lat = nil
+    @lng = nil
 
     if params['is_municipal'].present?
       @is_municipal = params['is_municipal']
+    end
+
+    if params['lat'].present? && params['lng'].present?
+      @lat = params['lat']
+      @lng = params['lng']
+    else
+      redirect_to proposals_path
     end
   end
 
