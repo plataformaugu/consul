@@ -1,5 +1,5 @@
 <div class="supports ballot">
-  <% if current_user and Budget.last.ballots.find_by(user_id: current_user.id).lines.map{ |l| l.investment_id }.include?(investment.id) %>
+  <% if current_user && (investment.budget.ballots.find_by(user_id: current_user.id).present? && investment.budget.ballots.find_by(user_id: current_user.id).lines.map{ |l| l.investment_id }.include?(investment.id)) %>
     <div class="remove supported">
       <% if @show_price %>
         <span class="icon-check-circle"
