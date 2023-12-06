@@ -8,8 +8,8 @@
   <% if investment.should_show_vote_count? || investment.should_show_price? %>
     <div class="supports-and-price">
       <% if investment.should_show_vote_count? %>
-        <span class="supports-title"><%= t("budgets.investments_list.investment.supports") %></span>
-        <strong><%= investment.total_votes %></strong>
+        <span class="supports-title">Votos</span>
+        <strong><%= investment.ballot_lines_count %></strong>
       <% end %>
 
       <% if investment.should_show_price? %>
