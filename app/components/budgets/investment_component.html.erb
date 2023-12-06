@@ -1,9 +1,19 @@
 <div id="<%= dom_id(investment) %>" class="investments-list-item">
-  <% if investment.image.present? %>
-    <%= image_tag investment.image.variant(:large), alt: investment.image.title.unicode_normalize %>
-  <% else %>
-    <%= image_tag(image_path_for("budget_investment_no_image.jpg"), alt: investment.title) %>
-  <% end %>
+  <div style="position: relative; width: 100%;">
+    <% if investment.image.present? %>
+      <%= image_tag investment.image.variant(:large), alt: investment.image.title.unicode_normalize, style: 'width: 100%;' %>
+    <% else %>
+      <%= image_tag(image_path_for("budget_investment_no_image.jpg"), alt: investment.title, style: 'width: 100%;') %>
+    <% end %>
+
+    <% if investment.winner %>
+      <div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: flex; align-items: center; justify-content: center;">
+        <div style="border: 1px solid; border-color: #e5e6e9 #dfe0e4 #d0d1d5; background-color: white; padding: 15px;">
+          <h4 style="margin: 0;">Ganador</h4>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
   <% if investment.should_show_vote_count? || investment.should_show_price? %>
     <div class="supports-and-price">

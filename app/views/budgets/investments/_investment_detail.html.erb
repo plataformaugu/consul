@@ -20,6 +20,12 @@
 
 <%= render_image(investment.image, :large, true) if investment.image.present? %>
 
+<% if investment.benefits.present? %>
+  <h4>Beneficios</h4>
+  <p><%= investment.benefits %></p>
+  <hr>
+<% end %>
+
 <p id="investment_code">
   <%= sanitize(t("budgets.investments.show.code", code: investment.id)) %>
 </p>

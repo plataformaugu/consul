@@ -62,11 +62,14 @@ class ProposalsController < ApplicationController
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
     if @proposal.save
+      @proposal.published_at = Time.now
+      @proposal.save!
+
       if @proposal.is_municipal
         Segmentation.generate(entity_name: @proposal.class.name, entity_id: @proposal.id, params: params)
       end
 
-      redirect_to pending_proposal_path(@proposal)
+      redirect_to @proposal, notice: "La propuesta ha sido creada."
     else
       render :new
     end
