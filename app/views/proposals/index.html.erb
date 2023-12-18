@@ -85,14 +85,6 @@
         </div>
       </div>
 
-      <% if @tag_cloud.tags.any? %>
-        <div class="row">
-          <div class="small-12 column">
-            <%= render "shared/tag_cloud", taggable: "Proposal" %>
-          </div>
-        </div>
-      <% end %>
-
       <div class="row mt-2">
         <div id="proposals-list" class="small-12 medium-12 column">
           <% if @proposals.any? || current_user.blank? %>
@@ -103,7 +95,9 @@
                   proposal.title,
                   proposal.image.present? ? proposal.image.variant(:medium) : nil,
                   proposal.summary,
-                  proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil
+                  proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil,
+                  nil,
+                  "#{proposal.total_votes} apoyo#{proposal.total_votes != 1 ? 's' : ''}"
                 ) %>
               <% end %>
             </div>

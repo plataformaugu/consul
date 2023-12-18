@@ -51,6 +51,17 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="small-12 column">
+      <%= render "shared/social_share",
+        share_title: t("shared.share"),
+        title: @poll.name,
+        url: poll_url(@poll),
+        description: @poll.name,
+        mobile: @poll.name %>
+    </div>
+  </div>
+
   <div class="tabs-content" data-tabs-content="polls_tabs">
     <%= render "filter_subnav" %>
 

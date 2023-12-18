@@ -32,6 +32,12 @@
       <% end %>
 
       <%= @description.truncate_words(20) %>
+
+      <% if @footer_text.present? %>
+        <div class="text-center margin-top">
+          <strong><%= @footer_text %></strong>
+        </div>
+      <% end %>
     </footer>
   </section>
 </div>

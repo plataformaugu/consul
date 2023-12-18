@@ -1,4 +1,4 @@
-<%= @form.file_field :image, label: 'Imagen', accept: 'image/png,image/jpeg', required: @is_required %>
+<%= @form.file_field :image, label: 'Imagen', accept: 'image/png,image/jpeg', required: !@instance.image.attached? && @is_required  %>
 
 <div class="margin-bottom">
   <% if @instance.image.attached? %>
