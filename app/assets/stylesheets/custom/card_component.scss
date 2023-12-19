@@ -20,6 +20,7 @@
   margin-bottom: rem-calc(12);
   min-height: rem-calc(192);
   position: relative;
+  justify-content: space-between;
 
   .image-container {
     border-top-right-radius: 15px;
@@ -70,7 +71,7 @@
   }
 
   section {
-    padding: 1rem 1rem 0;
+    padding: 1rem;
     position: relative;
   }
 }
