@@ -81,8 +81,7 @@ class User < ApplicationRecord
   
   has_and_belongs_to_many :events
 
-  validates :username, presence: true, if: :username_required?
-  validates :username, uniqueness: { scope: :registering_with_oauth }, if: :username_required?
+  validates :email, confirmation: true
   validates :document_number, uniqueness: { scope: :document_type }, allow_nil: true
 
   validate :validate_username_length
@@ -129,6 +128,48 @@ class User < ApplicationRecord
   end
 
   before_validation :clean_document_number
+
+  GENRES = [
+    'Masculino',
+    'Femenino',
+    'Otro'
+  ]
+  COMMUNES = [
+    'Arauco',
+    'Cañete',
+    'Contulmo',
+    'Curanilahue',
+    'Lebu',
+    'Los Álamos',
+    'Tirúa',
+    'Alto Biobío',
+    'Antuco',
+    'Cabrero',
+    'Laja',
+    'Los Ángeles',
+    'Mulchén',
+    'Nacimiento',
+    'Negrete',
+    'Quilaco',
+    'Quilleco',
+    'San Rosendo',
+    'Santa Bárbara',
+    'Tucapel',
+    'Yumbel',
+    'Concepción',
+    'Coronel',
+    'Chiguayante',
+    'Florida',
+    'Hualpén',
+    'Hualqui',
+    'Lota',
+    'Penco',
+    'San Pedro de la Paz',
+    'Santa Juana',
+    'Talcahuano',
+    'Tomé',
+    'Otra'
+  ]
 
   # Get the existing user by email if the provider gives us a verified email.
   def self.first_or_initialize_for_oauth(auth)
@@ -330,6 +371,10 @@ class User < ApplicationRecord
     return false if skip_password_validation
 
     super
+  end
+
+  def username
+    return "#{self.first_name} #{self.last_name}"
   end
 
   def username_required?

@@ -1,0 +1,12 @@
+.custom-section {
+  & > .column > header {
+    border-top: 5px solid;
+    border-image: linear-gradient(to right, $primary 50%, $brand 50%, $brand 100%) 5;
+    width: fit-content;
+  }
+
+  small {
+    position: relative;
+    top: -1em;
+  }
+}

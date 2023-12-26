@@ -40,30 +40,27 @@
         <% end %>
 
         <%= render "proposals/info", proposal: @proposal %>
-        <%= render "shared/geozone", geozonable: @proposal %>
-
-        <% unless @proposal.selected? %>
-          <%= render "relationable/related_content", relationable: @proposal %>
-        <% end %>
 
         <div class="js-moderator-proposal-actions margin">
-          <%= render "proposals/actions", proposal: @proposal %>
         </div>
       </div>
 
       <% unless preview %>
         <aside class="small-12 medium-3 column">
-          <% if true == false %>
-          <% if can?(:dashboard, @proposal) %>
+          <% if current_user and current_user.administrator? %>
             <div class="sidebar-divider"></div>
-            <h2><%= t("proposals.show.author") %></h2>
-            <div class="show-actions-menu">
-              <%= link_to progress_proposal_dashboard_path(@proposal),
-                          class: "button hollow expanded",
-                          id: "proposal-dashboard-#{@proposal.id}" do %>
-                <span class="icon-edit"></span>
-                <%= t("proposals.show.dashboard_proposal_link") %>
-              <% end %>
+            <h2>Administrar</h2>
+            <div class="margin-bottom">
+              <%= link_to t("dashboard.index.edit_proposal_link"),
+                edit_proposal_path(@proposal, proposal_topic_id: @proposal.proposal_topic.id),
+                class: "button hollow"
+              %>
+              <%=
+                link_to @proposal.in_development? ? 'Quitar "En desarrollo"' : 'Marcar "En desarrollo"',
+                toggle_in_development_proposal_path,
+                method: :patch,
+                class: 'button hollow'
+              %>
             </div>
           <% end %>
           <% end %>
@@ -71,15 +68,6 @@
           <%= render "proposals/support_status", proposal: @proposal %>
 
           <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
-
-          <% if current_user %>
-            <div class="sidebar-divider"></div>
-            <p class="sidebar-title"><%= t("shared.follow") %></p>
-
-            <%= render "follows/follow_button", follow: find_or_build_follow(current_user, @proposal) %>
-          <% end %>
-
-          <%= render "communities/access_button", community: @proposal.community %>
         </aside>
       <% end %>
     </div>

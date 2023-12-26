@@ -1,0 +1,48 @@
+<h2 class="inline-block">Organizaciones Sociales</h2>
+
+<%=
+  link_to 'Descargar como CSV',
+  @social_organizations.any? ? generate_csv_admin_social_organizations_path : nil,
+  class: "button hollow float-right",
+  disabled: !@social_organizations.any?
+%>
+
+<% if @social_organizations.any? %>
+  <table>
+    <thead>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Descripción</th>
+      <th class="text-center">Email</th>
+      <th class="text-center">Página web</th>
+      <th class="text-center">Usuario</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @social_organizations.each do |social_organization| %>
+        <tr id="<%= dom_id(social_organization) %>">
+          <td class="text-center"><strong><%= social_organization.name %></strong></td>
+          <td class="text-center" title="<%= social_organization.description %>"><%= social_organization.description.truncate_words(6) %></td>
+          <td class="text-center"><%= social_organization.email %></td>
+          <td class="text-center">
+            <% if social_organization.url.present? %>
+              <%= link_to social_organization.url, target: '_blank' do %>
+                <i class="link-icon"></i>
+              <% end %>
+            <% end %>
+          </td>
+          <td class="text-center"><%= link_to social_organization.user.name, social_organization.user, target: '_blank' %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              social_organization,
+              destroy_confirmation: 'Esta acción eliminará permanentemente este evento.'
+            ) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay Organizaciones Sociales.
+  </div>
+<% end %>

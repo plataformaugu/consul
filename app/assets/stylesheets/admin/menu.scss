@@ -117,6 +117,10 @@
     &.proposal-topics-link {
       @include icon(person-booth, solid);
     }
+
+    &.social-organizations-link {
+      @include icon(people-carry, solid);
+    }
   }
 
   li {

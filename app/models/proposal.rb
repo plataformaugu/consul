@@ -84,7 +84,7 @@ class Proposal < ApplicationRecord
   scope :selected,                 -> { where(selected: true) }
   scope :not_selected,             -> { where(selected: false) }
   scope :not_supported_by_user,    ->(user) { where.not(id: user.find_voted_items(votable_type: "Proposal").compact.map(&:id)) }
-  scope :published,                -> { where.not(published_at: nil) }
+  scope :published,                -> { where.not(published_at: nil, proposal_topic_id: nil) }
   scope :draft,                    -> { where(published_at: nil) }
   scope :created_by,               ->(author) { where(author: author) }
 

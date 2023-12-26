@@ -24,7 +24,7 @@
         </div>
       <% else %>
 
-        <% if current_user && @poll.full_answered_by_user?(current_user) %>
+        <% if current_user && @poll.full_answered_by_user?(current_user) && !@poll.expired? %>
           <div class="callout success">
             ¡Muchas gracias por participar!<br>
             Tus respuestas han sido registradas correctamente.
@@ -48,6 +48,17 @@
   <div id="poll_more_info_answers" class="expanded poll-more-info-answers">
     <div class="row padding">
       <%= render Polls::Questions::ReadMoreComponent.with_collection(@questions) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
+      <%= render "shared/social_share",
+        share_title: t("shared.share"),
+        title: @poll.name,
+        url: poll_url(@poll),
+        description: @poll.name,
+        mobile: @poll.name %>
     </div>
   </div>
 

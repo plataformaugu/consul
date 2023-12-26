@@ -14,27 +14,44 @@
 <%= render "shared/header", header: @header %>
 
 <main>
-  <%= render "feeds" %>
-
-  <div class="row">
-    <% if @cards.any? %>
-      <div class="small-12 column <%= "large-8" if feed_processes_enabled? %>">
-        <h2 class="title"><%= t("welcome.cards.title") %></h2>
-
-        <%= render "shared/cards", cards: @cards %>
+  <% if @proposal_topics.any? %>
+    <%= render Welcome::SectionComponent.new("Convocatorias", proposal_topics_path) do %>
+      <div class="cards-container-component">
+        <% @proposal_topics.each do |topic| %>
+          <%= render Shared::CardComponent.new(
+            topic,
+            topic.title,
+            topic.image,
+            topic.description,
+            topic.is_expired? ? 'Convocatoria finalizada' : nil
+          ) %>
+        <% end %>
       </div>
     <% end %>
+  <% end %>
 
-    <% if feed_processes_enabled? %>
-      <div class="small-12 large-4 column">
-        <%= render "processes" %>
+
+  <% if @polls.any? %>
+    <div class="margin-top"></div>
+    <%= render Welcome::SectionComponent.new("Consultas", polls_path) do %>
+      <div class="cards-container-component">
+        <% @polls.each do |poll| %>
+          <%= render Shared::CardComponent.new(
+            poll,
+            poll.title,
+            poll.image.variant(:medium),
+            poll.description,
+            poll.expired? ? 'Consulta finalizada' : nil
+          ) %>
+        <% end %>
       </div>
     <% end %>
-  </div>
+  <% end %>
 
-  <% if feature?("user.recommendations") && (@recommended_debates.present? || @recommended_proposals.present?) %>
-    <%= render "recommended",
-                recommended_debates: @recommended_debates,
-                recommended_proposals: @recommended_proposals %>
+  <% if @cards.any? %>
+    <div class="margin-top"></div>
+    <%= render Welcome::SectionComponent.new("Destacados") do %>
+      <%= render "shared/cards", cards: @cards %>
+    <% end %>
   <% end %>
 </main>

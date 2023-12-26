@@ -1,0 +1,27 @@
+<%= form_with(model: social_organization, local: true) do |form| %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="field">
+    <%= form.text_field :name, label: 'Nombre', maxlength: 64, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :description, label: 'Descripción', rows: 3, maxlength: 256, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.email_field :email, label: 'Email', required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.url_field :url, label: 'Página web', required: false %>
+  </div>
+
+  <div class="actions">
+    <% if action_name == 'edit' %>
+      <%= form.submit 'Editar', class: 'button' %>
+    <% else %>
+      <%= form.submit 'Enviar', class: 'button' %>
+    <% end %>
+  </div>
+<% end %>

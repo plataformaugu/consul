@@ -50,6 +50,12 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
+
+    if @proposal.proposal_topic_id.nil?
+      flash[:error] = "Ocurrió un error inesperado. Inténtalo nuevamente."
+      redirect_to proposal_topics_path
+    end
+
     if @proposal.save
       redirect_to pending_proposal_path(@proposal)
     else
@@ -64,8 +70,20 @@ class ProposalsController < ApplicationController
 
     if @proposal_topic.present? && @proposal_topic.is_published?
       super
-      @proposals = Kaminari.paginate_array(Proposal.where(proposal_topic_id: @proposal_topic.id).published).page(params[:page])
-      @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
+      @proposals = Proposal.where(proposal_topic_id: @proposal_topic.id).published
+
+      if Setting["feature.featured_proposals"]
+        @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
+      end
+
+      @orders = [
+        ['Más votadas', 'most_voted'],
+        ['Menos votadas', 'least_voted'],
+        ['Más recientes', 'newest'],
+        ['Más antiguas', 'oldest']
+      ]
+      @selected_order = params[:order]
+      @proposals = sort_by(params)
     else
       redirect_to root_path
     end
@@ -112,6 +130,20 @@ class ProposalsController < ApplicationController
   def publish
     @proposal.publish
     redirect_to moderation_proposals_path, notice: '¡La propuesta ha sido publicada!'
+  end
+
+  def toggle_in_development
+    new_value = !@proposal.in_development
+    @proposal.in_development = new_value
+    @proposal.save!
+
+    if new_value
+      message = 'La propuesta ha sido marcada como "En desarrollo"'
+    else
+      message = 'La propuesta ya no está "En desarrollo"'
+    end
+
+    redirect_to @proposal, notice: message
   end
 
   private
@@ -201,5 +233,35 @@ class ProposalsController < ApplicationController
       if Setting["feature.user.recommendations_on_proposals"] && current_user.recommended_proposals
         @recommended_proposals = Proposal.recommendations(current_user).sort_by_random.limit(3)
       end
+    end
+
+
+    def sort_by(params)
+      proposals = @proposals
+      orders = [
+        'most_voted',
+        'least_voted',
+        'newest',
+        'oldest',
+      ]
+
+      if params.include?('order') and orders.include?(params[:order])
+        case params[:order]
+        when 'most_voted'
+          proposals = proposals.order(cached_votes_up: :desc)
+        when 'least_voted'
+          proposals = proposals.order(cached_votes_up: :asc)
+        when 'newest'
+          proposals = proposals.order(created_at: :desc)
+        when 'oldest'
+          proposals = proposals.order(created_at: :asc)
+        else
+          proposals = proposals.order(cached_votes_up: :desc)
+        end
+      else
+        proposals = proposals.order(cached_votes_up: :desc)
+      end
+
+      return Kaminari.paginate_array(proposals).page(params[:page])
     end
 end

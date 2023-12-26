@@ -109,6 +109,13 @@ module Statisticable
     end
   end
 
+  def participants_by_commune
+    results_hash = participants.group(:commune).count
+    results_hash['Otra'] = results_hash.delete(nil)
+
+    return results_hash.to_a
+  end
+
   def participants_by_geozone
     geozone_stats.to_h do |stats|
       [

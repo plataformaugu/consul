@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   validate :end_time_greater_than_start_time, on: [:create, :update]
 
   def is_expired?
-    return Time.now > self.start_time
+    return Time.now > self.end_time
   end
 
   def is_user_joined?(user)

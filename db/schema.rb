@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_213922) do
+ActiveRecord::Schema.define(version: 2023_11_17_170413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1345,6 +1345,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.datetime "published_at"
     t.boolean "selected", default: false
     t.bigint "proposal_topic_id"
+    t.boolean "in_development", default: false
     t.index ["author_id", "hidden_at"], name: "index_proposals_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_proposals_on_author_id"
     t.index ["cached_votes_up"], name: "index_proposals_on_cached_votes_up"
@@ -1549,6 +1550,17 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.string "locale"
   end
 
+  create_table "social_organizations", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "email"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_social_organizations_on_user_id"
+  end
+
   create_table "stats_versions", id: :serial, force: :cascade do |t|
     t.string "process_type"
     t.integer "process_id"
@@ -1679,6 +1691,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
     t.string "first_name"
     t.string "last_name"
     t.string "maiden_name"
+    t.string "commune"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1856,6 +1869,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_213922) do
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"
+  add_foreign_key "social_organizations", "users"
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end

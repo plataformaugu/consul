@@ -42,11 +42,13 @@ class Poll < ApplicationRecord
   # validate :end_date_is_not_past_date, on: :update
   # validate :end_date_change, on: :update
   validate :only_one_active, unless: :public?
+  validates :image, presence: true
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
   scope :for, ->(element) { where(related: element) }
   scope :current, -> { where("starts_at <= :time and ends_at >= :time", time: Time.current) }
+  scope :visible, -> { where("starts_at <= :time", time: Time.current) }
   scope :expired, -> { where("ends_at < ?", Time.current) }
   scope :recounting, -> { where(ends_at: (RECOUNT_DURATION.ago)...Time.current) }
   scope :published, -> { where(published: true) }

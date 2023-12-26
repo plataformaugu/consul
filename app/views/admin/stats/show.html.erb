@@ -3,21 +3,6 @@
     <div class="small-12 column">
       <h1 class="inline-block"><%= t "admin.stats.show.stats_title" %></h1>
 
-      <div class="float-right clear">
-        <%= link_to t("admin.stats.show.polls"),
-                    polls_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.participatory_budgets"),
-                    budgets_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.direct_messages"),
-                    direct_messages_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.proposal_notifications"),
-                    proposal_notifications_admin_stats_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.incomplete_verifications"),
-                     admin_verifications_path, class: "button hollow" %>
-        <%= link_to t("admin.stats.show.sdg"),
-                     sdg_admin_stats_path, class: "button hollow" if feature?(:sdg) %>
-      </div>
-
       <div class="clear"></div>
 
       <div class="row stats-numbers">
@@ -74,38 +59,12 @@
 
         <div class="small-12 medium-3 column">
           <p class="featured">
-            <%= t "admin.stats.show.summary.verified_users" %> <br>
-            <span class="number"><%= number_with_delimiter(@verified_users) %></span>
-          </p>
-
-          <p class="featured">
-            <%= t "admin.stats.show.summary.unverified_users" %> <br>
-            <span class="number"><%= number_with_delimiter(@unverified_users) %></span>
+            <%= t "admin.stats.show.summary.users" %> <br>
+            <span class="number"><%= number_with_delimiter(@users) %></span>
           </p>
         </div>
 
         <div class="small-12 medium-3 column">
-          <p class="featured">
-            <%= t "admin.stats.show.summary.users" %> <br>
-            <span class="number"><%= number_with_delimiter(@users) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.user_level_two" %> <br>
-            <span class="number"><%= number_with_delimiter(@user_level_two) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.user_level_three" %> <br>
-            <span class="number"><%= number_with_delimiter(@user_level_three) %></span>
-          </p>
-
-          <p>
-            <%= t "admin.stats.show.summary.verified_users_who_didnt_vote_proposals" %> <br>
-            <span class="number">
-              <%= number_with_delimiter(@user_ids_who_didnt_vote_proposals) %>
-            </span>
-          </p>
         </div>
 
       </div>

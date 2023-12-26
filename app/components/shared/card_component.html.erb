@@ -1,23 +1,39 @@
 <div class="card-component">
+
   <header>
-    <h4 class="text-center">
+    <div class="image-container">
+      <% if @image %>
+        <%= image_tag @image %>
+      <% else %>
+        <div class="no-image">
+          Sin imagen
+        </div>
+      <% end %>
+
+      <% if @alert.present? %>
+        <div class="alert-container">
+          <div class="alert-text-container">
+            <h4><%= @alert %></h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <h4 class="text-center" style="margin-top: 1rem;">
       <%= link_to @title, @instance %>
     </h4>
+    <% if @extra_info.present? %>
+      <p style="font-size: 0.87rem !important; padding: 0 1rem;"><%= @extra_info %></p>
+    <% end %>
+    <section>
+      <%= @description.truncate_words(10) %>
+    </section>
   </header>
-  <section>
-    <div class="image-container">
-      <%= image_tag @image %>
-    </div>
 
-    <% if @alert.present? %>
-      <div class="alert-container">
-        <div class="alert-text-container">
-          <h4><%= @alert %></h4>
-        </div>
+  <footer>
+    <% if @footer_text.present? %>
+      <div style="margin-bottom: 1rem;" class="text-center">
+        <strong><%= @footer_text %></strong>
       </div>
     <% end %>
-  </section>
-  <footer class="margin-top margin-bottom">
-    <%= @description.truncate_words(20) %>
   </footer>
 </div>

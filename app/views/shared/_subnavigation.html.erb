@@ -1,6 +1,6 @@
 <%= raw content_block("subnavigation_left") %>
 
-<% if feature?(:debates) %>
+<% if true == false && feature?(:debates) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.debates"),
                             debates_path,
@@ -24,7 +24,7 @@
                               accesskey: "3" %>
   </li>
 <% end %>
-<% if feature?(:legislation) %>
+<% if true == false && feature?(:legislation) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
                             legislation_processes_path,
@@ -32,7 +32,7 @@
                             accesskey: "4" %>
   </li>
 <% end %>
-<% if feature?(:budgets) %>
+<% if true == false && feature?(:budgets) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.budgets"),
                               budgets_path,
@@ -40,7 +40,7 @@
                               accesskey: "5" %>
   </li>
 <% end %>
-<% if feature?(:sdg) %>
+<% if true == false && feature?(:sdg) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.sdg"),
                             sdg_goals_path,
@@ -61,7 +61,7 @@
     <%= layout_menu_link_to t("layouts.header.help"),
                             help_path,
                             current_page?(help_path),
-                            accesskey: "9" %>
+                            accesskey: "10" %>
   </li>
 <% end %>
 

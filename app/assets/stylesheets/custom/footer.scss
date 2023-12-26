@@ -1,0 +1,13 @@
+.footer {
+  background-color: #001b3b;
+  color: $text-light;
+
+  h1, h2, h3, h4, h5 {
+    color: $white;
+  }
+
+  .subfooter {
+    border-top: 2px solid $brand;
+    padding-top: 1rem;
+  }
+}

@@ -8,4 +8,6 @@
 
 .pdf-icon {
   @include icon(file-pdf, solid);
+.link-icon {
+    @include has-fa-icon(link, solid);
 }

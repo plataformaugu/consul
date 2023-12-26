@@ -1,0 +1,12 @@
+<section class="row custom-section">
+  <div class="column small-12">
+    <header>
+      <h3><%= @title %></h3>
+      <% if @path.present? %>
+        <small><%= link_to 'Ver todas', @path %></small>
+      <% end %>
+    </header>
+
+    <%= content %>
+  </div>
+</section>

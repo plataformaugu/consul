@@ -1,0 +1,35 @@
+.custom-jumbo {
+  width: 100vw;
+  min-height: 65vh;
+
+  @media (min-width: 640px) {
+    left: calc(#{$full-width-margin});
+    right: calc(#{$full-width-margin});
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  .custom-jumbo-overlay {
+    background-color: rgba($white, 0.4);
+    backdrop-filter: blur(15px);
+    color: $black;
+    padding: $global-padding;
+    border-radius: 25px;
+    text-align: center;
+    width: fit-content;
+    min-width: 25vw;
+    height: fit-content;
+
+    @media (max-width: 641px) {
+      margin: 0 1rem;
+      backdrop-filter: blur(15px);
+    }
+  }
+}

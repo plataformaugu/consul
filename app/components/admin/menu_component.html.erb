@@ -3,14 +3,6 @@
     <%= link_to 'Convocatorias', admin_proposal_topics_path, class: "proposal-topics-link" %>
   </li>
 
-  <% if true == false %>
-  <% if feature?(:proposals) %>
-    <li class="<%= "is-active" if controller_name == "proposals" %>">
-      <%= link_to t("admin.menu.proposals"), admin_proposals_path, class: "proposals-link" %>
-    </li>
-  <% end %>
-  <% end %>
-
   <% if feature?(:debates) %>
     <li class="<%= "is-active" if controller_name == "debates" %>">
       <%= link_to t("admin.menu.debates"), admin_debates_path, class: "debates-link" %>
@@ -27,13 +19,13 @@
     </li>
   <% end %>
 
-  <% if feature?(:legislation) %>
+  <% if true == false && feature?(:legislation) %>
     <li class="<%= "is-active" if controller.class.module_parent == Admin::Legislation %>">
       <%= link_to t("admin.menu.legislation"), admin_legislation_processes_path, class: "legislation-link" %>
     </li>
   <% end %>
 
-  <% if feature?(:budgets) %>
+  <% if true == false && feature?(:budgets) %>
     <li class="<%= "is-active" if budgets? %>">
       <%= link_to t("admin.menu.budgets"), admin_budgets_path, class: "budgets-link" %>
     </li>
@@ -44,7 +36,6 @@
     <%= link_list(
       newsletters_link,
       admin_notifications_link,
-      system_emails_link,
       emails_download_link,
       id: "messaging_users_menu", class: ("is-active" if messages_menu_active?)
     ) %>
@@ -63,11 +54,7 @@
   <li>
     <a href="#" class="moderated-content-link"><%= t("admin.menu.title_moderated_content") %></a>
     <%= link_list(
-      (hidden_proposals_link if feature?(:proposals)),
-      (hidden_debates_link if feature?(:debates)),
-      (hidden_budget_investments_link if feature?(:budgets)),
       hidden_comments_link,
-      hidden_proposal_notifications_link,
       hidden_users_link,
       activity_link,
       class: ("is-active" if moderated_content?)
@@ -80,7 +67,6 @@
       administrators_link,
       moderators_link,
       valuators_link,
-      (sdg_managers_link if feature?(:sdg)),
       users_link,
       class: ("is-active" if profiles?)
     ) %>
@@ -98,12 +84,6 @@
       class: ("is-active" if settings?)
     ) %>
   </li>
-
-  <% if ::MachineLearning.enabled? %>
-    <li class="<%= "is-active" if controller_name == "machine_learning" %>">
-      <%= link_to t("admin.menu.machine_learning"), admin_machine_learning_path, class: "ml-link" %>
-    </li>
-  <% end %>
 
   <li class="<%= "is-active" if controller_name == "events" %>">
     <%= link_to 'Eventos', admin_events_path, class: 'events-link' %>
