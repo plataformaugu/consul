@@ -10,24 +10,24 @@ class WelcomeController < ApplicationController
   def index
     @slider_elements = [
       {
-        image_url: '/images/home/slider/1.jpg',
-        caption: 'Cuenta Pública Participativa 2022 del Gore en Calama, ejercicio inédito impulsado por el Gobernador Ricardo Díaz y con alta participación de organizaciones sociales, además de autoridades.',
+        image_url: '/images/home/slider/1.jpeg',
+        caption: 'Primera sesión extraordinaria del Cosoc Regional del año 2023, encuentro que se desarrolló con el objetivo de capacitar a los integrantes del órgano consultivo en materias de inversión y presupuesto FNDR.',
       },
       {
         image_url: '/images/home/slider/2.jpg',
-        caption: 'Mesa del Agua realizada en Ayquina junto a dirigentes de diversas comunidades del Alto Loa, con el objetivo de abordar los desafíos que representa la escasez hídrica en la región.',
+        caption: 'El Gobernador Regional de Antofagasta, Ricardo Díaz, reactiva las jornadas del Gore En Tu Sala, iniciativa que busca informar y educar sobre la gestión pública del Gobierno local y sus diversas acciones.',
       },
       {
         image_url: '/images/home/slider/3.jpg',
-        caption: 'Firma de compromiso del Plan “Unidos Por Bonilla”, con la presencia del Gobernador Regional, Ricardo Díaz, el subsecretario de Desarrollo Regional, Miguel Crispi, autoridades y organizaciones sociales.',
+        caption: 'Inauguración “Pinturas Participativas” del Plan Unidos por Bonilla. En esta oportunidad el programa se realizó en la escuela Juan Pablo II donde hubo baile, canto y alegría de partes de los estudiantes, profesores, y apoderados.',
       },
       {
-        image_url: '/images/home/slider/4.jpg',
-        caption: 'Para el Gobierno Regional la inclusión es una prioridad, lo que ha motivado el apoyo a diversas iniciativas, entre ellas las impulsadas y ejecutadas por el Instituto Teletón.',
+        image_url: '/images/home/slider/4.jpeg',
+        caption: 'El gobernador regional, Ricardo Díaz, junto al seremi de Medio Ambiente, Gustavo Riveros, presidieron una nueva sesión del Comité Regional de Cambio Climático (CORECC)',
       },
       {
         image_url: '/images/home/slider/5.jpg',
-        caption: 'Entrega de los Fondos del 7% de Interés Regional junto al Consejo Regional, recursos que permiten financiar diversas iniciativas presentadas por organizaciones sociales de la región. ',
+        caption: 'El gobernador regional, Ricardo Díaz, estuvo presente junto a autoridades regionales, Fuerzas Armada y la comunidad en general, en la conmemoración del “Día Nacional de la Cantinera”',
       },
     ]
 
