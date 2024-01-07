@@ -8,6 +8,16 @@
 
 .pdf-icon {
   @include icon(file-pdf, solid);
+}
+
 .link-icon {
     @include has-fa-icon(link, solid);
+}
+
+.map-icon {
+  @include has-fa-icon(map-pin, solid);
+}
+
+.email-icon {
+  @include has-fa-icon(envelope, solid);
 }

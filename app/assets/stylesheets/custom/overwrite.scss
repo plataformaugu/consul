@@ -11,6 +11,15 @@ a {
   color: $brand !important;
 }
 
+body.auth-page > .wrapper {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+}
+
 .wrapper > header::after {
   border-bottom: 3px solid $brand !important;
 }

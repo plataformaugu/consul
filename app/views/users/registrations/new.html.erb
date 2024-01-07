@@ -20,24 +20,26 @@
       <%= f.email_field :email, required: true %>
       <%= f.email_field :email_confirmation, label: 'Repite el email anterior', required: true %>
 
-      <%= f.select :commune,
-        User::COMMUNES,
-        {
-          include_blank: 'Elige una comuna',
-          label: 'Comuna',
-        },
-        {
-          required: true
-        }
-      %>
-      <%= f.text_field :commune,
-        id: 'custom_commune',
-        style: 'display: none;',
-        placeholder: 'Ingresa tu comuna',
-        onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
-        maxlength: 20,
-        label: false
-      %>
+      <% if true == false %>
+        <%= f.select :commune,
+          User::COMMUNES,
+          {
+            include_blank: 'Elige una comuna',
+            label: 'Comuna',
+          },
+          {
+            required: true
+          }
+        %>
+        <%= f.text_field :commune,
+          id: 'custom_commune',
+          style: 'display: none;',
+          placeholder: 'Ingresa tu comuna',
+          onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+          maxlength: 20,
+          label: false
+        %>
+      <% end %>
 
       <%= f.select :gender,
         User::GENRES,

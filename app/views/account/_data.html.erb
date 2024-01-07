@@ -25,18 +25,20 @@
     </div>
 
     <div class="row">
-      <div class="small-12 medium-6 column">
-        <%= f.select :commune,
-          User::COMMUNES,
-          {
-            include_blank: 'Elige una comuna',
-            label: 'Comuna',
-          },
-          {
-            required: true
-          }
-        %>
-      </div>
+      <% if true == false %>
+        <div class="small-12 medium-6 column">
+          <%= f.select :commune,
+            User::COMMUNES,
+            {
+              include_blank: 'Elige una comuna',
+              label: 'Comuna',
+            },
+            {
+              required: true
+            }
+          %>
+        </div>
+      <% end %>
 
       <div class="small-12 medium-6 column">
         <%= f.select :gender,

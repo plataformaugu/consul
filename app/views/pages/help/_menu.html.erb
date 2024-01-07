@@ -3,6 +3,13 @@
     <%= link_list(
       (
         [
+          t("pages.help.menu.debates"),
+          "#debates",
+          class: "button hollow expanded"
+        ] if feature?(:debates)
+      ),
+      (
+        [
           t("pages.help.menu.proposals"),
           "#proposals",
           class: "button hollow expanded"
@@ -14,6 +21,13 @@
           "#polls",
           class: "button hollow expanded"
         ] if feature?(:polls)
+      ),
+      (
+        [
+          t("pages.help.menu.budgets"),
+          "#budgets",
+          class: "button hollow expanded"
+        ] if feature?(:budgets)
       ),
       class: "menu-pages", "data-magellan": true
     ) %>

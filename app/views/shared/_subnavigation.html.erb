@@ -1,6 +1,6 @@
 <%= raw content_block("subnavigation_left") %>
 
-<% if true == false && feature?(:debates) %>
+<% if feature?(:debates) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.debates"),
                             debates_path,
@@ -32,7 +32,7 @@
                             accesskey: "4" %>
   </li>
 <% end %>
-<% if true == false && feature?(:budgets) %>
+<% if feature?(:budgets) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.budgets"),
                               budgets_path,
