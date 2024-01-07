@@ -16,13 +16,6 @@
     </div>
 
     <div class="small-12 medium-6 column">
-      <h3>Votos por comuna<h3>
-      <%= pie_chart @stats.participants_by_commune %>
-    </div>
-  </div>
-
-  <div class="row margin">
-    <div class="small-12 medium-6 column">
       <h3>Votos por rango etario<h3>
       <%= column_chart @stats.participants_by_age.map { |k, v| [k, v[:count]] } %>
     </div>
