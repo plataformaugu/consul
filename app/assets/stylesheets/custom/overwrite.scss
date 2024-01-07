@@ -11,6 +11,10 @@ a {
   color: $brand !important;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 body.auth-page > .wrapper {
   display: flex;
   flex-direction: column;

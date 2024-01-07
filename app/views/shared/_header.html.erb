@@ -1,7 +1,7 @@
 <% if header.present? %>
   <div
     class="header-card jumbo highlight custom-jumbo"
-    style="<%= header.image.present? ? "background-image: url('#{url_for(header.image.variant(:original))}'); height: 100%; background-size: cover; background-position: center;" : '' %>"
+    style="<%= header.image.present? ? "background-image: url('#{url_for(header.image.variant(:original))}');" : '' %>"
   >
     <div class="custom-jumbo-overlay">
       <div class="row">
