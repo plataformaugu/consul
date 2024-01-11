@@ -1,24 +1,47 @@
-<% if header.present? %>
-  <div
-    class="header-card jumbo highlight custom-jumbo"
-    style="<%= header.image.present? ? "background-image: url('#{url_for(header.image.variant(:original))}');" : '' %>"
-  >
-    <div class="custom-jumbo-overlay">
-      <div class="row">
-        <div class="column small-12">
-          <span><%= header.label %></span>
-          <h1><%= header.title %></h1>
-          <p class="lead"><%= header.description %></p>
+<% if headers.exists? %>
+  <div class="orbit jumbo-slider" role="region" aria-label="Encabezados" data-orbit data-use-m-u-i="false">
+    <div class="orbit-wrapper">
+      <% if headers.count > 1 %>
+        <div class="orbit-controls">
+          <button class="orbit-previous"><span class="show-for-sr">Anterior</span>&#9664;&#xFE0E;</button>
+          <button class="orbit-next"><span class="show-for-sr">Siguiente</span>&#9654;&#xFE0E;</button>
         </div>
-        
-        <% if header.link_text.present? && header.link_url.present? %>
-          <div class="column small-12">
-            <div class="small-12">
-              <%= link_to header.link_text, header.link_url, class: "button large" %>
+      <% end %>
+
+      <ul class="orbit-container">
+        <% headers.each do |header| %>
+          <li class="orbit-slide">
+            <div
+              class="header-card custom-jumbo"
+              style="<%= header.image.present? ? "background-image: url('#{url_for(header.image.variant(:original))}');" : '' %>"
+            >
+              <div class="custom-jumbo-overlay">
+                <span><%= header.label %></span>
+                <h1><%= header.title %></h1>
+                <p class="lead"><%= header.description %></p>
+
+                <% if header.link_text.present? && header.link_url.present? %>
+                  <div>
+                    <%= link_to header.link_text, header.link_url, class: "button large" %>
+                  </div>
+                <% end %>
+              </div>
             </div>
-          </div>
+          </li>
         <% end %>
-      </div>
+      </ul>
     </div>
+
+    <% if headers.count > 1 %>
+      <nav class="orbit-bullets">
+        <% headers.each_with_index do |header, index| %>
+          <button data-slide="<%= index %>">
+            <span class="show-for-sr">
+              
+            </span>
+          </button>
+        <% end %>
+      </nav>
+    <% end %>
   </div>
 <% end %>
