@@ -2,7 +2,7 @@
 
 <div class="row margin-top margin-bottom">
   <div class="small-12 column">
-    <%= render Custom::CustomPageHeaderComponent.new('¿Qué es el Consejo de la Sociedad Civil Regional – COSOC Regional?', '/images/pages/cosoc/header.jpeg') %>  
+    <%= render Custom::CustomPageHeaderComponent.new('¿Qué es el Consejo de la Sociedad Civil Regional - COSOC Regional?', '/images/pages/cosoc/header.jpeg') %>  
   </div>
 </div>
 
@@ -17,6 +17,11 @@
     <p>
       También busca favorecer la relación entre la Sociedad Civil y el Gobierno Regional, generando un canal de comunicación directo entre las organizaciones sociales y quienes lideran el Gobierno Regional.
     </p>
+
+    <div style="margin-top: 3rem;">
+      <%= render 'cosoc_diagram_desktop' %>
+      <%= render 'cosoc_diagram_mobile' %>
+    </div>
 
     <br>
     <h3>¿En qué está el COSOC REGIONAL?</h3>
@@ -47,8 +52,9 @@
 
     <div class="pages-gallery-container">
       <%= render Custom::BigCircleSliderComponent.new([
-        '/images/pages/cosoc/1.jpeg',
-        '/images/pages/cosoc/2.jpeg'
+        '/images/pages/cosoc/1.png',
+        '/images/pages/cosoc/2.png',
+        '/images/pages/cosoc/3.png'
       ]) %>
     </div>
   </div>
