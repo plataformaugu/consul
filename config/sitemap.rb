@@ -13,9 +13,6 @@ Tenant.run_on_each do
   SitemapGenerator::Sitemap.sitemaps_path = Tenant.subfolder_path
 
   SitemapGenerator::Sitemap.create do
-    add how_to_use_path
-    add faq_path
-
     if Setting["process.debates"]
       add debates_path, priority: 0.7, changefreq: "daily"
       Debate.find_each do |debate|
