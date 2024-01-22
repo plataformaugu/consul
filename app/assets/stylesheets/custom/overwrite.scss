@@ -27,3 +27,11 @@ body.auth-page > .wrapper {
 .wrapper > header::after {
   border-bottom: 3px solid $brand !important;
 }
+
+.callout {
+  &.primary {
+    background-color: lighten($brand, 45%);
+    border-color: $brand;
+    color: $brand;
+  }
+}

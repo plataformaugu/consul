@@ -23,36 +23,4 @@
         <% end %>
       </div>
   </div>
-
-  <div class="row margin-top">
-    <h3>Cantidad de votos<h3>
-    <h1><%= @total_votes %></h1>
-  </div>
-
-  <div class="row margin-top">
-    <h3>Resultados de la consulta<h3>
-    <% @poll.questions.each do |question| %>
-      <div class="small-12 medium-6 column">
-        <h3 class="text-center" id="<%= question.title.parameterize %>"><%= question.title %></h3>
-        <%= pie_chart question.question_answers.map { |a| [a.title, a.total_votes] } %>
-      </div>
-    <% end %>
-  </div>
-
-  <% if @stats.present? %>
-    <div class="row margin-top">
-      <div class="small-12 medium-6 column">
-        <h3>Votos por género<h3>
-        <%= pie_chart [
-          ["Masculino", @stats.total_male_participants],
-          ["Femenino", @stats.total_female_participants],
-          ["Otro", @stats.participants.count - @stats.total_male_participants - @stats.total_female_participants]
-        ]%>
-      </div>
-      <div class="small-12 medium-6 column">
-        <h3>Votos por rango etario<h3>
-        <%= column_chart @stats.participants_by_age.map { |k, v| [k, v[:count]] } %>
-      </div>
-    </div>
-  <% end %>
 </div>
