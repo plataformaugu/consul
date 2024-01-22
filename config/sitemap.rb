@@ -13,7 +13,6 @@ Tenant.run_on_each do
   SitemapGenerator::Sitemap.sitemaps_path = Tenant.subfolder_path
 
   SitemapGenerator::Sitemap.create do
-    add help_path
     add how_to_use_path
     add faq_path
 
