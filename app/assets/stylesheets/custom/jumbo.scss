@@ -11,7 +11,7 @@
 
 .custom-jumbo {
   width: 100%;
-  height: calc(100vh - 150px) !important;
+  height: calc(80vh - 150px) !important;
   background-size: cover;
   background-position: center;
   padding: 0;
@@ -23,6 +23,10 @@
   &::before {
     left: 0 !important;
     right: 0 !important;
+  }
+
+  @media (max-width: 640px) {
+    height: calc(90vh - 150px) !important;
   }
 
   .custom-jumbo-overlay {
@@ -37,8 +41,8 @@
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.05) 10%,
-      rgba(0, 0, 0, 0.1) 15%,
+      rgba(0, 0, 0, 0.05) 7%,
+      rgba(0, 0, 0, 0.1) 10%,
       rgba(0, 0, 0, 0.4) 25%,
       rgba(0, 0, 0, 0.6) 35%,
     );
@@ -46,11 +50,11 @@
     padding: 1rem $body-margin;
 
     @media (max-width: 640px) {
+      height: 70%;
       padding: 1rem 3rem;
-      height: 100%;
 
       h1 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
       }
 
       p {
