@@ -1,9 +1,21 @@
 <h1 class="text-center"><%= t("devise_views.passwords.edit.title") %></h1>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "shared/errors", resource: resource %>
-
   <%= f.hidden_field :reset_password_token %>
+
+  <% if resource.errors.messages.key?(:reset_password_token) %>
+  <div id="error_explanation" data-alert class="callout alert" data-closable>
+    <button class="close-button" aria-label="<%= t("application.close") %>" type="button" data-close>
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <strong>
+      El link para cambiar contraseña ha expirado. Inténtelo nuevamente.
+    </strong>
+  </div>
+  <% else %>
+    <%= render "shared/errors", resource: resource %>
+  <% end %>
 
   <div class="field">
     <%= f.password_field :password, autofocus: true, autocomplete: "off",
