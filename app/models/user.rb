@@ -118,6 +118,8 @@ class User < ApplicationRecord
   end
   scope :email_digest,   -> { where(email_digest: true) }
   scope :active,         -> { where(erased_at: nil) }
+  scope :las_condes,     -> { where(comuna: 'Las Condes').where.not(neighbor_type: nil) }
+  scope :not_validated,  -> { where(confirmed_at: nil) }
   scope :erased,         -> { where.not(erased_at: nil) }
   scope :without_sector, -> { where(sector_id: nil, comuna: 'Las Condes') }
   scope :public_for_api, -> { all }

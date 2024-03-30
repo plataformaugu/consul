@@ -1,0 +1,80 @@
+<%= form_with(url: update_tarjeta_vecino_multiple_admin_users_path, method: 'post') do |form| %>
+  <%=
+    form.submit 'Actualizar Tarjeta Vecino seleccionados',
+    class: 'solid-button-sm mt-1 mb-1',
+    style: 'text-decoration: none; color: white;',
+    data: {confirm: '¿Estás seguro que deseas actualizar Tarjeta Vecino a los usuarios seleccionados?'},
+    id: 'validate-selected',
+    disabled: true
+  %>
+
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= check_box_tag 'select_all', nil, false %></th>
+        <th scope="col"><%= t("admin.users.columns.id") %></th>
+        <th scope="col"><%= t("admin.users.columns.name") %></th>
+        <th scope="col"><%= t("admin.users.columns.email") %></th>
+        <th scope="col">RUT</th>
+        <th scope="col">Tipo de vecino</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= check_box_tag 'selected_ids[]', user.id, false %></td>
+          <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
+          <td><%= "#{user.first_name} #{user.last_name}" %></td>
+          <td><%= user.email %></td>
+          <td><%= user.document_number %></td>
+          <td><%= user.neighbor_type.name %></td>
+          <td>
+            <%=
+              link_to "Validar",
+              update_tarjeta_vecino_admin_user_path(user.id),
+              method: :post,
+              class: 'button',
+              style: 'text-decoration: none; color: white;'
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#validate-selected').attr('value', `Actualizar Tarjeta Vecino seleccionados (${checkedAmount})`)
+      $('#validate-selected').prop('disabled', false)
+    } else {
+      $('#select_all').prop('checked', false)
+      $('#validate-selected').attr('value', `Actualizar Tarjeta Vecino seleccionados`)
+      $('#validate-selected').prop('disabled', true)
+    }
+  })
+
+  $('#select_all').on('change', function() {
+    if ($('#select_all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+      $('#validate-selected').attr('value', `Actualizar Tarjeta Vecino seleccionados (${checkedAmount})`)
+      $('#validate-selected').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+
+      $('#validate-selected').attr('value', `Actualizar Tarjeta Vecino seleccionados`)
+      $('#validate-selected').prop('disabled', true)
+    }
+  })
+</script>

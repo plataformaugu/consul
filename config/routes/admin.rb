@@ -136,7 +136,14 @@ namespace :admin do
     get :search, on: :collection
   end
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :validate] do
+    post :validate, on: :member
+    post :validate_all, on: :collection
+    post :validate_multiple, on: :collection
+
+    post :update_tarjeta_vecino, on: :member
+    post :update_tarjeta_vecino_multiple, on: :collection
+  end
 
   scope module: :poll do
     resources :polls do

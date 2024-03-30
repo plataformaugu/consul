@@ -39,6 +39,12 @@ module Abilities
       can :restore, User
       cannot :restore, User, hidden_at: nil
 
+      can :validate, User
+      can :validate_all, User
+      can :validate_multiple, User
+      can :update_tarjeta_vecino, User
+      can :update_tarjeta_vecino_multiple, User
+
       can :confirm_hide, Comment
       cannot :confirm_hide, Comment, hidden_at: nil
 

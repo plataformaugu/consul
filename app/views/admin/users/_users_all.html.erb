@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("admin.users.columns.id") %></th>
+      <th scope="col"><%= t("admin.users.columns.name") %></th>
+      <th scope="col"><%= t("admin.users.columns.email") %></th>
+      <th scope="col">RUT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
+        <td><%= "#{user.first_name} #{user.last_name}" %></td>
+        <td><%= user.email %></td>
+        <td><%= user.document_number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

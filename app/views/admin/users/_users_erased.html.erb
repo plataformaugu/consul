@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <th scope="col"><%= t("admin.users.columns.id") %></th>
+      <th scope="col"><%= t("admin.users.columns.erase_reason") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
+        <td><%= user.erase_reason %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

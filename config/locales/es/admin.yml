@@ -1549,7 +1549,10 @@ es:
         no_users: No hay usuarios.
         filter: Filtro
         filters:
+          all: Todos
           active: Activos
+          las_condes: Las Condes
+          not_validated: Sin validar
           erased: Borrados
           without_sector: Sin Unidad Vecinal
           without_coordenates: Sin coordenadas

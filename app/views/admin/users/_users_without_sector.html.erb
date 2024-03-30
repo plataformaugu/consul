@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Email</th>
+      <th scope="col">RUT</th>
+      <th scope="col">Dirección</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.id, user_path(user), target: "_blank" %></td>
+        <td><%= "#{user.first_name} #{user.last_name}" %></td>
+        <td><%= user.email %></td>
+        <td><%= user.document_number %></td>
+        <td><%= user.address %></td>
+        <td>
+          <%=
+            link_to "Actualizar",
+            "/admin/users/edit?user_id=#{user.id}",
+            class: 'button',
+            style: 'text-decoration: none; color: white;'
+          %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
