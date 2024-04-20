@@ -13,6 +13,7 @@ class Debate < ApplicationRecord
   include Relationable
   include Notifiable
   include Randomizable
+  include Documentable
   include SDG::Relatable
 
   acts_as_votable

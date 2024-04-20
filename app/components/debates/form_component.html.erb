@@ -22,6 +22,12 @@
     <% end %>
 
     <%= render Shared::ImageFieldComponent.new(debate, f, true) %>
+
+    <% if feature?(:allow_attached_documents) %>
+      <div class="documents">
+        <%= render "documents/nested_documents", f: f %>
+      </div>
+    <% end %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>

@@ -2,8 +2,6 @@
   <%= back_link_to proposals_path, t("proposals.index.section_header.title") %>
 
   <%= header do %>
-    <%= link_to help_path(anchor: "proposals"), title: t("shared.target_blank"), target: "_blank" do %>
-    <% end %>
   <% end %>
 
   <%= render Proposals::FormComponent.new(proposal, @proposal_topic, proposals_path) %>

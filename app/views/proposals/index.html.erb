@@ -91,7 +91,7 @@
 
       <div class="row mt-2">
         <div id="proposals-list" class="small-12 medium-12 column">
-          <% if @proposals.any? || current_user.blank? %>
+          <% if @proposals.any? %>
             <div class="cards-container-component">
               <% @proposals.each do |proposal| %>
                 <%= render Shared::CardComponent.new(
@@ -105,8 +105,6 @@
                 ) %>
               <% end %>
             </div>
-          <% else %>
-            <%= empty_recommended_proposals_message_text(current_user) %>
           <% end %>
           <%= paginate @proposals %>
         </div>

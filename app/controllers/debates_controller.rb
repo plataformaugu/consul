@@ -3,6 +3,7 @@ class DebatesController < ApplicationController
   include CommentableActions
   include FlagActions
   include Translatable
+  include DocumentAttributes
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_view, only: :index
