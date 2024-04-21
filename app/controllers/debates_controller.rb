@@ -1,11 +1,11 @@
 class DebatesController < ApplicationController
   include FeatureFlags
   include CommentableActions
+  include DocumentAttributes
   include FlagActions
   include Translatable
-  include DocumentAttributes
 
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :participatory_public_accounts, :participatory_regulatory_plans]
   before_action :set_view, only: :index
   before_action :debates_recommendations, only: :index, if: :current_user
 
@@ -26,8 +26,19 @@ class DebatesController < ApplicationController
   end
 
   def index
-    super
-    @debates = @debates.published
+    redirect_to root_path
+  end
+
+  def participatory_public_accounts
+    @debates = Kaminari.paginate_array(
+      @debates.published.where(debate_type: Debate::TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS)
+    ).page(params[:page])
+  end
+
+  def participatory_regulatory_plans
+    @debates = Kaminari.paginate_array(
+      @debates.published.where(debate_type: Debate::TYPE_PARTICIPATORY_REGULATORY_PLANS)
+    ).page(params[:page])
   end
 
   def show
@@ -39,14 +50,39 @@ class DebatesController < ApplicationController
     @debate.register_vote(current_user, params[:value])
   end
 
-  def create
-    @debate = Debate.new(debate_params.merge(author: current_user))
+  def new
+    if [
+      Debate::TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS,
+      Debate::TYPE_PARTICIPATORY_REGULATORY_PLANS
+    ].include?(params['type'])
+      @type = params['type']
+      super
+    else
+      redirect_to root_path
+    end
+  end
 
-    if @debate.save
-      redirect_to pending_debate_path(@debate)
+  def create
+    if [
+      Debate::TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS,
+      Debate::TYPE_PARTICIPATORY_REGULATORY_PLANS
+    ].include?(debate_params['debate_type'])
+      @debate = Debate.new(debate_params.merge(author: current_user))
+
+      if @debate.save
+        @debate.publish
+        redirect_to debate_path(@debate)
+      else
+        render :new
+      end
     else
       render :new
     end
+  end
+
+  def edit
+    @type = @debate.debate_type
+    super
   end
 
   def unmark_featured
@@ -71,12 +107,12 @@ class DebatesController < ApplicationController
     @debate.is_finished = !@debate.is_finished
     @debate.save
 
-    redirect_to @debate, notice: 'El debate ha sido actualizado.'
+    redirect_to @debate, notice: "#{@debate.verbose_name_with_pronoun.titleize} fue actualizado."
   end
 
   def publish
     @debate.publish
-    redirect_to moderation_debates_path, notice: '¡El debate ha sido publicado!'
+    redirect_to moderation_debates_path, notice: "¡#{@debate.verbose_name_with_pronoun.titleize} ha sido publicado!"
   end
 
   private
@@ -86,7 +122,15 @@ class DebatesController < ApplicationController
     end
 
     def allowed_params
-      [:tag_list, :terms_of_service, :related_sdg_list, :image, translation_params(Debate)]
+      [
+        :tag_list,
+        :terms_of_service,
+        :related_sdg_list,
+        :image,
+        :debate_type,
+        translation_params(Debate),
+        documents_attributes: document_attributes,
+      ]
     end
 
     def resource_model

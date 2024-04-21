@@ -35,9 +35,15 @@
 
         <%= auto_link_already_sanitized_html wysiwyg(@debate.description) %>
 
-        <%= render "shared/tags", taggable: @debate %>
+        <% if feature?(:allow_attached_documents) %>
+          <%=
+            render "documents/documents",
+            documents: @debate.documents,
+            max_documents_allowed: Debate.max_documents_allowed
+          %>
+        <% end %>
 
-        <%= render "relationable/related_content", relationable: @debate %>
+        <%= render "shared/tags", taggable: @debate %>
 
         <div class="js-moderator-debate-actions margin">
           <%= render "actions", debate: @debate %>

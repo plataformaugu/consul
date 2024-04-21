@@ -1,29 +1,41 @@
 <%= raw content_block("subnavigation_left") %>
 
-<% if feature?(:debates) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.debates"),
-                            debates_path,
-                            controller_name == "debates",
-                            accesskey: "1" %>
-  </li>
-<% end %>
+<li>
+    <%=
+      layout_menu_link_to "Cuentas Públicas Participativas",
+      participatory_public_accounts_path,
+      controller_name == "debates",
+      accesskey: "1"
+    %>
+</li>
+
+<li>
+    <%=
+      layout_menu_link_to "Plan Regulador Participativo",
+      participatory_regulatory_plans_path,
+      controller_name == "debates",
+      accesskey: "2"
+    %>
+</li>
+
 <% if feature?(:proposals) %>
   <li>
     <%= layout_menu_link_to 'Convocatorias',
                             proposal_topics_path,
                             controller.class == ProposalTopicsController || controller.class == ProposalsController,
-                            accesskey: "2" %>
+                            accesskey: "3" %>
   </li>
 <% end %>
+
 <% if feature?(:polls) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.poll_questions"),
                               polls_path,
                               controller_name == "polls" || (controller_name == "questions" && controller.class.module_parent == Polls),
-                              accesskey: "3" %>
+                              accesskey: "4" %>
   </li>
 <% end %>
+
 <% if true == false && feature?(:legislation) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
@@ -32,6 +44,7 @@
                             accesskey: "4" %>
   </li>
 <% end %>
+
 <% if feature?(:budgets) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.budgets"),
@@ -40,6 +53,7 @@
                               accesskey: "5" %>
   </li>
 <% end %>
+
 <% if true == false && feature?(:sdg) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.sdg"),
@@ -53,7 +67,7 @@
   <%= layout_menu_link_to 'Eventos',
                           events_path,
                           current_page?(events_path),
-                          accesskey: "8" %>
+                          accesskey: "7" %>
 </li>
 
 <%= raw content_block("subnavigation_right") %>

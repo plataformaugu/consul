@@ -4,7 +4,8 @@ class Debates::FormComponent < ApplicationComponent
   attr_reader :debate
   delegate :suggest_data, to: :helpers
 
-  def initialize(debate)
+  def initialize(debate, type)
     @debate = debate
+    @type = type
   end
 end

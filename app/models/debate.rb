@@ -58,8 +58,28 @@ class Debate < ApplicationRecord
 
   attr_accessor :link_required
 
+  TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS = 'participatory_public_accounts'
+  TYPE_PARTICIPATORY_REGULATORY_PLANS = 'participatory_regulatory_plans'
+
+  TYPES_TRANSLATION_SINGULAR = {
+    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuenta pública participativa',
+    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'plan regulador participativo',
+  }
+  TYPES_TRANSLATION_PLURAL = {
+    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuentas públicas participativas',
+    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'planes reguladores participativos',
+  }
+  TYPES_TRANSLATION_PRONOUN = {
+    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'la',
+    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'el',
+  }
+
   def self.recommendations(user)
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
+  end
+
+  def verbose_name_with_pronoun
+    "#{TYPES_TRANSLATION_PRONOUN[self.debate_type]} #{TYPES_TRANSLATION_SINGULAR[self.debate_type]}"
   end
 
   def publish

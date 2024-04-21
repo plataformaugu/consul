@@ -60,7 +60,7 @@
             debate.title,
             debate.image,
             ActionView::Base.full_sanitizer.sanitize(debate.description),
-            debate.finished? ? 'Debate finalizado' : nil
+            debate.finished? ? 'Finalizado' : nil
           ) %>
         <% end %>
       </div>

@@ -21,7 +21,7 @@ es:
         notice: Cambios guardados
       update:
         notice: "%{resource_name} actualizado correctamente."
-        debate: "Debate actualizado correctamente."
+        debate: "Actualizado correctamente."
         poll: "Consulta actualizada correctamente."
         poll_booth: "Urna actualizada correctamente."
         active_poll: "Descripción general de consultas actualizada correctamente."

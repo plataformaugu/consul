@@ -67,19 +67,19 @@ es:
   debates:
     create:
       form:
-        submit_button: Empieza un debate
+        submit_button: Crear
     debate:
       votes:
         zero: Sin votos
         one: 1 voto
         other: "%{count} votos"
     edit:
-      editing: Editar debate
+      editing: Editar
       form:
         submit_button: Guardar cambios
-      show_link: Ver debate
+      show_link: Ver
     form:
-      tags_instructions: Etiqueta este debate.
+      tags_instructions: Ingresa las etiquetas relacionadas.
       tags_placeholder: "Escribe las etiquetas que desees separadas por coma (',')"
     index:
       featured_debates: Destacar
@@ -99,22 +99,22 @@ es:
           error: "Ha ocurrido un error. Por favor dirígete al apartado 'Mi cuenta' para desactivar las recomendaciones manualmente"
       search_form:
         button: Buscar
-        placeholder: Buscar debates...
+        placeholder: Buscar...
         title: Buscar
-      start_debate: Empieza un debate
+      start_debate: Crear
       title: Debates
       section_header:
         icon_alt: Icono de Debates
         title: Debates
-        help: Ayuda sobre los debates
+        help: Ayuda
       section_footer:
-        title: Ayuda sobre los debates
+        title: Ayuda
         description: Inicia un debate para compartir puntos de vista con otras personas sobre los temas que te preocupan.
         help_text_1: "El espacio de debates ciudadanos está dirigido a que cualquier persona pueda exponer temas que le preocupan y sobre los que quiera compartir puntos de vista con otras personas."
         help_text_2: 'Para abrir un debate es necesario registrarse en %{org}. Los usuarios ya registrados también pueden comentar los debates abiertos y valorarlos con los botones de "Estoy de acuerdo" o "No estoy de acuerdo" que se encuentran en cada uno de ellos.'
     new:
       form:
-        submit_button: Empieza un debate
+        submit_button: Crear
       more_info: "¿Cómo funcionan los debates?"
       recommendation_four: Disfruta de este espacio, de las voces que lo llenan, también es tuyo.
       recommendation_one: No escribas el título del debate o frases enteras en mayúsculas. En internet eso se considera gritar. Y a nadie le gusta que le griten.
@@ -125,7 +125,7 @@ es:
     show:
       author_deleted: Usuario eliminado
       comments_title: Comentarios
-      edit_debate_link: Editar debate
+      edit_debate_link: Editar
       flag: Este debate ha sido marcado como inapropiado por varios usuarios.
       share: Compartir
       author: Autor

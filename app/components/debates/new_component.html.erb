@@ -1,8 +1,11 @@
 <main class="debate-new">
   <%= back_link_to debates_path, t("debates.index.section_header.title") %>
 
-  <%= header do %>
-  <% end %>
+ <header>
+    <h1>
+      Crear <%= Debate::TYPES_TRANSLATION_SINGULAR[@type] %>
+    </h1>
+  </header>
 
-  <%= render Debates::FormComponent.new(debate) %>
+  <%= render Debates::FormComponent.new(debate, @type) %>
 </main>

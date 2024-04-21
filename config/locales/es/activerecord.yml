@@ -252,10 +252,10 @@ es:
         description: "Opinión"
         tag_list: "Temas"
         terms_of_service: "Términos de servicio"
-        title: "Título del debate"
+        title: "Título"
       debate/translation:
-        title: "Título del debate"
-        description: "Texto inicial del debate"
+        title: "Título"
+        description: "Texto inicial"
       proposal:
         author: "Autor"
         title: "Título"

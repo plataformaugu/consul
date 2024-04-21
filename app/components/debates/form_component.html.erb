@@ -1,6 +1,8 @@
 <%= translatable_form_for(debate, html: { class: "debate-form" }) do |f| %>
   <%= render "shared/errors", resource: debate %>
 
+  <%= f.hidden_field :debate_type, value: @type %>
+
   <fieldset class="required-fields">
     <legend><%= t("shared.required") %></legend>
 
@@ -22,18 +24,18 @@
     <% end %>
 
     <%= render Shared::ImageFieldComponent.new(debate, f, true) %>
-
-    <% if feature?(:allow_attached_documents) %>
-      <div class="documents">
-        <%= render "documents/nested_documents", f: f %>
-      </div>
-    <% end %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
 
   <fieldset>
     <legend><%= t("shared.optional") %></legend>
+
+    <% if feature?(:allow_attached_documents) %>
+      <div class="documents">
+        <%= render "documents/nested_documents", f: f %>
+      </div>
+    <% end %>
 
     <div>
       <%= f.text_field :tag_list, value: debate.tag_list.to_s,
@@ -42,8 +44,6 @@
                         data: { js_url: suggest_tags_path },
                         class: "tag-autocomplete" %>
     </div>
-
-    <%= render SDG::RelatedListSelectorComponent.new(f) %>
   </fieldset>
 
   <div class="actions">

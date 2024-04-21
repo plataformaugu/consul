@@ -2,8 +2,9 @@ class Debates::NewComponent < ApplicationComponent
   include Header
   attr_reader :debate
 
-  def initialize(debate)
+  def initialize(debate, type)
     @debate = debate
+    @type = type
   end
 
   def title
