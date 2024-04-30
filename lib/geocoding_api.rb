@@ -8,7 +8,7 @@ class GeocodingApi
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
-    https.read_timeout = 15
+    https.read_timeout = 10
 
     coordinates = {
       "latitude" => nil,
@@ -28,8 +28,8 @@ class GeocodingApi
         end
       end
     rescue => e
-      logger.error("[GEOCODING API] Failed to get coordinates")
-      logger.error e.message
+      Rails.logger.error("[GEOCODING API] Failed to get coordinates")
+      Rails.logger.error e.message
     end
 
     return coordinates
