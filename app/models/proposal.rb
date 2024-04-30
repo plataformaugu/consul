@@ -42,6 +42,7 @@ class Proposal < ApplicationRecord
   has_many :dashboard_actions, through: :dashboard_executed_actions, class_name: "Dashboard::Action"
   has_many :polls, as: :related, inverse_of: :related
   has_one :summary_comment, as: :commentable, class_name: "MlSummaryComment", dependent: :destroy
+  has_many :activities, as: :actionable, inverse_of: :actionable
 
   validates_translation :title, presence: true, length: { in: 4..Proposal.title_max_length }
   validates_translation :description, length: { maximum: Proposal.description_max_length }
@@ -190,6 +191,7 @@ class Proposal < ApplicationRecord
   def register_vote(user, vote_value)
     if votable_by?(user) && !archived?
       vote_by(voter: user, vote: vote_value)
+      Activity.log(user, :vote, self)
     end
   end
 

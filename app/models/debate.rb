@@ -28,6 +28,7 @@ class Debate < ApplicationRecord
   belongs_to :geozone
   has_many :comments, as: :commentable, inverse_of: :commentable
   has_one_attached :image, :dependent => :destroy
+  has_many :activities, as: :actionable, inverse_of: :actionable
 
   validates_translation :title, presence: true, length: { in: 4..Debate.title_max_length }
   validates_translation :description, presence: true
@@ -53,6 +54,8 @@ class Debate < ApplicationRecord
   scope :draft,                    -> { where(published_at: nil) }
   scope :not_finished,             -> { where(is_finished: nil) }
   scope :finished,                 -> { where.not(is_finished: nil) }
+  scope :participatory_public_accounts, -> { where(debate_type: TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS ) }
+  scope :participatory_regulatory_plans, -> { where(debate_type: TYPE_PARTICIPATORY_REGULATORY_PLANS ) }
 
   visitable class_name: "Visit"
 

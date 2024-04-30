@@ -10,6 +10,7 @@ class Polls::QuestionsController < ApplicationController
 
     if @question.poll.full_answered_by_user?(current_user)
       flash[:notice] = "¡Muchas gracias por participar! Tus respuestas han sido registradas correctamente."
+      Activity.log(current_user, :answer, @question)
       redirect_to poll_path(@question.poll)
       return
     end

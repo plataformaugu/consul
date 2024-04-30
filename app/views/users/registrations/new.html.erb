@@ -41,6 +41,26 @@
         %>
       <% end %>
 
+      <label for="manual_address">Dirección</label>
+      <%= f.hidden_field :street_name, required: true %>
+      <%= f.hidden_field :house_number, required: true %>
+
+      <div class="row">
+        <div class="small-12 medium-10 column">
+          <div style="display: flex; flex-direction: column;">
+            <%= text_field_tag :manual_address, nil, required: true %>
+            <small id="street_validation_message" class="no-error" style="margin-top: -8px; margin-bottom: 8px; margin-left: 0 !important; margin-right: 0 !important;"></small>
+          </div>
+        </div>
+        <div class="small-12 medium-2 column">
+          <div>
+            <button class="button" type="button" id="validate_address">
+              Validar
+            </button>
+          </div>
+        </div>
+      </div>
+
       <%= f.select :gender,
         User::GENRES,
         {

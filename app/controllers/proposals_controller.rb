@@ -57,6 +57,7 @@ class ProposalsController < ApplicationController
     end
 
     if @proposal.save
+      Activity.log(current_user, :create, @proposal)
       redirect_to pending_proposal_path(@proposal)
     else
       render :new
@@ -64,6 +65,11 @@ class ProposalsController < ApplicationController
   end
 
   def created; end
+
+  def update
+    super
+    Activity.log(current_user, :update, @proposal)
+  end
 
   def index
     @proposal_topic = ProposalTopic.find_by_id(params[:id])

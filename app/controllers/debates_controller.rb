@@ -71,6 +71,7 @@ class DebatesController < ApplicationController
 
       if @debate.save
         @debate.publish
+        Activity.log(current_user, :create, @debate)
         redirect_to debate_path(@debate)
       else
         render :new
@@ -83,6 +84,11 @@ class DebatesController < ApplicationController
   def edit
     @type = @debate.debate_type
     super
+  end
+
+  def update
+    super
+    Activity.log(current_user, :update, @debate)
   end
 
   def unmark_featured

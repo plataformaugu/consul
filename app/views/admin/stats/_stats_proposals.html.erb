@@ -1,0 +1,20 @@
+<div class="row stats-numbers">
+  <div class="small-12 medium-4 column">
+    <p class="featured">
+      Procesos totales <br>
+      <span class="number"><%= number_with_delimiter(@proposals[:count]) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-4 column">
+    <p class="featured">
+      Votos totales <br>
+      <span class="number"><%= number_with_delimiter(@proposals[:votes]) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-4 column">
+    <p class="featured">
+      Comentarios totales <br>
+      <span class="number"><%= number_with_delimiter(@proposals[:comments]) %></span>
+    </p>
+  </div>
+</div>

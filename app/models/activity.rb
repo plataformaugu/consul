@@ -2,7 +2,7 @@ class Activity < ApplicationRecord
   belongs_to :actionable, -> { with_hidden }, polymorphic: true
   belongs_to :user, -> { with_hidden }, inverse_of: :activities
 
-  VALID_ACTIONS = %w[hide block restore valuate email].freeze
+  VALID_ACTIONS = %w[create update destroy hide block restore valuate email vote answer].freeze
 
   validates :action, inclusion: { in: ->(*) { VALID_ACTIONS }}
 
@@ -16,6 +16,10 @@ class Activity < ApplicationRecord
 
   def self.log(user, action, actionable)
     create!(user: user, action: action.to_s, actionable: actionable)
+  end
+
+  def self.manual_log(user, action, actionable_type, actionable_id)
+    create!(user: user, action: action.to_s, actionable_type: actionable, actionable_id: actionable_id)
   end
 
   def self.on(actionable)

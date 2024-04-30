@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
       CommentNotifier.new(comment: @comment).process
       add_notification @comment
       EvaluationCommentNotifier.new(comment: @comment).process if send_evaluation_notification?
+      Activity.log(current_user, :create, @comment)
     else
       render :new
     end
@@ -49,6 +50,7 @@ class CommentsController < ApplicationController
   def hide
     @comment.hide
     set_comment_flags(@comment.subtree)
+    Activity.log(current_user, :hide, @comment)
   end
 
   private

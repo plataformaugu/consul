@@ -1,32 +1,61 @@
 class Admin::StatsController < Admin::BaseController
   def show
     @event_types = Ahoy::Event.distinct.order(:name).pluck(:name)
+    @visits = Visit.count
 
-    @visits    = Visit.count
-    @debates   = Debate.with_hidden.count
-    @proposals = Proposal.with_hidden.count
-    @comments  = Comment.not_valuations.with_hidden.count
+    # Participatory Public Accounts
+    @participatory_public_accounts = {
+      count: Debate.with_hidden.participatory_public_accounts.count,
+      votes: Debate.with_hidden.participatory_public_accounts.pluck(:cached_votes_up).sum,
+      comments: Debate.with_hidden.participatory_public_accounts.pluck(:comments_count).sum,
+    }
 
-    @debate_votes   = Vote.where(votable_type: "Debate").count
-    @proposal_votes = Vote.where(votable_type: "Proposal").count
-    @comment_votes  = Vote.where(votable_type: "Comment").count
+    # Participatory Regulatory Plans
+    @participatory_regulatory_plans = {
+      count: Debate.with_hidden.participatory_regulatory_plans.count,
+      votes: Debate.with_hidden.participatory_regulatory_plans.pluck(:cached_votes_up).sum,
+      comments: Debate.with_hidden.participatory_regulatory_plans.pluck(:comments_count).sum,
+    }
 
-    @votes = Vote.count
+    # Proposals
+    @proposals = {
+      count: Proposal.with_hidden.count,
+      votes: Vote.where(votable_type: "Proposal").count,
+      comments: Comment.where(commentable_type: "Proposal").count,
+    }
 
-    @user_level_two   = User.active.level_two_verified.count
-    @user_level_three = User.active.level_three_verified.count
-    @verified_users   = User.active.level_two_or_three_verified.count
-    @unverified_users = User.active.unverified.count
-    @users = User.active.count
+    # Polls
+    @polls = {
+      count: Poll.with_hidden.count,
+      answers: Poll::Voter.count,
+    }
 
-    @user_ids_who_voted_proposals = ActsAsVotable::Vote.where(votable_type: "Proposal")
-                                                       .distinct
-                                                       .count(:voter_id)
-
-    @user_ids_who_didnt_vote_proposals = @verified_users - @user_ids_who_voted_proposals
+    # Budgets
     budgets_ids = Budget.where.not(phase: "finished").ids
-    @budgets = budgets_ids.size
-    @investments = Budget::Investment.where(budget_id: budgets_ids).count
+    @budgets = {
+      count: budgets_ids.size,
+      investments: Budget::Investment.where(budget_id: budgets_ids).count,
+    }
+
+    # Users
+    @users = {
+      count: User.active.count,
+      males: User.male.count,
+      females: User.female.count,
+      other_genders: User.count - (User.male.count - User.female.count),
+      by_age_range: get_users_by_age,
+    }
+
+    # General
+    @general = {
+      total_count: (
+        @participatory_public_accounts[:count] +
+        @participatory_regulatory_plans[:count] +
+        @proposals[:count] +
+        @polls[:count] +
+        @budgets[:count]
+      ),
+    }
   end
 
   def graph
@@ -101,5 +130,41 @@ class Admin::StatsController < Admin::BaseController
       includes(:budget_investment).
       where(budget_investments: { heading_id: heading.id }).
       select("votes.voter_id").distinct.count
+    end
+
+    def get_users_by_age
+      [[16, 19],
+       [20, 24],
+       [25, 29],
+       [30, 34],
+       [35, 39],
+       [40, 44],
+       [45, 49],
+       [50, 54],
+       [55, 59],
+       [60, 64],
+       [65, 69],
+       [70, 74],
+       [75, 79],
+       [80, 84],
+       [85, 89],
+       [90, 300]
+      ].to_h do |start, finish|
+        count = User.between_ages(start, finish).count
+        range_description = I18n.t("stats.age_range", start: start, finish: finish)
+
+        if finish > 200
+          range_description = I18n.t("stats.age_more_than", start: start)
+        end
+
+        [
+          "#{start} - #{finish}",
+          {
+            range: range_description,
+            count: count,
+            percentage: PercentageCalculator.calculate(count, User.count)
+          }
+        ]
+      end
     end
 end

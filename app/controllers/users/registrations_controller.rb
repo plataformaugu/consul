@@ -14,8 +14,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.registering_from_web = true
 
+    is_address_valid = validate_user_address(sign_up_params)
+
+    if !is_address_valid
+      flash[:error] = 'La dirección debe ser válida.'
+      render :new
+      return
+    end
+
+    coordinates = GeocodingApi.new.get_coordinates(
+      sign_up_params['street_name'],
+      sign_up_params['house_number']
+    )
+
+    resource.latitude = coordinates["latitude"]
+    resource.longitude = coordinates["longitude"]
+
     if resource.valid?
-      super
+      begin
+        resource.save
+      rescue Exception => e
+        flash[:alert] = 'Ocurrió un error inesperado. Inténtalo más tarde o contacta con nosotros.'
+        logger.error("[REGISTRATIONS CONTROLLER] Failed user creation")
+        logger.error e.message
+
+        redirect_to root_path
+        return
+      end
+
+      render :success
     else
       render :new
     end
@@ -79,7 +106,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :gender,
         :redeemable_code,
         :commune,
-        :document_number
+        :document_number,
+        :street_name,
+        :house_number
       ]
     end
 
@@ -93,5 +122,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_inactive_sign_up_path_for(resource_or_scope)
       users_sign_up_success_path
+    end
+
+    def validate_user_address(sign_up_params)
+      is_valid = true
+
+      result_address = LoBarnecheaApi.new.search_address(
+        sign_up_params['street_name'],
+        sign_up_params['house_number']
+      )
+
+      if result_address.empty?
+        is_valid = false
+      end
+
+      first_address_result = result_address[0]
+
+      if first_address_result[0] != sign_up_params['street_name'] or first_address_result[1] != sign_up_params['house_number']
+        is_valid = false
+      end
+
+      return is_valid
     end
 end

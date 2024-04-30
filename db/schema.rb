@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_20_164613) do
+ActiveRecord::Schema.define(version: 2024_04_25_123834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1693,6 +1693,10 @@ ActiveRecord::Schema.define(version: 2024_04_20_164613) do
     t.string "last_name"
     t.string "maiden_name"
     t.string "commune"
+    t.string "street_name"
+    t.string "house_number"
+    t.decimal "latitude", precision: 15, scale: 13
+    t.decimal "longitude", precision: 15, scale: 13
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
