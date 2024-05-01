@@ -9,9 +9,9 @@
     <div class="small-12 medium-6 column">
       <h3>Votos por género<h3>
       <%= pie_chart [
-        ["Masculino", @stats.total_male_participants],
-        ["Femenino", @stats.total_female_participants],
-        ["Otro", @stats.participants.count - @stats.total_male_participants - @stats.total_female_participants]
+        [User::GENDER_MALE, @stats.total_male_participants],
+        [User::GENDER_FEMALE, @stats.total_female_participants],
+        [User::GENDER_OTHER, @stats.participants.count - @stats.total_male_participants - @stats.total_female_participants]
       ]%>
     </div>
 

@@ -41,9 +41,9 @@
   <div class="small-12 medium-6 column">
       <h3 class="text-center">Usuarios por género<h3>
       <%= pie_chart [
-        ["Masculino", @users[:males]],
-        ["Femenino", @users[:females]],
-        ["Otro", @users[:other_genders]]
+        [User::GENDER_MALE, @users[:males]],
+        [User::GENDER_FEMALE, @users[:females]],
+        [User::GENDER_OTHER, @users[:other_genders]]
       ]%>
   </div>
   <div class="small-12 medium-6 column">

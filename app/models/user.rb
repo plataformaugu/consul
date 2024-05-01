@@ -129,46 +129,13 @@ class User < ApplicationRecord
 
   before_validation :clean_document_number
 
-  GENRES = [
-    'Masculino',
-    'Femenino',
-    'Otro'
-  ]
-  COMMUNES = [
-    'Arauco',
-    'Cañete',
-    'Contulmo',
-    'Curanilahue',
-    'Lebu',
-    'Los Álamos',
-    'Tirúa',
-    'Alto Biobío',
-    'Antuco',
-    'Cabrero',
-    'Laja',
-    'Los Ángeles',
-    'Mulchén',
-    'Nacimiento',
-    'Negrete',
-    'Quilaco',
-    'Quilleco',
-    'San Rosendo',
-    'Santa Bárbara',
-    'Tucapel',
-    'Yumbel',
-    'Concepción',
-    'Coronel',
-    'Chiguayante',
-    'Florida',
-    'Hualpén',
-    'Hualqui',
-    'Lota',
-    'Penco',
-    'San Pedro de la Paz',
-    'Santa Juana',
-    'Talcahuano',
-    'Tomé',
-    'Otra'
+  GENDER_MALE = 'Masculino'
+  GENDER_FEMALE = 'Femenino'
+  GENDER_OTHER = 'Otro'
+  GENDER_CHOICES = [
+    GENDER_MALE,
+    GENDER_FEMALE,
+    GENDER_OTHER
   ]
 
   # Get the existing user by email if the provider gives us a verified email.
