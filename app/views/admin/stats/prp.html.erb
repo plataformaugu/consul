@@ -9,11 +9,15 @@
   </div>
   <div class="small-12 medium-4 column">
     <p class="featured">
-      Proyectos totales <br>
-      <span class="number"><%= number_with_delimiter(@investments) %></span>
+      Votos totales <br>
+      <span class="number"><%= number_with_delimiter(@votes) %></span>
     </p>
   </div>
   <div class="small-12 medium-4 column">
+    <p class="featured">
+      Comentarios totales <br>
+      <span class="number"><%= number_with_delimiter(@comments) %></span>
+    </p>
   </div>
 </div>
 
@@ -32,8 +36,8 @@
           <% @records.each do |record| %>
             <tr>
               <td><%= record.id %></td>
-              <td><%= link_to record.name, budget_path(record.id), target: "_blank" %></td>
-              <td><%= link_to 'Ver', budgets_admin_stats_path + "/#{record.id}" %></td>
+              <td><%= link_to record.title, debate_path(record.id), target: "_blank" %></td>
+              <td><%= link_to 'Ver', prp_admin_stats_path + "/#{record.id}" %></td>
             </tr>
           <% end %>
         </tbody>

@@ -1,59 +1,55 @@
-<div id="stats" class="stats">
-  <div class="row">
-    <div class="small-12 column">
-      <h1 class="inline-block"><%= t "admin.stats.show.stats_title" %></h1>
+<%= render 'header' %>
 
-      <div class="clear"></div>
+<div class="row stats-numbers">
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Procesos realizados <br>
+      <span class="number"><%= number_with_delimiter(@general[:total_count]) %></span>
+    </p>
+    <p>
+      Cuentas Públicas Participativas <br>
+      <span class="number"><%= number_with_delimiter(@general[:ppa_count]) %></span>
+    </p>
+    <p>
+      Planes Reguladores Participativos <br>
+      <span class="number"><%= number_with_delimiter(@general[:prp_count]) %></span>
+    </p>
+    <p>
+      Consultas <br>
+      <span class="number"><%= number_with_delimiter(@general[:polls_count]) %></span>
+    </p>
+    <p>
+      Propuestas <br>
+      <span class="number"><%= number_with_delimiter(@general[:proposals_count]) %></span>
+    </p>
+    <% if feature?(:budgets) %>
+      <p>
+        <%= t "admin.stats.show.summary.budgets" %> <br>
+        <span class="number"><%= number_with_delimiter(@general[:budgets_count]) %></span>
+      </p>
+    <% end %>
+  </div>
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Usuarios registrados<br>
+      <span class="number"><%= number_with_delimiter(@users[:count]) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+</div>
 
-      <ul class="tabs" data-tabs id="stats-tabs">
-        <li class="tabs-title is-active"><a href="#general-tab" aria-selected="true">General</a></li>
-        <li class="tabs-title">
-          <a data-tabs-target="ppa-tab" href="#ppa-tab">
-            Cuentas Públicas Participativas
-          </a>
-        </li>
-        <li class="tabs-title">
-          <a data-tabs-target="prp-tab" href="#prp-tab">
-            Planes Reguladores Participativos
-          </a>
-        </li>
-        <li class="tabs-title">
-          <a data-tabs-target="polls-tab" href="#polls-tab">
-            Consultas
-          </a>
-        </li>
-        <li class="tabs-title">
-          <a data-tabs-target="proposals-tab" href="#proposals-tab">
-            Propuestas
-          </a>
-        </li>
-        <li class="tabs-title">
-          <a data-tabs-target="budgets-tab" href="#budgets-tab">
-            Presupuestos Participativos
-          </a>
-        </li>
-      </ul>
-
-      <div class="tabs-content" data-tabs-content="stats-tabs">
-        <div class="tabs-panel is-active" id="general-tab">
-          <%= render 'stats_general' %>
-        </div>
-        <div class="tabs-panel" id="ppa-tab">
-          <%= render 'stats_ppa' %>
-        </div>
-        <div class="tabs-panel" id="prp-tab">
-          <%= render 'stats_prp' %>
-        </div>
-        <div class="tabs-panel" id="polls-tab">
-          <%= render 'stats_polls' %>
-        </div>
-        <div class="tabs-panel" id="proposals-tab">
-          <%= render 'stats_proposals' %>
-        </div>
-        <div class="tabs-panel" id="budgets-tab">
-          <%= render 'stats_budgets' %>
-        </div>
-      </div>
-    </div>
+<div class="row margin">
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Usuarios por género<h3>
+      <%= pie_chart [
+        ["Masculino", @users[:males]],
+        ["Femenino", @users[:females]],
+        ["Otro", @users[:other_genders]]
+      ]%>
+  </div>
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Usuarios por rango etario<h3>
+      <%= column_chart @users[:by_age_range].map { |k, v| [k, v[:count]] } %>
   </div>
 </div>

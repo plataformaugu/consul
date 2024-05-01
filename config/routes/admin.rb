@@ -212,14 +212,23 @@ namespace :admin do
   end
 
   resource :stats, only: :show do
-    get :graph, on: :member
-    get :budgets, on: :collection
-    get :budget_supporting, on: :member
-    get :budget_balloting, on: :member
-    get :proposal_notifications, on: :collection
-    get :direct_messages, on: :collection
+    get :ppa, on: :collection
+    get 'ppa/:id' => 'stats#ppa_detail'
+
+    get :prp, on: :collection
+    get 'prp/:id' => 'stats#prp_detail'
+
+    get :proposals, on: :collection
+    get 'proposals/:id' => 'stats#proposals_detail'
+
     get :polls, on: :collection
-    get :sdg, on: :collection
+    get 'polls/:id' => 'stats#polls_detail'
+
+    get :budgets, on: :collection
+    get 'budgets/:id' => 'stats#budgets_detail'
+
+    get :polls, on: :collection
+    get 'polls/:id' => 'stats#polls_detail'
   end
 
   namespace :legislation do

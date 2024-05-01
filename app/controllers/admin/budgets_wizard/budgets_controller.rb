@@ -13,13 +13,11 @@ class Admin::BudgetsWizard::BudgetsController < Admin::BudgetsWizard::BaseContro
   end
 
   def create
-    raise
     @budget.published = false
 
     if @budget.save
       redirect_to groups_index, notice: t("admin.budgets.create.notice")
     else
-      raise
       render :new
     end
   end
