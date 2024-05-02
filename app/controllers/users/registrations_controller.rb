@@ -22,13 +22,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
       return
     end
 
-    coordinates = GeocodingApi.new.get_coordinates(
+    coordinates = GeocodingService.get_coordinates(
       sign_up_params['street_name'],
       sign_up_params['house_number']
     )
 
-    resource.latitude = coordinates["latitude"]
-    resource.longitude = coordinates["longitude"]
+    if coordinates["latitude"].present? and coordinates["longitude"].present?
+      resource.latitude = coordinates["latitude"]
+      resource.longitude = coordinates["longitude"]
+
+      sector = Sector.get_sector_by_coordinates(
+        coordinates["latitude"],
+        coordinates["longitude"]
+      )
+      resource.sector = sector
+    end
 
     if resource.valid?
       begin

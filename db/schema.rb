@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_25_123834) do
+ActiveRecord::Schema.define(version: 2024_05_02_003857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1481,6 +1481,13 @@ ActiveRecord::Schema.define(version: 2024_04_25_123834) do
     t.index ["goal_id"], name: "index_sdg_targets_on_goal_id"
   end
 
+  create_table "sectors", force: :cascade do |t|
+    t.integer "internal_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "settings", id: :serial, force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -1697,6 +1704,7 @@ ActiveRecord::Schema.define(version: 2024_04_25_123834) do
     t.string "house_number"
     t.decimal "latitude", precision: 15, scale: 13
     t.decimal "longitude", precision: 15, scale: 13
+    t.bigint "sector_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1705,6 +1713,7 @@ ActiveRecord::Schema.define(version: 2024_04_25_123834) do
     t.index ["hidden_at"], name: "index_users_on_hidden_at"
     t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["sector_id"], name: "index_users_on_sector_id"
     t.index ["username"], name: "index_users_on_username"
   end
 

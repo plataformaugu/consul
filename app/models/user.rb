@@ -78,6 +78,7 @@ class User < ApplicationRecord
   has_many :related_contents, foreign_key: :author_id, inverse_of: :author, dependent: nil
   has_many :topics, foreign_key: :author_id, inverse_of: :author
   belongs_to :geozone
+  belongs_to :sector
   
   has_and_belongs_to_many :events
 
