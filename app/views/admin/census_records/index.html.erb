@@ -1,0 +1,18 @@
+<h2 class="inline-block">Padrón</h2>
+
+<%= link_to "Importar CSV",
+            import_admin_census_records_path,
+            class: "button float-right" %>
+
+<%= link_to "Crear nuevo registro",
+            new_admin_census_record_path,
+            class: "button float-right hollow" %>
+
+<%= render Admin::SearchComponent.new(
+  label: "Búsqueda por RUT",
+  remote: true
+) %>
+
+<div id="census_records">
+  <%= render 'census_records' %>
+</div>

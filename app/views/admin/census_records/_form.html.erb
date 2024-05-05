@@ -1,0 +1,16 @@
+<div class="margin-top">
+  <%= form_with(model: [:admin, @census_record], local: true) do |form| %>
+
+    <div class="field">
+      <%= form.text_field :document_number, label: 'RUT', required: true %>
+    </div>
+
+    <div class="actions">
+      <% if action_name == 'edit' %>
+        <%= form.submit 'Editar', class: 'button' %>
+      <% else %>
+        <%= form.submit 'Crear', class: 'button' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

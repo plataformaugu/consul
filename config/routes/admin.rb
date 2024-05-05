@@ -290,7 +290,10 @@ namespace :admin do
   resources :tenants, except: [:show, :destroy]
 
   resources :events
-
+  resources :census_records do
+    get :import, on: :collection
+    post :load_csv, on: :collection
+  end
   resources :proposal_topics
 end
 

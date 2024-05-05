@@ -3,12 +3,6 @@
     <%= link_to 'Convocatorias', admin_proposal_topics_path, class: "proposal-topics-link" %>
   </li>
 
-  <% if feature?(:debates) %>
-    <li class="<%= "is-active" if controller_name == "debates" %>">
-      <%= link_to t("admin.menu.debates"), admin_debates_path, class: "debates-link" %>
-    </li>
-  <% end %>
-
   <li class="<%= "is-active" if controller_name == "comments" %>">
     <%= link_to t("admin.menu.comments"), admin_comments_path, class: "comments-link" %>
   </li>
@@ -87,5 +81,9 @@
 
   <li class="<%= "is-active" if controller_name == "events" %>">
     <%= link_to 'Eventos', admin_events_path, class: 'events-link' %>
+  </li>
+
+  <li class="<%= "is-active" if controller_name == "census_records" %>">
+    <%= link_to 'Padrón', admin_census_records_path, class: 'census-link' %>
   </li>
 </ul>

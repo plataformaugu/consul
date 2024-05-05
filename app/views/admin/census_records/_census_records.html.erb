@@ -1,0 +1,31 @@
+<% if @census_records.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col" class="small-8">RUT</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @census_records.each do |record| %>
+        <tr id="<%= dom_id(record) %>">
+          <td>
+            <%= record.document_number %>
+          </td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              record,
+              actions: [:edit, :destroy]
+            ) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @census_records %>
+<% else %>
+  <div class="callout primary">
+    No hay registros.
+  </div>
+<% end %>

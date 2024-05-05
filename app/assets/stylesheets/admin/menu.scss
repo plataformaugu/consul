@@ -113,6 +113,10 @@
     &.events-link {
       @include icon(calendar, solid);
     }
+
+    &.census-link {
+      @include icon(book, solid);
+    }
     
     &.proposal-topics-link {
       @include icon(person-booth, solid);

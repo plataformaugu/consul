@@ -1,0 +1,17 @@
+<%= back_link_to admin_census_records_path %>
+
+<div class="margin-top">
+  <h3>Importar CSV</h3>
+
+  <p>El archivo CSV debe contener sólamente una columna llamada <strong>rut</strong>.</p>
+</div>
+
+<%= form_with url: load_csv_admin_census_records_path do |f| %>
+  <div class="field">
+    <%= f.file_field :file, label: 'Archivo', accept: 'text/csv', required: true %>
+  </div>
+
+  <div class="action">
+    <%= f.submit 'Cargar', class: 'button' %>
+  </div>
+<% end %>
