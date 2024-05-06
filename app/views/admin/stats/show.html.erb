@@ -32,24 +32,11 @@
   <div class="small-12 medium-3 column">
     <p class="featured">
       Usuarios registrados<br>
-      <span class="number"><%= number_with_delimiter(@users[:count]) %></span>
+      <span class="number"><%= number_with_delimiter(@users.count) %></span>
     </p>
   </div>
   <div class="small-12 medium-3 column">
   </div>
 </div>
 
-<div class="row margin">
-  <div class="small-12 medium-6 column">
-      <h3 class="text-center">Usuarios por género<h3>
-      <%= pie_chart [
-        [User::GENDER_MALE, @users[:males]],
-        [User::GENDER_FEMALE, @users[:females]],
-        [User::GENDER_OTHER, @users[:other_genders]]
-      ]%>
-  </div>
-  <div class="small-12 medium-6 column">
-      <h3 class="text-center">Usuarios por rango etario<h3>
-      <%= column_chart @users[:by_age_range].map { |k, v| [k, v[:count]] } %>
-  </div>
-</div>
+<%= render Admin::Stats::ParticipantsComponent.new(@users) %>

@@ -1,0 +1,52 @@
+<div class="row margin">
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Participantes por género<h3>
+      <%= pie_chart [
+        [User::GENDER_MALE, @users_male_count],
+        [User::GENDER_FEMALE, @users_female_count],
+        [User::GENDER_OTHER, @users_other_gender_count]
+      ]%>
+  </div>
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Participantes por rango etario<h3>
+      <%= column_chart @users_by_age_range.map { |k, v| [k, v[:count]] } %>
+  </div>
+</div>
+
+<div class="row margin">
+  <div class="small-12 column">
+    <h3 class="text-center">Participantes por ubicación<h3>
+    <div id="participants-heatmap" style="height: 500px;"></div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  $(document).on('turbolinks:render', function() {
+    var map
+    var heat
+
+    var addressPoints = <%= raw(@users_locations) %>;
+
+    map = new L.Map('participants-heatmap').setView([-33.342294, -70.5418103], 12);
+    heat = new L.HeatLayer(addressPoints, { minOpacity: 0.2 }).addTo(map);
+
+    $.getJSON('/geo/sectors.geojson', function(loBarnecheaSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        boundary: loBarnecheaSectors,
+      });
+      map.addLayer(osm);
+
+      function colorlayer(feature, layer) {
+        layer.setStyle({
+          color: 'gray',
+          fillOpacity: 0,
+          weight: 0,
+        })
+      }
+
+      var gjLayer = L.geoJSON(loBarnecheaSectors);
+      map.fitBounds(gjLayer.getBounds());
+      L.geoJSON(loBarnecheaSectors, { onEachFeature: colorlayer }).addTo(map)
+    })
+  })
+<% end %>

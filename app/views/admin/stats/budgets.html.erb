@@ -33,7 +33,7 @@
             <tr>
               <td><%= record.id %></td>
               <td><%= link_to record.name, budget_path(record.id), target: "_blank" %></td>
-              <td><%= link_to 'Ver', budgets_admin_stats_path + "/#{record.id}" %></td>
+              <td><%= link_to 'Ver', budgets_admin_stats_path + "/#{record.id}", data: { turbolinks: false } %></td>
             </tr>
           <% end %>
         </tbody>

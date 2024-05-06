@@ -119,6 +119,7 @@
 //= require_tree ./custom
 //= require chartkick
 //= require Chart.bundle
+//= require leaflet_heat
 
 var initialize_modules = function() {
   "use strict";

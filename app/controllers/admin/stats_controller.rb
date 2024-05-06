@@ -5,13 +5,7 @@ class Admin::StatsController < Admin::BaseController
     @event_types = Ahoy::Event.distinct.order(:name).pluck(:name)
     @visits = Visit.count
 
-    @users = {
-      count: User.active.count,
-      males: User.male.count,
-      females: User.female.count,
-      other_genders: User.count - (User.male.count - User.female.count),
-      by_age_range: get_users_by_age(User.all),
-    }
+    @users = User.all
 
     ppa_count = Debate.with_hidden.participatory_public_accounts.count
     prp_count = Debate.with_hidden.participatory_regulatory_plans.count
@@ -48,15 +42,7 @@ class Admin::StatsController < Admin::BaseController
     comments_users_ids = Comment.where(commentable_type: "Debate", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
     all_users_ids = (comments_users_ids + votes_users_ids).uniq
-    all_users = User.where(id: all_users_ids)
-
-    @users = {
-      count: all_users.count,
-      males: all_users.male.count,
-      females: all_users.female.count,
-      other_genders: all_users.count - (all_users.male.count - all_users.female.count),
-      by_age_range: get_users_by_age(all_users),
-    }
+    @users = User.where(id: all_users_ids)
   end
 
   def prp
@@ -72,15 +58,7 @@ class Admin::StatsController < Admin::BaseController
     comments_users_ids = Comment.where(commentable_type: "Debate", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
     all_users_ids = (comments_users_ids + votes_users_ids).uniq
-    all_users = User.where(id: all_users_ids)
-
-    @users = {
-      count: all_users.count,
-      males: all_users.male.count,
-      females: all_users.female.count,
-      other_genders: all_users.count - (all_users.male.count - all_users.female.count),
-      by_age_range: get_users_by_age(all_users),
-    }
+    @users = User.where(id: all_users_ids)
   end
 
   def proposals
@@ -96,15 +74,7 @@ class Admin::StatsController < Admin::BaseController
     comments_users_ids = Comment.where(commentable_type: "Proposal", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
     all_users_ids = (comments_users_ids + votes_users_ids).uniq
-    all_users = User.where(id: all_users_ids)
-
-    @users = {
-      count: all_users.count,
-      males: all_users.male.count,
-      females: all_users.female.count,
-      other_genders: all_users.count - (all_users.male.count - all_users.female.count),
-      by_age_range: get_users_by_age(all_users),
-    }
+    @users = User.where(id: all_users_ids)
   end
 
   def polls
@@ -118,15 +88,7 @@ class Admin::StatsController < Admin::BaseController
 
     answers_users_ids = @record.voters.pluck(:user_id)
     all_users_ids = answers_users_ids
-    all_users = User.where(id: all_users_ids)
-
-    @users = {
-      count: all_users.count,
-      males: all_users.male.count,
-      females: all_users.female.count,
-      other_genders: all_users.count - (all_users.male.count - all_users.female.count),
-      by_age_range: get_users_by_age(all_users),
-    }
+    @users = User.where(id: all_users_ids)
   end
 
   def budgets
@@ -154,15 +116,7 @@ class Admin::StatsController < Admin::BaseController
     votes_users_ids = @votes.pluck(:voter_id)
 
     all_users_ids = (investments_users_ids + comments_users_ids + votes_users_ids).uniq
-    all_users = User.where(id: all_users_ids)
-
-    @users = {
-      count: all_users.count,
-      males: all_users.male.count,
-      females: all_users.female.count,
-      other_genders: all_users.count - (all_users.male.count - all_users.female.count),
-      by_age_range: get_users_by_age(all_users),
-    }
+    @users = User.where(id: all_users_ids)
   end
 
   private
