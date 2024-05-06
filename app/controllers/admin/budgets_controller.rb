@@ -35,6 +35,11 @@ class Admin::BudgetsController < Admin::BaseController
 
   def update
     if @budget.update(budget_params)
+      Segmentation.generate(
+        entity_name: @budget.class.name,
+        entity_id: @budget.id,
+        params: params
+      )
       redirect_to admin_budget_path(@budget), notice: t("admin.budgets.update.notice")
     else
       render :edit

@@ -52,6 +52,12 @@
     <% end %>
   </fieldset>
 
+  <div class="small-12 column">
+    <%= render Segmentation::FormComponent.new(
+      Segmentation.find_by(entity_name: budget.class.name, entity_id: budget.id)
+    ) %>
+  </div>
+
   <fieldset>
     <legend><%= t("admin.budgets.edit.info.staff_settings") %></legend>
 

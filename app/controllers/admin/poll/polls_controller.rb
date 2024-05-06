@@ -20,6 +20,11 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
     @poll.author = current_user
 
     if @poll.save
+      Segmentation.generate(
+        entity_name: @poll.class.name,
+        entity_id: @poll.id,
+        params: params
+      )
       notice = t("flash.actions.create.poll")
       if @poll.budget.present?
         redirect_to admin_poll_booth_assignments_path(@poll), notice: notice
@@ -36,6 +41,11 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
   def update
     if @poll.update(poll_params)
+      Segmentation.generate(
+        entity_name: @poll.class.name,
+        entity_id: @poll.id,
+        params: params
+      )
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else
       render :edit

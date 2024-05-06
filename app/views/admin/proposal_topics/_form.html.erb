@@ -19,6 +19,12 @@
 
     <%= render Shared::ImageFieldComponent.new(@proposal_topic, form, true) %>
 
+    <div class="field">
+      <%= render Segmentation::FormComponent.new(
+        Segmentation.find_by(entity_name: @proposal_topic.class.name, entity_id: @proposal_topic.id)
+      ) %>
+    </div>
+
     <div class="actions">
       <% if action_name == 'edit' %>
         <%= form.submit 'Editar convocatoria', class: 'button' %>

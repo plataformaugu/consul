@@ -46,6 +46,14 @@
     </div>
   </fieldset>
 
+  <% if current_user.administrator? %>
+    <div>
+      <%= render Segmentation::FormComponent.new(
+        Segmentation.find_by(entity_name: debate.class.name, entity_id: debate.id)
+      ) %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <% if debate.new_record? %>
       <div>

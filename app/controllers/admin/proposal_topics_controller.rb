@@ -23,6 +23,11 @@ class Admin::ProposalTopicsController < Admin::BaseController
     )
 
     if @proposal_topic.save
+      Segmentation.generate(
+        entity_name: @proposal_topic.class.name,
+        entity_id: @proposal_topic.id,
+        params: params
+      )
       redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creada'}
     else
       render :new
@@ -41,6 +46,11 @@ class Admin::ProposalTopicsController < Admin::BaseController
         @proposal_topic.save
       end
 
+      Segmentation.generate(
+        entity_name: @proposal_topic.class.name,
+        entity_id: @proposal_topic.id,
+        params: params
+      )
       redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'actualizada'}
     else
       render :edit

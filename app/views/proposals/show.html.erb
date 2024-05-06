@@ -64,7 +64,13 @@
             </div>
           <% end %>
 
-          <%= render "proposals/support_status", proposal: @proposal %>
+          <% if @can_participate %>
+            <%= render "proposals/support_status", proposal: @proposal %>
+          <% else %>
+            <div class="callout warning">
+              <%= sanitize @reason %>
+            </div>
+          <% end %>
 
           <%= render "proposals/social_share", proposal: @proposal, share_title: t("proposals.show.share") %>
         </aside>

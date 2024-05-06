@@ -70,6 +70,10 @@ class Poll < ApplicationRecord
                                             .where(related: poll.related)
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def title
     name
   end

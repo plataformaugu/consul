@@ -61,15 +61,17 @@
         <div class="column small-12">
           <div class="proposals-header">
             <div>
-              <% if @proposal_topic.is_active? %>
-                <%= link_to t("proposals.index.start_proposal"),
-                  new_proposal_path(proposal_topic_id: @proposal_topic.id),
-                  class: "button expanded"
-                %>
-              <% else %>
-                <div class="callout warning">
-                  Convocatoria finalizada.
-                </div>
+              <% if @can_participate %>
+                <% if @proposal_topic.is_active? %>
+                  <%= link_to t("proposals.index.start_proposal"),
+                    new_proposal_path(proposal_topic_id: @proposal_topic.id),
+                    class: "button expanded"
+                  %>
+                <% else %>
+                  <div class="callout warning">
+                    Convocatoria finalizada.
+                  </div>
+                <% end %>
               <% end %>
             </div>
           

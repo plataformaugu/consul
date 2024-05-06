@@ -1,5 +1,9 @@
 <div class="poll-question-answers">
-  <% if can?(:answer, question) && !question.poll.voted_in_booth?(current_user) %>
+  <% if !@can_participate %>
+    <% question_answers.each do |question_answer| %>
+      <span class="button secondary hollow disabled <%= already_answered?(question_answer) ? 'answered' : ''%>"><%= question_answer.title %></span>
+    <% end %>
+  <% elsif can?(:answer, question) && !question.poll.voted_in_booth?(current_user) %>
     <% question_answers.each do |question_answer| %>
       <% if already_answered?(question_answer) %>
         <%= button_to question_answer_path(question, user_answer(question_answer)),

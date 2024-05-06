@@ -1,3 +1,5 @@
+<% @can_participate, @reason = can_participate_and_reason %>
+
 <div class="supports">
 
   <span class="total-supports <%= "no-button" unless voting_allowed? || user_voted_for? %>">
@@ -7,9 +9,13 @@
   <div class="in-favor">
     <% if investment.should_show_votes? %>
       <% if not current_user %>
-      <div class="callout warning">
-        No puedes participar.
-      </div>
+        <div class="callout warning">
+          No puedes participar.
+        </div>
+      <% elsif !@can_participate %>
+        <div class="callout warning">
+          <%= sanitize @reason %>
+        </div>
       <% elsif user_voted_for? %>
         <div class="supported">
           <div class="callout success">

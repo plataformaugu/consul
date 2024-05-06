@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_02_123305) do
+ActiveRecord::Schema.define(version: 2024_05_05_125440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -88,6 +88,23 @@ ActiveRecord::Schema.define(version: 2024_05_02_123305) do
     t.integer "user_id"
     t.string "description"
     t.index ["user_id"], name: "index_administrators_on_user_id"
+  end
+
+  create_table "age_range_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.integer "min_age"
+    t.integer "max_age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["segmentation_id"], name: "index_age_range_segmentations_on_segmentation_id"
+  end
+
+  create_table "age_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.integer "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["segmentation_id"], name: "index_age_segmentations_on_segmentation_id"
   end
 
   create_table "ahoy_events", id: :uuid, default: nil, force: :cascade do |t|
@@ -657,6 +674,14 @@ ActiveRecord::Schema.define(version: 2024_05_02_123305) do
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["user_id", "followable_type", "followable_id"], name: "access_follows"
     t.index ["user_id"], name: "index_follows_on_user_id"
+  end
+
+  create_table "gender_segmentations", force: :cascade do |t|
+    t.bigint "segmentation_id"
+    t.string "gender"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["segmentation_id"], name: "index_gender_segmentations_on_segmentation_id"
   end
 
   create_table "geozones", id: :serial, force: :cascade do |t|
@@ -1494,6 +1519,22 @@ ActiveRecord::Schema.define(version: 2024_05_02_123305) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "sectors_segmentations", id: false, force: :cascade do |t|
+    t.bigint "segmentation_id", null: false
+    t.bigint "sector_id", null: false
+  end
+
+  create_table "segmentations", force: :cascade do |t|
+    t.string "entity_name"
+    t.integer "entity_id"
+    t.string "age_type"
+    t.string "geo_type"
+    t.boolean "in_census", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["entity_name", "entity_id"], name: "index_segmentations_on_entity_name_and_entity_id", unique: true
+  end
+
   create_table "settings", id: :serial, force: :cascade do |t|
     t.string "key"
     t.string "value"
@@ -1844,6 +1885,8 @@ ActiveRecord::Schema.define(version: 2024_05_02_123305) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "administrators", "users"
+  add_foreign_key "age_range_segmentations", "segmentations"
+  add_foreign_key "age_segmentations", "segmentations"
   add_foreign_key "budget_administrators", "administrators"
   add_foreign_key "budget_administrators", "budgets"
   add_foreign_key "budget_investments", "communities"
@@ -1857,6 +1900,7 @@ ActiveRecord::Schema.define(version: 2024_05_02_123305) do
   add_foreign_key "failed_census_calls", "users"
   add_foreign_key "flags", "users"
   add_foreign_key "follows", "users"
+  add_foreign_key "gender_segmentations", "segmentations"
   add_foreign_key "geozones_polls", "geozones"
   add_foreign_key "geozones_polls", "polls"
   add_foreign_key "identities", "users"

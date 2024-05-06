@@ -33,6 +33,13 @@ class ProposalsController < ApplicationController
     if request.path != proposal_path(@proposal)
       redirect_to proposal_path(@proposal), status: :moved_permanently
     end
+
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @proposal.proposal_topic.segmentation.present?
+      @can_participate, @reason = @proposal.proposal_topic.segmentation.validate(current_user)
+    end
   end
 
   def new
@@ -50,6 +57,13 @@ class ProposalsController < ApplicationController
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
+
+    can_participate, reason = @proposal.proposal_topic.segmentation.validate(current_user)
+
+    if !can_participate
+      flash[:error] = reason
+      redirect_to proposal_topics_path
+    end
 
     if @proposal.proposal_topic_id.nil?
       flash[:error] = "Ocurrió un error inesperado. Inténtalo nuevamente."
@@ -90,6 +104,13 @@ class ProposalsController < ApplicationController
       ]
       @selected_order = params[:order]
       @proposals = sort_by(params)
+
+      @can_participate = true
+      @reason = nil
+  
+      if current_user && !current_user.administrator? && @proposal_topic.segmentation.present?
+        @can_participate, @reason = @proposal_topic.segmentation.validate(current_user)
+      end
     else
       redirect_to root_path
     end

@@ -18,6 +18,12 @@
     <div class="small-12 medium-9 column">
       <%= render "callout" %>
 
+      <% if !@can_participate %>
+        <div class="callout warning">
+          <%= sanitize @reason %>
+        </div>
+      <% end %>
+
       <% if @poll.voted_in_booth?(current_user) %>
         <div class="callout warning">
           <%= t("polls.show.already_voted_in_booth") %>

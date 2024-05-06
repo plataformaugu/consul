@@ -8,6 +8,10 @@ class ProposalTopic < ApplicationRecord
     where('start_date <= ?', Date.current)
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def is_expired?
     Date.current > end_date
   end

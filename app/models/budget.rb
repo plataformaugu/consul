@@ -68,6 +68,10 @@ class Budget < ApplicationRecord
     published.order(:created_at).last
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def current_phase
     phases.send(phase)
   end

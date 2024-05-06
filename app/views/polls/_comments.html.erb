@@ -1,1 +1,1 @@
-<%= render Shared::CommentsComponent.new(@poll, @comment_tree, @poll.expired?) %>
+<%= render Shared::CommentsComponent.new(@poll, @comment_tree, @poll.expired? || !@can_participate) %>

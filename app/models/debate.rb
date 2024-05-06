@@ -81,6 +81,10 @@ class Debate < ApplicationRecord
     tagged_with(user.interests, any: true).where.not(author_id: user.id)
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def verbose_name_with_pronoun
     "#{TYPES_TRANSLATION_PRONOUN[self.debate_type]} #{TYPES_TRANSLATION_SINGULAR[self.debate_type]}"
   end

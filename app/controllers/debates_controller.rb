@@ -43,6 +43,14 @@ class DebatesController < ApplicationController
 
   def show
     super
+
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @debate.segmentation.present?
+      @can_participate, @reason = @debate.segmentation.validate(current_user)
+    end
+
     redirect_to debate_path(@debate), status: :moved_permanently if request.path != debate_path(@debate)
   end
 
@@ -72,6 +80,15 @@ class DebatesController < ApplicationController
       if @debate.save
         @debate.publish
         Activity.log(current_user, :create, @debate)
+
+        if current_user.administrator?
+          Segmentation.generate(
+            entity_name: @debate.class.name,
+            entity_id: @debate.id,
+            params: params
+          )
+        end
+
         redirect_to debate_path(@debate)
       else
         render :new
@@ -89,6 +106,14 @@ class DebatesController < ApplicationController
   def update
     super
     Activity.log(current_user, :update, @debate)
+
+    if current_user.administrator?
+      Segmentation.generate(
+        entity_name: @debate.class.name,
+        entity_id: @debate.id,
+        params: params
+      )
+    end
   end
 
   def unmark_featured

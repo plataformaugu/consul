@@ -1,0 +1,284 @@
+<div style="background-color: rgba(0, 0, 0, 0.03); padding: 0.1rem 1rem; border-radius: 15px; margin: 1rem 0;">
+  <h3>Filtros</h3>
+
+  <div class="mt-1 mb-1">
+    <label>Género</label>
+
+    <div class="mt-1">
+      <% User::GENDER_CHOICES.each do |gender| %>
+        <%= label_tag nil, style: 'font-weight: normal;' do %>
+          <%=
+            check_box_tag "segmentation_genders[]",
+            gender,
+            @segmentation.gender_segmentations.pluck(:gender).include?(gender)
+          %>
+          <%= gender %>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-1">
+    <label>Edad</label>
+
+    <div class="mt-1">
+      <%=
+        select_tag 'age_choice',
+        options_for_select(Segmentation::AGE_CHOICES.map{ |key, value| [value, key] }),
+        prompt: 'Elige una opción'
+      %>
+
+      <div id="age" style="display: none;">
+        <div class="row">
+          <div class="small-4 column">
+            <% Array(0 .. 33).each do |age| %>
+              <%= label_tag nil, style: 'font-weight: normal;' do %>
+                <%=
+                  check_box_tag "segmentation_ages[]",
+                  age,
+                  @segmentation.age_segmentations.pluck(:age).include?(age)
+                %>
+                <%= age %> años
+              <% end %>
+            <% end %>
+          </div>
+          <div class="small-4 column">
+            <% Array(34 .. 67).each do |age| %>
+              <%= label_tag nil, style: 'font-weight: normal;' do %>
+                <%=
+                  check_box_tag "segmentation_ages[]",
+                  age,
+                  @segmentation.age_segmentations.pluck(:age).include?(age)
+                %>
+                <%= age %> años
+              <% end %>
+            <% end %>
+          </div>
+          <div class="small-4 column">
+            <% Array(68 .. 99).each do |age| %>
+              <%= label_tag nil, style: 'font-weight: normal;' do %>
+                <%=
+                  check_box_tag "segmentation_ages[]",
+                  age,
+                  @segmentation.age_segmentations.pluck(:age).include?(age)
+                %>
+                <%= age %> años
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div id="age_range" style="display: none;">
+        <% Segmentation::AGE_RANGES.each do |min_age, max_age| %>
+          <%= label_tag nil, style: 'font-weight: normal;' do %>
+            <%=
+              check_box_tag "segmentation_age_ranges[]",
+              "[#{min_age}, #{max_age}]",
+              @segmentation.age_range_segmentations.pluck(:min_age).include?(min_age)
+            %>
+            <% if min_age == 0 %>
+              <%= "Menores de #{max_age}" %><br>
+            <% elsif max_age == 144 %>
+              <%= "Mayores de #{min_age}" %><br>
+            <% else %>
+              <%= "#{min_age} a #{max_age}" %><br>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-1">
+    <label>Padrón</label>
+
+    <div class="mt-1">
+      <%= label_tag nil, style: 'font-weight: normal;' do %>
+        <%=
+          check_box_tag "segmentation_in_census",
+          "1",
+          @segmentation.in_census
+        %>
+        Restringir por padrón
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-1" id="geo-filters">
+    <label>Filtro geográfico</label>
+
+    <div class="mt-1">
+      <%=
+        select_tag 'geo_choice',
+        options_for_select(Segmentation::GEO_CHOICES.map{ |key, value| [value, key] }),
+        prompt: 'Elige una opción'
+      %>
+
+      <div id="geo_sector" style="display: none;">
+        <div style="display: none;">
+          <% @sectors.each do |sector| %>
+            <%=
+              check_box_tag "segmentation_sectors[]",
+              sector.internal_id,
+              @segmentation.sectors.include?(sector),
+              id: "segmentation_sectors_#{sector.internal_id}"
+            %>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="column small-12">
+            <p id="tag-list-help-text">
+              Sectores seleccionados:
+              <strong style="color: #33cc9d;">
+                <span id="selected-sectors">Todos</span>
+              </strong>
+            </p>
+          </div>
+        </div>
+        <div class="leaflet-container">
+          <div id="leaflet-sector" style="height: 500px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+$(document).on('turbolinks:load', function() {
+  var mapSectors;
+
+  var sectorsSelectedFeatures = <%= raw(@segmentation.sectors.pluck(:internal_id)) %>;
+  var sectorsMapping = <%= raw(@sectors.pluck(:name, :internal_id).to_h.to_json) %>;
+  var sectorsMappingById = <%= raw(@sectors.pluck(:internal_id, :name).to_h.to_json) %>;
+
+  loadBasicSegmentation();
+
+  function loadBasicSegmentation() {
+    var currentAgeType;
+    var currentGeoType;
+
+    <% if @segmentation.age_type.present? %>
+      currentAgeType = '<%= raw(@segmentation.age_type) %>'; 
+    <% end %>
+
+    <% if @segmentation.geo_type.present? %>
+      currentGeoType = '<%= raw(@segmentation.geo_type) %>'; 
+    <% end %>
+
+    var ageChoices = <%= raw(Segmentation::AGE_CHOICES.keys) %>;
+
+    var geoChoices = <%= raw(Segmentation::GEO_CHOICES.keys) %>;
+
+    $('#age_choice').on('change', function() {
+      ageChoices.forEach(function(ageChoice) {
+        $(`#${ageChoice.toLowerCase()}`).hide();
+      });
+
+      if (this.value !== '') {
+        $(`#${this.value.toLowerCase()}`).show();
+      }
+    });
+
+    $('#geo_choice').on('change', function() {
+      geoChoices.forEach(function(geoChoice) {
+        $(`#${geoChoice.toLowerCase()}`).hide();
+
+        if (mapSectors) {
+          mapSectors.remove();
+          mapSectors = undefined;
+        }
+
+        sectorsSelectedFeatures = <%= raw(@segmentation.sectors.pluck(:internal_id)) %>;
+      });
+
+      if (this.value === '<%= Segmentation::GEO_SECTOR %>') {
+        loadSectorsMap();
+      } else if (this.value !== '') {
+        $(`#${this.value.toLowerCase()}`).show();
+      }
+    });
+
+    if (currentAgeType) {
+      $('#age_choice').val(currentAgeType).change();
+    }
+
+    if (currentGeoType) {
+      $('#geo_choice').val(currentGeoType).change();
+    }
+  }
+
+  function loadSectorsMap() {
+    mapSectors = new L.Map('leaflet-sector');
+    $('#geo_sector').show();
+
+    if (sectorsSelectedFeatures.length) {
+      $('#selected-sectors').text(
+        sectorsSelectedFeatures.length ? sectorsSelectedFeatures.map(x => sectorsMappingById[x]).join(', ') : 'Todos'
+      )
+    } else {
+      $('#selected-sectors').text('Todos');
+    }
+
+    $.getJSON('/geo/sectors.geojson', function(loBarnecheaSectors) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: loBarnecheaSectors,
+      });
+      mapSectors.addLayer(osm);
+
+      var defaultStyle = {
+        color: 'gray',
+        fillOpacity: 0,
+        weight: 2,
+      }
+
+      function colorlayer(feature, layer) {
+        layer.setStyle(defaultStyle)
+        var currentSectorId = feature.properties.ID
+
+        if (sectorsSelectedFeatures.includes(currentSectorId)) {
+          layer.setStyle({
+            color: "#00008c",
+            opacity: 0.6,
+            fillOpacity: 0.5
+          })
+        }
+
+        layer.on('click', function(e) {
+          if (sectorsSelectedFeatures.includes(currentSectorId)) {
+            layer.setStyle(defaultStyle)
+            sectorsSelectedFeatures = sectorsSelectedFeatures.filter(sf => sf !== currentSectorId)
+          } else {
+            sectorsSelectedFeatures.push(currentSectorId)
+            layer.setStyle({
+              color: "#00008c",
+              opacity: 0.6,
+              fillOpacity: 0.5
+            })
+          }
+
+          <% @sectors.each do |sector| %>
+            $('#segmentation_sectors_<%= sector.internal_id %>').prop('checked', false);
+          <% end %>
+
+          sectorsSelectedFeatures.forEach(function(sf) {
+            $(`#segmentation_sectors_${sf}`).prop('checked', true);
+          })
+
+          $('#selected-sectors').text(
+            sectorsSelectedFeatures.length ? sectorsSelectedFeatures.map(x => sectorsMappingById[x]).join(', ') : 'Todos'
+          )
+        })
+      }
+
+      var gjLayer = L.geoJSON(loBarnecheaSectors);
+      mapSectors.fitBounds(gjLayer.getBounds());
+
+      L.geoJSON(loBarnecheaSectors, {
+          onEachFeature: colorlayer
+      }).addTo(mapSectors)
+    });
+  }
+})
+<% end %>
