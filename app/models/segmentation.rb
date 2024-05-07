@@ -57,6 +57,10 @@ class Segmentation < ApplicationRecord
   # VALIDATION METHODS
   ############################################################
   def validate_census(user)
+    if !self.in_census
+      return true
+    end
+
     if CensusRecord.exists?(document_number: user.document_number)
       return true
     else

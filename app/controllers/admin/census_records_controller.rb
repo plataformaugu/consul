@@ -66,8 +66,10 @@ class Admin::CensusRecordsController < Admin::BaseController
     end
 
     records = records.map { |row| {"document_number" => row["document_number"], "created_at" => Time.now, "updated_at" => Time.now} }
-    
-    CensusRecord.insert_all(records)
+
+    records.each_slice(250) do |records_slice|
+      CensusRecord.insert_all(records_slice)
+    end
 
     redirect_to import_admin_census_records_path, notice: "Se insertaron #{records.length()} registros."
   end
