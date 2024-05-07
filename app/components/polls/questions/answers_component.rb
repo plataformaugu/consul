@@ -2,8 +2,9 @@ class Polls::Questions::AnswersComponent < ApplicationComponent
   attr_reader :question
   delegate :can?, :current_user, :user_signed_in?, to: :helpers
 
-  def initialize(question)
+  def initialize(question, can_participate)
     @question = question
+    @can_participate = can_participate
   end
 
   def already_answered?(question_answer)

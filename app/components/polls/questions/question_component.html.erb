@@ -4,7 +4,7 @@
   </h3>
 
   <div id="<%= dom_id(question) %>_answers" class="padding">
-    <%= render Polls::Questions::AnswersComponent.new(question) %>
+    <%= render Polls::Questions::AnswersComponent.new(question, @can_participate) %>
   </div>
 
   <% if question.answers_with_read_more? %>

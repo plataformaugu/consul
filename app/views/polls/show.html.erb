@@ -38,7 +38,7 @@
         <% end %>
       <% end %>
 
-      <%= render Polls::Questions::QuestionComponent.with_collection(@questions) %>
+      <%= render Polls::Questions::QuestionComponent.with_collection(@questions, can_participate: @can_participate) %>
     </div>
   </div>
 

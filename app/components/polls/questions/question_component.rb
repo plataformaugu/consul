@@ -1,8 +1,9 @@
 class Polls::Questions::QuestionComponent < ApplicationComponent
   attr_reader :question
 
-  def initialize(question:)
+  def initialize(question:, can_participate: true)
     @question = question
+    @can_participate = can_participate
   end
 
   def answers_read_more_links

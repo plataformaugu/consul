@@ -1,5 +1,5 @@
 <div class="poll-question-answers">
-  <% if !@can_participate %>
+  <% if @can_participate == false %>
     <% question_answers.each do |question_answer| %>
       <span class="button secondary hollow disabled <%= already_answered?(question_answer) ? 'answered' : ''%>"><%= question_answer.title %></span>
     <% end %>
