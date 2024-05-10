@@ -7,6 +7,7 @@ module Abilities
       merge Abilities::SDG::Manager.new(user)
 
       can :toggle_finished, Debate
+      can :create, Debate
 
       can :restore, Comment
       cannot :restore, Comment, hidden_at: nil

@@ -19,9 +19,11 @@
   </div>
 
   <div class="row">
-    <div class="small-12 column">
-      <%= link_to "Crear", new_debate_path(type: Debate::TYPE_PARTICIPATORY_REGULATORY_PLANS), class: "button" %>
-    </div>
+    <% if current_user and current_user.administrator? %>
+      <div class="small-12 column">
+        <%= link_to "Crear", new_debate_path(type: Debate::TYPE_PARTICIPATORY_REGULATORY_PLANS), class: "button" %>
+      </div>
+    <% end %>
 
     <div id="debates" class="debates-list small-12 column margin-top">
       <% if @debates.any? %>

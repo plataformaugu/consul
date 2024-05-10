@@ -73,6 +73,7 @@ class ProposalsController < ApplicationController
     if @proposal.save
       Activity.log(current_user, :create, @proposal)
       redirect_to pending_proposal_path(@proposal)
+      return
     else
       render :new
     end

@@ -52,7 +52,7 @@
 
   <% if @debates.any? %>
     <div class="margin-top"></div>
-    <%= render Welcome::SectionComponent.new("Debates", debates_path) do %>
+    <%= render Welcome::SectionComponent.new("Cuenta Pública y Plan Regulador", nil) do %>
       <div class="cards-container-component">
         <% @debates.each do |debate| %>
           <%= render Shared::CardComponent.new(

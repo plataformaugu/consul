@@ -21,7 +21,8 @@
 
     <div class="field">
       <%= render Segmentation::FormComponent.new(
-        Segmentation.find_by(entity_name: @proposal_topic.class.name, entity_id: @proposal_topic.id)
+        Segmentation.find_by(entity_name: @proposal_topic.class.name, entity_id: @proposal_topic.id),
+        with_geo: false
       ) %>
     </div>
 

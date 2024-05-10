@@ -2,6 +2,7 @@
   <div class="row">
     <div class="small-12 column">
       <h1 class="inline-block"><%= t "admin.stats.show.stats_title" %></h1>
+      <button class="button float-right" data-open="download-report-modal">Descargar reporte</button>
 
       <div class="clear"></div>
       <ul class="tabs" data-tabs id="stats-tabs">
@@ -18,5 +19,33 @@
         <% end %>
       </ul>
     </div>
+  </div>
+
+  <div class="reveal" id="download-report-modal" data-reveal>
+    <h2>Descargar reporte</h2>
+
+    <p><strong>Elige los procesos que se incluirán en el reporte:</strong></p>
+
+    <%= form_with url: download_report_admin_stats_path do |form| %>
+      <% @report_processes.each do |report_process| %>
+        <%= label_tag nil, style: 'font-weight: normal;' do %>
+          <%=
+            check_box_tag "report_processes[]",
+            report_process[:key],
+            '0'
+          %>
+          <%= report_process[:label] %>
+          <br>
+        <% end %>
+      <% end %>
+
+      <div class="text-center">
+        <%= form.submit 'Descargar', class: 'button mt-1' %>
+      </div>
+    <% end %>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 </div>

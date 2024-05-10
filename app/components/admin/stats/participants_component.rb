@@ -17,7 +17,7 @@ class Admin::Stats::ParticipantsComponent < ApplicationComponent
     end
 
     def users_other_gender_count
-      @users.count - (@users.male.count - @users.female.count)
+      @users.count - (@users.male.count + @users.female.count)
     end
 
     def users_locations

@@ -1,16 +1,38 @@
 class Admin::StatsController < Admin::BaseController
   before_action :set_tabs, only: [:show, :ppa, :prp, :proposals, :polls, :budgets]
 
+  PROCESS_PPA = 'ppa'
+  PROCESS_PRP = 'prp'
+  PROCESS_PROPOSALS = 'proposals'
+  PROCESS_POLLS = 'polls'
+  PROCESS_BUDGETS = 'budgets'
+
+  PROCESSES = [
+    PROCESS_PPA,
+    PROCESS_PRP,
+    PROCESS_PROPOSALS,
+    PROCESS_POLLS,
+    PROCESS_BUDGETS,
+  ]
+
+  PROCESS_TRANSLATE = {
+    PROCESS_PPA => 'Cuentas Públicas Participativas',
+    PROCESS_PRP => 'Cuentas Públicas Participativas',
+    PROCESS_PROPOSALS => 'Propuestas',
+    PROCESS_POLLS => 'Consultas',
+    PROCESS_BUDGETS =>'Presupuestos Participativos',
+  }
+
   def show
     @event_types = Ahoy::Event.distinct.order(:name).pluck(:name)
     @visits = Visit.count
 
     @users = User.all
 
-    ppa_count = Debate.with_hidden.participatory_public_accounts.count
-    prp_count = Debate.with_hidden.participatory_regulatory_plans.count
-    proposals_count = Proposal.with_hidden.count
-    polls_count = Poll.with_hidden.count
+    ppa_count = Debate.participatory_public_accounts.count
+    prp_count = Debate.participatory_regulatory_plans.count
+    proposals_count = Proposal.count
+    polls_count = Poll.count
     budgets_count = Budget.count
 
     @general = {
@@ -30,14 +52,14 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def ppa
-    all_records = Debate.with_hidden.participatory_public_accounts.order(:id)
+    all_records = Debate.participatory_public_accounts.order(:id)
     @records = apply_pagination(all_records, params)
     @votes = all_records.pluck(:cached_votes_up).sum
     @comments = all_records.pluck(:comments_count).sum
   end
 
   def ppa_detail
-    @record = Debate.with_hidden.participatory_public_accounts.find(params[:id])
+    @record = Debate.participatory_public_accounts.find(params[:id])
 
     comments_users_ids = Comment.where(commentable_type: "Debate", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
@@ -46,14 +68,14 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def prp
-    all_records = Debate.with_hidden.participatory_regulatory_plans.order(:id)
+    all_records = Debate.participatory_regulatory_plans.order(:id)
     @records = apply_pagination(all_records, params)
     @votes = all_records.pluck(:cached_votes_up).sum
     @comments = all_records.pluck(:comments_count).sum
   end
 
   def prp_detail
-    @record = Debate.with_hidden.participatory_regulatory_plans.find(params[:id])
+    @record = Debate.participatory_regulatory_plans.find(params[:id])
 
     comments_users_ids = Comment.where(commentable_type: "Debate", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
@@ -62,14 +84,14 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def proposals
-    all_records = Proposal.with_hidden.order(:id)
+    all_records = Proposal.order(:id)
     @records = apply_pagination(all_records, params)
     @votes = Vote.where(votable_type: "Proposal").count
     @comments = Comment.where(commentable_type: "Proposal").count
   end
 
   def proposals_detail
-    @record = Proposal.with_hidden.find(params[:id])
+    @record = Proposal.find(params[:id])
 
     comments_users_ids = Comment.where(commentable_type: "Proposal", commentable_id: @record.id).pluck(:user_id)
     votes_users_ids = Vote.where(votable_type: "Debate", votable_id: @record.id).pluck(:voter_id)
@@ -78,13 +100,13 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def polls
-    all_records = ::Poll.with_hidden.order(:id)
+    all_records = ::Poll.order(:id)
     @records = apply_pagination(all_records, params)
     @answers = ::Poll::Voter.count
   end
 
   def polls_detail
-    @record = ::Poll.with_hidden.find(params[:id])
+    @record = ::Poll.find(params[:id])
 
     answers_users_ids = @record.voters.pluck(:user_id)
     all_users_ids = answers_users_ids
@@ -119,6 +141,21 @@ class Admin::StatsController < Admin::BaseController
     @users = User.where(id: all_users_ids)
   end
 
+  def download_report
+    processes =  params['report_processes']
+
+    columns = ['Proceso', 'Participantes', 'Participantes Masculinos', 'Participantes Femeninos']
+
+    CSV.generate(headers: true) do |csv|
+    end
+
+    processes.each do |process|
+      if PROCESSES.include?(process)
+        raise
+      end
+    end
+  end
+
   private
 
     def voters_in_heading(heading)
@@ -143,41 +180,12 @@ class Admin::StatsController < Admin::BaseController
         {label: 'Propuestas', action: 'proposals', path: proposals_admin_stats_path},
         {label: 'Presupuestos Participativos', action: 'budgets', path: budgets_admin_stats_path},
       ]
-    end
-
-    def get_users_by_age(users)
-      [[16, 19],
-       [20, 24],
-       [25, 29],
-       [30, 34],
-       [35, 39],
-       [40, 44],
-       [45, 49],
-       [50, 54],
-       [55, 59],
-       [60, 64],
-       [65, 69],
-       [70, 74],
-       [75, 79],
-       [80, 84],
-       [85, 89],
-       [90, 300]
-      ].to_h do |start, finish|
-        count = users.between_ages(start, finish).count
-        range_description = I18n.t("stats.age_range", start: start, finish: finish)
-
-        if finish > 200
-          range_description = I18n.t("stats.age_more_than", start: start)
-        end
-
-        [
-          "#{start} - #{finish}",
-          {
-            range: range_description,
-            count: count,
-            percentage: PercentageCalculator.calculate(count, users.count)
-          }
-        ]
-      end
+      @report_processes = [
+        { key: PROCESS_PPA, label: PROCESS_TRANSLATE[PROCESS_PPA] },
+        { key: PROCESS_PRP, label: PROCESS_TRANSLATE[PROCESS_PPA] },
+        { key: PROCESS_PROPOSALS, label: PROCESS_TRANSLATE[PROCESS_PROPOSALS] },
+        { key: PROCESS_POLLS, label: PROCESS_TRANSLATE[PROCESS_POLLS] },
+        { key: PROCESS_BUDGETS, label: PROCESS_TRANSLATE[PROCESS_BUDGETS] },
+      ]
     end
 end
