@@ -53,6 +53,8 @@ class ProposalsController < ApplicationController
     if not @proposal_topic.is_active?
       redirect_to root_path
     end
+
+    @proposal = Proposal.new(proposal_topic_id: @proposal_topic.id)
   end
 
   def create
@@ -60,22 +62,32 @@ class ProposalsController < ApplicationController
 
     can_participate, reason = @proposal.proposal_topic.segmentation.validate(current_user)
 
-    if !can_participate
+    if !current_user.administrator? and !can_participate
       flash[:error] = reason
       redirect_to proposal_topics_path
+      return
     end
 
     if @proposal.proposal_topic_id.nil?
       flash[:error] = "Ocurrió un error inesperado. Inténtalo nuevamente."
       redirect_to proposal_topics_path
+      return
     end
 
     if @proposal.save
       Activity.log(current_user, :create, @proposal)
-      redirect_to pending_proposal_path(@proposal)
+
+      if current_user.administrator?
+        @proposal.publish
+        redirect_to @proposal, notice: 'La propuesta ha sido publicada.'
+        return
+      else
+        redirect_to pending_proposal_path(@proposal)
+        return
+      end
       return
     else
-      render :new
+      render action: 'new', proposal_topic_id: @proposal.proposal_topic.id
     end
   end
 
