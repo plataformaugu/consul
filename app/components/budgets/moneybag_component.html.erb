@@ -1,0 +1,33 @@
+<% @ballot = get_ballot() %>
+
+<section class="no-margin-top margin-bottom">
+  <div class="expanded jumbo-budget budget-heading padding" id="moneybag">
+    <div class="row progress-votes mt-2">
+      <div class="small-12 column">
+          <% if @ballot.valid_heading?(@heading) %>
+            <div class="progress-bar-nav" data-fixed-bar>
+              <div id="progress_bar">
+                <%= render "budgets/ballot/progress_bar", ballot: @ballot, heading: @heading %>
+              </div>
+            </div>
+          <% else %>
+            <h2>
+              <%= t("budgets.investments.index.by_heading", heading: @heading.name) %>
+            </h2>
+            <div class="small-12 medium-9">
+              <div class="callout warning margin-top">
+                <%= sanitize(t("budgets.investments.header.different_heading_assigned",
+                      heading_link: heading_link(@assigned_heading, @budget))) %>
+                <br>
+                <small>
+                  <%= sanitize(t("budgets.investments.header.change_ballot",
+                      check_ballot: link_to(t("budgets.investments.header.check_ballot_link"),
+                                    budget_ballot_path(@budget), class: 'solid-button'))) %>
+                </small>
+              </div>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</section>
