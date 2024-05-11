@@ -18,7 +18,7 @@
       <%= f.invisible_captcha :address %>
 
       <%= f.email_field :email, required: true %>
-      <%= f.email_field :email_confirmation, label: 'Repite el email anterior', required: true %>
+      <%= f.email_field :email_confirmation, label: 'Repite el email anterior', required: true, onpaste: 'return false;' %>
 
       <% if true == false %>
         <%= f.select :commune,

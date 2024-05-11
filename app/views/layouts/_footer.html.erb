@@ -1,42 +1,93 @@
 <footer>
   <div class="row">
-    <div class="small-12 large-4 column">
+    <div class="small-12 large-3 column">
       <h4>
-        Participación en Ugu
+        <%= image_tag(image_path_for("logo_header.png"), alt: setting["org_name"]) %>
+      </h4>
+
+      <h5 class="info">
+        <a href="https://lobarnechea.cl/municipalidad/autoridades/" target="_blank" style="text-decoration: none;">
+          Alcalde
+        </a>
+        <br />
+        <a href="https://lobarnechea.cl/municipalidad/autoridades/" target="_blank" style="text-decoration: none;">
+          <strong>Cristóbal Lira</strong>
+        </a>
+      </h5>
+    </div>
+
+    <div class="small-12 large-3 column">
+      <h4>
+        Sedes Municipales
       </h4>
 
       <p class="info">
-        Este portal usa la aplicación Ugu que es <a href="https://consuldemocracy.org/es/" target="_blank">software de código abierto</a>.
-        Para asistencia técnica escribe a <a href="mailto:contacto@ugu.cl">contacto@ugu.cl</a>
+        <strong>Centro Cívico:</strong> Av. El Rodeo 12.777
+        <br />
+        <strong>Dideco:</strong> Av. Raúl Labbé 13.989
       </p>
     </div>
 
     <div class="small-12 large-4 column">
       <h4>
-        Invólucrate, Crea, Decide
+        Servicios Externos
       </h4>
 
-      <p class="info">
-        Creemos en una democracia legítima sostenida en la constante relación con las personas, organizaciones sociales y sus perspectivas.
-      </p>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+        <p class="info" style="grid-area: 1 / 1 / 2 / 2;">
+          <a href="https://www.registrocivil.cl/" target="_blank" style="text-decoration: none;">
+            Registro Civil
+          </a><br />
+          <a href="https://tramites.lobarnechea.cl/#forward" target="_blank" style="text-decoration: none;">
+            Juzgado de Policía Local
+          </a><br />
+          <a href="https://www.sii.cl/" target="_blank" style="text-decoration: none;">
+            Servicio de Impuestos Internos
+          </a><br />
+          <a href="https://www.sernac.cl/portal/617/w3-channel.html" target="_blank" style="text-decoration: none;">
+            Sernac
+          </a><br />
+          <a href="https://www.tgr.cl/" target="_blank" style="text-decoration: none;">
+            Tesorería General de la República
+          </a><br />
+          <a href="http://sistemas.lobarnechea.cl:2220/bconcejo/index.php" target="_blank" style="text-decoration: none;">
+            Escritorio de concejales
+          </a>
+        </p>
+
+        <p class="info" style="grid-area: 1 / 2 / 2 / 3;">
+          <a href="https://mlobarnechea.custhelp.com/app/formularios/informate_lo_barnechea" target="_blank" style="text-decoration: none;">
+            Regístrese aquí
+          </a><br />
+          <a href="https://lobarnechea.cl/municipalidad/trabaja-con-nosotros/" target="_blank" style="text-decoration: none;">
+            Trabaja con Nosotros
+          </a><br />
+          <a href="https://lobarnechea.cl/vecinos/atencion-al-vecino/servicios-disponibles/" target="_blank" style="text-decoration: none;">
+            Servicios Disponibles
+          </a><br />
+          <a href="https://lobarnechea.cl/servicios_municipales/oficina-de-partes/" target="_blank" style="text-decoration: none;">
+            Oficina de Partes
+          </a><br />
+          <a href="https://canaletico.lobarnechea.cl/" target="_blank" style="text-decoration: none;">
+            Canal Ético Proveedores
+          </a>
+        </p>
+      </div>
     </div>
 
-    <div class="small-12 large-4 column">
+    <div class="small-12 large-2 column">
       <h4>
         Contáctanos
       </h4>
 
       <p class="info">
-        <i class="map-icon text-brand" style="margin-right: 0.5rem;"></i>
-        <span> Santiago, Región Metropolitana, Chile</span>
-        <br>
-        <i class="email-icon text-brand" style="margin-right: 0.5rem;"></i>
-        <span>contacto@ugu.cl</span>
-        <br>
-        <i class="link-icon text-brand" style="margin-right: 0.5rem;"></i>
-        <span>
-          <a target="blank" href="https://ugu.cl/">ugu.cl</a>
-        </span>
+        <span style="font-size: 1.1rem;">Contáctanos
+          <span class="text-brand">
+            <a href="https://mlobarnechea.custhelp.com/app/formularios/SolicitudesVecinos" target="_blank" style="text-decoration: none;">
+            Aquí
+          </span>
+        </span><br />
+        <strong>Teléfono</strong>: <span class="text-brand">22 757 3100</span>
       </p>
     </div>
   </div>
