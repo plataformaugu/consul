@@ -19,6 +19,8 @@
 
     <%= render Shared::ImageFieldComponent.new(@proposal_topic, form, true) %>
 
+    <%= form.url_field :pdf_link, label: 'Enlace PDF' %>
+
     <div class="field">
       <%= render Segmentation::FormComponent.new(
         Segmentation.find_by(entity_name: @proposal_topic.class.name, entity_id: @proposal_topic.id),

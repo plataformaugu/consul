@@ -44,6 +44,12 @@
 
   <div class="row">
     <div class="small-12 column">
+      <%= f.url_field :pdf_link, label: 'Enlace PDF' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 column">
       <%= render Segmentation::FormComponent.new(
         Segmentation.find_by(entity_name: @poll.class.name, entity_id: @poll.id)
       ) %>

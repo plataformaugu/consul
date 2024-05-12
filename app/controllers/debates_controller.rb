@@ -159,6 +159,7 @@ class DebatesController < ApplicationController
         :related_sdg_list,
         :image,
         :debate_type,
+        :pdf_link,
         translation_params(Debate),
         documents_attributes: document_attributes,
       ]

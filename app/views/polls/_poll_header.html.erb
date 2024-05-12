@@ -18,6 +18,11 @@
           <% end %>
         </ul>
       <% end %>
+
+      <% if @poll.pdf_link.present? %>
+        <%= render Shared::IconTextButtonComponent.new(@poll.pdf_link, 'pdf-icon', 'Ver bases', true) %>
+      <% end %>
+
       <%= render SDG::TagListComponent.new(@poll, linkable: false) %>
     </div>
   </div>

@@ -42,6 +42,12 @@
           <p class="margin-top">
             <%= @proposal_topic.description %>
           </p>
+
+          <% if @proposal_topic.pdf_link.present? %>
+            <div class="margin-top">
+            <%= render Shared::IconTextButtonComponent.new(@proposal_topic.pdf_link, 'pdf-icon', 'Ver bases', true) %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

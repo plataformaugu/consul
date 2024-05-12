@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_05_125440) do
+ActiveRecord::Schema.define(version: 2024_05_12_152814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -569,6 +569,7 @@ ActiveRecord::Schema.define(version: 2024_05_05_125440) do
     t.string "image"
     t.boolean "is_finished", default: false
     t.string "debate_type"
+    t.string "pdf_link"
     t.index ["author_id", "hidden_at"], name: "index_debates_on_author_id_and_hidden_at"
     t.index ["author_id"], name: "index_debates_on_author_id"
     t.index ["cached_votes_down"], name: "index_debates_on_cached_votes_down"
@@ -1290,6 +1291,7 @@ ActiveRecord::Schema.define(version: 2024_05_05_125440) do
     t.string "related_type"
     t.integer "related_id"
     t.tsvector "tsv"
+    t.string "pdf_link"
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
@@ -1338,6 +1340,7 @@ ActiveRecord::Schema.define(version: 2024_05_05_125440) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "pdf_link"
   end
 
   create_table "proposal_translations", id: :serial, force: :cascade do |t|

@@ -36,6 +36,8 @@
         <%= render "documents/nested_documents", f: f %>
       </div>
     <% end %>
+
+    <%= f.url_field :pdf_link, label: 'Enlace PDF' %>
   </fieldset>
 
   <% if current_user.administrator? %>

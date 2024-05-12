@@ -51,6 +51,10 @@
       </div>
 
       <aside class="small-12 medium-3 column">
+        <% if @debate.pdf_link.present? %>
+          <%= render Shared::IconTextButtonComponent.new(@debate.pdf_link, 'pdf-icon', 'Ver bases', true) %>
+        <% end %>
+
         <% if current_user && @debate.editable_by?(current_user) %>
           <div class="sidebar-divider"></div>
           <h2><%= t("debates.show.author") %></h2>
