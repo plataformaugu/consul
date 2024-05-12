@@ -230,7 +230,7 @@ namespace :admin do
     get :polls, on: :collection
     get 'polls/:id' => 'stats#polls_detail'
 
-    post :download_report, on: :collection
+    get :download_report, on: :collection
   end
 
   namespace :legislation do

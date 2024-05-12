@@ -30,24 +30,31 @@ class Admin::Stats::ParticipantsComponent < ApplicationComponent
       ).map { |location| [location[0], location[1], 1.0]}
     end
 
+    def users_ranges
+      return [
+        [16, 19],
+        [20, 24],
+        [25, 29],
+        [30, 34],
+        [35, 39],
+        [40, 44],
+        [45, 49],
+        [50, 54],
+        [55, 59],
+        [60, 64],
+        [65, 69],
+        [70, 74],
+        [75, 79],
+        [80, 84],
+        [85, 89],
+        [90, 300]
+      ]
+    end
+
     def users_by_age_range
-      [[16, 19],
-       [20, 24],
-       [25, 29],
-       [30, 34],
-       [35, 39],
-       [40, 44],
-       [45, 49],
-       [50, 54],
-       [55, 59],
-       [60, 64],
-       [65, 69],
-       [70, 74],
-       [75, 79],
-       [80, 84],
-       [85, 89],
-       [90, 300]
-      ].to_h do |start, finish|
+      current_users_count = @users.count
+
+      users_ranges.to_h do |start, finish|
         count = @users.between_ages(start, finish).count
         range_description = I18n.t("stats.age_range", start: start, finish: finish)
 
@@ -60,7 +67,7 @@ class Admin::Stats::ParticipantsComponent < ApplicationComponent
           {
             range: range_description,
             count: count,
-            percentage: PercentageCalculator.calculate(count, @users.count)
+            percentage: PercentageCalculator.calculate(count, current_users_count)
           }
         ]
       end
