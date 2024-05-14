@@ -9,7 +9,7 @@
   <div class="small-12 medium-4 column">
     <% if budget.accepting? %>
       <% if current_user %>
-        <% if !@can_participate %>
+        <% if @can_participate %>
           <div class="text-right">
             <%= link_to t("budgets.investments.index.sidebar.create"),
                         new_budget_investment_path(budget),
