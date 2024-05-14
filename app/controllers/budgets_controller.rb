@@ -16,7 +16,7 @@ class BudgetsController < ApplicationController
   end
 
   def index
-    @budgets = Kaminari.paginate_array(Budget.all).page(params[:page]).per(9)
+    @budgets = Kaminari.paginate_array(Budget.published).page(params[:page]).per(9)
   end
 
   private
