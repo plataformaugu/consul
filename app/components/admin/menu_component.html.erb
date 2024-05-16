@@ -25,7 +25,7 @@
     </li>
   <% end %>
 
-  <% if true == false && feature?(:budgets) %>
+  <% if feature?(:budgets) %>
     <li class="<%= "is-active" if budgets? %>">
       <%= link_to t("admin.menu.budgets"), admin_budgets_path, class: "budgets-link" %>
     </li>
