@@ -11,7 +11,7 @@
 
   <div class="small-12 medium-6">
     <% if @budget.show_money? %>
-      <%= f.text_field :price, maxlength: 8 %>
+      <%= f.text_field :price %>
     <% else %>
       <%= f.hidden_field :price, value: 0 %>
     <% end %>

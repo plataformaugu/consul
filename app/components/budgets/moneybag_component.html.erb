@@ -2,6 +2,27 @@
 
 <section class="no-margin-top margin-bottom">
   <div class="expanded jumbo-budget budget-heading padding" id="moneybag">
+    <div class="row">
+      <div class="small-12 column">
+          <%=
+            link_to "Revisar mis votos",
+            budget_ballot_path(@budget),
+            class: "button",
+            style: 'text-decoration: none; color: white;'
+          %>
+          <% if @ballot.confirmed_at == nil %>
+            <%=
+              link_to "Confirmar mis votos",
+              confirm_budget_ballot_path(@budget),
+              method: :put,
+              class: "button",
+              style: 'text-decoration: none; color: white;',
+              data: { confirm: '¿Estás seguro que deseas confirmar tus votos? Después de confirmar no podrás seguir votando.' }
+            %>
+          <% end %>
+      </div>
+    </div>
+
     <div class="row progress-votes mt-2">
       <div class="small-12 column">
           <% if @ballot.valid_heading?(@heading) %>

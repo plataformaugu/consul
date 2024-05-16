@@ -1,8 +1,12 @@
 <% if investments.any? %>
   <section id="investments_list" class="investments-list">
-    <% investments.each do |investment| %>
-      <%= render Budgets::InvestmentComponent.new(investment) %>
-    <% end %>
+    <div class="small-12 column">
+      <div class="cards-container-component">
+        <% investments.each do |investment| %>
+          <%= render Budgets::InvestmentComponent.new(investment) %>
+        <% end %>
+      </div>
+    </div>
   </section>
   <%= paginate investments %>
 <% else %>

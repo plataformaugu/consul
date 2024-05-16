@@ -53,6 +53,13 @@ module Budgets
       set_comment_flags(@comment_tree.comments)
       @investment_ids = [@investment.id]
       @remote_translations = detect_remote_translations([@investment], @comment_tree.comments)
+
+      @can_participate = true
+      @reason = nil
+
+      if current_user && !current_user.administrator? && @investment.budget.segmentation.present?
+        @can_participate, @reason = @investment.budget.segmentation.validate(current_user)
+      end
     end
 
     def publish

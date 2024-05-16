@@ -10,6 +10,13 @@ class BudgetsController < ApplicationController
 
   def show
     raise ActionController::RoutingError, "Not Found" unless budget_published?(@budget)
+
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @budget.segmentation.present?
+      @can_participate, @reason = @budget.segmentation.validate(current_user)
+    end
   end
 
   def unselected

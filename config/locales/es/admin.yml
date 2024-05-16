@@ -331,7 +331,7 @@ es:
         headings: Partidas
         phases: Fases
       budgets:
-        continue: "Continuar a grupos"
+        continue: "Continuar"
       groups:
         back: "Volver a editar presupuesto"
         continue: "Continuar a partidas"

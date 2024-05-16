@@ -7,8 +7,6 @@
   <span class="bullet">&nbsp;&bull;&nbsp;</span>
   <%= render Shared::CommentsCountComponent.new(investment.comments_count, url: "#comments") %>
   <span class="bullet">&nbsp;&bull;&nbsp;</span>
-  <%= investment.heading.name %>
-  <span class="bullet">&nbsp;&bull;&nbsp;</span>
   <% if local_assigns[:preview].nil? %>
     <span class="js-flag-actions">
       <%= render "shared/flag_actions", flaggable: investment %>
@@ -19,10 +17,6 @@
 <br>
 
 <%= render_image(investment.image, :large, true) if investment.image.present? %>
-
-<p id="investment_code">
-  <%= sanitize(t("budgets.investments.show.code", code: investment.id)) %>
-</p>
 
 <%= auto_link_already_sanitized_html wysiwyg(investment.description) %>
 
