@@ -75,7 +75,7 @@ es:
           with_ignored_flag: Marcados como revisados
         headers:
           moderate: Moderar
-          budget_investment: Proyecto de gasto
+          budget_investment: Proyecto
         hide: Ocultar proyectos de gasto
         ignore_flags: Marcar como revisados
         orders:

@@ -17,7 +17,7 @@ es:
         one: "Presupuesto participativo"
         other: "Presupuestos participativos"
       budget/investment:
-        one: "Proyecto de gasto"
+        one: "Proyecto"
         other: "Proyectos de gasto"
       milestone:
         one: "hito"
@@ -179,7 +179,7 @@ es:
         administrator_id: "Administrador"
         location: "Información adicional de la ubicación"
         organization_name: "Si estás proponiendo en nombre de una organización o colectivo, o en nombre de más gente, escribe su nombre"
-        image: "Imagen descriptiva del proyecto de gasto"
+        image: "Imagen descriptiva del proyecto"
         image_title: "Título de la imagen"
         duration: "Plazo de ejecución <small>(opcional, dato no público)</small>"
         feasibility_feasible: "Viable"
@@ -353,7 +353,7 @@ es:
       signature_sheet:
         title: "Título"
         signable_type: "Tipo de hoja de firmas"
-        signable_id: "ID Propuesta ciudadana/Proyecto de gasto"
+        signable_id: "ID Propuesta ciudadana/Proyecto"
         document_numbers: "Números de documentos"
       site_customization/page:
         content: Contenido

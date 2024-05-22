@@ -290,7 +290,7 @@ es:
         assigned_admin: Administrador asignado
         assigned_valuators: Evaluadores asignados
         classification: Clasificación
-        info: "%{budget_name} - Grupo: %{group_name} - Proyecto de gasto %{id}"
+        info: "%{budget_name} - Grupo: %{group_name} - Proyecto %{id}"
         edit: Editar
         edit_classification: Editar clasificación
         by: Autor
@@ -813,7 +813,7 @@ es:
       all_proposal_authors: Usuarios autores de propuestas (incluyendo archivadas y retiradas)
       proposal_authors: Usuarios autores de propuestas
       investment_authors: Usuarios autores de proyectos de gasto en los actuales presupuestos
-      feasible_and_undecided_investment_authors: "Usuarios autores de algún proyecto de gasto en los actuales presupuestos que no cumpla: [evaluación finalizada inviable]"
+      feasible_and_undecided_investment_authors: "Usuarios autores de algún proyecto en los actuales presupuestos que no cumpla: [evaluación finalizada inviable]"
       selected_investment_authors: Usuarios autores de proyectos de gasto seleccionadas en los actuales presupuestos
       winner_investment_authors: Usuarios autores de proyectos de gasto ganadoras en los actuales presupuestos
       not_supported_on_current_budget: Usuarios que no han apoyado proyectos de los actuales presupuestos
@@ -901,16 +901,16 @@ es:
         description: "Reune todas las notificaciones de propuestas en un único mensaje, para evitar demasiados emails."
         preview_detail: "Los usuarios sólo recibirán las notificaciones de aquellas propuestas que siguen."
       budget_investment_created:
-        title: "Proyecto de gasto creado"
+        title: "Proyecto creado"
         description: "Enviado cuando un usuario crea un proyecto de presupuestos participativos."
       budget_investment_selected:
-        title: "Proyecto de gasto seleccionado"
+        title: "Proyecto seleccionado"
         description: "Enviado al autor de un proyecto de presupuestos participativos que ha sido seleccionado."
       budget_investment_unfeasible:
-        title: "Proyecto de gasto inviable"
+        title: "Proyecto inviable"
         description: "Enviado al autor de un proyecto de presupuestos participativos que ha sido marcado como inviable."
       budget_investment_unselected:
-        title: "Proyecto de gasto no seleccionado"
+        title: "Proyecto no seleccionado"
         description: "Enviado al autor de un proyecto de presupuestos participativos que no ha sido seleccionado para la fase de consulta."
       comment:
         title: "Comentario"
@@ -937,7 +937,7 @@ es:
       message_title: "Título del mensaje"
       message_body: "Este es un ejemplo de contenido de un mensaje."
       alert:
-        no_investments: "No se ha creado ningún proyecto de gasto. Se necesita algún ejemplo para poder previsualizar el email."
+        no_investments: "No se ha creado ningún proyecto. Se necesita algún ejemplo para poder previsualizar el email."
         no_comments: "No se ha creado ningún comentario. Se necesita algún ejemplo para poder previsualizar el email."
         no_replies: "No se ha creado ninguna respuesta. Se necesita algún ejemplo para poder previsualizar el email."
         no_evaluation_comments: "No se ha creado ningún comentario de evaluación. Se necesita algún ejemplo para poder previsualizar el email."

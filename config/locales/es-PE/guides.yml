@@ -3,12 +3,12 @@ es-PE:
     title: "¿Tienes una idea para %{org}?"
     subtitle: "Elige qué quieres crear"
     budget_investment:
-      title: "Un proyecto de gasto"
+      title: "Un proyecto"
       feature_1_html: "Son ideas de cómo gastar parte del <strong>presupuesto municipal</strong>"
       feature_2_html: "Los proyectos de gasto se plantean <strong>entre enero y marzo</strong>"
       feature_3_html: "Si recibe apoyos, es viable y competencia municipal, pasa a consulta"
       feature_4_html: "Si la ciudadanía aprueba los proyectos, se hacen realidad"
-      new_button: Quiero crear un proyecto de gasto
+      new_button: Quiero crear un proyecto
     proposal:
       title: "Una propuesta ciudadana"
       feature_1_html: "Son ideas sobre cualquier acción que pueda realizar el Ayuntamiento"

@@ -65,7 +65,7 @@ es-PE:
     budget_investments:
       alert:
         unverified_user: Usuario no verificado
-      create: Crear proyecto de gasto
+      create: Crear proyecto
       filters:
         unfeasible: Proyectos no factibles
       print:
