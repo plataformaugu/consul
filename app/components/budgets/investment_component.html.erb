@@ -31,14 +31,22 @@
     <div style="margin-bottom: 1rem;" class="text-center">
       <% if investment.should_show_vote_count? || investment.should_show_price? %>
         <div class="supports-and-price">
+          <% if investment.winner %>
+            <div class="award-icon" style="font-size: 2rem;"></div>
+          <% end %>
+
           <% if investment.should_show_vote_count? %>
-            <span class="supports-title">Votos</span>
-            <strong><%= investment.total_votes %></strong>
+            <div style="display: flex; flex-direction: column;">
+              <strong><%= investment.total_votes %></strong>
+              <span class="supports-title">Votos</span>
+            </div>
           <% end %>
 
           <% if investment.should_show_price? %>
-            <span class="price-title"><%= t("budgets.investments_list.investment.price") %></span>
-            <strong><%= investment.formatted_price %></strong>
+            <div style="display: flex; flex-direction: column;">
+              <strong><%= investment.formatted_price %></strong>
+              <span class="price-title">Costo</span>
+            </div>
           <% end %>
         </div>
       <% end %>

@@ -3,18 +3,9 @@
   padding-bottom: $line-height;
   position: relative;
 
-  &::after {
-    @extend %brand-background;
-    bottom: 0;
-    content: "";
-    height: rem-calc(6);
-    position: absolute;
-    width: 20%;
-  }
-
-  h2 {
-    font-size: rem-calc(60);
-    font-weight: normal;
+  h3 {
+    font-size: rem-calc(48);
+    font-weight: 700;
   }
 
   p {

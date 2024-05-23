@@ -10,7 +10,9 @@
     <% if investment.should_show_votes? %>
       <% if not current_user %>
         <div class="callout warning">
-          No puedes participar.
+          <p>
+            Necesitas <a href="/users/sign_in" style="color: inherit;">iniciar sesión</a> o <a href="/users/sign_up" style="color: inherit;">registrarte</a> para continuar.
+          </p>
         </div>
       <% elsif !@can_participate %>
         <div class="callout warning">

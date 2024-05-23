@@ -21,3 +21,7 @@
 .email-icon {
   @include has-fa-icon(envelope, solid);
 }
+
+.award-icon {
+  @include has-fa-icon(award, solid);
+}

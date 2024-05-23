@@ -63,11 +63,3 @@
   </h2>
   <p><%= investment.price_explanation %></p>
 <% end %>
-
-<% if local_assigns[:preview].nil? %>
-  <%= render "relationable/related_content", relationable: investment %>
-
-  <div class="js-moderator-investment-actions margin">
-    <%= render "budgets/investments/actions", investment: investment %>
-  </div>
-<% end %>
