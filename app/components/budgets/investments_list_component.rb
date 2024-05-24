@@ -16,7 +16,7 @@ class Budgets::InvestmentsListComponent < ApplicationComponent
     when "balloting", "reviewing_ballots"
       results = budget.investments.published.selected
     when "finished"
-      results = budget.investments.published.feasible
+      results = budget.investments.published.selected.feasible
     else
       results = budget.investments.published
     end
