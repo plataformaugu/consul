@@ -85,9 +85,9 @@ es:
         map_remove_marker: "Eliminar el marcador"
       index:
         title: Presupuestos participativos
-        unfeasible: proyectos no viables
+        unfeasible: Proyectos no viables
         unfeasible_text: "Los proyectos presentados deben cumplir una serie de criterios (legalidad, concreción, no superar el tope del presupuesto) para ser declarados viables y llegar hasta la fase de consulta final. Todos los proyectos que no cumplen estos criterios son marcados como inviables y publicados en la siguiente lista, junto con su informe de inviabilidad."
-        by_heading: "proyectos con ámbito: %{heading}"
+        by_heading: "Proyectos con ámbito: %{heading}"
         search_form:
           button: Buscar
           placeholder: Buscar proyectos...

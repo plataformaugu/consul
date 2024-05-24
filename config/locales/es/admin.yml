@@ -90,7 +90,7 @@ es:
           all: Todos
           open: Abiertos
           finished: Terminados
-        budget_investments: proyectos
+        budget_investments: Proyectos
         table_budget_type: "Tipo"
         table_completed: Completado
         table_draft: "Borrador"
@@ -256,7 +256,7 @@ es:
           filter: Filtrar
         download_current_selection: "Descargar selección actual"
         no_budget_investments: "No hay proyectos."
-        title: proyectos
+        title: Proyectos
         columns: Columnas
         assigned_admin: Administrador asignado
         no_admin_assigned: Sin admin asignado
@@ -555,7 +555,7 @@ es:
           all: Todos
           with_confirmed_hide: Confirmados
           without_confirmed_hide: Pendientes
-        title: proyectos ocultos
+        title: Proyectos ocultos
         no_hidden_budget_investments: No hay proyectos ocultos
     legislation:
       processes:
@@ -726,7 +726,7 @@ es:
       hidden_comments: Comentarios ocultos
       hidden_debates: Debates ocultos
       hidden_proposals: Propuestas ocultas
-      hidden_budget_investments: proyectos ocultos
+      hidden_budget_investments: Proyectos ocultos
       hidden_proposal_notifications: Notificationes de propuesta ocultas
       hidden_users: Usuarios bloqueados
       administrators: Administradores
@@ -1451,7 +1451,7 @@ es:
           proposal_votes: Votos en propuestas
           proposals: Propuestas
           budgets: Presupuestos abiertos
-          budget_investments: proyectos
+          budget_investments: Proyectos
           unverified_users: Usuarios sin verificar
           user_level_three: Usuarios de nivel tres
           user_level_two: Usuarios de nivel dos

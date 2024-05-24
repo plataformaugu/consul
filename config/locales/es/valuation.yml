@@ -25,7 +25,7 @@ es:
           valuating: En evaluación
           valuation_finished: Evaluación finalizada
         assigned_to: "Asignadas a %{valuator}"
-        title: proyectos
+        title: Proyectos
         edit: Editar informe
         table_id: ID
         table_title: Título

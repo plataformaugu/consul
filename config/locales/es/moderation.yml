@@ -44,7 +44,7 @@ es:
     menu:
       flagged_comments: Comentarios
       flagged_debates: Debates
-      flagged_investments: proyectos
+      flagged_investments: Proyectos
       proposals: Propuestas
       proposal_notifications: Notificaciones de propuestas
       users: Bloquear usuarios
@@ -81,7 +81,7 @@ es:
         orders:
           created_at: Más recientes
           flags: Más denunciadas
-        title: proyectos
+        title: Proyectos
     proposal_notifications:
       index:
         block_authors: Bloquear autores
