@@ -31,7 +31,7 @@ es:
         voted_info_2: "Pero puedes cambiarlos en cualquier momento hasta el cierre de esta fase."
         zero: Todavía no has votado ningún proyecto.
       reasons_for_not_balloting:
-        not_verified: Los proyectos de gasto sólo pueden ser apoyados por usuarios verificados, %{verify_account}.
+        not_verified: Los proyectos sólo pueden ser apoyados por usuarios verificados, %{verify_account}.
         not_selected: No se pueden votar proyectos inviables.
         not_enough_money: "Ya has asignado el presupuesto disponible."
         no_ballots_allowed: El periodo de consulta está cerrado.
@@ -85,12 +85,12 @@ es:
         map_remove_marker: "Eliminar el marcador"
       index:
         title: Presupuestos participativos
-        unfeasible: Proyectos de gasto no viables
+        unfeasible: proyectos no viables
         unfeasible_text: "Los proyectos presentados deben cumplir una serie de criterios (legalidad, concreción, no superar el tope del presupuesto) para ser declarados viables y llegar hasta la fase de consulta final. Todos los proyectos que no cumplen estos criterios son marcados como inviables y publicados en la siguiente lista, junto con su informe de inviabilidad."
-        by_heading: "Proyectos de gasto con ámbito: %{heading}"
+        by_heading: "proyectos con ámbito: %{heading}"
         search_form:
           button: Buscar
-          placeholder: Buscar proyectos de gasto...
+          placeholder: Buscar proyectos...
           title: Buscar
         sidebar:
           my_ballot: Mis votos
@@ -204,15 +204,15 @@ es:
       discarded: "Proyecto descartado: "
       incompatibles: Incompatibles
       investment_title: Título del proyecto
-      investment_proyects: Ver lista completa de proyectos de gasto
-      unfeasible_investment_proyects: Ver lista de proyectos de gasto inviables
-      not_selected_investment_proyects: Ver lista de proyectos de gasto no seleccionados para la consulta final
+      investment_proyects: Ver lista completa de proyectos
+      unfeasible_investment_proyects: Ver lista de proyectos inviables
+      not_selected_investment_proyects: Ver lista de proyectos no seleccionados para la consulta final
     executions:
       link: "Seguimiento"
       page_title: "%{budget} - Seguimiento de proyectos"
       heading: "Seguimiento de proyectos"
       heading_selection_title: "Ámbito de actuación"
-      no_winner_investments: "No hay proyectos de gasto ganadores en este estado"
+      no_winner_investments: "No hay proyectos ganadores en este estado"
       filters:
         status:
           label: "Estado actual del proyecto"
