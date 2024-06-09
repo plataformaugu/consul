@@ -1,9 +1,15 @@
 class SiteCustomization::Page < ApplicationRecord
   VALID_STATUSES = %w[draft published].freeze
+
+  include Documentable
   include Cardable
+
+  has_one_attached :image, :dependent => :destroy
+
   translates :title,       touch: true
   translates :subtitle,    touch: true
   translates :content,     touch: true
+
   include Globalizable
 
   validates_translation :title, presence: true

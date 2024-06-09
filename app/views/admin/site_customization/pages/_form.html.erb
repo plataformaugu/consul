@@ -43,6 +43,25 @@
     </div>
   </div>
 
+
+  <div class="row">
+    <div class="small-12 column">
+      <%= f.url_field :video_url, label: 'URL de video' %>
+    </div>
+
+    <div class="small-12 column">
+      <%= render Shared::ImageFieldComponent.new(@page, f) %>
+    </div>
+
+    <% if feature?(:allow_attached_documents) %>
+      <div class="small-12 column">
+        <div class="documents">
+          <%= render "documents/nested_documents", f: f %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="small-12 medium-6 large-3 margin-top column">
       <%= f.submit class: "button success expanded" %>

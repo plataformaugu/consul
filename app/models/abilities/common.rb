@@ -95,7 +95,7 @@ module Abilities
       can [:create, :destroy], Follow, user_id: user.id
 
       can [:destroy], Document do |document|
-        document.documentable_type != "Poll::Question::Answer" && document.documentable&.author_id == user.id
+        (document.documentable_type == 'SiteCustomization::Page' && user.administrator?) || (document.documentable_type != "Poll::Question::Answer" && document.documentable&.author_id == user.id)
       end
 
       can [:destroy], Image do |image|

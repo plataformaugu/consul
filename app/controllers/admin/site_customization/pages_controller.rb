@@ -1,5 +1,7 @@
 class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::BaseController
   include Translatable
+  include DocumentAttributes
+
   load_and_authorize_resource :page, class: "SiteCustomization::Page"
 
   def index
@@ -39,7 +41,7 @@ class Admin::SiteCustomization::PagesController < Admin::SiteCustomization::Base
     end
 
     def allowed_params
-      attributes = [:slug, :more_info_flag, :print_content_flag, :status]
+      attributes = [:slug, :more_info_flag, :print_content_flag, :status, :image, :video_url, documents_attributes: document_attributes]
 
       [*attributes, translation_params(SiteCustomization::Page)]
     end

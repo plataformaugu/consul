@@ -1,59 +1,40 @@
 <%= raw content_block("subnavigation_left") %>
 
-<% if feature?(:debates) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.debates"),
-                            debates_path,
-                            controller_name == "debates",
-                            accesskey: "1" %>
-  </li>
-<% end %>
-<% if feature?(:proposals) %>
-  <li>
-    <%= layout_menu_link_to 'Convocatorias',
-                            proposal_topics_path,
-                            controller.class == ProposalTopicsController || controller.class == ProposalsController,
-                            accesskey: "2" %>
-  </li>
-<% end %>
-<% if feature?(:polls) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.poll_questions"),
-                              polls_path,
-                              controller_name == "polls" || (controller_name == "questions" && controller.class.module_parent == Polls),
-                              accesskey: "3" %>
-  </li>
-<% end %>
-<% if true == false && feature?(:legislation) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
-                            legislation_processes_path,
-                            controller.class.module_parent == Legislation,
-                            accesskey: "4" %>
-  </li>
-<% end %>
-<% if feature?(:budgets) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.budgets"),
-                              budgets_path,
-                              controller_name == "budgets" || controller_name == "investments",
-                              accesskey: "5" %>
-  </li>
-<% end %>
-<% if true == false && feature?(:sdg) %>
-  <li>
-    <%= layout_menu_link_to t("layouts.header.sdg"),
-                            sdg_goals_path,
-                            controller_path == "sdg/goals" && action_name != "help",
-                            accesskey: "6" %>
-  </li>
-<% end %>
+<li>
+  <%= render Shared::DropdownMenuComponent.new(
+    'Procesos consultivos',
+    Proposal.published.pluck(:id, :title).map { |id, title| { url: poll_path(id), name: title } } +
+    Poll.visible.pluck(:id, :name).map  { |id, name| { url: proposal_path(id), name: name } }
+  ) %>
+</li>
 
 <li>
-  <%= layout_menu_link_to 'Eventos',
-                          events_path,
-                          current_page?(events_path),
-                          accesskey: "8" %>
+  <%=
+    layout_menu_link_to 'Noticias',
+    events_path,
+    current_page?(events_path),
+    accesskey: "1"
+  %>
 </li>
+
+<li>
+  <%=
+    layout_menu_link_to 'Eventos',
+    events_path,
+    current_page?(events_path),
+    accesskey: "2"
+  %>
+</li>
+
+<% SiteCustomization::Page.order(created_at: :desc).limit(2).each do |page| %>
+  <li>
+    <%=
+      layout_menu_link_to page.title,
+      page_path(page.slug),
+      current_page?(page_path(page.slug)),
+      accesskey: "3"
+    %>
+  </li>
+<% end %>
 
 <%= raw content_block("subnavigation_right") %>

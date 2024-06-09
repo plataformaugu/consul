@@ -13,7 +13,23 @@
 
       <div class="tabs-content" data-tabs-content="events-tabs">
         <div class="tabs-panel is-active" id="all-events">
-          <%= render 'events' %>
+          <div class="small-12 medium-6 column">
+            <%= render 'events' %>
+          </div>
+
+          <div class="small-12 medium-6 column">
+            <div class="events-cards-container">
+              <% @events.order(created_at: :desc).limit(4).each do |event| %>
+                <%= render Shared::CardComponent.new(
+                  event,
+                  event.title,
+                  event.image,
+                  ActionView::Base.full_sanitizer.sanitize(event.description).truncate(48, separator: '...'),
+                  event.is_expired? ? 'Evento finalizado' : nil
+                ) %>
+              <% end %>
+            </div>
+          </div>
         </div>
         <% if current_user %>
           <div class="tabs-panel" id="my-events">

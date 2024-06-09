@@ -2,7 +2,6 @@
 <% provide :title do %><%= @custom_page.title %><% end %>
 
 <div class="row margin-top">
-
   <div class="small-12 medium-9 column">
     <h1><%= @custom_page.title %></h1>
     <% if @custom_page.subtitle.present? %>
@@ -12,11 +11,11 @@
     <%= auto_link_already_sanitized_html AdminWYSIWYGSanitizer.new.sanitize(@custom_page.content) %>
   </div>
 
-  <% if @custom_page.print_content_flag %>
-    <div class="small-12 medium-3 column">
-      <%= render "/shared/print" %>
-    </div>
-  <% end %>
+  <div class="small-12 medium-3 column">
+    <% if @custom_page.image.attached? %>
+      <%= image_tag @custom_page.image %>
+    <% end %>
+  </div>
 
   <% if @cards.any? %>
     <div class="small-12 column">
@@ -24,4 +23,19 @@
     </div>
   <% end %>
 
+  <div class="small-12 column mt-2">
+    <% if feature?(:allow_attached_documents) %>
+      <%= render "documents/documents",
+                  documents: @custom_page.documents,
+                  max_documents_allowed: Proposal.max_documents_allowed %>
+    <% end %>
+  </div>
+
+  <% if @custom_page.video_url.present? %>
+    <div class="small-12 column mt-2">
+      <div class="flex-video">
+        <div id="js-embedded-video" data-video-code="<%= embedded_video_code(@custom_page) %>"></div>
+      </div>
+    </div>
+  <% end %>
 </div>
