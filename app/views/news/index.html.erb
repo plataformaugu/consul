@@ -1,0 +1,30 @@
+<% provide :title do %>Noticias<% end %>
+
+<main>
+  <%= render "shared/section_header", i18n_namespace: "news.index.section_header", image: "legislation_processes" %>
+
+  <div class="row">
+    <div class="small-12 column">
+      <% if @news.any? %>
+        <div class="cards-container-component">
+          <% @news.each do |single_new| %>
+            <%= render Shared::CardComponent.new(
+              single_new,
+              single_new.title,
+              single_new.image,
+              ActionView::Base.full_sanitizer.sanitize(single_new.body).truncate_words(8, separator: '...'),
+              nil,
+              nil
+            ) %>
+          <% end %>
+        </div>
+
+        <%= paginate @news %>
+      <% else %>
+        <div class="callout primary margin-top">
+          No hay noticias.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

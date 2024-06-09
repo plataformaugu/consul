@@ -87,4 +87,8 @@
   <li class="<%= "is-active" if controller_name == "events" %>">
     <%= link_to 'Eventos', admin_events_path, class: 'events-link' %>
   </li>
+
+  <li class="<%= "is-active" if controller_name == "news" %>">
+    <%= link_to 'Noticias', admin_news_index_path, class: 'news-link' %>
+  </li>
 </ul>

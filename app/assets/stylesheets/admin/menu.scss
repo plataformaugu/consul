@@ -121,6 +121,10 @@
     &.social-organizations-link {
       @include icon(people-carry, solid);
     }
+
+    &.news-link {
+      @include icon(newspaper, solid);
+    }
   }
 
   li {

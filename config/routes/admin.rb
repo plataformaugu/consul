@@ -282,6 +282,8 @@ namespace :admin do
 
   resources :events
 
+  resources :news
+
   resources :proposal_topics
 end
 

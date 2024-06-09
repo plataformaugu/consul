@@ -1,0 +1,67 @@
+<% provide :title do %><%= @news.title %><% end %>
+<% content_for :meta_description do %><%= truncate(@news.body) %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%=
+    render "shared/social_media_meta_tags",
+    social_url: news_url(@news),
+    social_title: @news.title,
+    social_description: truncate(@news.body)
+  %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: news_url(@news) %>
+<% end %>
+
+<main>
+  <div id="<%= dom_id(@news) %>" class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to news_index_path %>
+
+      <div class="margin-top">
+        <h1><%= @news.title %></h1>
+        <p>
+         <%= @news.created_at.strftime('%d/%m/%Y %H:%M') %>
+        </p>
+
+        <% if @news.image.attached? %>
+          <%= image_tag @news.image %>
+        <% end %>
+
+        <p class="mt-2"><%= wysiwyg(@news.body) %></p>
+      </div>
+    </div>
+    <div class="small-12 medium-3 column">
+      <% if current_user and current_user.administrator? %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title">Administrar</p>
+        <div class="show-actions-menu">
+          <%=
+            link_to 'Editar noticia',
+            edit_admin_news_path(@news),
+            style: 'color: white;',
+            class: 'button small expanded'
+          %>
+          <%=
+            link_to 'Eliminar noticia',
+            admin_news_path(@news),
+            style: 'color: white;',
+            class: 'button small alert expanded',
+            method: :delete,
+            data: { confirm: '¿Estás segur@ que deseas eliminar esta noticia?' }
+          %>
+        </div>
+      <% end %>
+      
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title">Compartir</p>
+      <div class="show-actions-menu">
+        <%= render "shared/social_share",
+          title: @news.title,
+          url: news_url(@news),
+          description: @news.body,
+          mobile: @news.title %>
+      </div>
+
+    </div>
+  </div>
+</main>

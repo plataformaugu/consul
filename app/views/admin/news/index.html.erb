@@ -1,0 +1,37 @@
+<h2 class="inline-block">Noticias</h2>
+
+<%=
+  link_to 'Crear noticia',
+  new_admin_news_path,
+  class: "button float-right"
+%>
+
+<% if @news.any? %>
+  <table>
+    <thead>
+      <th class="small-5">Título</th>
+      <th>Fecha de creación</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @news.each do |single_new| %>
+        <tr id="<%= dom_id(single_new) %>">
+          <td><strong><%= single_new.title %></strong></td>
+          <td><%= l single_new.created_at, format: :short_datetime %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              single_new,
+              destroy_confirmation: 'Esta acción eliminará permanentemente esta noticia.'
+            ) do |actions| %>
+              <%= actions.action(:show, path: single_new, target: '_blank') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay noticias.
+  </div>
+<% end %>

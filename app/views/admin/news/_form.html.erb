@@ -1,0 +1,22 @@
+<div class="margin-top">
+  <%= form_with(model: [:admin, @news], local: true) do |form| %>
+
+    <div class="field">
+      <%= form.text_field :title, label: 'Título', required: true %>
+    </div>
+
+    <div class="field">
+      <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
+    </div>
+
+    <%= render Shared::ImageFieldComponent.new(@news, form) %>
+
+    <div class="actions">
+      <% if action_name == 'edit' %>
+        <%= form.submit 'Editar noticia', class: 'button' %>
+      <% else %>
+        <%= form.submit 'Crear noticia', class: 'button' %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
