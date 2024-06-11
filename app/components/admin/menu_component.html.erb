@@ -91,4 +91,8 @@
   <li class="<%= "is-active" if controller_name == "news" %>">
     <%= link_to 'Noticias', admin_news_index_path, class: 'news-link' %>
   </li>
+
+  <li class="<%= "is-active" if controller_name == "surveys" %>">
+    <%= link_to 'Encuestas', admin_surveys_path, class: 'surveys-link' %>
+  </li>
 </ul>

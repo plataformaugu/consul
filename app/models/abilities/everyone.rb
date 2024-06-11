@@ -5,6 +5,7 @@ module Abilities
     def initialize(user)
       can [:index, :read], Event
       can [:index, :read], News
+      can [:index, :read], Survey
       can [:index, :read], ProposalTopic
       can [:map], Debate
       can :read, Debate do |debate|

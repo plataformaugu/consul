@@ -2,7 +2,7 @@
 
 <% content_for :canonical do %>
   <%= render "shared/canonical", href: root_url %>
-<% end %>
+<% end %> 
 
 <%= render Shared::BannerComponent.new("homepage") %>
 
@@ -14,56 +14,107 @@
 <%= render "shared/header", headers: @headers %>
 
 <main>
-  <% if @proposal_topics.any? %>
-    <%= render Welcome::SectionComponent.new("Convocatorias", proposal_topics_path) do %>
-      <div class="cards-container-component">
-        <% @proposal_topics.each do |topic| %>
-          <%= render Shared::CardComponent.new(
-            topic,
-            topic.title,
-            topic.image,
-            topic.description,
-            topic.is_expired? ? 'Convocatoria finalizada' : nil,
-            I18n.t("polls.dates", open_at: l(topic.start_date.to_date), closed_at: l(topic.end_date.to_date))
-          ) %>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
+  <% if @processes.any? %>
+    <%= render Welcome::SectionComponent.new("Procesos consultivos", '/processes') do %>
+      <% if @processes.length == 1 %>
+        <%= render Shared::HorizontalCardComponent.new(
+          @processes[0],
+          @processes[0].instance_of?(Poll) ? @processes[0].name : @processes[0].title,
+          (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ?
+            @processes[0].image.variant(:medium) :
+            @processes[0].image.present? ?
+              @processes[0].image :
+              nil,
+          ActionView::Base.full_sanitizer.sanitize(
+            (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ? @processes[0].description : @processes[0].body
+          ).truncate_words(8, separator: '...'),
+          nil,
+        ) %>
+      <% elsif @processes.length == 2 %>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <% @processes.each do |process| %>
+            <%= render Shared::HorizontalCardComponent.new(
+              process,
+              process.instance_of?(Poll) ? process.name : process.title,
+              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+                process.image.variant(:medium) :
+                process.image.present? ?
+                  process.image :
+                  nil,
+              ActionView::Base.full_sanitizer.sanitize(
+                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+              ).truncate_words(8, separator: '...'),
+              nil,
+            ) %>
+          <% end %> 
+        </div>
+      <% elsif @processes.length == 3 %>
+        <%= render Shared::HorizontalCardComponent.new(
+          @processes[0],
+          @processes[0].instance_of?(Poll) ? @processes[0].name : @processes[0].title,
+          (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ?
+            @processes[0].image.variant(:medium) :
+            @processes[0].image.present? ?
+              @processes[0].image :
+              nil,
+          ActionView::Base.full_sanitizer.sanitize(
+            (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ? @processes[0].description : @processes[0].body
+          ).truncate_words(8, separator: '...'),
+          nil,
+        ) %>
+        <br />
 
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+          <% @processes[1..].each do |process| %>
+            <%= render Shared::CardComponent.new(
+              process,
+              process.instance_of?(Poll) ? process.name : process.title,
+              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+                process.image.variant(:medium) :
+                process.image.present? ?
+                  process.image :
+                  nil,
+              ActionView::Base.full_sanitizer.sanitize(
+                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+              ).truncate_words(8, separator: '...'),
+              nil,
+            ) %>
+          <% end %> 
+        </div>
+      <% elsif @processes.length >= 4 %>
+        <%= render Shared::HorizontalCardComponent.new(
+          @processes[0],
+          @processes[0].instance_of?(Poll) ? @processes[0].name : @processes[0].title,
+          (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ?
+            @processes[0].image.variant(:medium) :
+            @processes[0].image.present? ?
+              @processes[0].image :
+              nil,
+          ActionView::Base.full_sanitizer.sanitize(
+            (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ? @processes[0].description : @processes[0].body
+          ).truncate_words(8, separator: '...'),
+          nil,
+        ) %>
+        <br />
 
-  <% if @polls.any? %>
-    <div class="margin-top"></div>
-    <%= render Welcome::SectionComponent.new("Consultas", polls_path) do %>
-      <div class="cards-container-component">
-        <% @polls.each do |poll| %>
-          <%= render Shared::CardComponent.new(
-            poll,
-            poll.title,
-            poll.image.variant(:medium),
-            poll.description,
-            poll.expired? ? 'Consulta finalizada' : nil,
-            poll_dates(poll)
-          ) %>
-        <% end %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <% if @debates.any? %>
-    <div class="margin-top"></div>
-    <%= render Welcome::SectionComponent.new("Debates", debates_path) do %>
-      <div class="cards-container-component">
-        <% @debates.each do |debate| %>
-          <%= render Shared::CardComponent.new(
-            debate,
-            debate.title,
-            debate.image,
-            ActionView::Base.full_sanitizer.sanitize(debate.description),
-            debate.finished? ? 'Debate finalizado' : nil
-          ) %>
-        <% end %>
-      </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+          <% @processes[1..4].each do |process| %>
+            <%= render Shared::CardComponent.new(
+              process,
+              process.instance_of?(Poll) ? process.name : process.title,
+              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+                process.image.variant(:medium) :
+                process.image.present? ?
+                  process.image :
+                  nil,
+              ActionView::Base.full_sanitizer.sanitize(
+                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+              ).truncate_words(8, separator: '...'),
+              nil,
+            ) %>
+          <% end %> 
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 

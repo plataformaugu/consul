@@ -1547,6 +1547,10 @@ $font-awesome-icons: (
     @include has-fa-icon(eye, regular);
   }
 
+  .elements-link {
+    @include has-fa-icon(question, solid);
+  }
+
   .new-link,
   .assign-booth-link {
     @include has-fa-icon(plus-circle, solid);

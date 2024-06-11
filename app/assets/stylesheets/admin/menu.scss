@@ -125,6 +125,10 @@
     &.news-link {
       @include icon(newspaper, solid);
     }
+
+    &.surveys-link {
+      @include icon(poll, solid);
+    }
   }
 
   li {

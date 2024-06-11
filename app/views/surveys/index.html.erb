@@ -1,0 +1,30 @@
+<% provide :title do %>Encuestas<% end %>
+
+<main>
+  <%= render "shared/section_header", i18n_namespace: "surveys.index.section_header", image: "legislation_processes" %>
+
+  <div class="row">
+    <div class="small-12 column">
+      <% if @surveys.any? %>
+        <div class="cards-container-component">
+          <% @surveys.each do |survey| %>
+            <%= render Shared::CardComponent.new(
+              survey,
+              survey.title,
+              survey.image.present? ? survey.image : nil,
+              ActionView::Base.full_sanitizer.sanitize(survey.body).truncate_words(8, separator: '...'),
+              nil,
+              nil
+            ) %>
+          <% end %>
+        </div>
+
+        <%= paginate @surveys %>
+      <% else %>
+        <div class="callout primary margin-top">
+          No hay encuestas.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

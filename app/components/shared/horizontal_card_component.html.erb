@@ -1,0 +1,41 @@
+<div class="horizontal-card-component">
+  <header>
+    <div class="image-container">
+      <% if @image %>
+        <%= image_tag @image %>
+      <% else %>
+        <div class="no-image">
+          Sin imagen
+        </div>
+      <% end %>
+
+      <% if @alert.present? %>
+        <div class="alert-container">
+          <div class="alert-text-container">
+            <h4><%= @alert %></h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <h4 class="text-center" style="margin-top: 1rem;">
+        <%= link_to @title, @instance %>
+      </h4>
+      <% if @extra_info.present? %>
+        <p style="font-size: 0.87rem !important; padding: 0 1rem;"><%= @extra_info %></p>
+      <% end %>
+      <section>
+        <%= @description.truncate_words(21) %>
+      </section>
+    </div>
+  </header>
+
+  <footer>
+    <% if @footer_text.present? %>
+      <div style="margin-bottom: 1rem;" class="text-center">
+        <strong><%= @footer_text %></strong>
+      </div>
+    <% end %>
+  </footer>
+</div>

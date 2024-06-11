@@ -75,3 +75,17 @@
     position: relative;
   }
 }
+
+.horizontal-card-component {
+  @extend .card-component;
+
+  header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .image-container {
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 15px;
+  }
+}

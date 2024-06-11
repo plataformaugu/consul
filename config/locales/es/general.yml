@@ -583,6 +583,14 @@ es:
     index:
       section_header:
         title: Noticias
+  surveys:
+    index:
+      section_header:
+        title: Encuestas
+  processes:
+    index:
+      section_header:
+        title: Procesos consultivos
   polls:
     all: "Todas"
     no_dates: "sin fecha asignada"

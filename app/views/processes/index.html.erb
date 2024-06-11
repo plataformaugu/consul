@@ -1,0 +1,35 @@
+<% provide :title do %>Procesos consultivos<% end %>
+
+<main>
+  <%= render "shared/section_header", i18n_namespace: "processes.index.section_header", image: "legislation_processes" %>
+
+  <div class="row">
+    <div class="small-12 column">
+      <% if @processes.any? %>
+        <div class="cards-container-component">
+          <% @processes.each do |process| %>
+            <%= render Shared::CardComponent.new(
+              process,
+              process.instance_of?(Poll) ? process.name : process.title,
+              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+                process.image.variant(:medium) :
+                process.image.present? ?
+                  process.image :
+                  nil,
+              ActionView::Base.full_sanitizer.sanitize(
+                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+              ).truncate_words(8, separator: '...'),
+              nil,
+            ) %>
+          <% end %>
+        </div>
+
+        <%= paginate @processes %>
+      <% else %>
+        <div class="callout primary margin-top">
+          No hay procesos consultivos.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

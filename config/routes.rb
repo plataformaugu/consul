@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :news
   mount Ckeditor::Engine => "/ckeditor"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
@@ -49,6 +48,13 @@ Rails.application.routes.draw do
       get :show, to: 'proposals#index'
     end
   end
+  resources :news
+  resources :surveys do
+    member do
+      post :send_answers
+    end
+  end
+  resources :processes
 
   # Static pages
   resources :pages, path: "/", only: [:show]

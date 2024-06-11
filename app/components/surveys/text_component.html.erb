@@ -1,0 +1,8 @@
+<div>
+  <%= label_tag @survey_item.title %>
+  <% if @survey_item.required %>
+    <small>(Obligatorio)</small>
+  <% end %>
+
+  <%= text_area_tag "survey_item_#{@survey_item.id}", nil, rows: 4, required: @survey_item.required %>
+</div>

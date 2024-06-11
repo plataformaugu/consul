@@ -9,11 +9,12 @@ class WelcomeController < ApplicationController
 
   def index
     @headers = Widget::Card.header.all
-    @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(3)
-    @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(3)
-    @debates = Debate.published.order(created_at: :desc).limit(3)
-    @events = Event.order(created_at: :desc).limit(3)
     @cards = Widget::Card.body
+    @processes = [
+        *Proposal.published.limit(4),
+        *Poll.created_by_admin.not_budget.visible.limit(4),
+        *Survey.all.limit(4),
+    ].sort_by { |record| record.created_at }.reverse!.take(4)
   end
 
   def welcome

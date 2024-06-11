@@ -1,0 +1,44 @@
+<%= back_link_to admin_surveys_path %>
+
+<p></p>
+<h2 class="inline-block">Elementos de <%= @survey.title %></h3>
+
+<%=
+  link_to 'Crear elemento',
+  new_admin_survey_survey_item_path(@survey.id),
+  class: "button float-right"
+%>
+
+<% if @items.any? %>
+  <table>
+    <thead>
+      <th class="small-5">Título</th>
+      <th>Posición</th>
+      <th>Obligatorio</th>
+      <th>Tipo</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr id="<%= dom_id(item) %>">
+          <td><strong><%= item.title %></strong></td>
+          <td><%= item.position %></td>
+          <td><%= item.required ? 'Si' : 'No' %></td>
+          <td><%= Survey::Item::ITEM_TYPE_TRANSLATIONS[item.item_type] %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              item,
+              destroy_confirmation: 'Esta acción eliminará permanentemente este elemento.',
+              edit_path: edit_admin_survey_survey_item_path(@survey.id, item.id),
+              destroy_path: admin_survey_survey_item_path(@survey.id, item.id)
+            ) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay elementos.
+  </div>
+<% end %>

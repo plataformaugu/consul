@@ -284,6 +284,14 @@ namespace :admin do
 
   resources :news
 
+  resources :surveys do
+    member do
+      get :items
+    end
+
+    resources :survey_items
+  end
+
   resources :proposal_topics
 end
 

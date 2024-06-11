@@ -1,0 +1,13 @@
+<div>
+  <%= label_tag @survey_item.title %>
+  <% if @survey_item.required %>
+    <small>(Obligatorio)</small>
+  <% end %>
+
+  <% @survey_item.data.each do |choice| %>
+    <%= label_tag nil, style: 'font-weight: normal' do %>
+      <%= check_box_tag "survey_item_#{@survey_item.id}[]", choice %>
+      <%= choice %>
+    <% end %>
+  <% end %>
+</div>

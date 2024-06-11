@@ -1,0 +1,83 @@
+<% provide :title do %><%= @survey.title %><% end %>
+<% content_for :meta_description do %><%= truncate(@survey.body) %><% end %>
+<% provide :social_media_meta_tags do %>
+  <%=
+    render "shared/social_media_meta_tags",
+    social_url: survey_url(@survey),
+    social_title: @survey.title,
+    social_description: truncate(@survey.body)
+  %>
+<% end %>
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: survey_url(@survey) %>
+<% end %>
+
+<main>
+  <div id="<%= dom_id(@survey) %>" class="row">
+    <div class="small-12 medium-9 column">
+      <%= back_link_to processes_path %>
+
+      <div class="margin-top">
+        <h1><%= @survey.title %></h1>
+        <p>
+         <%= @survey.created_at.strftime('%d/%m/%Y %H:%M') %>
+        </p>
+
+        <p class="mt-2"><%= wysiwyg(@survey.body) %></p>
+
+        <% if current_user.nil? %>
+          <div class="callout primary">
+            Necesitas iniciar sesión o registrarte para participar.
+          </div>
+        <% elsif @survey.answered_by_user?(current_user) %>
+          <div class="callout primary">
+            Tus respuestas han sido registradas.
+          </div>
+        <% else %>
+          <div>
+            <%= form_with url: send_answers_survey_path, scope: 'answer' do |form| %>
+              <% @survey.items.order(:position, :id).each do |survey_item| %>
+                <%= render survey_item.component %>
+              <% end %>
+              <%= form.submit 'Confirmar respuestas', class: 'button' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="small-12 medium-3 column">
+      <% if current_user and current_user.administrator? %>
+        <div class="sidebar-divider"></div>
+        <p class="sidebar-title">Administrar</p>
+        <div class="show-actions-menu">
+          <%=
+            link_to 'Editar encuesta',
+            edit_admin_survey_path(@survey),
+            style: 'color: white;',
+            class: 'button small expanded'
+          %>
+          <%=
+            link_to 'Eliminar encuesta',
+            admin_survey_path(@survey),
+            style: 'color: white;',
+            class: 'button small alert expanded',
+            method: :delete,
+            data: { confirm: '¿Estás segur@ que deseas eliminar esta encuesta?' }
+          %>
+        </div>
+      <% end %>
+      
+      <div class="sidebar-divider"></div>
+      <p class="sidebar-title">Compartir</p>
+      <div class="show-actions-menu">
+        <%= render "shared/social_share",
+          title: @survey.title,
+          url: survey_url(@survey),
+          description: @survey.body,
+          mobile: @survey.title %>
+      </div>
+
+    </div>
+  </div>
+</main>

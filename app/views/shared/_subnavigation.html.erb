@@ -3,8 +3,30 @@
 <li>
   <%= render Shared::DropdownMenuComponent.new(
     'Procesos consultivos',
-    Proposal.published.pluck(:id, :title).map { |id, title| { url: poll_path(id), name: title } } +
-    Poll.visible.pluck(:id, :name).map  { |id, name| { url: proposal_path(id), name: name } }
+    ActiveRecord::Base.connection.execute(
+      "SELECT " \
+      " proposal_id AS id, " \
+      " 'proposals' AS url_path, " \
+      " title AS title, " \
+      " created_at AS created_at " \
+      "FROM proposal_translations " \
+      "UNION " \
+      "SELECT " \
+      " poll_id AS id, " \
+      " 'polls' AS url_path, " \
+      " name AS title, " \
+      " created_at AS created_at " \
+      "FROM poll_translations " \
+      "UNION " \
+      "SELECT " \
+      " id AS id, " \
+      " 'surveys' AS url_path, " \
+      " title AS title, " \
+      " created_at AS created_at " \
+      "FROM surveys " \
+      "ORDER BY created_at DESC " \
+      "LIMIT 10"
+    ).to_a.map { |record| { url: "/#{record['url_path']}/#{record['id']}", name: record['title'] } }
   ) %>
 </li>
 
