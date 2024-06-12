@@ -11,11 +11,41 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    build_resource(sign_up_params)
+    resource = build_resource(sign_up_params)
     resource.registering_from_web = true
 
+    clean_document_number = sign_up_params[:document_number].gsub(/[^a-z0-9]+/i, "").upcase
+
+    if (
+      User.exists?(document_number: clean_document_number) &&
+      !User.find_by(document_number: clean_document_number).encrypted_password.blank?
+    )
+      resource.errors.add(:document_number, 'ya está en uso')
+      render :new
+      return
+    end
+
     if resource.valid?
-      super
+      clean_document_number = sign_up_params[:document_number].gsub(/[^a-z0-9]+/i, "").upcase
+
+      if (
+        User.exists?(document_number: clean_document_number) &&
+        User.find_by(document_number: clean_document_number).encrypted_password.blank?
+      )
+        found_user = User.find_by(document_number: clean_document_number)
+        found_user.first_name = sign_up_params[:first_name]
+        found_user.last_name = sign_up_params[:last_name]
+        found_user.email = sign_up_params[:email]
+        found_user.gender = sign_up_params[:gender]
+        found_user.date_of_birth = sign_up_params[:date_of_birth]
+        found_user.password = sign_up_params[:password]
+        found_user.save!
+
+        redirect_to users_sign_up_success_path
+        return
+      else
+        super
+      end
     else
       render :new
     end

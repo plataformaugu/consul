@@ -1,0 +1,16 @@
+<div>
+  <div class="row">
+    <div class="small-12 column">
+      <%= back_link_to proposal_path(@proposal.id) %>
+
+      <h2 class="mt-1">Apoyar a nombre de otra persona</h2>
+      <p>Propuesta: <strong><%= @proposal.title %></strong></p>
+    </div>
+  </div>
+
+  <%=
+    render 'shared/manager_form',
+    existing_user_path: vote_manager_existing_user_proposal_path(@proposal.id),
+    new_user_path: vote_manager_new_user_proposal_path(@proposal.id)
+  %>
+</div>

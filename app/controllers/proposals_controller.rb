@@ -103,6 +103,70 @@ class ProposalsController < ApplicationController
     @proposal.register_vote(current_user, "yes")
   end
 
+  def vote_manager_form
+  end
+
+  def vote_manager_existing_user
+    user_id = params[:user_id]
+
+    if user_id.nil?
+      flash[:error] = "Ocurrió un error inesperado. Vuelve a intentarlo."
+      redirect_to vote_manager_form_proposal_path(@proposal.id)
+      return
+    end
+
+    if @proposal.voters.exists?(id: user_id)
+      flash[:error] = "Ya hay un apoyo de este usuario."
+      redirect_to vote_manager_form_proposal_path(@proposal.id)
+      return
+    end
+
+    existing_user = User.find(user_id)
+
+    @proposal.register_vote(existing_user, "yes")
+
+    flash[:notice] = "Se apoyó la propuesta a nombre de: #{existing_user.full_name}"
+    redirect_to proposal_path(@proposal.id)
+  end
+
+  def vote_manager_new_user
+    clean_document_number = params[:user][:document_number].gsub(/[^a-z0-9]+/i, "").upcase
+
+    if User.exists?(document_number: clean_document_number)
+      flash[:error] = "Ya existe un usuario registrado con el RUT: #{clean_document_number}."
+      redirect_to vote_manager_form_proposal_path(@proposal.id)
+      return
+    end
+
+    if !params[:user][:email].empty? and User.exists?(email: params[:user][:email])
+      flash[:error] = "Ya existe un usuario registrado con el email: #{params[:user][:email]}"
+      redirect_to vote_manager_form_proposal_path(@proposal.id)
+      return
+    end
+
+    permitted_params = params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :document_number,
+      :email,
+      :gender,
+      :date_of_birth,
+      :phone_number,
+    ).merge(
+      document_number: clean_document_number,
+      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email]
+    )
+
+    new_user = User.new(permitted_params)
+
+    new_user.save(validate: false)
+
+    @proposal.register_vote(new_user, "yes")
+
+    flash[:notice] = "Se apoyó la propuesta a nombre de: #{new_user.full_name}"
+    redirect_to proposal_path(@proposal.id)
+  end
+
   def retire
     if @proposal.update(retired_params.merge(retired_at: Time.current))
       redirect_to proposal_path(@proposal), notice: t("proposals.notice.retired")

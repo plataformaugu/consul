@@ -34,6 +34,9 @@ resources :proposals do
 
   member do
     post :vote
+    get :vote_manager_form
+    post :vote_manager_existing_user
+    post :vote_manager_new_user
     put :flag
     put :unflag
     get :retire_form

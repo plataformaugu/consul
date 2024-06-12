@@ -82,7 +82,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :events
 
   validates :email, confirmation: true
-  validates :document_number, uniqueness: { scope: :document_type }, allow_nil: true
 
   validate :validate_username_length
 

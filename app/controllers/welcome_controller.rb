@@ -14,7 +14,11 @@ class WelcomeController < ApplicationController
         *Proposal.published.limit(4),
         *Poll.created_by_admin.not_budget.visible.limit(4),
         *Survey.all.limit(4),
-    ].sort_by { |record| record.created_at }.reverse!.take(4)
+    ].sort_by { |record| record.created_at }.take(4)
+    @informatives = [
+      *Event.limit(4),
+      *SiteCustomization::Page.published.limit(4),
+    ].sort_by { |record| record.created_at }.take(4)
   end
 
   def welcome

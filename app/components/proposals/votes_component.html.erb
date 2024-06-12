@@ -21,6 +21,13 @@
           <%= t("proposals.proposal.support") %>
         <% end %>
       <% end %>
+
+      <% if current_user and current_user.manager? %>
+        <%= link_to vote_manager_form_proposal_path(proposal.id),
+            class: "button button-support small expanded" do %>
+          Apoyar a nombre de otra persona
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 

@@ -38,7 +38,11 @@
           <span class="total-supports" style="margin-bottom: 5px;">
             <%= @event.users.count %> participante<%= @event.users.count > 1 || @event.users.count == 0 ? 's' : '' %>
           </span>
-          <% if @event.is_expired? %>
+          <% if current_user.nil? %>
+            <div class="callout primary">
+              Necesitas iniciar sesión o registrarte para participar.
+            </div>
+          <% elsif @event.is_expired? %>
             <div class="callout warning">
               <strong>El evento ha finalizado.</strong>
             </div>
@@ -57,6 +61,13 @@
                 method: :post,
                 class: 'button warning expanded'
               %>
+            <% end %>
+
+            <% if current_user and current_user.manager? %>
+              <%= link_to participate_manager_form_event_path(@event.id),
+                  class: 'button success expanded' do %>
+                Participar a nombre de otra persona
+              <% end %>
             <% end %>
           <% end %>
         </div>

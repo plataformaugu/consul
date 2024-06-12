@@ -38,7 +38,7 @@
       %>
     </div>
 
-    <div class="field">
+    <div class="field" id="required-field">
       <%=
         form.check_box :required,
         label: "¿Campo obligatorio?"
@@ -67,7 +67,10 @@ $('#survey_item_item_type').on('change', function() {
   if (this.value === '<%= Survey::Item::ITEM_TYPE_TEXT %>') {
     $('#item_data_container').hide()
     $('#survey_item_data').prop('required', false)
+  } else if (this.value === '<%= Survey::Item::ITEM_TYPE_RANKING %>') {
+    $('#required-field').hide()
   } else {
+    $('#required-field').show()
     $('#item_data_container').show()
     $('#survey_item_data').prop('required', true)
   }

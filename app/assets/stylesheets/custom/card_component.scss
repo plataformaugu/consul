@@ -79,13 +79,21 @@
 .horizontal-card-component {
   @extend .card-component;
 
+  height: 100%;
+
   header {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    height: 100%;
   }
 
   .image-container {
     border-top-right-radius: 0;
     border-bottom-left-radius: 15px;
+    height: 100%;
+
+    .no-image {
+      height: 100%;
+    }
   }
 }

@@ -1,0 +1,179 @@
+<div class="row">
+  <div class="small-12 column">
+    <div style="border: 1px solid black; border-radius: 15px; padding: 1rem;">
+      <h4>Buscar por RUT</h4>
+
+      <form id="search-user-form" onsubmit="return searchUser(event)">
+        <%= label_tag 'RUT' %>
+        <span class="help-text">Ingrese RUT con guión y sin puntos</span>
+        <%= text_field_tag 'search_document_number', nil, required: true %>
+
+        <%= submit_tag 'Buscar', id: 'search-user-button', class: 'button' %>
+      </form>
+
+      <div id="search-user-not-found-alert" class="callout alert" style="display: none;">
+        Usuario no encontrado.
+      </div>
+
+      <div id="search-user-found-alert" style="display: none;">
+        <div class="callout success" style="display: flex; justify-content: space-between;">
+          <span>
+            Usuario encontrado:<br/>
+            <strong style="font-size: 1rem;">
+              <span id="search-user-found-full-name"></span>
+            </strong>
+          </span>
+
+          <%= form_with url: existing_user_path do |f| %>
+            <% if defined?(prepared_answers) %>
+              <%= hidden_field_tag 'prepared_answers', prepared_answers %>
+            <% end %>
+
+            <%= f.hidden_field :user_id, id: 'search-found-user-id', value: nil %>
+            <%= f.submit 'Participar como usuario', class: 'button' %>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="search-user-found-form" style="display: none;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-1">
+  <div class="small-12 column">
+    <div style="border: 1px solid black; border-radius: 15px; padding: 1rem;">
+      <h4>Crear usuario</h4>
+
+      <%= form_with scope: :user, url: new_user_path do |f| %>
+        <% if defined?(prepared_answers) %>
+          <%= f.hidden_field :prepared_answers, value: prepared_answers %>
+        <% end %>
+
+        <%= f.text_field :first_name, label: 'Nombre', required: true %>
+        <%= f.text_field :last_name, label: 'Apellido', required: true %>
+        <%= f.text_field :document_number, label: 'RUT', required: true, hint: 'Ingrese RUT con guión y sin puntos' %>
+        <%= f.email_field :email, label: 'Email (opcional)' %>
+        <%= f.select :gender,
+          User::GENRES,
+          {
+            include_blank: 'Elige un género',
+            label: 'Género',
+          },
+          {
+            required: true
+          }
+        %>
+        <%= f.text_field :gender,
+          id: 'custom_gender',
+          style: 'display: none;',
+          placeholder: 'Ingresa tu género',
+          onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+          maxlength: 20,
+          label: false
+        %>
+        <%=
+          f.date_field :date_of_birth,
+          label: 'Fecha de nacimiento',
+          required: true
+        %>
+        <%= f.text_field :phone_number, label: 'Número de teléfono (opcional)' %>
+
+        <div class="small-12 medium-6 small-centered">
+          <%= f.submit "Crear y participar", class: "button expanded" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+function searchUser(event) {
+  event.preventDefault()
+
+  var searchUserNotFoundAlert = $('#search-user-not-found-alert')
+  var searchUserFoundAlert = $('#search-user-found-alert')
+  var searchDocumentNumberInput = $('#search_document_number')
+  var searchUserFoundFullName = $('#search-user-found-full-name')
+  var searchUserButton = $('#search-user-button')
+  var searchFoundUserId = $('#search-found-user-id')
+
+  searchUserNotFoundAlert.hide()
+  searchUserFoundAlert.hide()
+
+  var documentNumber = searchDocumentNumberInput.val()
+
+  var request
+  request = $.get(`/users/find_user_by_document_number?document_number=${documentNumber}`)
+  request.done(function(response) {
+    if (response.user === null) {
+      searchUserNotFoundAlert.show()
+    } else {
+      searchUserFoundFullName.text(`${response.user.first_name} ${response.user.last_name}`)
+      searchFoundUserId.val(response.user.id)
+      searchUserFoundAlert.show()
+    }
+
+    searchUserButton.removeAttr('disabled')
+  })
+}
+
+const validarRUT = (rut) => {
+  if (typeof rut === 'string' || typeof rut === 'number') {
+    const rutSinFormato = limpiarRUT(rut);
+    const rutSinDv = rutSinFormato.slice(0, -1);
+    const rutDv = rutSinFormato.length > 0 ? rutSinFormato.split('').pop().toLowerCase() : undefined
+
+    return calcularDv(rutSinDv) === rutDv;
+  }
+  else {
+    return false;
+  }
+};
+
+const limpiarRUT = rut => {
+  let cleanRut = String(rut).replace(/[^0-9a-z]/gi, '');
+
+  if (cleanRut.length > 9) {
+    cleanRut = cleanRut.substring(0, cleanRut.length - (cleanRut.length - 9))
+  }
+
+  return String(rut).replace(/[^0-9a-z]/gi, '');
+}
+
+const calcularDv = rut => {
+  let suma = 0;
+  let rutReversa = limpiarRUT(rut).split('').reverse();
+
+  for (let i = 0, j = 2; i < rutReversa.length; i++, j < 7 ? j++ : j = 2) {
+    suma += rutReversa[i] * j;
+  }
+
+  let resultado = 11 - (suma % 11)
+  if (resultado === 11) return '0';
+  if (resultado === 10) return 'k';
+  return String(resultado);
+};
+
+$('#user_document_number').keyup(function() {
+  let rutElement = document.getElementById('user_document_number');
+  if (!validarRUT(rutElement.value)) {
+    rutElement.setCustomValidity('El RUT no es válido.')
+  } else {
+    rutElement.setCustomValidity('')
+  }
+})
+
+$("#user_gender").on("change", function () {
+  if (this.value == "Otro") {
+    $("#custom_gender").val("");
+    $("#custom_gender").css("display", "block");
+    $("#custom_gender").attr("required", true);
+  } else {
+    $("#custom_gender").val(this.value);
+    $("#custom_gender").css("display", "none");
+    $("#custom_gender").attr("required", false);
+  }
+});
+</script>
