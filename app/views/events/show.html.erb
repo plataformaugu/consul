@@ -40,7 +40,9 @@
           </span>
           <% if current_user.nil? %>
             <div class="callout primary">
-              Necesitas iniciar sesión o registrarte para participar.
+              <%= sanitize(t("polls.show.cant_answer_not_logged_in",
+                    signin: link_to_signin(class: "probe-message"),
+                    signup: link_to_signup(class: "probe-message"))) %>
             </div>
           <% elsif @event.is_expired? %>
             <div class="callout warning">
@@ -66,7 +68,7 @@
             <% if current_user and current_user.manager? %>
               <%= link_to participate_manager_form_event_path(@event.id),
                   class: 'button success expanded' do %>
-                Participar a nombre de otra persona
+                Participar en nombre de otra persona
               <% end %>
             <% end %>
           <% end %>

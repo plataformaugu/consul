@@ -27,11 +27,14 @@
 
         <% if current_user.nil? %>
           <div class="callout primary">
-            Necesitas iniciar sesión o registrarte para participar.
+            <%= sanitize(t("polls.show.cant_answer_not_logged_in",
+                  signin: link_to_signin(class: "probe-message"),
+                  signup: link_to_signup(class: "probe-message"))) %>
           </div>
         <% elsif !current_user.manager? and @survey.answered_by_user?(current_user) %>
-          <div class="callout primary">
-            Tus respuestas han sido registradas.
+          <div class="callout success">
+            ¡Muchas gracias por participar!<br>
+            Tus respuestas han sido registradas correctamente.
           </div>
         <% else %>
           <div>
@@ -44,7 +47,7 @@
                 <%= form.submit 'Confirmar respuestas', class: 'button', name: 'confirm' %>
               <% end %>
               <% if current_user.manager? %>
-                <%= form.submit 'Confirmar respuestas a nombre de otra persona', class: 'button', name: 'manager_confirm' %>
+                <%= form.submit 'Confirmar respuestas en nombre de otra persona', class: 'button', name: 'manager_confirm' %>
               <% end %>
             <% end %>
           </div>

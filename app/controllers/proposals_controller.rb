@@ -125,7 +125,7 @@ class ProposalsController < ApplicationController
 
     @proposal.register_vote(existing_user, "yes")
 
-    flash[:notice] = "Se apoyó la propuesta a nombre de: #{existing_user.full_name}"
+    flash[:notice] = "Se apoyó la propuesta en nombre de: #{existing_user.full_name}"
     redirect_to proposal_path(@proposal.id)
   end
 
@@ -163,7 +163,7 @@ class ProposalsController < ApplicationController
 
     @proposal.register_vote(new_user, "yes")
 
-    flash[:notice] = "Se apoyó la propuesta a nombre de: #{new_user.full_name}"
+    flash[:notice] = "Se apoyó la propuesta en nombre de: #{new_user.full_name}"
     redirect_to proposal_path(@proposal.id)
   end
 

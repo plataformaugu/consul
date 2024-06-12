@@ -20,6 +20,10 @@ module Abilities
       can :participate_manager_existing_user, Survey
       can :participate_manager_new_user, Survey
 
+      can :participate_manager_form, Poll
+      can :participate_manager_existing_user, Poll
+      can :participate_manager_new_user, Poll
+
       can :toggle_finished, Debate
 
       can :restore, Comment

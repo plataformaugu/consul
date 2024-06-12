@@ -1,0 +1,17 @@
+<div>
+  <div class="row">
+    <div class="small-12 column">
+      <%= back_link_to poll_path(@poll.id) %>
+
+      <h2 class="mt-1">Confirmar respuestas en nombre de otra persona</h2>
+      <p>Consulta: <strong><%= @poll.title %></strong></p>
+    </div>
+  </div>
+
+  <%=
+    render 'shared/manager_form',
+    existing_user_path: participate_manager_existing_user_poll_path(@poll.id),
+    new_user_path: participate_manager_new_user_poll_path(@poll.id),
+    prepared_answers: @prepared_answers.to_json
+  %>
+</div>

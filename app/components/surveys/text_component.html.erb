@@ -1,5 +1,5 @@
 <div>
-  <%= label_tag @survey_item.title %>
+  <%= label_tag "survey_item_#{@survey_item.id}", @survey_item.title %>
   <% if @survey_item.required %>
     <small>(Obligatorio)</small>
   <% end %>

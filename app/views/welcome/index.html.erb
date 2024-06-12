@@ -22,7 +22,7 @@
             @processes[0],
             @processes[0].instance_of?(Poll) ? @processes[0].name : @processes[0].title,
             (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ?
-              @processes[0].image.variant(:medium) :
+              @processes[0].image.variant(:large) :
               @processes[0].image.present? ?
                 @processes[0].image :
                 nil,
@@ -39,7 +39,7 @@
               process,
               process.instance_of?(Poll) ? process.name : process.title,
               (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
-                process.image.variant(:medium) :
+                process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,
@@ -57,7 +57,7 @@
               process,
               process.instance_of?(Poll) ? process.name : process.title,
               (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
-                process.image.variant(:medium) :
+                process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,
@@ -75,7 +75,7 @@
               process,
               process.instance_of?(Poll) ? process.name : process.title,
               (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
-                process.image.variant(:medium) :
+                process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,

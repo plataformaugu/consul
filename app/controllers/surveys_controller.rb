@@ -55,7 +55,7 @@ class SurveysController < ApplicationController
 
     save_answers(prepared_answers, existing_user)
 
-    flash[:notice] = "Se respondió la encuesta a nombre de: #{existing_user.full_name}"
+    flash[:notice] = "Se respondió la encuesta en nombre de: #{existing_user.full_name}"
     redirect_to survey_path(@survey.id)
   end
 
@@ -94,7 +94,7 @@ class SurveysController < ApplicationController
 
     save_answers(prepared_answers, new_user)
 
-    flash[:notice] = "Se respondió la encuesta a nombre de: #{new_user.full_name}"
+    flash[:notice] = "Se respondió la encuesta en nombre de: #{new_user.full_name}"
     redirect_to survey_path(@survey.id)
   end
 

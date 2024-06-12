@@ -56,7 +56,7 @@ class EventsController < ApplicationController
 
     existing_user.events << @event
 
-    flash[:notice] = "Se participó en el evento a nombre de: #{existing_user.full_name}"
+    flash[:notice] = "Se participó en el evento en nombre de: #{existing_user.full_name}"
     redirect_to event_path(@event.id)
   end
 
@@ -94,7 +94,7 @@ class EventsController < ApplicationController
 
     new_user.events << @event
 
-    flash[:notice] = "Se participó en el evento a nombre de: #{new_user.full_name}"
+    flash[:notice] = "Se participó en el evento en nombre de: #{new_user.full_name}"
     redirect_to event_path(@event.id)
   end
 

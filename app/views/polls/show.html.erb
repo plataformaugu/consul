@@ -32,7 +32,37 @@
         <% end %>
       <% end %>
 
-      <%= render Polls::Questions::QuestionComponent.with_collection(@questions) %>
+      <%= form_with scope: :poll, url: answer_poll_path do |f| %>
+        <% @poll.questions.each do |poll_question| %>
+          <%= f.label poll_question.id, poll_question.title %>
+
+          <% poll_question.question_answers.each do |question_answer| %>
+            <span class="margin-right">
+              <%=
+                f.radio_button poll_question.id,
+                question_answer.id,
+                {
+                  label: question_answer.title,
+                  required: true,
+                  disabled: current_user && !current_user.manager? && @poll.full_answered_by_user?(current_user),
+                  checked: current_user && !current_user.manager? && poll_question.answers.exists?(author: current_user, answer: question_answer.title)
+                }
+              %>
+            </span>
+          <% end %>
+        <% end %>
+
+        <div class="clear mt-1">
+          <% if current_user %>
+            <% if !@poll.full_answered_by_user?(current_user) %>
+              <%= f.submit 'Confirmar respuestas', class: 'button', name: 'confirm' %>
+            <% end %>
+            <% if current_user.manager? %>
+              <%= f.submit 'Confirmar respuestas en nombre de otra persona', class: 'button', name: 'manager_confirm' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 
