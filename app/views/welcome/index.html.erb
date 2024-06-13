@@ -135,7 +135,7 @@
         </div>
       <% elsif @informatives.length >= 4 %>
         <div class="welcome-cards-4">
-          <% @informatives.each_with_index do |process, index| %>
+          <% @informatives.each_with_index do |informative, index| %>
             <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
               informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
               informative.title,
