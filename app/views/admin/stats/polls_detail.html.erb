@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="small-12 column">
+    <%= back_link_to polls_admin_stats_path %>
+  </div>
+  <div class="small-12 column">
+    <h3>
+      <%= @record.name %>
+    </h3>
+  </div>
+</div>
+
+<div class="row stats-numbers">
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Participantes <br>
+      <span class="number"><%= number_with_delimiter(@users.count) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+</div>
+
+<%= render Admin::Stats::ParticipantsComponent.new(@users) %>

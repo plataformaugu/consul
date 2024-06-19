@@ -11,13 +11,13 @@
             <%= render Shared::CardComponent.new(
               process,
               process.instance_of?(Poll) ? process.name : process.title,
-              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+              process.instance_of?(Poll) ?
                 process.image.variant(:medium) :
                 process.image.present? ?
                   process.image :
                   nil,
               ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>

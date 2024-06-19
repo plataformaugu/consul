@@ -1,24 +1,24 @@
 .welcome-cards-1 {
     display: grid;
-    grid-template-rows: 20rem;
+    grid-template-rows: auto;
     gap: 1rem;
 }
 
 .welcome-cards-2 {
     display: grid;
-    grid-template-rows: 20rem 20rem;
+    grid-template-rows: auto auto;
     gap: 1rem;
 }
 
 .welcome-cards-3 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 20rem 25rem;
+    grid-template-rows: auto auto;
     gap: 1rem;
 
     @media (max-width: 639px) {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(3, 25rem);
+        grid-template-rows: repeat(3, auto);
     }
 
     & > div:nth-child(1) {
@@ -43,12 +43,12 @@
 .welcome-cards-4 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 20rem 25rem;
+    grid-template-rows: auto auto;
     gap: 1rem;
 
     @media (max-width: 639px) {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 25rem);
+        grid-template-rows: repeat(4, auto);
     }
 
     & > div:nth-child(1) {

@@ -1619,6 +1619,8 @@ es:
           title: Título
           slug: Slug
           see_cards: Tarjetas
+          status_published: "Publicada"
+          status_draft: "Borrador"
         cards:
           cards_title: tarjetas
           create_card: Crear tarjeta

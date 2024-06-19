@@ -33,24 +33,30 @@
       <% end %>
 
       <%= form_with scope: :poll, url: answer_poll_path do |f| %>
-        <% @poll.questions.each do |poll_question| %>
-          <%= f.label poll_question.id, poll_question.title %>
+        <div class="custom-poll-questions-container">
+          <% @poll.questions.each do |poll_question| %>
+            <div class="custom-poll-question-container">
+              <%= f.label poll_question.id, poll_question.title, class: 'custom-poll-question-title' %>
 
-          <% poll_question.question_answers.each do |question_answer| %>
-            <span class="margin-right">
-              <%=
-                f.radio_button poll_question.id,
-                question_answer.id,
-                {
-                  label: question_answer.title,
-                  required: true,
-                  disabled: current_user && !current_user.manager? && @poll.full_answered_by_user?(current_user),
-                  checked: current_user && !current_user.manager? && poll_question.answers.exists?(author: current_user, answer: question_answer.title)
-                }
-              %>
-            </span>
+              <div class="custom-poll-questions-answers-container">
+                <% poll_question.question_answers.each do |question_answer| %>
+                  <div class="custom-poll-question-answer">
+                    <%=
+                      f.radio_button poll_question.id,
+                      question_answer.id,
+                      {
+                        label: question_answer.title,
+                        required: true,
+                        disabled: current_user && !current_user.manager? && @poll.full_answered_by_user?(current_user),
+                        checked: current_user && !current_user.manager? && poll_question.answers.exists?(author: current_user, answer: question_answer.title)
+                      }
+                    %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
           <% end %>
-        <% end %>
+        </div>
 
         <div class="clear mt-1">
           <% if current_user %>

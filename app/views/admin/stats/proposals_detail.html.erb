@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="small-12 column">
+    <%= back_link_to proposals_admin_stats_path %>
+  </div>
+  <div class="small-12 column">
+    <h3>
+      <%= @record.title %>
+    </h3>
+  </div>
+</div>
+
+<div class="row stats-numbers">
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Participantes <br>
+      <span class="number"><%= number_with_delimiter(@users.count) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Apoyos <br>
+      <span class="number"><%= number_with_delimiter(@record.cached_votes_up) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Comentarios <br>
+      <span class="number"><%= number_with_delimiter(@record.comments_count) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+</div>
+
+<%= render Admin::Stats::ParticipantsComponent.new(@users) %>

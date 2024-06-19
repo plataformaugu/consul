@@ -1,0 +1,22 @@
+<div id="stats" class="stats">
+  <div class="row">
+    <div class="small-12 column">
+      <h1 class="inline-block"><%= t "admin.stats.show.stats_title" %></h1>
+
+      <div class="clear"></div>
+      <ul class="tabs" data-tabs id="stats-tabs">
+        <% @tabs.each do |tab| %>
+          <li class="tabs-title <%= current_page?(controller: 'admin/stats', action: tab[:action]) ? 'is-active' : '' %>">
+            <a
+              href="<%= tab[:path] %>"
+              aria-selected="<%= current_page?(controller: 'admin/stats', action: tab[:action])%>"
+              data-turbolinks="false"
+            >
+              <%= tab[:label] %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

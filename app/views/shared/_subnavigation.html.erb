@@ -3,30 +3,17 @@
 <li>
   <%= render Shared::DropdownMenuComponent.new(
     'Procesos consultivos',
-    ActiveRecord::Base.connection.execute(
-      "SELECT " \
-      " proposal_id AS id, " \
-      " 'proposals' AS url_path, " \
-      " title AS title, " \
-      " created_at AS created_at " \
-      "FROM proposal_translations " \
-      "UNION " \
-      "SELECT " \
-      " poll_id AS id, " \
-      " 'polls' AS url_path, " \
-      " name AS title, " \
-      " created_at AS created_at " \
-      "FROM poll_translations " \
-      "UNION " \
-      "SELECT " \
-      " id AS id, " \
-      " 'surveys' AS url_path, " \
-      " title AS title, " \
-      " created_at AS created_at " \
-      "FROM surveys " \
-      "ORDER BY created_at DESC " \
-      "LIMIT 10"
-    ).to_a.map { |record| { url: "/#{record['url_path']}/#{record['id']}", name: record['title'] } }
+    [
+      *ProposalTopic.published.order(created_at: :desc).limit(10).map { |r|
+        { id: r.id, title: r.title, created_at: r.created_at, url: "/proposal_topics/#{r.id}" }
+      },
+      *Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(10).map { |r|
+        { id: r.id, title: r.name, created_at: r.created_at, url: "/polls/#{r.id}" }
+      },
+      *Survey.published.order(created_at: :desc).limit(10).map { |r| 
+        { id: r.id, title: r.title, created_at: r.created_at, url: "/surveys/#{r.id}"}
+      },
+    ].sort_by { |record| record[:created_at] }.reverse.take(10)
   ) %>
 </li>
 
@@ -48,7 +35,7 @@
   %>
 </li>
 
-<% SiteCustomization::Page.order(created_at: :desc).limit(2).each do |page| %>
+<% SiteCustomization::Page.published.order(created_at: :desc).limit(2).each do |page| %>
   <li>
     <%=
       layout_menu_link_to page.title,

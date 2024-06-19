@@ -212,14 +212,17 @@ namespace :admin do
   end
 
   resource :stats, only: :show do
-    get :graph, on: :member
-    get :budgets, on: :collection
-    get :budget_supporting, on: :member
-    get :budget_balloting, on: :member
-    get :proposal_notifications, on: :collection
-    get :direct_messages, on: :collection
+    get :proposals, on: :collection
+    get 'proposals/:id' => 'stats#proposals_detail'
+
     get :polls, on: :collection
-    get :sdg, on: :collection
+    get 'polls/:id' => 'stats#polls_detail'
+
+    get :surveys, on: :collection
+    get 'surveys/:id' => 'stats#surveys_detail'
+
+    get :download_report, on: :collection
+    get :generate_report_surveys_detail, on: :collection
   end
 
   namespace :legislation do

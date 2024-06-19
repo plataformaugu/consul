@@ -18,15 +18,14 @@ class AccountController < ApplicationController
         answered: Poll::Voter.where(user_id: current_user.id).count,
         comments: current_user.comments.where(commentable_type: 'Poll', hidden_at: nil).count
       },
-      debates: {
-        created: current_user.debates.count,
-        comments: current_user.comments.where(commentable_type: 'Debate', hidden_at: nil).count
-      },
-      budgets: {
-        created: current_user.budget_investments.count,
-        votes_received: current_user.budget_investments.map{|p| p.total_votes}.sum,
-        votes_created: current_user.votes.where(votable_type: 'Budget::Investment').count,
-        comments: current_user.comments.where(commentable_type: 'Budget::Investment', hidden_at: nil).count
+      surveys: {
+        answered: ActiveRecord::Base.connection.execute(
+          "SELECT DISTINCT surveys.id " \
+          "FROM surveys " \
+          "INNER JOIN survey_items ON survey_items.survey_id = surveys.id " \
+          "INNER JOIN survey_item_answers ON survey_item_answers.survey_item_id = survey_items.id " \
+          "WHERE survey_item_answers.user_id = #{current_user.id};"
+        ).count
       }
     }
   end

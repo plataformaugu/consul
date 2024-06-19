@@ -1,0 +1,40 @@
+<div class="row stats-numbers">
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Procesos realizados <br>
+      <span class="number"><%= number_with_delimiter(@general[:total_count]) %></span>
+    </p>
+    <p>
+      Cuentas Públicas Participativas <br>
+      <span class="number"><%= number_with_delimiter(@participatory_public_accounts[:count]) %></span>
+    </p>
+    <p>
+      Planes Reguladores Participativos <br>
+      <span class="number"><%= number_with_delimiter(@participatory_regulatory_plans[:count]) %></span>
+    </p>
+    <p>
+      Consultas <br>
+      <span class="number"><%= number_with_delimiter(@polls[:count]) %></span>
+    </p>
+    <p>
+      Propuestas <br>
+      <span class="number"><%= number_with_delimiter(@proposals[:count]) %></span>
+    </p>
+    <% if feature?(:budgets) %>
+      <p>
+        <%= t "admin.stats.show.summary.budgets" %> <br>
+        <span class="number"><%= number_with_delimiter(@budgets[:count]) %></span>
+      </p>
+    <% end %>
+  </div>
+  <div class="small-12 medium-3 column">
+    <p class="featured">
+      Usuarios registrados<br>
+      <span class="number"><%= number_with_delimiter(@users.count) %></span>
+    </p>
+  </div>
+  <div class="small-12 medium-3 column">
+  </div>
+</div>
+
+<%= render Admin::Stats::ParticipantsComponent.new(@users) %>

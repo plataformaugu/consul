@@ -106,7 +106,9 @@
               <% end %>
             </div>
           <% else %>
-            <%= empty_recommended_proposals_message_text(current_user) %>
+            <div class="callout primary">
+              No hay propuestas.
+            </div>
           <% end %>
           <%= paginate @proposals %>
         </div>

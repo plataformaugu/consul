@@ -128,10 +128,14 @@ class User < ApplicationRecord
 
   before_validation :clean_document_number
 
+  GENDER_MALE = 'Masculino'
+  GENDER_FEMALE = 'Femenino'
+  GENDER_OTHER = 'Otro'
+
   GENRES = [
-    'Masculino',
-    'Femenino',
-    'Otro'
+    GENDER_MALE,
+    GENDER_FEMALE,
+    GENDER_OTHER,
   ]
   COMMUNES = [
     'Arauco',

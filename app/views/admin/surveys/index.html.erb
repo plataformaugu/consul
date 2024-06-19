@@ -9,8 +9,10 @@
 <% if @surveys.any? %>
   <table>
     <thead>
-      <th class="small-5">Título</th>
+      <th class="small-4">Título</th>
       <th class="text-center">Fecha de creación</th>
+      <th class="text-center">Fecha de inicio</th>
+      <th class="text-center">Fecha de termino</th>
       <th>Acciones</th>
     </thead>
     <tbody>
@@ -18,6 +20,8 @@
         <tr id="<%= dom_id(survey) %>">
           <td><strong><%= survey.title %></strong></td>
           <td class="text-center"><%= l survey.created_at, format: :short_datetime %></td>
+          <td class="text-center"><%= l survey.start_time, format: :short_datetime %></td>
+          <td class="text-center"><%= l survey.end_time, format: :short_datetime %></td>
           <td>
             <%= render Admin::TableActionsComponent.new(
               survey,

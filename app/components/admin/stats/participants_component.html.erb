@@ -1,0 +1,14 @@
+<div class="row margin">
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Participantes por género<h3>
+      <%= pie_chart [
+        [User::GENDER_MALE, users_male_count],
+        [User::GENDER_FEMALE, users_female_count],
+        [User::GENDER_OTHER, users_other_gender_count]
+      ]%>
+  </div>
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Participantes por rango etario<h3>
+      <%= column_chart users_by_age_range.map { |k, v| [k, v[:count]] } %>
+  </div>
+</div>

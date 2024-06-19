@@ -5,7 +5,7 @@ class SurveysController < ApplicationController
 
   # GET /surveys
   def index
-    @surveys = Kaminari.paginate_array(Survey.all.order(created_at: :desc)).page(params[:page])
+    @surveys = Kaminari.paginate_array(Survey.published.all.order(created_at: :desc)).page(params[:page])
   end
 
   # GET /surveys/1

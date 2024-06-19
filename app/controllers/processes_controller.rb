@@ -3,9 +3,9 @@ class ProcessesController < ApplicationController
 
   def index
     @processes = [
-        *Proposal.published,
+        *ProposalTopic.published,
         *Poll.created_by_admin.not_budget.visible,
-        *Survey.all,
+        *Survey.published.all,
     ].sort_by { |record| record.created_at }.reverse
     @processes = Kaminari.paginate_array(@processes).page(params[:page])
   end

@@ -6,6 +6,14 @@
     </div>
 
     <div class="field">
+      <%= form.datetime_field :start_time, label: 'Fecha de inicio', required: true %>
+    </div>
+
+    <div class="field">
+      <%= form.datetime_field :end_time, label: 'Fecha de termino', required: true %>
+    </div>
+
+    <div class="field">
       <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
     </div>
 

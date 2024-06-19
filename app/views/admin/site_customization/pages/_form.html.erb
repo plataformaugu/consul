@@ -15,14 +15,11 @@
         <%= f.radio_button :status, status %>
         <br>
       <% end %>
-
-      <%= f.check_box :more_info_flag, class: "small" %>
-      <%= f.check_box :print_content_flag %>
     </div>
 
     <div class="small-12 medium-6 column">
       <%= f.text_field :slug, size: 80, maxlength: 80,
-        hint: sanitize(t("admin.site_customization.pages.new.slug_help")) %>
+        hint: "Nombre que tendrá la url de la página. Por ejemplo, si a continuación escribes “ejemplopag” se verá como https://url.cl/ejemplopag", label: 'Nombre de la página' %>
     </div>
   </div>
 
@@ -47,10 +44,6 @@
   <div class="row">
     <div class="small-12 column">
       <%= f.url_field :video_url, label: 'URL de video' %>
-    </div>
-
-    <div class="small-12 column">
-      <%= render Shared::ImageFieldComponent.new(@page, f) %>
     </div>
 
     <% if feature?(:allow_attached_documents) %>

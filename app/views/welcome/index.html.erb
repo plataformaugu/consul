@@ -21,13 +21,13 @@
           <%= render Shared::HorizontalCardComponent.new(
             @processes[0],
             @processes[0].instance_of?(Poll) ? @processes[0].name : @processes[0].title,
-            (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ?
+            @processes[0].instance_of?(Poll) ?
               @processes[0].image.variant(:large) :
               @processes[0].image.present? ?
                 @processes[0].image :
                 nil,
             ActionView::Base.full_sanitizer.sanitize(
-              (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(Proposal)) ? @processes[0].description : @processes[0].body
+              (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(ProposalTopic)) ? @processes[0].description : @processes[0].body
             ).truncate_words(8, separator: '...'),
             nil,
           ) %>
@@ -38,13 +38,13 @@
             <%= render Shared::HorizontalCardComponent.new(
               process,
               process.instance_of?(Poll) ? process.name : process.title,
-              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+              process.instance_of?(Poll) ?
                 process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,
               ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>
@@ -56,13 +56,13 @@
             <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
               process,
               process.instance_of?(Poll) ? process.name : process.title,
-              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+              process.instance_of?(Poll) ?
                 process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,
               ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>
@@ -74,13 +74,13 @@
             <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
               process,
               process.instance_of?(Poll) ? process.name : process.title,
-              (process.instance_of?(Poll) || process.instance_of?(Proposal)) ?
+              process.instance_of?(Poll) ?
                 process.image.variant(:large) :
                 process.image.present? ?
                   process.image :
                   nil,
               ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(Proposal)) ? process.description : process.body
+                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>
@@ -100,7 +100,7 @@
             @informatives[0].title,
             @informatives[0].image.present? ? @informatives[0].image : nil,
             ActionView::Base.full_sanitizer.sanitize(
-              @informatives[0].instance_of?(SiteCustomization::Page) ? @informatives[0].content : @informatives[0].description
+              @informatives[0].instance_of?(SiteCustomization::Page) ? @informatives[0].content : (@informatives[0].instance_of?(News) ? @informatives[0].body : @informatives[0].description)
             ).truncate_words(8, separator: '...'),
             nil,
           ) %>
@@ -113,7 +113,7 @@
               informative.title,
               informative.image.present? ? informative.image : nil,
               ActionView::Base.full_sanitizer.sanitize(
-                informative.instance_of?(SiteCustomization::Page) ? informative.content : informative.description
+                informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>
@@ -127,7 +127,7 @@
               informative.title,
               informative.image.present? ? informative.image : nil,
               ActionView::Base.full_sanitizer.sanitize(
-                informative.instance_of?(SiteCustomization::Page) ? informative.content : informative.description
+                informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>
@@ -141,7 +141,7 @@
               informative.title,
               informative.image.present? ? informative.image : nil,
               ActionView::Base.full_sanitizer.sanitize(
-                informative.instance_of?(SiteCustomization::Page) ? informative.content : informative.description
+                informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
               ).truncate_words(8, separator: '...'),
               nil,
             ) %>

@@ -24,6 +24,7 @@ module Abilities
       can :participate_manager_form, Poll
       can :participate_manager_existing_user, Poll
       can :participate_manager_new_user, Poll
+      can :answer, Poll
     end
   end
 end
