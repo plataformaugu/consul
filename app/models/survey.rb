@@ -5,20 +5,20 @@ class Survey < ApplicationRecord
   validate :end_time_greater_than_start_time, on: [:create, :update]
 
   def self.published
-    where('start_time <= ?', Date.current)
+    where('start_time <= ?', Time.current)
   end
 
   def is_expired?
-    Date.current > end_time
+    Time.current > end_time
   end
 
   def is_active?
-    start_time <= Date.current && Date.current <= end_time
+    start_time <= Time.current && Time.current <= end_time
   end
 
   def answered_by_user?(user)
     items_answered_by_user = self.items.map { |survey_item| survey_item.answers.exists?(user_id: user.id) }
-    
+
     return items_answered_by_user.all?
   end
 

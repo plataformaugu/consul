@@ -53,37 +53,103 @@
       <% elsif @processes.length == 3 %>
         <div class="welcome-cards-3">
           <% @processes.each_with_index do |process, index| %>
-            <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
-              process,
-              process.instance_of?(Poll) ? process.name : process.title,
-              process.instance_of?(Poll) ?
-                process.image.variant(:large) :
-                process.image.present? ?
-                  process.image :
+            <% if index == 0 %>
+              <%= render Shared::HorizontalCardComponent.new(
+                process,
+                process.instance_of?(Poll) ? process.name : process.title,
+                process.instance_of?(Poll) ?
+                  process.image.variant(:large) :
+                  process.image.present? ?
+                    process.image :
+                    nil,
+                ActionView::Base.full_sanitizer.sanitize(
+                  (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                ).truncate_words(8, separator: '...'),
+                nil,
+              ) %>
+            <% else %>
+              <div class="visible-grid-on-mobile">
+                <%= render Shared::HorizontalCardComponent.new(
+                  process,
+                  process.instance_of?(Poll) ? process.name : process.title,
+                  process.instance_of?(Poll) ?
+                    process.image.variant(:large) :
+                    process.image.present? ?
+                      process.image :
+                      nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                  ).truncate_words(8, separator: '...'),
                   nil,
-              ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-              ).truncate_words(8, separator: '...'),
-              nil,
-            ) %>
+                ) %>
+              </div>
+              <div class="visible-grid-on-desktop">
+                <%= render Shared::CardComponent.new(
+                  process,
+                  process.instance_of?(Poll) ? process.name : process.title,
+                  process.instance_of?(Poll) ?
+                    process.image.variant(:large) :
+                    process.image.present? ?
+                      process.image :
+                      nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+            <% end %>
           <% end %> 
         </div>
       <% elsif @processes.length >= 4 %>
         <div class="welcome-cards-4">
           <% @processes.each_with_index do |process, index| %>
-            <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
-              process,
-              process.instance_of?(Poll) ? process.name : process.title,
-              process.instance_of?(Poll) ?
-                process.image.variant(:large) :
-                process.image.present? ?
-                  process.image :
+            <% if index == 0 %>
+              <%= render Shared::HorizontalCardComponent.new(
+                process,
+                process.instance_of?(Poll) ? process.name : process.title,
+                process.instance_of?(Poll) ?
+                  process.image.variant(:large) :
+                  process.image.present? ?
+                    process.image :
+                    nil,
+                ActionView::Base.full_sanitizer.sanitize(
+                  (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                ).truncate_words(8, separator: '...'),
+                nil,
+              ) %>
+            <% else %>
+              <div class="visible-grid-on-mobile">
+                <%= render Shared::HorizontalCardComponent.new(
+                  process,
+                  process.instance_of?(Poll) ? process.name : process.title,
+                  process.instance_of?(Poll) ?
+                    process.image.variant(:large) :
+                    process.image.present? ?
+                      process.image :
+                      nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                  ).truncate_words(8, separator: '...'),
                   nil,
-              ActionView::Base.full_sanitizer.sanitize(
-                (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-              ).truncate_words(8, separator: '...'),
-              nil,
-            ) %>
+                ) %>
+              </div>
+              <div class="visible-grid-on-desktop">
+                <%= render Shared::CardComponent.new(
+                  process,
+                  process.instance_of?(Poll) ? process.name : process.title,
+                  process.instance_of?(Poll) ?
+                    process.image.variant(:large) :
+                    process.image.present? ?
+                      process.image :
+                      nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+            <% end %>
           <% end %> 
         </div>
       <% end %>
@@ -122,29 +188,79 @@
       <% elsif @informatives.length == 3 %>
         <div class="welcome-cards-3">
           <% @informatives.each_with_index do |informative, index| %>
-            <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
-              informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
-              informative.title,
-              informative.image.present? ? informative.image : nil,
-              ActionView::Base.full_sanitizer.sanitize(
-                informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-              ).truncate_words(8, separator: '...'),
-              nil,
-            ) %>
+            <% if index == 0 %>
+              <%= render Shared::HorizontalCardComponent.new(
+                informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                informative.title,
+                informative.image.present? ? informative.image : nil,
+                ActionView::Base.full_sanitizer.sanitize(
+                  informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                ).truncate_words(8, separator: '...'),
+                nil,
+              ) %>
+            <% else %>
+              <div class="visible-grid-on-mobile">
+                <%= render Shared::HorizontalCardComponent.new(
+                  informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                  informative.title,
+                  informative.image.present? ? informative.image : nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+              <div class="visible-grid-on-desktop">
+                <%= render Shared::CardComponent.new(
+                  informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                  informative.title,
+                  informative.image.present? ? informative.image : nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+            <% end %>
           <% end %> 
         </div>
       <% elsif @informatives.length >= 4 %>
         <div class="welcome-cards-4">
           <% @informatives.each_with_index do |informative, index| %>
-            <%= render (index == 0 ? Shared::HorizontalCardComponent : Shared::CardComponent).new(
-              informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
-              informative.title,
-              informative.image.present? ? informative.image : nil,
-              ActionView::Base.full_sanitizer.sanitize(
-                informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-              ).truncate_words(8, separator: '...'),
-              nil,
-            ) %>
+            <% if index == 0 %>
+              <%= render Shared::HorizontalCardComponent.new(
+                informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                informative.title,
+                informative.image.present? ? informative.image : nil,
+                ActionView::Base.full_sanitizer.sanitize(
+                  informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                ).truncate_words(8, separator: '...'),
+                nil,
+              ) %>
+            <% else %>
+              <div class="visible-grid-on-mobile">
+                <%= render Shared::HorizontalCardComponent.new(
+                  informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                  informative.title,
+                  informative.image.present? ? informative.image : nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+              <div class="visible-grid-on-desktop">
+                <%= render Shared::CardComponent.new(
+                  informative.instance_of?(SiteCustomization::Page) ? "/#{informative.slug}" : informative,
+                  informative.title,
+                  informative.image.present? ? informative.image : nil,
+                  ActionView::Base.full_sanitizer.sanitize(
+                    informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
+                  ).truncate_words(8, separator: '...'),
+                  nil,
+                ) %>
+              </div>
+            <% end %>
           <% end %> 
         </div>
       <% end %>
