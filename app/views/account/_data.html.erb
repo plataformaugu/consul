@@ -52,6 +52,19 @@
           }
         %>
       </div>
+
+      <div class="small-12 medium-6 column">
+        <%= f.select :organization_name,
+          User::ORGANIZATIONS,
+          {
+            include_blank: 'Seleccione una organización',
+            label: '¿A qué organización pertenece?',
+          },
+          {
+            required: true
+          }
+        %>
+      </div>
     </div>
 
     <%= f.submit t("account.show.save_changes_submit"), class: "button margin-top" %>

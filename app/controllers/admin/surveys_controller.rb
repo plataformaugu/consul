@@ -5,6 +5,13 @@ class Admin::SurveysController < Admin::BaseController
 
   def index
     @surveys = Survey.all
+
+    if !current_user.without_organization?
+      @surveys = Survey.all.where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      )
+    end
   end
 
   def new
@@ -47,6 +54,6 @@ class Admin::SurveysController < Admin::BaseController
     end
 
     def surveys_params
-      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time)
+      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time, organizations: [])
     end
 end

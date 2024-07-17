@@ -3,6 +3,7 @@ class Survey < ApplicationRecord
   has_many :items, dependent: :destroy
 
   validate :end_time_greater_than_start_time, on: [:create, :update]
+  validate :must_have_one_organization
 
   def self.published
     where('start_time <= ?', Time.current)
@@ -25,6 +26,13 @@ class Survey < ApplicationRecord
   def end_time_greater_than_start_time
     if start_time > end_time
       errors.add(:end_time, 'La fecha de termino no puede ser inferior a la fecha de inicio.')
+    end
+  end
+
+  def must_have_one_organization
+    if self.organizations.filter(&:present?).empty?
+      errors.add(:organizations, 'Debes seleccionar al menos una organización')
+      self.image = nil
     end
   end
 end

@@ -26,6 +26,10 @@ class ProposalsController < ApplicationController
   respond_to :html, :js
 
   def show
+    if current_user.present? && !current_user.without_organization? && !@proposal.proposal_topic.organizations.include?(current_user.organization_name)
+      redirect_to root_path, alert: "No tienes permiso para ver esta página"
+    end
+
     super
     @notifications = @proposal.notifications
     @notifications = @proposal.notifications.not_moderated
@@ -67,6 +71,10 @@ class ProposalsController < ApplicationController
 
   def index
     @proposal_topic = ProposalTopic.find_by_id(params[:id])
+
+    if current_user.present? && !current_user.without_organization? && !@proposal_topic.organizations.include?(current_user.organization_name)
+      redirect_to root_path, alert: "No tienes permiso para ver esta página"
+    end
 
     if @proposal_topic.present? && @proposal_topic.is_published?
       super
@@ -152,9 +160,11 @@ class ProposalsController < ApplicationController
       :gender,
       :date_of_birth,
       :phone_number,
+      :organization_name,
     ).merge(
       document_number: clean_document_number,
-      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email]
+      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email],
+      organization_name: current_user.organization_name
     )
 
     new_user = User.new(permitted_params)

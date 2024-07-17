@@ -137,6 +137,23 @@ class User < ApplicationRecord
     GENDER_FEMALE,
     GENDER_OTHER,
   ]
+
+  ORGANIZATIONS = [
+    'Comunidad Indígena Wirkalaf',
+    'Asociación Indígena Alonkura',
+    'Mercadito Local Loma de la Piedra',
+    'JJVV Cruce Nanning',
+    'JJVV Loma de la Piedra',
+    'Otro',
+  ]
+  ORGANIZATIONS_WITHOUT_OTHER = [
+    'Comunidad Indígena Wirkalaf',
+    'Asociación Indígena Alonkura',
+    'Mercadito Local Loma de la Piedra',
+    'JJVV Cruce Nanning',
+    'JJVV Loma de la Piedra',
+  ]
+
   COMMUNES = [
     'Arauco',
     'Cañete',
@@ -472,6 +489,14 @@ class User < ApplicationRecord
 
   def is_staff?
     administrator? || moderator?
+  end
+
+  def is_in_organization?(organization)
+    return organization_name == organization
+  end
+
+  def without_organization?
+    return organization_name == 'Otro' || organization_name == nil
   end
 
   private

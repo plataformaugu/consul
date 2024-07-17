@@ -10,6 +10,9 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1
   def show
+    if current_user.present? && !current_user.without_organization? && !@survey.organizations.include?(current_user.organization_name)
+      redirect_to root_path, alert: "No tienes permiso para ver esta página"
+    end
   end
 
   def send_answers
@@ -83,9 +86,11 @@ class SurveysController < ApplicationController
       :gender,
       :date_of_birth,
       :phone_number,
+      :organization_name,
     ).merge(
       document_number: clean_document_number,
-      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email]
+      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email],
+      organization_name: current_user.organization_name
     )
 
     new_user = User.new(permitted_params)

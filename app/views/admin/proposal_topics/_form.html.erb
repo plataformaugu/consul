@@ -17,6 +17,25 @@
       <%= form.date_field :end_date, label: 'Fecha de termino', required: true %>
     </div>
 
+    <div class="field" style="<%= !current_user.without_organization? ? 'display: none;' : '' %>">
+      <label for="proposal_topic_organizations" style="margin-bottom: 0.5rem;">Organizaciones</label>
+
+      <% if !@proposal_topic.errors.messages[:organizations].empty? %>
+        <div style="margin-bottom: 0.5rem">
+          <small class="form-error is-visible">
+            <%= @proposal_topic.errors.messages[:organizations][0] %>
+          </small>
+        </div>
+      <% end %>
+
+      <%= form.collection_check_boxes :organizations, User::ORGANIZATIONS_WITHOUT_OTHER, :to_s, :to_s, include_hidden: false do |group| %>
+        <%= group.label do %>
+          <%= group.check_box checked: (!current_user.without_organization? && current_user.is_in_organization?(group.text)) || @proposal_topic.organizations.include?(group.text) %>
+          <%= group.label style: 'font-weight: normal;' %>
+        <% end %>
+      <% end %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@proposal_topic, form, true) %>
 
     <div class="actions">

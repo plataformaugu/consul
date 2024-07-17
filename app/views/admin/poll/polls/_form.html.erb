@@ -31,11 +31,32 @@
     <% end %>
   </div>
 
+  <div class="row" style="<%= !current_user.without_organization? ? 'display: none;' : '' %>">
+    <div class="small-12 column">
+      <label for="poll_organizations" style="margin-bottom: 0.5rem;">Organizaciones</label>
+
+      <% if @poll.errors.messages[:organizations].present? %>
+        <div style="margin-bottom: 0.5rem">
+          <small class="form-error is-visible">
+            <%= @poll.errors.messages[:organizations][0] %>
+          </small>
+        </div>
+      <% end %>
+
+      <%= f.collection_check_boxes :organizations, User::ORGANIZATIONS_WITHOUT_OTHER, :to_s, :to_s, include_hidden: false do |group| %>
+        <%= group.label do %>
+          <%= group.check_box checked: (!current_user.without_organization? && current_user.is_in_organization?(group.text)) || @poll.organizations.include?(group.text) %>
+          <%= group.label style: 'font-weight: normal;' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
   <div class="row">
     <div class="images small-12 column">
       <% if @poll.errors[:image].present? %>
         <small class="form-error is-visible">
-          <%= @poll.errors[:image] %>
+          <%= @poll.errors[:image][0] %>
         </small>
       <% end %>
       <%= render "images/nested_image", f: f %>

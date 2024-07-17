@@ -18,6 +18,10 @@ class PollsController < ApplicationController
   end
 
   def show
+    if current_user.present? && !current_user.without_organization? && !@poll.organizations.include?(current_user.organization_name)
+      redirect_to root_path, alert: "No tienes permiso para ver esta página"
+    end
+
     @questions = @poll.questions.for_render.sort_for_list
     @comment_tree = CommentTree.new(@poll, params[:page], @current_order)
   end
@@ -106,9 +110,11 @@ class PollsController < ApplicationController
       :gender,
       :date_of_birth,
       :phone_number,
+      :organization_name,
     ).merge(
       document_number: clean_document_number,
-      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email]
+      email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email],
+      organization_name: current_user.organization_name
     )
 
     new_user = User.new(permitted_params)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_19_003106) do
+ActiveRecord::Schema.define(version: 2024_07_16_020516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1266,6 +1266,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_003106) do
     t.string "related_type"
     t.integer "related_id"
     t.tsvector "tsv"
+    t.string "organizations", default: [], array: true
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
@@ -1314,6 +1315,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_003106) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "organizations", default: [], array: true
   end
 
   create_table "proposal_translations", id: :serial, force: :cascade do |t|
@@ -1605,6 +1607,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_003106) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.string "organizations", default: [], array: true
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -1730,6 +1733,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_003106) do
     t.string "last_name"
     t.string "maiden_name"
     t.string "commune"
+    t.string "organization_name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true

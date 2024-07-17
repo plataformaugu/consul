@@ -3,6 +3,7 @@ class ProposalTopic < ApplicationRecord
   has_many :proposals, dependent: :destroy
 
   validates :image, :presence => true
+  validate :must_have_one_organization
 
   def self.published
     where('start_date <= ?', Date.current)
@@ -30,4 +31,10 @@ class ProposalTopic < ApplicationRecord
     end
   end
 
+  def must_have_one_organization
+    if self.organizations.filter(&:present?).empty?
+      errors.add(:organizations, 'Debes seleccionar al menos una organización')
+      self.image = nil
+    end
+  end
 end

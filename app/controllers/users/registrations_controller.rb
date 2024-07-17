@@ -109,7 +109,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :gender,
         :redeemable_code,
         :commune,
-        :document_number
+        :document_number,
+        :organization_name
       ]
     end
 

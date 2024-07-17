@@ -5,6 +5,13 @@ class Admin::ProposalTopicsController < Admin::BaseController
 
   def index
     @proposal_topics = ProposalTopic.all
+
+    if !current_user.without_organization?
+      @proposal_topics = ProposalTopic.where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      )
+    end
   end
 
   def new
@@ -59,7 +66,7 @@ class Admin::ProposalTopicsController < Admin::BaseController
     end
 
     def proposal_topic_params
-      params.require(:proposal_topic).permit(:title, :description, :image, :start_date, :end_date)
+      params.require(:proposal_topic).permit(:title, :description, :image, :start_date, :end_date, organizations: [])
     end
 
     def resize_image(temp_path)

@@ -7,7 +7,14 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
   before_action :load_geozones, only: [:new, :create, :edit, :update]
 
   def index
-    @polls = @polls.not_budget.created_by_admin.order(starts_at: :desc)
+    @polls = Poll.not_budget.created_by_admin.order(starts_at: :desc)
+
+    if !current_user.without_organization?
+      @polls = Poll.not_budget.created_by_admin.where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      )
+    end
   end
 
   def show
@@ -68,7 +75,7 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
     def allowed_params
       attributes = [:name, :starts_at, :ends_at, :geozone_restricted, :budget_id, :related_sdg_list,
-                    geozone_ids: [], image_attributes: image_attributes]
+                    geozone_ids: [], image_attributes: image_attributes, organizations: []]
 
       [*attributes, *report_attributes, translation_params(Poll)]
     end

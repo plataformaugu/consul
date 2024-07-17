@@ -66,6 +66,17 @@
         required: true
       %>
 
+      <%= f.select :organization_name,
+        User::ORGANIZATIONS,
+        {
+          include_blank: 'Seleccione una organización',
+          label: '¿A qué organización pertenece?',
+        },
+        {
+          required: true
+        }
+      %>
+
       <%= f.password_field :password, autocomplete: "off" %>
 
       <%= f.password_field :password_confirmation, autocomplete: "off",

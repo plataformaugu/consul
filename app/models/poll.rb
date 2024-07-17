@@ -43,6 +43,7 @@ class Poll < ApplicationRecord
   # validate :end_date_change, on: :update
   validate :only_one_active, unless: :public?
   validates :image, presence: true
+  validate :must_have_one_organization
 
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
@@ -235,5 +236,11 @@ class Poll < ApplicationRecord
 
   def full_answered_by_user?(user)
     questions.map{ |q| q.answers.pluck(:author_id).include?(user.id) }.all?
+  end
+
+  def must_have_one_organization
+    if self.organizations.filter(&:present?).empty?
+      errors.add(:organizations, 'Debes seleccionar al menos una organización')
+    end
   end
 end

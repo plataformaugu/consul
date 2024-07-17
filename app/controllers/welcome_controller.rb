@@ -10,10 +10,30 @@ class WelcomeController < ApplicationController
   def index
     @headers = Widget::Card.header.all
     @cards = Widget::Card.body
+
+    proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(4)
+    polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(4)
+    surveys = Survey.published.order(created_at: :desc).limit(4)
+
+    if current_user && !current_user.without_organization?
+      proposal_topics = ProposalTopic.published.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(4)
+      polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(4)
+      surveys = Survey.published.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(4)
+    end
+
     @processes = [
-      *ProposalTopic.published.order(created_at: :desc).limit(4),
-      *Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(4),
-      *Survey.published.order(created_at: :desc).limit(4),
+      *proposal_topics,
+      *polls,
+      *surveys,
     ].sort_by { |record| record.created_at }.reverse.take(4)
     @informatives = [
       *Event.order(created_at: :desc).limit(4),

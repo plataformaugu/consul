@@ -17,6 +17,25 @@
       <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
     </div>
 
+    <div class="field" style="<%= !current_user.without_organization? ? 'display: none;' : '' %>">
+      <label for="survey_organizations" style="margin-bottom: 0.5rem;">Organizaciones</label>
+
+      <% if !@survey.errors.messages[:organizations].empty? %>
+        <div style="margin-bottom: 0.5rem">
+          <small class="form-error is-visible">
+            <%= @survey.errors.messages[:organizations][0] %>
+          </small>
+        </div>
+      <% end %>
+
+      <%= form.collection_check_boxes :organizations, User::ORGANIZATIONS_WITHOUT_OTHER, :to_s, :to_s, include_hidden: false do |group| %>
+        <%= group.label do %>
+          <%= group.check_box checked: (!current_user.without_organization? && current_user.is_in_organization?(group.text)) || @survey.organizations.include?(group.text) %>
+          <%= group.label style: 'font-weight: normal;' %>
+        <% end %>
+      <% end %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@survey, form) %>
 
     <div class="actions">

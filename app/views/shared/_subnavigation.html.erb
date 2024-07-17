@@ -1,16 +1,37 @@
 <%= raw content_block("subnavigation_left") %>
 
+<%
+  @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(10)
+  @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(10)
+  @surveys = Survey.published.order(created_at: :desc).limit(10)
+
+  if current_user && !current_user.without_organization?
+    @proposal_topics = ProposalTopic.published.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(10)
+    @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(10)
+    @surveys = Survey.published.order(created_at: :desc).where(
+        ':organizations = ANY (organizations)',
+        organizations: current_user.organization_name,
+      ).limit(10)
+  end
+%>
+
 <li>
   <%= render Shared::DropdownMenuComponent.new(
     'Procesos consultivos',
     [
-      *ProposalTopic.published.order(created_at: :desc).limit(10).map { |r|
+      *@proposal_topics.map { |r|
         { id: r.id, title: r.title, created_at: r.created_at, url: "/proposal_topics/#{r.id}" }
       },
-      *Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(10).map { |r|
+      *@polls.map { |r|
         { id: r.id, title: r.name, created_at: r.created_at, url: "/polls/#{r.id}" }
       },
-      *Survey.published.order(created_at: :desc).limit(10).map { |r| 
+      *@surveys.map { |r| 
         { id: r.id, title: r.title, created_at: r.created_at, url: "/surveys/#{r.id}"}
       },
     ].sort_by { |record| record[:created_at] }.reverse.take(10)
