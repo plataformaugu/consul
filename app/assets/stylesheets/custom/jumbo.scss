@@ -2,11 +2,6 @@
   width: 100vw;
   margin-bottom: $line-height;
   margin-top: rem-calc(-24);
-
-  @media (min-width: 640px) {
-    left: calc(#{$full-width-margin});
-    right: calc(#{$full-width-margin});
-  }
 }
 
 .custom-jumbo {
