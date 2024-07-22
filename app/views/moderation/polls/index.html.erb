@@ -1,0 +1,87 @@
+<h2>Consultas</h2>
+
+<%= form_for 'polls', url: { action: :approve }, method: :post do |form| %>
+  <div>
+    <%=
+      form.submit 'Marcar como aprobadas',
+      class: 'button',
+      data: {confirm: '¿Estás seguro/a que deseas marcar como aprobadas estas consultas?'},
+      id: 'confirm-approve',
+      disabled: true
+    %>
+  </div>
+
+  <table class="clear">
+    <thead>
+      <tr>
+        <th>
+          <% if @records.any? %>
+            <input type="checkbox" id="select-all" title="Seleccionar todas">
+          <% end %>
+        </th>
+        <th>Nombre</th>
+        <th class="text-center"><%= t("admin.polls.index.start_date") %></th>
+        <th class="text-center"><%= t("admin.polls.index.closing_date") %></th>
+        <th>Moderar</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @records.each do |record| %>
+        <tr id="record_<%= record.id %>" onclick=>
+          <td><%= check_box_tag 'selected_ids[]', record.id, false %></td>
+          <td>
+            <%= link_to record.title, record, target: "_blank" %>
+            <br>
+            <span class="date"><%= l record.updated_at.to_date %></span>
+            <span class="bullet">&nbsp;&bull;&nbsp;</span>
+            <%= record.author.first_name %> <%= record.author.last_name %> (<%= record.author.document_number %>)
+            <br>
+          </td>
+          <td class="text-center"><%= l record.starts_at, format: :short_datetime %></td>
+          <td class="text-center"><%= l record.ends_at, format: :short_datetime %></td>
+          <td>
+            <%=
+              link_to 'Marcar como aprobada',
+              approve_moderation_polls_path(selected_ids: [record.id]),
+              method: :post,
+              class: 'button',
+              data: {confirm: '¿Estás seguro/a que deseas marcar como aprobada esta consulta?'}
+            %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#confirm-approve').attr('value', `Marcar como aprobadas (${checkedAmount})`)
+      $('#confirm-approve').prop('disabled', false)
+    } else {
+      $('#confirm-approve').attr('value', `Marcar como aprobadas`)
+      $('#confirm-approve').prop('disabled', true)
+    }
+  })
+
+  $('#select-all').on('change', function() {
+    if ($('#select-all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+      $('#confirm-approve').attr('value', `Marcar como aprobadas (${checkedAmount})`)
+      $('#confirm-approve').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+      $('#confirm-approve').attr('value', `Marcar como aprobadas`)
+      $('#confirm-approve').prop('disabled', true)
+    }
+  })
+</script>
