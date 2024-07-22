@@ -160,6 +160,7 @@ class DebatesController < ApplicationController
         :image,
         :debate_type,
         :pdf_link,
+        :video_url,
         translation_params(Debate),
         documents_attributes: document_attributes,
       ]

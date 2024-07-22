@@ -63,12 +63,12 @@ class Debate < ApplicationRecord
   TYPE_PARTICIPATORY_REGULATORY_PLANS = 'participatory_regulatory_plans'
 
   TYPES_TRANSLATION_SINGULAR = {
-    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuenta pública participativa',
-    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'plan regulador participativo',
+    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuenta pública',
+    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'plan regulador',
   }
   TYPES_TRANSLATION_PLURAL = {
-    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuentas públicas participativas',
-    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'planes reguladores participativos',
+    TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'cuentas públicas',
+    TYPE_PARTICIPATORY_REGULATORY_PLANS => 'planes reguladores',
   }
   TYPES_TRANSLATION_PRONOUN = {
     TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS => 'la',

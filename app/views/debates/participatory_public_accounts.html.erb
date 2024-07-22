@@ -1,4 +1,4 @@
-<% provide :title do %>Cuentas Públicas Participativas<% end %>
+<% provide :title do %>Cuentas Públicas<% end %>
 <% content_for :header_addon do %>
   <%= render "shared/search_form",
              search_path: debates_path(page: 1),
@@ -13,7 +13,7 @@
     <div class="row">
       <div class="small-12 column" data-magellan>
         <%= image_tag "help/help_icon_debates.png", alt: "Ícono", class: "align-top" %>
-        <h1 class="inline-block">Cuentas Públicas Participativas</h1>
+        <h1 class="inline-block">Cuentas Públicas</h1>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
         <%= paginate @debates %>
       <% else %>
         <div class="callout primary">
-          No hay cuentas públicas participativas.
+          No hay cuentas públicas.
         </div>
       <% end %>
     </div>

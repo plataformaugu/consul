@@ -38,6 +38,10 @@
     <% end %>
 
     <%= f.url_field :pdf_link, label: 'Enlace PDF' %>
+
+    <% if @type == Debate::TYPE_PARTICIPATORY_PUBLIC_ACCOUNTS %>
+      <%= f.url_field :video_url, label: 'URL de video' %>
+    <% end %>
   </fieldset>
 
   <% if current_user.administrator? %>

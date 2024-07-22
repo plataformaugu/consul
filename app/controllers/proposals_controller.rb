@@ -43,36 +43,18 @@ class ProposalsController < ApplicationController
   end
 
   def new
-    @proposal_topic = ProposalTopic.find_by_id(params[:proposal_topic_id])
+    @proposal = Proposal.new
+    @lat = nil
+    @lng = nil
 
-    if !@proposal_topic.present?
-      redirect_to root_path
-      return
+    if params['lat'].present? && params['lng'].present?
+      @lat = params['lat']
+      @lng = params['lng']
     end
-
-    if not @proposal_topic.is_active?
-      redirect_to root_path
-    end
-
-    @proposal = Proposal.new(proposal_topic_id: @proposal_topic.id)
   end
 
   def create
     @proposal = Proposal.new(proposal_params.merge(author: current_user))
-
-    can_participate, reason = @proposal.proposal_topic.segmentation.validate(current_user)
-
-    if !current_user.administrator? and !can_participate
-      flash[:error] = reason
-      redirect_to proposal_topics_path
-      return
-    end
-
-    if @proposal.proposal_topic_id.nil?
-      flash[:error] = "Ocurrió un error inesperado. Inténtalo nuevamente."
-      redirect_to proposal_topics_path
-      return
-    end
 
     if @proposal.save
       Activity.log(current_user, :create, @proposal)
@@ -87,7 +69,7 @@ class ProposalsController < ApplicationController
       end
       return
     else
-      render action: 'new', proposal_topic_id: @proposal.proposal_topic.id
+      render action: 'new'
     end
   end
 
@@ -99,34 +81,15 @@ class ProposalsController < ApplicationController
   end
 
   def index
-    @proposal_topic = ProposalTopic.find_by_id(params[:id])
-
-    if @proposal_topic.present? && @proposal_topic.is_published?
-      super
-      @proposals = Proposal.where(proposal_topic_id: @proposal_topic.id).published
-
-      if Setting["feature.featured_proposals"]
-        @featured_proposals = @featured_proposals.where(proposal_topic_id: @proposal_topic.id)
-      end
-
-      @orders = [
-        ['Más votadas', 'most_voted'],
-        ['Menos votadas', 'least_voted'],
-        ['Más recientes', 'newest'],
-        ['Más antiguas', 'oldest']
-      ]
-      @selected_order = params[:order]
-      @proposals = sort_by(params)
-
-      @can_participate = true
-      @reason = nil
-  
-      if current_user && !current_user.administrator? && @proposal_topic.segmentation.present?
-        @can_participate, @reason = @proposal_topic.segmentation.validate(current_user)
-      end
-    else
-      redirect_to root_path
-    end
+    @proposals = Proposal.published
+    @orders = [
+      ['Más votadas', 'most_voted'],
+      ['Menos votadas', 'least_voted'],
+      ['Más recientes', 'newest'],
+      ['Más antiguas', 'oldest']
+    ]
+    @selected_order = params[:order]
+    @proposals = sort_by(params)
   end
 
   def index_customization

@@ -31,23 +31,7 @@
       <div class="row">
         <div class="small-12 column" data-magellan>
           <%= image_tag "help/help_icon_proposals.png", alt: t("proposals.index.section_header.icon_alt"), class: "align-top" %>
-          <h1 class="inline-block">Propuestas</h1>
-          <h4><%= @proposal_topic.title %></h4>
-          <small>
-            Fecha de inicio: <strong><%= @proposal_topic.start_date %></strong>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            Fecha de termino: <strong><%= @proposal_topic.end_date %></strong>
-          </small>
-
-          <p class="margin-top">
-            <%= @proposal_topic.description %>
-          </p>
-
-          <% if @proposal_topic.pdf_link.present? %>
-            <div class="margin-top">
-            <%= render Shared::IconTextButtonComponent.new(@proposal_topic.pdf_link, 'pdf-icon', 'Ver bases', true) %>
-            </div>
-          <% end %>
+          <h1 class="inline-block">Propuestas Georreferenciadas</h1>
         </div>
       </div>
     </div>
@@ -65,29 +49,26 @@
 
       <div class="row">
         <div class="column small-12">
+          <h4>Haz clic en un lugar en el mapa para crear una propuesta</h4>
+        </div>
+        <div class="column small-12 medium-9 margin">
+          <%= render_proposals_map("proposal", current_user && current_user.administrator?) %>
+        </div>
+        <div class="column small-12 medium-3 margin">
+          <%= link_to t("proposals.index.start_proposal"),
+            new_proposal_path,
+            class: "button expanded"
+          %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column small-12">
           <div class="proposals-header">
-            <div>
-              <% if @can_participate %>
-                <% if @proposal_topic.is_active? %>
-                  <%= link_to t("proposals.index.start_proposal"),
-                    new_proposal_path(proposal_topic_id: @proposal_topic.id),
-                    class: "button expanded"
-                  %>
-                <% else %>
-                  <div class="callout warning">
-                    Convocatoria finalizada.
-                  </div>
-                <% end %>
-              <% else %>
-                <div class="callout warning">
-                  <%= sanitize @reason %>
-                </div>
-              <% end %>
-            </div>
-          
+            <div></div>
             <div style="display: flex; flex-direction: column;">
               <strong>Ordenar por</strong>
-              <%= form_tag proposal_topic_path(@proposal_topic.id), method: :get do %> 
+              <%= form_tag proposals_path, method: :get do %> 
                 <% if params.include?('page') %>
                   <%= hidden_field_tag :page, params[:page] %>
                 <% end %>
@@ -111,7 +92,7 @@
                   proposal.title,
                   proposal.image.present? ? proposal.image.variant(:medium) : nil,
                   proposal.summary,
-                  proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil,
+                  proposal.in_development ? 'Propuesta en desarrollo' : nil,
                   nil,
                   "#{proposal.total_votes} apoyo#{proposal.total_votes != 1 ? 's' : ''}"
                 ) %>

@@ -23,6 +23,14 @@ module MapLocationsHelper
     "remove-marker-link-#{dom_id(map_location)}"
   end
 
+  def render_proposals_map(parent_class, is_admin)
+    map_location = MapLocation.new
+    map = tag.div id: dom_id(map_location),
+                  class: "map_location map",
+                  data: prepare_proposals_map_settings(map_location, parent_class, is_admin)
+    map
+  end
+
   def render_map(map_location, parent_class, editable, remove_marker_label, investments_coordinates = nil)
     map_location = MapLocation.new if map_location.nil?
     map = tag.div id: dom_id(map_location),
@@ -41,6 +49,27 @@ module MapLocationsHelper
   end
 
   private
+    def prepare_proposals_map_settings(map_location, parent_class, is_admin)
+      options = {
+        map: "",
+        map_center_latitude: map_location_latitude(map_location),
+        map_center_longitude: map_location_longitude(map_location),
+        map_zoom: map_location_zoom(map_location),
+        map_tiles_provider: Rails.application.secrets.map_tiles_provider,
+        map_tiles_provider_attribution: Rails.application.secrets.map_tiles_provider_attribution,
+        marker_editable: false,
+        marker_remove_selector: "##{map_location_remove_marker_link_id(map_location)}",
+        latitude_input_selector: "##{map_location_input_id(parent_class, "latitude")}",
+        longitude_input_selector: "##{map_location_input_id(parent_class, "longitude")}",
+        zoom_input_selector: "##{map_location_input_id(parent_class, "zoom")}",
+        marker_investments_coordinates: nil,
+        marker_proposals: true,
+        marker_is_admin: is_admin,
+      }
+      options[:marker_latitude] = map_location.latitude if map_location.latitude.present?
+      options[:marker_longitude] = map_location.longitude if map_location.longitude.present?
+      options
+    end
 
     def prepare_map_settings(map_location, editable, parent_class, investments_coordinates = nil)
       options = {

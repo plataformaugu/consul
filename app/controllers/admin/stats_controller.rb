@@ -16,8 +16,8 @@ class Admin::StatsController < Admin::BaseController
   ]
 
   PROCESS_TRANSLATE = {
-    PROCESS_PPA => 'Cuentas Públicas Participativas',
-    PROCESS_PRP => 'Planes Reguladores Participativos',
+    PROCESS_PPA => 'Cuentas Públicas',
+    PROCESS_PRP => 'Planes Reguladores',
     PROCESS_PROPOSALS => 'Propuestas',
     PROCESS_POLLS => 'Consultas',
     PROCESS_BUDGETS =>'Presupuestos Participativos',
@@ -186,8 +186,8 @@ class Admin::StatsController < Admin::BaseController
     def set_tabs
       @tabs = [
         {label: 'General', action: 'show', path: admin_stats_path},
-        {label: 'Cuentas Públicas Participativas', action: 'ppa', path: ppa_admin_stats_path},
-        {label: 'Planes Reguladores Participativos', action: 'prp', path: prp_admin_stats_path},
+        {label: 'Cuentas Públicas', action: 'ppa', path: ppa_admin_stats_path},
+        {label: 'Planes Reguladores', action: 'prp', path: prp_admin_stats_path},
         {label: 'Consultas', action: 'polls', path: polls_admin_stats_path},
         {label: 'Propuestas', action: 'proposals', path: proposals_admin_stats_path},
         {label: 'Presupuestos Participativos', action: 'budgets', path: budgets_admin_stats_path},
@@ -254,8 +254,8 @@ class Admin::StatsController < Admin::BaseController
       header_columns = [
         'Procesos realizados',
         'Usuarios registrados',
-        'Cuentas Públicas Participativas',
-        'Planes Reguladores Participativos',
+        'Cuentas Públicas',
+        'Planes Reguladores',
         'Consultas',
         'Propuestas',
         'Presupuestos Participativos',

@@ -14,17 +14,18 @@
 <%= render "shared/header", headers: @headers %>
 
 <main>
-  <% if @proposal_topics.any? %>
-    <%= render Welcome::SectionComponent.new("Convocatorias", proposal_topics_path) do %>
+  <% if @proposals.any? %>
+    <%= render Welcome::SectionComponent.new("Propuestas Georreferenciadas", proposals_path) do %>
       <div class="cards-container-component">
-        <% @proposal_topics.each do |topic| %>
+        <% @proposals.each do |proposal| %>
           <%= render Shared::CardComponent.new(
-            topic,
-            topic.title,
-            topic.image,
-            topic.description,
-            topic.is_expired? ? 'Convocatoria finalizada' : nil,
-            I18n.t("polls.dates", open_at: l(topic.start_date.to_date), closed_at: l(topic.end_date.to_date))
+            proposal,
+            proposal.title,
+            proposal.image.present? ? proposal.image.variant(:medium) : nil,
+            proposal.summary,
+            proposal.in_development ? 'Propuesta en desarrollo' : nil,
+            nil,
+            "#{proposal.total_votes} apoyo#{proposal.total_votes != 1 ? 's' : ''}"
           ) %>
         <% end %>
       </div>

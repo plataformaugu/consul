@@ -22,7 +22,7 @@
   <div class="proposal-show">
     <div id="<%= dom_id(@proposal) %>" class="row">
       <div class="small-12 medium-9 column">
-        <%= back_link_to proposal_topic_path(@proposal.proposal_topic) %>
+        <%= back_link_to proposals_path %>
 
         <h1><%= @proposal.title %></h1>
         <% if @proposal.retired? %>
@@ -52,7 +52,7 @@
             <h2>Administrar</h2>
             <div class="margin-bottom">
               <%= link_to t("dashboard.index.edit_proposal_link"),
-                edit_proposal_path(@proposal, proposal_topic_id: @proposal.proposal_topic.id),
+                edit_proposal_path(@proposal),
                 class: "button hollow"
               %>
               <%=

@@ -30,11 +30,6 @@
 
   <%= f.invisible_captcha :subtitle %>
 
-  <%= action_name %>
-  <% if action_name == 'new' or action_name == 'create' %>
-    <%= f.hidden_field :proposal_topic_id, value: proposal.proposal_topic_id %>
-  <% end %>
-
   <fieldset>
     <legend><%= t("shared.optional") %></legend>
 
@@ -58,7 +53,7 @@
       <div>
         <%= render "map_locations/form_fields",
                    form:     f,
-                   map_location: proposal.map_location || MapLocation.new,
+                   map_location: proposal.map_location || @lat.present? && @lng.present? ? MapLocation.new(latitude: @lat, longitude: @lng, zoom: 10) : MapLocation.new,
                    label:    t("proposals.form.map_location"),
                    help:     t("proposals.form.map_location_instructions"),
                    remove_marker_label: t("proposals.form.map_remove_marker"),

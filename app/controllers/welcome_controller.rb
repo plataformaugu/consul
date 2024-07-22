@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
 
   def index
     @headers = Widget::Card.header.all
-    @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(3)
+    @proposals = Proposal.published.order(created_at: :desc).limit(3)
     @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(3)
     @debates = Debate.published.order(created_at: :desc).limit(3)
     @events = Event.order(created_at: :desc).limit(3)

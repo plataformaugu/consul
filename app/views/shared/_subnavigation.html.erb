@@ -2,7 +2,7 @@
 
 <li>
     <%=
-      layout_menu_link_to "CPP",
+      layout_menu_link_to "Cuenta Pública",
       participatory_public_accounts_path,
       controller_name == "debates",
       accesskey: "1"
@@ -11,8 +11,8 @@
 
 <li>
     <%=
-      layout_menu_link_to "PRP",
-      participatory_regulatory_plans_path,
+      layout_menu_link_to "Plan Regulador",
+      'https://lobarnechea.cl/municipalidad/plan-regulador/',
       controller_name == "debates",
       accesskey: "2"
     %>
@@ -20,8 +20,8 @@
 
 <% if feature?(:proposals) %>
   <li>
-    <%= layout_menu_link_to 'Convocatorias',
-                            proposal_topics_path,
+    <%= layout_menu_link_to 'Propuestas Georreferenciadas',
+                            proposals_path,
                             controller.class == ProposalTopicsController || controller.class == ProposalsController,
                             accesskey: "3" %>
   </li>
@@ -29,7 +29,7 @@
 
 <% if feature?(:polls) %>
   <li>
-    <%= layout_menu_link_to t("layouts.header.poll_questions"),
+    <%= layout_menu_link_to 'Consultas Ciudadanas',
                               polls_path,
                               controller_name == "polls" || (controller_name == "questions" && controller.class.module_parent == Polls),
                               accesskey: "4" %>

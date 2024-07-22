@@ -43,6 +43,15 @@
           %>
         <% end %>
 
+        
+        <% if @debate.video_url.present? %>
+          <div class="small-12 medium-7 small-centered mt-2">
+            <div class="flex-video">
+              <div id="js-embedded-video" data-video-code="<%= embedded_video_code(@debate) %>"></div>
+            </div>
+          </div>
+        <% end %>
+
         <%= render "shared/tags", taggable: @debate %>
 
         <div class="js-moderator-debate-actions margin">
