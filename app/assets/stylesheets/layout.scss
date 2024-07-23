@@ -50,13 +50,6 @@ body {
   font-size: $base-font-size;
   min-height: 100%;
 
-  &.public {
-    @include breakpoint($global-width) {
-      margin-left: $body-margin;
-      margin-right: $body-margin;
-    }
-  }
-
   > .wrapper {
     flex-grow: 1;
   }

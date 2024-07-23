@@ -9,6 +9,8 @@ module Abilities
       can(:verify, Organization) { |o| !o.verified? }
       can(:reject, Organization) { |o| !o.rejected? }
 
+      can [:edit, :update, :approve], Poll
+
       can :read, Comment
 
       can :reject, Debate

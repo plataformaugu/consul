@@ -1601,6 +1601,11 @@ $font-awesome-icons: (
     @include has-fa-icon(tools, solid);
   }
 
+  .approve-single-link {
+    @include has-fa-icon(thumbs-up, solid);
+    color: #00AFD7;
+  }
+
   .download-link {
     @include has-fa-icon(download, solid);
   }

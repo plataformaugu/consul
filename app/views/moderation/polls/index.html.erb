@@ -15,19 +15,19 @@
     <thead>
       <tr>
         <th>
-          <% if @records.any? %>
+          <% if @polls.any? %>
             <input type="checkbox" id="select-all" title="Seleccionar todas">
           <% end %>
         </th>
         <th>Nombre</th>
         <th class="text-center"><%= t("admin.polls.index.start_date") %></th>
         <th class="text-center"><%= t("admin.polls.index.closing_date") %></th>
-        <th>Moderar</th>
+        <th>Acciones</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @records.each do |record| %>
+      <% @polls.each do |record| %>
         <tr id="record_<%= record.id %>" onclick=>
           <td><%= check_box_tag 'selected_ids[]', record.id, false %></td>
           <td>
@@ -41,13 +41,25 @@
           <td class="text-center"><%= l record.starts_at, format: :short_datetime %></td>
           <td class="text-center"><%= l record.ends_at, format: :short_datetime %></td>
           <td>
-            <%=
-              link_to 'Marcar como aprobada',
-              approve_moderation_polls_path(selected_ids: [record.id]),
-              method: :post,
-              class: 'button',
-              data: {confirm: '¿Estás seguro/a que deseas marcar como aprobada esta consulta?'}
-            %>
+            <%= render Admin::TableActionsComponent.new(
+              record,
+              actions: [:edit]
+            ) do |actions| %>
+              <%=
+                link_to 'Aprobar',
+                approve_moderation_polls_path(selected_ids: [record.id]),
+                method: :post,
+                class: 'admin-action approve-single-link',
+                data: {confirm: '¿Estás seguro/a que deseas marcar como aprobada esta consulta?'}
+              %>
+              <% if current_user.administrator? %>
+                <%=
+                  link_to 'Configurar',
+                  admin_poll_path(record),
+                  class: 'admin-action configure-link'
+                %>
+              <% end %>
+            <% end %>
           </td>
         </tr>
       <% end %>

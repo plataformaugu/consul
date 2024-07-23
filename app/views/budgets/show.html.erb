@@ -5,4 +5,8 @@
   <%= render "shared/canonical", href: budget_url(@budget, filter: @current_filter) %>
 <% end %>
 
-<%= render Budgets::BudgetComponent.new(@budget, @can_participate, @reason) %>
+<div class="row">
+  <div class="small-12 column">
+    <%= render Budgets::BudgetComponent.new(@budget, @can_participate, @reason) %>
+  </div>
+</div>

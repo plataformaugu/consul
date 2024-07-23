@@ -1,12 +1,12 @@
 <div class="row">
   <%= month_calendar(events: @events) do |date, events| %>
-    <% if Time.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
+    <% if Time.zone.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
       <strong>
     <% end %>
 
     <div>
       <%= date.strftime('%d') %>
-      <% if Time.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
+      <% if Time.zone.now.strftime('%Y%m%d') == date.strftime('%Y%m%d') %>
       <small>(Hoy)</small></strong>
       <% end %>
     </div>

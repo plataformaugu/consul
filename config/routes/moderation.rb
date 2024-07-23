@@ -20,10 +20,11 @@ namespace :moderation do
     delete :reject, on: :collection
   end
 
-  resources :polls, only: :index do
+  resources :polls do
     put :hide, on: :member
     put :moderate, on: :collection
     post :approve, on: :collection
+    post :approve_single, on: :member
   end
 
   namespace :legislation do
