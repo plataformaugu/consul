@@ -12,6 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
+    resource.date_of_birth = Time.new(Time.now.year - params['age'].to_i).to_date
     resource.registering_from_web = true
 
     if resource.valid?
@@ -70,7 +71,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :first_name,
         :last_name,
         :email,
-        :email_confirmation,
         :password,
         :password_confirmation,
         :terms_of_service,
@@ -79,7 +79,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :gender,
         :redeemable_code,
         :commune_id,
-        :social_organization,
         :document_number
       ]
     end
@@ -94,5 +93,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_inactive_sign_up_path_for(resource_or_scope)
       users_sign_up_success_path
+    end
+
+    def after_sign_out_path_for(resource_or_scope)
+      root_path
     end
 end
