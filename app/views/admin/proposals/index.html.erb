@@ -15,8 +15,6 @@
         <th class="text-center"><%= t("admin.proposals.index.id") %></th>
         <th><%= t("admin.proposals.index.title") %></th>
         <th><%= t("admin.proposals.index.author") %></th>
-        <th><%= t("admin.proposals.index.milestones") %></th>
-        <th><%= t("admin.proposals.index.selected") %></th>
       </tr>
     </thead>
 
@@ -25,9 +23,7 @@
         <tr id="<%= dom_id(proposal) %>" class="proposal">
           <td class="text-center"><%= proposal.id %></td>
           <td><%= link_to proposal.title, admin_proposal_path(proposal) %></td>
-          <td><%= proposal.author.username %></td>
-          <td><%= proposal.milestones.count %></td>
-          <td class="js-select"><%= render "select_proposal", proposal: proposal %></td>
+          <td><%= proposal.author.full_name %></td>
         </tr>
       <% end %>
     </tbody>
