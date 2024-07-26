@@ -36,10 +36,6 @@ class ProposalsController < ApplicationController
 
     @can_participate = true
     @reason = nil
-
-    if current_user && !current_user.administrator? && @proposal.proposal_topic.segmentation.present?
-      @can_participate, @reason = @proposal.proposal_topic.segmentation.validate(current_user)
-    end
   end
 
   def new
