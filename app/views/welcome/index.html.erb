@@ -28,7 +28,7 @@
                 nil,
             ActionView::Base.full_sanitizer.sanitize(
               (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(ProposalTopic)) ? @processes[0].description : @processes[0].body
-            ).truncate_words(8, separator: '...'),
+            ),
             nil,
           ) %>
         </div>
@@ -45,7 +45,7 @@
                   nil,
               ActionView::Base.full_sanitizer.sanitize(
                 (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-              ).truncate_words(8, separator: '...'),
+              ),
               nil,
             ) %>
           <% end %> 
@@ -64,7 +64,7 @@
                     nil,
                 ActionView::Base.full_sanitizer.sanitize(
                   (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                ).truncate_words(8, separator: '...'),
+                ),
                 nil,
               ) %>
             <% else %>
@@ -79,7 +79,7 @@
                       nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -94,7 +94,7 @@
                       nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -115,7 +115,7 @@
                     nil,
                 ActionView::Base.full_sanitizer.sanitize(
                   (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                ).truncate_words(8, separator: '...'),
+                ),
                 nil,
               ) %>
             <% else %>
@@ -130,7 +130,7 @@
                       nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -145,7 +145,7 @@
                       nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -167,7 +167,7 @@
             @informatives[0].image.present? ? @informatives[0].image : nil,
             ActionView::Base.full_sanitizer.sanitize(
               @informatives[0].instance_of?(SiteCustomization::Page) ? @informatives[0].content : (@informatives[0].instance_of?(News) ? @informatives[0].body : @informatives[0].description)
-            ).truncate_words(8, separator: '...'),
+            ),
             nil,
           ) %>
         </div>
@@ -180,7 +180,7 @@
               informative.image.present? ? informative.image : nil,
               ActionView::Base.full_sanitizer.sanitize(
                 informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-              ).truncate_words(8, separator: '...'),
+              ),
               nil,
             ) %>
           <% end %>
@@ -195,7 +195,7 @@
                 informative.image.present? ? informative.image : nil,
                 ActionView::Base.full_sanitizer.sanitize(
                   informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                ).truncate_words(8, separator: '...'),
+                ),
                 nil,
               ) %>
             <% else %>
@@ -206,7 +206,7 @@
                   informative.image.present? ? informative.image : nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -217,7 +217,7 @@
                   informative.image.present? ? informative.image : nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -234,7 +234,7 @@
                 informative.image.present? ? informative.image : nil,
                 ActionView::Base.full_sanitizer.sanitize(
                   informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                ).truncate_words(8, separator: '...'),
+                ),
                 nil,
               ) %>
             <% else %>
@@ -245,7 +245,7 @@
                   informative.image.present? ? informative.image : nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
@@ -256,7 +256,7 @@
                   informative.image.present? ? informative.image : nil,
                   ActionView::Base.full_sanitizer.sanitize(
                     informative.instance_of?(SiteCustomization::Page) ? informative.content : (informative.instance_of?(News) ? informative.body : informative.description)
-                  ).truncate_words(8, separator: '...'),
+                  ),
                   nil,
                 ) %>
               </div>
