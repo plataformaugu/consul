@@ -97,7 +97,7 @@
 
   <% if @with_census %>
     <div class="mb-1">
-      <label>Padrón</label>
+      <label>Sector</label>
 
       <div class="mt-1">
         <%= label_tag nil, style: 'font-weight: normal;' do %>
@@ -106,7 +106,7 @@
             "1",
             @segmentation.in_census
           %>
-          Restringir por padrón
+          Restringir por sector
         <% end %>
       </div>
     </div>

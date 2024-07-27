@@ -149,7 +149,7 @@ class Debate < ApplicationRecord
   end
 
   def editable_by?(user)
-    editable? && author == user
+    editable? && (author == user || user.administrator?)
   end
 
   def register_vote(user, vote_value)
