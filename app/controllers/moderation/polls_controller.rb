@@ -4,6 +4,7 @@ class Moderation::PollsController < Admin::Poll::PollsController
   before_action :authenticate_user!
   before_action :verify_moderator
 
+  skip_before_action :verify_authenticity_token
   skip_authorization_check
 
   include ModerateActions
