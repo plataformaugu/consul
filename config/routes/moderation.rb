@@ -25,6 +25,7 @@ namespace :moderation do
     put :moderate, on: :collection
     post :approve, on: :collection
     post :approve_single, on: :member
+    post :reject, on: :collection
   end
 
   namespace :legislation do

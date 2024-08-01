@@ -9,7 +9,7 @@ class Moderation::PollsController < Admin::Poll::PollsController
   include ModerateActions
 
   def index
-    @polls = Poll.where.not("starts_at <= :time", time: Time.current).where(approved_at: nil)
+    @polls = Poll.where.not("starts_at <= :time", time: Time.current).where(approved_at: nil, rejected_at: nil)
   end
 
   def show
@@ -30,6 +30,20 @@ class Moderation::PollsController < Admin::Poll::PollsController
       redirect_to moderation_polls_path, notice: t("flash.actions.update.poll")
     else
       render :edit
+    end
+  end
+
+  def reject
+    if params['selected_ids'].any?
+      Poll.where(id: params['selected_ids']).update(rejected_at: Time.now)
+
+      if params['selected_ids'].length > 1
+        flash[:notice] = 'Las consultas fueron rechazadas.'
+      else
+        flash[:notice] = 'La consulta fue rechazada.'
+      end
+
+      redirect_to moderation_polls_path
     end
   end
 

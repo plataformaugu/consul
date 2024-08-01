@@ -15,6 +15,7 @@ module Abilities
 
       can :reject, Debate
       can :reject, Proposal
+      can :reject, Poll
       can :reject, Budget::Investment
       can [:edit, :update, :publish], Proposal
       can [:edit, :update, :publish], Debate

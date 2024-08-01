@@ -177,7 +177,7 @@ class Proposal < ApplicationRecord
   end
 
   def editable_by?(user)
-    author_id == user.id && editable? && !proposal_topic.is_expired?
+    author_id == user.id && editable?
   end
 
   def votable_by?(user)

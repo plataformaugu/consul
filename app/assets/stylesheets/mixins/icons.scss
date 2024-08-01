@@ -1606,6 +1606,11 @@ $font-awesome-icons: (
     color: #00AFD7;
   }
 
+  .reject-single-link {
+    @include has-fa-icon(ban, solid);
+    color: #00AFD7;
+  }
+
   .download-link {
     @include has-fa-icon(download, solid);
   }

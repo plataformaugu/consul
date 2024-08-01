@@ -53,7 +53,7 @@
       <div>
         <%= render "map_locations/form_fields",
                    form:     f,
-                   map_location: proposal.map_location || @lat.present? && @lng.present? ? MapLocation.new(latitude: @lat, longitude: @lng, zoom: 10) : MapLocation.new,
+                   map_location: proposal.map_location ? MapLocation.new(latitude: proposal.map_location.latitude, longitude: proposal.map_location.longitude, zoom: 10) : (@lat.present? && @lng.present?) ? MapLocation.new(latitude: @lat, longitude: @lng, zoom: 10) : MapLocation.new,
                    label:    t("proposals.form.map_location"),
                    help:     t("proposals.form.map_location_instructions"),
                    remove_marker_label: t("proposals.form.map_remove_marker"),

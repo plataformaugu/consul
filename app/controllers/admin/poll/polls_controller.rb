@@ -46,6 +46,11 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
         entity_id: @poll.id,
         params: params
       )
+
+      @poll.approved_at = nil
+      @poll.rejected_at = nil
+      @poll.save!
+
       redirect_to [:admin, @poll], notice: t("flash.actions.update.poll")
     else
       render :edit

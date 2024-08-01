@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_22_215456) do
+ActiveRecord::Schema.define(version: 2024_08_01_041854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1294,6 +1294,7 @@ ActiveRecord::Schema.define(version: 2024_07_22_215456) do
     t.tsvector "tsv"
     t.string "pdf_link"
     t.datetime "approved_at"
+    t.datetime "rejected_at"
     t.index ["budget_id"], name: "index_polls_on_budget_id", unique: true
     t.index ["geozone_restricted"], name: "index_polls_on_geozone_restricted"
     t.index ["related_type", "related_id"], name: "index_polls_on_related_type_and_related_id"
