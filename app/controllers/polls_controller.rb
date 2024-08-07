@@ -35,6 +35,8 @@ class PollsController < ApplicationController
     @total_votes = @poll.voters.count
   end
 
+  def pending; end
+
   def answer
     prepared_answers = get_prepared_answers(@poll, params)
 

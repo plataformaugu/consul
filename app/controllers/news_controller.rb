@@ -6,7 +6,7 @@ class NewsController < ApplicationController
 
   # GET /news
   def index
-    @news = Kaminari.paginate_array(News.all.order(created_at: :desc)).page(params[:page])
+    @news = Kaminari.paginate_array(News.published.order(created_at: :desc)).page(params[:page])
   end
 
   # GET /news/1

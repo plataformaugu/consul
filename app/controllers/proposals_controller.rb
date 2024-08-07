@@ -61,7 +61,15 @@ class ProposalsController < ApplicationController
     end
 
     if @proposal.save
-      redirect_to pending_proposal_path(@proposal)
+      if current_user.administrator? and current_user.without_organization?
+        @proposal.published_at = Time.now
+        @proposal.save!
+        redirect_to proposal_path(@proposal), notice: "La propuesta fue creada correctamente."
+        return
+      else
+        redirect_to pending_proposal_path(@proposal)
+        return
+      end
     else
       render :new
     end
@@ -72,8 +80,18 @@ class ProposalsController < ApplicationController
   def index
     @proposal_topic = ProposalTopic.find_by_id(params[:id])
 
+    if @proposal_topic.published_at.nil?
+      if current_user && current_user.administrator? && current_user.without_organization?
+        ()
+      else
+        redirect_to root_path, alert: "No tienes permiso para ver esta página"
+        return
+      end
+    end
+
     if current_user.present? && !current_user.without_organization? && !@proposal_topic.organizations.include?(current_user.organization_name)
       redirect_to root_path, alert: "No tienes permiso para ver esta página"
+      return
     end
 
     if @proposal_topic.present? && @proposal_topic.is_published?

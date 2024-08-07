@@ -3,7 +3,7 @@ class ProcessesController < ApplicationController
 
   def index
     proposal_topics = ProposalTopic.published
-    polls = Poll.created_by_admin.not_budget.visible
+    polls = Poll.created_by_admin.not_budget.visible.published
     surveys = Survey.published
 
     if current_user && !current_user.without_organization?
@@ -11,7 +11,7 @@ class ProcessesController < ApplicationController
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       )
-      polls = Poll.created_by_admin.not_budget.visible.where(
+      polls = Poll.created_by_admin.not_budget.visible.published.where(
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       )

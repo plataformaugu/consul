@@ -2,7 +2,7 @@
 
 <%
   @proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(10)
-  @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(10)
+  @polls = Poll.created_by_admin.not_budget.visible.published.order(created_at: :desc).limit(10)
   @surveys = Survey.published.order(created_at: :desc).limit(10)
 
   if current_user && !current_user.without_organization?
@@ -10,7 +10,7 @@
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       ).limit(10)
-    @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).where(
+    @polls = Poll.created_by_admin.not_budget.visible.published.order(created_at: :desc).where(
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       ).limit(10)

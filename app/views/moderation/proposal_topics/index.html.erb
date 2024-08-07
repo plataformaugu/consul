@@ -1,0 +1,11 @@
+<h2>Convocatorias pendientes de revisión</h2>
+
+<%=
+  render Moderation::Shared::CustomIndexComponent.new(
+    @records,
+    'proposal_topics',
+    method(:publish_moderation_proposal_topic_path),
+    method(:edit_admin_proposal_topic_path),
+    nil,
+  )
+%>

@@ -18,7 +18,15 @@ class Admin::EventsController < Admin::BaseController
     @event = Event.new(event_params)
 
     if @event.save
-      redirect_to admin_events_path, notice: NOTICE_TEXT % {action: 'creado'}
+      if current_user.administrator? and current_user.without_organization?
+        @event.published_at = Time.now
+        @event.save!
+        redirect_to admin_events_path, notice: NOTICE_TEXT % {action: 'creado'}
+        return
+      else
+        redirect_to pending_event_path(@event)
+        return
+      end
     else
       render :event
     end

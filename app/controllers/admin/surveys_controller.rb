@@ -25,7 +25,15 @@ class Admin::SurveysController < Admin::BaseController
     @survey = Survey.new(surveys_params)
 
     if @survey.save
-      redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'creada'}
+      if current_user.administrator? and current_user.without_organization?
+        @survey.published_at = Time.now
+        @survey.save!
+        redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'creada'}
+        return
+      else
+        redirect_to pending_survey_path(@survey)
+        return
+      end
     else
       render :new
     end

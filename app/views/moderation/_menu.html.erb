@@ -2,11 +2,51 @@
   [t("moderation.dashboard.index.title"), moderation_root_path],
   (
     [
+      "Convocatorias",
+      moderation_proposal_topics_path,
+      controller_name == "proposal_topics",
+      class: "proposal-topics-link"
+    ] if feature?(:proposals)
+  ),
+  (
+    [
       t("moderation.menu.proposals"),
       moderation_proposals_path,
       controller_name == "proposals",
       class: "proposals-link"
     ] if feature?(:proposals)
+  ),
+  (
+    [
+      "Encuestas",
+      moderation_surveys_path,
+      controller_name == "surveys",
+      class: "surveys-link"
+    ]
+  ),
+  (
+    [
+      "Consultas",
+      moderation_polls_path,
+      controller_name == "polls",
+      class: "polls-link"
+    ]
+  ),
+  (
+    [
+      "Noticias",
+      moderation_news_index_path,
+      controller_name == "news",
+      class: "news-link"
+    ]
+  ),
+  (
+    [
+      "Eventos",
+      moderation_events_path,
+      controller_name == "events",
+      class: "events-link"
+    ]
   ),
   (
     [

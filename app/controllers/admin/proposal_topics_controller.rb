@@ -3,6 +3,8 @@ class Admin::ProposalTopicsController < Admin::BaseController
 
   NOTICE_TEXT = "La convocatoria fue %{action} correctamente."
 
+  def pending; end
+
   def index
     @proposal_topics = ProposalTopic.all
 
@@ -30,7 +32,15 @@ class Admin::ProposalTopicsController < Admin::BaseController
     )
 
     if @proposal_topic.save
-      redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creada'}
+      if current_user.administrator? and current_user.without_organization?
+        @proposal_topic.published_at = Time.now
+        @proposal_topic.save!
+        redirect_to admin_proposal_topics_path, notice: NOTICE_TEXT % {action: 'creada'}
+        return
+      else
+        redirect_to pending_proposal_topic_path(@proposal_topic)
+        return
+      end
     else
       render :new
     end

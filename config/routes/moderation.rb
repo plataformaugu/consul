@@ -20,6 +20,31 @@ namespace :moderation do
     delete :reject, on: :collection
   end
 
+  resources :surveys, only: :index do
+    patch :publish, on: :member
+    delete :reject, on: :collection
+  end
+
+  resources :polls, only: :index do
+    patch :publish, on: :member
+    delete :reject, on: :collection
+  end
+
+  resources :news, only: :index do
+    patch :publish, on: :member
+    delete :reject, on: :collection
+  end
+
+  resources :events, only: :index do
+    patch :publish, on: :member
+    delete :reject, on: :collection
+  end
+
+  resources :proposal_topics, only: :index do
+    patch :publish, on: :member
+    delete :reject, on: :collection
+  end
+
   namespace :legislation do
     resources :proposals, only: :index do
       put :hide, on: :member

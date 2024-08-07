@@ -11,7 +11,7 @@
             <%= render Shared::CardComponent.new(
               single_new,
               single_new.title,
-              single_new.image,
+              single_new.image.present? ? single_new.image : nil,
               ActionView::Base.full_sanitizer.sanitize(single_new.body).truncate_words(8, separator: '...'),
               nil,
               nil

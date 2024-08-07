@@ -3,10 +3,27 @@ module Abilities
     include CanCan::Ability
 
     def initialize(user)
-      can [:index, :read], Event
-      can [:index, :read], News
-      can [:index, :read], Survey
-      can [:index, :read], ProposalTopic
+      can :index, Event
+      can :index, News
+      can :index, Survey
+      can :index, ProposalTopic
+
+      can :read, Event do |event|
+        !event.published_at.nil?
+      end
+      can :read, News do |news|
+        !news.published_at.nil?
+      end
+      can :read, Survey do |survey|
+        !survey.published_at.nil?
+      end
+      can :read, ProposalTopic do |proposal_topic|
+        !proposal_topic.published_at.nil?
+      end
+      can :read, Poll do |poll|
+        !poll.published_at.nil?
+      end
+
       can [:map], Debate
       can :read, Debate do |debate|
         !debate.published_at.nil?
@@ -19,7 +36,6 @@ module Abilities
         !investment.published_at.nil?
       end
       can :read, Comment
-      can :read, Poll
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids
       can :stats, Poll, id: Poll.expired.stats_enabled.not_budget.ids
       can :read, Poll::Question

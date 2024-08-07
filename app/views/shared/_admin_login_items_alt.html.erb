@@ -5,7 +5,7 @@
     </li>
   <% end %>
 
-  <% if current_user.administrator? || current_user.moderator? %>
+  <% if current_user.administrator? && current_user.without_organization? %>
   <li>
     <%= link_to t("layouts.header.moderation"), moderation_root_path %>
   </li>

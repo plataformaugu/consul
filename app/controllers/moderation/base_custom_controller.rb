@@ -9,7 +9,11 @@ class Moderation::BaseCustomController < Moderation::BaseController
     if params['selected_ids'].any?
       params['selected_ids'].each do |id|
         record = resource_model.find(id)
-        Mailer.reject_record(record.author, record.title, readable_model, pronoun_vowel).deliver_later
+
+        if send_email_to_author
+          Mailer.reject_record(record.author, record.title, readable_model, pronoun_vowel).deliver_later
+        end
+
         record.send(reject_method)
       end
 
@@ -19,6 +23,9 @@ class Moderation::BaseCustomController < Moderation::BaseController
   end
 
   private
+    def send_email_to_author
+      true
+    end
 
     def pronoun_vowel
       'a'

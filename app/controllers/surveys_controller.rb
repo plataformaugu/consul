@@ -1,7 +1,9 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :pending, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user]
 
   load_and_authorize_resource
+
+  def pending; end
 
   # GET /surveys
   def index

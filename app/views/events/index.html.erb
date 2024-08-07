@@ -23,7 +23,7 @@
                 <%= render Shared::CardComponent.new(
                   event,
                   event.title,
-                  event.image,
+                  event.image.present? ? event.image : nil,
                   ActionView::Base.full_sanitizer.sanitize(event.description).truncate(48, separator: '...'),
                   event.is_expired? ? 'Evento finalizado' : nil
                 ) %>

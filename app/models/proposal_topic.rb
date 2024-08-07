@@ -5,9 +5,7 @@ class ProposalTopic < ApplicationRecord
   validates :image, :presence => true
   validate :must_have_one_organization
 
-  def self.published
-    where('start_date <= ?', Date.current)
-  end
+  scope :published, -> { where('start_date <= ?', Date.current).where.not(published_at: nil) }
 
   def is_expired?
     Date.current > end_date

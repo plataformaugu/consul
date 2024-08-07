@@ -36,3 +36,10 @@
 </div>
 
 <%= render Admin::Stats::ParticipantsComponent.new(@users) %>
+
+<div class="row margin">
+  <div class="small-12 medium-6 column">
+      <h3 class="text-center">Participantes por organización<h3>
+      <%= pie_chart @users_by_organization, id: 'users-by-organizations-chart' %>
+  </div>
+</div>

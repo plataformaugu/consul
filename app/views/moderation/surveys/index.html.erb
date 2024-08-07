@@ -1,0 +1,11 @@
+<h2>Encuestas pendientes de revisión</h2>
+
+<%=
+  render Moderation::Shared::CustomIndexComponent.new(
+    @records,
+    'surveys',
+    method(:publish_moderation_survey_path),
+    method(:edit_admin_survey_path),
+    nil,
+  )
+%>

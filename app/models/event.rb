@@ -4,6 +4,8 @@ class Event < ApplicationRecord
 
   validate :end_time_greater_than_start_time, on: [:create, :update]
 
+  scope :published, -> { where.not(published_at: nil) }
+
   def is_expired?
     return Time.now > self.end_time
   end

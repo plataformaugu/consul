@@ -1,0 +1,11 @@
+<h2>Eventos pendientes de revisión</h2>
+
+<%=
+  render Moderation::Shared::CustomIndexComponent.new(
+    @records,
+    'events',
+    method(:publish_moderation_event_path),
+    method(:edit_admin_event_path),
+    nil,
+  )
+%>

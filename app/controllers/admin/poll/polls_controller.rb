@@ -28,10 +28,18 @@ class Admin::Poll::PollsController < Admin::Poll::BaseController
 
     if @poll.save
       notice = t("flash.actions.create.poll")
+
       if @poll.budget.present?
         redirect_to admin_poll_booth_assignments_path(@poll), notice: notice
+        return
+      end
+
+      if current_user.administrator? and current_user.without_organization?
+        @poll.published_at = Time.now
+        @poll.save!
+        redirect_to admin_polls_path, notice: notice and return
       else
-        redirect_to [:admin, @poll], notice: notice
+        redirect_to pending_poll_path(@poll) and return
       end
     else
       render :new

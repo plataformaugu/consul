@@ -5,6 +5,7 @@ resources :polls, only: [:show, :index] do
     post :answer
     post :participate_manager_existing_user
     post :participate_manager_new_user
+    get :pending
   end
 
   resources :questions, controller: "polls/questions", shallow: true do

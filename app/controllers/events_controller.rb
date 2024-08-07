@@ -1,15 +1,17 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_event, only: [:show, :join, :left, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user]
+  before_action :set_event, only: [:show, :join, :left, :pending, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user]
 
   load_and_authorize_resource
 
   def index
-    @events = Event.all
+    @events = Event.published
   end
 
   def show
   end
+
+  def pending; end
 
   def join
     if current_user.events.exists?(id: @event.id)

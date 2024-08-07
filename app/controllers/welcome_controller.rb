@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
     @cards = Widget::Card.body
 
     proposal_topics = ProposalTopic.published.order(created_at: :desc).limit(4)
-    polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(4)
+    polls = Poll.created_by_admin.not_budget.visible.published.order(created_at: :desc).limit(4)
     surveys = Survey.published.order(created_at: :desc).limit(4)
 
     if current_user && !current_user.without_organization?
@@ -20,7 +20,7 @@ class WelcomeController < ApplicationController
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       ).limit(4)
-      polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).where(
+      polls = Poll.created_by_admin.not_budget.visible.published.order(created_at: :desc).where(
         ':organizations = ANY (organizations)',
         organizations: current_user.organization_name,
       ).limit(4)
@@ -36,8 +36,8 @@ class WelcomeController < ApplicationController
       *surveys,
     ].sort_by { |record| record.created_at }.reverse.take(4)
     @informatives = [
-      *Event.order(created_at: :desc).limit(4),
-      *News.all.order(created_at: :desc).limit(4),
+      *Event.published.order(created_at: :desc).limit(4),
+      *News.published.order(created_at: :desc).limit(4),
     ].sort_by { |record| record.created_at }.reverse.take(4)
   end
 

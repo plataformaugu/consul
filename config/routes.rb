@@ -44,20 +44,28 @@ Rails.application.routes.draw do
       post :participate_manager_new_user
       post :join
       post :left
+      get :pending
     end
   end
   resources :proposal_topics, only: [:index, :show] do
     member do
+      get :pending
       get :show, to: 'proposals#index'
     end
   end
-  resources :news
+  resources :news do
+    member do
+      get :pending
+    end
+  end
+
   resources :surveys do
     member do
       post :send_answers
       post :participate_manager_form
       post :participate_manager_existing_user
       post :participate_manager_new_user
+      get :pending
     end
   end
   resources :processes

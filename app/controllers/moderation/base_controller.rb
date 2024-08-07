@@ -9,6 +9,6 @@ class Moderation::BaseController < ApplicationController
   private
 
     def verify_moderator
-      raise CanCan::AccessDenied unless current_user&.moderator? || current_user&.administrator?
+      raise CanCan::AccessDenied unless current_user&.administrator? && current_user&.without_organization?
     end
 end

@@ -1,11 +1,13 @@
 class Admin::NewsController < Admin::BaseController
-  before_action :set_news, only: [:show, :edit, :update, :destroy]
+  before_action :set_news, only: [:show, :edit, :update, :destroy, :pending]
 
   NOTICE_TEXT = "La noticia fue %{action} correctamente."
 
   def index
     @news = News.all
   end
+
+  def pending; end
 
   def new
     @news = News.new
@@ -18,7 +20,15 @@ class Admin::NewsController < Admin::BaseController
     @news = News.new(news_params)
 
     if @news.save
-      redirect_to admin_news_index_path, notice: NOTICE_TEXT % {action: 'creada'}
+      if current_user.administrator? and current_user.without_organization?
+        @news.published_at = Time.now
+        @news.save!
+        redirect_to admin_news_index_path, notice: NOTICE_TEXT % {action: 'creada'}
+        return
+      else
+        redirect_to pending_news_path(@news)
+        return
+      end
     else
       render :new
     end

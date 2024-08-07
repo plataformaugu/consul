@@ -1,0 +1,11 @@
+<h2>Noticias pendientes de revisión</h2>
+
+<%=
+  render Moderation::Shared::CustomIndexComponent.new(
+    @records,
+    'news',
+    method(:publish_moderation_news_path),
+    method(:edit_admin_news_path),
+    nil,
+  )
+%>

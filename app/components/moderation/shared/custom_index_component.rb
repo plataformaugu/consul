@@ -13,6 +13,12 @@ class Moderation::Shared::CustomIndexComponent < ApplicationComponent
   private
 
     def author(record)
-      record.send(@user_field)
+      author_data = nil
+
+      if !@user_field.nil?
+        author_data = record.send(@user_field)
+      end
+
+      return author_data
     end
 end

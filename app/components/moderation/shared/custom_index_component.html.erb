@@ -27,11 +27,13 @@
         <tr id="record_<%= record.id %>" onclick=>
           <td><%= check_box_tag 'selected_ids[]', record.id, false %></td>
           <td>
-            <%= link_to record.title, record, target: "_blank" %>
+            <%= link_to record.title.truncate_words(12), record, target: "_blank" %>
             <br>
             <span class="date"><%= l record.updated_at.to_date %></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= author(record).first_name %> <%= author(record).last_name %> (<%= author(record).document_number %>)
+            <% if author(record).present? %>
+              <span class="bullet">&nbsp;&bull;&nbsp;</span>
+              <%= author(record).first_name %> <%= author(record).last_name %> (<%= author(record).document_number %>)
+            <% end %>
             <br>
           </td>
           <td>

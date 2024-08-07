@@ -1,0 +1,11 @@
+<h2>Consultas pendientes de revisión</h2>
+
+<%=
+  render Moderation::Shared::CustomIndexComponent.new(
+    @records,
+    'polls',
+    method(:publish_moderation_poll_path),
+    method(:edit_admin_poll_path),
+    nil,
+  )
+%>

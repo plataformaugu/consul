@@ -6,6 +6,12 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
+      can [:read, :edit, :pending], Survey
+      can [:read, :pending], Poll
+      can [:read, :pending], News
+      can [:read, :pending], Event
+      can [:read, :pending], ProposalTopic
+
       can :find_user_by_document_number, User
 
       can :vote_manager_form, Proposal

@@ -5,9 +5,7 @@ class Survey < ApplicationRecord
   validate :end_time_greater_than_start_time, on: [:create, :update]
   validate :must_have_one_organization
 
-  def self.published
-    where('start_time <= ?', Time.current)
-  end
+  scope :published, -> { where('start_time <= ?', Time.current).where.not(published_at: nil) }
 
   def is_expired?
     Time.current > end_time
