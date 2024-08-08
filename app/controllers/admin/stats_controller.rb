@@ -22,7 +22,7 @@ class Admin::StatsController < Admin::BaseController
     @visits = Visit.count
 
     @users = User.all
-    @users_by_organization = User.where(organization_name: User::ORGANIZATIONS).group(:organization_name).count.to_a
+    @users_by_organization = User.where(organization_name: User::ORGANIZATIONS_WITHOUT_OTHER).group(:organization_name).count.to_a
 
     proposals_count = Proposal.count
     polls_count = ::Poll.count
