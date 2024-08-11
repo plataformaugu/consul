@@ -1635,4 +1635,8 @@ $font-awesome-icons: (
   .cards-link {
     @include has-fa-icon(images, regular);
   }
+
+  .elements-link {
+    @include has-fa-icon(question, solid);
+  }
 }

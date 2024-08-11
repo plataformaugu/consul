@@ -1,0 +1,42 @@
+<h2 class="inline-block">Votación</h2>
+
+<%=
+  link_to 'Crear votación',
+  new_admin_survey_path,
+  class: "button float-right"
+%>
+
+<% if @surveys.any? %>
+  <table>
+    <thead>
+      <th class="small-4">Título</th>
+      <th class="text-center">Fecha de creación</th>
+      <th class="text-center">Fecha de inicio</th>
+      <th class="text-center">Fecha de termino</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <% @surveys.each do |survey| %>
+        <tr id="<%= dom_id(survey) %>">
+          <td><strong><%= survey.title %></strong></td>
+          <td class="text-center"><%= l survey.created_at, format: :short_datetime %></td>
+          <td class="text-center"><%= l survey.start_time, format: :short_datetime %></td>
+          <td class="text-center"><%= l survey.end_time, format: :short_datetime %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              survey,
+              destroy_confirmation: 'Esta acción eliminará permanentemente esta encuesta.'
+            ) do |actions| %>
+              <%= actions.action(:elements, path: items_admin_survey_path(survey.id)) %>
+              <%= actions.action(:show, path: survey, target: '_blank') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="callout primary">
+    No hay votaciones.
+  </div>
+<% end %>

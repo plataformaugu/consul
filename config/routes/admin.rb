@@ -230,7 +230,11 @@ namespace :admin do
     get :polls, on: :collection
     get 'polls/:id' => 'stats#polls_detail'
 
+    get :surveys, on: :collection
+    get 'surveys/:id' => 'stats#surveys_detail'
+
     get :download_report, on: :collection
+    get :generate_report_surveys_detail, on: :collection
   end
 
   namespace :legislation do
@@ -297,6 +301,13 @@ namespace :admin do
     post :load_csv, on: :collection
   end
   resources :proposal_topics
+  resources :surveys do
+    member do
+      get :items
+    end
+
+    resources :survey_items
+  end
 end
 
 resolve "Milestone" do |milestone|

@@ -1,0 +1,27 @@
+<div>
+  <%= label_tag "survey_item_#{@survey_item.id}", @survey_item.title %>
+
+  <ul id="sortable_<%= @survey_item.id %>" style="list-style-type: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+    <% @survey_item.data.each do |choice| %>
+      <li id="<%= choice %>"><%= choice %></li>
+    <% end %>
+  </ul>
+
+  <%= hidden_field_tag "survey_item_#{@survey_item.id}" %>
+
+  <div class="margin-top"></div>
+</div>
+
+<script>
+  var sortedItems = <%= raw(@survey_item.data.to_json) %>
+  $('#survey_item_<%= @survey_item.id %>').val(sortedItems)
+
+  $( function() {
+    $( "#sortable_<%= @survey_item.id %>" ).sortable({
+      update: function(event, ui) {
+        sortedItems = $( "#sortable_<%= @survey_item.id %>" ).sortable('toArray')
+        $('#survey_item_<%= @survey_item.id %>').val(sortedItems)
+      }
+    });
+  } );
+</script>

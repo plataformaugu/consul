@@ -37,12 +37,19 @@
   </li>
 <% end %>
 
+<li>
+  <%= layout_menu_link_to 'Votación',
+                            surveys_path,
+                            controller.class == SurveysController,
+                            accesskey: "5" %>
+</li>
+
 <% if true == false && feature?(:legislation) %>
   <li>
     <%= layout_menu_link_to t("layouts.header.collaborative_legislation"),
                             legislation_processes_path,
                             controller.class.module_parent == Legislation,
-                            accesskey: "4" %>
+                            accesskey: "6" %>
   </li>
 <% end %>
 
@@ -51,7 +58,7 @@
     <%= layout_menu_link_to t("layouts.header.budgets"),
                               budgets_path,
                               controller_name == "budgets" || controller_name == "investments",
-                              accesskey: "5" %>
+                              accesskey: "7" %>
   </li>
 <% end %>
 
@@ -60,7 +67,7 @@
     <%= layout_menu_link_to t("layouts.header.sdg"),
                             sdg_goals_path,
                             controller_path == "sdg/goals" && action_name != "help",
-                            accesskey: "6" %>
+                            accesskey: "8" %>
   </li>
 <% end %>
 
@@ -68,7 +75,7 @@
   <%= layout_menu_link_to 'Eventos',
                           events_path,
                           current_page?(events_path),
-                          accesskey: "7" %>
+                          accesskey: "9" %>
 </li>
 
 <%= raw content_block("subnavigation_right") %>

@@ -48,6 +48,11 @@ Rails.application.routes.draw do
       get :show, to: 'proposals#index'
     end
   end
+  resources :surveys do
+    member do
+      post :send_answers
+    end
+  end
 
   get 'participatory_public_accounts' => 'debates#participatory_public_accounts'
   get 'participatory_regulatory_plans' => 'debates#participatory_regulatory_plans'

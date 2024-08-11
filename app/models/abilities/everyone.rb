@@ -3,6 +3,7 @@ module Abilities
     include CanCan::Ability
 
     def initialize(user)
+      can [:index, :read], Survey
       can [:index, :read], Event
       can [:index, :read], ProposalTopic
       can [:map, :participatory_public_accounts, :participatory_regulatory_plans], Debate

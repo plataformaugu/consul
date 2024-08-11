@@ -1,11 +1,12 @@
 class Admin::StatsController < Admin::BaseController
-  before_action :set_tabs, only: [:show, :ppa, :prp, :proposals, :polls, :budgets]
+  before_action :set_tabs, only: [:show, :ppa, :prp, :proposals, :polls, :budgets, :surveys]
 
   PROCESS_PPA = 'ppa'
   PROCESS_PRP = 'prp'
   PROCESS_PROPOSALS = 'proposals'
   PROCESS_POLLS = 'polls'
   PROCESS_BUDGETS = 'budgets'
+  PROCESS_SURVEYS = 'surveys'
 
   PROCESSES = [
     PROCESS_PPA,
@@ -13,6 +14,7 @@ class Admin::StatsController < Admin::BaseController
     PROCESS_PROPOSALS,
     PROCESS_POLLS,
     PROCESS_BUDGETS,
+    PROCESS_SURVEYS,
   ]
 
   PROCESS_TRANSLATE = {
@@ -21,6 +23,7 @@ class Admin::StatsController < Admin::BaseController
     PROCESS_PROPOSALS => 'Propuestas',
     PROCESS_POLLS => 'Consultas',
     PROCESS_BUDGETS =>'Presupuestos Participativos',
+    PROCESS_SURVEYS => 'Votación',
   }
 
   def show
@@ -34,6 +37,7 @@ class Admin::StatsController < Admin::BaseController
     proposals_count = Proposal.count
     polls_count = Poll.count
     budgets_count = Budget.count
+    surveys_count = Survey.count
 
     @general = {
       ppa_count: ppa_count,
@@ -41,12 +45,14 @@ class Admin::StatsController < Admin::BaseController
       proposals_count: proposals_count,
       polls_count: polls_count,
       budgets_count: budgets_count,
+      surveys_count: surveys_count,
       total_count: (
         ppa_count +
         prp_count +
         proposals_count +
         polls_count +
-        budgets_count
+        budgets_count +
+        surveys_count
       ),
     }
   end
@@ -113,6 +119,20 @@ class Admin::StatsController < Admin::BaseController
     @users = User.where(id: all_users_ids)
   end
 
+  def surveys
+    all_records = Survey.order(:id)
+    @records = apply_pagination(all_records, params)
+    @answers = ActiveRecord::Base.connection.execute(
+      "SELECT DISTINCT surveys.id, survey_item_answers.user_id " \
+      "FROM surveys " \
+      "INNER JOIN survey_items ON survey_items.survey_id = surveys.id " \
+      "INNER JOIN survey_item_answers ON survey_item_answers.survey_item_id = survey_items.id;"
+    ).count
+  end
+
+  def surveys_detail
+  end
+
   def budgets
     all_records = Budget.all.order(:id)
     @records = apply_pagination(all_records, params)
@@ -157,6 +177,8 @@ class Admin::StatsController < Admin::BaseController
       csv = generate_report_proposals
     when 'presupuestos_participativos'
       csv = generate_report_budgets
+    when 'votacion'
+      csv = generate_report_surveys
     end
 
     if csv != nil
@@ -166,6 +188,58 @@ class Admin::StatsController < Admin::BaseController
         filename: "reporte_#{params['format']}_#{Time.now.strftime('%Y%m%d_%H%M')}.csv"
       )
     end
+  end
+
+
+  def generate_report_surveys_detail
+    survey_id = params['survey_id']
+    survey = Survey.find(survey_id)
+
+    answers_by_user = {}
+
+    survey.items.each do |survey_item|
+        survey_item.answers.each do |survey_item_answer|
+            if answers_by_user[survey_item_answer.user_id].nil?
+                answers_by_user[survey_item_answer.user_id] = {
+                    'ID usuario' => survey_item_answer.user_id,
+                    'Nombre usuario' => survey_item_answer.user.full_name.strip(),
+                    'RUT usuario' => survey_item_answer.user.document_number.insert(-2, '-'),
+                    survey_item.title => survey_item_answer.data
+                }
+            else
+                answers_by_user[
+                  survey_item_answer.user_id
+                ][
+                  survey_item.title
+                ] = (
+                  survey_item_answer.data.instance_of?(Array) ?
+                  survey_item_answer.data.join(', ') :
+                  survey_item_answer.data
+                )
+            end
+        end
+    end
+
+    if answers_by_user.empty?
+      redirect_to surveys_admin_stats_path, alert: 'La encuesta no tiene respuestas.'
+      return
+    end
+
+    generated_csv = CSV.generate(headers: true, col_sep: ';', encoding: 'UTF-8') do |csv|
+      csv << answers_by_user.values.first.keys
+
+      answers_by_user.values.each do |record|
+        csv << record.values
+      end
+
+      generated_csv = csv
+    end
+
+    send_data(
+      generated_csv,
+      type: 'text/csv',
+      filename: "reporte_encuesta_#{params['survey_id']}_#{Time.now.strftime('%Y%m%d_%H%M')}.csv"
+    )
   end
 
   private
@@ -191,6 +265,7 @@ class Admin::StatsController < Admin::BaseController
         {label: 'Consultas', action: 'polls', path: polls_admin_stats_path},
         {label: 'Propuestas', action: 'proposals', path: proposals_admin_stats_path},
         {label: 'Presupuestos Participativos', action: 'budgets', path: budgets_admin_stats_path},
+        {label: 'Votaciones', action: 'surveys', path: surveys_admin_stats_path},
       ]
       @report_processes = [
         { key: PROCESS_PPA, label: PROCESS_TRANSLATE[PROCESS_PPA] },
@@ -198,6 +273,7 @@ class Admin::StatsController < Admin::BaseController
         { key: PROCESS_PROPOSALS, label: PROCESS_TRANSLATE[PROCESS_PROPOSALS] },
         { key: PROCESS_POLLS, label: PROCESS_TRANSLATE[PROCESS_POLLS] },
         { key: PROCESS_BUDGETS, label: PROCESS_TRANSLATE[PROCESS_BUDGETS] },
+        { key: PROCESS_SURVEYS, label: PROCESS_TRANSLATE[PROCESS_SURVEYS] },
       ]
     end
 
@@ -463,6 +539,42 @@ class Admin::StatsController < Admin::BaseController
             record.investments.count,
             votes.count,
             comments.count,
+            *participants_row_columns,
+          ]
+        end
+      end
+    end
+
+
+    def generate_report_surveys
+      participants_header_columns = get_report_participants_header_columns
+
+      header_columns = [
+        'ID',
+        'Nombre',
+        'Participantes',
+        *participants_header_columns,
+      ]
+
+      CSV.generate(headers: true, col_sep: ';', encoding: 'UTF-8') do |csv|
+        csv << header_columns
+
+        Survey.order(:id).each do |record|
+          answers_users_ids = ActiveRecord::Base.connection.execute(
+            "SELECT DISTINCT survey_item_answers.user_id " \
+            "FROM surveys " \
+            "INNER JOIN survey_items ON survey_items.survey_id = surveys.id " \
+            "INNER JOIN survey_item_answers ON survey_item_answers.survey_item_id = survey_items.id " \
+            "WHERE surveys.id = #{record.id}"
+          ).to_a.map { |r| r['user_id'] }
+          all_users_ids = answers_users_ids.uniq
+          users = User.where(id: all_users_ids)
+          participants_row_columns = get_report_participants_row_columns(users)
+
+          csv << [
+            record.id,
+            record.title,
+            users.count,
             *participants_row_columns,
           ]
         end

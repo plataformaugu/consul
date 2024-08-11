@@ -88,4 +88,8 @@
   <li class="<%= "is-active" if controller_name == "census_records" %>">
     <%= link_to 'Sector', admin_census_records_path, class: 'census-link' %>
   </li>
+
+  <li class="<%= "is-active" if controller_name == "surveys" %>">
+    <%= link_to 'Votación', admin_surveys_path, class: 'surveys-link' %>
+  </li>
 </ul>
