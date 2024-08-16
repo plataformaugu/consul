@@ -17,7 +17,17 @@
       <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
     </div>
 
+    <div class="field">
+      <%= form.url_field :pdf_link, label: 'Enlace PDF' %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@survey, form) %>
+
+    <div>
+      <%= render Segmentation::FormComponent.new(
+        Segmentation.find_by(entity_name: @survey.class.name, entity_id: @survey.id)
+      ) %>
+    </div>
 
     <div class="actions">
       <% if action_name == 'edit' %>

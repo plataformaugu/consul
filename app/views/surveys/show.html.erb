@@ -40,6 +40,10 @@
             ¡Muchas gracias por participar!<br>
             Tus respuestas han sido registradas correctamente.
           </div>
+        <% elsif !@can_participate %>
+          <div class="callout warning">
+            <%= sanitize @reason %>
+          </div>
         <% else %>
           <div>
             <%= form_with url: send_answers_survey_path, scope: 'answer' do |form| %>
@@ -52,9 +56,6 @@
               <% if !@survey.answered_by_user?(current_user) %>
                 <%= form.submit 'Confirmar respuestas', class: 'button', name: 'confirm' %>
               <% end %>
-              <% if current_user.manager? %>
-                <%= form.submit 'Confirmar respuestas en nombre de otra persona', class: 'button', name: 'manager_confirm' %>
-              <% end %>
             <% end %>
           </div>
         <% end %>
@@ -62,6 +63,10 @@
     </div>
 
     <div class="small-12 medium-3 column">
+      <% if @survey.pdf_link.present? %>
+        <%= render Shared::IconTextButtonComponent.new(@survey.pdf_link, 'pdf-icon', 'Ver bases', true) %>
+      <% end %>
+
       <% if current_user and current_user.administrator? %>
         <div class="sidebar-divider"></div>
         <p class="sidebar-title">Administrar</p>

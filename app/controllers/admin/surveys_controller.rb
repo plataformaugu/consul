@@ -18,6 +18,14 @@ class Admin::SurveysController < Admin::BaseController
     @survey = Survey.new(surveys_params)
 
     if @survey.save
+      Activity.log(current_user, :create, @survey)
+
+      Segmentation.generate(
+        entity_name: @survey.class.name,
+        entity_id: @survey.id,
+        params: params
+      )
+
       redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'creada'}
     else
       render :new
@@ -26,6 +34,12 @@ class Admin::SurveysController < Admin::BaseController
 
   def update
     if @survey.update(surveys_params)
+      Segmentation.generate(
+        entity_name: @survey.class.name,
+        entity_id: @survey.id,
+        params: params
+      )
+
       redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'actualizada'}
     else
       render :edit
@@ -47,6 +61,6 @@ class Admin::SurveysController < Admin::BaseController
     end
 
     def surveys_params
-      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time)
+      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time, :pdf_link)
     end
 end

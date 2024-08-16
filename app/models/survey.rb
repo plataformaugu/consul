@@ -6,6 +6,10 @@ class Survey < ApplicationRecord
 
   scope :published, -> { where('start_time <= ?', Time.current) }
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def is_expired?
     Time.current > end_time
   end

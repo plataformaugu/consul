@@ -12,6 +12,12 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1
   def show
+    @can_participate = true
+    @reason = nil
+
+    if current_user && !current_user.administrator? && @survey.segmentation.present?
+      @can_participate, @reason = @survey.segmentation.validate(current_user)
+    end
   end
 
   def send_answers
