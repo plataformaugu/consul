@@ -15,6 +15,8 @@ class PollsController < ApplicationController
     @polls = Kaminari.paginate_array(
       @polls.created_by_admin.not_budget.visible.includes(:geozones).order(created_at: :desc)
     ).page(params[:page])
+
+    redirect_to root_path
   end
 
   def show
