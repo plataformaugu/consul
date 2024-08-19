@@ -1,0 +1,39 @@
+<%= render "shared/globalize_locales", resource: @survey %>
+
+<%= form_with(model: [:moderation, @survey], local: true) do |form| %>
+  <div class="field">
+    <%= form.text_field :title, label: 'Título', required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.datetime_field :start_time, label: 'Fecha de inicio', required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.datetime_field :end_time, label: 'Fecha de termino', required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
+  </div>
+
+  <div class="field">
+    <%= form.url_field :pdf_link, label: 'Enlace PDF' %>
+  </div>
+
+  <%= render Shared::ImageFieldComponent.new(@survey, form) %>
+
+  <div>
+    <%= render Segmentation::FormComponent.new(
+      Segmentation.find_by(entity_name: @survey.class.name, entity_id: @survey.id)
+    ) %>
+  </div>
+
+  <div class="actions">
+    <% if action_name == 'edit' %>
+      <%= form.submit 'Editar consulta', class: 'button' %>
+    <% else %>
+      <%= form.submit 'Crear consulta', class: 'button' %>
+    <% end %>
+  </div>
+<% end %>

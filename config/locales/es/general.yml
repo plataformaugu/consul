@@ -582,7 +582,7 @@ es:
   surveys:
     index:
       section_header:
-        title: Votación
+        title: Consultas Ciudadanas
   polls:
     all: "Todas"
     no_dates: "sin fecha asignada"

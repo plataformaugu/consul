@@ -1,0 +1,117 @@
+<h2>Consultas</h2>
+
+<%= form_for 'surveys', url: { action: :approve }, method: :post do |form| %>
+  <div>
+    <%=
+      form.submit 'Marcar como aprobadas',
+      class: 'button',
+      data: {confirm: '¿Estás seguro/a que deseas marcar como aprobadas estas consultas?'},
+      id: 'confirm-approve',
+      disabled: true
+    %>
+    <%=
+      form.submit 'Rechazar seleccionadas',
+      class: 'button',
+      data: {confirm: '¿Estás seguro/a que deseas rechazar estas consultas?'},
+      formaction: 'surveys/reject',
+      id: 'confirm-reject',
+      disabled: true
+    %>
+  </div>
+
+  <table class="clear">
+    <thead>
+      <tr>
+        <th>
+          <% if @surveys.any? %>
+            <input type="checkbox" id="select-all" title="Seleccionar todas">
+          <% end %>
+        </th>
+        <th>Nombre</th>
+        <th class="text-center">Fecha de apertura</th>
+        <th class="text-center">Fecha de cierre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @surveys.each do |record| %>
+        <tr id="record_<%= record.id %>" onclick=>
+          <td><%= check_box_tag 'selected_ids[]', record.id, false %></td>
+          <td>
+            <%= link_to record.title, record, target: "_blank" %>
+            <br>
+              <span class="date"><%= l record.updated_at.to_date %></span>
+            <br>
+          </td>
+          <td class="text-center"><%= l record.start_time, format: :short_datetime %></td>
+          <td class="text-center"><%= l record.end_time, format: :short_datetime %></td>
+          <td>
+            <%= render Admin::TableActionsComponent.new(
+              record,
+              actions: [:edit]
+            ) do |actions| %>
+              <%=
+                link_to 'Aprobar',
+                approve_moderation_surveys_path(selected_ids: [record.id]),
+                method: :post,
+                class: 'admin-action approve-single-link',
+                data: {confirm: '¿Estás seguro/a que deseas marcar como aprobada esta consulta?'}
+              %>
+              <%=
+                link_to 'Rechazar',
+                reject_moderation_surveys_path(selected_ids: [record.id]),
+                method: :post,
+                class: 'admin-action reject-single-link',
+                data: {confirm: '¿Estás seguro/a que deseas rechazar esta consulta?'}
+              %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<script>
+  $('[name="selected_ids[]"]').on('change', function() {
+    var checkedAmount = $('[name="selected_ids[]"]:checked').length
+
+    if (checkedAmount > 0) {
+      $('#confirm-approve').attr('value', `Marcar como aprobadas (${checkedAmount})`)
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+
+      $('#confirm-approve').prop('disabled', false)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('#confirm-approve').attr('value', `Marcar como aprobadas`)
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+
+      $('#confirm-approve').prop('disabled', true)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+
+  $('#select-all').on('change', function() {
+    if ($('#select-all').is(':checked')) {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', true)
+      })
+      var checkedAmount = $('[name="selected_ids[]"]:checked').length
+      $('#confirm-approve').attr('value', `Marcar como aprobadas (${checkedAmount})`)
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas (${checkedAmount})`)
+
+      $('#confirm-approve').prop('disabled', false)
+      $('#confirm-reject').prop('disabled', false)
+    } else {
+      $('[name="selected_ids[]"]').each(function () {
+        $(this).prop('checked', false)
+      })
+      $('#confirm-approve').attr('value', `Marcar como aprobadas`)
+      $('#confirm-reject').attr('value', `Rechazar seleccionadas`)
+
+      $('#confirm-approve').prop('disabled', true)
+      $('#confirm-reject').prop('disabled', true)
+    }
+  })
+</script>

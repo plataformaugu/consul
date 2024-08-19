@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_16_042248) do
+ActiveRecord::Schema.define(version: 2024_08_19_011414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1657,6 +1657,8 @@ ActiveRecord::Schema.define(version: 2024_08_16_042248) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.string "pdf_link"
+    t.datetime "approved_at"
+    t.datetime "rejected_at"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

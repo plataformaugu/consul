@@ -33,7 +33,7 @@
           </div>
         <% elsif @survey.is_expired? %>
           <div class="callout warning">
-            Votación finalizada.
+            Consulta finalizada.
           </div>
         <% elsif !current_user.manager? and @survey.answered_by_user?(current_user) %>
           <div class="callout success">
@@ -72,18 +72,18 @@
         <p class="sidebar-title">Administrar</p>
         <div class="show-actions-menu">
           <%=
-            link_to 'Editar votación',
+            link_to 'Editar consulta',
             edit_admin_survey_path(@survey),
             style: 'color: white;',
             class: 'button small expanded'
           %>
           <%=
-            link_to 'Eliminar votación',
+            link_to 'Eliminar consulta',
             admin_survey_path(@survey),
             style: 'color: white;',
             class: 'button small alert expanded',
             method: :delete,
-            data: { confirm: '¿Estás segur@ que deseas eliminar esta votación?' }
+            data: { confirm: '¿Estás segur@ que deseas eliminar esta consulta?' }
           %>
         </div>
       <% end %>

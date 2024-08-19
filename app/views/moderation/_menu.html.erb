@@ -1,13 +1,11 @@
 <%= link_list(
   [t("moderation.dashboard.index.title"), moderation_root_path],
-  (
-    [
-      "Consultas",
-      moderation_polls_path,
-      controller_name == "polls",
-      class: "polls-link"
-    ] if feature?(:polls)
-  ),
+  [
+    "Consultas",
+    moderation_surveys_path,
+    controller_name == "surveys",
+    class: "polls-link"
+  ],
   (
     [
       t("moderation.menu.proposals"),

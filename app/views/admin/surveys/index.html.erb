@@ -1,7 +1,7 @@
-<h2 class="inline-block">Votación</h2>
+<h2 class="inline-block">Consultas ciudadanas</h2>
 
 <%=
-  link_to 'Crear votación',
+  link_to 'Crear consulta',
   new_admin_survey_path,
   class: "button float-right"
 %>
@@ -25,7 +25,7 @@
           <td>
             <%= render Admin::TableActionsComponent.new(
               survey,
-              destroy_confirmation: 'Esta acción eliminará permanentemente esta encuesta.'
+              destroy_confirmation: 'Esta acción eliminará permanentemente esta consulta.'
             ) do |actions| %>
               <%= actions.action(:elements, path: items_admin_survey_path(survey.id)) %>
               <%= actions.action(:show, path: survey, target: '_blank') %>

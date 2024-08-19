@@ -172,13 +172,11 @@ class Admin::StatsController < Admin::BaseController
     when 'planes_reguladores_participativos'
       csv = generate_report_prp
     when 'consultas'
-      csv = generate_report_polls
+      csv = generate_report_surveys
     when 'propuestas'
       csv = generate_report_proposals
     when 'presupuestos_participativos'
       csv = generate_report_budgets
-    when 'votacion'
-      csv = generate_report_surveys
     end
 
     if csv != nil
@@ -221,7 +219,7 @@ class Admin::StatsController < Admin::BaseController
     end
 
     if answers_by_user.empty?
-      redirect_to surveys_admin_stats_path, alert: 'La encuesta no tiene respuestas.'
+      redirect_to surveys_admin_stats_path, alert: 'La consulta no tiene respuestas.'
       return
     end
 
@@ -238,7 +236,7 @@ class Admin::StatsController < Admin::BaseController
     send_data(
       generated_csv,
       type: 'text/csv',
-      filename: "reporte_encuesta_#{params['survey_id']}_#{Time.now.strftime('%Y%m%d_%H%M')}.csv"
+      filename: "reporte_consultas_#{params['survey_id']}_#{Time.now.strftime('%Y%m%d_%H%M')}.csv"
     )
   end
 
@@ -262,16 +260,14 @@ class Admin::StatsController < Admin::BaseController
         {label: 'General', action: 'show', path: admin_stats_path},
         {label: 'Cuentas Públicas', action: 'ppa', path: ppa_admin_stats_path},
         {label: 'Planes Reguladores', action: 'prp', path: prp_admin_stats_path},
-        {label: 'Consultas', action: 'polls', path: polls_admin_stats_path},
         {label: 'Propuestas', action: 'proposals', path: proposals_admin_stats_path},
         {label: 'Presupuestos Participativos', action: 'budgets', path: budgets_admin_stats_path},
-        {label: 'Votaciones', action: 'surveys', path: surveys_admin_stats_path},
+        {label: 'Consultas', action: 'surveys', path: surveys_admin_stats_path},
       ]
       @report_processes = [
         { key: PROCESS_PPA, label: PROCESS_TRANSLATE[PROCESS_PPA] },
         { key: PROCESS_PRP, label: PROCESS_TRANSLATE[PROCESS_PPA] },
         { key: PROCESS_PROPOSALS, label: PROCESS_TRANSLATE[PROCESS_PROPOSALS] },
-        { key: PROCESS_POLLS, label: PROCESS_TRANSLATE[PROCESS_POLLS] },
         { key: PROCESS_BUDGETS, label: PROCESS_TRANSLATE[PROCESS_BUDGETS] },
         { key: PROCESS_SURVEYS, label: PROCESS_TRANSLATE[PROCESS_SURVEYS] },
       ]
@@ -320,7 +316,7 @@ class Admin::StatsController < Admin::BaseController
     def generate_report_general
       ppa_count = Debate.participatory_public_accounts.count
       prp_count = Debate.participatory_regulatory_plans.count
-      polls_count = Poll.count
+      surveys_count = Survey.count
       proposals_count = Proposal.count
       budgets_count = Budget.count
 
@@ -343,13 +339,13 @@ class Admin::StatsController < Admin::BaseController
           ppa_count +
           prp_count +
           proposals_count +
-          polls_count +
+          surveys_count +
           budgets_count
         ),
         User.count,
         ppa_count,
         prp_count,
-        polls_count,
+        surveys_count,
         proposals_count,
         budgets_count,
         *participants_row_columns,

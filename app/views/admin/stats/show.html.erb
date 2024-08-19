@@ -22,7 +22,7 @@
     </p>
     <p>
       Consultas <br>
-      <span class="number"><%= number_with_delimiter(@general[:polls_count]) %></span>
+      <span class="number"><%= number_with_delimiter(@general[:surveys_count]) %></span>
     </p>
     <p>
       Propuestas <br>
@@ -34,10 +34,6 @@
         <span class="number"><%= number_with_delimiter(@general[:budgets_count]) %></span>
       </p>
     <% end %>
-    <p>
-      Votaciones <br>
-      <span class="number"><%= number_with_delimiter(@general[:surveys_count]) %></span>
-    </p>
   </div>
   <div class="small-12 medium-3 column">
     <p class="featured">

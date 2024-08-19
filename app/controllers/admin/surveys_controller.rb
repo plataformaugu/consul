@@ -1,7 +1,7 @@
 class Admin::SurveysController < Admin::BaseController
   before_action :set_survey, only: [:show, :edit, :update, :destroy, :items]
 
-  NOTICE_TEXT = "La encuesta fue %{action} correctamente."
+  NOTICE_TEXT = "La consulta fue %{action} correctamente."
 
   def index
     @surveys = Survey.all
@@ -39,6 +39,10 @@ class Admin::SurveysController < Admin::BaseController
         entity_id: @survey.id,
         params: params
       )
+
+      @survey.approved_at = nil
+      @survey.rejected_at = nil
+      @survey.save!
 
       redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'actualizada'}
     else

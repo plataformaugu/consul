@@ -20,7 +20,7 @@ namespace :moderation do
     delete :reject, on: :collection
   end
 
-  resources :polls do
+  resources :surveys do
     put :hide, on: :member
     put :moderate, on: :collection
     post :approve, on: :collection
