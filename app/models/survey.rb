@@ -4,7 +4,8 @@ class Survey < ApplicationRecord
 
   validate :end_time_greater_than_start_time, on: [:create, :update]
 
-  scope :published, -> { where('start_time <= ?', Time.current) }
+  scope :published,   -> { where('start_time <= ?', Time.current) }
+  scope :with_hidden, -> { all }
 
   def segmentation
     Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
