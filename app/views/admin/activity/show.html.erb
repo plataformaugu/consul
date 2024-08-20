@@ -39,6 +39,10 @@
               <strong><%= activity.actionable.title %></strong>
               <br>
               <%= activity.actionable.body %>
+            <% when "Survey" %>
+              <strong><%= activity.actionable.title %></strong>
+              <br>
+              <%= ActionView::Base.full_sanitizer.sanitize(activity.actionable.body).truncate_words(8, separator: '...') %>
             <% else %>
               <strong><%= activity.actionable.title %></strong>
               <br>

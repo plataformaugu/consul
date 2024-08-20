@@ -31,6 +31,9 @@ es:
       comment:
         one: "Comentario"
         other: "Comentarios"
+      survey:
+        one: "Consulta ciudadana"
+        other: "Consultas ciudadanas"
       debate:
         one: "Debate"
         other: "Debates"
