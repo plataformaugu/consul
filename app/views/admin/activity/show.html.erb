@@ -43,10 +43,17 @@
               <strong><%= activity.actionable.title %></strong>
               <br>
               <%= ActionView::Base.full_sanitizer.sanitize(activity.actionable.body).truncate_words(8, separator: '...') %>
-            <% else %>
+            <% when "Proposal" %>
               <strong><%= activity.actionable.title %></strong>
               <br>
               <%= sanitize(activity.actionable.description) %>
+            <% when "Debate" %>
+              <strong><%= activity.actionable.title %></strong>
+              <br>
+              <%= sanitize(activity.actionable.description) %>
+            <% else %>
+              <strong><%= activity.actionable.title %></strong>
+              <br>
             <% end %>
           <td class="align-top">
             <%= activity.user.name %> (<%= activity.user.email %>)
