@@ -13,8 +13,8 @@
               survey.title,
               survey.image.present? ? survey.image : nil,
               ActionView::Base.full_sanitizer.sanitize(survey.body).truncate_words(8, separator: '...'),
-              nil,
-              nil
+              survey.is_expired? ? 'Consulta finalizada' : nil,
+              I18n.t("polls.dates", open_at: l(survey.start_time.to_date), closed_at: l(survey.end_time.to_date))
             ) %>
           <% end %>
         </div>
