@@ -1,0 +1,17 @@
+<div class="participation-stats polls-results-stats">
+  <div class="row">
+    <div class="small-12 medium-6 column">
+      <h3>Votos por género<h3>
+      <%= pie_chart [
+        [User::GENDER_MALE, @stats["total_male_participants"]],
+        [User::GENDER_FEMALE, @stats["total_female_participants"]],
+        [User::GENDER_OTHER, @stats["total_other_participants"]]
+      ]%>
+    </div>
+
+    <div class="small-12 medium-6 column">
+      <h3>Votos por rango etario<h3>
+      <%= column_chart @stats["participants_by_age"].map { |k, v| [k, v[:count]] } %>
+    </div>
+  </div>
+</div>

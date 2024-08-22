@@ -1,0 +1,27 @@
+<div class="small-12 column mb-3">
+  <h3>Cantidad de votos</h3>
+  <h1><%= @results["answers_count"] %></h1>
+</div>
+
+<div class="small-12 column" data-equalizer-watch>
+  <h3>Resultados de la consulta<h3>
+
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+    <% @results["items"].each do |item| %>
+      <div>
+        <h3 class="mt-2" id="<%= item.title.parameterize %>"><%= item.title %></h3>
+        <% if item.item_type == Survey::Item::ITEM_TYPE_UNIQUE %>
+          <%= pie_chart get_unique_type_results(item) %>
+        <% elsif item.item_type == Survey::Item::ITEM_TYPE_MULTIPLE %>
+          <%= pie_chart get_multiple_type_results(item) %>
+        <% elsif item.item_type == Survey::Item::ITEM_TYPE_RANKING %>
+          <ol style="font-size: 1rem; font-weight: normal;">
+            <% get_ranking_type_results(item).each do |element| %>
+              <li><%= element %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

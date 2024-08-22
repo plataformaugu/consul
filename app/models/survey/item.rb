@@ -1,6 +1,5 @@
 class Survey::Item < ApplicationRecord
   belongs_to :survey
-
   has_many :answers, class_name: 'Survey::Item::Answer', foreign_key: 'survey_item_id', dependent: :destroy
 
   ITEM_TYPE_TEXT = 'item_type_text'

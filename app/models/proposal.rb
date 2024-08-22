@@ -56,6 +56,7 @@ class Proposal < ApplicationRecord
   validates :retired_reason, presence: true, inclusion: { in: ->(*) { RETIRE_OPTIONS }}, unless: -> { retired_at.blank? }
 
   validates :terms_of_service, acceptance: { allow_nil: false }, on: :create
+  validates :image, presence: true
 
   validate :valid_video_url?
 

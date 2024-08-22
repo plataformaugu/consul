@@ -25,15 +25,36 @@
 
         <p class="mt-2"><%= wysiwyg(@survey.body) %></p>
 
-        <% if current_user.nil? %>
+        <% if @survey.is_expired? %>
+          <div class="callout warning">
+            Consulta finalizada.
+          </div>
+
+          <div class="row margin-top">
+            <div class="small-12 column">
+              <ul class="tabs" data-tabs id="survey-tabs">
+                <li class="tabs-title is-active"><a data-tabs-target="information" aria-selected="true" href="#information">Información</a></li>
+                <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados de la consulta</a></li>
+                <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
+              </ul>
+              <div class="tabs-content" data-tabs-content="survey-tabs">
+                <div class="tabs-panel is-active" id="information">
+                  <%= render 'information' %>
+                </div>
+                <div class="tabs-panel" id="results">
+                  <%= render 'results' %>
+                </div>
+                <div class="tabs-panel" id="stats">
+                  <%= render 'stats' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% elsif current_user.nil? %>
           <div class="callout primary">
             <%= sanitize(t("polls.show.cant_answer_not_logged_in",
                   signin: link_to_signin(class: "probe-message"),
                   signup: link_to_signup(class: "probe-message"))) %>
-          </div>
-        <% elsif @survey.is_expired? %>
-          <div class="callout warning">
-            Consulta finalizada.
           </div>
         <% elsif !current_user.manager? and @survey.answered_by_user?(current_user) %>
           <div class="callout success">

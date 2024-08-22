@@ -1,0 +1,77 @@
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+  <% @survey.items.order(:position, :id).each do |survey_item| %>
+    <% if survey_item.item_type == Survey::Item::ITEM_TYPE_UNIQUE %>
+      <div>
+        <%= label_tag "survey_item_#{survey_item.id}", survey_item.title %>
+        <% if survey_item.required %>
+          <small>(Obligatorio)</small>
+        <% end %>
+
+        <%= select_tag "survey_item_#{survey_item.id}",
+          options_for_select(
+            survey_item.data.map{ |choice| [choice, choice] },
+            current_user.present? && survey_item.answers.exists?(user_id: current_user.id) ?
+              survey_item.answers.find_by(user_id: current_user.id).data :
+              nil
+          ),
+          include_blank: 'Elige una opción',
+          label: survey_item.title,
+          disabled: true
+        %>
+      </div>
+    <% elsif survey_item.item_type == Survey::Item::ITEM_TYPE_MULTIPLE %>
+      <div>
+        <%= label_tag "survey_item_#{survey_item.id}[]", survey_item.title %>
+        <% if survey_item.required %>
+          <small>(Obligatorio)</small>
+        <% end %>
+
+        <% survey_item.data.each do |choice| %>
+          <%= label_tag nil, style: 'font-weight: normal' do %>
+            <%= check_box_tag "survey_item_#{survey_item.id}[]",
+              choice,
+              current_user.present? && survey_item.answers.exists?(user_id: current_user.id) ?
+                survey_item.answers.find_by(user_id: current_user.id).data.include?(choice) :
+                false,
+              disabled: true
+            %>
+            <%= choice %>
+          <% end %>
+        <% end %>
+      </div>
+    <% elsif survey_item.item_type == Survey::Item::ITEM_TYPE_RANKING %>
+      <div>
+        <%= label_tag "survey_item_#{survey_item.id}", survey_item.title %>
+
+        <% if current_user.present? && survey_item.answers.exists?(user_id: current_user.id) && survey_item.answers.find_by(user_id: current_user.id).data.any? %>
+          <ol id="sortable_<%= survey_item.id %>">
+            <% survey_item.answers.find_by(user_id: current_user.id).data.each do |choice| %>
+              <li id="<%= choice %>"><%= choice %></li>
+            <% end %>
+          </ol>
+        <% else %>
+          <ol id="sortable_<%= survey_item.id %>">
+            <% survey_item.data.each do |choice| %>
+              <li id="<%= choice %>"><%= choice %></li>
+            <% end %>
+          </ol>
+        <% end %>
+      </div>
+    <% elsif survey_item.item_type == Survey::Item::ITEM_TYPE_TEXT %>
+      <div>
+        <%= label_tag "survey_item_#{survey_item.id}", survey_item.title %>
+        <% if survey_item.required %>
+          <small>(Obligatorio)</small>
+        <% end %>
+
+        <%= text_area_tag "survey_item_#{survey_item.id}",
+          current_user.present? && survey_item.answers.exists?(user_id: current_user.id) ?
+            survey_item.answers.find_by(user_id: current_user.id).data :
+            nil,
+          rows: 4,
+          disabled: true
+        %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

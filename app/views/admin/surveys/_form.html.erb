@@ -21,7 +21,7 @@
       <%= form.url_field :pdf_link, label: 'Enlace PDF' %>
     </div>
 
-    <%= render Shared::ImageFieldComponent.new(@survey, form) %>
+    <%= render Shared::ImageFieldComponent.new(@survey, form, true) %>
 
     <div>
       <%= render Segmentation::FormComponent.new(
