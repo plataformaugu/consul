@@ -26,6 +26,12 @@
                                         class: "html-area" %>
       </div>
     <% end %>
+
+    <% if feature?(:allow_images) %>
+      <div class="images">
+        <%= render "images/nested_image", f: f %>
+      </div>
+    <% end %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
@@ -36,12 +42,6 @@
     <div>
       <%= f.text_field :video_url, hint: t("proposals.form.proposal_video_url_note") %>
     </div>
-
-    <% if feature?(:allow_images) %>
-      <div class="images">
-        <%= render "images/nested_image", f: f %>
-      </div>
-    <% end %>
 
     <% if feature?(:allow_attached_documents) %>
       <div class="documents">
