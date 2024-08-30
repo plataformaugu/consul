@@ -29,7 +29,7 @@
             ActionView::Base.full_sanitizer.sanitize(
               (@processes[0].instance_of?(Poll) || @processes[0].instance_of?(ProposalTopic)) ? @processes[0].description : @processes[0].body
             ),
-            nil,
+            @processes[0].is_expired? ? "#{@processes[0].class::READABLE_NAME} finalizada" : nil,
           ) %>
         </div>
       <% elsif @processes.length == 2 %>
@@ -46,7 +46,7 @@
               ActionView::Base.full_sanitizer.sanitize(
                 (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ),
-              nil,
+              process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
             ) %>
           <% end %> 
         </div>
@@ -65,7 +65,7 @@
                 ActionView::Base.full_sanitizer.sanitize(
                   (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                 ),
-                nil,
+                process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
               ) %>
             <% else %>
               <div class="visible-grid-on-mobile">
@@ -80,7 +80,7 @@
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                   ),
-                  nil,
+                  process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
                 ) %>
               </div>
               <div class="visible-grid-on-desktop">
@@ -95,7 +95,7 @@
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                   ),
-                  nil,
+                  process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
                 ) %>
               </div>
             <% end %>
@@ -116,7 +116,7 @@
                 ActionView::Base.full_sanitizer.sanitize(
                   (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                 ),
-                nil,
+                process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
               ) %>
             <% else %>
               <div class="visible-grid-on-mobile">
@@ -131,7 +131,7 @@
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                   ),
-                  nil,
+                  process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
                 ) %>
               </div>
               <div class="visible-grid-on-desktop">
@@ -146,7 +146,7 @@
                   ActionView::Base.full_sanitizer.sanitize(
                     (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
                   ),
-                  nil,
+                  process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
                 ) %>
               </div>
             <% end %>

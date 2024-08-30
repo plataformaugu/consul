@@ -7,6 +7,8 @@ class Survey < ApplicationRecord
 
   scope :published, -> { where('start_time <= ?', Time.current).where.not(published_at: nil) }
 
+  READABLE_NAME = 'Votación'
+
   def is_expired?
     Time.current > end_time
   end

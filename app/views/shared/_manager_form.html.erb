@@ -80,6 +80,19 @@
         %>
         <%= f.text_field :phone_number, label: 'Número de teléfono (opcional)' %>
 
+        <% if current_user.administrator? && current_user.without_organization? %>
+          <%= f.select :organization_name,
+            User::ORGANIZATIONS,
+            {
+              include_blank: 'Seleccione una organización',
+              label: '¿A qué organización pertenece?',
+            },
+            {
+              required: true
+            }
+          %>
+        <% end %>
+
         <div class="small-12 medium-6 small-centered">
           <%= f.submit "Crear y participar", class: "button expanded" %>
         </div>

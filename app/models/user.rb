@@ -141,17 +141,17 @@ class User < ApplicationRecord
   ORGANIZATIONS = [
     'Comunidad Indígena Wirkalaf',
     'Asociación Indígena Alonkura',
-    'Mercadito Local Loma de la Piedra',
-    'JJVV Cruce Nanning',
-    'JJVV Loma de la Piedra',
+    'Feria Rural Loma de La Piedra',
+    'Junta de Vecinos El Progreso Cruce Nanning',
+    'Junta de Vecinos Loma de la Piedra',
     'Otro',
   ]
   ORGANIZATIONS_WITHOUT_OTHER = [
     'Comunidad Indígena Wirkalaf',
     'Asociación Indígena Alonkura',
-    'Mercadito Local Loma de la Piedra',
-    'JJVV Cruce Nanning',
-    'JJVV Loma de la Piedra',
+    'Feria Rural Loma de La Piedra',
+    'Junta de Vecinos El Progreso Cruce Nanning',
+    'Junta de Vecinos Loma de la Piedra',
   ]
 
   COMMUNES = [

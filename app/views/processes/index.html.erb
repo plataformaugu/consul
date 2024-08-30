@@ -19,7 +19,7 @@
               ActionView::Base.full_sanitizer.sanitize(
                 (process.instance_of?(Poll) || process.instance_of?(ProposalTopic)) ? process.description : process.body
               ).truncate_words(8, separator: '...'),
-              nil,
+              process.is_expired? ? "#{process.class::READABLE_NAME} finalizada" : nil,
             ) %>
           <% end %>
         </div>

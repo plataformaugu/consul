@@ -7,6 +7,8 @@ class ProposalTopic < ApplicationRecord
 
   scope :published, -> { where('start_date <= ?', Date.current).where.not(published_at: nil) }
 
+  READABLE_NAME = 'Convocatoria'
+
   def is_expired?
     Date.current > end_date
   end

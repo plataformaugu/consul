@@ -89,7 +89,7 @@ class EventsController < ApplicationController
     ).merge(
       document_number: clean_document_number,
       email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email],
-      organization_name: current_user.organization_name
+      organization_name: params[:user].has_key?(:organization_name) ? params[:user][:organization_name] : current_user.organization_name
     )
 
     new_user = User.new(permitted_params)
