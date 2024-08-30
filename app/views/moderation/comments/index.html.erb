@@ -1,34 +1,51 @@
-<%= render Moderation::Shared::IndexComponent.new(@comments) do %>
-  <table class="clear">
-    <thead>
-      <tr>
-        <th><%= t("moderation.comments.index.headers.comment") %></th>
-        <th><%= t("moderation.comments.index.headers.moderate") %></th>
-      </tr>
-    </thead>
+<h2>Comentarios</h2>
 
-    <tbody>
-      <% @comments.each do |comment| %>
-        <tr id="comment_<%= comment.id %>">
-          <td>
-            <%= comment.commentable_type.constantize.model_name.human %> -
-            <%= link_to comment.commentable.title, commentable_path(comment), target: "_blank" %>
-            <br>
-            <span class="date"><%= l comment.updated_at.to_date %></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= comment.flags_count %><span class="icon-flag flag-disable"></span>
-            <span class="bullet">&nbsp;&bull;&nbsp;</span>
-            <%= comment.author.username %>
-            <br>
-            <div class="moderation-description">
-              <%= comment.body %>
-            </div>
-          </td>
-          <td class="text-center">
-            <%= check_box_tag "comment_ids[]", comment.id, nil, id: "#{dom_id(comment)}_check" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<table class="clear">
+  <thead>
+    <tr>
+      <th>Comentario</th>
+      <th>Moderar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr id="comment_<%= comment.id %>">
+        <td>
+          <%= comment.commentable_type.constantize.model_name.human %> -
+          <%= link_to comment.commentable.title, comment, target: "_blank" %>
+          <br>
+          <span class="date"><%= l comment.updated_at.to_date %></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= comment.flags_count %><span class="icon-flag flag-disable"></span>
+          <span class="bullet">&nbsp;&bull;&nbsp;</span>
+          <%= comment.author.username %>
+          <br>
+          <div class="moderation-description">
+            <%= comment.body %>
+          </div>
+        </td>
+        <td>
+          <%=
+            link_to 'Marcar como válido',
+            validate_moderation_comment_path(comment.id), 
+            method: :post, 
+            class: 'button', 
+            style: 'text-decoration: none; color: white;', 
+            data: {confirm: '¿Estás seguro que deseas marcar como válido este comentario?'}
+          %>
+          <%=
+            link_to 'Ocultar',
+            custom_hide_moderation_comment_path(comment.id), 
+            method: :post, 
+            class: 'button button-support', 
+            style: 'text-decoration: none; color: white;', 
+            data: {confirm: '¿Estás seguro que deseas ocultar este comentario?'}
+          %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @comments %>

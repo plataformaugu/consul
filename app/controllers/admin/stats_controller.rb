@@ -259,7 +259,6 @@ class Admin::StatsController < Admin::BaseController
       @tabs = [
         {label: 'General', action: 'show', path: admin_stats_path},
         {label: 'Cuentas Públicas', action: 'ppa', path: ppa_admin_stats_path},
-        {label: 'Planes Reguladores', action: 'prp', path: prp_admin_stats_path},
         {label: 'Propuestas', action: 'proposals', path: proposals_admin_stats_path},
         {label: 'Presupuestos Participativos', action: 'budgets', path: budgets_admin_stats_path},
         {label: 'Consultas', action: 'surveys', path: surveys_admin_stats_path},

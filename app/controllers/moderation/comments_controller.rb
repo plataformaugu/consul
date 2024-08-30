@@ -8,6 +8,26 @@ class Moderation::CommentsController < Moderation::BaseController
 
   load_and_authorize_resource
 
+  def index
+    @comments = Kaminari.paginate_array(Comment.where(ignored_flag_at: nil)).page(params[:page])
+  end
+
+  def validate
+    @comment = Comment.find(params[:id])
+    @comment.ignored_flag_at = Time.now
+    @comment.save!
+    
+    redirect_to moderation_comments_path, notice: "El comentario fue marcado como válido."
+  end
+
+  def custom_hide
+    @comment = Comment.find(params[:id])
+    @comment.hide
+    Activity.log(current_user, :hide, @comment)
+
+    redirect_to moderation_comments_path, notice: "El comentario fue ocultado."
+  end
+
   private
 
     def resource_model

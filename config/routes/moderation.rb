@@ -37,6 +37,8 @@ namespace :moderation do
   resources :comments, only: :index do
     put :hide, on: :member
     put :moderate, on: :collection
+    post :custom_hide, on: :member
+    post :validate, on: :member
   end
 
   resources :proposal_notifications, only: :index do
