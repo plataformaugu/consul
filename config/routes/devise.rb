@@ -25,3 +25,7 @@ devise_for :organizations, class_name: "User",
 devise_scope :organization do
   get "organizations/sign_up/success", to: "organizations/registrations#success"
 end
+
+devise_scope :user do
+  get 'clave-unica/get', to: 'users/registrations#new'
+end

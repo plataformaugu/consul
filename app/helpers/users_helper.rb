@@ -1,4 +1,8 @@
 module UsersHelper
+  def generate_clave_unica_url
+    return ClaveUnica.new.get_authentication_url()
+  end
+
   def humanize_document_type(document_type)
     case document_type
     when "1"
