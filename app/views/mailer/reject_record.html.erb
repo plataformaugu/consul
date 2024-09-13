@@ -1,8 +1,22 @@
 <td style="<%= css_for_mailer_content %>">
 
   <p style="<%= css_for_mailer_text %>">
-    ¡Hola <%= @user.first_name %> <%= @user.last_name %>!:<br><br>
-    Tu <%= @readable_model %> "<%= @title %>" no ha sido aceptad<%= @pronoun_vowel %>.
+    Estimado/a  <%= @user.first_name %> <%= @user.last_name %>:
+  </p>
+
+  <p style="<%= css_for_mailer_text %>">
+    Junto con saludar, te informamos que tu <%= @readable_model %> "<%= @title %>" ingresada a 
+    Tú Decides Lo Barnechea, no ha sido aceptad<%= @pronoun_vowel %>, 
+    debido a que no cumple con las bases del proceso.
+  </p>
+
+  <p style="<%= css_for_mailer_text %>">
+    Agradecemos tu interés y te invitamos a seguir participando.
+  </p>
+
+  <p style="<%= css_for_mailer_text %>">
+    Saludos cordiales,<br>
+    Municipalidad de Lo Barnechea.
   </p>
 
 </td>
