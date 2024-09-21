@@ -1,0 +1,39 @@
+<% provide :title do %>Mapa<% end %>
+
+<main>
+  <div class="help-header">
+    <div class="row">
+      <div class="small-12 column" data-magellan>
+        <h1 class="inline-block">Mapa</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="leaflet-container">
+    <div id="leaflet-sector" style="height: 500px;"></div>
+  </div>
+</main>
+
+<%= javascript_tag do %>
+  var map
+
+  $(document).on('turbolinks:load', function() {
+    map = new L.Map('leaflet-sector');
+    $.getJSON('/geo/equipamiento-lp.geojson', function(sectorFeatures) {
+      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        boundary: sectorFeatures,
+      });
+      map.addLayer(osm);
+
+      function colorlayer(feature, layer) {
+        if (feature.geometry.type === 'Point' && feature.properties && feature.properties.name) {
+          layer.bindTooltip(feature.properties.name, { sticky: true })
+        }
+      }
+
+      var gjLayer = L.geoJSON(sectorFeatures);
+      map.fitBounds(gjLayer.getBounds());
+      L.geoJSON(sectorFeatures, { onEachFeature: colorlayer }).addTo(map)
+    })
+  })
+<% end %>

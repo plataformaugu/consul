@@ -33,8 +33,6 @@ services:
     volumes:
       - .:/var/www/consul
       - bundle:/usr/local/bundle
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
     environment:
       - POSTGRES_PASSWORD=1234
       - SSH_AUTH_SOCK=/tmp/agent.sock

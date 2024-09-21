@@ -56,13 +56,22 @@
   %>
 </li>
 
+<li>
+  <%=
+    layout_menu_link_to 'Mapa',
+    '/mapa',
+    current_page?(page_path('mapa')),
+    accesskey: "3"
+  %>
+</li>
+
 <% SiteCustomization::Page.published.where.not(slug: ['condiciones', 'accesibilidad']).order(created_at: :desc).limit(2).each do |page| %>
   <li>
     <%=
       layout_menu_link_to page.title,
       page_path(page.slug),
       current_page?(page_path(page.slug)),
-      accesskey: "3"
+      accesskey: "4"
     %>
   </li>
 <% end %>
