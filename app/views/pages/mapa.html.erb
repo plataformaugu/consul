@@ -20,7 +20,7 @@
   $(document).on('turbolinks:load', function() {
     map = new L.Map('leaflet-sector');
     $.getJSON('/geo/equipamiento-lp.geojson', function(sectorFeatures) {
-      var osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      var osm = new L.TileLayer.BoundaryCanvas("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
         boundary: sectorFeatures,
       });
       map.addLayer(osm);
