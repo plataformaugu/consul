@@ -98,7 +98,7 @@
                   proposal,
                   proposal.title,
                   proposal.image.present? ? proposal.image.variant(:medium) : nil,
-                  proposal.summary,
+                  ActionView::Base.full_sanitizer.sanitize(proposal.description).truncate_words(12),
                   proposal.in_development ? 'Propuesta en desarrollo' : proposal.proposal_topic.is_expired? ? 'Convocatoria finalizada' : nil,
                   nil,
                   "#{proposal.total_votes} apoyo#{proposal.total_votes != 1 ? 's' : ''}"
