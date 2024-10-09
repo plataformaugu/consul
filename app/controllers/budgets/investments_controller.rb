@@ -45,6 +45,10 @@ module Budgets
     end
 
     def new
+      if !current_user.administrator?
+        redirect_to root_path
+        return
+      end
     end
 
     def show
@@ -71,6 +75,8 @@ module Budgets
     def create
       @investment.author = current_user
       @investment.heading = @budget.headings.first if @budget.single_heading?
+      @investment.feasibility = 'feasible'
+      @investment.selected = true
 
       if @investment.save
         redirect_to pending_budget_investment_path(@investment.budget, @investment)
@@ -128,7 +134,7 @@ module Budgets
 
       def allowed_params
         attributes = [:heading_id, :tag_list, :organization_name, :location,
-                      :terms_of_service, :related_sdg_list,
+                      :terms_of_service, :related_sdg_list, :price,
                       image_attributes: image_attributes,
                       documents_attributes: document_attributes,
                       map_location_attributes: map_location_attributes]

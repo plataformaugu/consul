@@ -10,11 +10,13 @@
     <% if budget.accepting? %>
       <% if current_user %>
         <% if @can_participate %>
-          <div class="text-right">
-            <%= link_to t("budgets.investments.index.sidebar.create"),
-                        new_budget_investment_path(budget),
-                        class: "button" %>
-          </div>
+          <% if current_user.administrator? %>
+            <div class="text-right">
+              <%= link_to t("budgets.investments.index.sidebar.create"),
+                          new_budget_investment_path(budget),
+                          class: "button" %>
+            </div>
+          <% end %>
         <% else %>
           <div class="callout warning">
             <%= sanitize @reason %>

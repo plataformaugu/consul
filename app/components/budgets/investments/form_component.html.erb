@@ -29,6 +29,11 @@
               class: "html-area" %>
       </div>
     <% end %>
+
+    <%= f.number_field :price,
+            label: "Coste ($)",
+            max: 1000000000000000,
+            required: true %>
   </fieldset>
 
   <%= f.invisible_captcha :subtitle %>
