@@ -54,11 +54,11 @@ es:
       reviewing_ballots: Consulta finalizada
       finished: Resultados
     index:
-      title: Presupuestos participativos
-      empty_budgets: No hay presupuestos participativos.
+      title: Consultas ciudadanas
+      empty_budgets: No hay consultas ciudadanas.
       section_header:
         icon_alt: Icono de Presupuestos participativos
-        title: Presupuestos participativos
+        title: Consultas ciudadanas
         help: Ayuda sobre presupuestos participativos
       all_phases: Fases de los presupuestos participativos
       next_phase: Fase siguiente

@@ -35,7 +35,7 @@
 
   <% if @surveys.any? %>
     <div class="margin-top"></div>
-    <%= render Welcome::SectionComponent.new("Consultas", surveys_path) do %>
+    <%= render Welcome::SectionComponent.new("Presupuestos Participativos", surveys_path) do %>
       <div class="cards-container-component">
         <% @surveys.each do |survey| %>
           <%= render Shared::CardComponent.new(

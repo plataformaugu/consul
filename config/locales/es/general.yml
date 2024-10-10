@@ -582,7 +582,7 @@ es:
   surveys:
     index:
       section_header:
-        title: Consultas Ciudadanas
+        title: Presupuestos Participativos
   polls:
     all: "Todas"
     no_dates: "sin fecha asignada"
