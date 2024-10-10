@@ -19,7 +19,7 @@ class Admin::SurveyItemsController < Admin::BaseController
     @survey = Survey.find(params[:survey_id])
     @survey_item = Survey::Item.new(
       survey_items_params.merge(
-        data: survey_items_params[:data].split(',').map{ |value| value.strip },
+        data: survey_items_params[:data].split(';').map{ |value| value.strip },
         survey_id: @survey.id
       )
     )
@@ -34,7 +34,7 @@ class Admin::SurveyItemsController < Admin::BaseController
   def update
     if @survey_item.update(
       survey_items_params.merge(
-        data: survey_items_params[:data].split(',').map{ |value| value.strip }
+        data: survey_items_params[:data].split(';').map{ |value| value.strip }
       )
     )
       redirect_to items_admin_survey_path(@survey_item.survey.id), notice: NOTICE_TEXT % {action: 'actualizado'}

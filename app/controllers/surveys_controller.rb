@@ -171,7 +171,7 @@ class SurveysController < ApplicationController
         current_answer = params["survey_item_#{survey_item.id}"]
   
         if survey_item.item_type == Survey::Item::ITEM_TYPE_RANKING
-          current_answer = current_answer.split(',').map{ |value| value.strip }
+          current_answer = current_answer.split(';').map{ |value| value.strip }
         elsif survey_item.required
           if !params.key?("survey_item_#{survey_item.id}")
             return nil

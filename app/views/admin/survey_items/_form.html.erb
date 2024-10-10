@@ -33,8 +33,8 @@
       <%= form.text_field :data,
         label: 'Opciones',
         required: true,
-        hint: 'Ingresa las opciones separadas por una coma (,)',
-        value: action_name == 'edit' ? @survey_item.data.join(', ') : ''
+        hint: 'Ingresa las opciones separadas por punto y coma (;)',
+        value: action_name == 'edit' ? @survey_item.data.join(';') : ''
       %>
     </div>
 
@@ -80,14 +80,14 @@ $('#survey_item_data').keyup(function() {
   if (this.value !== '<%= Survey::Item::ITEM_TYPE_TEXT %>') {
     let element = document.getElementById('survey_item_data')
 
-    if (element.value.trim().split(',').length <= 1) {
+    if (element.value.trim().split(';').length <= 1) {
       element.setCustomValidity('Debes ingresar al menos una opción.')
     }
-    else if (element.value.trim().substring(0, 1) === ',') {
-      element.setCustomValidity('No puede comenzar con una coma.')
+    else if (element.value.trim().substring(0, 1) === ';') {
+      element.setCustomValidity('No puede comenzar con un punto y coma.')
     }
-    else if (element.value.trim().slice(-1) === ',') {
-      element.setCustomValidity('No puede terminar con una coma.')
+    else if (element.value.trim().slice(-1) === ';') {
+      element.setCustomValidity('No puede terminar con un punto y coma.')
     } else {
       element.setCustomValidity('')
     }
