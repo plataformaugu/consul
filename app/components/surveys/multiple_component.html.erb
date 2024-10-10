@@ -11,3 +11,15 @@
     <% end %>
   <% end %>
 </div>
+
+<script>
+  $('input[name="survey_item_8[]"]').on('change', function() {
+    const checkedCount = $('input[name="survey_item_8[]"]:checked').length;
+
+    if (checkedCount >= 2) {
+      $('input[name="survey_item_8[]"]:not(:checked)').prop('disabled', true);
+    } else {
+      $('input[name="survey_item_8[]"]').prop('disabled', false);
+    }
+  });
+</script>
