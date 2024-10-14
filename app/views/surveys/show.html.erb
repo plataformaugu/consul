@@ -61,6 +61,16 @@
             ¡Muchas gracias por participar!<br>
             Tus respuestas han sido registradas correctamente.
           </div>
+
+          <div>
+            <%= form_with url: send_answers_survey_path, scope: 'answer' do |form| %>
+              <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <% @survey.items.order(:position, :id).each do |survey_item| %>
+                  <%= render survey_item.component %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% elsif !@can_participate %>
           <div class="callout warning">
             <%= sanitize @reason %>

@@ -15,6 +15,7 @@ CKEDITOR.editorConfig = function( config )
   config.format_tags = "p;h2;h3";
 
   config.removePlugins = "balloonpanel,balloontoolbar,copyformatting,scayt,wsc";
+  config.extraPlugins = "justify";
 
   // Rails CSRF token
   config.filebrowserParams = function(){
@@ -91,7 +92,7 @@ CKEDITOR.editorConfig = function( config )
   ];
 
   config.toolbar_mini = [
-    { name: "paragraph", groups: [ "list" ], items: [ "NumberedList", "BulletedList" ] },
+    { name: "paragraph", groups: [ "list" ], items: [ "NumberedList", "BulletedList", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock" ] },
     { name: "links", items: [ "Link", "Unlink" ] },
     { name: "styles", items: [ "Format" ] },
     { name: "basicstyles", groups: [ "basicstyles", "cleanup" ], items: [ "Bold", "Italic", "Underline", "Strike" ] }

@@ -5,9 +5,10 @@
   <% end %>
 
   <%= select_tag "survey_item_#{@survey_item.id}",
-    options_for_select(@survey_item.data.map{ |choice| [choice, choice] }),
+    options_for_select(@survey_item.data.map{ |choice| [choice, choice] }, selected: !answers.nil? ? answers : nil),
     include_blank: 'Elige una opción',
     label: @survey_item.title,
-    required: @survey_item.required
+    required: @survey_item.required,
+    disabled: is_disabled
   %>
 </div>

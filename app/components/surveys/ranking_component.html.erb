@@ -1,11 +1,19 @@
 <div>
   <%= label_tag "survey_item_#{@survey_item.id}", @survey_item.title %>
 
-  <ul id="sortable_<%= @survey_item.id %>" style="list-style-type: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-    <% @survey_item.data.each do |choice| %>
-      <li id="<%= choice %>"><%= choice %></li>
-    <% end %>
-  </ul>
+  <% if @survey.answered_by_user?(current_user) %>
+    <ol>
+      <% answers[0].split(',').each do |answer| %>
+        <li><%= answer %></li>
+      <% end %>
+    </ol>
+  <% else %>
+    <ul id="sortable_<%= @survey_item.id %>" style="list-style-type: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+      <% @survey_item.data.each do |choice| %>
+        <li id="<%= choice %>"><%= choice %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <%= hidden_field_tag "survey_item_#{@survey_item.id}" %>
 

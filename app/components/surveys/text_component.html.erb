@@ -4,5 +4,5 @@
     <small>(Obligatorio)</small>
   <% end %>
 
-  <%= text_area_tag "survey_item_#{@survey_item.id}", nil, rows: 4, required: @survey_item.required %>
+  <%= text_area_tag "survey_item_#{@survey_item.id}", !answers.nil? ? answers : nil, rows: 4, required: @survey_item.required, disabled: is_disabled %>
 </div>

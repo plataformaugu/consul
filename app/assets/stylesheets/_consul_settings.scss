@@ -11,11 +11,13 @@
 // 1. Foundation settings overrides
 // ---------------------------------
 
+@import url('https://fonts.cdnfonts.com/css/avenir-lt-std');
+
 $black: #222 !default;
 $white: #fdfdfd !default;
 
 $body-background: $white;
-$body-font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif !important !default;
+$body-font-family: "Avenir LT Std", "Helvetica", "Arial", sans-serif !important !default;
 
 $closebutton-color: $black !default;
 
