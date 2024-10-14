@@ -4,7 +4,7 @@ class WYSIWYGSanitizer
   end
 
   def allowed_attributes
-    %w[href]
+    %w[href align style]
   end
 
   def sanitize(html)
