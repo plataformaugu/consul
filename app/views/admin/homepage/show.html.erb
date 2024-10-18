@@ -14,31 +14,3 @@
     no_cards_message: t("admin.homepage.no_header")
   ) %>
 </div>
-
-<hr>
-
-<div id="cards">
-  <h3 class="inline-block"><%= t("admin.homepage.cards_title") %></h3>
-
-  <div class="float-right">
-    <%= link_to t("admin.homepage.create_card"), new_admin_widget_card_path, class: "button" %>
-  </div>
-
-  <%= render Admin::Widget::Cards::TableComponent.new(
-    @cards,
-    no_cards_message: t("admin.homepage.no_cards")
-  ) %>
-</div>
-
-<hr>
-
-<% @feeds.each do |feed| %>
-  <%= render "feed", feed: feed %>
-<% end %>
-
-<div class="small-12 medium-6 large-4 column end">
-  <div class="callout">
-    <h3 id="<%= dom_id(@recommendations, :title) %>" class="inline-block"><%= t("settings.#{@recommendations.key}") %></h3>
-    <%= render "setting", setting: @recommendations %>
-  </div>
-</div>
