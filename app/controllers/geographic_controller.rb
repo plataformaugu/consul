@@ -1,14 +1,13 @@
 class GeographicController < ApplicationController
   skip_authorization_check
 
-  def check_address
-    address = params[:q]
-    street_name, _, house_number = address.rpartition(' ')
+  def get_street_numbers
+    street_name = params[:q]
 
     results = []
 
-    if street_name.present? and house_number.present?
-      results = LoBarnecheaApi.new.search_address(street_name, house_number)[..9]
+    if street_name.present?
+      results = LoBarnecheaApi.new.get_street_numbers(street_name)
     end
 
     render json: results

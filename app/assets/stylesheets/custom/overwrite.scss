@@ -35,3 +35,17 @@ body.auth-page > .wrapper {
     color: $brand;
   }
 }
+
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-selection, .select2-selection__arrow {
+  height: 2.4375rem !important;
+}
+
+.select2-selection__rendered {
+  height: 2.4375rem !important;
+  display: flex !important;
+  align-items: center !important;
+}

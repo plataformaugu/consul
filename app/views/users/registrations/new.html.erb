@@ -41,25 +41,21 @@
         %>
       <% end %>
 
-      <label for="manual_address">Dirección</label>
-      <span class="help-text">Ingrese nombre de la calle y número, luego presione "Validar"</span>
-      <%= f.hidden_field :street_name, required: true %>
-      <%= f.hidden_field :house_number, required: true %>
+      <div style="margin-bottom: 1rem;">
+        <label for="user[street_name]">Calle</label>
+        <select name="user[street_name]" id="user_street_name" required>
+          <% @street_names.each do |street_name| %>
+            <option></option>
+            <option value="<%= street_name %>"><%= street_name %></option>
+          <% end %>
+        </select>
+      </div>
 
-      <div class="row">
-        <div class="small-12 medium-10 column">
-          <div style="display: flex; flex-direction: column;">
-            <%= text_field_tag :manual_address, nil, required: true %>
-            <small id="street_validation_message" class="no-error" style="margin-top: -8px; margin-bottom: 8px; margin-left: 0 !important; margin-right: 0 !important;"></small>
-          </div>
-        </div>
-        <div class="small-12 medium-2 column">
-          <div>
-            <button class="button" type="button" id="validate_address">
-              Validar
-            </button>
-          </div>
-        </div>
+      <div>
+        <label for="user[house_number]">Número</label>
+        <select name="user[house_number]" id="user_house_number" disabled required>
+          <option value="" hidden>Elige un número</option>
+        </select>
       </div>
 
       <%= f.select :gender,
@@ -114,6 +110,12 @@
 <%= render "devise/shared/links" %>
 
 <script>
+$(document).ready(function() {
+   $('#user_street_name').select2({
+    placeholder: "Elige una calle"
+  });
+});
+
 const validarRUT = (rut) => {
   if (typeof rut === 'string' || typeof rut === 'number') {
     const rutSinFormato = limpiarRUT(rut);
@@ -181,6 +183,25 @@ $("#user_commune").on("change", function () {
     $("#custom_commune").val(this.value);
     $("#custom_commune").css("display", "none");
     $("#custom_commune").attr("required", false);
+  }
+});
+
+$('#user_street_name').on('change', function() {
+  $('#user_house_number').prop('disabled', true);
+
+  if (this.value) {
+    $.ajax({
+      url: "/geo/get_street_numbers?q=" + this.value,
+      success: function(data) {
+        $('#user_house_number').prop('disabled', false);
+        $('#user_house_number').empty();
+        $('#user_house_number').append('<option value="" hidden>Elige un número</option>');
+
+        data.forEach((record) => {
+          $('#user_house_number').append(`<option value="${record}">${record}</option>`);
+        })
+      }
+    })
   }
 });
 </script>

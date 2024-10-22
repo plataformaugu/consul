@@ -5,72 +5,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   invisible_captcha only: [:create], honeypot: :address, scope: :user
 
   def new
-    if !params[:code].present? or !params[:state].present?
-      redirect_to new_user_session_path
-      return
-    end
-
-    if params[:state] != session[:clave_unica_state]
-      redirect_to new_user_session_path, alert: "Ocurrió un problema. Inténtalo nuevamente."
-      return
-    end
-
-    clave_unica = ClaveUnica.new
-
-    access_token = clave_unica.get_access_token(params[:state], params[:code])
-
-    if access_token.nil?
-      redirect_to new_user_session_path, alert: "Ocurrió un problema. Inténtalo nuevamente."
-      return
-    end
-
-    user_info = clave_unica.get_user_information(access_token)
-
-    if user_info.nil?
-      redirect_to new_user_session_path, alert: "Ocurrió un problema. Inténtalo nuevamente."
-      return
-    end
-
-    document_number = "#{user_info['RolUnico']['numero']}#{user_info['RolUnico']['DV']}"
-
-    found_user = User.where(document_number: document_number).first
-
-    if found_user.present?
-      if found_user.confirmed?
-        sign_in(:user, found_user)
-        redirect_to root_path, notice: "Has iniciado sesión correctamente."
-        return
-      else
-        redirect_to root_path, alert: "Para ingresar debes confirmar tu cuenta en el correo que te enviamos."
-        return
-      end
-    else
-      first_name = user_info["name"]["nombres"].join(" ")
-      last_name = user_info["name"]["apellidos"][0]
-
-      build_resource({
-        username: "#{first_name.downcase[0]}#{last_name.downcase.gsub(" ", "_")}#{document_number[..6]}",
-        document_number: document_number,
-        first_name: first_name,
-        last_name: last_name,
-      })
-
-      render :new, locals: {temporal_resource: resource}
-      return
-    end
+    @street_names = LoBarnecheaApi.new.get_street_names
+    super
   end
 
   def create
     build_resource(sign_up_params)
     resource.registering_from_web = true
-
-    is_address_valid = validate_user_address(sign_up_params)
-
-    if !is_address_valid
-      flash[:error] = 'La dirección debe ser válida.'
-      render :new
-      return
-    end
 
     coordinates = GeocodingService.get_coordinates(
       sign_up_params['street_name'],
@@ -180,26 +121,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     def after_inactive_sign_up_path_for(resource_or_scope)
       users_sign_up_success_path
-    end
-
-    def validate_user_address(sign_up_params)
-      is_valid = true
-
-      result_address = LoBarnecheaApi.new.search_address(
-        sign_up_params['street_name'],
-        sign_up_params['house_number']
-      )
-
-      if result_address.empty?
-        is_valid = false
-      end
-
-      first_address_result = result_address[0]
-
-      if first_address_result[0] != sign_up_params['street_name'] or first_address_result[1] != sign_up_params['house_number']
-        is_valid = false
-      end
-
-      return is_valid
     end
 end
