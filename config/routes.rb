@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   get 'participatory_public_accounts' => 'debates#participatory_public_accounts'
   get 'participatory_regulatory_plans' => 'debates#participatory_regulatory_plans'
 
-  get "/geo/check_address", to: "geographic#check_address"
+  get "/geo/get_street_numbers", to: "geographic#get_street_numbers"
 
   # Static pages
   resources :pages, path: "/", only: [:show]

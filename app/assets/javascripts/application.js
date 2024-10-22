@@ -120,6 +120,7 @@
 //= require chartkick
 //= require Chart.bundle
 //= require leaflet_heat
+//= require select2-full
 
 var initialize_modules = function() {
   "use strict";
