@@ -23,7 +23,8 @@ class BudgetsController < ApplicationController
   end
 
   def index
-    @budgets = Kaminari.paginate_array(Budget.published).page(params[:page]).per(9)
+    fake_budgets = Survey.published.where(id: 10)
+    @budgets = Kaminari.paginate_array(fake_budgets + Budget.published).page(params[:page]).per(9)
   end
 
   private

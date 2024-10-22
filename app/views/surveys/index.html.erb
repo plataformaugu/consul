@@ -1,4 +1,4 @@
-<% provide :title do %>Presupuestos participativos<% end %>
+<% provide :title do %>Consultas Ciudadanas<% end %>
 
 <main>
   <%= render "shared/section_header", i18n_namespace: "surveys.index.section_header", image: "legislation_processes" %>
@@ -22,7 +22,7 @@
         <%= paginate @surveys %>
       <% else %>
         <div class="callout primary margin-top">
-          No hay presupuestos participativos.
+          No hay consultas ciudadanas.
         </div>
       <% end %>
     </div>

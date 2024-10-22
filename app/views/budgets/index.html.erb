@@ -9,20 +9,31 @@
     <div id="budgets" class="small-12 column">
       <% if @budgets.any? %>
         <div class="cards-container-component">
-          <% @budgets.each do |topic| %>
-            <%= render Shared::CardComponent.new(
-              topic,
-              topic.name,
-              topic.image.variant(:medium),
-              topic.custom_description,
-              topic.finished? ? 'Presupuesto finalizado' : nil
-            ) %>
+          <% @budgets.each do |budget| %>
+            <% if budget.is_a?(Budget) %>
+              <%= render Shared::CardComponent.new(
+                budget,
+                budget.name,
+                budget.image.variant(:medium),
+                budget.custom_description,
+                budget.finished? ? 'Presupuesto finalizado' : nil
+              ) %>
+            <% elsif budget.is_a?(Survey) %>
+              <%= render Shared::CardComponent.new(
+                budget,
+                budget.title,
+                budget.image.present? ? budget.image : nil,
+                ActionView::Base.full_sanitizer.sanitize(budget.body).truncate_words(8, separator: '...'),
+                budget.is_expired? ? 'Consulta finalizada' : nil,
+                I18n.t("polls.dates", open_at: l(budget.start_time.to_date), closed_at: l(budget.end_time.to_date))
+              ) %>
+            <% end %>
           <% end %>
         </div>
         <%= paginate @budgets %>
       <% else %>
         <div class="callout primary">
-          No hay consultas ciudadanas.
+          No hay presupuestos participativos.
         </div>
       <% end %>
     </div>
