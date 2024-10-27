@@ -4,12 +4,16 @@
     <small>(Obligatorio)</small>
   <% end %>
 
+  <ul style="list-style: none; margin: 0; padding: 0;">
   <% @survey_item.data.each do |choice| %>
-    <%= label_tag nil, style: 'font-weight: normal' do %>
+    <li style="margin: 0.5rem 0;">
+    <%= label_tag nil, style: 'font-weight: normal; display: flex; align-items: baseline; gap: 0.5rem;' do %>
       <%= check_box_tag "survey_item_#{@survey_item.id}[]", choice, !answers.nil? && answers.include?(choice), disabled: is_disabled %>
       <%= choice %>
     <% end %>
+    </li>
   <% end %>
+  </ul>
 </div>
 
 <script>
