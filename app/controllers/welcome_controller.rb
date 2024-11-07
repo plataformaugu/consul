@@ -14,12 +14,12 @@ class WelcomeController < ApplicationController
         caption: 'Primera sesión extraordinaria del Cosoc Regional del año 2023, encuentro que se desarrolló con el objetivo de capacitar a los integrantes del órgano consultivo en materias de inversión y presupuesto FNDR.',
       },
       {
-        image_url: '/images/home/slider/2.jpg',
-        caption: 'El Gobernador Regional de Antofagasta, Ricardo Díaz, reactiva las jornadas del Gore En Tu Sala, iniciativa que busca informar y educar sobre la gestión pública del Gobierno local y sus diversas acciones.',
+        image_url: '/images/home/slider/2.png',
+        caption: 'El Ministerio de las Culturas, las Artes y el Patrimonio en colaboración con el Gobierno Regional de Antofagasta, invita a la comunidad a participar de la consulta sobre el uso de la Ex Molinera.',
       },
       {
         image_url: '/images/home/slider/3.jpg',
-        caption: 'Inauguración “Pinturas Participativas” del Plan Unidos por Bonilla. En esta oportunidad el programa se realizó en la escuela Juan Pablo II donde hubo baile, canto y alegría de partes de los estudiantes, profesores, y apoderados.',
+        caption: 'Se entregaron los depósitos transitorios para las colecciones del Museo Regional de Antofagasta en dependencias de la ex Molinera.',
       },
       {
         image_url: '/images/home/slider/4.jpeg',
