@@ -22,8 +22,8 @@ class WelcomeController < ApplicationController
         caption: 'Se entregaron los depósitos transitorios para las colecciones del Museo Regional de Antofagasta en dependencias de la ex Molinera.',
       },
       {
-        image_url: '/images/home/slider/4.jpeg',
-        caption: 'El gobernador regional, Ricardo Díaz, junto al seremi de Medio Ambiente, Gustavo Riveros, presidieron una nueva sesión del Comité Regional de Cambio Climático (CORECC)',
+        image_url: '/images/home/slider/4.jpg',
+        caption: 'Este martes 12 de noviembre se realizó una sesión extraordinaria del Cosoc Regional con el objeto de capacitarlos acerca del Acuerdo de Escazú como también revisar el reglamento actual del organismo.',
       },
       {
         image_url: '/images/home/slider/5.jpg',
