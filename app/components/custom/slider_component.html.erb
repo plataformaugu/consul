@@ -3,10 +3,19 @@
     <ul class="orbit-container">
       <% @elements.each_with_index do |element, idx| %>
         <li class="<%= idx == 0 ? 'is-active' : '' %> orbit-slide">
-          <figure class="orbit-figure">
-            <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
-            <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
-          </figure>
+          <% if element[:url].present? %>
+            <a target="_blank" href="<%= element[:url] %>">
+              <figure class="orbit-figure">
+                <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
+                <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+              </figure>
+            </a>
+          <% else %>
+            <figure class="orbit-figure">
+              <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
+              <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+            </figure>
+          <% end %>
         </li>
       <% end %>
     </ul>

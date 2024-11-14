@@ -12,22 +12,27 @@ class WelcomeController < ApplicationController
       {
         image_url: '/images/home/slider/1.jpeg',
         caption: 'Primera sesión extraordinaria del Cosoc Regional del año 2023, encuentro que se desarrolló con el objetivo de capacitar a los integrantes del órgano consultivo en materias de inversión y presupuesto FNDR.',
+        url: nil,
       },
       {
         image_url: '/images/home/slider/2.png',
         caption: 'El Ministerio de las Culturas, las Artes y el Patrimonio en colaboración con el Gobierno Regional de Antofagasta, invita a la comunidad a participar de la consulta sobre el uso de la Ex Molinera.',
+        url: nil,
       },
       {
         image_url: '/images/home/slider/3.jpg',
         caption: 'Se entregaron los depósitos transitorios para las colecciones del Museo Regional de Antofagasta en dependencias de la ex Molinera.',
+        url: nil,
       },
       {
         image_url: '/images/home/slider/4.jpg',
         caption: 'Este martes 12 de noviembre se realizó una sesión extraordinaria del Cosoc Regional con el objeto de capacitarlos acerca del Acuerdo de Escazú como también revisar el reglamento actual del organismo.',
+        url: 'https://goreantofagasta.cl/el-cosoc-regional-recibio-capacitacion-sobre-el-acuerdo-de-escazu-y/goreantofagasta/2024-11-14/132908.html',
       },
       {
         image_url: '/images/home/slider/5.jpg',
         caption: 'El gobernador regional, Ricardo Díaz, estuvo presente junto a autoridades regionales, Fuerzas Armada y la comunidad en general, en la conmemoración del “Día Nacional de la Cantinera”',
+        url: nil,
       },
     ]
 
