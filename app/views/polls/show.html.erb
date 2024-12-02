@@ -47,7 +47,7 @@
                       {
                         label: question_answer.title,
                         required: true,
-                        disabled: current_user && !current_user.manager? && @poll.full_answered_by_user?(current_user),
+                        disabled: @poll.expired? || (current_user && !current_user.manager? && @poll.full_answered_by_user?(current_user)),
                         checked: current_user && !current_user.manager? && poll_question.answers.exists?(author: current_user, answer: question_answer.title)
                       }
                     %>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="clear mt-1">
-          <% if current_user %>
+          <% if current_user && !@poll.expired? %>
             <% if !@poll.full_answered_by_user?(current_user) %>
               <%= f.submit 'Confirmar respuestas', class: 'button', name: 'confirm' %>
             <% end %>
