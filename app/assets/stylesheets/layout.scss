@@ -974,6 +974,7 @@ footer {
   @include brand-background;
   background-repeat: no-repeat;
   background-size: cover;
+  background-blend-mode: luminosity;
 
   @include breakpoint(medium) {
     min-height: $line-height * 42;
