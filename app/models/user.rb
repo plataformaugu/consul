@@ -2,9 +2,9 @@ class User < ApplicationRecord
   include Verification
   attribute :registering_from_web, default: false
 
-  devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable,
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
          :trackable, :validatable, :omniauthable, :password_expirable, :secure_validatable,
-         authentication_keys: [:login]
+         authentication_keys: [:document_number]
 
   acts_as_voter
   acts_as_paranoid column: :hidden_at
@@ -402,7 +402,7 @@ class User < ApplicationRecord
   end
 
   def email_required?
-    !erased? && (unverified? || registering_from_web)
+    false
   end
 
   def locale
@@ -461,9 +461,8 @@ class User < ApplicationRecord
   # overwritting of Devise method to allow login using email OR username
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    login = conditions.delete(:login)
-    where(conditions.to_hash).find_by(["lower(email) = ?", login.downcase]) ||
-    where(conditions.to_hash).find_by(["username = ?", login])
+    document_number = conditions.delete(:document_number)
+    where(conditions.to_hash).find_by(["document_number = ?", document_number.downcase])
   end
 
   def self.find_by_manager_login(manager_login)

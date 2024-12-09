@@ -44,7 +44,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
         redirect_to users_sign_up_success_path
         return
       else
-        super
+        if sign_up_params[:email].blank?
+          resource.email = "#{clean_document_number}@ugu.cl"
+        end
+
+        resource.save!
+
+        sign_in(:user, resource)
+
+        redirect_to root_path, notice: "Te has registrado correctamente."
+        return
       end
     else
       render :new

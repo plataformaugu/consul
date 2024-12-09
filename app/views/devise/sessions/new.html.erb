@@ -9,7 +9,7 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="row">
     <div class="small-12 column">
-      <%= f.text_field :login, autofocus: true %>
+      <%= f.text_field :document_number, autofocus: true, label: 'RUT', hint: 'Ingrese RUT con guión y sin puntos' %>
     </div>
 
     <div class="small-12 column">
