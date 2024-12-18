@@ -27,14 +27,14 @@
 
         <% if @survey.is_expired? %>
           <div class="callout warning">
-            Consulta finalizada.
+            Presupuesto finalizado.
           </div>
 
           <div class="row margin-top">
             <div class="small-12 column">
               <ul class="tabs" data-tabs id="survey-tabs">
                 <li class="tabs-title is-active"><a data-tabs-target="information" aria-selected="true" href="#information">Información</a></li>
-                <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados de la consulta</a></li>
+                <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados</a></li>
                 <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
               </ul>
               <div class="tabs-content" data-tabs-content="survey-tabs">

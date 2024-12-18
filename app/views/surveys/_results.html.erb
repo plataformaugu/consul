@@ -6,7 +6,7 @@
 <div class="small-12 column" data-equalizer-watch>
   <h3>Resultados de la consulta<h3>
 
-  <div style="display: grid; grid-template-columns: repeat(2, 1fr);">
+  <div class="survey-results-container">
     <% @results["items"].each do |item| %>
       <div>
         <h3 class="mt-2" id="<%= item.title.parameterize %>"><%= item.title %></h3>
