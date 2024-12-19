@@ -1,4 +1,8 @@
 module SurveysHelper
+  def get_unique_and_multiple_type_keys(item)
+    return item.answers.pluck(:data).flatten.filter{ |value| value != '' }.uniq
+  end
+
   def get_unique_type_results(item)
     return item.answers.pluck(:data).filter { |value| value != '' }.tally.to_a
   end
