@@ -34,19 +34,27 @@
             <div class="small-12 column">
               <ul class="tabs" data-tabs id="survey-tabs">
                 <li class="tabs-title is-active"><a data-tabs-target="information" aria-selected="true" href="#information">Información</a></li>
-                <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados</a></li>
-                <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
+                <% if @survey.show_results %>
+                  <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados</a></li>
+                <% end %>
+                <% if @survey.show_stats %>
+                  <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
+                <% end %>
               </ul>
               <div class="tabs-content" data-tabs-content="survey-tabs">
                 <div class="tabs-panel is-active" id="information">
                   <%= render 'information' %>
                 </div>
-                <div class="tabs-panel" id="results">
-                  <%= render 'results' %>
+                <% if @survey.show_results %>
+                  <div class="tabs-panel" id="results">
+                    <%= render 'results' %>
                 </div>
-                <div class="tabs-panel" id="stats">
-                  <%= render 'stats' %>
-                </div>
+                <% end %>
+                <% if @survey.show_stats %>
+                  <div class="tabs-panel" id="stats">
+                    <%= render 'stats' %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

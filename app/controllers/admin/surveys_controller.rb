@@ -65,6 +65,6 @@ class Admin::SurveysController < Admin::BaseController
     end
 
     def surveys_params
-      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time, :pdf_link)
+      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time, :pdf_link, :show_results, :show_stats)
     end
 end

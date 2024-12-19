@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_19_011414) do
+ActiveRecord::Schema.define(version: 2024_12_19_032948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1659,6 +1659,8 @@ ActiveRecord::Schema.define(version: 2024_08_19_011414) do
     t.string "pdf_link"
     t.datetime "approved_at"
     t.datetime "rejected_at"
+    t.boolean "show_results", default: false
+    t.boolean "show_stats", default: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
