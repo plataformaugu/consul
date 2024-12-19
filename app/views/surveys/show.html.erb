@@ -31,13 +31,13 @@
           </div>
 
           <div class="row margin-top">
-            <% if true == false %>
             <div class="small-12 column">
               <ul class="tabs" data-tabs id="survey-tabs">
                 <li class="tabs-title is-active"><a data-tabs-target="information" aria-selected="true" href="#information">Información</a></li>
                 <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados</a></li>
                 <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
               </ul>
+              <% if true == false %>
               <div class="tabs-content" data-tabs-content="survey-tabs">
                 <div class="tabs-panel is-active" id="information">
                   <%= render 'information' %>
@@ -49,8 +49,8 @@
                   <%= render 'stats' %>
                 </div>
               </div>
+              <% end %>
             </div>
-            <% end %>
           </div>
         <% elsif current_user.nil? %>
           <div class="callout primary">
