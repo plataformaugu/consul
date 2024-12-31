@@ -11,7 +11,8 @@ class WelcomeController < ApplicationController
     @headers = Widget::Card.header.all
     @proposals = Proposal.published.order(created_at: :desc).limit(3)
     @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(3)
-    @surveys = Survey.published.order(created_at: :desc).limit(3)
+    hidden_survey_ids = [10]
+    @surveys = Survey.published.where.not(id: hidden_survey_ids).order(created_at: :desc).limit(3)
     @debates = Debate.published.order(created_at: :desc).limit(3)
     @events = Event.order(created_at: :desc).limit(3)
     @cards = Widget::Card.body
