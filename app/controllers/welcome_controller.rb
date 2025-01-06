@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
     @events = Event.order(created_at: :desc).limit(3)
     @cards = Widget::Card.body
 
-    fake_budget = Survey.published.where(id: 1).first
+    fake_budget = Survey.published.where(id: 10).first
     third_last_budgets = Budget.published.order(created_at: :desc).limit(3).to_a
 
     if fake_budget.present?
