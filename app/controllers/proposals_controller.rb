@@ -50,6 +50,10 @@ class ProposalsController < ApplicationController
     if not @proposal_topic.is_active?
       redirect_to root_path
     end
+
+    if @proposal_topic.proposal_creation_disabled
+      redirect_to root_path
+    end
   end
 
   def create

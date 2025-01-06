@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_06_213105) do
+ActiveRecord::Schema.define(version: 2025_01_06_121324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1320,6 +1320,7 @@ ActiveRecord::Schema.define(version: 2024_08_06_213105) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "organizations", default: [], array: true
     t.datetime "published_at"
+    t.boolean "proposal_creation_disabled", default: false
   end
 
   create_table "proposal_translations", id: :serial, force: :cascade do |t|

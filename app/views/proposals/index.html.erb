@@ -62,10 +62,12 @@
           <div class="proposals-header">
             <div>
               <% if @proposal_topic.is_active? %>
-                <%= link_to t("proposals.index.start_proposal"),
-                  new_proposal_path(proposal_topic_id: @proposal_topic.id),
-                  class: "button expanded"
-                %>
+                <% if not @proposal_topic.proposal_creation_disabled %>
+                  <%= link_to t("proposals.index.start_proposal"),
+                    new_proposal_path(proposal_topic_id: @proposal_topic.id),
+                    class: "button expanded"
+                  %>
+                <% end %>
               <% else %>
                 <div class="callout warning">
                   Convocatoria finalizada.
