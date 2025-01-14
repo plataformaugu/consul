@@ -7,13 +7,17 @@
             <a target="_blank" href="<%= element[:url] %>">
               <figure class="orbit-figure">
                 <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
-                <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+                <% if element[:caption].present? %>
+                  <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+                <% end %>
               </figure>
             </a>
           <% else %>
             <figure class="orbit-figure">
               <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
-              <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+              <% if element[:caption].present? %>
+                <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
+              <% end %>
             </figure>
           <% end %>
         </li>

@@ -10,14 +10,12 @@ class WelcomeController < ApplicationController
   def index
     @slider_elements = [
       {
-        image_url: '/images/home/slider/1.jpeg',
-        caption: 'Primera sesión extraordinaria del Cosoc Regional del año 2023, encuentro que se desarrolló con el objetivo de capacitar a los integrantes del órgano consultivo en materias de inversión y presupuesto FNDR.',
-        url: nil,
+        image_url: '/images/home/slider/1.png',
+        url: 'https://forms.gle/UA9bSMtBKAFKfh4f6',
       },
       {
         image_url: '/images/home/slider/2.png',
-        caption: 'El Ministerio de las Culturas, las Artes y el Patrimonio en colaboración con el Gobierno Regional de Antofagasta, invita a la comunidad a participar de la consulta sobre el uso de la Ex Molinera.',
-        url: nil,
+        url: 'https://forms.gle/UA9bSMtBKAFKfh4f6',
       },
       {
         image_url: '/images/home/slider/3.jpg',
