@@ -4162,15 +4162,39 @@ main {
 }
 
 .gg-check-o {
-    color: green;
+    mask-image: url('/images/iconos/check-icon.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: green;
+    display: inline-block;
+    aspect-ratio: 1;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .gg-danger {
-    color: orange;
+    mask-image: url('/images/iconos/danger-icon.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: orange;
+    display: inline-block;
+    aspect-ratio: 1;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .gg-close-o {
-    color: red;
+    mask-image: url('/images/iconos/close-icon.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    background-color: red;
+    display: inline-block;
+    aspect-ratio: 1;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .margin-auto {
