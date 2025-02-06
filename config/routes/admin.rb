@@ -8,6 +8,13 @@ namespace :admin do
     end
   end
 
+  resources :surveys do
+    member do
+      get :items
+    end
+    resources :survey_items
+  end
+
   resources :hidden_users, only: [:index, :show] do
     member do
       put :restore

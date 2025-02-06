@@ -44,6 +44,13 @@ Rails.application.routes.draw do
       post :left_event
     end
   end
+
+  resources :surveys do
+    member do
+      post :send_answers
+    end
+  end
+
   get 'admin/users/edit' => 'admin/users#edit_user'
   patch 'admin/users/edit' => 'admin/users#edit_user_patch'
 

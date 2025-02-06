@@ -5,4 +5,5 @@ class MainTheme < ApplicationRecord
     has_many :events
     has_many :news
     has_many :functional_organizations
+    has_many :surveys
 end

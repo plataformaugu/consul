@@ -5,6 +5,7 @@ module Abilities
     def initialize(user)
       merge Abilities::Everyone.new(user)
 
+      can [:send_answers], Survey
       can [:index, :like, :dislike], News
       can [:index, :show], ProposalsTheme
       can [:index, :show], Encuestum

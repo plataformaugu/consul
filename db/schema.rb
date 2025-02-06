@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_16_123443) do
+ActiveRecord::Schema.define(version: 2025_02_06_022901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1899,6 +1899,38 @@ ActiveRecord::Schema.define(version: 2023_09_16_123443) do
     t.index ["process_type", "process_id"], name: "index_stats_versions_on_process_type_and_process_id"
   end
 
+  create_table "survey_item_answers", force: :cascade do |t|
+    t.json "data"
+    t.bigint "survey_item_id"
+    t.bigint "user_id"
+    t.index ["survey_item_id"], name: "index_survey_item_answers_on_survey_item_id"
+    t.index ["user_id"], name: "index_survey_item_answers_on_user_id"
+  end
+
+  create_table "survey_items", force: :cascade do |t|
+    t.string "title"
+    t.string "item_type"
+    t.json "data"
+    t.integer "position"
+    t.boolean "required", default: true
+    t.bigint "survey_id"
+    t.index ["survey_id"], name: "index_survey_items_on_survey_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.string "image"
+    t.string "survey_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "published_at"
+    t.bigint "main_theme_id"
+    t.index ["main_theme_id"], name: "index_surveys_on_main_theme_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -2237,6 +2269,9 @@ ActiveRecord::Schema.define(version: 2023_09_16_123443) do
   add_foreign_key "related_content_scores", "related_contents"
   add_foreign_key "related_content_scores", "users"
   add_foreign_key "sdg_managers", "users"
+  add_foreign_key "survey_item_answers", "survey_items"
+  add_foreign_key "survey_item_answers", "users"
+  add_foreign_key "survey_items", "surveys"
   add_foreign_key "users", "geozones"
   add_foreign_key "valuators", "users"
 end

@@ -126,6 +126,10 @@
     &.neighborhood-councils-link {
       @include icon(users, solid);
     }
+
+    &.surveys-link {
+      @include icon(poll, solid);
+    }
   }
 
   li {

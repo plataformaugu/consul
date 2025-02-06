@@ -54,6 +54,24 @@
             :path => budgets_path,
             :is_active => feature?(:budgets)
         },
+        {
+            :title => 'Encuestas 2',
+            :title2 => nil,
+            :color => '#fe6b01',
+            :image => '/images/p-icon-2.svg',
+            :text => 'Responde una encuesta',
+            :path => surveys_path(type: 'survey'),
+            :is_active => true
+        },
+        {
+            :title => 'Consultas 2',
+            :title2 => nil,
+            :color => '#f25b86',
+            :image => '/images/p-icon-1.svg',
+            :text => 'Vota en las consultas',
+            :path => surveys_path(type: 'poll'),
+            :is_active => true
+        },
     ]
 %>
 <%= render "shared/section_header",

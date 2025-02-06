@@ -21,6 +21,14 @@
     </li>
   <% end %>
 
+  <li class="<%= "is-active" if controller_name == "surveys" && request.params[:type] == Survey::TYPE_SURVEY %>">
+    <%= link_to "Encuestas", admin_surveys_path(type: 'survey'), class: "surveys-link" %>
+  </li>
+
+  <li class="<%= "is-active" if controller_name == "surveys" && request.params[:type] == Survey::TYPE_POLL %>">
+    <%= link_to "Consultas 2", admin_surveys_path(type: 'poll'), class: "surveys-link" %>
+  </li>
+
   <% if feature?(:legislation) %>
     <li class="<%= "is-active" if controller.class.parent == Admin::Legislation %>">
       <%= link_to t("admin.menu.legislation"), admin_legislation_processes_path, class: "legislation-link" %>

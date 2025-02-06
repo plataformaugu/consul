@@ -1,0 +1,17 @@
+<div>
+  <div class="row">
+    <div class="small-12 column">
+      <%= back_link_to survey_path(@survey.id) %>
+
+      <h2 class="mt-1">Confirmar respuestas en nombre de otra persona</h2>
+      <p>Encuesta: <strong><%= @survey.title %></strong></p>
+    </div>
+  </div>
+
+  <%=
+    render 'shared/manager_form',
+    existing_user_path: participate_manager_existing_user_survey_path(@survey.id),
+    new_user_path: participate_manager_new_user_survey_path(@survey.id),
+    prepared_answers: @prepared_answers.to_json
+  %>
+</div>

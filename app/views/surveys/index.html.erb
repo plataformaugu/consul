@@ -1,0 +1,39 @@
+<% provide :title do %>Encuestas<% end %>
+
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: surveys_url %>
+<% end %>
+
+<%= render_custom_partial "social_meta_tags" %>
+
+<%= render "shared/section_header",
+  color: @type == Survey::TYPE_SURVEY ? "#fe6b01" : "#f25b86",
+  section_image: @type == Survey::TYPE_SURVEY ? "/images/h-encuestas.svg" : "/images/h-consultas.svg",
+  title: @type == Survey::TYPE_SURVEY ? Survey::READABLE_SURVEY_PLURAL.titleize : Survey::READABLE_POLL_PLURAL.titleize
+%>
+
+<div class="row">
+  <div class="small-12 column">
+    <% if @surveys.any? %>
+      <div class="custom-cards-container">
+        <div class="custom-cards">
+          <% @surveys.each do |survey| %>
+            <%= render "survey", survey: survey %>
+          <% end %>
+          <%= paginate @surveys %>
+        </div>
+      </div>
+    <% else %>
+      <div class="callout primary margin-top">
+        No hay <%= @type == Survey::TYPE_SURVEY ? Survey::READABLE_SURVEY_PLURAL : Survey::READABLE_POLL_PLURAL %>.
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="general-footer-container">
+  <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
+    <%= image_tag "/images/fw-arbustorojo.svg", style: 'position: absolute; bottom: 0; right: 5%; width: 20vw;' %>
+    <%= image_tag "/images/fw-arbolrojo.svg", style: 'position: absolute; bottom: 60px; left: 5%; height: 12vw;' %>
+  <% end %>
+</div>
