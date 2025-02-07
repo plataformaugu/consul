@@ -1,5 +1,5 @@
 <div style="display: flex; flex-direction: column; gap: 1rem;">
-  <% @survey.items.order(:position, :id).each do |survey_item| %>
+  <% @survey.items.where(item_dependency_id: nil).order(:position, :id).each do |survey_item| %>
     <% if survey_item.item_type == Survey::Item::ITEM_TYPE_UNIQUE %>
       <div>
         <%= label_tag "survey_item_#{survey_item.id}", survey_item.title %>
