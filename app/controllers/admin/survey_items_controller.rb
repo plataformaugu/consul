@@ -9,10 +9,24 @@ class Admin::SurveyItemsController < Admin::BaseController
   def new
     @survey = Survey.find(params[:survey_id])
     @survey_item = Survey::Item.new(survey: @survey)
+    @allowed_survey_item_dependencies = Survey::Item.where(
+      survey: @survey,
+      item_type: Survey::Item::ITEM_TYPE_UNIQUE,
+      item_dependency_id: nil,
+    )
+    @allowed_survey_item_data = @allowed_survey_item_dependencies.pluck(:id, :data)
   end
 
   def edit
     @survey = Survey.find(params[:survey_id])
+    @allowed_survey_item_dependencies = Survey::Item.where.not(
+      id: @survey_item.id,
+    ).where(
+      survey: @survey,
+      item_type: Survey::Item::ITEM_TYPE_UNIQUE,
+      item_dependency_id: nil,
+    )
+    @allowed_survey_item_data = @allowed_survey_item_dependencies.pluck(:id, :data)
   end
 
   def create
@@ -54,6 +68,15 @@ class Admin::SurveyItemsController < Admin::BaseController
     end
 
     def survey_items_params
-      params.require(:survey_item).permit(:title, :item_type, :data, :position, :required, :survey_id)
+      params.require(:survey_item).permit(
+        :title,
+        :item_type,
+        :data,
+        :position,
+        :required,
+        :survey_id,
+        :item_dependency_id,
+        :item_dependency_answer,
+      )
     end
 end

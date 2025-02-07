@@ -9,6 +9,24 @@
     </div>
 
     <div class="field">
+      <%= form.select(
+        :item_dependency_id,
+        (@allowed_survey_item_dependencies || []).map { |r| [r.title, r.id]},
+        {
+          include_blank: "Ninguna",
+          label: "Dependencia",
+        },
+        { disabled: @allowed_survey_item_dependencies.blank?}
+      ) %>
+    </div>
+
+    <div class="field" id="dependency_response_field" style="display: none;">
+      <label for="survey_item_item_dependency_answer">Respuesta de la dependencia</label>
+      <select id="survey_item_item_dependency_answer" name="survey_item[item_dependency_answer]">
+      </select>
+    </div>
+
+    <div class="field">
       <%= form.text_field :title, label: 'Título', required: true %>
     </div>
 
@@ -61,6 +79,25 @@ $(document).ready(function() {
     $('#item_data_container').hide()
     $('#survey_item_data').prop('required', false)
   }
+
+  var dependencyId = $('#survey_item_item_dependency_id').val();
+  var dependencyAnswer = '<%= @survey_item.item_dependency_answer %>';
+  var surveyItemsData = <%= @allowed_survey_item_data.to_json.html_safe %>;
+
+  if (dependencyId && dependencyAnswer) {
+    $('#survey_item_required').prop('checked', true);
+    $('#survey_item_required').prop('required', true);
+    $('#survey_item_required').prop('disabled', true);
+
+    var selectedItemData = surveyItemsData.find(item => item[0] == dependencyId);
+    if (selectedItemData) {
+      var options = selectedItemData[1].map(function(item) {
+        return '<option value="' + item + '"' + (item === dependencyAnswer ? ' selected' : '') + '>' + item + '</option>';
+      }).join('');
+      $('#survey_item_item_dependency_answer').html(options);
+      $('#dependency_response_field').show();
+    }
+  }
 })
 
 $('#survey_item_item_type').on('change', function() {
@@ -93,4 +130,26 @@ $('#survey_item_data').keyup(function() {
     }
   }
 })
+
+$('#survey_item_item_dependency_id').on('change', function() {
+  var dependencyId = $(this).val();
+  var surveyItemsData = <%= @allowed_survey_item_data.to_json.html_safe %>;
+  var selectedItemData = surveyItemsData.find(item => item[0] == dependencyId);
+
+  if (selectedItemData) {
+    $('#survey_item_required').prop('checked', true);
+    $('#survey_item_required').prop('required', true);
+    $('#survey_item_required').prop('disabled', true);
+
+    var options = selectedItemData[1].map(function(item) {
+      return '<option value="' + item + '">' + item + '</option>';
+    }).join('');
+
+    $('#survey_item_item_dependency_answer').html(options);
+    $('#dependency_response_field').show();
+  } else {
+    $('#survey_item_required').prop('disabled', false);
+    $('#dependency_response_field').hide();
+  }
+});
 </script>

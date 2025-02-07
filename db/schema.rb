@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_06_022901) do
+ActiveRecord::Schema.define(version: 2025_02_07_112325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -1914,6 +1914,9 @@ ActiveRecord::Schema.define(version: 2025_02_06_022901) do
     t.integer "position"
     t.boolean "required", default: true
     t.bigint "survey_id"
+    t.bigint "item_dependency_id"
+    t.string "item_dependency_answer"
+    t.index ["item_dependency_id"], name: "index_survey_items_on_item_dependency_id"
     t.index ["survey_id"], name: "index_survey_items_on_survey_id"
   end
 

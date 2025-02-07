@@ -2,6 +2,7 @@ class Survey::Item < ApplicationRecord
   belongs_to :survey
 
   has_many :answers, class_name: 'Survey::Item::Answer', foreign_key: 'survey_item_id', dependent: :destroy
+  has_many :dependant_items, class_name: 'Survey::Item', foreign_key: 'item_dependency_id', dependent: :destroy
 
   ITEM_TYPE_TEXT = 'item_type_text'
   ITEM_TYPE_UNIQUE = 'item_type_unique'
@@ -32,6 +33,26 @@ class Survey::Item < ApplicationRecord
       Surveys::RankingComponent.new(self)
     when ITEM_TYPE_TEXT
       Surveys::TextComponent.new(self)
+    end
+  end
+
+  private
+  
+  def validate_item_dependency
+    if item_dependency_id.present?
+      dependency_item = Survey::Item.find_by(id: item_dependency_id)
+
+      unless dependency_item
+        errors.add(:item_dependency_id, 'la dependencia no existe')
+      else
+        if item_dependency_answer.present?
+          unless dependency_item.data.include?(item_dependency_answer)
+            errors.add(:item_dependency_answer, 'la respuesta de la dependencia no existe')
+          end
+        else
+          errors.add(:item_dependency_answer, 'debe tener un valor válido')
+        end
+      end
     end
   end
 end

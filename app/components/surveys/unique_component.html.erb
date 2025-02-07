@@ -10,4 +10,38 @@
     label: @survey_item.title,
     required: @survey_item.required
   %>
+
+  <% @survey_item.dependant_items.each do |dependant_item| %>
+    <div class="dependant_item_<%= @survey_item.id %> dependant_item_answer_<%= dependant_item.item_dependency_answer %>" style="display: none;">
+      <%= render dependant_item.component %>
+    </div>
+  <% end %>
 </div>
+
+<script>
+$(document).ready(function() {
+  const dependantItemIds = <%= @survey_item.dependant_items.map { |dependant_item| dependant_item.id }.to_a %>;
+
+  dependantItemIds.forEach(function(dependantItemId) {
+    $(`#survey_item_${dependantItemId}`).prop('required', false);
+  });
+
+  $('#survey_item_<%= @survey_item.id %>').on('change', function() {
+    dependantItemIds.forEach(function(dependantItemId) {
+      const field = $(`.dependant_item_<%= @survey_item.id %> #survey_item_${dependantItemId}`);
+      field.val('');
+      field.prop('required', false);
+    });
+
+    $('.dependant_item_<%= @survey_item.id %>').hide();
+
+    var selectedValue = $(this).val();
+
+    dependantItemIds.forEach(function(dependantItemId) {
+      $(`.dependant_item_<%= @survey_item.id %>.dependant_item_answer_${selectedValue} #survey_item_${dependantItemId}`).prop('required', true);
+    });
+
+    $(`.dependant_item_<%= @survey_item.id %>.dependant_item_answer_${selectedValue}`).show();
+  })
+});
+</script>
