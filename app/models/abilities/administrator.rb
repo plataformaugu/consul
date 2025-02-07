@@ -6,6 +6,12 @@ module Abilities
       merge Abilities::Moderation.new(user)
       merge Abilities::SDG::Manager.new(user)
 
+      can :find_user_by_document_number, User
+
+      can :participate_manager_form, Survey
+      can :participate_manager_existing_user, Survey
+      can :participate_manager_new_user, Survey
+
       can [:index, :new, :create, :edit, :update, :destroy], News
       can [:index, :new, :create, :edit, :update, :destroy], Popup
       can [:index, :new, :create, :edit, :update, :destroy], FunctionalOrganization

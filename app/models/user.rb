@@ -141,6 +141,16 @@ class User < ApplicationRecord
 
   before_validation :clean_document_number
 
+  GENDER_MALE = 'Masculino'
+  GENDER_FEMALE = 'Femenino'
+  GENDER_OTHER = 'Otro'
+
+  GENDERS = [
+    GENDER_MALE,
+    GENDER_FEMALE,
+    GENDER_OTHER,
+  ]
+
   # Get the existing user by email if the provider gives us a verified email.
   def self.first_or_initialize_for_oauth(auth)
     oauth_email           = auth.info.email
@@ -398,6 +408,10 @@ class User < ApplicationRecord
 
   def public_proposals
     public_activity? ? proposals : User.none
+  end
+
+  def full_name
+    "#{first_name} #{last_name} #{maiden_name}"
   end
 
   def public_debates

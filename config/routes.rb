@@ -48,6 +48,10 @@ Rails.application.routes.draw do
   resources :surveys do
     member do
       post :send_answers
+      post :participate_manager_form
+      post :participate_manager_existing_user
+      post :participate_manager_new_user
+      get :pending
     end
   end
 

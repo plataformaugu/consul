@@ -96,9 +96,9 @@
       <div class="small-12 medium-6 column">
         <%= f.select :gender,
             [
-              'Masculino',
-              'Femenino',
-              'Otro'
+              User::GENDER_MALE,
+              User::GENDER_FEMALE,
+              User::GENDER_OTHER
             ],
             {
               include_blank: 'Elija una opción',

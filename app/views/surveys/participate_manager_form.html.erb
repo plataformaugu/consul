@@ -1,3 +1,11 @@
+<%= render "shared/section_header",
+    color: @survey.main_theme.primary_color.present? ? @survey.main_theme.primary_color : "#f25b86",
+    section_image: @survey.main_theme.image.present? ? @survey.main_theme.image : "/images/h-consultas.svg",
+    title: @survey.title,
+    pre_title: @survey.main_theme.present? ? @survey.main_theme.name : nil,
+    show_buildings: true
+%>
+
 <div>
   <div class="row">
     <div class="small-12 column">
@@ -14,4 +22,9 @@
     new_user_path: participate_manager_new_user_survey_path(@survey.id),
     prepared_answers: @prepared_answers.to_json
   %>
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: @survey.main_theme.secondary_color, color2: @survey.main_theme.primary_color do %>
+    <% end %>
 </div>
