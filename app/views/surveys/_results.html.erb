@@ -4,7 +4,7 @@
 </div>
 
 <div class="small-12 column" data-equalizer-watch>
-  <h3>Resultados de la consulta<h3>
+  <h3>Resultados de la <%= Survey::READABLE_BY_TYPE[@survey.survey_type] %><h3>
 
   <div class="survey-results-container">
     <% @results["items"].each do |item| %>
