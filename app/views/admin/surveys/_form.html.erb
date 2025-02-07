@@ -17,6 +17,15 @@
       <%= form.text_area :body, label: 'Cuerpo', class: 'html-area' %>
     </div>
 
+    <div class="field" style="margin-top: 2rem; margin-bottom: 2rem;">
+      <%= form.check_box :show_results,
+        label: 'Mostrar resultados'
+      %>
+      <%= form.check_box :show_stats,
+        label: 'Mostrar estadísticas de participación'
+      %>
+    </div>
+
     <%= render Shared::ImageFieldComponent.new(@survey, form) %>
 
     <div class="field">

@@ -55,7 +55,7 @@ class Admin::SurveysController < Admin::BaseController
 
   def destroy
     @survey.destroy
-    redirect_to admin_surveys_path, notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'eliminada'}
+    redirect_to admin_surveys_path(type: @survey.survey_type), notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'eliminada'}
   end
 
   def items
@@ -68,6 +68,16 @@ class Admin::SurveysController < Admin::BaseController
     end
 
     def surveys_params
-      params.require(:survey).permit(:title, :body, :image, :start_time, :end_time, :main_theme_id, :survey_type)
+      params.require(:survey).permit(
+        :title,
+        :body,
+        :image,
+        :start_time,
+        :end_time,
+        :main_theme_id,
+        :survey_type,
+        :show_results,
+        :show_stats,
+      )
     end
 end

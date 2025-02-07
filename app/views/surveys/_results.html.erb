@@ -1,0 +1,35 @@
+<div class="small-12 column mb-3">
+  <h3>Cantidad de votos</h3>
+  <h1><%= @results["answers_count"] %></h1>
+</div>
+
+<div class="small-12 column" data-equalizer-watch>
+  <h3>Resultados de la consulta<h3>
+
+  <div class="survey-results-container">
+    <% @results["items"].each do |item| %>
+      <div>
+        <h3 class="mt-2" id="<%= item.title.parameterize %>"><%= item.title %></h3>
+        <% if item.item_type == Survey::Item::ITEM_TYPE_UNIQUE %>
+          <% if get_unique_and_multiple_type_keys(item).length >= 6 %>
+            <%= column_chart get_unique_type_results(item) %>
+          <% else %>
+            <%= pie_chart get_unique_type_results(item), width: '720px' %>
+          <% end %>
+        <% elsif item.item_type == Survey::Item::ITEM_TYPE_MULTIPLE %>
+          <% if get_unique_and_multiple_type_keys(item).length >= 6 %>
+            <%= column_chart get_multiple_type_results(item) %>
+          <% else %>
+            <%= pie_chart get_multiple_type_results(item), width: '720px' %>
+          <% end %>
+        <% elsif item.item_type == Survey::Item::ITEM_TYPE_RANKING %>
+          <ol style="font-size: 1rem; font-weight: normal;">
+            <% get_ranking_type_results(item).each do |element| %>
+              <li><%= element %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

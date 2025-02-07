@@ -26,3 +26,4 @@
 
 gem "simple_calendar", "~> 2.4"
 gem "listen", "~> 3.9"
+gem "chartkick"

@@ -42,6 +42,35 @@
           <div class="callout warning">
             <%= @survey.readable_name.titleize %> finalizada.
           </div>
+
+          <div class="row margin-top">
+            <div class="small-12 column">
+              <ul class="tabs" data-tabs id="survey-tabs">
+                <li class="tabs-title is-active"><a data-tabs-target="information" aria-selected="true" href="#information">Información</a></li>
+                <% if @survey.show_results %>
+                  <li class="tabs-title"><a data-tabs-target="results" href="#results">Resultados</a></li>
+                <% end %>
+                <% if @survey.show_stats %>
+                  <li class="tabs-title"><a data-tabs-target="stats" href="#stats">Estadísticas de participación</a></li>
+                <% end %>
+              </ul>
+              <div class="tabs-content" data-tabs-content="survey-tabs">
+                <div class="tabs-panel is-active" id="information">
+                  <%= render 'information' %>
+                </div>
+                <% if @survey.show_results %>
+                  <div class="tabs-panel" id="results">
+                    <%= render 'results' %>
+                </div>
+                <% end %>
+                <% if @survey.show_stats %>
+                  <div class="tabs-panel" id="stats">
+                    <%= render 'stats' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         <% elsif !current_user.manager? and @survey.answered_by_user?(current_user) %>
           <div class="callout success">
             ¡Muchas gracias por participar!<br>
