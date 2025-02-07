@@ -24,6 +24,7 @@ class Admin::SurveysController < Admin::BaseController
   end
 
   def edit
+    @type = @survey.survey_type
   end
 
   def create
@@ -33,7 +34,7 @@ class Admin::SurveysController < Admin::BaseController
       if current_user.administrator?
         @survey.published_at = Time.now
         @survey.save!
-        redirect_to admin_surveys_path(type: @survey.survey_type), notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type],action: 'creada'}
+        redirect_to admin_surveys_path(type: @survey.survey_type), notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'creada'}
         return
       else
         redirect_to pending_survey_path(@survey)
@@ -46,15 +47,15 @@ class Admin::SurveysController < Admin::BaseController
 
   def update
     if @survey.update(surveys_params)
-      redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'actualizada'}
+      redirect_to admin_surveys_path(type: @survey.survey_type), notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'actualizada'}
     else
-      render :edit
+      redirect_to edit_admin_survey_path(type: @survey.survey_type), alert: 'Ocurrió un error al editar' and return
     end
   end
 
   def destroy
     @survey.destroy
-    redirect_to admin_surveys_path, notice: NOTICE_TEXT % {action: 'eliminada'}
+    redirect_to admin_surveys_path, notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'eliminada'}
   end
 
   def items
