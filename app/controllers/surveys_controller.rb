@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :pending, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :pending, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user, :results]
 
   load_and_authorize_resource
 
@@ -14,6 +14,53 @@ class SurveysController < ApplicationController
     end
 
     @surveys = Kaminari.paginate_array(Survey.published.where(survey_type: @type).order(created_at: :desc)).page(params[:page])
+  end
+
+  def results
+    @results = {
+      "answers_count" => 0,
+      "items" => [],
+    }
+    @stats = {
+      "total_male_participants" => 0,
+      "total_female_participants" => 0,
+      "total_other_participants" => 0,
+      "participants_by_age" => [],
+    }
+
+    if @survey.is_expired?
+      survey_answers = Survey.joins(items: :answers).where(id: @survey.id)
+      user_ids = survey_answers.pluck('user_id').uniq
+      users = User.where(id: user_ids)
+      users_count = users.count
+      users_male_count = users.male.count
+      users_female_count = users.female.count
+      users_other_count = users_count - users_male_count - users_female_count
+
+      @results["answers_count"] = user_ids.count
+      @results["items"] = @survey.items.where(
+        item_type: [
+          Survey::Item::ITEM_TYPE_UNIQUE,
+          Survey::Item::ITEM_TYPE_MULTIPLE,
+          Survey::Item::ITEM_TYPE_RANKING
+        ]
+      )
+      @stats["total_male_participants"] = users_male_count
+      @stats["total_female_participants"] = users_female_count
+      @stats["total_other_participants"] = users_other_count
+      @stats["participants_by_age"] = age_groups.to_h do |start, finish|
+        count = users.between_ages(start, finish).count
+  
+        [
+          "#{start} - #{finish}",
+          {
+            range: range_description(start, finish),
+            count: count,
+            percentage: PercentageCalculator.calculate(count, users_count)
+          }
+        ]
+      end
+    end
   end
 
   # GET /surveys/1

@@ -7,6 +7,7 @@ class Survey < ApplicationRecord
   validate :survey_type_present, on: [:create, :update]
 
   scope :published, -> { where('start_time <= ?', Time.current).where.not(published_at: nil) }
+  scope :expired,   -> { where('end_time <= ?', Time.current) }
 
   READABLE_NAME = 'Votación'
   TYPE_SURVEY = 'survey'
@@ -38,6 +39,13 @@ class Survey < ApplicationRecord
   
   def readable_name
     self.is_survey? ? Survey::READABLE_SURVEY : Survey::READABLE_POLL
+  end
+
+  def voters
+    voter_ids = Survey.joins(items: :answers).where(id: self.id).pluck('user_id').uniq
+    voters = User.where(id: voter_ids)
+
+    return voters
   end
 
   def answered_by_user?(user)

@@ -4,6 +4,9 @@ module Abilities
 
     def initialize(user)
       can [:index, :read], Survey
+      can :results, Survey do |survey|
+        survey.is_expired?
+      end
       can [:index, :show], News
       can [:show], Popup
       can [:index, :read], ProposalsTheme

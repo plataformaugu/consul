@@ -1,0 +1,25 @@
+<% provide :title do %><%= @survey.title %><% end %>
+
+<%= render "shared/section_header",
+    color: "#c93358",
+    section_image: "/images/h-resultados.svg",
+    title: @survey.title,
+    pre_title: @survey.main_theme.present? ? @survey.main_theme.name : nil,
+    show_buildings: true
+%>
+<div class="polls-results-stats">
+  <div class="row">
+    <div class="small-12 medium-9 column padding" style="padding-top: 0;">
+      <h2 class="custom-h">Resultados</h2>
+    </div>
+  </div>
+
+  <div class="row margin" data-equalizer data-equalize-on="medium">
+    <%= render 'results' %>
+  </div>
+</div>
+
+<div class="general-footer-container">
+    <%= render 'shared/waves_footer', color1: '#a01f4b', color2: '#f25b86' do %>
+    <% end %>
+</div>

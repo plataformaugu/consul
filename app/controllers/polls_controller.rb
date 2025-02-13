@@ -19,9 +19,49 @@ class PollsController < ApplicationController
   end
 
   def results_index
-    @polls = Kaminari.paginate_array(
-      @polls.created_by_admin.expired.with_results.not_budget.includes(:geozones).sort_for_list(current_user)
-    ).page(params[:page])
+    expired_polls = @polls.created_by_admin.expired.with_results.not_budget.includes(:geozones).sort_for_list(current_user)
+    expired_surveys = Survey.published.expired
+
+    combined = (expired_polls.map { |p| [p.ends_at, p] } + expired_surveys.map { |s| [s.end_time, s] })
+      .sort_by(&:first)
+      .reverse
+      .map(&:last)
+
+    normalized = combined.map do |poll|
+      if poll.is_a?(Poll)
+        {
+          id: poll.id,
+          title: poll.title,
+          ends_at: poll.ends_at,
+          type: poll.class.name,
+          image: poll.image_url.present? ? poll.image_url(:medium) : nil,
+          main_theme: poll.main_theme,
+          expired: poll.expired?,
+          current: poll.current?,
+          voters: poll.voters.count,
+          path: poll_path(poll),
+          results_path: results_poll_path(poll),
+          survey_type: nil,
+        }
+      else
+        {
+          id: poll.id,
+          title: poll.title,
+          ends_at: poll.end_time,
+          type: poll.class.name,
+          image: poll.image.attached? ? url_for(poll.image) : nil,
+          main_theme: poll.main_theme,
+          expired: poll.is_expired?,
+          current: poll.is_active?,
+          voters: poll.voters.count,
+          path: survey_path(poll),
+          results_path: results_survey_path(poll),
+          survey_type: poll.survey_type,
+        }
+      end
+    end
+
+    @polls = Kaminari.paginate_array(normalized).page(params[:page])
   end
 
   def show

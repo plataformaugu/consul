@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       post :participate_manager_existing_user
       post :participate_manager_new_user
       get :pending
+      get :results
     end
   end
 
