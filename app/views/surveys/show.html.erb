@@ -98,6 +98,17 @@
     </div>
 
     <div class="small-12 medium-3 column">
+      <div class="row">
+        <div class="small-12 column">
+          <div style="text-align: right;" class="mb-1">
+            <% if @survey.pdf_link.present? %>
+              <%= link_to @survey.pdf_link, target: '_blank', style: 'color: #727176; text-decoration: none;' do %>
+                <%= image_tag '/images/pdf-icon.svg', style: 'width: 2em' %> <small><strong><u>Ver bases</u></strong></small>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
       <% if current_user and current_user.administrator? %>
         <div class="sidebar-divider"></div>
         <p class="sidebar-title">Administrar</p>

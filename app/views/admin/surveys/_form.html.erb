@@ -39,6 +39,10 @@
       %>
     </div>
 
+    <div class="field">
+      <%= form.text_field :pdf_link, class: 'custom-input', label: 'Link PDF' %>
+    </div>
+
     <%= form.hidden_field :survey_type, value: @type %>
 
     <div class="actions">

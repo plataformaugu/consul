@@ -78,6 +78,7 @@ class Admin::SurveysController < Admin::BaseController
         :survey_type,
         :show_results,
         :show_stats,
+        :pdf_link,
       )
     end
 end
