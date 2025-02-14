@@ -20,7 +20,6 @@ module Abilities
       can :login, User
       can :read, Comment
       can [:read, :results_index], Poll
-      can :read, Event
       can [:functional_organizations_index, :functional_organizations, :read], MainTheme
       can [:read], FunctionalOrganization
       can :results, Poll, id: Poll.expired.results_enabled.not_budget.ids

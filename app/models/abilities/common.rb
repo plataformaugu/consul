@@ -21,7 +21,6 @@ module Abilities
         user.administrator? || (debate.published_at == nil && debate.author.id == user.id)
       end
 
-      can [:read, :join_to_event, :left_event], Event
       can [:read, :join_to_event, :left_event], NeighborhoodCouncilEvent
 
       can :initiatives, Proposal
