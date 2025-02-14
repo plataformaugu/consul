@@ -34,7 +34,7 @@ class PollsController < ApplicationController
           title: poll.title,
           ends_at: poll.ends_at,
           type: poll.class.name,
-          image: poll.image_url.present? ? poll.image_url(:medium) : nil,
+          image: poll.image.present? ? poll.image_url(:medium) : nil,
           main_theme: poll.main_theme,
           expired: poll.expired?,
           current: poll.current?,
