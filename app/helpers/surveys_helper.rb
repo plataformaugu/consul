@@ -16,6 +16,10 @@ module SurveysHelper
     result = item.data.map { |value| [value, []] }.to_h
 
     ranking_answers.each do |ranking_answer|
+      if !ranking_answer.kind_of?(Array)
+        ranking_answer = [ranking_answer]
+      end
+
       ranking_answer.each_with_index do |ranking_answer_item, index|
         result[ranking_answer_item].push(index)
       end
