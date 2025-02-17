@@ -21,7 +21,7 @@ class LoBarnecheaApi
     https.verify_mode = OpenSSL::SSL::VERIFY_NONE
     https.read_timeout = 15
 
-    request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    request = Net::HTTP::Post.new(uri)
     request.body = JSON.dump({"calle": street_name})
 
     response = https.request(request)
@@ -47,7 +47,7 @@ class LoBarnecheaApi
       https.verify_mode = OpenSSL::SSL::VERIFY_NONE
       https.read_timeout = 15
 
-      request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+      request = Net::HTTP::Post.new(uri)
 
       response = https.request(request)
       results = []
