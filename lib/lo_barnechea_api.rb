@@ -1,5 +1,5 @@
 class LoBarnecheaApi
-  URL = "https://integrador.lobarnechea.cl:8443"
+  URL = "https://lbapims.azure-api.net"
 
   def get_street_names
     street_names = Rails.cache.fetch('street_names', expires_in: 24.hours) do
@@ -14,7 +14,7 @@ class LoBarnecheaApi
   end
 
   def get_street_numbers(street_name)
-    uri = URI("#{URL}/prd/api/v1/maestrocalles/detalle/calles/")
+    uri = URI("#{URL}/MaestroCalles/api01/getInfoByCalle?apikey=#{Rails.application.secrets.lo_barnechea_api_key}")
 
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
@@ -22,7 +22,6 @@ class LoBarnecheaApi
     https.read_timeout = 15
 
     request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-    request["apikey"] = Rails.application.secrets.lo_barnechea_api_key
     request.body = JSON.dump({"calle": street_name})
 
     response = https.request(request)
@@ -41,7 +40,7 @@ class LoBarnecheaApi
 
   private
     def fetch_street_names
-      uri = URI("#{URL}/prd/api/v1/maestrocalles/calles")
+      uri = URI("#{URL}/MaestroCalles/api/getCalles?apikey=#{Rails.application.secrets.lo_barnechea_api_key}")
 
       https = Net::HTTP.new(uri.host, uri.port)
       https.use_ssl = true
@@ -49,7 +48,6 @@ class LoBarnecheaApi
       https.read_timeout = 15
 
       request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-      request["apikey"] = Rails.application.secrets.lo_barnechea_api_key
 
       response = https.request(request)
       results = []
