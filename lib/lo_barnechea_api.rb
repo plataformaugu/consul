@@ -22,6 +22,7 @@ class LoBarnecheaApi
     https.read_timeout = 15
 
     request = Net::HTTP::Post.new(uri)
+    request["Content-Type"] = "application/json"
     request.body = JSON.dump({"calle": street_name})
 
     response = https.request(request)
