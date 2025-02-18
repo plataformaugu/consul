@@ -11,11 +11,11 @@ class WelcomeController < ApplicationController
     @slider_elements = [
       {
         image_url: '/images/home/slider/1.png',
-        url: 'https://forms.gle/UA9bSMtBKAFKfh4f6',
+        url: 'https://forms.gle/7NCcvAGUrCKbmSQw6',
       },
       {
         image_url: '/images/home/slider/2.png',
-        url: 'https://forms.gle/UA9bSMtBKAFKfh4f6',
+        url: 'https://forms.gle/7NCcvAGUrCKbmSQw6',
       },
       {
         image_url: '/images/home/slider/3.jpg',
