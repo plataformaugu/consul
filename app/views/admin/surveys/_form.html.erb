@@ -43,6 +43,12 @@
       <%= form.text_field :pdf_link, class: 'custom-input', label: 'Link PDF' %>
     </div>
 
+    <div class="field">
+      <%= render Segmentation::FormComponent.new(
+        Segmentation.find_by(entity_name: @survey.class.name, entity_id: @survey.id)
+      ) %>
+    </div>
+
     <%= form.hidden_field :survey_type, value: @type %>
 
     <div class="actions">

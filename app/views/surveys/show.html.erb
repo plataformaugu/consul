@@ -71,6 +71,15 @@
               </div>
             </div>
           </div>
+        <% elsif not @can_participate %>
+          <div class="custom-icon-message mt-3" style="background-color: <%= @survey.main_theme.primary_color %>;">
+            <div class="c-i-m-left" style="background-color: <%= @survey.main_theme.primary_color %>;">
+              !
+            </div>
+            <div class="c-i-m-right" style="background-color: <%= @survey.main_theme.primary_color %>;">
+              <%= sanitize @reason %>
+            </div>
+          </div>
         <% elsif !current_user.manager? and @survey.answered_by_user?(current_user) %>
           <div class="callout success">
             ¡Muchas gracias por participar!<br>

@@ -31,6 +31,8 @@ class Admin::SurveysController < Admin::BaseController
     @survey = Survey.new(surveys_params)
 
     if @survey.save
+      Segmentation.generate(entity_name: @survey.class.name, entity_id: @survey.id, params: params)
+
       if current_user.administrator?
         @survey.published_at = Time.now
         @survey.save!
@@ -47,6 +49,8 @@ class Admin::SurveysController < Admin::BaseController
 
   def update
     if @survey.update(surveys_params)
+      Segmentation.generate(entity_name: @survey.class.name, entity_id: @survey.id, params: params)
+
       redirect_to admin_surveys_path(type: @survey.survey_type), notice: NOTICE_TEXT % {type: Survey::READABLE_BY_TYPE[@survey.survey_type], action: 'actualizada'}
     else
       redirect_to edit_admin_survey_path(type: @survey.survey_type), alert: 'Ocurrió un error al editar' and return

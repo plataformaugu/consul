@@ -32,6 +32,10 @@ class Survey < ApplicationRecord
     false
   end
 
+  def segmentation
+    Segmentation.find_by(entity_name: self.class.name, entity_id: self.id)
+  end
+
   def comments_count
     comments.count
   end

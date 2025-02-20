@@ -74,9 +74,6 @@ class SurveysController < ApplicationController
 
   # GET /surveys/1
   def show
-    @can_participate = true
-    @reason = nil
-
     @results = {
       "answers_count" => 0,
       "items" => [],
@@ -90,6 +87,13 @@ class SurveysController < ApplicationController
 
     @commentable = @survey
     @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
+
+    @can_participate = true
+    @reason = nil
+
+    if @survey.segmentation.present?
+      @can_participate, @reason = @survey.segmentation.validate(current_user)
+    end
 
     if @survey.is_expired?
       survey_answers = Survey.joins(items: :answers).where(id: @survey.id)
