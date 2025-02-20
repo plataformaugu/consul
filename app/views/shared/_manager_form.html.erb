@@ -6,7 +6,7 @@
       <form id="search-user-form" onsubmit="return searchUser(event)">
         <%= label_tag 'RUT' %>
         <span class="help-text">Ingrese RUT con guión y sin puntos</span>
-        <%= text_field_tag 'search_document_number', nil, required: true %>
+        <%= text_field_tag 'search_document_number', nil, class: 'custom-input', required: true %>
 
         <%= submit_tag 'Buscar', id: 'search-user-button', class: 'button' %>
       </form>
@@ -51,34 +51,175 @@
           <%= f.hidden_field :prepared_answers, value: prepared_answers %>
         <% end %>
 
-        <%= f.text_field :first_name, label: 'Nombre', required: true %>
-        <%= f.text_field :last_name, label: 'Apellido', required: true %>
-        <%= f.text_field :document_number, label: 'RUT', required: true, hint: 'Ingrese RUT con guión y sin puntos' %>
-        <%= f.email_field :email, label: 'Email (opcional)' %>
-        <%= f.select :gender,
-          User::GENDERS,
-          {
-            include_blank: 'Elige un género',
-            label: 'Género',
-          },
-          {
-            required: true
-          }
-        %>
-        <%= f.text_field :gender,
-          id: 'custom_gender',
-          style: 'display: none;',
-          placeholder: 'Ingresa tu género',
-          onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
-          maxlength: 20,
-          label: false
-        %>
-        <%=
-          f.date_field :date_of_birth,
-          label: 'Fecha de nacimiento',
-          required: true
-        %>
-        <%= f.text_field :phone_number, label: 'Número de teléfono (opcional)' %>
+       <div class="row">
+        <div class="small-12 column">
+          <%= f.text_field :document_number, 
+              maxlength: 10,
+              label: 'RUT',
+              class: 'custom-input'
+          %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= f.email_field :email,
+            required: true,
+            class: 'custom-input',
+            placeholder: 'ejemplo@correo.com'
+          %>
+          <span class="error-input-message" id="email-exists-message">
+            El email ya está registrado
+          </span>
+        </div>
+
+        <div class="small-12 medium-6 column">
+          <label for="email_verification">Validar email</label>
+          <%= email_field_tag 'email_verification',
+            nil,
+            class: 'custom-input',
+            required: true,
+            onpaste: 'return false;',
+            autocomplete: 'off',
+            placeholder: 'Repite el email anterior'
+          %>
+          <span class="error-input-message" id="email-verification-message">
+            El email no coincide
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= f.select :gender,
+              [
+                User::GENDER_MALE,
+                User::GENDER_FEMALE,
+                User::GENDER_OTHER
+              ],
+              {
+                include_blank: 'Elija una opción',
+                label: 'Género'
+              },
+              {
+                class: 'custom-input',
+                required: true
+              }
+          %>
+
+          <%= f.text_field :gender,
+            id: 'custom_gender',
+            style: 'display: none;',
+            class: 'custom-input',
+            placeholder: 'Ingresa tu género',
+            onkeydown: 'return /[a-zA-ZáéíóúÁÉÍÓÚ ]/i.test(event.key)',
+            maxlength: 20,
+            label: false
+          %>
+        </div>
+
+        <div class="small-12 medium-6 column">
+          <%= f.label :phone_number, 'Teléfono de contacto' %>
+          <div class="input-group">
+            <span style="height: 3rem; user-select: none; display: flex; align-items: center; color: black;">
+              +56
+            </span>
+            <%= f.number_field :phone_number, 
+                label: 'Teléfono de contacto',
+                max: 999999999,
+                min: 100000000,
+                onpaste: 'return false;',
+                required: true,
+                class: 'custom-input',
+                label: false,
+                placeholder: '912345678'
+            %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= f.select :comuna,
+              ['Las Condes'] + @comunas.sort,
+              {
+                include_blank: 'Elija una opción',
+                label: 'Comuna'
+              },
+              {
+                class: 'custom-input',
+                required: true
+              }
+          %>
+        </div>
+        <div class="small-12 medium-6 column">
+          <%= f.text_field :address, 
+              maxlength: 24,
+              label: 'Dirección',
+              required: true,
+              class: 'custom-input',
+              placeholder: 'Ingresa por ej. APOQUINDO 3400 (Sin “Avenida” o “Av.”)',
+              maxlength: 58
+          %>
+          <div id="alternative-address">
+            <label>Calle</label>
+            <%= text_field_tag 'alt-street', nil, class: 'custom-input', placeholder: 'Ingresa por ej. APOQUINDO (Sin “Avenida” o “Av.”)' %>
+            <label>Número</label>
+            <%= number_field_tag 'alt-number', nil, class: 'custom-input', maxlength: 8 %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-6 column">
+          <%= f.select :house_type,
+              [
+                'Casa',
+                'Departamento',
+                'Oficina'
+              ],
+              {
+                include_blank: 'Elija una opción',
+                label: 'Casa/Depto/Oficina'
+              },
+              {
+                class: 'custom-input',
+              }
+          %>
+        </div>
+
+        <div class="small-12 medium-6 column">
+          <%= f.text_field :house_reference, 
+              maxlength: 128,
+              label: 'Aclaratoria',
+              class: 'custom-input',
+              placeholder: 'Nro. Depto. | Nro. Casa | Otra aclaración del lugar'
+          %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 medium-12 column">
+          <%= f.select :education,
+              [
+                'Enseñanza Básica',
+                'Enseñanza Media',
+                'Técnico Profesional',
+                'Técnico Superior',
+                'Profesional',
+                'Postgrado'
+              ],
+              {
+                include_blank: 'Elija una opción',
+                label: 'Nivel Educacional'
+              },
+              {
+                class: 'custom-input',
+                required: true
+              }
+          %>
+        </div>
+      </div>
 
         <div class="small-12 medium-6 small-centered">
           <%= f.submit "Crear y participar", class: "button expanded" %>
@@ -89,6 +230,120 @@
 </div>
 
 <script>
+var streets = [];
+var notFoundAddressMessage = "No se ha encontrado tu dirección";
+var customStreet = '';
+var customNumber = '';
+
+$("#alternative-address").hide();
+
+$.getJSON('/streets.json', function(streetsResponse) {
+  streets = streetsResponse;
+});
+
+function showAltAddress() {
+  $("#user_address").val('');
+  $("#user_address").attr('required', false);
+  $('label[for=user_address]').hide()
+  $("#user_address").hide();
+  $("#alternative-address").show();
+  $("#alt-street").attr("required", true);
+  $("#alt-number").attr("required", true);
+  $("#alt-street").autocomplete({
+    source: function (request, response) {
+      var results = $.ui.autocomplete.filter(streets, request.term);
+      response(results.slice(0, 10));
+    },
+    change: function (event, ui) {
+      if (!ui.item) {
+        customStreet = '';
+        $("#alt-street").val("");
+      } else {
+        customStreet = ui.item.value
+
+        if (customNumber !== '') {
+          $("#user_address").val(customStreet + ' ' + customNumber);
+        } else {
+          $("#user_address").val(customStreet);
+        }
+      }
+    },
+  });
+}
+
+function hideAltAddress() {
+  $("#user_address").val('');
+  $("#user_address").attr('required', true);
+  $("#user_address").show();
+  $('label[for=user_address]').show()
+  $("#alternative-address").hide();
+  $("#alt-street").attr("required", false);
+  $("#alt-street").val("");
+  $("#alt-number").attr("required", false);
+  $("#alt-number").val("");
+
+  try {
+    $("#alt-street").autocomplete("destroy");
+  } catch (error) {}
+}
+
+$("#user_gender").on("change", function () {
+  if (this.value == "Otro") {
+    $("#custom_gender").val("");
+    $("#custom_gender").css("display", "block");
+    $("#custom_gender").attr("required", true);
+  } else {
+    $("#custom_gender").val(this.value);
+    $("#custom_gender").css("display", "none");
+    $("#custom_gender").attr("required", false);
+  }
+});
+
+$("#email_verification").on("keyup", function () {
+  if (this.value !== $("#user_email").val()) {
+    this.setCustomValidity("Los email no coinciden.");
+    $("#email_verification").addClass("error-input");
+    $("#email-verification-message").show();
+  } else {
+    this.setCustomValidity("");
+    $("#email_verification").removeClass("error-input");
+    $("#email-verification-message").hide();
+  }
+});
+
+$("#user_email").on("change", function () {
+  var request = $.get(
+    "/user/registrations/check_email?email=" + this.value
+  );
+  request.done(function (response) {
+    if (!response.available) {
+      $("#user_email")[0].setCustomValidity(
+        "El email ya está registrado."
+      );
+      $("#user_email").addClass("error-input");
+      $("#email-exists-message").show();
+    } else {
+      $("#user_email")[0].setCustomValidity("");
+      $("#user_email").removeClass("error-input");
+      $("#email-exists-message").hide();
+    }
+  });
+});
+
+$("#user_address").on("keydown", function () {
+  if ($("#user_address").val() === notFoundAddressMessage) {
+    $("#user_address").val('')
+  }
+});
+
+$("#user_comuna").on("change", function () {
+  if (this.value === "Las Condes") {
+    showAltAddress();
+  } else {
+    hideAltAddress();
+  }
+});
+
 function searchUser(event) {
   event.preventDefault()
 
@@ -175,5 +430,24 @@ $("#user_gender").on("change", function () {
     $("#custom_gender").css("display", "none");
     $("#custom_gender").attr("required", false);
   }
+});
+
+$("#user_phone_number").on("keyup", function (e) {
+  if (this.value.length !== 9) {
+    this.setCustomValidity("Deben ser 9 dígitos.");
+
+    if (this.value.length > 9) {
+      this.value = this.value.substring(0, 9);
+      this.setCustomValidity("");
+    }
+  } else {
+    this.setCustomValidity("");
+  }
+});
+
+$('#alt-number').on('keyup', function () {
+  customNumber = $("#alt-number").val();
+  
+  $("#user_address").val(customStreet + ' ' +  customNumber);
 });
 </script>

@@ -1,4 +1,7 @@
 class SurveysController < ApplicationController
+  include TarjetaVecino
+  include LasCondesAPI
+
   before_action :set_survey, only: [:show, :edit, :update, :destroy, :pending, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user, :results]
 
   load_and_authorize_resource
@@ -125,6 +128,7 @@ class SurveysController < ApplicationController
 
     if params.has_key?(:manager_confirm)
       @prepared_answers = prepared_answers
+      @comunas = get_comunas
       render :participate_manager_form
       return
     end
@@ -177,20 +181,83 @@ class SurveysController < ApplicationController
       return
     end
 
+    clean_document_number_with_dash = "#{clean_document_number.chop}-#{clean_document_number[-1]}"
+
+    born_data = registro_civil_request(clean_document_number_with_dash, 'certificado-nacimiento')
+
+    if born_data.nil? || born_data.empty? || born_data == {}
+      redirect_to survey_path(@survey.id), alert: "No se encontró una persona ligada al RUT ingresado."
+      return
+    end
+
+    profession_data = registro_civil_request(clean_document_number_with_dash, 'informacion-profesion')
+    home_data = registro_civil_request(clean_document_number_with_dash, 'informacion-domicilio')
+
+    born_data = !born_data.nil? ? born_data.fetch('CertificadoNacimiento', {}) : {}
+    profession_data = !profession_data.nil? ? profession_data.fetch('datosPersona', {}).fetch('datosProfesion', {}) : {}
+    home_data = !home_data.nil? ? home_data.fetch('datoPersona', {}) : {}
+
     permitted_params = params.require(:user).permit(
-      :first_name,
-      :last_name,
       :document_number,
       :email,
       :gender,
-      :date_of_birth,
       :phone_number,
+      :comuna,
+      :address,
+      :house_type,
+      :house_reference,
+      :education,
     ).merge(
       document_number: clean_document_number,
       email: params[:user][:email].empty? ? "manager_user_#{clean_document_number}@ugu.cl" : params[:user][:email],
     )
 
     new_user = User.new(permitted_params)
+
+    new_user.first_name = born_data.fetch('Nombre', {}).fetch('nombres', '').titleize
+    new_user.last_name = born_data.fetch('Nombre', {}).fetch('apellidoPaterno', '').titleize
+    new_user.maiden_name = born_data.fetch('Nombre', {}).fetch('apellidoMaterno', '').titleize
+    new_user.date_of_birth = !born_data.fetch('fechaNacimiento', nil).nil? ? Date.strptime(born_data['fechaNacimiento'], '%Y-%m-%d') : nil
+    new_user.civil_status = home_data.fetch('estadoCivil', nil),
+    new_user.nationality = born_data.fetch('nacionalidadNacimiento', '').titleize,
+    new_user.profession = (profession_data.is_a?(Hash) && !profession_data.fetch('tituloProfesional', nil).nil?) ? profession_data['tituloProfesional'].titleize : nil
+
+    if new_user.first_name.empty? || new_user.last_name.empty?
+      redirect_to survey_path(@survey.id), alert: "No se encontró una persona ligada al RUT ingresado."
+      return
+    end
+
+    tarjeta_vecino_data = get_tarjeta_vecino_data(new_user.document_number)
+    new_user.neighbor_type_id = tarjeta_vecino_data[:neighbor_type].id
+
+    if tarjeta_vecino_data[:has_tarjeta_vecino]
+      new_user.has_tarjeta_vecino = true
+
+      if tarjeta_vecino_data[:is_tarjeta_vecino_active]
+        new_user.is_tarjeta_vecino_active = true
+        new_user.tarjeta_vecino_code = tarjeta_vecino_data[:tarjeta_vecino_code]
+        new_user.tarjeta_vecino_start_date = tarjeta_vecino_data[:tarjeta_vecino_start_date]
+      end
+    end
+
+    if !params['alt-street'].empty?
+      new_user.address = "#{params['alt-street']} #{params['alt-number']}"
+      sector_data = get_sector_data("#{params['alt-street']} #{params['alt-number']}")
+
+      if !sector_data.nil?
+        new_user.sector = Sector.where(name: "C#{sector_data['sector']}").first
+        new_user.lat = sector_data['lat'].gsub(',', '.').to_f
+        new_user.long = sector_data['long'].gsub(',', '.').to_f
+
+        if new_user.comuna == 'Las Condes'
+          send_user_data_to_neighborhood_directory(
+            new_user,
+            sector_data['id']
+          )
+          new_user.id_direccion = sector_data['id'].to_i
+        end
+      end
+    end
 
     new_user.save(validate: false)
 
@@ -272,6 +339,84 @@ class SurveysController < ApplicationController
         I18n.t("stats.age_more_than", start: start)
       else
         I18n.t("stats.age_range", start: start, finish: finish)
+      end
+    end
+    
+    def get_comunas
+      comunas = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'comunas.json')))
+      comunas = comunas.pluck('name')
+      comunas.delete('Las Condes')
+      comunas.sort
+      comunas.insert(0, 'Las Condes')
+  
+      return comunas
+    end
+
+    def validate_clave_unica_response(code)
+      @secret = Rails.application.secrets.clave_unica_secret
+      @code = code
+      result = clave_unica_request
+      found_user = User.with_deleted.where(document_number: result['rut'].gsub(/[^0-9a-z ]/i, '')).first
+
+      return {
+        data: result,
+        found_user: found_user
+      }
+    end
+
+
+    def registro_civil_request(rut, type)
+      begin
+        uri = URI("https://bus-datos.lascondes.cl/api/srcei/#{type}/")
+        https = Net::HTTP.new(uri.host, uri.port)
+        https.use_ssl = true
+        request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+        request["Authorization"] = "Bearer A8Vq8HmOepf38i38i7D95RkF3kxhmeSOVlItK4rFim12tK4rFim12diVun3aHe9k9Ll0"
+        request.body = JSON.dump({
+          "rut": rut.split('-')[0],
+          "dv": rut.split('-')[1]
+        })
+        response = https.request(request)
+        result = JSON.parse(response.body)
+        return result
+      rescue
+        return nil
+      end
+    end
+
+    def get_sector_data(address)
+      uri = URI("https://bus-datos.lascondes.cl/api/maestros/direcciones/direccion-like")
+      https = Net::HTTP.new(uri.host, uri.port)
+      https.use_ssl = true
+      request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+      request["Authorization"] = "Bearer A8Vq8HmOepf38i38i7D95RkF3kxhmeSOVlItK4rFim12tK4rFim12diVun3aHe9k9Ll0"
+      request.body = JSON.dump({
+        "q": address,
+      })
+      response = https.request(request)
+  
+      begin
+        if response.kind_of? Net::HTTPSuccess
+          result = JSON.parse(response.body)['result']
+  
+          if result.empty?
+            return nil
+          else
+            sector_data = result[0]
+            return {
+              "sector" => sector_data['cod_unidadvecinal'],
+              "lat" => sector_data['str_latitud'],
+              "long" => sector_data['str_longitud'],
+              "id" => sector_data['id']
+            }
+          end
+        else
+          return nil
+        end
+      rescue
+        return nil
+      rescue Exception
+        return nil
       end
     end
 end
