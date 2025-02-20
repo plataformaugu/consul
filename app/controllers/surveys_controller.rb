@@ -1,10 +1,16 @@
 class SurveysController < ApplicationController
   include TarjetaVecino
   include LasCondesAPI
+  include FeatureFlags
+  include CommentableActions
+  include HasOrders
+  include ActsAsParanoidAliases
 
   before_action :set_survey, only: [:show, :edit, :update, :destroy, :pending, :send_answers, :participate_manager_form, :participate_manager_existing_user, :participate_manager_new_user, :results]
 
   load_and_authorize_resource
+
+  has_orders %w[oldest], only: [:show, :edit]
 
   def pending; end
 
@@ -81,6 +87,9 @@ class SurveysController < ApplicationController
       "total_other_participants" => 0,
       "participants_by_age" => [],
     }
+
+    @commentable = @survey
+    @comment_tree = CommentTree.new(@commentable, params[:page], @current_order)
 
     if @survey.is_expired?
       survey_answers = Survey.joins(items: :answers).where(id: @survey.id)

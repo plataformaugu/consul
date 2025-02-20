@@ -1,7 +1,10 @@
 class Survey < ApplicationRecord
+  include ActsAsParanoidAliases
+
   has_one_attached :image, :dependent => :destroy
   has_many :items, dependent: :destroy
   belongs_to :main_theme
+  has_many :comments, as: :commentable, inverse_of: :commentable
 
   validate :end_time_greater_than_start_time, on: [:create, :update]
   validate :survey_type_present, on: [:create, :update]
@@ -20,6 +23,26 @@ class Survey < ApplicationRecord
     TYPE_SURVEY => READABLE_SURVEY,
     TYPE_POLL => READABLE_POLL
   }
+  
+  def self.with_deleted
+    Survey.all
+  end
+  
+  def deleted?
+    false
+  end
+
+  def comments_count
+    comments.count
+  end
+
+  def author_id
+    Administrator.first.user.id
+  end
+
+  def author
+    Administrator.first.user
+  end
 
   def is_expired?
     Time.current > end_time
