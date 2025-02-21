@@ -90,6 +90,22 @@ class Admin::StatsController < Admin::BaseController
     @participants = ::Poll::Voter.where(poll: @polls)
   end
 
+  def polls_2
+    @surveys = Survey.where(survey_type: Survey::TYPE_POLL)
+    survey_item_ids = Survey::Item.where(survey: @surveys).pluck(:id).uniq
+    survey_items_answers = Survey::Item::Answer.all.where(survey_item_id: survey_item_ids)
+    participant_ids = survey_items_answers.pluck(:user_id).uniq
+    @participants = User.where(id: participant_ids)
+  end
+
+  def surveys
+    @surveys = Survey.where(survey_type: Survey::TYPE_SURVEY)
+    survey_item_ids = Survey::Item.where(survey: @surveys).pluck(:id).uniq
+    survey_items_answers = Survey::Item::Answer.all.where(survey_item_id: survey_item_ids)
+    participant_ids = survey_items_answers.pluck(:user_id).uniq
+    @participants = User.where(id: participant_ids)
+  end
+
   def sdg
     @goals = SDG::Goal.order(:code)
   end
@@ -103,6 +119,10 @@ class Admin::StatsController < Admin::BaseController
       csv = report_polls
     when 'events'
       csv = report_events
+    when 'polls_2'
+      csv = report_polls_2
+    when 'surveys'
+      csv = report_surveys
     end
 
     if csv != nil
@@ -183,6 +203,14 @@ class Admin::StatsController < Admin::BaseController
     end
   end
 
+  def report_polls_2
+    report_surveys_common(Survey::TYPE_POLL)
+  end
+
+  def report_surveys
+    report_surveys_common(Survey::TYPE_SURVEY)
+  end
+
   def report_events
     CSV.generate(headers: true, col_sep: ';') do |csv|
       csv << [
@@ -212,5 +240,33 @@ class Admin::StatsController < Admin::BaseController
       includes(:budget_investment).
       where(budget_investments: { heading_id: heading.id }).
       select("votes.voter_id").distinct.count
+    end
+
+    def report_surveys_common(type)
+      CSV.generate(headers: true, col_sep: ';') do |csv|
+        csv << [
+          'ID', 
+          'Título', 
+          'Comentarios', 
+          'Pregunta', 
+          'Respuesta', 
+          'Votos'
+        ]
+
+        Survey.where(survey_type: type).each do |survey|
+          survey.items.each do |survey_item|
+            csv << [
+              survey.id,
+              survey.title,
+              survey.comments.count,
+              survey_item.title,
+              survey_item.answers.where.not("data::text = ''").pluck(:data).filter { |record| record != '' }.join(', '),
+              survey.voters.count
+            ]
+          end
+        end
+  
+        csv = csv.sort_by { |csv| csv[0] }
+      end
     end
 end

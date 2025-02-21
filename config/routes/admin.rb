@@ -235,6 +235,8 @@ namespace :admin do
     get :polls, on: :collection
     get :sdg, on: :collection
     get :generate_report, on: :collection
+    get :polls_2, on: :collection
+    get :surveys, on: :collection
   end
 
   namespace :legislation do

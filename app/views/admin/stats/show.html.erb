@@ -37,6 +37,14 @@
           generate_report_admin_stats_path('events'),
           class: 'button success small'
         %>
+        <%= link_to 'Descargar consultas 2',
+          generate_report_admin_stats_path('polls_2'),
+          class: 'button success small'
+        %>
+        <%= link_to 'Descargar encuestas',
+          generate_report_admin_stats_path('surveys'),
+          class: 'button success small'
+        %>
       </div>
 
       <button onclick="saveAsPDF();" class="button">Exportar gráficos como PDF</button>
