@@ -40,7 +40,14 @@
 }
 
 .icon-twitter::before {
-  content: "\f099";
+  content: "";
+  display: inline-block;
+  width: 24px; /* Ajusta el tamaño según sea necesario */
+  height: 24px;
+  background-color: rgb(191, 191, 191);
+  mask-image: url("x_logo.svg");
+  mask-repeat: no-repeat;
+  mask-size: cover;
 }
 
 .icon-calendar::before {
