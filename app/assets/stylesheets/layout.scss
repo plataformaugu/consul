@@ -1509,7 +1509,7 @@ table {
   background: black;
 
   &::before {
-    --fa-icon-brands-twitter: url("x_logo.svg") !important; 
+    mask-image: image-url("x_logo.svg") !important; 
   }
 
   &:hover,

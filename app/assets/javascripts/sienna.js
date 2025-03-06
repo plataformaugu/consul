@@ -75,6 +75,10 @@
           }
           var a = i * t;
           e.style["font-size"] = a + "px";
+
+          if (e.className === "icon-twitter") {
+            e.style.setProperty("--dynamic-font-size", a - 6 + "px");
+          }
         }
       });
     var e = document.querySelector(".asw-amount");

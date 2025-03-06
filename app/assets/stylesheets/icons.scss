@@ -39,15 +39,20 @@
   font-weight: normal;
 }
 
-.icon-twitter::before {
-  content: "";
-  display: inline-block;
-  width: 24px; /* Ajusta el tamaño según sea necesario */
-  height: 24px;
-  background-color: rgb(191, 191, 191);
-  mask-image: url("x_logo.svg");
-  mask-repeat: no-repeat;
-  mask-size: cover;
+.icon-twitter {
+  &::before {
+    content: "";
+    display: inline-block;
+    width: var(--dynamic-font-size, 21px);
+    height: var(--dynamic-font-size, 21px);
+    background-color: rgb(191, 191, 191);
+    mask-image: image-url("x_logo.svg");
+    mask-repeat: no-repeat;
+    mask-size: cover;
+  }
+  &:hover::before {
+    background-color: var(--brand, $brand);
+  }
 }
 
 .icon-calendar::before {
