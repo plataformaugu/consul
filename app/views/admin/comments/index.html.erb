@@ -6,7 +6,15 @@
 
 <% if @comments.any? %>
 
-  <h3 class="inline-block"><%= page_entries_info @comments %></h3>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h3><%= page_entries_info @comments %></h3>
+    <div>
+      <%= link_to 'Descargar comentarios',
+        download_admin_comments_path(format: :xlsx),
+        class: 'button success small'
+      %>
+    </div>
+  </div>
 
   <table>
     <thead>

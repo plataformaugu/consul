@@ -1,0 +1,30 @@
+xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
+    sheet.add_row [
+        "ID",
+        "RUT",
+        "URL",
+        "Contenido",
+        "Creado",
+        "Actualizado",
+    ]
+
+    @comments.each do |comment|
+        sheet.add_row [
+            comment.id,
+            comment.author.document_number,
+            root_url[0...-1] + url_for(
+                [
+                    comment.commentable_type.constantize.find(
+                        comment.commentable_id,
+                    ),
+                    {
+                        only_path: false,
+                    }
+                ],
+            ),
+            comment.body,
+            comment.created_at.strftime("%d-%m-%Y %H:%M"),
+            comment.updated_at.strftime("%d-%m-%Y %H:%M"),
+        ]
+    end
+end

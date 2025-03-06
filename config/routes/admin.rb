@@ -108,7 +108,9 @@ namespace :admin do
     end
   end
 
-  resources :comments, only: :index
+  resources :comments, only: :index do
+    get :download, on: :collection
+  end
 
   resources :tags, only: [:index, :create, :update, :destroy]
 
