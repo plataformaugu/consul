@@ -1,6 +1,8 @@
 class Admin::UsersController < Admin::BaseController
   load_and_authorize_resource
 
+  before_action :set_user, only: [:edit, :update]
+
   has_filters %w[active not_validated las_condes erased without_sector], only: :index
 
   def index
@@ -11,6 +13,10 @@ class Admin::UsersController < Admin::BaseController
       format.html
       format.js
     end
+  end
+
+  def edit
+    @comunas = get_comunas
   end
 
   def edit_user
@@ -81,4 +87,19 @@ class Admin::UsersController < Admin::BaseController
     flash[:notice] = "La actualización de los datos de Tarjeta Vecino se realizó correctamente."
     redirect_to admin_users_path(filter: 'las_condes')
   end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def get_comunas
+      comunas = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'comunas.json')))
+      comunas = comunas.pluck('name')
+      comunas.delete('Las Condes')
+      comunas.sort
+      comunas.insert(0, 'Las Condes')
+
+      return comunas
+    end
 end

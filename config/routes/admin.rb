@@ -145,7 +145,7 @@ namespace :admin do
     get :search, on: :collection
   end
 
-  resources :users, only: [:index, :show, :validate] do
+  resources :users, only: [:index, :show, :edit, :update, :validate] do
     post :validate, on: :member
     post :validate_all, on: :collection
     post :validate_multiple, on: :collection

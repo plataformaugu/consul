@@ -67,8 +67,15 @@ class UsersController < ApplicationController
     is_updated = !User.where(user_params).exists?
 
     if is_updated or !params['alt-street'].empty?
-      current_user.update(user_params)
-      redirect_to account_path(anchor: 'mis-datos'), notice: '¡Tus datos fueron actualizados!'
+
+      if params['is-admin'] && params['user-id']
+        user = User.find(params['user-id'])
+        user.update(user_params)
+        redirect_to edit_admin_user_path(user.id), notice: 'El usuario fue actualizado'
+      else
+        current_user.update(user_params)
+        redirect_to account_path(anchor: 'mis-datos'), notice: '¡Tus datos fueron actualizados!'
+      end
 
       if user_params['comuna'] != 'Las Condes'
         current_user.sector = nil
