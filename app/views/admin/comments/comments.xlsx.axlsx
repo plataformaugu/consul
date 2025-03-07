@@ -9,10 +9,8 @@ xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
     ]
 
     @comments.each do |comment|
-        sheet.add_row [
-            comment.id,
-            comment.author.document_number,
-            root_url[0...-1] + url_for(
+        begin
+            url = root_url[0...-1] + url_for(
                 [
                     comment.commentable_type.constantize.find(
                         comment.commentable_id,
@@ -21,7 +19,25 @@ xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
                         only_path: false,
                     }
                 ],
-            ),
+            )
+        rescue ActionController::UrlGenerationError
+            url = root_url[0...-1] + url_for(
+                [
+                    comment.commentable_type.constantize.find(
+                        comment.commentable_id,
+                    ),
+                    {
+                        only_path: false,
+                        id: comment.commentable_id,
+                    }
+                ],
+            )
+        end
+
+        sheet.add_row [
+            comment.id,
+            comment.author.document_number,
+            url,
             comment.body,
             comment.created_at.strftime("%d-%m-%Y %H:%M"),
             comment.updated_at.strftime("%d-%m-%Y %H:%M"),
