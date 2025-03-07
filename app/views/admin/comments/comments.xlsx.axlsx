@@ -9,6 +9,10 @@ xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
     ]
 
     @comments.each do |comment|
+        if comment.author.nil?
+            next
+        end
+
         begin
             url = root_url[0...-1] + url_for(
                 [
@@ -20,8 +24,6 @@ xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
                     }
                 ],
             )
-        rescue ActiveRecord::RecordNotFound
-            next
         rescue ActionController::UrlGenerationError
             url = root_url[0...-1] + url_for(
                 [
@@ -34,6 +36,8 @@ xlsx_package.workbook.add_worksheet(name: "Summary") do |sheet|
                     }
                 ],
             )
+        rescue ActiveRecord::RecordNotFound
+            next
         end
 
         sheet.add_row [
