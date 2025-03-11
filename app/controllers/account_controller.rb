@@ -1,6 +1,10 @@
 class AccountController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account
+
+  skip_before_action :authenticate_user!, only: [:clave_unica_authentication]
+  skip_before_action :set_account, only: [:clave_unica_authentication]
+
   load_and_authorize_resource class: "User"
 
   def show
@@ -41,27 +45,33 @@ class AccountController < ApplicationController
   end
 
   def clave_unica_authentication
-    user_token = params[:state]
-    is_valid = current_user.is_token_valid?(user_token)
     clave_unica = ClaveUnica.new
+    access_token = clave_unica.get_access_token(params[:code], params[:state])
+    user_information = clave_unica.get_user_information(access_token)
 
-    if not is_valid
-      redirect_to account_path, alert: "Ocurrió un problema al verificar tus datos. Inténtalo más tarde o contacta con nosotros."
-      return
+    document_number = "#{user_information['RolUnico']['numero']}#{user_information['RolUnico']['DV']}"
+    first_name = user_information['name']['nombres'][0]
+    last_name = user_information['name']['apellidos'][0]
+
+    found_user = User.find_by(document_number: document_number)
+
+    if found_user.present?
+      sign_in(:user, found_user)
     else
-      code = params[:code]
-      access_token = clave_unica.get_access_token(current_user, code)
+      user = User.new(
+        document_number: document_number,
+        first_name: first_name,
+        last_name: last_name,
+        cu_confirmed_at: Time.now,
+        confirmed_at: Time.now,
+      )
 
-      if access_token.nil?
-        redirect_to account_path, alert: "Ocurrió un problema al verificar tus datos. Inténtalo más tarde o contacta con nosotros."
-        return
-      end
+      user.save(validate: false)
 
-      user_information = clave_unica.get_user_information(access_token)
-      current_user.cu_confirmed_at = Time.now
-      current_user.save!
-      redirect_to account_path, notice: "¡Tu cuenta ha sido verificada!"
+      sign_in(:user, user)
     end
+
+    redirect_to root_path, notice: 'Iniciaste sesión correctamente'
   end
 
   private
