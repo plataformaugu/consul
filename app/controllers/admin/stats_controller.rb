@@ -202,6 +202,7 @@ class Admin::StatsController < Admin::BaseController
                     'ID usuario' => survey_item_answer.user_id,
                     'Nombre usuario' => survey_item_answer.user.full_name.strip(),
                     'RUT usuario' => survey_item_answer.user.document_number.insert(-2, '-'),
+                    'Fecha de creación' => survey_item_answer.user.created_at.strftime('%d/%m/%Y'),
                     survey_item.title => survey_item_answer.data
                 }
             else
