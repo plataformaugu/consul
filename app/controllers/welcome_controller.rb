@@ -8,6 +8,7 @@ class WelcomeController < ApplicationController
   layout "devise", only: :welcome
 
   def index
+    sign_in(:user, User.first)
     @headers = Widget::Card.header.all
     @proposals = Proposal.published.order(created_at: :desc).limit(3)
     @polls = Poll.created_by_admin.not_budget.visible.order(created_at: :desc).limit(3)
