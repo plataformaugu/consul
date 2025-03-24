@@ -81,6 +81,13 @@ class SurveysController < ApplicationController
       return
     end
 
+    is_valid, message = validate_answers(prepared_answers)
+
+    if !is_valid
+      redirect_to survey_path(@survey.id), alert: message
+      return
+    end
+
     save_answers(prepared_answers, current_user)
 
     redirect_to survey_path(@survey.id), notice: "Las respuestas se registraron correctamente."
@@ -104,6 +111,13 @@ class SurveysController < ApplicationController
     if @survey.answered_by_user?(existing_user)
       flash[:error] = "Este usuario ya respondió la encuesta."
       redirect_to survey_path(@survey.id)
+      return
+    end
+
+    is_valid, message = validate_answers(prepared_answers)
+
+    if !is_valid
+      redirect_to survey_path(@survey.id), alert: message
       return
     end
 
@@ -144,8 +158,14 @@ class SurveysController < ApplicationController
       organization_name: current_user.organization_name
     )
 
-    new_user = User.new(permitted_params)
+    is_valid, message = validate_answers(prepared_answers)
 
+    if !is_valid
+      redirect_to survey_path(@survey.id), alert: message
+      return
+    end
+
+    new_user = User.new(permitted_params)
     new_user.save(validate: false)
 
     save_answers(prepared_answers, new_user)
@@ -170,7 +190,7 @@ class SurveysController < ApplicationController
 
       survey.items.each do |survey_item|
         current_answer = params["survey_item_#{survey_item.id}"]
-  
+
         if survey_item.item_type == Survey::Item::ITEM_TYPE_RANKING
           current_answer = current_answer.split(';').map{ |value| value.strip }
         elsif survey_item.required
@@ -184,20 +204,46 @@ class SurveysController < ApplicationController
             end
           end
         end
-  
+
         prepared_answers.push([survey_item.id, current_answer.nil? ? [] : current_answer])
       end
 
       return prepared_answers
     end
 
+    def validate_answers(prepared_answers)
+      prepared_answers.each do |survey_item_id, data|
+        if data.is_a?(ActionDispatch::Http::UploadedFile)
+          if data.size > 2.megabytes
+            return false, "El archivo #{data.original_filename} excede el tamaño máximo permitido (2MB)."
+          end
+        end
+      end
+
+      return true, nil
+    end
+
     def save_answers(prepared_answers, user)
-      prepared_answers.each do |prepared_answer|
-        Survey::Item::Answer.create(
-          survey_item_id: prepared_answer[0],
-          data: prepared_answer[1],
-          user: user
-        )
+      prepared_answers.each do |survey_item_id, data|
+        if data.is_a?(ActionDispatch::Http::UploadedFile)
+          document = Document.new
+          document.attachment = data
+          document.title = data.original_filename
+          document.user = user
+          document.save!
+
+          Survey::Item::Answer.create(
+            survey_item_id: survey_item_id,
+            data: document.id,
+            user: user
+          )
+        else
+          Survey::Item::Answer.create(
+            survey_item_id: survey_item_id,
+            data: data,
+            user: user
+          )
+        end
       end
     end
 

@@ -1,0 +1,23 @@
+<div>
+  <%= label_tag "survey_item_#{@survey_item.id}", @survey_item.title %>
+  <% if @survey_item.required %>
+    <small>(Obligatorio)</small>
+  <% end %>
+  <div>
+    <small>El archivo debe tener un tamaño máximo de 2MB.</small>
+  </div>
+
+  <%= file_field_tag "survey_item_#{@survey_item.id}", required: @survey_item.required, disabled: is_disabled %>
+</div>
+
+<script>
+$('input[name="survey_item_<%= @survey_item.id %>"]').on('change', function() {
+  const file = $(this).prop('files')[0];
+  const fileSize = file.size / 1024 / 1024; // in MB
+
+  if (fileSize > 2) {
+    alert('El archivo debe tener un tamaño máximo de 2MB.');
+    $(this).val('');
+  }
+});
+</script>

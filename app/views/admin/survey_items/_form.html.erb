@@ -56,19 +56,26 @@
 </div>
 
 <script>
+const itemTypesWithoutData = [
+  '<%= Survey::Item::ITEM_TYPE_TEXT %>',
+  '<%= Survey::Item::ITEM_TYPE_ATTACHMENT %>'
+]
+
 $(document).ready(function() {
-  if ($('#survey_item_item_type').val() === '<%= Survey::Item::ITEM_TYPE_TEXT %>') {
+  if (itemTypesWithoutData.includes($('#survey_item_item_type').val())) {
     $('#item_data_container').hide()
     $('#survey_item_data').prop('required', false)
   }
 })
 
 $('#survey_item_item_type').on('change', function() {
-  if (this.value === '<%= Survey::Item::ITEM_TYPE_TEXT %>') {
+  if (itemTypesWithoutData.includes(this.value)) {
     $('#item_data_container').hide()
     $('#survey_item_data').prop('required', false)
   } else if (this.value === '<%= Survey::Item::ITEM_TYPE_RANKING %>') {
     $('#required-field').hide()
+    $('#item_data_container').show()
+    $('#survey_item_data').prop('required', true)
   } else {
     $('#required-field').show()
     $('#item_data_container').show()

@@ -197,6 +197,7 @@ class Admin::StatsController < Admin::BaseController
 
     survey.items.each do |survey_item|
         survey_item.answers.each do |survey_item_answer|
+          if survey_item.item_type != Survey::Item::ITEM_TYPE_ATTACHMENT
             if answers_by_user[survey_item_answer.user_id].nil?
                 answers_by_user[survey_item_answer.user_id] = {
                     'ID usuario' => survey_item_answer.user_id,
@@ -216,6 +217,7 @@ class Admin::StatsController < Admin::BaseController
                   survey_item_answer.data
                 )
             end
+          end
         end
     end
 

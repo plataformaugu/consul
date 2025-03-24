@@ -1,9 +1,10 @@
 class Surveys::UniqueComponent < ApplicationComponent
   delegate :current_user, to: :helpers
 
-  def initialize(survey_item)
+  def initialize(survey_item, form)
     @survey_item = survey_item
     @survey = survey_item.survey
+    @form = form
   end
 
   def is_disabled
