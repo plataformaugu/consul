@@ -39,7 +39,12 @@
             <tr>
               <td><%= record.id %></td>
               <td><%= link_to record.title, survey_path(record.id), target: "_blank" %></td>
-              <td><%= link_to 'Ver', generate_report_surveys_detail_admin_stats_path(survey_id: record.id) %></td>
+              <td>
+                <div style="display: flex; gap: 2rem;">
+                  <%= link_to 'Descargar', generate_report_surveys_detail_admin_stats_path(survey_id: record.id) %>
+                  <%= link_to 'Ver', surveys_admin_stats_path + "/#{record.id}" %>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>
