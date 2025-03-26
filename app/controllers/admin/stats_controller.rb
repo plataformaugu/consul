@@ -131,6 +131,39 @@ class Admin::StatsController < Admin::BaseController
   end
 
   def surveys_detail
+    survey_id = params['id']
+    @survey = Survey.find(survey_id)
+    @answers_by_user = {}
+
+    @survey.items.each do |survey_item|
+      survey_item.answers.each do |survey_item_answer|
+        if @answers_by_user[survey_item_answer.user_id].nil?
+          @answers_by_user[survey_item_answer.user_id] = {
+              'ID usuario' => survey_item_answer.user_id,
+              'Nombre usuario' => survey_item_answer.user.full_name.strip(),
+              'RUT usuario' => survey_item_answer.user.document_number.insert(-2, '-'),
+              'Fecha de creación' => survey_item_answer.user.created_at.strftime('%d/%m/%Y'),
+              survey_item.title => {
+                'data' => survey_item_answer.data,
+                'type' => survey_item.item_type,
+              },
+          }
+        else
+            @answers_by_user[
+              survey_item_answer.user_id
+            ][
+              survey_item.title
+            ] = {
+              'data' => (
+                survey_item_answer.data.instance_of?(Array) ?
+                survey_item_answer.data.join(', ') :
+                survey_item_answer.data
+              ),
+              'type' => survey_item.item_type,
+            }
+        end
+      end
+    end
   end
 
   def budgets
