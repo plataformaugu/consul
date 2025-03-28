@@ -6,7 +6,7 @@
           <% if element[:url].present? %>
             <a target="_blank" href="<%= element[:url] %>">
               <figure class="orbit-figure">
-                <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
+                <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space" style="object-fit: contain;">
                 <% if element[:caption].present? %>
                   <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
                 <% end %>
@@ -14,7 +14,7 @@
             </a>
           <% else %>
             <figure class="orbit-figure">
-              <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space">
+              <img class="orbit-image" src="<%= element[:image_url] %>" alt="Space" style="object-fit: contain;">
               <% if element[:caption].present? %>
                 <figcaption class="orbit-caption" style="font-size: 0.8em;"><%= element[:caption] %></figcaption>
               <% end %>
