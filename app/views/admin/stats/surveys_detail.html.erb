@@ -3,7 +3,7 @@
 <p></p>
 <h2 class="inline-block">Respuestas de <%= @survey.title %></h3>
 
-<div style="overflow-x: scroll; width: calc(100vw - 30%);">
+<div class="survey-stats-container">
   <% if @answers_by_user.empty? %>
     <div class="callout warning">
       <strong>La consulta no tiene respuestas.</strong>
@@ -21,7 +21,7 @@
           <% @answers_by_user[answer_key].values.each do |answer_value| %>
             <td>
               <% if answer_value.is_a?(Hash) %>
-                <% if answer_value["type"] == Survey::Item::ITEM_TYPE_ATTACHMENT %>
+                <% if answer_value["type"] == Survey::Item::ITEM_TYPE_ATTACHMENT && !answer_value["data"].empty? %>
                   <%= link_to "Descargar archivo", url_for(Document.find(answer_value["data"]).attachment), download: true %>
                 <% else %>
                   <%= answer_value["data"] %>

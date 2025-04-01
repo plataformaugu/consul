@@ -3,3 +3,14 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 2rem;
 }
+
+.survey-stats-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 100vh;
+    width: calc(100vw - 18rem);
+
+    @media (max-width: 640px) {
+        width: 90vw;
+    }
+}
