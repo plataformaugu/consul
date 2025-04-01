@@ -21,7 +21,7 @@
           <% @answers_by_user[answer_key].values.each do |answer_value| %>
             <td>
               <% if answer_value.is_a?(Hash) %>
-                <% if answer_value["type"] == Survey::Item::ITEM_TYPE_ATTACHMENT && !answer_value["data"].empty? %>
+                <% if answer_value["type"] == Survey::Item::ITEM_TYPE_ATTACHMENT && answer_value["data"].is_a?(Integer) %>
                   <%= link_to "Descargar archivo", url_for(Document.find(answer_value["data"]).attachment), download: true %>
                 <% else %>
                   <%= answer_value["data"] %>
