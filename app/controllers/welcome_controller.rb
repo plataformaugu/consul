@@ -10,11 +10,11 @@ class WelcomeController < ApplicationController
   def index
     @slider_elements = [
       {
-        image_url: '/images/home/slider/1.png',
+        image_url: '/images/home/slider/1.jpg',
         url: 'https://forms.gle/MjX5EV89GXbn3Fo97',
       },
       {
-        image_url: '/images/home/slider/2.png',
+        image_url: '/images/home/slider/2.jpg',
         url: 'https://forms.gle/MjX5EV89GXbn3Fo97',
       },
       {
