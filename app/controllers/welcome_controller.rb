@@ -11,11 +11,11 @@ class WelcomeController < ApplicationController
     @slider_elements = [
       {
         image_url: '/images/home/slider/1.jpg',
-        url: 'https://forms.gle/MjX5EV89GXbn3Fo97',
+        url: 'https://participaciongoreantofagasta.gob.cl/polls/',
       },
       {
         image_url: '/images/home/slider/2.jpg',
-        url: 'https://forms.gle/MjX5EV89GXbn3Fo97',
+        url: 'https://participaciongoreantofagasta.gob.cl/polls/',
       },
       {
         image_url: '/images/home/slider/3.png',
