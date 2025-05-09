@@ -64,6 +64,7 @@ class AccountController < ApplicationController
         last_name: last_name,
         cu_confirmed_at: Time.now,
         confirmed_at: Time.now,
+        email: "#{SecureRandom.urlsafe_base64(15)}@participaciongoreantofagasta.gob.cl"
       )
 
       user.save(validate: false)
