@@ -13,6 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     resource.date_of_birth = Time.new(Time.now.year - params['age'].to_i).to_date
+    resource.email = "#{SecureRandom.urlsafe_base64(15)}@participaciongoreantofagasta.gob.cl"
     resource.registering_from_web = true
 
     if resource.valid?
