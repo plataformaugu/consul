@@ -5,6 +5,11 @@
   remote: true
 ) %>
 
+<%= link_to export_csv_admin_users_path(format: :csv), 
+    class: "button primary small" do %>
+  Descargar usuarios activos de <%= I18n.l(Date.today, format: "%B") %>
+<% end %>
+
 <div id="users">
   <%= render "users" %>
 </div>

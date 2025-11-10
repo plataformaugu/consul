@@ -15,6 +15,28 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def export_csv
+    current_month_start = Date.current.beginning_of_month
+    current_month_end = Date.current.end_of_month
+    
+    @users = User.where(
+      "(current_sign_in_at >= ? AND current_sign_in_at <= ?) OR 
+       (last_sign_in_at >= ? AND last_sign_in_at <= ?) OR 
+       (created_at >= ? AND created_at <= ?)",
+      current_month_start, current_month_end,
+      current_month_start, current_month_end,
+      current_month_start, current_month_end
+    )
+    
+    csv_data = generate_current_month_active_users_csv(@users)
+    
+    send_data(
+      csv_data, 
+      filename: "usuarios_activos_#{I18n.l(Date.current, format: '%B_%Y')}.csv",
+      type: 'text/csv',
+    )
+  end
+
   def show
     # Stats
     @stats = {
@@ -44,5 +66,22 @@ class Admin::UsersController < Admin::BaseController
   private
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def generate_current_month_active_users_csv(users)
+      CSV.generate(headers: true) do |csv|
+        csv << ['ID', 'Fecha último inicio de sesión', 'Fecha de registro', 'Fecha de confirmación']
+        
+        users.find_each do |user|
+          last_login = [user.current_sign_in_at, user.last_sign_in_at].compact.max
+          
+          csv << [
+            user.id,
+            last_login ? last_login.strftime('%Y-%m-%d %H:%M:%S.%6N') : '',
+            user.created_at ? user.created_at.strftime('%Y-%m-%d %H:%M:%S.%6N') : '',
+            user.confirmed_at ? user.confirmed_at.strftime('%Y-%m-%d %H:%M:%S.%6N') : ''
+          ]
+        end
+      end
     end
 end
