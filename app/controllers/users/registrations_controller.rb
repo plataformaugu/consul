@@ -62,6 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
+    resource.password = resource.username
     resource.registering_from_web = true
 
     coordinates = GeocodingService.get_coordinates(
