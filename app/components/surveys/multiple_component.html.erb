@@ -15,15 +15,3 @@
   <% end %>
   </ul>
 </div>
-
-<script>
-  $('input[name="survey_item_<%= @survey_item.id %>[]"]').on('change', function() {
-    const checkedCount = $('input[name="survey_item_<%= @survey_item.id %>[]"]:checked').length;
-
-    if (checkedCount >= 2) {
-      $('input[name="survey_item_<%= @survey_item.id %>[]"]:not(:checked)').prop('disabled', true);
-    } else {
-      $('input[name="survey_item_<%= @survey_item.id %>[]"]').prop('disabled', false);
-    }
-  });
-</script>
