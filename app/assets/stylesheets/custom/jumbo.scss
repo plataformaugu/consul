@@ -6,7 +6,8 @@
 
 .custom-jumbo {
   width: 100%;
-  height: calc(80vh - 100px) !important;
+  max-width: 2171px;
+  aspect-ratio: 2171 / 724;
   background-size: cover;
   background-position: center;
   padding: 0;
@@ -22,7 +23,7 @@
 
   @media (max-width: 640px) {
     height: auto !important;
-    max-width: 2171px; /* opcional, evita que se estire más allá del original */
+    max-width: 2171px;
     aspect-ratio: 2171 / 724;
     overflow: hidden;
   }
