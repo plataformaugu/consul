@@ -18,11 +18,16 @@
               <div class="custom-jumbo-overlay">
                 <span><%= header.label %></span>
                 <h1><%= header.title %></h1>
-                <p class="lead"><%= header.description %></p>
+                <% if header.description.present? %>
+                  <p class="lead"><%= header.description %></p>
+                <% end %>
 
                 <% if header.link_text.present? && header.link_url.present? %>
-                  <div>
+                  <div class="hide-for-small-only">
                     <%= link_to header.link_text, header.link_url, class: "button large" %>
+                  </div>
+                  <div class="show-for-small-only">
+                    <%= link_to header.link_text, header.link_url, class: "button small" %>
                   </div>
                 <% end %>
               </div>

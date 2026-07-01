@@ -21,7 +21,10 @@
   }
 
   @media (max-width: 640px) {
-    height: calc(90vh - 100px) !important;
+    height: auto !important;
+    max-width: 2171px; /* opcional, evita que se estire más allá del original */
+    aspect-ratio: 2171 / 724;
+    overflow: hidden;
   }
 
   .custom-jumbo-overlay {
@@ -47,6 +50,12 @@
     @media (max-width: 640px) {
       height: 70%;
       padding: 1rem 3rem;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.4) 80%,
+      );
 
       h1 {
         font-size: 1.5rem;
